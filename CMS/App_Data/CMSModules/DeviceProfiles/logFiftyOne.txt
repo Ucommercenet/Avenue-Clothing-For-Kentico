@@ -1,0 +1,7 @@
+2017-06-27T11:49:09.6282102Z - 9708 - Warn - Exception cleaning temporary files
+2017-06-27T11:49:09.6302429Z - 9708 - Warn - 
+2017-06-27T11:49:09.6302429Z - 9708 - Warn - Could not find a part of the path 'C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\51Degrees'.
+2017-06-27T11:49:09.6312198Z - 9708 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
