@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<map>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9jc3MvZm9udHMvY3NzL2ZvbnQtYXdlc29tZS5taW4uY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL0tlbnRpY28vS2VudGljbzEwL3Vjb21tZXJjZS1zaXRlY29yZTguY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL0tlbnRpY28vS2VudGljbzEwL2Jvb3RzdHJhcC5taW4uY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL2ZvbnRzL2Nzcy91Q29tbWVyY2UtaWNvbi1mb250LmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL2Nzcy9LZW50aWNvL0tlbnRpY28xMC9zaGVsbC5jc3M7" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_7aebf618103643f780e198eb5a77ea1c.cdC" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce/css/fonts/css/font-awesome.min.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/ucommerce-sitecore8.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/bootstrap.min.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/fonts/css/uCommerce-icon-font.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/shell.css" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0dyaWRzdGVyL2dyaWRzdGVyLm1pbi5jc3M7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9jc3MvS2VudGljby9LZW50aWNvMTAvTGlzdHMuY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL0tlbnRpY28vS2VudGljbzEwL2Jvb3RzdHJhcC1tdWx0aXNlbGVjdC5jc3M7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9jc3MvS2VudGljby9LZW50aWNvMTAvU2Nyb2xsaW5nTWVudS5jc3M7" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_f804d310b4d24cb6a48e0ac772c90c76.cdC" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Gridster/gridster.min.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/Lists.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/bootstrap-multiselect.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/ScrollingMenu.css" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL1NoZWxsL3VpL2pxdWVyeS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQW5ndWxhci9hbmd1bGFyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9TaGVsbC91aS9qcXVlcnl1aS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvTXVsdGlzZWxlY3QvYm9vdHN0cmFwLW11bHRpc2VsZWN0LmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9Bbmd1bGFyL2FuZ3VsYXItbG9jYWwtc3RvcmFnZS5taW4uanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0dyaWRzdGVyL2dyaWRzdGVyLm1pbi5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvYm9vdHN0cmFwL2Jvb3RzdHJhcC5taW4uanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9hcHAuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL1RpbWVQaWNrZXIvVGltZVBpY2tlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL19tb2R1bGVzLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvUmVzb3VyY2VzL2RlZmluaXRpb25zLnJlc291cmNlLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvUmVzb3VyY2VzL2NvbnRlbnQucmVzb3VyY2UuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9SZXNvdXJjZXMvd2lkZ2V0LnJlc291cmNlLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvUmVzb3VyY2VzL2xvY2FsaXphdGlvbi5yZXNvdXJjZXMuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9TZXJ2aWNlcy9kZWZpbml0aW9ucy5zZXJ2aWNlLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvU2VydmljZXMvY29udGVudC1waWNrZXIuc2VydmljZS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL1NlcnZpY2VzL1RyZWVOb2RlSWNvblNlcnZpY2Uuc2VydmljZS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL1NlcnZpY2VzL3dpZGdldC5zZXJ2aWNlLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvU2VydmljZXMvd2lkZ2V0VGFibGUuc2VydmljZS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL1NlcnZpY2VzL2xvY2FsaXphdGlvbi5zZXJ2aWNlLmpzOw" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_a120dfbbb80a4c9294f2ca37a16a84b1.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Shell/ui/jquery.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Angular/angular.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Shell/ui/jqueryui.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Multiselect/bootstrap-multiselect.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Angular/angular-local-storage.min.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Gridster/gridster.min.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/bootstrap/bootstrap.min.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/app.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/TimePicker/TimePicker.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/_modules.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Resources/definitions.resource.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Resources/content.resource.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Resources/widget.resource.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Resources/localization.resources.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Services/definitions.service.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Services/content-picker.service.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Services/TreeNodeIconService.service.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Services/widget.service.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Services/widgetTable.service.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Services/localization.service.js" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL0NhdGFsb2dTZWFyY2gvQ2F0YWxvZ1NlYXJjaC5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9DYXRhbG9nU2VhcmNoL0NhdGFsb2dTZWFyY2guanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL01hcmtldGluZ1RpbWVsaW5lL01hcmtldGluZ1RpbWVsaW5lLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL01hcmtldGluZ1RpbWVsaW5lL01hcmtldGluZ1RpbWVsaW5lLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9PcmRlckxpc3QvT3JkZXJMaXN0LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyTGlzdC9PcmRlckxpc3QuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyTGlzdC9TY3JvbGwuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0J5RGF0ZXMvT3JkZXJzQnlEYXRlcy5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9PcmRlcnNCeURhdGVzL09yZGVyc0J5RGF0ZXMuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0NvdW50L09yZGVyc0NvdW50LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0NvdW50L09yZGVyc0NvdW50LmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy90dXJub3ZlckJ5Q3VycmVuY3kvdHVybm92ZXJCeUN1cnJlbmN5LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL3R1cm5vdmVyQnlDdXJyZW5jeS90dXJub3ZlckJ5Q3VycmVuY3kuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL2RhdGF0YWJsZS9qcXVlcnkuZGF0YVRhYmxlcy5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvdmlzanMvdmlzLm1pbi5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvU2hlbGwvVUNvbW1lcmNlS2VudGljby5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL2xvYWRlci5qczs" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_18c92e5192b84b5ab1c2015e813e88af.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/CatalogSearch/CatalogSearch.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/CatalogSearch/CatalogSearch.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/MarketingTimeline/MarketingTimeline.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/MarketingTimeline/MarketingTimeline.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrderList/OrderList.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrderList/OrderList.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrderList/Scroll.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersByDates/OrdersByDates.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersByDates/OrdersByDates.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersCount/OrdersCount.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersCount/OrdersCount.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/turnoverByCurrency/turnoverByCurrency.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/turnoverByCurrency/turnoverByCurrency.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/datatable/jquery.dataTables.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/visjs/vis.min.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Shell/UCommerceKentico.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/loader.js" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9jc3MvQ29tbW9uL1dpZGdldC5jc3M7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL2RhdGF0YWJsZS9jc3MvanF1ZXJ5LmRhdGFUYWJsZXMuY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL0tlbnRpY28vS2VudGljbzEwL1dpZGdldC5jc3M7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL2FuYWx5dGljc0RhdGFDaGFydC9hbmFseXRpY3NTdHlsZS5jc3M7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL0NhdGFsb2dTZWFyY2gvQ2F0YWxvZ1NlYXJjaFN0eWxlLmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvTWFya2V0aW5nVGltZWxpbmUvVGltZWxpbmVTdHlsZXMuY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9PcmRlckxpc3QvT3JkZXJMaXN0LmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvT3JkZXJzQnlEYXRlcy9PcmRlcnNCeURhdGVzLmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvT3JkZXJzQ291bnQvT3JkZXJzQ291bnQuY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy90dXJub3ZlckJ5Q3VycmVuY3kvdHVybm92ZXJCeUN1cnJlbmN5LmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL2Nzcy9LZW50aWNvL0tlbnRpY28xMC9Db21tb24uY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL0tlbnRpY28vS2VudGljbzEwL1Byb3BlcnR5UGFuZS5jc3M7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9jc3MvS2VudGljby9LZW50aWNvMTAvVUkuY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL2ZvbnRzL2Nzcy9mb250LWF3ZXNvbWUubWluLmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL2Nzcy9mb250cy9jc3MvZm9udC1hd2Vzb21lLmFuaW1hdGlvbi5taW4uY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL2ZvbnRzL2Nzcy91Q29tbWVyY2UtaWNvbi1mb250LmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL2Nzcy9LZW50aWNvL0tlbnRpY28xMC9ib290c3RyYXAtbW9kYWwuY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL0tlbnRpY28vS2VudGljbzEwL1RhYlZpZXcuY3NzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvY3NzL0tlbnRpY28vS2VudGljbzEwL2pxdWVyeS11aS0xLjguMTYuY3VzdG9tLmNzczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvdmlzanMvdmlzLm1pbi5jc3M7" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_0020a63703f549179d0094550fe94efb.cdC" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce/css/Common/Widget.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/datatable/css/jquery.dataTables.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/Widget.css" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/analyticsDataChart/analyticsStyle.css" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/CatalogSearch/CatalogSearchStyle.css" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/MarketingTimeline/TimelineStyles.css" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrderList/OrderList.css" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersByDates/OrdersByDates.css" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersCount/OrdersCount.css" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/turnoverByCurrency/turnoverByCurrency.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/Common.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/PropertyPane.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/UI.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/fonts/css/font-awesome.min.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/fonts/css/font-awesome.animation.min.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/fonts/css/uCommerce-icon-font.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/bootstrap-modal.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/TabView.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/css/Kentico/Kentico10/jquery-ui-1.8.16.custom.css" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/visjs/vis.min.css" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1hcHAtaW5zdGFsbGVyL3Vjb21tZXJjZS5hcHAuaW5zdGFsbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvYXBwcy5pbnN0YWxsZWQuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL2NvbnRlbnQtcGlja2VyLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9jb250ZW50LXBpY2tlci1sYXVuY2hlci5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvdHJlZS5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvY29udGVudC10cmVlLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9tdWx0aS1waWNrZXIuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL2RlZmluaXRpb25zR3JhcGguY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL3ByZXNlbGVjdGVkLXZhbHVlcy1saXN0LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy93aWRnZXQuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL3dpZGdldHMuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL3dpZGdldC5SZXNpemFibGUuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL2FwcC5wcmV2aWV3LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9hcHAuaW5zdGFsbGVyLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9GYWN0b3J5L0ZhY3RvcnkuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL2FuYWx5dGljc0RhdGFDaGFydC9hbmFseXRpY3NEYXRhQ2hhcnQuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvYW5hbHl0aWNzRGF0YUNoYXJ0L0FuYWx5dGljc0RhdGFDaGFydC5qczs" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_d1b740d9c4974a59b493ba22d2320efb.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-app-installer/ucommerce.app.installer.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/apps.installed.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/content-picker.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/content-picker-launcher.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/tree.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/content-tree.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/multi-picker.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/definitionsGraph.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/preselected-values-list.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/widget.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/widgets.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/widget.Resizable.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/app.preview.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/app.installer.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Factory/Factory.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/analyticsDataChart/analyticsDataChart.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/analyticsDataChart/AnalyticsDataChart.js" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1hcHBzLWluc3RhbGxlZC91Y29tbWVyY2UuYXBwcy5pbnN0YWxsZWQuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1hcHAtcHJldmlldy91Y29tbWVyY2UuYXBwLnByZXZpZXcuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1jb250ZW50LXRyZWUvdWNvbW1lcmNlLmNvbnRlbnQtdHJlZS5kaXJlY3RpdmUuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1kZWZpbml0aW9uLWdyYXBoL2RlZmluaXRpb25zR3JhcGguanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1wcmVzZWxlY3RlZC12YWx1ZXMtbGlzdC9wcmVzZWxlY3RlZFZhbHVlc0xpc3QuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS10cmVlL3Vjb21tZXJjZS50cmVlLmRpcmVjdGl2ZS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0RpcmVjdGl2ZXMvcmlnaHRjbGljay91Y29tbWVyY2UucmlnaHRjbGljay5kaXJlY3RpdmUuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1jb250ZW50LXBpY2tlci91Y29tbWVyY2UuY29udGVudC1waWNrZXIuZGlyZWN0aXZlLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvRGlyZWN0aXZlcy91Y29tbWVyY2UtY29udGVudC1waWNrZXItbGF1bmNoZXIvdWNvbW1lcmNlLmNvbnRlbnQtcGlja2VyLWxhdW5jaGVyLmRpcmVjdGl2ZS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0RpcmVjdGl2ZXMvdWNvbW1lcmNlLW11bHRpLXBpY2tlci91Y29tbWVyY2UubXVsdGktcGlja2VyLmRpcmVjdGl2ZS5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0RpcmVjdGl2ZXMvdWNvbW1lcmNlLXdpZGdldHMvdWNvbW1lcmNlLndpZGdldC5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0RpcmVjdGl2ZXMvdWNvbW1lcmNlLXdpZGdldHMvdWNvbW1lcmNlLndpZGdldHMuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS13aWRnZXRzL3Vjb21tZXJjZS5yZXNpemFibGVUZXh0LmpzOw" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_486f86d92810489c9a9b93b46c832603.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-apps-installed/ucommerce.apps.installed.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-app-preview/ucommerce.app.preview.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-content-tree/ucommerce.content-tree.directive.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-definition-graph/definitionsGraph.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-preselected-values-list/preselectedValuesList.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-tree/ucommerce.tree.directive.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/rightclick/ucommerce.rightclick.directive.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-content-picker/ucommerce.content-picker.directive.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-content-picker-launcher/ucommerce.content-picker-launcher.directive.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-multi-picker/ucommerce.multi-picker.directive.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-widgets/ucommerce.widget.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-widgets/ucommerce.widgets.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-widgets/ucommerce.resizableText.js" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9EaXJlY3RpdmVzL3Vjb21tZXJjZS1hcHAtaW5zdGFsbGVyL3Vjb21tZXJjZS5hcHAuaW5zdGFsbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvYXBwcy5pbnN0YWxsZWQuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL2NvbnRlbnQtcGlja2VyLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9jb250ZW50LXBpY2tlci1sYXVuY2hlci5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvdHJlZS5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvY29udGVudC10cmVlLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9tdWx0aS1waWNrZXIuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL2RlZmluaXRpb25zR3JhcGguY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL3ByZXNlbGVjdGVkLXZhbHVlcy1saXN0LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy93aWRnZXQuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL3dpZGdldHMuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL3dpZGdldC5SZXNpemFibGUuY29udHJvbGxlci5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL2FwcC5wcmV2aWV3LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9hcHAuaW5zdGFsbGVyLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9GYWN0b3J5L0ZhY3RvcnkuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL3RpbnlfbWNlL2pxdWVyeS50aW55bWNlLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9hbmFseXRpY3NEYXRhQ2hhcnQvYW5hbHl0aWNzRGF0YUNoYXJ0LmNvbnRyb2xsZXIuanM7" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_37c65c68d0e54254b0a4cf185f06750d.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Directives/ucommerce-app-installer/ucommerce.app.installer.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/apps.installed.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/content-picker.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/content-picker-launcher.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/tree.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/content-tree.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/multi-picker.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/definitionsGraph.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/preselected-values-list.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/widget.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/widgets.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/widget.Resizable.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/app.preview.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Controllers/app.installer.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/Factory/Factory.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/tiny_mce/jquery.tinymce.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/analyticsDataChart/analyticsDataChart.controller.js" />
+    </files>
+  </item>
+  <item key="L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL2FuYWx5dGljc0RhdGFDaGFydC9BbmFseXRpY3NEYXRhQ2hhcnQuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL0NhdGFsb2dTZWFyY2gvQ2F0YWxvZ1NlYXJjaC5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9DYXRhbG9nU2VhcmNoL0NhdGFsb2dTZWFyY2guanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL01hcmtldGluZ1RpbWVsaW5lL01hcmtldGluZ1RpbWVsaW5lLmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL01hcmtldGluZ1RpbWVsaW5lL01hcmtldGluZ1RpbWVsaW5lLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9PcmRlckxpc3QvT3JkZXJMaXN0LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyTGlzdC9PcmRlckxpc3QuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyTGlzdC9TY3JvbGwuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0J5RGF0ZXMvT3JkZXJzQnlEYXRlcy5jb250cm9sbGVyLmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9PcmRlcnNCeURhdGVzL09yZGVyc0J5RGF0ZXMuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0NvdW50L09yZGVyc0NvdW50LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0NvdW50L09yZGVyc0NvdW50LmpzOy9LZW50aWNvMTAvQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy90dXJub3ZlckJ5Q3VycmVuY3kvdHVybm92ZXJCeUN1cnJlbmN5LmNvbnRyb2xsZXIuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL3R1cm5vdmVyQnlDdXJyZW5jeS90dXJub3ZlckJ5Q3VycmVuY3kuanM7L0tlbnRpY28xMC9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL2RhdGF0YWJsZS9qcXVlcnkuZGF0YVRhYmxlcy5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvdmlzanMvdmlzLm1pbi5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvU2hlbGwvVUNvbW1lcmNlS2VudGljby5qczsvS2VudGljbzEwL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL2xvYWRlci5qczs" file="C:\inetpub\kenticoRC\Kentico10\CMS\App_Data\TEMP\ClientDependency\14195_31de12bfa2f7468c80497de787d05bf2.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/analyticsDataChart/AnalyticsDataChart.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/CatalogSearch/CatalogSearch.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/CatalogSearch/CatalogSearch.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/MarketingTimeline/MarketingTimeline.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/MarketingTimeline/MarketingTimeline.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrderList/OrderList.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrderList/OrderList.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrderList/Scroll.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersByDates/OrdersByDates.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersByDates/OrdersByDates.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersCount/OrdersCount.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/OrdersCount/OrdersCount.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/turnoverByCurrency/turnoverByCurrency.controller.js" />
+      <file name="/Kentico10/CMSModules/uCommerce//Apps/Widgets/turnoverByCurrency/turnoverByCurrency.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/datatable/jquery.dataTables.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/visjs/vis.min.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/Shell/UCommerceKentico.js" />
+      <file name="/Kentico10/CMSModules/uCommerce/scripts/App/loader.js" />
+    </files>
+  </item>
+</map>
