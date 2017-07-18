@@ -1,0 +1,20 @@
+Friendly developer notice!
+
+If this is the first time you are setting up the Avenue Clothing for Kentico Web-forms based accelerator you must first make a few manual steps: 
+
+- In the folder called 'database' you can find a file called 'Kentico10.bacpac'. This is an exported database which you need to import into your local SQL Server. In order to do so: right-click on your "Databases" folder and select "Import Data-tier application". Follow the wizard and select the previously mentioned bacpac file to import. You can call your database anything you'd like, but remember that the connection string will have to change accordingly.
+
+- Update the 'web.config' file to use the database that you just imported.
+
+Now you are ready to use the continuous integration.
+
+Steps to restore data from the CIRepository into the imported databse (must be performed after each pull, can be automated #TODO):
+
+ - Restart the application you are about to restore to.
+ - Using a Command Prompt with administrator privileges, navigate to the bin folder of your website.
+ - Run the following command: "ContinuousIntegration.exe -r" . -This will deserialize data from the CIRepository folder into the database provided in the connection string.
+
+ Your website should now be up-to-date with the latest changes.
+
+More information on using Continuous Integration and on how to restore from CIRepository: 
+https://docs.kentico.com/k9/developing-websites/preparing-your-environment-for-team-development/setting-up-continuous-integration
