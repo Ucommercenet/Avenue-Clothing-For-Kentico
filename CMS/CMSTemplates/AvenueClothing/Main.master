@@ -1,0 +1,62 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.CMSTemplates_AvenueClothing_Main" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head id="head" runat="server" enableviewstate="false">
+    <meta charset="utf-8">
+    <title>uCommerce Kentico Demo Store</title>
+    <asp:Literal runat="server" ID="ltlTags" EnableViewState="false" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="/AvenueClothing/Css/ucommerce.bootstrap.css" rel="stylesheet">
+    <link href="/AvenueClothing/css/ucommerce.bootstrap-responsive.css" rel="stylesheet">
+    <link href="/AvenueClothing/css/UCommerce.DemoStore.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script>
+    <![endif]-->
+</head>
+<body>
+<form method="post" id="mainForm" runat="server">
+    <asp:PlaceHolder runat="server" ID="plcManagers">
+        <asp:ScriptManager ID="manScript" runat="server" ScriptMode="Release" EnableViewState="false" />
+        <cms:CMSPortalManager ID="portalManager" runat="server" EnableViewState="false" />
+    </asp:PlaceHolder>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <a class="brand span3" href="/kentico/home.aspx"><img src="~/AvenueClothing/img/uCommerce/logo.png"/> Avenue Clothing</a>
+                    <asp:ContentPlaceHolder ID="HeaderPlaceholder" runat="server"></asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <asp:ContentPlaceHolder runat="server" ID="SidebarPlaceholder"></asp:ContentPlaceHolder>
+            </div>
+            <div class="span9">
+                <asp:ContentPlaceHolder runat="server" ID="MainContentPlaceholder"></asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <div class="span6">
+                <p>&copy; <a href="http://ucommerce.net/" title="The most feature rich e-commerce package for Kentico" target="_blank">uCommerce ApS</a></p>
+            </div>
+            <div class="span6 pull-right">
+            </div>
+        </footer>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"> </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"> </script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"> </script>
+    <script src="~/AvenueClothing/Scripts/uCommerce.bootstrap.js"> </script>
+    <script src="~/AvenueClothing/Scripts/ucommerce.servicestack.js"> </script>
+    <script src="~/AvenueClothing/Scripts/ucommerce.jquery.js"> </script>
+    <script src="~/AvenueClothing/Scripts/UCommerce.DemoStore.js"> </script>
+    </form>
+</body>
+</html>

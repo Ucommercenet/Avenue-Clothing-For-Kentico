@@ -93,6 +93,9 @@
       <HintPath>..\Lib\AjaxMin.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ClientDependency.Core, Version=1.8.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\ClientDependency.Core.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth, Version=4.0.0.11165, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <HintPath>..\Lib\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
@@ -113,6 +116,9 @@
       <HintPath>..\Lib\NetSpell.SpellChecker.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ServiceStack, Version=3.9.55.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\ServiceStack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -129,11 +135,38 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="Ucommerce, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.dll</HintPath>
+    </Reference>
+    <Reference Include="Ucommerce.Admin, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Admin.dll</HintPath>
+    </Reference>
+    <Reference Include="Ucommerce.Infrastructure, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="UCommerce.Installer, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\UCommerce.Installer.dll</HintPath>
     </Reference>
+    <Reference Include="Ucommerce.Kentico, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Kentico.dll</HintPath>
+    </Reference>
     <Reference Include="UCommerce.Kentico.Installer, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\UCommerce.Kentico.Installer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ucommerce.Pipelines, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="Ucommerce.Presentation, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Ucommerce.Transactions.Payments, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Transactions.Payments.dll</HintPath>
+    </Reference>
+    <Reference Include="Ucommerce.Web.Api, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Web.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Ucommerce.Web.Shell, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Web.Shell.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1132,6 +1165,24 @@
     <Content Include="App_Themes\PersonalSite\Images\UniGrid\Prev.gif" />
     <Content Include="App_Themes\PersonalSite\Images\UniGrid\PrevOver.gif" />
     <Content Include="App_Themes\PersonalSite\Skin.css" />
+    <Content Include="AvenueClothing\Css\uCommerce.bootstrap-responsive.css" />
+    <Content Include="AvenueClothing\Css\uCommerce.bootstrap.css" />
+    <Content Include="AvenueClothing\Css\uCommerce.demostore.css" />
+    <Content Include="AvenueClothing\img\uCommerce\cards.png" />
+    <Content Include="AvenueClothing\img\uCommerce\checkbox_checked.png" />
+    <Content Include="AvenueClothing\img\uCommerce\checkbox_checked_hover.png" />
+    <Content Include="AvenueClothing\img\uCommerce\checkbox_empty.png" />
+    <Content Include="AvenueClothing\img\uCommerce\checkbox_empty_hover.png" />
+    <Content Include="AvenueClothing\img\uCommerce\homepage-banner-black-wonderland.jpg" />
+    <Content Include="AvenueClothing\img\uCommerce\homepage-banner-blue-kittens.jpg" />
+    <Content Include="AvenueClothing\img\uCommerce\homepage-banner-purple-wonderland.jpg" />
+    <Content Include="AvenueClothing\img\uCommerce\logo.png" />
+    <Content Include="AvenueClothing\img\uCommerce\refresh.png" />
+    <Content Include="AvenueClothing\img\uCommerce\return.png" />
+    <Content Include="AvenueClothing\img\uCommerce\ucommerce.glyphicons-halflings-white.png" />
+    <Content Include="AvenueClothing\img\uCommerce\ucommerce.glyphicons-halflings.png" />
+    <Content Include="AvenueClothing\img\uCommerce\ucommerce.png" />
+    <Content Include="AvenueClothing\img\uCommerce\white-arrow-right.png" />
     <Content Include="CMSAdminControls\Basic\DisabledModuleInfo.ascx" />
     <Content Include="CMSAdminControls\CKeditor\adapters\jquery.js" />
     <Content Include="CMSAdminControls\CKeditor\ckeditor.js" />
@@ -1542,6 +1593,14 @@
     <Content Include="CMSPages\unsubscribe.aspx" />
     <Content Include="CMSPages\WebAnalyticsService.asmx" />
     <Content Include="CMSPages\WebService.asmx" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.bootstrap.js" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.demostore.cart.js" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.demostore.checkout.js" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.demostore.js" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.demostore.productpage.js" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.facets.js" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.jQuery.js" />
+    <Content Include="AvenueClothing\Scripts\uCommerce.ServiceStack.js" />
     <Content Include="CMSScripts\Bootstrap\ui-bootstrap-custom-tpls-1.3.3.js" />
     <Content Include="CMSScripts\CMSModules\AdminControls\MultipartUploader.js" />
     <Content Include="CMSScripts\CMSModules\CMS.Charts\amCharts\amcharts.js" />
@@ -3867,6 +3926,7 @@
     <Content Include="CMSModules\Licenses\Pages\License_List.xml" />
     <Content Include="CMSModules\Sites\Pages\CultureChange.aspx" />
     <Content Include="CMSModules\Sites\Pages\Site_Delete.aspx" />
+    <Content Include="CMSTemplates\AvenueClothing\Homepage.aspx" />
     <Content Include="CMSTemplates\BlankSiteASPX\root.aspx" />
     <Content Include="CMSTemplates\CorporateSite\HomeASPX.aspx" />
     <Content Include="CMSTemplates\CorporateSite\HomeMixed.aspx" />
@@ -15153,6 +15213,20 @@
     <Compile Include="CMSModules\Sites\Pages\Site_Delete.aspx.designer.cs">
       <DependentUpon>Site_Delete.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Homepage.aspx.cs">
+      <DependentUpon>Homepage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Homepage.aspx.designer.cs">
+      <DependentUpon>Homepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Main.master.cs">
+      <DependentUpon>Main.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Main.master.designer.cs">
+      <DependentUpon>Main.master</DependentUpon>
+    </Compile>
     <Compile Include="CMSTemplates\BlankSiteASPX\Blank.master.cs">
       <DependentUpon>Blank.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -22683,6 +22757,7 @@
     <Content Include="CMSScripts\Vendor\Angular-1.5.5\angular.min.js.map" />
     <Content Include="CMSScripts\Vendor\Angular-1.5.5\angular-resource.min.js.map" />
     <Content Include="CMSScripts\Vendor\Angular-1.5.5\angular-sanitize.min.js.map" />
+    <Content Include="CMSTemplates\AvenueClothing\Main.master" />
     <None Include="Old_App_WebReferences\WS\WebService.discomap" />
     <None Include="Old_App_WebReferences\WS\WebService.wsdl" />
     <Content Include="CMSAdminControls\web.config" />
