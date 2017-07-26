@@ -124,4 +124,45 @@
       <file name="/kentico/CMSModules/uCommerce/scripts/App/Directives/ucommerce-apps-installed/ucommerce.apps.installed.js" />
     </files>
   </item>
+  <item key="L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvY29udGVudC1waWNrZXIuY29udHJvbGxlci5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9jb250ZW50LXBpY2tlci1sYXVuY2hlci5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL3RyZWUuY29udHJvbGxlci5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9jb250ZW50LXRyZWUuY29udHJvbGxlci5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9tdWx0aS1waWNrZXIuY29udHJvbGxlci5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy9kZWZpbml0aW9uc0dyYXBoLmNvbnRyb2xsZXIuanM7L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvcHJlc2VsZWN0ZWQtdmFsdWVzLWxpc3QuY29udHJvbGxlci5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy93aWRnZXQuY29udHJvbGxlci5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL0FwcC9Db250cm9sbGVycy93aWRnZXRzLmNvbnRyb2xsZXIuanM7L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvd2lkZ2V0LlJlc2l6YWJsZS5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0NvbnRyb2xsZXJzL2FwcC5wcmV2aWV3LmNvbnRyb2xsZXIuanM7L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9BcHAvQ29udHJvbGxlcnMvYXBwLmluc3RhbGxlci5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL0ZhY3RvcnkvRmFjdG9yeS5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL3RpbnlfbWNlL2pxdWVyeS50aW55bWNlLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvYW5hbHl0aWNzRGF0YUNoYXJ0L2FuYWx5dGljc0RhdGFDaGFydC5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvYW5hbHl0aWNzRGF0YUNoYXJ0L0FuYWx5dGljc0RhdGFDaGFydC5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL0NhdGFsb2dTZWFyY2gvQ2F0YWxvZ1NlYXJjaC5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvQ2F0YWxvZ1NlYXJjaC9DYXRhbG9nU2VhcmNoLmpzOw" file="C:\Repositories\Avenue Clothing Kentico (WF)\CMS\App_Data\TEMP\ClientDependency\14195_1ff3d745e3b44476a2e8f219b8a017df.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/content-picker.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/content-picker-launcher.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/tree.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/content-tree.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/multi-picker.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/definitionsGraph.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/preselected-values-list.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/widget.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/widgets.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/widget.Resizable.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/app.preview.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Controllers/app.installer.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/Factory/Factory.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/tiny_mce/jquery.tinymce.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/analyticsDataChart/analyticsDataChart.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/analyticsDataChart/AnalyticsDataChart.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/CatalogSearch/CatalogSearch.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/CatalogSearch/CatalogSearch.js" />
+    </files>
+  </item>
+  <item key="L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9NYXJrZXRpbmdUaW1lbGluZS9NYXJrZXRpbmdUaW1lbGluZS5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvTWFya2V0aW5nVGltZWxpbmUvTWFya2V0aW5nVGltZWxpbmUuanM7L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9PcmRlckxpc3QvT3JkZXJMaXN0LmNvbnRyb2xsZXIuanM7L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2UvL0FwcHMvV2lkZ2V0cy9PcmRlckxpc3QvT3JkZXJMaXN0LmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvT3JkZXJMaXN0L1Njcm9sbC5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0J5RGF0ZXMvT3JkZXJzQnlEYXRlcy5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvT3JkZXJzQnlEYXRlcy9PcmRlcnNCeURhdGVzLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvT3JkZXJzQ291bnQvT3JkZXJzQ291bnQuY29udHJvbGxlci5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS8vQXBwcy9XaWRnZXRzL09yZGVyc0NvdW50L09yZGVyc0NvdW50LmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvdHVybm92ZXJCeUN1cnJlbmN5L3R1cm5vdmVyQnlDdXJyZW5jeS5jb250cm9sbGVyLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlLy9BcHBzL1dpZGdldHMvdHVybm92ZXJCeUN1cnJlbmN5L3R1cm5vdmVyQnlDdXJyZW5jeS5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL2RhdGF0YWJsZS9qcXVlcnkuZGF0YVRhYmxlcy5qczsva2VudGljby9DTVNNb2R1bGVzL3VDb21tZXJjZS9zY3JpcHRzL3Zpc2pzL3Zpcy5taW4uanM7L2tlbnRpY28vQ01TTW9kdWxlcy91Q29tbWVyY2Uvc2NyaXB0cy9TaGVsbC9VQ29tbWVyY2VLZW50aWNvLmpzOy9rZW50aWNvL0NNU01vZHVsZXMvdUNvbW1lcmNlL3NjcmlwdHMvQXBwL2xvYWRlci5qczs" file="C:\Repositories\Avenue Clothing Kentico (WF)\CMS\App_Data\TEMP\ClientDependency\14195_66e4fdf95be44a889f2673f3cabac7ad.cdJ" compression="gzip" version="14195">
+    <files>
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/MarketingTimeline/MarketingTimeline.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/MarketingTimeline/MarketingTimeline.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/OrderList/OrderList.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/OrderList/OrderList.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/OrderList/Scroll.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/OrdersByDates/OrdersByDates.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/OrdersByDates/OrdersByDates.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/OrdersCount/OrdersCount.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/OrdersCount/OrdersCount.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/turnoverByCurrency/turnoverByCurrency.controller.js" />
+      <file name="/kentico/CMSModules/uCommerce//Apps/Widgets/turnoverByCurrency/turnoverByCurrency.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/datatable/jquery.dataTables.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/visjs/vis.min.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/Shell/UCommerceKentico.js" />
+      <file name="/kentico/CMSModules/uCommerce/scripts/App/loader.js" />
+    </files>
+  </item>
 </map>
