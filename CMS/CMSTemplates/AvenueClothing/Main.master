@@ -1,4 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.CMSTemplates_AvenueClothing_Main" %>
+<%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/SidebarStaticContent.ascx" TagPrefix="uc1" TagName="SidebarStaticContent" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +37,7 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
+                <uc1:SidebarStaticContent runat="server" id="SidebarStaticContent" />
                 <asp:ContentPlaceHolder runat="server" ID="SidebarPlaceholder"></asp:ContentPlaceHolder>
             </div>
             <div class="span9">
