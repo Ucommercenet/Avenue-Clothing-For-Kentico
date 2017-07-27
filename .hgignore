@@ -29,6 +29,7 @@ _ReSharper*
 src/.vs/config/applicationhost.config
 src/packages/*
 CMS/packages/*
+packages/*
 App_Data/ClientDependency
 App_Data/RavenDatabases
 .vs/*
