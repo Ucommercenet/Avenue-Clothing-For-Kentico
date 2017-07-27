@@ -28,8 +28,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls.Header
                 }
             }
 
-           
-
             var applicationUrl = HttpContext.Current.Request.ApplicationPath;
 
             var minicartString = "";
