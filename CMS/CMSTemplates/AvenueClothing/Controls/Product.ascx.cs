@@ -18,7 +18,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            CurrentCategory = Category.FirstOrDefault(x => x.Deleted == false);
+            //CurrentCategory = Category.FirstOrDefault(x => x.Deleted == false);
             if (CurrentProduct == null)
             {
                 Visible = false;
@@ -31,12 +31,9 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 
             if (!string.IsNullOrWhiteSpace(CurrentProduct.ThumbnailImageMediaId))
             {
-                //ID mediaId = Sitecore.Data.ID.Parse(CurrentProduct.ThumbnailImageMediaId);
-                //Item mediaItem = Sitecore.Context.Database.GetItem(mediaId);
-
                 var imageService = new ImageService();
-                //imgProduct.MediaItem = imageService.GetImage(CurrentProduct.ThumbnailImageMediaId);
                 var image = imageService.GetImage(CurrentProduct.ThumbnailImageMediaId);
+
                 productImage.ImageUrl = image.Url;
                 hlIMage.Visible = true;
             }
