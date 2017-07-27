@@ -76,6 +76,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeaderPlaceholder;
         
         /// <summary>
+        /// SidebarStaticContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.SidebarStaticContent SidebarStaticContent;
+        
+        /// <summary>
         /// SidebarPlaceholder control.
         /// </summary>
         /// <remarks>
