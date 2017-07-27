@@ -1,7 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SidebarStaticContent.ascx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.Controls.SidebarStaticContent" %>
+<%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/CategoryNavigation.ascx" TagPrefix="uc1" TagName="CategoryNavigation" %>
+
 
 <div class="well sidebar-nav" id="main-nav">
-    <%--<sc:Sublayout runat="Server" Path="~/Layouts/Sublayouts/Sidebar/LeftNavigation.ascx" />--%>
+    <uc1:CategoryNavigation runat="server" ID="CategoryNavigation" />
 </div>
 <div class="sidebar-nav" id="facets-nav">
     <%--<sc:Sublayout runat="Server" Path="~/Layouts/Sublayouts/Sidebar/Facets.ascx" />--%>
