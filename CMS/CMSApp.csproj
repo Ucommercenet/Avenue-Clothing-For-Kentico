@@ -3936,6 +3936,7 @@
     <Content Include="CMSTemplates\AvenueClothing\Controls\SidebarStaticContent.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Homepage.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\ProductPage.aspx" />
+    <Content Include="CMSTemplates\AvenueClothing\Search.aspx" />
     <Content Include="CMSTemplates\BlankSiteASPX\root.aspx" />
     <Content Include="CMSTemplates\CorporateSite\HomeASPX.aspx" />
     <Content Include="CMSTemplates\CorporateSite\HomeMixed.aspx" />
