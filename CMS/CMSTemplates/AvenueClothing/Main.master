@@ -1,5 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.CMSTemplates_AvenueClothing_Main" %>
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/SidebarStaticContent.ascx" TagPrefix="uc1" TagName="SidebarStaticContent" %>
+<%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Header/Searchbar.ascx" TagPrefix="uc1" TagName="Searchbar" %>
+
 
 
 <!DOCTYPE html>
@@ -29,6 +31,7 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                     <a class="brand span3" href="/kentico/home.aspx"><img src="~/AvenueClothing/img/uCommerce/logo.png"/> Avenue Clothing</a>
+                    <uc1:Searchbar runat="server" id="Searchbar" />
                     <asp:ContentPlaceHolder ID="HeaderPlaceholder" runat="server"></asp:ContentPlaceHolder>
                 </div>
             </div>

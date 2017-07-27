@@ -320,3 +320,4 @@ C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\CMS.DocumentEngine.Web.UI.X
 C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\CMS.LicenseProvider.XmlSerializers.dll
 C:\Repositories\Avenue Clothing Kentico (WF)\CMS\obj\Debug\CMSApp.dll
 C:\Repositories\Avenue Clothing Kentico (WF)\CMS\obj\Debug\CMSApp.pdb
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\obj\Debug\CMSApp.csprojResolveAssemblyReference.cache
