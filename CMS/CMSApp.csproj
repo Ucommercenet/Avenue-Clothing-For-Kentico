@@ -3928,6 +3928,8 @@
     <Content Include="CMSModules\Sites\Pages\Site_Delete.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Catalog.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx" />
+    <Content Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx" />
+    <Content Include="CMSTemplates\AvenueClothing\Controls\Header\Searchbar.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\HighlightedProducts.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\HomepageBanner.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Product.ascx" />
@@ -15232,6 +15234,20 @@
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx.designer.cs">
       <DependentUpon>CategoryNavigation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx.cs">
+      <DependentUpon>MiniBasket.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx.designer.cs">
+      <DependentUpon>MiniBasket.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Header\Searchbar.ascx.cs">
+      <DependentUpon>Searchbar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Header\Searchbar.ascx.designer.cs">
+      <DependentUpon>Searchbar.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\HighlightedProducts.ascx.cs">
       <DependentUpon>HighlightedProducts.ascx</DependentUpon>

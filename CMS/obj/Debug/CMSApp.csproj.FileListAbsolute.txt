@@ -320,3 +320,13 @@ C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\CMS.DocumentEngine.Web.UI.X
 C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\CMS.LicenseProvider.XmlSerializers.dll
 C:\Repositories\Avenue Clothing Kentico (WF)\CMS\obj\Debug\CMSApp.dll
 C:\Repositories\Avenue Clothing Kentico (WF)\CMS\obj\Debug\CMSApp.pdb
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.WindowsAzure.Storage.dll
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.Data.Services.Client.dll
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.Data.OData.dll
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.Data.Edm.dll
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\System.Spatial.dll
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.WindowsAzure.Storage.xml
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.Data.Services.Client.xml
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.Data.OData.xml
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\Microsoft.Data.Edm.xml
+C:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin\System.Spatial.xml
