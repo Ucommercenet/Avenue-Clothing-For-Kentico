@@ -76,6 +76,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.Header.Searchbar Searchbar;
         
         /// <summary>
+        /// MiniBasket control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.Header.MiniBasket MiniBasket;
+        
+        /// <summary>
         /// HeaderPlaceholder control.
         /// </summary>
         /// <remarks>
