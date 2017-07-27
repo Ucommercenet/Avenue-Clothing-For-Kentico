@@ -32,3 +32,4 @@ packages/*
 App_Data/ClientDependency
 App_Data/RavenDatabases
 .vs/*
+Raven/CompiledIndexCache/*
