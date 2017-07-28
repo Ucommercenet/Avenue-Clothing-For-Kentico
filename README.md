@@ -24,6 +24,6 @@ Here at Ucommerce we put a lot of emphasis on getting set up quick and without t
 * When the restoring process is finished, you are ready to start using the Avenue Clothing for Kentico Accelerator.
 
 ### Get to know us better! ###
-* You can get free support for Ucommerce or Avenue Clothing for Kentico related isses or questions at our open support forum [Eureka!](http://eureka.ucommerce.net/#!/), or by e-mail at [support@ucommerce.net](support@ucommerce.net).
+* You can get free support for Ucommerce or Avenue Clothing for Kentico related isses or questions at our open support forum [Eureka!](http://eureka.ucommerce.net/#!/)
 * You can find out more about Ucommerce at [Ucommerce.net](http://ucommerce.net).
 * You can find technical information about Ucommerce in our [documentation](http://docs.ucommerce.net).
