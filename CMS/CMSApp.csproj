@@ -15300,6 +15300,13 @@
     <Compile Include="CMSTemplates\AvenueClothing\ProductPage.aspx.designer.cs">
       <DependentUpon>ProductPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CMSTemplates\BlankSiteASPX\Blank.master.cs">
       <DependentUpon>Blank.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
