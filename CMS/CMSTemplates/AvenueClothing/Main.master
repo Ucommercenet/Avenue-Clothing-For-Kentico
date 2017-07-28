@@ -3,9 +3,6 @@
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Header/Searchbar.ascx" TagPrefix="uc1" TagName="Searchbar" %>
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Header/MiniBasket.ascx" TagPrefix="uc1" TagName="MiniBasket" %>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head id="head" runat="server" enableviewstate="false">

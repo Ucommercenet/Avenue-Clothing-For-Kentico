@@ -36,7 +36,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             litHeadline.Text = currentProduct.Name;
 
-
             var price = CatalogLibrary.CalculatePrice(currentProduct);
 
             litPrice.Text = price.YourPrice.Amount.ToString();
@@ -57,6 +56,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 _parameters[queryString] = HttpContext.Current.Request.QueryString[queryString];
             }
 
+            RemoveUcommerceAndAliasPathsFromDictionary(_parameters);
 
             if (_parameters.Any())
             {
@@ -108,6 +108,14 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             rptVariant.DataSource = uniqueVariants;
             rptVariant.DataBind();
 
+        }
+
+        private void RemoveUcommerceAndAliasPathsFromDictionary(Dictionary<string, string> parameters)
+        {
+            parameters.Remove("catalog");
+            parameters.Remove("category");
+            parameters.Remove("product");
+            parameters.Remove("aliaspath");
         }
 
         public void ReviewRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)
