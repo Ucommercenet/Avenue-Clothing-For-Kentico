@@ -16,7 +16,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
     public partial class ProductPage : TemplatePage
     {
         private Dictionary<string, string> _parameters = new Dictionary<string, string>();
-        private Product _currentVariant;
 
         private void Page_Load(object sender, EventArgs e)
         {
@@ -53,8 +52,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 select g;
 
 
-            var currentProductVariant = "42";
-
             foreach (var queryString in HttpContext.Current.Request.QueryString.AllKeys)
             {
                 _parameters[queryString] = HttpContext.Current.Request.QueryString[queryString];
@@ -78,10 +75,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
                     if (foundProduct != null)
                     {
-                        //var basket = TransactionLibrary.GetBasket(true).PurchaseOrder;
-                        //Currency currency = basket.BillingCurrency;
-                        //var newPrice = new Money(foundProduct.PriceGroupPrices.First().Price.Value, currency);
-                        //var tax = new Money(foundProduct.PriceGroupPrices.First().Price.Value, currency);
                         var newPrice = CatalogLibrary.CalculatePrice(foundProduct);
 
                         litPrice.Text = newPrice.YourPrice.Amount.ToString();
@@ -248,13 +241,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             Response.Redirect(Request.RawUrl);
         }
 
-        public static UCommerce.EntitiesV2.Product GetVariantFromPostData(UCommerce.EntitiesV2.Product product, string variantPrefix)
+        public Product GetVariantFromPostData(Product product, string variantPrefix)
         {
             var request = HttpContext.Current.Request;
             var keys = request.Form.AllKeys.Where(k => k.StartsWith(variantPrefix, StringComparison.InvariantCultureIgnoreCase));
             var properties = keys.Select(k => new { Key = k.Replace(variantPrefix, string.Empty), Value = request.Form[k] }).ToList();
 
-            UCommerce.EntitiesV2.Product variant = null;
+            Product variant = null;
 
             // If there are variant values we'll need to find the selected variant
             if (product.Variants.Any() && properties.Any())
@@ -279,7 +272,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             LeaveReview(SiteContext.Current.CatalogContext.CurrentProduct, reviewName.Value, reviewEmail.Value, "review-rating", reviewHeadline.Value, reviewText.Value);
         }
 
-        public static void LeaveReview(UCommerce.EntitiesV2.Product product, string name, string email, string ratingKey, string reviewHeadline, string reviewText)
+        public void LeaveReview(Product product, string name, string email, string ratingKey, string reviewHeadline, string reviewText)
         {
             var request = HttpContext.Current.Request;
             var basket = SiteContext.Current.OrderContext.GetBasket();
