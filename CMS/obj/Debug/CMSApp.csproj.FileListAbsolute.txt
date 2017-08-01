@@ -632,4 +632,3 @@ C:\Repositories\Kentico Accelerator WF\CMS\bin\CMS.DocumentEngine.Web.UI.XmlSeri
 C:\Repositories\Kentico Accelerator WF\CMS\bin\CMS.LicenseProvider.XmlSerializers.dll
 C:\Repositories\Kentico Accelerator WF\CMS\obj\Debug\CMSApp.dll
 C:\Repositories\Kentico Accelerator WF\CMS\obj\Debug\CMSApp.pdb
-C:\Repositories\Kentico Accelerator WF\CMS\obj\Debug\CMSApp.csprojResolveAssemblyReference.cache
