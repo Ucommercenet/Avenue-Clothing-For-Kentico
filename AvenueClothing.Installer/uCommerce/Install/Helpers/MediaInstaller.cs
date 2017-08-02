@@ -8,8 +8,7 @@ using UCommerce.EntitiesV2;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Net;
-using UCommerce.Installer;
+
 
 namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 {
@@ -68,18 +67,18 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 			string filePath = HttpContext.Current.Server.MapPath(pathWithSiteName);
 			
 			var productImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + productFolder);
-            CreateFilesAsMediaInfos(libraryId, productImagesDirectory, productFolder);
-
-            var categoryImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + categoryFolder);
-            CreateFilesAsMediaInfos(libraryId, categoryImagesDirectory, categoryFolder);
-
 	        UploadImages(productImagesDirectory);
-	        UploadImages(categoryImagesDirectory);
-        }
+	        CreateFilesAsMediaInfos(libraryId, productImagesDirectory, productFolder);
+
+			var categoryImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + categoryFolder);
+			UploadImages(categoryImagesDirectory);
+			CreateFilesAsMediaInfos(libraryId, categoryImagesDirectory, categoryFolder);
+
+		}
 
 		private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
 		{
-			//Convert CMS specific directory info to System specific one to copy files
+			//Convert to System.IO.DirectoryInfo to get the parent (outside the CMS folder) without hardcoding.
 			var fromParentDirectory = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("../")).Parent;
 			//Create path to location in installer where the files will be copied from
 			var fromPath = new System.IO.DirectoryInfo(fromParentDirectory.FullName + "/AvenueClothing.Installer/uCommerce/Install/Files/" +
@@ -112,12 +111,10 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
                     mediaFile.FileLibraryID = libraryId;
                     mediaFile.FileSize = file.Length;
 
-                    // Saves the media library file
-                    MediaFileInfoProvider.SetMediaFileInfo(mediaFile);
-
-
-                }
-            }
+                    // Saves and imports the media library file
+	                MediaFileInfoProvider.ImportMediaFileInfo(mediaFile);
+				}
+			}
         }
 
         private void CreateMediaLibraryFolders(int libraryId)

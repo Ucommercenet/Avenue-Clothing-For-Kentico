@@ -20,6 +20,7 @@ namespace AvenueClothing.Installer.App_Start
         private static bool _installationWasRun = false;
         public void PreStart(object sender, EventArgs e)
         {
+			
 	        var mediaInstaller = new MediaInstaller();
 	        mediaInstaller.Configure();
 
