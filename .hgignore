@@ -34,3 +34,7 @@ App_Data/RavenDatabases
 App_Data/TEMP
 .vs/*
 Raven/CompiledIndexCache/*
+AvenueClothing.Installer/bin/*
+bin/*
+CMS/App_Data/*
+CMS/Raven/CompiledIndexCache/*
