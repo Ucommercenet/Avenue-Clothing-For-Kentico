@@ -56,7 +56,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 _parameters[queryString] = HttpContext.Current.Request.QueryString[queryString];
             }
 
-            RemoveUcommerceAndAliasPathsFromDictionary(_parameters);
+            RemoveUcommerceAndKenticoQueryStringsFromDictionary(_parameters);
 
             if (_parameters.Any())
             {
@@ -110,12 +110,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
         }
 
-        private void RemoveUcommerceAndAliasPathsFromDictionary(Dictionary<string, string> parameters)
+        private void RemoveUcommerceAndKenticoQueryStringsFromDictionary(Dictionary<string, string> parameters)
         {
             parameters.Remove("catalog");
             parameters.Remove("category");
             parameters.Remove("product");
             parameters.Remove("aliaspath");
+            parameters.Remove("viewmode");
         }
 
         public void ReviewRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)

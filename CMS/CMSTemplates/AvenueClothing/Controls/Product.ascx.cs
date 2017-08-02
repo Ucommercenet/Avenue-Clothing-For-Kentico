@@ -8,17 +8,21 @@ using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
 using UCommerce.Kentico.Content;
+using UCommerce.Runtime;
 
 namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 {
     public partial class Product : System.Web.UI.UserControl
     {
-        public Category CurrentCategory { get; set; }
+        public Category CurrentCategory {
+            get { return SiteContext.Current.CatalogContext.CurrentCategory ?? null; }
+            set {}
+        }
+
         public UCommerce.EntitiesV2.Product CurrentProduct { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //CurrentCategory = Category.FirstOrDefault(x => x.Deleted == false);
             if (CurrentProduct == null)
             {
                 Visible = false;
@@ -52,8 +56,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
                 litPrice.Text = "-";
             }
 
-            //storeRating.Rating = CurrentProduct.Rating;
-            phRatings.Visible = CurrentProduct.Rating.HasValue;
+         
         }
     }
 }

@@ -2,6 +2,7 @@
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/SidebarStaticContent.ascx" TagPrefix="uc1" TagName="SidebarStaticContent" %>
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Header/Searchbar.ascx" TagPrefix="uc1" TagName="Searchbar" %>
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Header/MiniBasket.ascx" TagPrefix="uc1" TagName="MiniBasket" %>
+<%@ Register TagPrefix="uc1" TagName="CategoryNavigation" Src="~/CMSTemplates/AvenueClothing/Controls/CategoryNavigation.ascx" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,8 +41,11 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
-                <uc1:SidebarStaticContent runat="server" id="SidebarStaticContent" />
+                <div class="well sidebar-nav" id="main-nav">
+                    <uc1:CategoryNavigation runat="server" ID="CategoryNavigation" />
+                </div>
                 <asp:ContentPlaceHolder runat="server" ID="SidebarPlaceholder"></asp:ContentPlaceHolder>
+                <uc1:SidebarStaticContent runat="server" id="SidebarStaticContent" />
             </div>
             <div class="span9">
                 <asp:ContentPlaceHolder runat="server" ID="MainContentPlaceholder"></asp:ContentPlaceHolder>
@@ -63,6 +67,9 @@
     <script src="~/AvenueClothing/Scripts/ucommerce.servicestack.js"> </script>
     <script src="~/AvenueClothing/Scripts/ucommerce.jquery.js"> </script>
     <script src="~/AvenueClothing/Scripts/UCommerce.DemoStore.js"> </script>
+    <script language="javascript" type="text/javascript">
+        var applicationName = '<%= this.Request.ApplicationPath %>';
+    </script>
     </form>
 </body>
 </html>

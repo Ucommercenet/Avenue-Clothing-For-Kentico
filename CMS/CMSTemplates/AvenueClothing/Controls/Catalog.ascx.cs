@@ -23,7 +23,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 
         private void Page_Load(object sender, EventArgs e)
         {
-
             // This needs to change, just doing first category for testing purposes.
             SiteContext.Current.CatalogContext.CurrentCategory = Category.FirstOrDefault(x=>x.Deleted == false);
 
@@ -87,7 +86,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
             {
                 var facet = new Facet();
                 facet.FacetValues = new List<FacetValue>();
-                var i = 42;
+                
                 facet.Name = parameter.Key;
                 foreach (var value in parameter.Value.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
                 {

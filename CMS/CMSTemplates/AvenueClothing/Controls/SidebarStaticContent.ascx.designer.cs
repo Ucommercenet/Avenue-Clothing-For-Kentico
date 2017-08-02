@@ -11,14 +11,5 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls {
     
     
     public partial class SidebarStaticContent {
-        
-        /// <summary>
-        /// CategoryNavigationList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.CategoryNavigation CategoryNavigation;
     }
 }

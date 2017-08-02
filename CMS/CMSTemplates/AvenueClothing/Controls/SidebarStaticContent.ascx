@@ -2,9 +2,7 @@
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/CategoryNavigation.ascx" TagPrefix="uc1" TagName="CategoryNavigation" %>
 
 
-<div class="well sidebar-nav" id="main-nav">
-    <uc1:CategoryNavigation runat="server" ID="CategoryNavigation" />
-</div>
+
 <div class="sidebar-nav" id="facets-nav">
     <%--<sc:Sublayout runat="Server" Path="~/Layouts/Sublayouts/Sidebar/Facets.ascx" />--%>
 </div>
