@@ -94,13 +94,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeaderPlaceholder;
         
         /// <summary>
-        /// SidebarStaticContent control.
+        /// CategoryNavigation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.SidebarStaticContent SidebarStaticContent;
+        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.CategoryNavigation CategoryNavigation;
         
         /// <summary>
         /// SidebarPlaceholder control.
@@ -110,6 +110,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder SidebarPlaceholder;
+        
+        /// <summary>
+        /// SidebarStaticContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.SidebarStaticContent SidebarStaticContent;
         
         /// <summary>
         /// MainContentPlaceholder control.

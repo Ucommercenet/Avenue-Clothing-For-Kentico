@@ -3926,8 +3926,10 @@
     <Content Include="CMSModules\Licenses\Pages\License_List.xml" />
     <Content Include="CMSModules\Sites\Pages\CultureChange.aspx" />
     <Content Include="CMSModules\Sites\Pages\Site_Delete.aspx" />
+    <Content Include="CMSTemplates\AvenueClothing\Catalog.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Catalog.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx" />
+    <Content Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Header\Searchbar.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\HighlightedProducts.ascx" />
@@ -15223,6 +15225,13 @@
     <Compile Include="CMSModules\Sites\Pages\Site_Delete.aspx.designer.cs">
       <DependentUpon>Site_Delete.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Catalog.aspx.cs">
+      <DependentUpon>Catalog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Catalog.aspx.designer.cs">
+      <DependentUpon>Catalog.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\Catalog.ascx.cs">
       <DependentUpon>Catalog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -15236,6 +15245,13 @@
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx.designer.cs">
       <DependentUpon>CategoryNavigation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx.designer.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
