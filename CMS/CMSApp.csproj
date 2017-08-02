@@ -3926,6 +3926,7 @@
     <Content Include="CMSModules\Licenses\Pages\License_List.xml" />
     <Content Include="CMSModules\Sites\Pages\CultureChange.aspx" />
     <Content Include="CMSModules\Sites\Pages\Site_Delete.aspx" />
+    <Content Include="CMSTemplates\AvenueClothing\Basket.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Catalog.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Catalog.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx" />
@@ -15224,6 +15225,13 @@
     </Compile>
     <Compile Include="CMSModules\Sites\Pages\Site_Delete.aspx.designer.cs">
       <DependentUpon>Site_Delete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Basket.aspx.cs">
+      <DependentUpon>Basket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Basket.aspx.designer.cs">
+      <DependentUpon>Basket.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Catalog.aspx.cs">
       <DependentUpon>Catalog.aspx</DependentUpon>

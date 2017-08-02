@@ -38,7 +38,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls.Header
             else
             {
                 minicartString +=
-                    "<a href=\""+ applicationUrl +"/cart\" id=\"mini-cart\"><i class=\"icon-shopping-cart icon-white\"></i><span class=\"item-qty\">"
+                    "<a href=\""+ applicationUrl +"/basket\" id=\"mini-cart\"><i class=\"icon-shopping-cart icon-white\"></i><span class=\"item-qty\">"
                     + basket.OrderLines.Sum(x => x.Quantity).ToString("#,##")
                     + "</span> items in cart, total: <span class=\"order-total\">" + orderTotal + "</span></a>";
             }

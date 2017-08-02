@@ -104,8 +104,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
                         currentBtn.Attributes["queryStringKey"], currentBtn.Attributes["queryStringValue"] + "|");
                 }
             }
-
-            //string redirectUrl = HttpContext.Current.Request.Url.AbsoluteUri.Split('&')[0];
+            
             string redirectUrl =
                 CatalogLibrary.GetNiceUrlForCategory(SiteContext.Current.CatalogContext.CurrentCategory, null);
             if (redirectUrl.Last() != '?')
