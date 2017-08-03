@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CMS.DocumentEngine;
+using CMS.Membership;
 using UCommerce.EntitiesV2;
 using UCommerce.EntitiesV2.Factories;
 using UCommerce.Infrastructure;
@@ -128,6 +130,15 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
             //var emailContent = emails.FirstOrDefault(e => e.Text == "Order Confirmation Email");
             //if (emailContent == null)
             //    return;
+            TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
+            TreeNode kenticoTreeNode = tree.SelectNodes()
+                .Path("/ConfirmationEmail")
+                .OnCurrentSite()
+                .Culture("en-us")
+                .FirstObject;
+
+            var emailContent = kenticoTreeNode;
+
 
             var emailType = EmailProfileInformation.FirstOrDefault(p => p.EmailType.Name == "OrderConfirmation");
             if (emailType.EmailProfile.EmailContents.All(x => x.CultureCode != "en-US"))
@@ -155,7 +166,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
             foreach (var content in emailType.EmailProfile.EmailContents)
             {
-                //content.ContentId = emailContent.Id.ToString();
+               content.ContentId = emailContent.NodeID.ToString();
                 content.Save();
             }
         }
