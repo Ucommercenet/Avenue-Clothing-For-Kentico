@@ -20,7 +20,7 @@ namespace AvenueClothing.Installer.App_Start
         private static bool _installationWasRun = false;
         public void PreStart(object sender, EventArgs e)
         {
-			if (!_installationWasRun)
+            if (!_installationWasRun)
             {
                 lock (_padLock)
                 {
