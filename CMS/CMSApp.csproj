@@ -3927,6 +3927,7 @@
     <Content Include="CMSModules\Sites\Pages\CultureChange.aspx" />
     <Content Include="CMSModules\Sites\Pages\Site_Delete.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Basket.aspx" />
+    <Content Include="CMSTemplates\AvenueClothing\Address.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Catalog.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Confirmation.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\ConfirmationEmail.aspx" />
@@ -15230,6 +15231,13 @@
     </Compile>
     <Compile Include="CMSModules\Sites\Pages\Site_Delete.aspx.designer.cs">
       <DependentUpon>Site_Delete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Address.aspx.cs">
+      <DependentUpon>Address.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Address.aspx.designer.cs">
+      <DependentUpon>Address.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Basket.aspx.cs">
       <DependentUpon>Basket.aspx</DependentUpon>
