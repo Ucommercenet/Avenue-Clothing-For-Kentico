@@ -12,17 +12,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 {
     public partial class ConfirmationEmail : TemplatePage
     {
-        protected override void CreateChildControls()
-        {
-            base.CreateChildControls();
-
-            PageManager = portalManager;
-        }
-
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)

@@ -12,6 +12,6 @@
 
         </div>
     </div>
-    <a href="/basket/address" class="btn btn-small">Back to Address</a>
-    <asp:Button UseSubmitBehavior="true" id="btnUpdateShipment" CssClass="pull-right btn btn-large btn-success btn-arrow-right" runat="server" Text="Continue to confirmation" OnClick="btnUpdateShipment_Click"/>
+    <a href="~/basket/address" class="btn btn-small">Back to Address</a>
+    <asp:Button UseSubmitBehavior="true" id="btnUpdateShipment" CssClass="pull-right btn btn-large btn-success btn-arrow-right" runat="server" Text="Continue to payment" OnClick="btnUpdateShipment_Click"/>
 </asp:Content>

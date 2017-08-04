@@ -170,7 +170,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
         {
             TransactionLibrary.ExecuteBasketPipeline();
             TransactionLibrary.RequestPayments();
-            HttpContext.Current.Response.Redirect("/Basket/Confirmation");
+            HttpContext.Current.Response.Redirect("~/Basket/Confirmation");
         }
 
         public void rptPreviewItems_DataBound(object sender, RepeaterItemEventArgs e)

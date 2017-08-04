@@ -77,7 +77,7 @@
         </tbody>
     </table>
     <div class="pull-right">
-        <a href="/cart/address/" class="btn btn-large btn-success">Continue to Checkout <i class="icon-arrow-right icon-white"></i></a>
+        <a href="~/basket/address/" class="btn btn-large btn-success">Continue to Checkout <i class="icon-arrow-right icon-white"></i></a>
     </div>
 
 </asp:Content>

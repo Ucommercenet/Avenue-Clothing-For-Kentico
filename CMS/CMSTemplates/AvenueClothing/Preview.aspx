@@ -121,7 +121,7 @@
             </tbody>
         </table>
     </div>
-    <a href="/basket/payment" class="btn btn-small">Back to Payment Method</a>
+    <a href="~/Basket/Payment" class="btn btn-small">Back to Payment Method</a>
     <asp:Button ID="btnContinue" runat="server" OnClick="btnContinue_Click" class="pull-right btn btn-large btn-success btn-arrow-right" Text="Complete Order" />
 
 </asp:Content>

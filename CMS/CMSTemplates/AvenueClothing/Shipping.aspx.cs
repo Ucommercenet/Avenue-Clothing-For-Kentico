@@ -64,7 +64,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             TransactionLibrary.CreateShipment(shippingMethodId, overwriteExisting: true);
             TransactionLibrary.ExecuteBasketPipeline();
-            HttpContext.Current.Response.Redirect("/basket/payment");
+            HttpContext.Current.Response.Redirect("~/basket/payment");
         }
     }
 }

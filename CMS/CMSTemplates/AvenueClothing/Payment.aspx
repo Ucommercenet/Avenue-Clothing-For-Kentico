@@ -12,7 +12,7 @@
             
         </div>
     </div>
-    <a href="/cart/shipping.aspx" class="btn btn-small">Back to Shipping Method</a>
+    <a href="~/Basket/Shipping" class="btn btn-small">Back to Shipping Method</a>
     <asp:button CssClass="pull-right btn btn-large btn-success btn-arrow-right" OnClick="btnContinue_Click" ID="btnContinue" runat="server" Text="Continue to Preview Page"/>
 
 </asp:Content>

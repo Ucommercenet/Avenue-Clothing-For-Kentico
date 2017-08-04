@@ -126,7 +126,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 				billingAttention.Text,
 				Int32.Parse(billingCountry.SelectedValue)
 			);
-			Response.Redirect("/cart/Shipping");
+			Response.Redirect("~/Basket/Shipping");
 		}
 	}
 

@@ -259,8 +259,8 @@
 	</div>
 </div>
 </div>
-<a class="btn btn-small" href="/cart/">Back to Cart</a>
+<a class="btn btn-small" href="~/Basket">Back to Cart</a>
 <asp:Button runat="server" ID="btnBillingAndShippingUpdate" class="pull-right btn btn-large btn-success btn-arrow-right hide" ClientIDMode="static" Text="Continue to Billing" OnClick="btnBillingAndShippingUpdate_Click" ValidationGroup="Shipping" />
-<asp:Button runat="server" ID="btnBillingUpdate" class="pull-right btn btn-large btn-success btn-arrow-right" Text="Continue to Billing" ClientIDMode="static" OnClick="btnBillingUpdate_Click" ValidationGroup="Billing" />
+<asp:Button runat="server" ID="btnBillingUpdate" class="pull-right btn btn-large btn-success btn-arrow-right" Text="Continue to Shipping" ClientIDMode="static" OnClick="btnBillingUpdate_Click" ValidationGroup="Billing" />
 
 </asp:Content>
