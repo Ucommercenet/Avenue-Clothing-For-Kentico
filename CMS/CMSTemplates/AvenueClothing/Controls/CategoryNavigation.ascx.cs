@@ -17,6 +17,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CategoryNavigationList.InnerHtml = "";
             foreach (Category currentCategory in CatalogLibrary.GetRootCategories())
             {
                 RecursiveMenu(currentCategory);

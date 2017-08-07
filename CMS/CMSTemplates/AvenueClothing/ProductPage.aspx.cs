@@ -21,7 +21,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
         {
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
-            if(!string.IsNullOrWhiteSpace(currentProduct.ThumbnailImageMediaId))
+            if (!string.IsNullOrWhiteSpace(currentProduct.ThumbnailImageMediaId))
             {
                 var imageService = new ImageService();
                 var image = imageService.GetImage(currentProduct.ThumbnailImageMediaId);
@@ -244,7 +244,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             if (variant == null)
             {
-                return;
+                Response.Redirect(Request.RawUrl);
             }
             TransactionLibrary.AddToBasket(1, variant.Sku, variant.VariantSku);
             Response.Redirect(Request.RawUrl);
