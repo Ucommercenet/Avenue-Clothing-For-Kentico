@@ -15,7 +15,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
         {
             _products = UCommerce.EntitiesV2.Product.All()
                 .Where(x => x.ProductProperties.Any(
-                    pp => pp.ProductDefinitionField.Name == "ShowOnHomepage")).ToList();
+                    pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && pp.Value == "true")).ToList();
 
             lvProducts.DataSource = _products;
             lvProducts.DataBind();
