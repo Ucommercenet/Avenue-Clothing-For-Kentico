@@ -17,10 +17,16 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+            if (viewMode == 6 || viewMode == 3)
+            {
+                return;
+            }
             if (IsPostBack)
             {
                 return;
             }
+
             var basket = TransactionLibrary.GetBasket().PurchaseOrder;
             var billingCountry = TransactionLibrary.GetShippingInformation().Country;
             var availableBillingMethods = TransactionLibrary.GetPaymentMethods(billingCountry);
@@ -35,6 +41,8 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 string warning =
                     "WARNING: No payment methods have been configured for " + billingCountry.Name + " within <a href=\"http://ucommerce.net\">UCommerce</a> administration area.";
                 litAlert.Text = warning;
+                btnContinue.Enabled = false;
+                _selectFirst = false;
             }
 
             foreach (PaymentMethod paymentMethod in availableBillingMethods)

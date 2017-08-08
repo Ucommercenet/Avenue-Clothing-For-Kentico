@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CMS.PortalEngine;
 using CMS.UIControls;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
@@ -23,35 +24,45 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
         private void Page_Load(object sender, EventArgs e)
         {
-            CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
-        
-            var imageService = new ImageService();
-            
-            CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
+            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
 
-            GetAllProductsRecursive(CurrentCategory);
-
-            var facetsForQuerying = GetFacets();
-            var filterProducts = CurrentCategory != null ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying) : new List<UCommerce.Documents.Product>();
-
-            var listOfProducts = new List<Product>();
-
-            if (filterProducts.Count == 0)
+            if (viewMode == 6 || viewMode == 3)
             {
-                lvProducts.DataSource = _products;
+                return;
             }
-            else
-            {
-                foreach (var product in filterProducts)
+
+            CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
+
+                var imageService = new ImageService();
+
+                CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
+
+                GetAllProductsRecursive(CurrentCategory);
+
+                var facetsForQuerying = GetFacets();
+                var filterProducts = CurrentCategory != null
+                    ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying)
+                    : new List<UCommerce.Documents.Product>();
+
+                var listOfProducts = new List<Product>();
+
+                if (filterProducts.Count == 0)
                 {
-                    listOfProducts.Add(
-                        _products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
+                    lvProducts.DataSource = _products;
+                }
+                else
+                {
+                    foreach (var product in filterProducts)
+                    {
+                        listOfProducts.Add(
+                            _products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
+                    }
+
+                    lvProducts.DataSource = listOfProducts;
                 }
 
-                lvProducts.DataSource = listOfProducts;
-            }
-
-            lvProducts.DataBind();
+                lvProducts.DataBind();
+            
         }
 
         public IList<Facet> GetFacets()

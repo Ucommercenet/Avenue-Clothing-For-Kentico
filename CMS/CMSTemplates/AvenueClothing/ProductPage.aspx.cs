@@ -19,6 +19,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
         private void Page_Load(object sender, EventArgs e)
         {
+
+            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+
+            if (viewMode == 6 || viewMode == 3)
+            {
+                return;
+            }
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
             if (!string.IsNullOrWhiteSpace(currentProduct.ThumbnailImageMediaId))
@@ -45,9 +52,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 "UCommerce.DemoStore.productpage",
                 "<script src=\"/scripts/UCommerce.DemoStore.productpage.js\"></script>");
 
-            IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> uniqueVariants = from v in currentProduct.Variants.SelectMany(p => p.ProductProperties)
+            IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> uniqueVariants =
+                from v in currentProduct.Variants.SelectMany(p => p.ProductProperties)
                 where v.ProductDefinitionField.DisplayOnSite
-                group v by v.ProductDefinitionField into g
+                group v by v.ProductDefinitionField
+                into g
                 select g;
 
 

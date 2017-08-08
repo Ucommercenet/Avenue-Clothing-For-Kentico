@@ -15,10 +15,16 @@ namespace CMSApp.CMSTemplates.AvenueClothing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+            if (viewMode == 6 || viewMode == 3)
+            {
+                return;
+            }
             if (IsPostBack)
             {
                 return;
             }
+
             var billingAddress = TransactionLibrary.GetBillingInformation();
             var shipmentAddress = TransactionLibrary.GetShippingInformation();
             var basket = TransactionLibrary.GetBasket(true).PurchaseOrder;

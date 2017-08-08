@@ -15,6 +15,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing
     {
         private void Page_Load(object sender, EventArgs e)
         {
+            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+
+            if (viewMode == 6 || viewMode == 3)
+            {
+                return;
+            }
             if (IsPostBack)
             {
                 return;
@@ -34,13 +40,14 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 string warning =
                     "WARNING: No payment methods have been configured for " + shippingCountry.Name + " within <a href=\"http://ucommerce.net\">UCommerce</a> administration area.";
                 litAlert.Text = warning;
+                btnUpdateShipment.Enabled = false;
             }
 
             foreach (ShippingMethod shippingMethod in availableShippingMethods)
             {
                 var price = shippingMethod.GetPriceForCurrency(currentBasket.BillingCurrency);
                 var formattedPrice = new Money((price == null ? 0 : price.Price), currentBasket.BillingCurrency);
-
+                
                 ListItem currentListItem = new ListItem(shippingMethod.Name + "<text>(</text>" + formattedPrice + "<text>)</text>, ", shippingMethod.Id.ToString());
 
                 if (currentShippingMethod.Id == shippingMethod.Id)
@@ -56,6 +63,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing
         {
             var selectedRadioButton = rblShippingMethods.Items.OfType<ListItem>().FirstOrDefault(r => r.Selected);
             int shippingMethodId = 0;
+
+            if (rblShippingMethods.Items.Count == 0)
+            {
+                return;
+            }
 
             if (selectedRadioButton != null && !Int32.TryParse(selectedRadioButton.Value, out shippingMethodId))
             {

@@ -14,10 +14,16 @@ namespace CMSApp.CMSTemplates.AvenueClothing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+            if (viewMode == 6 || viewMode == 3)
+            {
+                return;
+            }
             if (IsPostBack)
             {
                 return;
             }
+
             Guid orderGuid = new Guid(HttpContext.Current.Request.Params["orderGuid"]);
             var basket = PurchaseOrder.SingleOrDefault(x => x.OrderGuid == orderGuid);
 
