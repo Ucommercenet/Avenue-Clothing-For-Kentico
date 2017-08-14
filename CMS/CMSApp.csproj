@@ -3941,6 +3941,7 @@
     <Content Include="CMSTemplates\AvenueClothing\Controls\Product.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\SidebarStaticContent.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Homepage.aspx" />
+    <Content Include="CMSTemplates\AvenueClothing\InstallAcceleratorContent.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Payment.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Preview.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\ProductPage.aspx" />
@@ -15336,6 +15337,13 @@
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Homepage.aspx.designer.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\InstallAcceleratorContent.aspx.cs">
+      <DependentUpon>InstallAcceleratorContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\InstallAcceleratorContent.aspx.designer.cs">
+      <DependentUpon>InstallAcceleratorContent.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Main.master.cs">
       <DependentUpon>Main.master</DependentUpon>

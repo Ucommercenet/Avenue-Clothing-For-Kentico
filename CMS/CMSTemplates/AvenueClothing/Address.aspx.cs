@@ -84,7 +84,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 				Int32.Parse(shippingCountry.SelectedValue)
 			);
 
-			Response.Redirect("/cart/Shipping");
+			Response.Redirect("~/Basket/Shipping");
 		}
 
 		public void EditBillingInformation()
