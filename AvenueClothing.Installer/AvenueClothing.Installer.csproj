@@ -312,8 +312,8 @@
     <Reference Include="ThoughtWorks.QRCode, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9, processorArchitecture=MSIL">
       <HintPath>..\packages\Kentico.Libraries.10.0.29\lib\net45\ThoughtWorks.QRCode.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.dll</HintPath>
+    <Reference Include="UCommerce">
+      <HintPath>..\packages\uCommerce.Core.7.7.1.17180\lib\net45\UCommerce.dll</HintPath>
     </Reference>
     <Reference Include="UCommerce.Admin, Version=7.7.1.17180, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\uCommerce.Core.7.7.1.17180\lib\net45\UCommerce.Admin.dll</HintPath>

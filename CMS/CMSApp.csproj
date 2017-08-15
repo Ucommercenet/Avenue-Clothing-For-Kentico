@@ -4239,6 +4239,8 @@
     <Content Include="CMSWebParts\Text\QRCode.ascx" />
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
     <Content Include="CMSWebParts\UserContributions\EditContribution.ascx" />
     <Content Include="CMSWebParts\Viewers\Basic\BasicDataList.ascx" />
@@ -16802,6 +16804,20 @@
     </Compile>
     <Compile Include="CMSWebParts\Text\statictext.ascx.designer.cs">
       <DependentUpon>statictext.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.cs">
+      <DependentUpon>MiniBasket.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.designer.cs">
+      <DependentUpon>MiniBasket.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.cs">
+      <DependentUpon>Voucher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.designer.cs">
+      <DependentUpon>Voucher.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\UserContributions\ContributionList.ascx.designer.cs">
       <DependentUpon>ContributionList.ascx</DependentUpon>

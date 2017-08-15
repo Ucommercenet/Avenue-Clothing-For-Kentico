@@ -32,7 +32,11 @@
                 <div class="row-fluid">
                     <a class="brand span3" href="/kentico/home.aspx"><img src="~/AvenueClothing/img/uCommerce/logo.png"/> Avenue Clothing</a>
                     <uc1:Searchbar runat="server" id="Searchbar" />
-                    <uc1:MiniBasket runat="server" id="MiniBasket" />
+                    <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
+                         <LayoutTemplate>
+                         <cms:CMSWebPartZone runat="server" ID="HeaderContentZone"/>
+                         </LayoutTemplate>
+                    </cms:CMSPagePlaceholder>
                     <asp:ContentPlaceHolder ID="HeaderPlaceholder" runat="server"></asp:ContentPlaceHolder>
                 </div>
             </div>

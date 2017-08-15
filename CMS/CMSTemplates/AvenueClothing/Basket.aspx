@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CMSTemplates/AvenueClothing/Main.master" AutoEventWireup="true" CodeBehind="Basket.aspx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.Basket" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
-    
+    <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
+                         <LayoutTemplate>
+                         <cms:CMSWebPartZone runat="server" ID="BasketContentZone"/>
+                         </LayoutTemplate>
+                    </cms:CMSPagePlaceholder>
     <table class="table table-striped" id="cart">
         <thead>
         <tr>
@@ -35,17 +39,8 @@
             </ItemTemplate>
         </asp:repeater>
         <tr>
-            <td rowspan="4">
-                <div class="span6">
-                    <div class="input-append">
-                        <asp:textbox name="voucher-code" type="text" runat="server" id="txtVoucherCode" />
-                        <asp:button name="add-voucher" class="btn" runat="server" onclick="btnAddVoucher_Click" text="Add Voucher"></asp:button>
-                    </div>
-                  
-                </div>
-            </td>
-            <td rowspan="4" colspan="2">
-                <asp:button name="update-basket" runat="server" class="btn btn-success update-basket" id="btnUpdateAll" onclick="btnUpdateAll_Click" text="Update"><%--<i class="icon-refresh"></i>--%></asp:button>
+            <td rowspan="4" colspan="3">
+                
             </td>
             <td>Sub total:</td>
             <td class="money order-subtotal">
