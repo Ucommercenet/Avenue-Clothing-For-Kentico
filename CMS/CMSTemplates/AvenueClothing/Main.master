@@ -31,7 +31,7 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                     <a class="brand span3" href="/kentico/home.aspx"><img src="~/AvenueClothing/img/uCommerce/logo.png"/> Avenue Clothing</a>
-                    <uc1:Searchbar runat="server" id="Searchbar" />
+                    
                     <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
                          <LayoutTemplate>
                          <cms:CMSWebPartZone runat="server" ID="HeaderContentZone"/>
