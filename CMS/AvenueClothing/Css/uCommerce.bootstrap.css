@@ -3468,8 +3468,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav > li > a:focus,
 .navbar .nav > li > a:hover {
   background-color: transparent;
-  color: #333333;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -5835,6 +5834,40 @@ button.close {
     height: auto !important;
     overflow: visible !important;
   }
+}
+
+.voucher-button {
+    background: #ffffff;
+    color: black;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid transparent;
+    display: inline-block;
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+    box-sizing: inherit;
+}
+
+.navbar .nav > li > a.white {
+    padding: 1rem;
+    color: white;
+}
+
+.navbar .nav > li > a.black {
+    padding: 1rem;
+    color: black;
+}
+
+input.voucher {
+    float: left;
+    width: 83%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none
 }
 
 

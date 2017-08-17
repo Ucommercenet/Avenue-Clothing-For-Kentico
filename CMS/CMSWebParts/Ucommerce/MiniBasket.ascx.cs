@@ -28,59 +28,6 @@ public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
     /// </summary>
     public override void OnContentLoaded()
     {
-        PurchaseOrder basket = null;
-        var currency = SiteContext.Current.CatalogContext.CurrentCatalog.PriceGroup.Currency;
-        var orderTotal = new Money(0, currency);
-
-        if (TransactionLibrary.HasBasket())
-        {
-            basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
-            if (basket.OrderTotal.HasValue)
-            {
-                orderTotal = new Money(basket.OrderTotal.Value, currency);
-            }
-        }
-
-        var applicationUrl = HttpContext.Current.Request.ApplicationPath;
-
-        var minicartString = "";
-        string textColor = ValidationHelper.GetString(GetValue("TextColor"), "black");
-        if (basket == null || !basket.OrderLines.Any())
-        {
-            minicartString += "<a id=\"empty-cart\" style=\"color + " + textColor + ";\">Your Shopping Cart is empty</a>";
-        }
-        else
-        {
-            bool valuePrice = ValidationHelper.GetBoolean(GetValue("ShowPrice"), false);
-            bool valueAmount = ValidationHelper.GetBoolean(GetValue("ShowProductAmount"), false);
-            string iconColor = ValidationHelper.GetString(GetValue("IconColor"), "black").ToLower();
-            
-            if (valuePrice && valueAmount)
-            {
-                minicartString +=
-                "<a href=\"" + applicationUrl + "/basket\" id=\"mini-cart\" style=\"color: " + textColor + "; \"><i class=\"icon-shopping-cart icon-" + iconColor + "\"></i><span class=\"item-qty\">"
-                + basket.OrderLines.Sum(x => x.Quantity).ToString("#,##")
-                + "</span> items in cart, total: <span class=\"order-total\">" + orderTotal + "</span></a>";
-            }
-            else if (valuePrice)
-            {
-                minicartString += "<a href=\"" + applicationUrl + "/basket\" id=\"mini-cart\" style=\"color: " + textColor + "; \"><i class=\"icon-shopping-cart icon-" + iconColor + "\"></i> Total: <span class=\"order-total\">" + orderTotal + "</span></a>";
-            }
-            else if (valueAmount)
-            {
-                minicartString +=
-                "<a href=\"" + applicationUrl + "/basket\" id=\"mini-cart\" style=\"color: " + textColor + "; \"><i class=\"icon-shopping-cart icon-" + iconColor + "\"></i><span class=\"item-qty\">"
-                + basket.OrderLines.Sum(x => x.Quantity).ToString("#,##")
-                + "</span> items in cart </a>";
-            }
-            else
-            {
-                minicartString +=
-                "<a href=\"" + applicationUrl + "/basket\" id=\"mini-cart\"><i class=\"icon-shopping-cart icon-" + iconColor + "\"></i></a>";
-            }
-        }
-
-        litMinicart.Text = minicartString;
         base.OnContentLoaded();
         SetupControl();
     }
@@ -97,7 +44,48 @@ public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
         }
         else
         {
-            
+            PurchaseOrder basket = null;
+            var currency = SiteContext.Current.CatalogContext.CurrentCatalog.PriceGroup.Currency;
+            var orderTotal = new Money(0, currency);
+
+            if (TransactionLibrary.HasBasket())
+            {
+                basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
+                if (basket.OrderTotal.HasValue)
+                {
+                    orderTotal = new Money(basket.OrderTotal.Value, currency);
+                }
+            }
+
+            var applicationUrl = HttpContext.Current.Request.ApplicationPath;
+            string textColor = ValidationHelper.GetString(GetValue("TextColor"), "black").ToLower();
+            bool valuePrice = ValidationHelper.GetBoolean(GetValue("ShowPrice"), false);
+            bool valueAmount = ValidationHelper.GetBoolean(GetValue("ShowProductAmount"), false);
+            string iconColor = ValidationHelper.GetString(GetValue("IconColor"), "black").ToLower();
+            if (basket == null || !basket.OrderLines.Any())
+            {
+                lblMinicartAmount.Text = "Your basket is empty";
+                hlMinicart.Attributes.Add("class", "" + textColor);
+            }
+            else
+            {
+                hlMinicart.Attributes.Add("href", applicationUrl + "/basket");
+                hlMinicart.Attributes.Add("class", "" + textColor);
+                imgMinicart.Attributes.Add("class", "icon-shopping-cart icon-" + iconColor);
+                if (valuePrice && valueAmount)
+                {
+                    lblMinicartAmount.Text = basket.OrderLines.Sum(x => x.Quantity).ToString("#,##") + " item(s):";
+                    lblMinicartPrice.Text = "" + orderTotal;
+                }
+                else if (valuePrice)
+                {
+                    lblMinicartPrice.Text = "" + orderTotal;
+                }
+                else if (valueAmount)
+                {
+                    lblMinicartAmount.Text = basket.OrderLines.Sum(x => x.Quantity).ToString("#,##") + " item(s)";
+                }
+            }
         }
     }
 
