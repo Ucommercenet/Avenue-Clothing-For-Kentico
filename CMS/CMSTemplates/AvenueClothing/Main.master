@@ -45,9 +45,11 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
-                <div class="well sidebar-nav" id="main-nav">
-                    <uc1:CategoryNavigation runat="server" ID="CategoryNavigation" />
-                </div>
+                <cms:CMSPagePlaceholder runat="server" ID="SidePagePlaceholder">
+                         <LayoutTemplate>
+                         <cms:CMSWebPartZone runat="server" ID="SideContentZone"/>
+                         </LayoutTemplate>
+                    </cms:CMSPagePlaceholder>
                 <asp:ContentPlaceHolder runat="server" ID="SidebarPlaceholder"></asp:ContentPlaceHolder>
                 <uc1:SidebarStaticContent runat="server" id="SidebarStaticContent" />
             </div>

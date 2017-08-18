@@ -5867,8 +5867,22 @@ input.voucher {
     line-height: 1.25;
     color: #55595c;
     background-color: #fff;
-    background-image: none
+    background-image: none;
 }
 
+.margin-top-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.nav > li > a.catnav {
+    color: #767676;
+    display: block;
+    padding: .5em 1em;
+    border-radius: .25rem;
+}
+.nav > li > a.catnav:hover {
+    text-decoration: underline;
+    background-color: transparent;
+}
 
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

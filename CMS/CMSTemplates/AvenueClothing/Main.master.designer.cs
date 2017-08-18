@@ -94,13 +94,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeaderPlaceholder;
         
         /// <summary>
-        /// CategoryNavigation control.
+        /// SidePagePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.CategoryNavigation CategoryNavigation;
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder SidePagePlaceholder;
         
         /// <summary>
         /// SidebarPlaceholder control.
