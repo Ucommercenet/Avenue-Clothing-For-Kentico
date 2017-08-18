@@ -107,6 +107,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     -moz-box-shadow:none;
     box-shadow:none;
 }
+
 .btn:hover {
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -165,23 +166,39 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     border-radius: 0;
 }
 .form-search .input-append .search-query,
-.form-search .input-append .btn{
+.form-search .input-append .btn {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    border-radius: 0;
+    border-radius: 0;    
+}
+.form-search .input-append .btn {
+    height: 2.3rem;
+    width: 2.3rem;
+    
+}
+
+.form-search .input-append .search-query {
+    margin-left: 4vw;
+    height: 1.95rem;
+    width: 18vw;
+    font-size: 0.9rem;
+}
+.icon-search {
+    opacity: 0.7;
 }
 .icon-truck {
   background-position: 0 0;
 }
 .icon-grey-search {
-  background-position: -24px 0;
+    background-position: -24px 0;
 }
 .icon-grey-star {
   background-position: -96px 0;
 }
 /* Common
 -------------------------------------------*/
-#search-form {}
+#search-form {
+}
     #search-form .btn {
         background-color: #fff;
         border: 0 none;
@@ -207,6 +224,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
         #main-nav .nav li.on > a:hover{
             color: #fff;
             background-color:#4a95c5;
+            text-decoration:underline;
         }
 #why-buy {
 }

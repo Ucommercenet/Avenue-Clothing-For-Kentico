@@ -178,13 +178,5 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             _currentIteration++;
         }
-
-        protected void btnAddVoucher_Click(object sender, EventArgs e)
-        {
-            MarketingLibrary.AddVoucher(txtVoucherCode.Text);
-            TransactionLibrary.ExecuteBasketPipeline();
-
-            Response.Redirect(Request.RawUrl);
-        }
     }
 }

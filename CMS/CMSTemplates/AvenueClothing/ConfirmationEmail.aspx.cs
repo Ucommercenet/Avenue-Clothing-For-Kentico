@@ -181,8 +181,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             rptPreviewItems.DataSource = basket.OrderLines;
             rptPreviewItems.DataBind();
-
-            var i = 42;
         }
 
         public void rptPreviewItems_DataBound(object sender, RepeaterItemEventArgs e)

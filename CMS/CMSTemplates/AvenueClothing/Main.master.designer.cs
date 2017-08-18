@@ -67,22 +67,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::CMS.PortalEngine.Web.UI.CMSPortalManager portalManager;
         
         /// <summary>
-        /// Searchbar control.
+        /// WebPartZonePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.Header.Searchbar Searchbar;
-        
-        /// <summary>
-        /// MiniBasket control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.Header.MiniBasket MiniBasket;
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
         
         /// <summary>
         /// HeaderPlaceholder control.
@@ -94,13 +85,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeaderPlaceholder;
         
         /// <summary>
-        /// CategoryNavigation control.
+        /// SidePagePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.CategoryNavigation CategoryNavigation;
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder SidePagePlaceholder;
         
         /// <summary>
         /// SidebarPlaceholder control.

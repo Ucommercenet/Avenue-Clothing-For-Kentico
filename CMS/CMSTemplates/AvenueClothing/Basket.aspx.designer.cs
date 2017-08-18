@@ -13,6 +13,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
     public partial class Basket {
         
         /// <summary>
+        /// WebPartZonePlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
+        
+        /// <summary>
         /// rptCart control.
         /// </summary>
         /// <remarks>
@@ -20,24 +29,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptCart;
-        
-        /// <summary>
-        /// txtVoucherCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVoucherCode;
-        
-        /// <summary>
-        /// btnUpdateAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateAll;
         
         /// <summary>
         /// litSubtotal control.
