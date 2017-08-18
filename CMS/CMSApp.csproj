@@ -22938,7 +22938,9 @@
     <None Include="Old_App_WebReferences\WS\WebService.discomap" />
     <None Include="Old_App_WebReferences\WS\WebService.wsdl" />
     <Content Include="CMSAdminControls\web.config" />
-    <Content Include="Admin\web.config" />
+    <Content Include="Admin\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CMSFormControls\web.config" />
     <Content Include="CMSInstall\Web.config" />
     <Content Include="CMSMasterPages\LiveSite\Dialogs\ModalDialogPage.master" />
