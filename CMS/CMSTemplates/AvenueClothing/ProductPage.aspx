@@ -1,11 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CMSTemplates/AvenueClothing/Main.master" AutoEventWireup="true" CodeBehind="ProductPage.aspx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.ProductPage" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
-    <cms:CMSPagePlaceholder runat="server" ID="BreadcrumbPlaceholder">
-        <LayoutTemplate>
-            <cms:CMSWebPartZone runat="server" ID="MainContentZone" />
-        </LayoutTemplate>
-    </cms:CMSPagePlaceholder>
     <asp:PlaceHolder runat="server" ID="phInBasket" Visible="false">
         <div class="row-fluid">
             <div class="alert alert-info">

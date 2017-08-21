@@ -22,15 +22,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.Facets Facets;
         
         /// <summary>
-        /// BreadcrumbPlaceholder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder BreadcrumbPlaceholder;
-        
-        /// <summary>
         /// CategoryImage control.
         /// </summary>
         /// <remarks>

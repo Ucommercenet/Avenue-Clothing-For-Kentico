@@ -112,6 +112,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.SidebarStaticContent SidebarStaticContent;
         
         /// <summary>
+        /// BreadcrumbsPlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder BreadcrumbsPlaceholder;
+        
+        /// <summary>
         /// MainContentPlaceholder control.
         /// </summary>
         /// <remarks>

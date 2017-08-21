@@ -122,18 +122,9 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
         private void ConfigureEmailContent()
         {
-            //var docType = DocumentType.GetAllAsList().FirstOrDefault(t => t.Alias == "uCommerceEmail");
-            //if (docType == null)
-            //    return;
-
-            //var emails = Document.GetDocumentsOfDocumentType(docType.Id);
-            //var emailContent = emails.FirstOrDefault(e => e.Text == "Order Confirmation Email");
-            //if (emailContent == null)
-            //    return;
             TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
             TreeNode kenticoTreeNode = tree.SelectNodes()
                 .Path("/ConfirmationEmail")
-                .OnCurrentSite()
                 .Culture("en-us")
                 .FirstObject;
 

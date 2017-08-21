@@ -50,8 +50,8 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
                 foreach (var node in documentsOnPath)
                 {
                     if (!node.NodeAlias.IsNullOrWhiteSpace() &&
-                        PageTemplateInfoProvider.GetPageTemplateInfo(node.GetUsedPageTemplateId()).DisplayName == "Catalog" &&
-                        PageTemplateInfoProvider.GetPageTemplateInfo(node.GetUsedPageTemplateId()).DisplayName == "Product")
+                        PageTemplateInfoProvider.GetPageTemplateInfo(node.GetUsedPageTemplateId()).DisplayName != "Catalog" &&
+                        PageTemplateInfoProvider.GetPageTemplateInfo(node.GetUsedPageTemplateId()).DisplayName != "Product")
                     {
                         breadcrumbs.Add(
                             new BreadcrumbViewModel
