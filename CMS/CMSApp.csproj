@@ -4241,6 +4241,7 @@
     <Content Include="CMSWebParts\Text\QRCode.ascx" />
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx" />
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
@@ -16815,6 +16816,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Text\statictext.ascx.designer.cs">
       <DependentUpon>statictext.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx.cs">
+      <DependentUpon>Breadcrumbs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx.designer.cs">
+      <DependentUpon>Breadcrumbs.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx.cs">
       <DependentUpon>CategoryNavigation.ascx</DependentUpon>

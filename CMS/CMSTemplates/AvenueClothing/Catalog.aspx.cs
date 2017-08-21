@@ -35,7 +35,9 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
                 var imageService = new ImageService();
 
+           
                 CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
+            
 
                 GetAllProductsRecursive(CurrentCategory);
 

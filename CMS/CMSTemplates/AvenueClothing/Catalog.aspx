@@ -1,15 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CMSTemplates/AvenueClothing/Main.master" AutoEventWireup="true" CodeBehind="Catalog.aspx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.Catalog" %>
+
 <%@ Import Namespace="UCommerce.EntitiesV2" %>
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Product.ascx" TagPrefix="uc1" TagName="Product" %>
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Facets.ascx" TagPrefix="uc1" TagName="Facets" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="SidebarPlaceholder" runat="server">
-    <uc1:Facets runat="server" id="Facets" />
+    <uc1:Facets runat="server" ID="Facets" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
+    <cms:CMSPagePlaceholder runat="server" ID="BreadcrumbPlaceholder">
+        <LayoutTemplate>
+            <cms:CMSWebPartZone runat="server" ID="MainContentZone" />
+        </LayoutTemplate>
+    </cms:CMSPagePlaceholder>
     <div class="row-fluid">
         <div class="hero-unit">
-            <asp:Image runat="server" ID="CategoryImage" Width="870" Height="350"/>    
+            <asp:Image runat="server" ID="CategoryImage" Width="870" Height="350" />
         </div>
         <div class="span12 product-list">
             <asp:ListView runat="server" ID="lvProducts">

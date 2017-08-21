@@ -13,6 +13,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
     public partial class ProductPage {
         
         /// <summary>
+        /// BreadcrumbPlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder BreadcrumbPlaceholder;
+        
+        /// <summary>
         /// phInBasket control.
         /// </summary>
         /// <remarks>
