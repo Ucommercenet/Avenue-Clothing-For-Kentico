@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CMS.Helpers;
 using CMS.PortalEngine;
 using CMS.PortalEngine.Web.UI;
@@ -71,8 +72,10 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
             {
                 BreadcrumbName = delimiter
             };
+
             Product product = SiteContext.Current.CatalogContext.CurrentProduct;
             Category lastCategory = SiteContext.Current.CatalogContext.CurrentCategory;
+
             if (product != null || lastCategory != null)
             {
                 breadcrumbs.Add(new BreadcrumbViewModel
@@ -83,22 +86,25 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
                 breadcrumbs.Add(delimiterBreadcrumb);
             }
 
-            foreach (var category in SiteContext.Current.CatalogContext.CurrentCategories)
+            if (SiteContext.Current.CatalogContext.CurrentCategories.Any())
             {
-                var breadcrumb = new BreadcrumbViewModel
+                foreach (var category in SiteContext.Current.CatalogContext.CurrentCategories)
                 {
-                    BreadcrumbName = category.DisplayName(),
-                    BreadcrumbUrl = CatalogLibrary.GetNiceUrlForCategory(category)
-                };
+                    var breadcrumb = new BreadcrumbViewModel
+                    {
+                        BreadcrumbName = category.DisplayName(),
+                        BreadcrumbUrl = CatalogLibrary.GetNiceUrlForCategory(category)
+                    };
 
-                lastCategory = category;
-                breadcrumbs.Add(breadcrumb);
+                    lastCategory = category;
+                    breadcrumbs.Add(breadcrumb);
 
-                if (category == SiteContext.Current.CatalogContext.CurrentCategory && product == null)
-                {
-                    break;
+                    if (category == SiteContext.Current.CatalogContext.CurrentCategory && product == null)
+                    {
+                        break;
+                    }
+                    breadcrumbs.Add(delimiterBreadcrumb);
                 }
-                breadcrumbs.Add(delimiterBreadcrumb);
             }
 
             if (product != null)
