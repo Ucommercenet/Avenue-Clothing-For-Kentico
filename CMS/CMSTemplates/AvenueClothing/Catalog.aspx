@@ -8,8 +8,6 @@
     <uc1:Facets runat="server" ID="Facets" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
-  
-
     <div class="row-fluid">
         <div class="hero-unit">
             <asp:Image runat="server" ID="CategoryImage" Width="870" Height="350" />
