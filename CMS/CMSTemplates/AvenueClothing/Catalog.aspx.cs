@@ -6,6 +6,7 @@ using CMS.PortalEngine;
 using CMS.UIControls;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
+using UCommerce.Extensions;
 using UCommerce.Kentico.Content;
 using UCommerce.Runtime;
 using UCommerce.Search.Facets;
@@ -33,39 +34,39 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
 
-                var imageService = new ImageService();
+            var imageService = new ImageService();
+            CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
+            CategoryName.InnerText = CurrentCategory.DisplayName();
 
-           
-                CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
-            
+            GetAllProductsRecursive(CurrentCategory);
 
-                GetAllProductsRecursive(CurrentCategory);
+            var facetsForQuerying = GetFacets();
 
-                var facetsForQuerying = GetFacets();
-                var filterProducts = CurrentCategory != null
-                    ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying)
-                    : new List<UCommerce.Documents.Product>();
+            var filterProducts = CurrentCategory != null
+                ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying)
+                : new List<UCommerce.Documents.Product>();
 
-                var listOfProducts = new List<Product>();
+            var listOfProducts = new List<Product>();
 
-                if (filterProducts.Count == 0)
+            if (filterProducts.Count == 0)
+            {
+                lvProducts.DataSource = _products;
+            }
+            else
+            {
+                foreach (var product in filterProducts)
                 {
-                    lvProducts.DataSource = _products;
-                }
-                else
-                {
-                    foreach (var product in filterProducts)
-                    {
-                        listOfProducts.Add(
-                            _products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
-                    }
-
-                    lvProducts.DataSource = listOfProducts;
+                    listOfProducts.Add(
+                        _products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
                 }
 
-                lvProducts.DataBind();
-            
+                lvProducts.DataSource = listOfProducts;
+            }
+
+            lvProducts.DataBind();
+
         }
+
 
         public IList<Facet> GetFacets()
         {
@@ -102,7 +103,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 var facet = new Facet();
                 facet.FacetValues = new List<FacetValue>();
-               
+
                 facet.Name = parameter.Key;
                 foreach (var value in parameter.Value.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
                 {

@@ -9,15 +9,20 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
   
+
     <div class="row-fluid">
         <div class="hero-unit">
             <asp:Image runat="server" ID="CategoryImage" Width="870" Height="350" />
         </div>
+        <h1 runat="server" ID="CategoryName"></h1>
         <div class="span12 product-list">
             <asp:ListView runat="server" ID="lvProducts">
                 <ItemTemplate>
                     <uc1:Product runat="server" ID="Product" CurrentProduct="<%# (Product)Container.DataItem %>" />
                 </ItemTemplate>
+                <EmptyDataTemplate>
+                    <p>You have no products here.</p>
+                </EmptyDataTemplate>
             </asp:ListView>
         </div>
     </div>

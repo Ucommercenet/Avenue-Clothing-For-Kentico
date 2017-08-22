@@ -10,7 +10,7 @@ using UCommerce.Search.Facets;
 
 namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 {
-    public partial class Facets : System.Web.UI.UserControl
+    public partial class Facets : UserControl
     {
         private bool _anyFacetHits = false;
         public List<Button> _controls = new List<Button>();
