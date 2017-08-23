@@ -126,7 +126,7 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
         var repeaterItem = (RepeaterItem)senderButton.NamingContainer;
         TextBox txtQuantity = (TextBox)repeaterItem.FindControl("txtQuantity" + orderLineNumber);
 
-        var didItSucceed = UpdateCartLine(orderLineNumber, txtQuantity.Text);
+        UpdateCartLine(orderLineNumber, txtQuantity.Text);
 
         Response.Redirect(Request.RawUrl);
     }
@@ -136,7 +136,7 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
         var senderButton = (Button)sender;
         var orderLineNumber = senderButton.Attributes["orderlinenumber"];
 
-        var didItSucceed = UpdateCartLine(orderLineNumber, "0");
+        UpdateCartLine(orderLineNumber, "0");
 
         Response.Redirect(Request.RawUrl);
     }
@@ -164,7 +164,7 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
             var repeaterItem = (RepeaterItem)senderButton.NamingContainer;
             TextBox txtQuantity = (TextBox)repeaterItem.FindControl("txtQuantity" + orderLineNumber);
 
-            var didItSucceed = UpdateCartLine(orderLineNumber, txtQuantity.Text);
+            UpdateCartLine(orderLineNumber, txtQuantity.Text);
         }
 
         Response.Redirect(Request.RawUrl);

@@ -27,7 +27,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             var billingAddress = TransactionLibrary.GetBillingInformation();
             var shipmentAddress = TransactionLibrary.GetShippingInformation();
-            var basket = TransactionLibrary.GetBasket(true).PurchaseOrder;
 
             //billing
             litBillingName.Text = billingAddress.FirstName + " " + billingAddress.LastName;
