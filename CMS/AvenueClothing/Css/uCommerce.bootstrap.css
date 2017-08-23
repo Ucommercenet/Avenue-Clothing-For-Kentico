@@ -833,7 +833,7 @@ table {
 }
 .table th,
 .table td {
-  padding: 8px;
+  padding: 1rem;
   line-height: 20px;
   text-align: left;
   vertical-align: top;
@@ -5884,5 +5884,26 @@ input.voucher {
     text-decoration: underline;
     background-color: transparent;
 }
+.table-striped tbody tr:nth-child(odd) td.white-background {
+    background-color: white;
+}
 
+input.update-cart {
+    padding: 3px;
+}
+
+input.update-cart-button {
+    background-color:transparent;
+    border: none;
+    margin-top: 0.4rem;
+    margin-left: 0.4rem;
+}
+
+div.input-append > input.textbox-to-label {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: black;
+    padding: 0;
+}
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
