@@ -42,85 +42,11 @@
         </div>
 
     </div>
-    <div class="row-fluid">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Item no. </th>
-                <th class="span8">Description</th>
-                <th class="span1 money">Price</th>
-                <th class="span1 money">VAT</th>
-                <th class="span1 number">Quantity</th>
-                <th class="span1 money">Total</th>
-            </tr>
-            </thead>
-            <tbody>
-            <asp:Repeater ID="rptPreviewItems" runat="server" OnItemDataBound="rptPreviewItems_DataBound">
-                <ItemTemplate>
-                    <tr>
-                        <td>
-                            <asp:Literal ID="litItemSku" runat="server" /></td>
-                        <td>
-                            <asp:Literal ID="litItemName" runat="server" /></td>
-                        <td class="money">
-                            <asp:Literal ID="litPrice" runat="server" /></td>
-                        <td class="money">
-                            <asp:Literal ID="litVat" runat="server" /></td>
-                        <td class="number">
-                            <asp:Literal ID="litQuantity" runat="server" /></td>
-                        <td class="money">
-                            <asp:Literal ID="litTotal" runat="server" /></td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-            <tr>
-                <asp:Literal ID="litRowSpan" runat="server" />
-                <td colspan="3">Sub total: </td>
-                <td class="money">
-                    <asp:Literal ID="litSubTotal" runat="server" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">VAT: </td>
-                <td class="money">
-                    <asp:Literal ID="litVat" runat="server" />
-                </td>
-            </tr>
-            <tr id="trDiscounts" runat="server">
-                <td colspan="3">Order discounts: </td>
-                <td class="money">
-                    <asp:Literal ID="litDiscount" runat="server" /></td>
-            </tr>
-
-            <tr id="trShipping" runat="server">
-                <td colspan="3">Shipping
-                    <asp:Literal ID="litShipments" runat="server" />
-                </td>
-                <td class="money">
-                    <asp:Literal ID="litShippingTotal" runat="server" />
-                </td>
-            </tr>
-
-            <tr id="trPaymentTotal" runat="server">
-                <td colspan="3">Payment
-                    <asp:Literal ID="litPaymentMethods" runat="server" />
-
-
-                </td>
-                <td class="money">
-                    <asp:Literal ID="litPaymentTotal" runat="server" />
-                </td>
-            </tr>
-
-
-            <tr>
-                <td colspan="3">Order total: </td>
-                <td class="money">
-                    <asp:Literal ID="litOrderTotal" runat="server" /></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
+                         <LayoutTemplate>
+                         <cms:CMSWebPartZone runat="server" ID="PreviewContentZone"/>
+                         </LayoutTemplate>
+                    </cms:CMSPagePlaceholder>
     <a href="~/Basket/Payment" class="btn btn-small">Back to Payment Method</a>
     <asp:Button ID="btnContinue" runat="server" OnClick="btnContinue_Click" class="pull-right btn btn-large btn-success btn-arrow-right" Text="Complete Order" />
 

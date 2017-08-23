@@ -74,7 +74,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 return;
             }
 
-            TransactionLibrary.CreateShipment(shippingMethodId, overwriteExisting: true);
+            TransactionLibrary.CreateShipment(shippingMethodId,Constants.DefaultShipmentAddressName, overwriteExisting: true);
             TransactionLibrary.ExecuteBasketPipeline();
             HttpContext.Current.Response.Redirect("~/basket/payment");
         }
