@@ -19,7 +19,7 @@
     </asp:PlaceHolder>
 
     <div class="row-fluid" id="product-details" itemtype="http://schema.org/Product" itemscope="">
-        <div class="span6">
+        <div class="span6 row">
             <asp:Image ID="imgTop" runat="server" />
         </div>
         <section class="span6">
@@ -67,11 +67,11 @@
                 <asp:Button runat="server" ID="btnAddToBasket" ClientIDMode="static" class="btn btn-block btn-success" Text="Add to basket!" OnClick="btnAddToBasket_Click" />
             </div>
             <div class="tabbable">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#product-description" data-toggle="tab">Details</a></li>
-                    <li><a href="#delivery-info" data-toggle="tab">Delivery</a></li>
-                    <li><a href="#returns-info" data-toggle="tab">Returns</a></li>
-                    <li><a href="#customer-reviews" data-toggle="tab">Reviews</a></li>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#product-description" data-toggle="tab" role="tab">Details</a></li>
+                    <li><a href="#delivery-info" data-toggle="tab" role="tab">Delivery</a></li>
+                    <li><a href="#returns-info" data-toggle="tab" role="tab">Returns</a></li>
+                    <li><a href="#customer-reviews" data-toggle="tab" role="tab">Reviews</a></li>
                 </ul>
                 <div class="tab-content">
                     <article class="tab-pane active" id="product-description" itemprop="description">

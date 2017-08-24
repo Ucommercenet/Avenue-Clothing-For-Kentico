@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
@@ -8,6 +9,8 @@ using CMS.UIControls;
 using UCommerce.Runtime;
 using UCommerce.EntitiesV2;
 using UCommerce.Api;
+using UCommerce.Content;
+using UCommerce.Infrastructure;
 using UCommerce.Kentico.Content;
 using UCommerce.Pipelines;
 
@@ -30,7 +33,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             if (!string.IsNullOrWhiteSpace(currentProduct.ThumbnailImageMediaId))
             {
-                var imageService = new ImageService();
+                var imageService = ObjectFactory.Instance.Resolve<IImageService>();
                 var image = imageService.GetImage(currentProduct.ThumbnailImageMediaId);
 
                 imgTop.ImageUrl = image.Url;
@@ -99,7 +102,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             //var productDescription = currentProduct.GetDescription(SiteContext.Current.CurrentCulture.ToString());
             var productDescription = currentProduct.GetDescription("da");
 
-            litDescription.Text = productDescription.LongDescription;
+            litDescription.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
             litProductSmallDesc.Text = productDescription.ShortDescription;
 
             if (currentProduct.ProductReviews.Any())
