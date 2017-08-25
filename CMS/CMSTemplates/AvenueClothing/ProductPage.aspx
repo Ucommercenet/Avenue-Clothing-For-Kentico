@@ -17,7 +17,7 @@
             </div>
         </div>
     </asp:PlaceHolder>
-
+    
     <div class="row-fluid" id="product-details" itemtype="http://schema.org/Product" itemscope="">
         <div class="span6 row">
             <asp:Image ID="imgTop" runat="server" />
@@ -60,10 +60,8 @@
                         </div>
                     </FooterTemplate>
                 </asp:Repeater>
-                <%--<input name="product-sku" id="productSku" runat="server" type="hidden" value="" />--%>
                 <asp:TextBox type="hidden" runat="server" ID="productSku" ClientIDMode="static" />
                 <input name="quantity-to-add" id="quantity-to-add" type="hidden" value="1" />
-                <!-- We have to default the button to "success" for those customers who don't have JavaScript enabled -in which case it will still be a clear call to action  -->
                 <asp:Button runat="server" ID="btnAddToBasket" ClientIDMode="static" class="btn btn-block btn-success" Text="Add to basket!" OnClick="btnAddToBasket_Click" />
             </div>
             <div class="tabbable">
@@ -78,15 +76,12 @@
                         <asp:Literal ID="litDescription" runat="server"></asp:Literal>
                     </article>
                     <div class="tab-pane" id="delivery-info">
-                        <%--This is just hardcoded Lorem ipsum, but thats how its supposed to be :)--%>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat elementum tristique. Ut ut pretium massa. Nullam mollis lobortis rutrum. Integer quis tellus enim. Donec viverra aliquam faucibus. Nam ac eros velit. Mauris vel adipiscing turpis. Mauris id tortor et augue tincidunt molestie in sed lectus.</p>
                     </div>
                     <div class="tab-pane" id="returns-info">
-                        <%--This is just hardcoded Lorem ipsum, but thats how its supposed to be :)--%>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat elementum tristique. Ut ut pretium massa. Nullam mollis lobortis rutrum. Integer quis tellus enim. Donec viverra aliquam faucibus. Nam ac eros velit. Mauris vel adipiscing turpis. Mauris id tortor et augue tincidunt molestie in sed lectus.</p>
                     </div>
                     <div class="tab-pane" id="customer-reviews">
-                        <%--<p>No-one has reviewed this product yet.</p>--%>
                         <asp:Literal ID="litReviewHeadline" runat="server" />
                         <asp:Repeater ID="rptReviews" runat="server" OnItemDataBound="ReviewRepeaterItemDataBound">
                             <ItemTemplate>
@@ -134,9 +129,10 @@
                                     <input type="radio" name="review-rating" value="5" /><i class="icon-star"></i></label>
                             </div>
                         </div>
-
+                        
                         <div id="review-form">
                             <div class="control-group">
+                                <br/>
                                 <label class="control-label" for="review-name">Your Name</label>
                                 <div class="controls">
                                     <input type="text" id="reviewName" runat="server" name="review-name" placeholder="Name" class="required span12" />

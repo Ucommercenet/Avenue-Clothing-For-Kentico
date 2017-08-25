@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CMS.Helpers;
 using CMS.UIControls;
 using UCommerce;
 using UCommerce.Api;
@@ -86,7 +87,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 return;
             }
-
+            
             TransactionLibrary.CreatePayment(methodPaymentId, requestPayment: false);
             TransactionLibrary.ExecuteBasketPipeline();
             HttpContext.Current.Response.Redirect("~/Basket/Preview");

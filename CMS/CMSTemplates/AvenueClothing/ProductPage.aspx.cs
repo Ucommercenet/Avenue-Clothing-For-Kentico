@@ -11,7 +11,6 @@ using UCommerce.EntitiesV2;
 using UCommerce.Api;
 using UCommerce.Content;
 using UCommerce.Infrastructure;
-using UCommerce.Kentico.Content;
 using UCommerce.Pipelines;
 
 namespace CMSApp.CMSTemplates.AvenueClothing
@@ -50,10 +49,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             litPrice.Text = price.YourPrice.Amount.ToString();
             litTax.Text = price.YourTax.ToString();
-            Page.ClientScript.RegisterStartupScript(
-                GetType(),
-                "UCommerce.DemoStore.productpage",
-                "<script src=\"/scripts/UCommerce.DemoStore.productpage.js\"></script>");
+       
 
             IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> uniqueVariants =
                 from v in currentProduct.Variants.SelectMany(p => p.ProductProperties)
@@ -98,12 +94,9 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             productSku.Text = currentProduct.Sku;
 
-            //TODO: We had some problems with this method, so its just hardcoded to use danish.
-            //var productDescription = currentProduct.GetDescription(SiteContext.Current.CurrentCulture.ToString());
-            var productDescription = currentProduct.GetDescription("da");
 
             litDescription.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
-            litProductSmallDesc.Text = productDescription.ShortDescription;
+            litProductSmallDesc.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).ShortDescription;
 
             if (currentProduct.ProductReviews.Any())
             {
@@ -269,8 +262,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             var properties = keys.Select(k => new { Key = k.Replace(variantPrefix, string.Empty), Value = request.Form[k] }).ToList();
 
             Product variant = null;
-
-            // If there are variant values we'll need to find the selected variant
+            
             if (product.Variants.Any() && properties.Any())
             {
                 variant = product.Variants.FirstOrDefault(v => v.ProductProperties
@@ -279,7 +271,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                                  && !pp.ProductDefinitionField.Deleted)
                     .All(p => properties.Any(kv => kv.Key.Equals(p.ProductDefinitionField.Name, StringComparison.InvariantCultureIgnoreCase) && kv.Value.Equals(p.Value, StringComparison.InvariantCultureIgnoreCase))));
             }
-            // Only use the current product where there are no variants
             else if (!product.Variants.Any())
             {
                 variant = product;
@@ -338,6 +329,8 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             product.AddProductReview(review);
 
             PipelineFactory.Create<ProductReview>("ProductReview").Execute(review);
+            Response.Redirect(Request.RawUrl);
+
         }
     }
 }

@@ -73,7 +73,8 @@
     <script src="~/AvenueClothing/Scripts/ucommerce.servicestack.js"> </script>
     <script src="~/AvenueClothing/Scripts/ucommerce.jquery.js"> </script>
     <script src="~/AvenueClothing/Scripts/UCommerce.DemoStore.js"> </script>
-    <script language="javascript" type="text/javascript">
+    <script src="~/AvenueClothing/Scripts/Ucommerce.demostore.productpage.js" type="text/javascript"></script>
+    <script type="text/javascript">
         var applicationName = '<%= this.Request.ApplicationPath %>';
     </script>
     </form>
