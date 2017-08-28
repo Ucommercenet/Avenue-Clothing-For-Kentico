@@ -6,7 +6,7 @@ $(function () {
     //relateVariations($('#productSku'), $('#variation-collarsize'), $('#variation-colour'), $('#btnAddToBasket'));
     //enableAddToCartWhenSelected($('#btnAddToBasket'), $('.variant'));
     //wireupAddToCartButton($('#btnAddToBasket'), $('#catalog-id'), $('#productSku'), $('.variant'), $('#quantity-to-add'));
-	wireupRatings($('.rating'));
+    wireupRatings($('.rating'));
 });
 //function relateVariations(sku, size, colour) {
 //	updateVariationOptions(sku, size, colour, true);
@@ -42,35 +42,76 @@ $(function () {
 //		addToCartButton.removeClass('btn-success').addClass('disabled').attr('disabled', 'disabled');
 //	}
 //};
+(function ($) {
+    $.fn.isAfter = function (sel) {
+        return this.prevAll().filter(sel).length !== 0;
+    };
+
+    $.fn.isBefore = function (sel) {
+        return this.nextAll().filter(sel).length !== 0;
+    };
+})(jQuery);
+
+var selected;
 function wireupRatings(radios) {
-	$('#review-form').hide();
-	$('label', radios).each(function () {
-		var t = $(this);
-		t.addClass('off');
-		$('input:radio', t).hide();
-		setStarHoverOutState($('i', t));
-		t.hover(function () {
-			var parent = $(this);
-			var labels = parent.prevAll('label');
-			setStarHoverState($('i', labels));
-			setStarHoverState($('i', parent));
-		}, function () {
-			var parent = $(this);
-			var labels = parent.prevAll('label');
-			if (!parent.hasClass('selected')) {
-				setStarHoverOutState($('i', labels));
-				setStarHoverOutState($('i', parent));
-			}
-		});
-		t.click(function () {
-			var parent = $(this);
-			parent.addClass('selected');
-			$('#review-form').slideDown();
-		});
-	});
+    $('#review-form').hide();
+    $('label', radios).each(function () {
+        var t = $(this);
+        t.addClass('off');
+        $('input:radio', t).hide();
+        setStarHoverOutState($('i', t));
+
+        t.hover(function () {
+            if (!t.isBefore(selected)) {
+                var parent = $(this);
+                var labels = parent.prevAll('label');
+                setStarHoverState($('i', labels));
+                setStarHoverState($('i', parent));
+            }
+        }, function () {
+            if (!t.isBefore(selected)) {
+                var parent = $(this);
+                var labels = parent.prevAll('label');
+                if (!parent.hasClass('selected')) {
+                    setStarHoverOutState($('i', labels));
+                    setStarHoverOutState($('i', parent));
+                }
+            }
+            $('label', radios).each(function () {
+                var t = $(this);
+                if (t.hasClass('selected')) {
+                    setStarHoverState($('i', t.prevAll('label')));
+                    setStarHoverState($('i', t));
+                    setStarHoverOutState($('i', t.nextAll('label')));
+                }
+            });
+        });
+        t.click(function () {
+            var parent = $(this);
+            $('label', radios).each(function () {
+                var t = $(this);
+                setStarHoverOutState($('i', t));
+                t.removeClass('selected');
+                if (t.hasClass('selected')) {
+                    setStarHoverState($('i', t));
+                }
+            });
+            parent.addClass('selected');
+            selected = parent;
+            $('#review-form').slideDown();
+            $('label', radios).each(function () {
+                var t = $(this);
+                if (t.hasClass('selected')) {
+                    setStarHoverState($('i', t.prevAll('label')));
+                    setStarHoverState($('i', t));
+                    setStarHoverOutState($('i', t.nextAll('label')));
+                }
+            });
+          
+        });
+    });
 };
 function setStarHoverState(label) {
-	//label.addClass('icon-star').removeClass('icon-star-empty');
     label.addClass('fa-star').removeClass('fa-star-o');
 
 }
@@ -136,7 +177,7 @@ function setStarHoverOutState(label) {
 //	});
 //};
 //function updateVariationOptions(sku, size, colour, userAction, success, failure) {
-    
+
 //	var selectedSize = size.val();
 //	var colourOptions = $('option', colour).not('option[value=""]');
 
@@ -150,7 +191,7 @@ function setStarHoverOutState(label) {
 //                $.each(data.Variations, function (i, v) {
 //            		var variationSize = getObjectsByKey(v.Properties, 'Name', 'CollarSize')[0];
 //            		var variationColour = getObjectsByKey(v.Properties, 'Name', 'Colour')[0];
-            		
+
 //            		// The user hasn't yet selected a size so offer them all colours (so they can see the list)
 //            		if (selectedSize == '') {
 //            			colourOptions.removeAttr('disabled');
@@ -188,8 +229,8 @@ function setStarHoverOutState(label) {
 //        else {
 //            $( ".item-price" ).html( defaultPrice );
 //        }
-        
-        
+
+
 //    }
 //}
 //function getObjectsByKey(obj, key, val) {
