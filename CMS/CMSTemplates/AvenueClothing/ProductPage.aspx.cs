@@ -28,6 +28,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 return;
             }
+            
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
             if (!string.IsNullOrWhiteSpace(currentProduct.ThumbnailImageMediaId))
@@ -164,11 +165,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 {
                     if (rating >= i)
                     {
-                        returnValue += "<i class=\"icon-star\"></i>";
+                        returnValue += "<i class=\"fa fa-star\"></i>";
                     }
                     else
                     {
-                        returnValue += "<i class=\"icon-start-empty\"></i>";
+                        returnValue += "<i class=\"fa fa-star-o\"></i>";
                     }
                 }
             }
@@ -187,14 +188,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 {
                     if (rating >= i)
                     {
-                        returnValue += "<i class=\"icon-star\"></i>";
+                        returnValue += "<i class=\"fa fa-star\"></i>";
                     }
                     else
                     {
-                        returnValue += "<i class=\"icon-start-empty\"></i>";
+                        returnValue += "<i class=\"fa fa-star-o\"></i>";
                     }
                 }
             }
+            
 
             returnValue += "</span>";
             return returnValue;
@@ -251,6 +253,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 Response.Redirect(Request.RawUrl);
             }
+
             TransactionLibrary.AddToBasket(1, variant.Sku, variant.VariantSku);
             Response.Redirect(Request.RawUrl);
         }

@@ -70,10 +70,12 @@ function wireupRatings(radios) {
 	});
 };
 function setStarHoverState(label) {
-	label.addClass('icon-star').removeClass('icon-star-empty');
+	//label.addClass('icon-star').removeClass('icon-star-empty');
+    label.addClass('fa-star').removeClass('fa-star-o');
+
 }
 function setStarHoverOutState(label) {
-	label.addClass('icon-star-empty').removeClass('icon-star');
+    label.addClass('fa-star-o').removeClass('fa-star');
 }
 //function wireupAddToCartButton(addToCartButton, catalogIdInput, skuInput, variantInputs, quantityInput) {
 //	addToCartButton.click(function (e) {

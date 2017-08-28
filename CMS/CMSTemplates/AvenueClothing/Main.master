@@ -16,6 +16,7 @@
     <link href="/AvenueClothing/Css/ucommerce.bootstrap.css" rel="stylesheet">
     <link href="/AvenueClothing/css/ucommerce.bootstrap-responsive.css" rel="stylesheet">
     <link href="/AvenueClothing/css/UCommerce.DemoStore.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/AvenueClothing/Css/font-awesome.min.css">
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script>
     <![endif]-->
