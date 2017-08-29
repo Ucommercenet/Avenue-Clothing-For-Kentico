@@ -12,6 +12,4 @@
         </LayoutTemplate>
     </cms:CMSPagePlaceholder>
 
-    <uc1:HighlightedProducts runat="server" id="HighlightedProducts" />
-
 </asp:Content>

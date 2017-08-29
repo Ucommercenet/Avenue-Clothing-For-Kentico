@@ -22,21 +22,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.Facets Facets;
         
         /// <summary>
-        /// CategoryImage control.
+        /// WebPartZonePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image CategoryImage;
-        
-        /// <summary>
-        /// lvProducts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView lvProducts;
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
     }
 }
