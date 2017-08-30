@@ -5,10 +5,12 @@
         <div class="span6">
             <h3>Shipping method</h3>
             <br />
-            <div class="inline-labels"> 
-                <asp:RadioButtonList ID="rblShippingMethods" runat="server" ClientIDMode="static"></asp:RadioButtonList>
-            </div>
-            <p id="pPaymentAlert" runat="server" class="alert"><asp:Literal ID="litAlert" runat="server"/></p>
+
+            <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
+                <LayoutTemplate>
+                <cms:CMSWebPartZone runat="server" ID="MainContentZone"/>
+                </LayoutTemplate>
+            </cms:CMSPagePlaceholder>
 
         </div>
     </div>

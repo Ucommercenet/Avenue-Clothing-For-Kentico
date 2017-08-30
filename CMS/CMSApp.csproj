@@ -4244,6 +4244,7 @@
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\Shipping.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
     <Content Include="CMSWebParts\UserContributions\EditContribution.ascx" />
@@ -16836,6 +16837,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.designer.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.cs">
+      <DependentUpon>Shipping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.designer.cs">
+      <DependentUpon>Shipping.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>

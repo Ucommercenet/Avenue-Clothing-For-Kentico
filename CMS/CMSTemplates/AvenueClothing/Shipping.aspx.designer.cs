@@ -13,31 +13,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
     public partial class Shipping {
         
         /// <summary>
-        /// rblShippingMethods control.
+        /// WebPartZonePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rblShippingMethods;
-        
-        /// <summary>
-        /// pPaymentAlert control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pPaymentAlert;
-        
-        /// <summary>
-        /// litAlert control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litAlert;
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
         
         /// <summary>
         /// btnUpdateShipment control.
