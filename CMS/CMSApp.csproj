@@ -4243,9 +4243,7 @@
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\ProductDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
-    <Content Include="CMSWebParts\Ucommerce\ShippingDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx" />
-    <Content Include="CMSWebParts\Ucommerce\UCommerceShippingDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
     <Content Include="CMSWebParts\UserContributions\EditContribution.ascx" />
@@ -16832,26 +16830,12 @@
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.designer.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\ShippingDataSource.ascx.cs">
-      <DependentUpon>ShippingDataSource.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\ShippingDataSource.ascx.designer.cs">
-      <DependentUpon>ShippingDataSource.ascx</DependentUpon>
-    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx.cs">
       <DependentUpon>UCommerceProductsDataControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx.designer.cs">
       <DependentUpon>UCommerceProductsDataControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\UCommerceShippingDataControl.ascx.cs">
-      <DependentUpon>UCommerceShippingDataControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\UCommerceShippingDataControl.ascx.designer.cs">
-      <DependentUpon>UCommerceShippingDataControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>
@@ -22147,7 +22131,6 @@
     <Compile Include="Old_App_Code\UCommerceMacroNamespace.cs" />
     <Compile Include="Old_App_Code\UCommerceModule.cs" />
     <Compile Include="Old_App_Code\UCommerceProduct.cs" />
-    <Compile Include="Old_App_Code\UCommerceShippingMethod.cs" />
     <Compile Include="Old_App_Code\UCommerceTransformationMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

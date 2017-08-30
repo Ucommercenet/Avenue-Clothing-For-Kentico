@@ -9,19 +9,6 @@ namespace CMSApp.Old_App_Code.Custom
 {
     public class UCommerceTransformationMethods : MacroMethodContainer
     {
-        //[MacroMethod(typeof(object), "Returns related products for current uCommerce product item.", 0, SpecialParameters = new[] { "ProductSKU" })]
-        //public static object RelatedProducts(EvaluationContext context, params object[] parameters)
-        //{
-        //    switch (parameters.Length)
-        //    {
-        //        case 1:
-        //            return UCommerceContext.GetProductValue(ValidationHelper.GetString(parameters[0], string.Empty), nameof(UCommerceProduct.RelatedProducts));
-
-        //        default:
-        //            throw new NotSupportedException();
-        //    }
-        //}
-
 
         [MacroMethod(typeof(object), "Returns value of specified property for current uCommerce product item.", 1, SpecialParameters = new[] { "ProductSKU" })]
         [MacroMethodParam(0, "PropertyName", typeof(string), "Name of property which value method should return.")]
@@ -41,19 +28,6 @@ namespace CMSApp.Old_App_Code.Custom
                         // take product object from second parameter
                         parameters[2] as UCommerceProduct,
                         ValidationHelper.GetString(parameters[1], string.Empty));
-
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        [MacroMethod(typeof(object), "Returns name of current selected shipping method", 0, SpecialParameters = new[] { "ShippingMethodId" })]
-        public static object GetShippingName(EvaluationContext context, params object[] parameters)
-        {
-            switch (parameters.Length)
-            {
-                case 1:
-                    return UCommerceContext.GetShippingMethodValue(ValidationHelper.GetString(parameters[0], string.Empty), nameof(UCommerceShippingMethod.ShippingMethodName));
 
                 default:
                     throw new NotSupportedException();

@@ -56,38 +56,40 @@ namespace CMSApp.CMSWebParts.Custom
             CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
             var data = new List<UCommerceProduct>();
 
-            if (DataFilteringControl == "2")
+            switch (DataFilteringControl)
             {
-                GetAllProductsRecursive(CurrentCategory);
-                var facetsForQuerying = GetFacets();
-                var filterProducts = CurrentCategory != null ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying) : new List<UCommerce.Documents.Product>();
-                var listOfProducts = new List<Product>();
-              
-                if (filterProducts.Count == 0)
-                {
-                    data = convertToUcommerceProduct(_products);
-                }
-                else
-                {
-                    foreach (var product in filterProducts)
-                    {
-                        listOfProducts.Add(
-                            _products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
-                    }
-                   
-                    data = convertToUcommerceProduct(listOfProducts);
-                }
-            }
-
-            else if (DataFilteringControl == "1")
-            {               
-                _products = Product.All()
+                case "1":
+                    _products = Product.All()
                     .Where(x => x.ProductProperties.Any(
-                        pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && pp.Value == "true")).ToList();               
+                        pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && pp.Value == "true")).ToList();
 
-                data = convertToUcommerceProduct(_products);
+                    data = convertToUcommerceProduct(_products);
+                    break;
+
+                case "2":
+                    if (CurrentCategory != null)
+                        GetAllProductsRecursive(CurrentCategory);
+                    
+                    var facetsForQuerying = GetFacets();
+                    var filterProducts = CurrentCategory != null ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying) : new List<UCommerce.Documents.Product>();
+                    var listOfProducts = new List<Product>();
+
+                    if (filterProducts.Count == 0)
+                    {
+                        data = convertToUcommerceProduct(_products);
+                    }
+                    else
+                    {
+                        foreach (var product in filterProducts)
+                        {
+                            listOfProducts.Add(
+                                _products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
+                        }
+
+                        data = convertToUcommerceProduct(listOfProducts);
+                    }
+                    break;
             }
-
             return data;
         }       
 

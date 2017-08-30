@@ -40,15 +40,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.Literal litAlert;
         
         /// <summary>
-        /// WebPartZonePlaceholder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
-        
-        /// <summary>
         /// btnUpdateShipment control.
         /// </summary>
         /// <remarks>

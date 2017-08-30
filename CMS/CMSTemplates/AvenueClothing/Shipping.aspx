@@ -9,13 +9,7 @@
                 <asp:RadioButtonList ID="rblShippingMethods" runat="server" ClientIDMode="static"></asp:RadioButtonList>
             </div>
             <p id="pPaymentAlert" runat="server" class="alert"><asp:Literal ID="litAlert" runat="server"/></p>
-            <br />
-            <h3>Tester</h3>
-            <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
-                <LayoutTemplate>
-                   <cms:CMSWebPartZone runat="server" ID="MainContentZone"/>
-                </LayoutTemplate>
-            </cms:CMSPagePlaceholder>
+
         </div>
     </div>
     <a href="~/basket/address" class="btn btn-small">Back to Address</a>
