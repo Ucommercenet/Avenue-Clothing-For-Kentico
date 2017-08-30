@@ -15,7 +15,25 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 {
     #region "Properties"
 
-    
+    public string SelectedValue
+    {
+        get
+        {
+            return this.rblShippingMethods.SelectedValue;
+        }
+        set
+        {
+            this.rblShippingMethods.SelectedValue = value;
+        }
+    }    
+
+    public RadioButtonList RadioButtonList
+    {
+        get
+        {
+            return rblShippingMethods;
+        }
+    }
 
     #endregion
 

@@ -27,24 +27,24 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             }
         }
 
-        //public void btnUpdateShipment_Click(object sender, EventArgs e)
-        //{
-        //    var selectedRadioButton = rblShippingMethods.Items.OfType<ListItem>().FirstOrDefault(r => r.Selected);
-        //    int shippingMethodId = 0;
+        public void btnUpdateShipment_Click(object sender, EventArgs e)
+        {
+            var shipping = Page.FindWebPart<CMSWebParts_Ucommerce_Shipping>();
+            int shippingMethodId = 0;
 
-        //    if (rblShippingMethods.Items.Count == 0)
-        //    {
-        //        return;
-        //    }
+            if (shipping == null)
+            {
+                return;
+            }
 
-        //    if (selectedRadioButton != null && !Int32.TryParse(selectedRadioButton.Value, out shippingMethodId))
-        //    {
-        //        return;
-        //    }
+            if (shipping != null && !Int32.TryParse(shipping.SelectedValue, out shippingMethodId))
+            {
+                return;
+            }
 
-        //    TransactionLibrary.CreateShipment(shippingMethodId, Constants.DefaultShipmentAddressName, overwriteExisting: true);
-        //    TransactionLibrary.ExecuteBasketPipeline();
-        //    HttpContext.Current.Response.Redirect("~/basket/payment");
-        //}
+            TransactionLibrary.CreateShipment(shippingMethodId, Constants.DefaultShipmentAddressName, overwriteExisting: true);
+            TransactionLibrary.ExecuteBasketPipeline();
+            HttpContext.Current.Response.Redirect("~/basket/payment");
+        }
     }
 }

@@ -16852,6 +16852,7 @@
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.designer.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\WebPartExtensions.cs" />
     <Compile Include="CMSWebParts\UserContributions\ContributionList.ascx.designer.cs">
       <DependentUpon>ContributionList.ascx</DependentUpon>
     </Compile>
