@@ -104,6 +104,17 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
             {
                 rblPaymentMethods.Items[0].Selected = true;
             }
+
+            if (availableBillingMethods.Count != 0)
+            {
+                pPaymentAlert.Visible = false;
+            }
+            else
+            {
+                string warning =
+                    "WARNING: No payment methods have been configured for " + billingCountry.Name + " within <a href=\"http://ucommerce.net\">UCommerce</a> administration area.";
+                litAlert.Text = warning;
+            }
         }
     }
 

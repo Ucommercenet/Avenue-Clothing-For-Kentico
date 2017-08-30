@@ -6,5 +6,6 @@
             <div class="inline-labels"> 
                 <asp:RadioButtonList ID="rblPaymentMethods" runat="server" ClientIDMode="static" CssClass="payment"></asp:RadioButtonList>
             </div>
+            <p id="pPaymentAlert" runat="server" class="alert"><asp:Literal ID="litAlert" runat="server"/></p>
         </div>
     </div>

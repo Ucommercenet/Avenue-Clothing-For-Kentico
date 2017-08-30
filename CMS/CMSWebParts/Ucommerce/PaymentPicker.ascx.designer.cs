@@ -19,4 +19,22 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.RadioButtonList rblPaymentMethods;
+    
+    /// <summary>
+    /// pPaymentAlert control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl pPaymentAlert;
+    
+    /// <summary>
+    /// litAlert control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal litAlert;
 }
