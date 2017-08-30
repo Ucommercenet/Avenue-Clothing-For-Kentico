@@ -4243,6 +4243,7 @@
     <Content Include="CMSWebParts\Ucommerce\BasketPreview.ascx" />
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\PaymentPicker.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
@@ -16830,6 +16831,13 @@
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.designer.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.cs">
+      <DependentUpon>PaymentPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.designer.cs">
+      <DependentUpon>PaymentPicker.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -16844,6 +16852,7 @@
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.designer.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\WebPartExtensions.cs" />
     <Compile Include="CMSWebParts\UserContributions\ContributionList.ascx.designer.cs">
       <DependentUpon>ContributionList.ascx</DependentUpon>
     </Compile>

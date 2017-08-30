@@ -1127,7 +1127,7 @@ textarea {
 }
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.75rem;
 }
 select,
 textarea,
@@ -5905,5 +5905,8 @@ div.input-append > input.textbox-to-label {
     box-shadow: none;
     color: black;
     padding: 0;
+}
+table.payment > tbody > tr > td > input {
+    margin-bottom: 0.5rem
 }
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
