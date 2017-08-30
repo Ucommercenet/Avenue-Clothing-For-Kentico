@@ -24,7 +24,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
         public void btnContinue_Click(object sender, EventArgs e)
         {
             var paymentPicker = Page.FindWebPart<CMSWebParts_Ucommerce_PaymentPicker>();
-            int methodPaymentId = 0;
+            int methodPaymentId = -1;
 
             if (paymentPicker == null)
             {
@@ -32,6 +32,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             }
 
             if (!Int32.TryParse(paymentPicker.SelectedValue.ToString(), out methodPaymentId))
+            {
+                return;
+            }
+
+            if(methodPaymentId == -1)
             {
                 return;
             }

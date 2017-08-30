@@ -11,6 +11,8 @@ using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce;
 using System.Linq;
+using UCommerce.Infrastructure;
+using System.Collections.Generic;
 
 public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
 {
@@ -65,13 +67,18 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
         {
             var basket = TransactionLibrary.GetBasket().PurchaseOrder;
             var billingCountry = TransactionLibrary.GetShippingInformation().Country;
-            var availableBillingMethods = TransactionLibrary.GetPaymentMethods();
+            var availableBillingMethods = new List<PaymentMethod>();
             var payment = basket.Payments.FirstOrDefault();
             bool showForCurrentCountry = ValidationHelper.GetBoolean(GetValue("ShowForCurrentCountry"), true);
 
             if (showForCurrentCountry)
             {
-                availableBillingMethods = TransactionLibrary.GetPaymentMethods(billingCountry);
+                availableBillingMethods = TransactionLibrary.GetPaymentMethods(billingCountry).ToList();
+            } else
+            {
+                var paymentMethodstest = ObjectFactory.Instance.Resolve<IRepository<PaymentMethod>>();
+                availableBillingMethods = paymentMethodstest.Select(x => !x.Deleted).ToList();
+               
             }
             foreach (PaymentMethod paymentMethod in availableBillingMethods)
             {
@@ -93,7 +100,7 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
                 }
             }
 
-            if (_selectFirst)
+            if (_selectFirst && availableBillingMethods.Count != 0)
             {
                 rblPaymentMethods.Items[0].Selected = true;
             }
