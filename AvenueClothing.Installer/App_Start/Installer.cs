@@ -35,18 +35,19 @@ namespace AvenueClothing.Installer.App_Start
 
         private static bool InstallInternal()
         {
-            
             StopAllExistingKenticoSites();
 
             // Get the avenueClothing site by it's ID and then start it if it's stopped.
             var avenueClothingSiteInfoByGuid = SiteInfoProvider.GetSiteInfoByGUID(Guid.Parse("f7e02dbb-5b44-4d3b-ab21-67913faca0b5"));
 
-            if (avenueClothingSiteInfoByGuid != null && avenueClothingSiteInfoByGuid.Status == SiteStatusEnum.Stopped) { 
+            if (avenueClothingSiteInfoByGuid != null && avenueClothingSiteInfoByGuid.Status == SiteStatusEnum.Stopped)
+            {
                 avenueClothingSiteInfoByGuid.Status = SiteStatusEnum.Running;
 
                 // Switch sitecontext to AvenueClothing as current site.
                 SiteContext.CurrentSite = avenueClothingSiteInfoByGuid;
             }
+
 
             var installer = new ConfigurationInstaller();
             installer.Configure();
