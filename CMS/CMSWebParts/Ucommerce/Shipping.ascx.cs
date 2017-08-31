@@ -10,6 +10,9 @@ using CMS.Helpers;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce;
+using System.Collections.Generic;
+using System.Linq;
+using UCommerce.Infrastructure;
 
 public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 {
@@ -65,7 +68,18 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
             var currentShippingMethod = TransactionLibrary.GetShippingMethod();
             var currentBasket = TransactionLibrary.GetBasket().PurchaseOrder;
             var shippingCountry = TransactionLibrary.GetShippingInformation().Country;
-            var availableShippingMethods = TransactionLibrary.GetShippingMethods(shippingCountry);
+            var availableShippingMethods = new List<ShippingMethod>();
+            bool showForCurrentCountry = ValidationHelper.GetBoolean(GetValue("ShowForCurrentCountry"), true);
+
+            if (showForCurrentCountry)
+            {
+                availableShippingMethods = TransactionLibrary.GetShippingMethods(shippingCountry).ToList();
+            }
+            else
+            {
+                var shippingMethods = ObjectFactory.Instance.Resolve<IRepository<ShippingMethod>>();
+                availableShippingMethods = shippingMethods.Select(x => !x.Deleted).ToList();
+            }
 
             if (availableShippingMethods.Count != 0)
             {
@@ -108,6 +122,8 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 
         SetupControl();
     }
+
+
 
     #endregion
 }
