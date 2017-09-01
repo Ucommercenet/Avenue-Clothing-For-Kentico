@@ -21,6 +21,7 @@ namespace CMSApp.Old_App_Code.Custom
             base.OnInit();
 
             MacroContext.GlobalResolver.SetNamedSourceData("uCommerceProduct", UCommerceMacroNamespace.Instance);
+            MacroContext.GlobalResolver.SetNamedSourceData("uCommerceOrderline", UCommerceMacroNamespace.Instance);
         }
     }
 }

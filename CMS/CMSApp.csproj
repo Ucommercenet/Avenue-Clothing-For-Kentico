@@ -22130,6 +22130,7 @@
     <Compile Include="Old_App_Code\UCommerceContext.cs" />
     <Compile Include="Old_App_Code\UCommerceMacroNamespace.cs" />
     <Compile Include="Old_App_Code\UCommerceModule.cs" />
+    <Compile Include="Old_App_Code\UCommerceOrderline.cs" />
     <Compile Include="Old_App_Code\UCommerceProduct.cs" />
     <Compile Include="Old_App_Code\UCommerceTransformationMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
