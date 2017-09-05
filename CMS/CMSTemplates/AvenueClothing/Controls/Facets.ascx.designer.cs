@@ -13,21 +13,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls {
     public partial class Facets {
         
         /// <summary>
-        /// facetsDiv control.
+        /// WebPartZonePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl facetsDiv;
-        
-        /// <summary>
-        /// rptFacets control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptFacets;
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
     }
 }

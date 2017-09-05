@@ -4242,6 +4242,7 @@
     <Content Include="CMSWebParts\Text\statictext.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketPreview.ascx" />
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\Facets.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\PaymentPicker.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
@@ -16823,6 +16824,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx.designer.cs">
       <DependentUpon>CategoryNavigation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Facets.ascx.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Facets.ascx.designer.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
