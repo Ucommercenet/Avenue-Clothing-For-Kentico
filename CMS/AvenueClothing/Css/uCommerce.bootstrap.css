@@ -5909,4 +5909,7 @@ div.input-append > input.textbox-to-label {
 table.payment > tbody > tr > td > input {
     margin-bottom: 0.5rem
 }
+input.boxborder: select.boxborder {
+    border-color: #e2e2e2;
+}
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

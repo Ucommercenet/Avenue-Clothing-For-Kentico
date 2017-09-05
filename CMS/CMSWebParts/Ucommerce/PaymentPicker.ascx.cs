@@ -76,8 +76,8 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
                 availableBillingMethods = TransactionLibrary.GetPaymentMethods(billingCountry).ToList();
             } else
             {
-                var paymentMethodstest = ObjectFactory.Instance.Resolve<IRepository<PaymentMethod>>();
-                availableBillingMethods = paymentMethodstest.Select(x => !x.Deleted).ToList();
+                var paymentMethods = ObjectFactory.Instance.Resolve<IRepository<PaymentMethod>>();
+                availableBillingMethods = paymentMethods.Select(x => !x.Deleted).ToList();
                
             }
             foreach (PaymentMethod paymentMethod in availableBillingMethods)

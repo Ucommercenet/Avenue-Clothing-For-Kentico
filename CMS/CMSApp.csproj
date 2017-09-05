@@ -4240,6 +4240,7 @@
     <Content Include="CMSWebParts\Text\QRCode.ascx" />
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\AddressPicker.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketPreview.ascx" />
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
@@ -16809,6 +16810,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Text\statictext.ascx.designer.cs">
       <DependentUpon>statictext.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\AddressPicker.ascx.cs">
+      <DependentUpon>AddressPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\AddressPicker.ascx.designer.cs">
+      <DependentUpon>AddressPicker.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketPreview.ascx.cs">
       <DependentUpon>BasketPreview.ascx</DependentUpon>
