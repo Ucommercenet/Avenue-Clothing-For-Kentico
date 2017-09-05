@@ -40,7 +40,7 @@ namespace CMSApp.Old_App_Code.Custom
         {
             Current._orderlines = orderlines;
         }
-        public static object GetOrderlineValue(string orderlineId, string propertyName)
+        public static object GetOrderlineValue(int orderlineId, string propertyName)
         {
             if (!Current._orderlines.Any(p => p.OrderlineId == orderlineId))
                 return null;

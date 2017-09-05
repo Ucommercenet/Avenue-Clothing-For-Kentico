@@ -4241,8 +4241,10 @@
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\ProductDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
@@ -16816,6 +16818,13 @@
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.designer.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.cs">
+      <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.designer.cs">
+      <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\ProductDataSource.ascx.cs">
       <DependentUpon>ProductDataSource.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -16829,6 +16838,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.designer.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.cs">
+      <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.designer.cs">
+      <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx.cs">
       <DependentUpon>UCommerceProductsDataControl.ascx</DependentUpon>

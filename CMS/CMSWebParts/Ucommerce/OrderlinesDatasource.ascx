@@ -2,4 +2,4 @@
 
 <%@ Register Src="~/CMSWebParts/Ucommerce/UCommerceOrderlinesDataControl.ascx" TagPrefix="uCommerce" TagName="OrderlinesDataControl" %>
 
-<uCommerce:OrderlinesDataControl ID="srcProducts" runat="server" />
+<uCommerce:OrderlinesDataControl ID="srcOrderlines" runat="server" />

@@ -35,13 +35,9 @@ public partial class CMSWebParts_Ucommerce_OrderlinesDatasource : CMSAbstractWeb
     protected void SetupControl()
     {
         if (this.StopProcessing)
-        {
-            // Do not process
-        }
-        else
-        {
-            
-        }
+            return;
+
+        srcOrderlines.FilterName = (string)GetValue("WebPartControlID");
     }
 
 

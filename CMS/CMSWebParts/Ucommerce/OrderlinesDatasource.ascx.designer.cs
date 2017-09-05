@@ -12,11 +12,11 @@
 public partial class CMSWebParts_Ucommerce_OrderlinesDatasource {
     
     /// <summary>
-    /// srcProducts control.
+    /// srcOrderlines control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSApp.CMSWebParts.Custom.UCommerceOrderlinesDataControl srcProducts;
+    protected global::CMSApp.CMSWebParts.Custom.UCommerceOrderlinesDataControl srcOrderlines;
 }
