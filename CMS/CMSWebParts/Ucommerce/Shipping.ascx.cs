@@ -64,12 +64,23 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
         }
         else
         {
+            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
 
+            if (viewMode == 6 || viewMode == 3)
+            {
+                return;
+            }
+            if (IsPostBack)
+            {
+                return;
+            }
+
+            bool showForCurrentCountry = ValidationHelper.GetBoolean(GetValue("ShowForCurrentCountry"), true);
             var currentShippingMethod = TransactionLibrary.GetShippingMethod();
             var currentBasket = TransactionLibrary.GetBasket().PurchaseOrder;
             var shippingCountry = TransactionLibrary.GetShippingInformation().Country;
             var availableShippingMethods = new List<ShippingMethod>();
-            bool showForCurrentCountry = ValidationHelper.GetBoolean(GetValue("ShowForCurrentCountry"), true);
+           
 
             if (showForCurrentCountry)
             {
@@ -90,7 +101,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
                 string warning =
                     "WARNING: No payment methods have been configured for " + shippingCountry.Name + " within <a href=\"http://ucommerce.net\">UCommerce</a> administration area.";
                 litAlert.Text = warning;
-                //btnUpdateShipment.Enabled = false;
+
             }
 
             foreach (ShippingMethod shippingMethod in availableShippingMethods)
