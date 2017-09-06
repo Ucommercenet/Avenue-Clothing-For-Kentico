@@ -41,7 +41,7 @@ namespace AvenueClothing.Installer.App_Start
         {
             // Get the avenueClothing site by it's GUID.
             var avenueClothingSiteInfoByGuid = SiteInfoProvider.GetSiteInfoByGUID(Guid.Parse("f7e02dbb-5b44-4d3b-ab21-67913faca0b5"));
-            if (SiteContext.CurrentSite.SiteID == avenueClothingSiteInfoByGuid.SiteID)
+            if (SiteContext.CurrentSite != null)
             {
                 return false;
             }
