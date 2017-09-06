@@ -39,10 +39,15 @@ namespace AvenueClothing.Installer.App_Start
 
         private static bool InstallInternal()
         {
-            StopAllExistingKenticoSites();
-
             // Get the avenueClothing site by it's GUID.
             var avenueClothingSiteInfoByGuid = SiteInfoProvider.GetSiteInfoByGUID(Guid.Parse("f7e02dbb-5b44-4d3b-ab21-67913faca0b5"));
+            if (SiteContext.CurrentSite.SiteID == avenueClothingSiteInfoByGuid.SiteID)
+            {
+                return false;
+            }
+            StopAllExistingKenticoSites();
+
+            
             if (avenueClothingSiteInfoByGuid != null)
             {
                 // Start up the site, which is by default stopped when restoring with Continuous Integration
@@ -60,7 +65,6 @@ namespace AvenueClothing.Installer.App_Start
 
             // Modify URL rewrites to match virtual application URL.
             UpdateUrlRewriteRulesWithCurrentVirtualApplicationName();
-
             var installer = new ConfigurationInstaller();
             installer.Configure();
 
@@ -73,7 +77,7 @@ namespace AvenueClothing.Installer.App_Start
             mediaInstaller.Configure();
 
             DeleteOldUCommerceData();
-
+            
             return true;
         }
 
