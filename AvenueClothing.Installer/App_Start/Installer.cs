@@ -11,6 +11,7 @@ using CMS.SiteProvider;
 using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
 using UCommerce.Installer.Extensions;
+using CMS.DataEngine;
 
 namespace AvenueClothing.Installer.App_Start
 {
@@ -52,7 +53,9 @@ namespace AvenueClothing.Installer.App_Start
             {
                 // Start up the site, which is by default stopped when restoring with Continuous Integration
                 SiteInfoProvider.RunSite(avenueClothingSiteInfoByGuid.SiteName);
-             
+                
+                SettingsKeyInfoProvider.SetValue("CMSFriendlyURLExtension", SiteContext.CurrentSiteName, "");
+
                 // Switch sitecontext to AvenueClothing as current site.
                 SiteContext.CurrentSite = avenueClothingSiteInfoByGuid;
 
