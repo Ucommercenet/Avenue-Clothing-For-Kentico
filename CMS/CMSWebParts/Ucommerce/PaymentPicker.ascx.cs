@@ -49,6 +49,11 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
     /// </summary>
     public override void OnContentLoaded()
     {
+        var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+        if (viewMode == 6 || viewMode == 3)
+        {
+            return;
+        }
         base.OnContentLoaded();
         SetupControl();
     }
@@ -76,8 +81,8 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
                 availableBillingMethods = TransactionLibrary.GetPaymentMethods(billingCountry).ToList();
             } else
             {
-                var paymentMethodstest = ObjectFactory.Instance.Resolve<IRepository<PaymentMethod>>();
-                availableBillingMethods = paymentMethodstest.Select(x => !x.Deleted).ToList();
+                var paymentMethods = ObjectFactory.Instance.Resolve<IRepository<PaymentMethod>>();
+                availableBillingMethods = paymentMethods.Select(x => !x.Deleted).ToList();
                
             }
             foreach (PaymentMethod paymentMethod in availableBillingMethods)

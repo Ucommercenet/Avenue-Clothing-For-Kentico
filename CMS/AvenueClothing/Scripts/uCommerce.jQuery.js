@@ -4,12 +4,17 @@ $( "#checkHideShipping" ).change( function() {
     if (this.checked) {
         $("#shippingDiv").addClass("hide");
         $("#btnBillingAndShippingUpdate").addClass("hide");
-        $( "#btnBillingUpdate" ).removeClass( "hide" );
+        $("#btnBillingUpdate").removeClass("hide");
+        $("#fixit").removeClass("span6");
+        $("#fixit").addClass("span12");
     }
     else {
         $("#shippingDiv").removeClass("hide");
         $("#btnBillingAndShippingUpdate").removeClass("hide");
         $("#btnBillingUpdate").addClass("hide");
+        $("#fixit").removeClass("span12");
+        $("#fixit").addClass("span6");
+        
     }
 } );
 
