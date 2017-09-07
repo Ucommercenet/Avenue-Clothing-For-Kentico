@@ -38,6 +38,7 @@ namespace CMSApp.CMSWebParts.Custom
             var basket = TransactionLibrary.GetBasket().PurchaseOrder;
             _orderlines = basket.OrderLines;
 
+            int iteration = 0;
             foreach(OrderLine o in _orderlines)
             {
                 var product = CatalogLibrary.GetProduct(o.Sku);
@@ -45,7 +46,8 @@ namespace CMSApp.CMSWebParts.Custom
                 var price = new Money(o.Price, currency);
                 var vat = new Money(o.VAT, currency);
                 var total = new Money(o.Total.Value, currency);
-                data.Add(new UCommerceOrderline { OrderlineId = o.OrderLineId, ProductName = o.ProductName, ProductSKU = o.Sku, VariantSKU = o.VariantSku, ProductLink = url , Price = price, Vat = vat, Total = total, Quantity = o.Quantity });
+                data.Add(new UCommerceOrderline { OrderlineId = o.OrderLineId, OrderlineNumber = iteration.ToString(), ProductName = o.ProductName, ProductSKU = o.Sku, VariantSKU = o.VariantSku, ProductLink = url , Price = price, Vat = vat, Total = total, Quantity = o.Quantity });
+                iteration++;
             }
 
             return data;

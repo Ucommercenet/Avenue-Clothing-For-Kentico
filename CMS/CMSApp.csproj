@@ -4241,9 +4241,11 @@
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketTotals.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\ProductDataSource.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\QuantityEditor.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx" />
@@ -16814,9 +16816,17 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketTotals.ascx.cs">
       <DependentUpon>BasketTotals.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketTotals.ascx.designer.cs">
       <DependentUpon>BasketTotals.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx.cs">
+      <DependentUpon>DeleteOrderline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx.designer.cs">
+      <DependentUpon>DeleteOrderline.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
@@ -16838,6 +16848,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\ProductDataSource.ascx.designer.cs">
       <DependentUpon>ProductDataSource.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\QuantityEditor.ascx.cs">
+      <DependentUpon>QuantityEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\QuantityEditor.ascx.designer.cs">
+      <DependentUpon>QuantityEditor.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
