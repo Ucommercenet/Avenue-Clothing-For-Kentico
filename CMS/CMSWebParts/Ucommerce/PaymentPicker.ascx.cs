@@ -49,6 +49,11 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
     /// </summary>
     public override void OnContentLoaded()
     {
+        var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+        if (viewMode == 6 || viewMode == 3)
+        {
+            return;
+        }
         base.OnContentLoaded();
         SetupControl();
     }
