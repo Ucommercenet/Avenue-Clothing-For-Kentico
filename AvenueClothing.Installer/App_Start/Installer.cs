@@ -53,9 +53,8 @@ namespace AvenueClothing.Installer.App_Start
             {
                 // Start up the site, which is by default stopped when restoring with Continuous Integration
                 SiteInfoProvider.RunSite(avenueClothingSiteInfoByGuid.SiteName);
-
-                SettingsKeyInfoProvider.SetValue("CMSFriendlyURLExtensions", SiteContext.CurrentSiteName, "");
-                SettingsKeyInfoProvider.SetValue("CMSFilesFriendlyURLExtension", SiteContext.CurrentSiteName, ".aspx;");
+                
+                SettingsKeyInfoProvider.SetValue("CMSFriendlyURLExtension", SiteContext.CurrentSiteName, "");
 
                 // Switch sitecontext to AvenueClothing as current site.
                 SiteContext.CurrentSite = avenueClothingSiteInfoByGuid;
