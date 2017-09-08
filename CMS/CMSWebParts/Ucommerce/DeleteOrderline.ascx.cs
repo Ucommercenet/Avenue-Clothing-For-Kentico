@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
+using UCommerce.Api;
+using System.Linq;
 
 public partial class CMSWebParts_Ucommerce_DeleteOrderline : CMSAbstractWebPart
 {
@@ -50,9 +52,8 @@ public partial class CMSWebParts_Ucommerce_DeleteOrderline : CMSAbstractWebPart
         }
         else
         {
-            string orderlineNumber = OrderlineNumber;
-            //string orderlineNumber = ValidationHelper.GetString(GetValue("OrderlineNumber"), "0");
-            btnRemoveLine.Attributes.Add("orderlinenumber", orderlineNumber);
+            //string orderlineNumber = OrderlineNumber;
+            //btnRemoveLine.Attributes.Add("orderlinenumber", orderlineNumber);
         }
     }
 
@@ -67,27 +68,36 @@ public partial class CMSWebParts_Ucommerce_DeleteOrderline : CMSAbstractWebPart
         SetupControl();
     }
 
-    //public void btnUpdateQuantities_Click(object sender, EventArgs e)
-    //{
-    //    var senderButton = (Button)sender;
-    //    var orderLineNumber = senderButton.Attributes["orderlinenumber"];
-    //    var repeaterItem = (RepeaterItem)senderButton.NamingContainer;
-    //    TextBox txtQuantity = (TextBox)repeaterItem.FindControl("txtQuantity" + orderLineNumber);
+    public void btnRemoveLine_Click(object sender, EventArgs e)
+    {
+        var senderButton = (Button)sender;
+        var orderLineNumber = OrderlineNumber;
 
-    //    var didItSucceed = UpdateCartLine(orderLineNumber, txtQuantity.Text);
+        var didItSucceed = UpdateCartLine(orderLineNumber, "0");
 
-    //    Response.Redirect(Request.RawUrl);
-    //}
+        Response.Redirect(Request.RawUrl);
+    }
 
-    //public void btnRemoveLine_Click(object sender, EventArgs e)
-    //{
-    //    var senderButton = (Button)sender;
-    //    var orderLineNumber = senderButton.Attributes["orderlinenumber"];
+    public static bool? UpdateCartLine(string lineNumberString, string quantityString)
+    {
+        var basket = TransactionLibrary.GetBasket().PurchaseOrder;
+        int lineNumber = 0;
+        int quantity = 0;
 
-    //    var didItSucceed = UpdateCartLine(orderLineNumber, "0");
+        if (!Int32.TryParse(lineNumberString, out lineNumber) || !Int32.TryParse(quantityString, out quantity))
+        {
+            //if we cant parse the input to ints, we cant go on
+            return false;
+        }
 
-    //    Response.Redirect(Request.RawUrl);
-    //}
+        var listOfOrderLineIds = basket.OrderLines.Select(x => x.OrderLineId).ToList();
+        var currentOrderLineId = listOfOrderLineIds[lineNumber];
+
+        TransactionLibrary.UpdateLineItem(currentOrderLineId, quantity);
+
+        TransactionLibrary.ExecuteBasketPipeline();
+        return true;
+    }
 
     #endregion
 }
