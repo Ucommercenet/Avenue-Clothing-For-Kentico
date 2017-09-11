@@ -64,9 +64,7 @@ public partial class CMSWebParts_Ucommerce_QuantityEditor : CMSAbstractWebPart
         }
         else
         {
-            var txtQuantity = (TextBox)FindControl("txtQuantity");
-            int quantity = Quantity;
-            txtQuantity.Text = quantity.ToString();
+
         }
     }
 
@@ -81,12 +79,18 @@ public partial class CMSWebParts_Ucommerce_QuantityEditor : CMSAbstractWebPart
         SetupControl();
     }
 
+    protected override void OnPreRender(EventArgs e)
+    {
+        var txtQuantity = (TextBox)FindControl("txtQuantity");
+        int quantity = Quantity;
+        txtQuantity.Text = quantity.ToString();
+    }
+
     public void btnUpdateQuantities_Click(object sender, EventArgs e)
     {
         var senderButton = (Button)sender;
         var orderLineNumber = OrderlineNumber;
-        var repeaterItem = (RepeaterItem)senderButton.NamingContainer;
-        TextBox txtQuantity = (TextBox)repeaterItem.FindControl("txtQuantity" + orderLineNumber);
+        TextBox txtQuantity = (TextBox)FindControl("txtQuantity");
 
         var didItSucceed = UpdateCartLine(orderLineNumber, txtQuantity.Text);
 

@@ -7,8 +7,6 @@
     <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
         <LayoutTemplate>
             <cms:CMSWebPartZone runat="server" ID="BasketContentZone"/>
-            <%--<uc1:DeleteOrderline runat="server" ID="DeleteOrderline" />--%>
-
         </LayoutTemplate>
     </cms:CMSPagePlaceholder>
     <table class="table table-striped" id="cart">

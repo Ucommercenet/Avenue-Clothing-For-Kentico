@@ -52,8 +52,7 @@ public partial class CMSWebParts_Ucommerce_DeleteOrderline : CMSAbstractWebPart
         }
         else
         {
-            //string orderlineNumber = OrderlineNumber;
-            //btnRemoveLine.Attributes.Add("orderlinenumber", orderlineNumber);
+
         }
     }
 
