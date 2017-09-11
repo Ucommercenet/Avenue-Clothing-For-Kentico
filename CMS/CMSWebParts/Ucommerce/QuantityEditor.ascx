@@ -4,7 +4,5 @@
 
     <asp:TextBox ClientIDMode="static" CssClass="qty" ID="txtQuantity" runat="server" value="13"></asp:TextBox>
     <asp:button runat="server" id="btnUpdateQuantities" ClientIDMode="static" OnClick="btnUpdateQuantities_Click" name="update-basket-line" class="icon-refresh update-cart-button"></asp:button>
-    <%--<input type="text" ClientIDMode="static" id="txtQuantity" class="qty" runat="server" />--%>
-    <%--<button onclick="btnUpdateQuantities_Click" name="update-basket-line" class="icon-refresh update-cart-button" />--%>
 
 </div>
