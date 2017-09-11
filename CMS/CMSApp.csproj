@@ -3934,7 +3934,6 @@
     <Content Include="CMSTemplates\AvenueClothing\ConfirmationEmail.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Catalog.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx" />
-    <Content Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Header\Searchbar.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\HighlightedProducts.ascx" />
@@ -4243,6 +4242,7 @@
     <Content Include="CMSWebParts\Ucommerce\AddressPicker.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketPreview.ascx" />
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\Facets.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\PaymentPicker.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
@@ -15290,13 +15290,6 @@
     <Compile Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx.designer.cs">
       <DependentUpon>CategoryNavigation.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx.cs">
-      <DependentUpon>Facets.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx.designer.cs">
-      <DependentUpon>Facets.ascx</DependentUpon>
-    </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -16832,6 +16825,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx.designer.cs">
       <DependentUpon>CategoryNavigation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Facets.ascx.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Facets.ascx.designer.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>

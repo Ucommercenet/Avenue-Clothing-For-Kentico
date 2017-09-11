@@ -5906,8 +5906,14 @@ div.input-append > input.textbox-to-label {
     color: black;
     padding: 0;
 }
+
 table.payment > tbody > tr > td > input {
     margin-bottom: 0.5rem
+}
+
+.facets {
+    margin-bottom: 0.4rem;
+    color: #767676
 }
 input.boxborder: select.boxborder {
     border-color: #e2e2e2;
