@@ -13,13 +13,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
     public partial class Catalog {
         
         /// <summary>
-        /// Facets control.
+        /// WebPartZonePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.Facets Facets;
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
         
         /// <summary>
         /// CategoryImage control.
