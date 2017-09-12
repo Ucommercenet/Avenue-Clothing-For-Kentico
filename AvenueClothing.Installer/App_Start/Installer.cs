@@ -92,15 +92,16 @@ namespace AvenueClothing.Installer.App_Start
             webConfig.Load(webConfigPath);
 
             string virtualApplicationName = HttpContext.Current.Request.ApplicationPath.Replace("/", String.Empty);
-
-            for (int i = 1; i < 5; i++)
+            
+            for (int i = 1; i <= 4; i++)
             {
                 XmlNode node =
-                    webConfig.SelectSingleNode(
-                        String.Format("configuration/system.webServer/rewrite/rules/rule[{0}]/action", i));
+                    webConfig.SelectSingleNode(String.Format("configuration/system.webServer/rewrite/rules/rule[{0}]/action", i));
+                var oldVirtualApplicationName = node.Attributes["url"].Value.Split('/')[0];
+
                 if (node != null)
                 {
-                    node.Attributes["url"].Value = node.Attributes["url"].Value.Replace("kentico", virtualApplicationName);
+                    node.Attributes["url"].Value = node.Attributes["url"].Value.Replace("/" + oldVirtualApplicationName + "/", "/" + virtualApplicationName + "/");
                 }
             }
 
