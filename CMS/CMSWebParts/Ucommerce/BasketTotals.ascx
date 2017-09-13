@@ -37,11 +37,18 @@
         </td>
         <td>&nbsp;</td>
     </tr>
-    <tr>
+    <tr id="totalOrder" runat="server">
         <td>Order total:</td>
         <td class="money order-total">
             <asp:literal runat="server" id="litTotal"></asp:literal>
         </td>
         <td>&nbsp;</td>
+    </tr>
+    <tr id="emptyBasket" runat="server">
+        <td >
+            <div class="alert alert-info alert-basket">
+                <p>Your cart is empty. Please return to our store and add some items.</p>
+            </div>
+        </td>
     </tr>
     
