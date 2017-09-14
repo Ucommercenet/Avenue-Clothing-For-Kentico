@@ -26,6 +26,12 @@ namespace AvenueClothing.Installer.App_Start
         private static bool _installationWasRun = false;
         public void PreStart(object sender, EventArgs e)
         {
+            bool f = false;
+            if (f)
+            {
+                var mediaInstaller = new MediaInstaller();
+                mediaInstaller.Configure();
+            }
             if (!_installationWasRun)
             {
                 lock (_padLock)

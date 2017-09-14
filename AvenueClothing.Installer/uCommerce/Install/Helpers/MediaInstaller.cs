@@ -19,23 +19,25 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
         public void Configure()
         {
-            if(MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) != null) {
+            if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) != null)
+            {
+                AddUcommerceProductImages(MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName).LibraryID);
                 return;
             }
-            
+
             CMS.DataEngine.CMSApplication.Init();
             var libraryId = CreateMediaLibrary();
             CreateMediaLibraryFolders(libraryId);
             CreateAndUploadMediaFiles(libraryId);
-            //AddUcommerceProductImages(libraryId);
+            AddUcommerceProductImages(libraryId);
         }
 
-		//TO DO
+        //TO DO
         private void AddUcommerceProductImages(int libraryId)
         {
             var products = Product.All().ToList();
 
-            foreach(var product in products)
+            foreach (var product in products)
             {
                 if (product.IsVariant == true)
                     continue;
@@ -47,12 +49,12 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
                 //    continue;
 
                 var media = MediaFileInfoProvider.GetMediaFiles().ToList();
-                foreach(var medium in media)
+                foreach (var medium in media)
                 {
-                    if(medium.FileName == product.Sku)
+                    if (medium.FileName == product.Sku)
                     {
-                        product.PrimaryImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothingMVC/media/" + medium.FilePath));
-                        product.ThumbnailImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothingMVC/media/" + medium.FilePath));
+                        product.PrimaryImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
+                        product.ThumbnailImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
                         product.Save();
                     }
                 }
