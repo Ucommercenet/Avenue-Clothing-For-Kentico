@@ -21,7 +21,9 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
         {
             if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) != null)
             {
-                AddUcommerceProductImages(MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName).LibraryID);
+                var currentLibraryId = MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName).LibraryID;
+                AddUcommerceProductImages(currentLibraryId);
+                AddUcommerceCategoryImages(currentLibraryId);
                 return;
             }
 
@@ -30,6 +32,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
             CreateMediaLibraryFolders(libraryId);
             CreateAndUploadMediaFiles(libraryId);
             AddUcommerceProductImages(libraryId);
+            AddUcommerceCategoryImages(libraryId);
         }
 
         //TO DO
@@ -41,12 +44,6 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
             {
                 if (product.IsVariant == true)
                     continue;
-
-                //if (!String.IsNullOrWhiteSpace(product.ThumbnailImageMediaId) && !String.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
-                //    continue;
-
-                //if (!String.IsNullOrWhiteSpace(product.VariantSku))
-                //    continue;
 
                 var media = MediaFileInfoProvider.GetMediaFiles().ToList();
                 foreach (var medium in media)
@@ -60,6 +57,23 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
                 }
             }
 
+        }
+
+        private void AddUcommerceCategoryImages(int libraryId)
+        {
+            var categories = Category.All().ToList();
+            foreach (var category in categories)
+            {
+                var media = MediaFileInfoProvider.GetMediaFiles().ToList();
+                foreach (var medium in media)
+                {
+                    if (medium.FileName == category.Name)
+                    {
+                        category.ImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
+                        category.Save();
+                    }
+                }
+            }
         }
 
         private void CreateAndUploadMediaFiles(int libraryId)
