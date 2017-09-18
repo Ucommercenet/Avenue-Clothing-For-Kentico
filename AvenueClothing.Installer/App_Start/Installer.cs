@@ -97,7 +97,7 @@ namespace AvenueClothing.Installer.App_Start
             {
                 XmlNode node =
                     webConfig.SelectSingleNode(String.Format("configuration/system.webServer/rewrite/rules/rule[{0}]/action", i));
-                var oldVirtualApplicationName = node.Attributes["url"].Value.Split('/')[0];
+                var oldVirtualApplicationName = node.Attributes["url"].Value.Split('/')[1];
 
                 if (node != null)
                 {
