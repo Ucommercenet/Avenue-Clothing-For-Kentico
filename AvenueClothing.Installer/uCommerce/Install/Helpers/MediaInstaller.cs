@@ -19,24 +19,20 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
         public void Configure()
         {
-            if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) != null)
+            if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) == null)
             {
-                var currentLibraryId = MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName).LibraryID;
-                AddUcommerceProductImages(currentLibraryId);
-                AddUcommerceCategoryImages(currentLibraryId);
-                return;
+                CMS.DataEngine.CMSApplication.Init();
+                var libraryId = CreateMediaLibrary();
+                CreateMediaLibraryFolders(libraryId);
+                CreateAndUploadMediaFiles(libraryId);
             }
 
-            CMS.DataEngine.CMSApplication.Init();
-            var libraryId = CreateMediaLibrary();
-            CreateMediaLibraryFolders(libraryId);
-            CreateAndUploadMediaFiles(libraryId);
-            AddUcommerceProductImages(libraryId);
-            AddUcommerceCategoryImages(libraryId);
+            AddUcommerceProductImages();
+            AddUcommerceCategoryImages();
         }
 
         //TO DO
-        private void AddUcommerceProductImages(int libraryId)
+        private void AddUcommerceProductImages()
         {
             var products = Product.All().ToList();
 
@@ -59,7 +55,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
         }
 
-        private void AddUcommerceCategoryImages(int libraryId)
+        private void AddUcommerceCategoryImages()
         {
             var categories = Category.All().ToList();
             foreach (var category in categories)
