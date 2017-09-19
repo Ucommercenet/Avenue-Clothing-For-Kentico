@@ -37,11 +37,6 @@ namespace AvenueClothing.Installer.App_Start
                     }
                 }
             }
-            if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) == null)
-            {
-                var mediaInstaller = new MediaInstaller();
-                mediaInstaller.Configure();
-            }
         }
 
         private static bool InstallInternal()
