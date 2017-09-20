@@ -98,7 +98,10 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
 			foreach (var file in fromPath.GetFiles())
 			{
-				file.CopyTo(imagesDirectory.FullName + "/" + file.Name);
+                if (System.IO.File.Exists(imagesDirectory.FullName + "/" + file.Name) == false)
+                {
+                    file.CopyTo(imagesDirectory.FullName + "/" + file.Name);
+                }
 			}
 		}
 
