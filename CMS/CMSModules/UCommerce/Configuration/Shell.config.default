@@ -274,5 +274,13 @@
                service="UCommerce.Kentico.Ems.IFindAbandonedBaskets, UCommerce.Kentico"
                type="UCommerce.Kentico.Ems.FindAbandonedBasketService, UCommerce.Kentico" />
     
+    <component id="Kentico.FindPurchaseOrderByGuid"
+               service="UCommerce.Kentico.Macros.IFindPurchaseOrdersByOrderGuid, UCommerce.Kentico"
+               type="UCommerce.Kentico.Macros.Impl.FindPurchaseOrdersByOrderGuid, UCommerce.Kentico"/>
+
+    <component id="Kentico.FindBasketByGuid"
+               service="UCommerce.Kentico.Macros.IFindBasketsByOrderGuid, UCommerce.Kentico"
+               type="UCommerce.Kentico.Macros.Impl.FindBasketsByOrderGuid, UCommerce.Kentico"/>
+
   </components>
 </configuration>
