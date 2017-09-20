@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
+using System.IO;
 using AvenueClothing.Installer.uCommerce.Install.Helpers;
 using CMS.Modules;
 using CMS.SiteProvider;
@@ -12,6 +13,7 @@ using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
 using UCommerce.Installer.Extensions;
 using CMS.DataEngine;
+using System.Web.Hosting;
 
 namespace AvenueClothing.Installer.App_Start
 {
@@ -23,16 +25,16 @@ namespace AvenueClothing.Installer.App_Start
         }
 
         private static object _padLock = new object();
-        private static bool _installationWasRun = false;
         public void PreStart(object sender, EventArgs e)
         {
-            if (!_installationWasRun)
-            {
+
+            if (!PreApplicationStartCode._installationWasRun)
+            {              
                 lock (_padLock)
                 {
-                    if (!_installationWasRun)
+                    if (!PreApplicationStartCode._installationWasRun)
                     {
-                        _installationWasRun = InstallInternal();
+                        InstallInternal();
                     }
                 }
             }
@@ -80,7 +82,12 @@ namespace AvenueClothing.Installer.App_Start
             mediaInstaller.Configure();
 
             DeleteOldUCommerceData();
-            
+
+            string path = HostingEnvironment.MapPath("~/bin/uCommerce/installWasRun.txt");
+
+            File.WriteAllText(path, "Installation has run");
+            PreApplicationStartCode._installationWasRun = true;
+
             return true;
         }
 

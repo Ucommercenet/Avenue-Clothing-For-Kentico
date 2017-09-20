@@ -67,6 +67,11 @@
 
 						<!-- Recalculate tax for order lines based on reduced unit prices -->
 						<value>${Basket.CalculateOrderLineTax}</value>
+            
+            <!-- Calculate payment fee, tax and amount  -->
+            <value>${Basket.CalculatePaymentFee}</value>
+            <value>${Basket.CalculatePaymentTax}</value>
+            <value>${Basket.CalculatePaymentAmount}</value>
 
 						<!-- Calculate totals for order lines and order -->
 						<value>${Basket.CalculateOrderLinesTotals}</value>
@@ -191,5 +196,18 @@
 		<component id="Basket.Save"
 				   service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
 				   type="UCommerce.Pipelines.Common.SavePurchaseOrderTask, UCommerce.Pipelines" />
+  
+	  <component id="Basket.CalculatePaymentFee"
+           service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+	         type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculatePaymentFeeTask, UCommerce.Pipelines" />
+    
+	  <component id="Basket.CalculatePaymentTax"
+	         service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+	         type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculatePaymentTaxTask, UCommerce.Pipelines" />
+    
+	  <component id="Basket.CalculatePaymentAmount"
+	         service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+	         type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculatePaymentAmountTask, UCommerce.Pipelines" />
+
 	</components>
 </configuration>

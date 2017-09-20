@@ -27,8 +27,14 @@
 						<!-- Recalculate tax rate for order lines. -->
 						<value>${Order.CalculateOrderLineTaxRate}</value>
 
+					  <!-- Calculate shipping fees and tax -->
+					  <value>${Order.CalculateShippingCostForShipments}</value>
+					  <value>${Order.CalculateShippingTaxForShipments}</value>
+					  <value>${Order.CalculateShippingTotalForShipments}</value>
+            
 						<!-- Calculate totals for order lines and order -->
 						<value>${Order.CalculateOrderLinesTotals}</value>
+					  <value>${Order.CalculateShippingTotal}</value>
 						<value>${Order.CalculatePaymentTotal}</value>
 
 						<value>${Order.CalculateVATTotal}</value>
@@ -61,6 +67,22 @@
 		<component id="Order.CalculateOrderLinesTotals"
 				   service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
 				   type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculateOrderLineTotalsTask, UCommerce.Pipelines" />
+
+    <component id="Order.CalculateShippingTaxForShipments"
+               service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+               type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculateShippingTaxForShipmentsTask, UCommerce.Pipelines" />
+
+	  <component id="Order.CalculateShippingCostForShipments"
+	             service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+	             type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculateShippingCostForShipmentsTask, UCommerce.Pipelines" />
+
+	  <component id="Order.CalculateShippingTotalForShipments"
+	             service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+	             type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculateShippingTotalForShipmentsTask, UCommerce.Pipelines" />
+
+    <component id="Order.CalculateShippingTotal"
+               service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+               type="UCommerce.Pipelines.Transactions.Baskets.Basket.CalculateShippingTotalTask, UCommerce.Pipelines" />
 		
 		<component id="Order.CalculatePaymentTotal"
 				   service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
