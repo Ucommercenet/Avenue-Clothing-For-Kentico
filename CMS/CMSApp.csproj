@@ -4240,6 +4240,7 @@
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
     <Content Include="CMSWebParts\Ucommerce\AddressPicker.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\BannerWithText.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketPreview.ascx" />
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Facets.ascx" />
@@ -16811,6 +16812,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\AddressPicker.ascx.designer.cs">
       <DependentUpon>AddressPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\BannerWithText.ascx.cs">
+      <DependentUpon>BannerWithText.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\BannerWithText.ascx.designer.cs">
+      <DependentUpon>BannerWithText.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketPreview.ascx.cs">
       <DependentUpon>BasketPreview.ascx</DependentUpon>

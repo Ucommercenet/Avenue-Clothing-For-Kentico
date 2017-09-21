@@ -1,0 +1,34 @@
+﻿<cms_macrorule version="10.0">
+  <NewDataSet>
+    <cms_macrorule>
+      <MacroRuleID>459</MacroRuleID>
+      <MacroRuleName>UcommerceEmptyBasket</MacroRuleName>
+      <MacroRuleText>Current visitor {_has} an empty basket.</MacroRuleText>
+      <MacroRuleParameters>&lt;form version="2"&gt;&lt;field allowempty="true" column="_has" columnprecision="0" columnsize="100" columntype="text" guid="5b97bf40-21bd-4f7d-bffb-898db4eee117" publicfield="false" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;;has&lt;/defaultvalue&gt;&lt;fieldcaption&gt;select operation&lt;/fieldcaption&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;MacroNegationOperator&lt;/controlname&gt;&lt;EditText&gt;false&lt;/EditText&gt;&lt;Options&gt;;has
+!;does not have&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</MacroRuleParameters>
+      <MacroRuleLastModified>2017-09-18T15:50:18.1763686+02:00</MacroRuleLastModified>
+      <MacroRuleGUID>c6b0c165-b1a9-456e-b8a9-7120a29e49f3</MacroRuleGUID>
+      <MacroRuleCondition> {_has}Ucommerce.IsBasketEmpty()</MacroRuleCondition>
+      <MacroRuleDisplayName>Ucommerce Empty Basket</MacroRuleDisplayName>
+      <MacroRuleIsCustom>true</MacroRuleIsCustom>
+      <MacroRuleRequiresContext>false</MacroRuleRequiresContext>
+      <MacroRuleDescription>Verifies if current user has any items in the Ucommerce basket.</MacroRuleDescription>
+      <MacroRuleEnabled>true</MacroRuleEnabled>
+    </cms_macrorule>
+    <cms_macrorule>
+      <MacroRuleID>460</MacroRuleID>
+      <MacroRuleName>UserHasSpecificProductInUcommerceBasket</MacroRuleName>
+      <MacroRuleText>Current visitor {_has} product {sku} in basket</MacroRuleText>
+      <MacroRuleParameters>&lt;form version="2"&gt;&lt;field allowempty="true" column="_has" columnprecision="0" columnsize="100" columntype="text" guid="41770b4c-7f07-4112-8c51-eb1134dcddb8" publicfield="false" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;;has&lt;/defaultvalue&gt;&lt;fieldcaption&gt;select operation&lt;/fieldcaption&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;MacroNegationOperator&lt;/controlname&gt;&lt;EditText&gt;false&lt;/EditText&gt;&lt;Options&gt;;has
+!;does not have&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="sku" columnsize="1000" columntype="text" guid="c4faa00a-b24f-4427-977d-384e8457e572" publicfield="false" reftype="Required" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Enter SKU&lt;/fieldcaption&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</MacroRuleParameters>
+      <MacroRuleLastModified>2017-09-18T15:52:02.8006172+02:00</MacroRuleLastModified>
+      <MacroRuleGUID>865e942d-975c-4689-a89f-d1d48706a746</MacroRuleGUID>
+      <MacroRuleCondition> {_has}Ucommerce.BasketContainsSku("{sku}")</MacroRuleCondition>
+      <MacroRuleDisplayName>User has specific product in Ucommerce basket</MacroRuleDisplayName>
+      <MacroRuleIsCustom>true</MacroRuleIsCustom>
+      <MacroRuleRequiresContext>false</MacroRuleRequiresContext>
+      <MacroRuleDescription>User has specific product in Ucommerce basket</MacroRuleDescription>
+      <MacroRuleEnabled>true</MacroRuleEnabled>
+    </cms_macrorule>
+  </NewDataSet>
+</cms_macrorule>

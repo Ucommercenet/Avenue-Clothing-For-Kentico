@@ -93,6 +93,32 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     padding: 3px 14px;
     border: 0 none;
 }
+
+.banner-image { 
+   position: relative; 
+   width: 100%; 
+   margin-bottom: 1rem;
+}
+
+.banner-image h2 { 
+    position: absolute;
+    top: 80px;
+    left: 0;
+    padding: 20px;
+    width: 70%;
+}
+.banner-image p { 
+    position: absolute;
+    top: 125px;
+    left: 0;
+    padding: 20px;
+    width: 70%;
+}
+    .banner-image img {
+        width: 100%;
+    }
+
+
 .btn {
     padding: 3px 14px;
     color: #fff;
