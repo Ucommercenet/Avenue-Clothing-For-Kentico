@@ -14,24 +14,24 @@ body {
 }
 
 input.checkbox {
-	border: 0 none;
-	display: block;
-	padding-left: 20px;
-	background: transparent url('../img/uCommerce/checkbox_empty.png') left center no-repeat;
-	cursor: pointer;
+    border: 0 none;
+    display: block;
+    padding-left: 20px;
+    background: transparent url('../img/uCommerce/checkbox_empty.png') left center no-repeat;
+    cursor: pointer;
 }
 
 input.checkbox:hover {
-	background-image: url('../img/uCommerce/checkbox_empty_hover.png');
+    background-image: url('../img/uCommerce/checkbox_empty_hover.png');
 }
 
 
 input.checkbox.checked {
-	background-image: url('../img/uCommerce/checkbox_checked.png');
+    background-image: url('../img/uCommerce/checkbox_checked.png');
 }
 
 input.checkbox.checked:hover {
-	background-image: url('../img/uCommerce/checkbox_checked_hover.png');
+    background-image: url('../img/uCommerce/checkbox_checked_hover.png');
 }
 
 
@@ -172,17 +172,17 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 .btn.btn-arrow-right {
-	background-image: url(../img/uCommerce/white-arrow-right.png);
-	background-position: right center;
-	background-repeat: no-repeat;
-	padding-right: 30px;
+    background-image: url(../img/uCommerce/white-arrow-right.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 30px;
 }
 
 .btn.update-basket {
-	background-image: url(../img/uCommerce/refresh.png);
-	background-position: left center;
-	background-repeat: no-repeat;
-	padding-left: 26px;
+    background-image: url(../img/uCommerce/refresh.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 26px;
 }
 
 
@@ -223,6 +223,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 /* Common
 -------------------------------------------*/
+.margin-top {
+    margin-top: 3%;
+}
 #search-form {
 }
     #search-form .btn {
@@ -291,15 +294,15 @@ td.money {
     text-align: center;
     background-color: #F5F5F5;
     margin-bottom:10px;
-	position: relative;
-	padding-bottom: 40px;
+    position: relative;
+    padding-bottom: 40px;
 }
 
 .product-list .product .btn-group.view-details {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 .product-list .product:nth-child(3n+1) {
