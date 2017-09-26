@@ -35,7 +35,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 return;
             }
-
+            
             if(methodPaymentId == -1)
             {
                 return;

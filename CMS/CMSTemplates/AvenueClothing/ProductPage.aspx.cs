@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
@@ -8,7 +9,8 @@ using CMS.UIControls;
 using UCommerce.Runtime;
 using UCommerce.EntitiesV2;
 using UCommerce.Api;
-using UCommerce.Kentico.Content;
+using UCommerce.Content;
+using UCommerce.Infrastructure;
 using UCommerce.Pipelines;
 
 namespace CMSApp.CMSTemplates.AvenueClothing
@@ -26,11 +28,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 return;
             }
+            
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
             if (!string.IsNullOrWhiteSpace(currentProduct.ThumbnailImageMediaId))
             {
-                var imageService = new ImageService();
+                var imageService = ObjectFactory.Instance.Resolve<IImageService>();
                 var image = imageService.GetImage(currentProduct.ThumbnailImageMediaId);
 
                 imgTop.ImageUrl = image.Url;
@@ -47,10 +50,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             litPrice.Text = price.YourPrice.Amount.ToString();
             litTax.Text = price.YourTax.ToString();
-            Page.ClientScript.RegisterStartupScript(
-                GetType(),
-                "UCommerce.DemoStore.productpage",
-                "<script src=\"/scripts/UCommerce.DemoStore.productpage.js\"></script>");
+       
 
             IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> uniqueVariants =
                 from v in currentProduct.Variants.SelectMany(p => p.ProductProperties)
@@ -95,12 +95,9 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             productSku.Text = currentProduct.Sku;
 
-            //TODO: We had some problems with this method, so its just hardcoded to use danish.
-            //var productDescription = currentProduct.GetDescription(SiteContext.Current.CurrentCulture.ToString());
-            var productDescription = currentProduct.GetDescription("da");
 
-            litDescription.Text = productDescription.LongDescription;
-            litProductSmallDesc.Text = productDescription.ShortDescription;
+            litDescription.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
+            litProductSmallDesc.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).ShortDescription;
 
             if (currentProduct.ProductReviews.Any())
             {
@@ -168,11 +165,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 {
                     if (rating >= i)
                     {
-                        returnValue += "<i class=\"icon-star\"></i>";
+                        returnValue += "<i class=\"fa fa-star\"></i>";
                     }
                     else
                     {
-                        returnValue += "<i class=\"icon-start-empty\"></i>";
+                        returnValue += "<i class=\"fa fa-star-o\"></i>";
                     }
                 }
             }
@@ -191,14 +188,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 {
                     if (rating >= i)
                     {
-                        returnValue += "<i class=\"icon-star\"></i>";
+                        returnValue += "<i class=\"fa fa-star\"></i>";
                     }
                     else
                     {
-                        returnValue += "<i class=\"icon-start-empty\"></i>";
+                        returnValue += "<i class=\"fa fa-star-o\"></i>";
                     }
                 }
             }
+            
 
             returnValue += "</span>";
             return returnValue;
@@ -255,6 +253,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 Response.Redirect(Request.RawUrl);
             }
+
             TransactionLibrary.AddToBasket(1, variant.Sku, variant.VariantSku);
             Response.Redirect(Request.RawUrl);
         }
@@ -266,8 +265,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             var properties = keys.Select(k => new { Key = k.Replace(variantPrefix, string.Empty), Value = request.Form[k] }).ToList();
 
             Product variant = null;
-
-            // If there are variant values we'll need to find the selected variant
+            
             if (product.Variants.Any() && properties.Any())
             {
                 variant = product.Variants.FirstOrDefault(v => v.ProductProperties
@@ -276,7 +274,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                                  && !pp.ProductDefinitionField.Deleted)
                     .All(p => properties.Any(kv => kv.Key.Equals(p.ProductDefinitionField.Name, StringComparison.InvariantCultureIgnoreCase) && kv.Value.Equals(p.Value, StringComparison.InvariantCultureIgnoreCase))));
             }
-            // Only use the current product where there are no variants
             else if (!product.Variants.Any())
             {
                 variant = product;
@@ -335,6 +332,8 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             product.AddProductReview(review);
 
             PipelineFactory.Create<ProductReview>("ProductReview").Execute(review);
+            Response.Redirect(Request.RawUrl);
+
         }
     }
 }

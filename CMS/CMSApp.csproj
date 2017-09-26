@@ -1166,6 +1166,7 @@
     <Content Include="App_Themes\PersonalSite\Images\UniGrid\Prev.gif" />
     <Content Include="App_Themes\PersonalSite\Images\UniGrid\PrevOver.gif" />
     <Content Include="App_Themes\PersonalSite\Skin.css" />
+    <Content Include="AvenueClothing\Css\font-awesome.min.css" />
     <Content Include="AvenueClothing\Css\uCommerce.bootstrap-responsive.css" />
     <Content Include="AvenueClothing\Css\uCommerce.bootstrap.css" />
     <Content Include="AvenueClothing\Css\uCommerce.demostore.css" />
