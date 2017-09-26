@@ -19,45 +19,57 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
         public void Configure()
         {
-            if(MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) != null) {
-                return;
+            if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) == null)
+            {
+                CMS.DataEngine.CMSApplication.Init();
+                var libraryId = CreateMediaLibrary();
+                CreateMediaLibraryFolders(libraryId);
+                CreateAndUploadMediaFiles(libraryId);
             }
-            
-            CMS.DataEngine.CMSApplication.Init();
-            var libraryId = CreateMediaLibrary();
-            CreateMediaLibraryFolders(libraryId);
-            CreateAndUploadMediaFiles(libraryId);
-            //AddUcommerceProductImages(libraryId);
+
+            AddUcommerceProductImages();
+            AddUcommerceCategoryImages();
         }
 
-		//TO DO
-        private void AddUcommerceProductImages(int libraryId)
+        //TO DO
+        private void AddUcommerceProductImages()
         {
             var products = Product.All().ToList();
 
-            foreach(var product in products)
+            foreach (var product in products)
             {
                 if (product.IsVariant == true)
                     continue;
 
-                //if (!String.IsNullOrWhiteSpace(product.ThumbnailImageMediaId) && !String.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
-                //    continue;
-
-                //if (!String.IsNullOrWhiteSpace(product.VariantSku))
-                //    continue;
-
                 var media = MediaFileInfoProvider.GetMediaFiles().ToList();
-                foreach(var medium in media)
+                foreach (var medium in media)
                 {
-                    if(medium.FileName == product.Sku)
+                    if (medium.FileName == product.Sku)
                     {
-                        product.PrimaryImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothingMVC/media/" + medium.FilePath));
-                        product.ThumbnailImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothingMVC/media/" + medium.FilePath));
+                        product.PrimaryImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
+                        product.ThumbnailImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
                         product.Save();
                     }
                 }
             }
 
+        }
+
+        private void AddUcommerceCategoryImages()
+        {
+            var categories = Category.All().ToList();
+            foreach (var category in categories)
+            {
+                var media = MediaFileInfoProvider.GetMediaFiles().ToList();
+                foreach (var medium in media)
+                {
+                    if (medium.FileName == category.Name)
+                    {
+                        category.ImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
+                        category.Save();
+                    }
+                }
+            }
         }
 
         private void CreateAndUploadMediaFiles(int libraryId)
@@ -86,7 +98,10 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
 			foreach (var file in fromPath.GetFiles())
 			{
-				file.CopyTo(imagesDirectory.FullName + "/" + file.Name);
+                if (System.IO.File.Exists(imagesDirectory.FullName + "/" + file.Name) == false)
+                {
+                    file.CopyTo(imagesDirectory.FullName + "/" + file.Name);
+                }
 			}
 		}
 

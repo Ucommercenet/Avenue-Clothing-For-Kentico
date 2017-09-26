@@ -12,6 +12,7 @@ using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
 using UCommerce.Installer.Extensions;
 using CMS.DataEngine;
+using CMS.MediaLibrary;
 
 namespace AvenueClothing.Installer.App_Start
 {
