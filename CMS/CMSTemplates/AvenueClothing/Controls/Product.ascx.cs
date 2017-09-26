@@ -56,6 +56,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
                 litPrice.Text = "-";
             }
 
+            if (price?.YourTax != null)
+            {
+                litTax.Text = price.YourTax.ToString();
+            } 
+
          
         }
     }
