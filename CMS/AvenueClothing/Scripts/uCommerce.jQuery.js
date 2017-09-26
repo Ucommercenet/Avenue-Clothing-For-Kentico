@@ -1,4 +1,4 @@
-var uCommerce = uCommerce || {};
+//var uCommerce = uCommerce || {};
 
 $( "#checkHideShipping" ).change( function() {
     if (this.checked) {
@@ -66,7 +66,7 @@ $( "#checkHideShipping" ).change( function() {
         }
     });
     $.uCommerce.defaults = {
-        servicepath: '/ucommerceapi',
+        servicepath: '/kentico/ucommerceapi',
         protocol: location.protocol,
         host: location.host
     };
