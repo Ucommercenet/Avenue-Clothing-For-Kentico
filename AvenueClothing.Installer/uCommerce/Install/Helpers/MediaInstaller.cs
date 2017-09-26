@@ -91,9 +91,9 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 		private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
 		{
 			//Convert to System.IO.DirectoryInfo to get the parent (outside the CMS folder) without hardcoding.
-			var fromParentDirectory = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("../")).Parent;
+			var fromParentDirectory = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("../"));
 			//Create path to location in installer where the files will be copied from
-			var fromPath = new System.IO.DirectoryInfo(fromParentDirectory.FullName + "/AvenueClothing.Installer/uCommerce/Install/Files/" +
+			var fromPath = new System.IO.DirectoryInfo(fromParentDirectory.FullName + "AvenueClothing.Installer/uCommerce/Install/Files/" +
 			               imagesDirectory.Name + "/");
 
 			foreach (var file in fromPath.GetFiles())
