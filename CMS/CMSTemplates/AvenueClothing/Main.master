@@ -57,10 +57,14 @@
         </div>
         <hr>
         <footer>
-            <div class="span6">
-                <p>&copy; <a href="http://ucommerce.net/" title="The most feature rich e-commerce package for Kentico" target="_blank">uCommerce ApS</a></p>
-            </div>
-            <div class="span6 pull-right">
+            <div class="footerAddress">
+                <span itemprop="name" class="fpHighlight">uCommerce Aps</span> -
+                <span itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                    <span itemprop="streetAddress" class="fpHighlight">Studsgade 29B</span> -
+                    <span itemprop="postalCode" class="fpHighlight">8000</span> <span itemprop="addressLocality" class="fpHighlight">Aarhus C</span> -
+                    <span itemprop="addressCountry" class="fpHighlight">Denmark</span>
+                </span>
+                <br> Phone <span itemprop="telephone">+45 61 799 997</span> - Email <a href="mailto:info@ucommerce.dk" itemprop="email">info@ucommerce.dk</a>
             </div>
         </footer>
     </div>
