@@ -3,9 +3,6 @@
 
 
 
-<div class="sidebar-nav" id="facets-nav">
-    <%--<sc:Sublayout runat="Server" Path="~/Layouts/Sublayouts/Sidebar/Facets.ascx" />--%>
-</div>
 <div class="well sidebar-nav" id="why-buy">
     <ol>
         <li><i class="icon-grey-star"></i>5 star satisfaction</li>
@@ -30,7 +27,7 @@
     <form action="http://thesitedoctor.createsend.com/t/y/s/xbjtk/" method="post" class="validate" id="newsletter-form">
         <div class="input-append">
             <input type="email" name="cm-xbjtk-xbjtk" id="xbjtk-xbjtk" class="required email span9" />
-            <button type="submit" class="btn">Go</button>
+            <button type="submit" class="btn btn-secondary">></button>
         </div>
     </form>
 </div>
