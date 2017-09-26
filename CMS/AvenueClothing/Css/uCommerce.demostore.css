@@ -73,6 +73,12 @@ h5 {
     box-shadow: none;
     padding: 19px;
 }
+
+.well [class^="icon-"],
+.well [class*=" icon-"] {
+    margin-top: 7px;
+}
+
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -111,7 +117,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     border: 0 none;
 }
 .btn {
-    padding: 3px 14px;
     color: #fff;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     background: #59B4EE; /*6dbe78*/
@@ -123,6 +128,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     -webkit-box-shadow:none;
     -moz-box-shadow:none;
     box-shadow:none;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
 }
 
 .btn:hover {
@@ -131,6 +140,20 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-decoration: none;
     background-color: #4A95C5;
 }
+
+.well.sidebar-nav .btn-secondary {
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+    border-radius: 0;
+}
+
+.btn-secondary:hover {
+    color: #373a3c;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
 .btn-group > .btn {
   position: relative;
   -webkit-border-radius: 0;
@@ -279,6 +302,19 @@ td.number,
 td.money {
     text-align: right;
 }
+
+input.email {
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    font-family: inherit;
+    height: auto;
+}
+
+.footerAddress {
+    text-align: center;
+}
+
 /* Product List Page
 -------------------------------------------*/
 .product-list .product {
@@ -350,12 +386,15 @@ td.money {
         clear: both;
         position:relative;
         margin: 10px 0 0 0;
+        height: 46px;
+        overflow: hidden;
     }
     .product-list .product .item-price {
     }
         .product-list .product .view-details a{
             padding: 0 0 0 14px;
-            line-height: 31px;
+            line-height: 29px;
+            border-right-color: #294a64;
         }
         .product-list .product .view-details span{
             background-color: #294A64;
