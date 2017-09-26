@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SidebarStaticContent.ascx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.Controls.SidebarStaticContent" %>
-<%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/CategoryNavigation.ascx" TagPrefix="uc1" TagName="CategoryNavigation" %>
 
 
 

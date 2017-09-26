@@ -1,8 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.CMSTemplates_AvenueClothing_Main" %>
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/SidebarStaticContent.ascx" TagPrefix="uc1" TagName="SidebarStaticContent" %>
-<%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Header/Searchbar.ascx" TagPrefix="uc1" TagName="Searchbar" %>
-<%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Header/MiniBasket.ascx" TagPrefix="uc1" TagName="MiniBasket" %>
-<%@ Register TagPrefix="uc1" TagName="CategoryNavigation" Src="~/CMSTemplates/AvenueClothing/Controls/CategoryNavigation.ascx" %>
 
 <!DOCTYPE html>
 <html lang="en">
