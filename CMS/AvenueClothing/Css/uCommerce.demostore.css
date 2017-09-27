@@ -1,8 +1,12 @@
 /* Bootstrap Theme Overrides
 -------------------------------------------*/
 body {
-    padding-top: 60px;
+    padding-top: 70px;
     padding-bottom: 40px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #373a3c;
 }
 
 .money {
@@ -14,24 +18,24 @@ body {
 }
 
 input.checkbox {
-    border: 0 none;
-    display: block;
-    padding-left: 20px;
-    background: transparent url('../img/uCommerce/checkbox_empty.png') left center no-repeat;
-    cursor: pointer;
+	border: 0 none;
+	display: block;
+	padding-left: 20px;
+	background: transparent url('../img/uCommerce/checkbox_empty.png') left center no-repeat;
+	cursor: pointer;
 }
 
 input.checkbox:hover {
-    background-image: url('../img/uCommerce/checkbox_empty_hover.png');
+	background-image: url('../img/uCommerce/checkbox_empty_hover.png');
 }
 
 
 input.checkbox.checked {
-    background-image: url('../img/uCommerce/checkbox_checked.png');
+	background-image: url('../img/uCommerce/checkbox_checked.png');
 }
 
 input.checkbox.checked:hover {
-    background-image: url('../img/uCommerce/checkbox_checked_hover.png');
+	background-image: url('../img/uCommerce/checkbox_checked_hover.png');
 }
 
 
@@ -52,6 +56,12 @@ input.checkbox.checked:hover {
 h1, h2, h3, h4, h5, h6, p {
     color:#767676;
 }
+
+h5 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
 .well {
     background-color: #f5f5f5;
     border: 1px solid #ebebeb;
@@ -61,7 +71,14 @@ h1, h2, h3, h4, h5, h6, p {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    padding: 19px;
 }
+
+.well [class^="icon-"],
+.well [class*=" icon-"] {
+    margin-top: 7px;
+}
+
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -74,6 +91,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     padding: 0;
     background: 0 none;
 }
+
+.navbar-fixed-top {
+    position: fixed;
+    top: 0;
+}
+
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
     background: #4a95c5;
     -webkit-box-shadow: none;
@@ -93,34 +116,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     padding: 3px 14px;
     border: 0 none;
 }
-
-.banner-image { 
-   position: relative; 
-   width: 100%; 
-   margin-bottom: 1rem;
-}
-
-.banner-image h2 { 
-    position: absolute;
-    top: 80px;
-    left: 0;
-    padding: 20px;
-    width: 70%;
-}
-.banner-image p { 
-    position: absolute;
-    top: 125px;
-    left: 0;
-    padding: 20px;
-    width: 70%;
-}
-    .banner-image img {
-        width: 100%;
-    }
-
-
 .btn {
-    padding: 3px 14px;
     color: #fff;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     background: #59B4EE; /*6dbe78*/
@@ -132,6 +128,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     -webkit-box-shadow:none;
     -moz-box-shadow:none;
     box-shadow:none;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
 }
 
 .btn:hover {
@@ -140,6 +140,20 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-decoration: none;
     background-color: #4A95C5;
 }
+
+.well.sidebar-nav .btn-secondary {
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+    border-radius: 0;
+}
+
+.btn-secondary:hover {
+    color: #373a3c;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
 .btn-group > .btn {
   position: relative;
   -webkit-border-radius: 0;
@@ -172,17 +186,17 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 .btn.btn-arrow-right {
-    background-image: url(../img/uCommerce/white-arrow-right.png);
-    background-position: right center;
-    background-repeat: no-repeat;
-    padding-right: 30px;
+	background-image: url(../img/uCommerce/white-arrow-right.png);
+	background-position: right center;
+	background-repeat: no-repeat;
+	padding-right: 30px;
 }
 
 .btn.update-basket {
-    background-image: url(../img/uCommerce/refresh.png);
-    background-position: left center;
-    background-repeat: no-repeat;
-    padding-left: 26px;
+	background-image: url(../img/uCommerce/refresh.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	padding-left: 26px;
 }
 
 
@@ -223,15 +237,17 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 /* Common
 -------------------------------------------*/
-.margin-top {
-    margin-top: 3%;
-}
 #search-form {
 }
     #search-form .btn {
         background-color: #fff;
         border: 0 none;
     }
+
+.main-nav {
+    padding: 5px 0 5px 0;
+}
+
 #main-nav ul {
 }
     #main-nav li{
@@ -286,23 +302,54 @@ td.number,
 td.money {
     text-align: right;
 }
+
+input.email {
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    font-family: inherit;
+    height: auto;
+}
+
+.footerAddress {
+    text-align: center;
+}
+
 /* Product List Page
 -------------------------------------------*/
 .product-list .product {
-    min-height:500px;
-    border:1px solid #fff;
+    min-height: 500px;
+    border: 1px solid #fff;
     text-align: center;
     background-color: #F5F5F5;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     position: relative;
     padding-bottom: 40px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin-left: 5%;
+    width: 30%;
+}
+
+.product .item-price {
+    color: #46a546;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 40px;
+    margin: 10px 0 0;
+}
+
+.product .item-tax {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #606060;
 }
 
 .product-list .product .btn-group.view-details {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 }
 
 .product-list .product:nth-child(3n+1) {
@@ -339,13 +386,15 @@ td.money {
         clear: both;
         position:relative;
         margin: 10px 0 0 0;
+        height: 46px;
+        overflow: hidden;
     }
     .product-list .product .item-price {
     }
         .product-list .product .view-details a{
             padding: 0 0 0 14px;
-            border: 0 none;
-            line-height: 28px;
+            line-height: 29px;
+            border-right-color: #294a64;
         }
         .product-list .product .view-details span{
             background-color: #294A64;

@@ -1,5 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="CMSWebParts_Ucommerce_MiniBasket"  CodeBehind="~/CMSWebParts/Ucommerce/MiniBasket.ascx.cs" %>
-<div class="nav-collapse pull-right">
+<div class="pull-right">
     <ul class="nav">
         <li>
             <a id="hlMinicart" runat="server">

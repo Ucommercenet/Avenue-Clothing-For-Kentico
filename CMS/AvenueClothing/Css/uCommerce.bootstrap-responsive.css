@@ -814,5 +814,16 @@
   }
 }
 
+@media (min-width: 768px) and (max-width: 1079px) {
+    .brand.span3 {
+        width: 35%;
+    }
+}
+
+@media (max-width: 768px) {
+    .row-fluid div.pull-right {
+        display: none;
+    }
+}
 
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
