@@ -29,7 +29,6 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                     <a class="brand span3" href="~/home.aspx"><img src="~/AvenueClothing/img/uCommerce/logo.png"/> Avenue Clothing</a>
-                    
                     <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
                          <LayoutTemplate>
                          <cms:CMSWebPartZone runat="server" ID="HeaderContentZone"/>
@@ -52,6 +51,11 @@
                 <uc1:SidebarStaticContent runat="server" id="SidebarStaticContent" />
             </div>
             <div class="span9">
+                <cms:CMSPagePlaceholder runat="server" ID="BreadcrumbsPlaceholder">
+                    <LayoutTemplate>
+                        <cms:CMSWebPartZone runat="server" ID="BreadcrumbsWebpartZone"/>
+                    </LayoutTemplate>
+                </cms:CMSPagePlaceholder>
                 <asp:ContentPlaceHolder runat="server" ID="MainContentPlaceholder"></asp:ContentPlaceHolder>
             </div>
         </div>

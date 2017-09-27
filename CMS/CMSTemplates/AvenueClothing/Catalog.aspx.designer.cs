@@ -31,6 +31,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.Image CategoryImage;
         
         /// <summary>
+        /// CategoryName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CategoryName;
+        
+        /// <summary>
         /// lvProducts control.
         /// </summary>
         /// <remarks>

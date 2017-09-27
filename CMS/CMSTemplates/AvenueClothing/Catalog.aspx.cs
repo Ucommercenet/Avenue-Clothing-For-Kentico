@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using CMS.PortalEngine;
 using CMS.UIControls;
 using UCommerce.Api;
+using UCommerce.Catalog;
 using UCommerce.EntitiesV2;
+using UCommerce.Extensions;
+using UCommerce.Infrastructure;
 using UCommerce.Kentico.Content;
 using UCommerce.Runtime;
 using UCommerce.Search.Facets;
@@ -33,36 +35,37 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
 
-                var imageService = new ImageService();
-
-                CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
-
-                GetAllProductsRecursive(CurrentCategory);
-
-                var facetsForQuerying = GetFacets();
-                var filterProducts = CurrentCategory != null
-                    ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying)
-                    : new List<UCommerce.Documents.Product>();
-
-                var listOfProducts = new List<Product>();
-
-                if (filterProducts.Count == 0)
-                {
-                    lvProducts.DataSource = _products;
-                }
-                else
-                {
-                    foreach (var product in filterProducts)
-                    {
-                        listOfProducts.Add(
-                            _products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
-                    }
-
-                    lvProducts.DataSource = listOfProducts;
-                }
-
-                lvProducts.DataBind();
+            var imageService = new ImageService();
+            CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
+            CategoryName.InnerText = CurrentCategory.DisplayName();
             
+            lvProducts.DataSource = GetProductsInFacets(CurrentCategory);
+            lvProducts.DataBind();
+         
+
+        }
+
+        private IList<Product> GetProductsInFacets(Category category)
+        {
+            IList<Facet> facetsForQuerying = GetFacets();
+
+            var productsInCategory = new List<Product>();
+
+            foreach(var subcategory in category.Categories)
+            {
+                productsInCategory.AddRange(GetProductsInFacets(subcategory));
+            }
+
+           var productIds = SearchLibrary.GetProductsFor(category, facetsForQuerying).Select(x=> x.Id);
+
+
+            var products = ObjectFactory.Instance.Resolve<CatalogLibraryInternal>().GetProductsInCategory(category)
+                .Where(x => productIds.Contains(x.ProductId)).ToList();
+
+            productsInCategory.AddRange(products);
+
+            return productsInCategory;
+
         }
 
         public IList<Facet> GetFacets()
@@ -100,7 +103,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 var facet = new Facet();
                 facet.FacetValues = new List<FacetValue>();
-               
+
                 facet.Name = parameter.Key;
                 foreach (var value in parameter.Value.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -112,17 +115,5 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             return facetsForQuerying;
         }
 
-        public void GetAllProductsRecursive(Category currentCategory)
-        {
-            foreach (var product in CatalogLibrary.GetProducts(currentCategory))
-            {
-                _products.Add(product);
-            }
-
-            foreach (var childCategory in currentCategory.Categories)
-            {
-                GetAllProductsRecursive(childCategory);
-            }
-        }
     }
 }
