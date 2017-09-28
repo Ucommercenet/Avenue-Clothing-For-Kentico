@@ -3,7 +3,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
     <div class="row-fluid well">
         <div class="span6">
-            <h3>Billing address</h3>
+            <h5>Billing address</h5>
             <br />
             <address>
                 <strong>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="span6">
-            <h3>Shipping address</h3>
+            <h5>Shipping address</h5>
             <br />
             <address>
                 <strong>
@@ -47,7 +47,7 @@
                          <cms:CMSWebPartZone runat="server" ID="PreviewContentZone"/>
                          </LayoutTemplate>
                     </cms:CMSPagePlaceholder>
-    <a href="~/Basket/Payment" class="btn btn-small">Back to Payment Method</a>
-    <asp:Button ID="btnContinue" runat="server" OnClick="btnContinue_Click" class="pull-right btn btn-large btn-success btn-arrow-right" Text="Complete Order" />
+    <a href="~/Basket/Payment" class="btn btn-small btn-secondary">Back</a>
+    <asp:Button ID="btnContinue" runat="server" OnClick="btnContinue_Click" class="pull-right btn btn-large btn-success" Text="Complete Order" />
 
 </asp:Content>

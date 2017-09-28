@@ -64,7 +64,7 @@
             <div class="footerAddress">
                 <span itemprop="name" class="fpHighlight">uCommerce Aps</span> -
                 <span itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
-                    <span itemprop="streetAddress" class="fpHighlight">Studsgade 29B</span> -
+                    <span itemprop="streetAddress" class="fpHighlight">Vestergade 58N 4th floor</span> -
                     <span itemprop="postalCode" class="fpHighlight">8000</span> <span itemprop="addressLocality" class="fpHighlight">Aarhus C</span> -
                     <span itemprop="addressCountry" class="fpHighlight">Denmark</span>
                 </span>

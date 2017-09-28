@@ -53,12 +53,21 @@ input.checkbox.checked:hover {
     margin-left: auto;
     margin-right: auto;
 }
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
 h1, h2, h3, h4, h5, h6, p {
     color:#767676;
 }
 
 h1 {
     font-size: 60px;
+    margin-top: 0;
 }
 
 h2 {
@@ -69,18 +78,41 @@ h2 {
 h5 {
     font-size: 1.25rem;
     font-weight: 500;
+    margin-top: 0;
+}
+
+label {
+    font-size: 0.91rem;
+    line-height: 1.5rem;
+}
+
+legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: .5rem;
+    font-size: 1.5rem;
+    line-height: inherit;
 }
 
 .page-header {
     margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+address {
+    margin-bottom: 0;
 }
 
 select {
     width: 100%;
-    padding: 5px;
-    height: auto;
+    padding: 0.4rem 0.75rem;
     font-size: 1rem;
-    margin-bottom: 1rem;
+    line-height: 13.25;
+    font-family: inherit;
+    color: #55595c;
+    background-color: #fff;
+    height: auto;
 }
 
 .well {
@@ -94,6 +126,7 @@ select {
     box-shadow: none;
     padding: 19px;
     box-sizing: border-box;
+    margin-left: 0 !important;
 }
 
 .well [class^="icon-"],
@@ -185,7 +218,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     border-color: #419641;
 }
 
-.well.sidebar-nav .btn-secondary {
+.btn-secondary {
     color: #373a3c;
     background-color: #fff;
     border-color: #ccc;
@@ -347,25 +380,18 @@ td.money {
     text-align: right;
 }
 
-input.email {
+input[type=text], input[type=email] {
     padding: .5rem .75rem;
     font-size: 1rem;
     line-height: 1.25;
     font-family: inherit;
+    color: #55595c;
+    background-color: #fff;
     height: auto;
 }
 
 .footerAddress {
     text-align: center;
-}
-
-#review-form .controls input[type=text] {
-    padding: .5rem .75rem;
-    font-size: 1rem;
-    line-height: 1.25;
-    color: #55595c;
-    background-color: #fff;
-    height: auto;
 }
 
 #review-form .controls textarea {
@@ -384,6 +410,10 @@ input.email {
 
 /* Product List Page
 -------------------------------------------*/
+.product-list {
+    margin-left: 0 !important;
+}
+
 .product-list .product {
     min-height: 500px;
     border: 1px solid #fff;
@@ -561,6 +591,14 @@ input.email {
 }
 /* Address page
 -------------------------------------------*/
+#checkShowShipping {
+    top: -2px;
+    position: relative;
+}
+
+#billingDiv div.span12, #shippingDiv div.span12 {
+    margin-left: 0;
+}
 
 
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

@@ -1,19 +1,19 @@
 //var uCommerce = uCommerce || {};
 
-$( "#checkHideShipping" ).change( function() {
-    if (this.checked) {
+$( "#checkShowShipping" ).change( function() {
+    if (!this.checked) {
         $("#shippingDiv").addClass("hide");
         $("#btnBillingAndShippingUpdate").addClass("hide");
         $("#btnBillingUpdate").removeClass("hide");
-        $("#fixit").removeClass("span6");
-        $("#fixit").addClass("span12");
+        $("#billingDiv").removeClass("span6");
+        $("#billingDiv").addClass("span12");
     }
     else {
         $("#shippingDiv").removeClass("hide");
         $("#btnBillingAndShippingUpdate").removeClass("hide");
         $("#btnBillingUpdate").addClass("hide");
-        $("#fixit").removeClass("span12");
-        $("#fixit").addClass("span6");
+        $("#billingDiv").removeClass("span12");
+        $("#billingDiv").addClass("span6");
         
     }
 } );
