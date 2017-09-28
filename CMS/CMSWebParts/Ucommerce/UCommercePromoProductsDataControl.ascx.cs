@@ -20,6 +20,19 @@ namespace CMSApp.CMSWebParts.Custom
     {
 
         ICollection<Product> _products = new List<Product>();
+        private string altProductSKUControl;
+        public string AltProductSKUControl
+        {
+            get
+            {
+                return altProductSKUControl;
+            }
+            set
+            {
+                this.altProductSKUControl = value;
+
+            }
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,7 +60,19 @@ namespace CMSApp.CMSWebParts.Custom
             .Where(x => x.ProductProperties.Any(
                 pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && pp.Value == "true")).ToList();
 
-            data = convertToUcommerceProduct(_products);     
+
+            Product altProduct = null; ;
+            try
+            {
+                altProduct = CatalogLibrary.GetProduct(AltProductSKUControl);
+            }
+            catch
+            {
+                // Checking whether the given SKU value is correct
+            }
+            
+
+            data = convertToUcommerceProduct(_products, altProduct);     
             
             return data;
         }    
@@ -58,7 +83,7 @@ namespace CMSApp.CMSWebParts.Custom
             set { }
         }
 
-        public List<UCommerceProduct> convertToUcommerceProduct(ICollection<Product> _products)
+        public List<UCommerceProduct> convertToUcommerceProduct(ICollection<Product> _products, Product altProduct)
         {
             string url;
             PriceCalculation price;
@@ -66,23 +91,46 @@ namespace CMSApp.CMSWebParts.Custom
 
             var data = new List<UCommerceProduct>();
 
+            bool firstProduct = true;
             foreach (Product product in _products)
             {
-                url = CatalogLibrary.GetNiceUrlForProduct(product);
-                price = CatalogLibrary.CalculatePrice(product);
-
-                if (!string.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
+                if (firstProduct && altProduct != null)
                 {
-                    var imageService = new ImageService();
-                    var image = imageService.GetImage(product.ThumbnailImageMediaId);
+                    url = CatalogLibrary.GetNiceUrlForProduct(altProduct);
+                    price = CatalogLibrary.CalculatePrice(altProduct);
 
-                    imageUrl = image.Url;
-                    data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl });
+                    if (!string.IsNullOrWhiteSpace(altProduct.ThumbnailImageMediaId))
+                    {
+                        var imageService = new ImageService();
+                        var image = imageService.GetImage(altProduct.ThumbnailImageMediaId);
+
+                        imageUrl = image.Url;
+                        data.Add(new UCommerceProduct { ProductName = altProduct.Name, ProductSKU = altProduct.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl });
+                    }
+                    else
+                    {
+                        data.Add(new UCommerceProduct { ProductName = altProduct.Name, ProductSKU = altProduct.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url });
+                    }
                 }
                 else
                 {
-                    data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url });
+                    url = CatalogLibrary.GetNiceUrlForProduct(product);
+                    price = CatalogLibrary.CalculatePrice(product);
+
+                    if (!string.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
+                    {
+                        var imageService = new ImageService();
+                        var image = imageService.GetImage(product.ThumbnailImageMediaId);
+
+                        imageUrl = image.Url;
+                        data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl });
+                    }
+                    else
+                    {
+                        data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url });
+                    }
                 }
+                firstProduct = false;
             }
 
             return data;

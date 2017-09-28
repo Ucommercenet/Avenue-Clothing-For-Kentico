@@ -12,7 +12,17 @@ public partial class CMSWebParts_Ucommerce_PromoProductDataSource : CMSAbstractW
 {
     #region "Properties"
 
-    
+    public string AltProductSKU
+    {
+        get
+        {
+            return ValidationHelper.GetString(this.GetValue("AltProductSKU"), "");
+        }
+        set
+        {
+            this.SetValue("AltProductSKU", value);
+        }
+    }
 
     #endregion
 
@@ -25,6 +35,7 @@ public partial class CMSWebParts_Ucommerce_PromoProductDataSource : CMSAbstractW
     public override void OnContentLoaded()
     {
         base.OnContentLoaded();
+        srcProducts.AltProductSKUControl = AltProductSKU;
         SetupControl();
     }
 
