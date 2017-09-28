@@ -35,13 +35,9 @@ public partial class CMSWebParts_Ucommerce_PromoProductDataSource : CMSAbstractW
     protected void SetupControl()
     {
         if (this.StopProcessing)
-        {
-            // Do not process
-        }
-        else
-        {
-            
-        }
+            return;
+
+        srcProducts.FilterName = (string)GetValue("WebPartControlID");
     }
 
 

@@ -7,18 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CMSApp.CMSWebParts.Ucommerce {
+
+
+public partial class CMSWebParts_Ucommerce_PromoProductDataSource {
     
-    
-    public partial class PromoProductDataSource {
-        
-        /// <summary>
-        /// srcProducts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CMSApp.CMSWebParts.Ucommerce.UCommercePromoProductsDataControl srcProducts;
-    }
+    /// <summary>
+    /// srcProducts control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMSApp.CMSWebParts.Custom.UCommercePromoProductsDataControl srcProducts;
 }

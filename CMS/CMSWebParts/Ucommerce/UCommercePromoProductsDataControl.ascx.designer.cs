@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CMSApp.CMSWebParts.Ucommerce {
+namespace CMSApp.CMSWebParts.Custom {
     
     
     public partial class UCommercePromoProductsDataControl {
