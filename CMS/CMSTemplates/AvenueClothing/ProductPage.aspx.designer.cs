@@ -58,24 +58,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.Literal litHeadline;
         
         /// <summary>
-        /// litProductReviews control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litProductReviews;
-        
-        /// <summary>
-        /// litProductSmallDesc control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litProductSmallDesc;
-        
-        /// <summary>
         /// litPrice control.
         /// </summary>
         /// <remarks>

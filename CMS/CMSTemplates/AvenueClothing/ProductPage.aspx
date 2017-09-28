@@ -25,15 +25,12 @@
         </div>
         <section class="span6">
             <header class="span12 page-header">
-                <h1 itemprop="name">
-                    <asp:Literal ID="litHeadline" runat="server" /></h1>
-                <h6>
-                    <asp:Literal ID="litProductReviews" runat="server" /></h6>
-                <small><em>
-                    <asp:Literal ID="litProductSmallDesc" runat="server" /></em></small>
+                <h2 itemprop="name">
+                    <asp:Literal ID="litHeadline" runat="server" />
+                </h2>
             </header>
             <div class="span12 well">
-                <aside class="span5" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
+                <aside class="span6" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
                     <p class="item-price" itemprop="price">
                         <asp:Literal ID="litPrice" runat="server" />
                     </p>
@@ -45,7 +42,7 @@
                 </aside>
                 <asp:Repeater ID="rptVariant" runat="server" OnItemDataBound="VariantRepeaterItemDataBound">
                     <HeaderTemplate>
-                        <div class="span7">
+                        <div class="span6">
                     </HeaderTemplate>
                     <ItemTemplate>
 
@@ -151,7 +148,7 @@
                                 <br/>
                                 <label class="control-label" for="review-name">Your Name</label>
                                 <div class="controls">
-                                    <input type="text" id="reviewName" runat="server" name="review-name" placeholder="Name" class="required span12" />
+                                    <input type="text" id="reviewName" runat="server" name="review-name" class="required span12" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                         ControlToValidate="reviewName"
                                         ValidationGroup="Review"
@@ -163,7 +160,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="review-email">Your Email</label>
                                 <div class="controls">
-                                    <input type="text" id="reviewEmail" runat="server" name="review-email" placeholder="Email" class="required span12" />
+                                    <input type="text" id="reviewEmail" runat="server" name="review-email" class="required span12" />
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
                                         runat="server"
                                         ValidationExpression=".+@.+\..*"
@@ -185,7 +182,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="review-headline">Review Title</label>
                                 <div class="controls">
-                                    <input type="text" id="reviewHeadline" clientidmode="static" runat="server" name="review-headline" placeholder="Title" class="required span12" />
+                                    <input type="text" id="reviewHeadline" clientidmode="static" runat="server" name="review-headline" class="required span12" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
                                         ControlToValidate="reviewHeadline"
                                         ValidationGroup="Review"
@@ -197,7 +194,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="review-text">Comments</label>
                                 <div class="controls">
-                                    <textarea rows="3" id="reviewText" runat="server" name="review-text" placeholder="Your review" class="required span12"></textarea>
+                                    <textarea rows="3" id="reviewText" runat="server" name="review-text" placeholder="Describe your experience with the product" class="required span12"></textarea>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                                         ControlToValidate="reviewText"
                                         ValidationGroup="Review"

@@ -97,7 +97,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
 
             litDescription.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
-            litProductSmallDesc.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).ShortDescription;
 
             if (currentProduct.ProductReviews.Any())
             {
@@ -109,7 +108,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 litReviewHeadline.Text = "<p>No-one has reviewed this product yet.</p>";
             }
-            litProductReviews.Text = DisplayStars(currentProduct.Rating);
 
             rptVariant.DataSource = uniqueVariants;
             rptVariant.DataBind();
