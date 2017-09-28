@@ -4245,8 +4245,10 @@
     <Content Include="CMSWebParts\Ucommerce\Facets.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\PaymentPicker.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Shipping.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
     <Content Include="CMSWebParts\UserContributions\EditContribution.ascx" />
@@ -16847,6 +16849,13 @@
     <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.designer.cs">
       <DependentUpon>PaymentPicker.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx.cs">
+      <DependentUpon>PromoProductDataSource.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx.designer.cs">
+      <DependentUpon>PromoProductDataSource.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -16860,6 +16869,13 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.designer.cs">
       <DependentUpon>Shipping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx.cs">
+      <DependentUpon>UCommercePromoProductsDataControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx.designer.cs">
+      <DependentUpon>UCommercePromoProductsDataControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>
@@ -22151,6 +22167,12 @@
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Filters\CropImageFilter.cs" />
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Filters\ResizeImageFilter.cs" />
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Definitions\MediumSizeImageVariantDefinition.cs" />
+    <Compile Include="Old_App_Code\ListExtensions.cs" />
+    <Compile Include="Old_App_Code\UCommerceContext.cs" />
+    <Compile Include="Old_App_Code\UCommerceMacroNamespace.cs" />
+    <Compile Include="Old_App_Code\UCommerceModule.cs" />
+    <Compile Include="Old_App_Code\UCommerceProduct.cs" />
+    <Compile Include="Old_App_Code\UCommerceTransformationMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
