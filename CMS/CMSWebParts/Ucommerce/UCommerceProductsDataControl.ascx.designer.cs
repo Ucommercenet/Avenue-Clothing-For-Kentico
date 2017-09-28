@@ -10,6 +10,6 @@
 namespace CMSApp.CMSWebParts.Custom {
     
     
-    public partial class UCommerceProductsDataControl {
+    public partial class ProductsDataControlForUcommerce {
     }
 }
