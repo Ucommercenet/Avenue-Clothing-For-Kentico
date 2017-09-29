@@ -1,22 +1,19 @@
-﻿using CMS.DataEngine;
-using CMS.DocumentEngine.Web.UI;
-using CMS.Membership;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using CMSApp.Old_App_Code.Custom;
 using System.Linq;
-using UCommerce.EntitiesV2;
-using UCommerce.Runtime;
-using UCommerce.Api;
-using UCommerce.Search.Facets;
 using System.Web;
-using UCommerce.Kentico.Content;
+using CMS.DocumentEngine.Web.UI;
 using CMS.Helpers;
+using CMSApp.Old_App_Code.Custom;
+using UCommerce.Api;
+using UCommerce.EntitiesV2;
+using UCommerce.Kentico.Content;
+using UCommerce.Runtime;
+using UCommerce.Search.Facets;
 
-namespace CMSApp.CMSWebParts.Custom
+namespace CMSApp.CMSWebParts.Ucommerce
 {
-	public partial class ProductsDataControlForUcommerce : CMSBaseDataSource
+	public partial class UcommerceProductsDataControl : CMSBaseDataSource
 	{
 
 		ICollection<Product> _products = new List<Product>();

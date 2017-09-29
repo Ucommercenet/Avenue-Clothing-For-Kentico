@@ -18,5 +18,5 @@ public partial class CMSWebParts_Ucommerce_ProductDataSource {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSApp.CMSWebParts.Custom.UCommerceProductsDataControl srcProducts;
+    protected global::CMSApp.CMSWebParts.Ucommerce.UcommerceProductsDataControl srcProducts;
 }
