@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CMSTemplates/AvenueClothing/Main.master" AutoEventWireup="true" CodeBehind="ConfirmationEmail.aspx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.ConfirmationEmail" %>
-
-<asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
+﻿<%@ Page Title="Confirmation e-mail" Language="C#" MasterPageFile="~/CMSTemplates/AvenueClothing/Email.Master" AutoEventWireup="true" CodeBehind="ConfirmationEmail.aspx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.ConfirmationEmail" %>
+<asp:Content runat="server" ContentPlaceHolderID="MainContentPlaceholder" >
     <div runat="server" id="contentDiv">
         <div class="row-fluid well">
             <div class="span6">
@@ -73,25 +72,25 @@
             </asp:Repeater>
             <tr>
                 <asp:Literal ID="litRowSpan" runat="server" />
-                <td colspan="3">Sub total: </td>
+                <td colspan="2">Sub total: </td>
                 <td class="money">
                     <asp:Literal ID="litSubTotal" runat="server" />
                 </td>
             </tr>
             <tr>
-                <td colspan="3">VAT: </td>
+                <td colspan="2">VAT: </td>
                 <td class="money">
                     <asp:Literal ID="litVat" runat="server" />
                 </td>
             </tr>
             <tr id="trDiscounts" runat="server">
-                <td colspan="3">Order discounts: </td>
+                <td colspan="2">Order discounts: </td>
                 <td class="money">
                     <asp:Literal ID="litDiscount" runat="server" /></td>
             </tr>
 
             <tr id="trShipping" runat="server">
-                <td colspan="3">Shipping
+                <td colspan="2">Shipping
                     <asp:Literal ID="litShipments" runat="server" />
                 </td>
                 <td class="money">
@@ -100,7 +99,7 @@
             </tr>
 
             <tr id="trPaymentTotal" runat="server">
-                <td colspan="3">Payment
+                <td colspan="2">Payment
                     <asp:Literal ID="litPaymentMethods" runat="server" />
 
 
@@ -112,7 +111,7 @@
 
 
             <tr>
-                <td colspan="3">Order total: </td>
+                <td colspan="2">Order total: </td>
                 <td class="money">
                     <asp:Literal ID="litOrderTotal" runat="server" /></td>
             </tr>

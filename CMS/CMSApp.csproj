@@ -15310,6 +15310,13 @@
     <Compile Include="CMSTemplates\AvenueClothing\Controls\SidebarStaticContent.ascx.designer.cs">
       <DependentUpon>SidebarStaticContent.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Email.Master.cs">
+      <DependentUpon>Email.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Email.Master.designer.cs">
+      <DependentUpon>Email.Master</DependentUpon>
+    </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -22961,6 +22968,7 @@
     <Content Include="CMSScripts\Vendor\Angular-1.5.5\angular-resource.min.js.map" />
     <Content Include="CMSScripts\Vendor\Angular-1.5.5\angular-sanitize.min.js.map" />
     <Content Include="CMSTemplates\AvenueClothing\Main.master" />
+    <Content Include="CMSTemplates\AvenueClothing\Email.Master" />
     <None Include="Old_App_WebReferences\WS\WebService.discomap" />
     <None Include="Old_App_WebReferences\WS\WebService.wsdl" />
     <Content Include="CMSAdminControls\web.config" />

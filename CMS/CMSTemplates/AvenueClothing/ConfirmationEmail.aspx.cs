@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CMS.Base.Web.UI;
 using CMS.UIControls;
 using UCommerce;
 using UCommerce.EntitiesV2;
@@ -220,5 +221,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             litTotal.Text = lineTotal.ToString();
             litQuantity.Text = currentItem.Quantity.ToString();
         }
+
     }
 }
