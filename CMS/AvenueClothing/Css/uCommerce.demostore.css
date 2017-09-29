@@ -405,7 +405,7 @@ input[type=text], input[type=email] {
 }
 
     #review-form .control-label[for=review-name] {
-        margin-top: 10px;
+        margin-top: 15px;
     }
 
 /* Product List Page
@@ -596,7 +596,7 @@ input[type=text], input[type=email] {
     position: relative;
 }
 
-#billingDiv div.span12, #shippingDiv div.span12 {
+#Address div.span12 {
     margin-left: 0;
 }
 
