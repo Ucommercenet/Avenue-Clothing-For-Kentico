@@ -19,26 +19,12 @@ public partial class CMSWebParts_Ucommerce_ProductDataSource : CMSAbstractWebPar
 
     #region "Methods"
 
-
-    public string DataFiltering
-    {
-        get
-        {
-            return ValidationHelper.GetString(this.GetValue("DataFiltering"), "");
-        }
-        set
-        {
-            this.SetValue("DataFiltering", value);
-        }
-    }
-
     /// <summary>
     /// Content loaded event handler.
     /// </summary>
     public override void OnContentLoaded()
     {
         base.OnContentLoaded();
-        srcProducts.DataFilteringControl = DataFiltering;
         SetupControl();
     }
 

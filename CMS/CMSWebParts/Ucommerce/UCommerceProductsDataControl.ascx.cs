@@ -20,20 +20,6 @@ namespace CMSApp.CMSWebParts.Ucommerce
 		Category _currentCategory;
 
 
-		private string dataFilteringControl;
-		public string DataFilteringControl
-		{
-			get
-			{
-				return dataFilteringControl;
-			}
-			set
-			{
-				this.dataFilteringControl = value;
-
-			}
-		}
-
 		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
@@ -55,11 +41,18 @@ namespace CMSApp.CMSWebParts.Ucommerce
 		protected override object GetDataSourceFromDB()
 		{
 			_currentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
+			var ucommerceProducts = new List<UCommerceProduct>();
 
-			var UcommerceProducts = CacheHelper.Cache(cs => LoadProducts(cs, _currentCategory), 
-																new CacheSettings(0, "ucommerceProducts|categoryId=" + _currentCategory.Id));
-
-			return UcommerceProducts;
+			if (_currentCategory == null)
+			{
+				NoProductsLabel.Text = "There are no products to display. Try selecting a category or adding some products to it.";
+			}
+			else
+			{
+				ucommerceProducts = CacheHelper.Cache(cs => LoadProducts(cs, _currentCategory),
+					new CacheSettings(0, "ucommerceProducts|categoryId=" + _currentCategory.Id));
+			}
+			return ucommerceProducts;
 		}
 
 		// Method that loads the required data
