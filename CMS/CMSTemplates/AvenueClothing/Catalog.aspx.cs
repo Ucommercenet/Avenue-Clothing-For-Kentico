@@ -26,35 +26,8 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             if (viewMode == 6 || viewMode == 3)
             {
                 return;
-            }      
-            var imageService = new ImageService();
-            CategoryImage.ImageUrl = imageService.GetImage(CurrentCategory.ImageMediaId).Url;
-            CategoryName.InnerText = CurrentCategory.DisplayName();
-            
-                GetAllProductsRecursive(CurrentCategory);
-            lvProducts.DataBind();
+            }
+        }
 
-                }
-                else
-        private IList<Product> GetProductsInFacets(Category category)
-                {
-                    foreach (var product in filterProducts)
-
-            var productsInCategory = new List<Product>();
-
-            foreach(var subcategory in category.Categories)
-                    {
-                        listOfProducts.Add(
-                    }
-                    lvProducts.DataSource = listOfProducts;
-                lvProducts.DataBind();
-            var products = ObjectFactory.Instance.Resolve<CatalogLibraryInternal>().GetProductsInCategory(category)
-                .Where(x => productIds.Contains(x.ProductId)).ToList();
-
-            productsInCategory.AddRange(products);
-
-            return productsInCategory;
-
-               
     }
 }

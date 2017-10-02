@@ -16802,7 +16802,8 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx.cs">
       <DependentUpon>Breadcrumbs.ascx</DependentUpon>
-      </Compile>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketTotals.ascx.cs">
       <DependentUpon>BasketTotals.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
