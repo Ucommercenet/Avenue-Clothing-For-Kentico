@@ -43,9 +43,10 @@ namespace CMSApp.CMSWebParts.Custom
 
         protected override object GetDataSource(int offset, int maxRecords)
         {
-            var data = base.GetDataSource(offset, maxRecords) as List<UCommerceProduct>;
+			//var data = base.GetDataSource(offset, maxRecords) as List<UCommerceProduct>;
+	        var data = GetDataSourceFromDB() as List<UCommerceProduct>;
 
-            UCommerceContext.SetProducts(data);
+			UCommerceContext.SetProducts(data);
 
             return data.ToDataSet();
         }
