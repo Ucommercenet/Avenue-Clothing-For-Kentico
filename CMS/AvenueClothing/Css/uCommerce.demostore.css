@@ -498,6 +498,35 @@ input[type=text], input[type=email] {
             padding: 6px 14px;
             margin-left: 4px;
         }
+
+    .product-list .product .button-down {
+        position: absolute;
+        bottom: 12px;
+        margin-left: 5vw;
+    }
+    .product-list .product .product-view-more {
+        background-color: #59b4ee;
+        padding: 6px 0 6px 10px;   
+    }
+        .product-list .product .product-view-more .icon-shopping-cart {
+            background-color: #294A64;            
+        }
+        .product-list .product .product-view-more .view-more-text {
+            color: white;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+            padding-right: 6px;
+            padding-left: 3px;
+        }
+        .product-list .product .product-view-more .shopping-cart-background {
+            background-color: #294A64;
+            padding: 6px 14px 6px 14px;          
+        }
+
+        .product-list .product .product-view-more:hover {
+            background-color: #4A95C5;
+            text-decoration: none;
+        }
+
 /* Product Details Page
 -------------------------------------------*/
 #product-details {

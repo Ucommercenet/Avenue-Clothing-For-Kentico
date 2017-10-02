@@ -10,8 +10,6 @@
         <LayoutTemplate>
         <cms:CMSWebPartZone runat="server" ID="MainContentZone"/>
         </LayoutTemplate>
-    </cms:CMSPagePlaceholder>
-
-    <uc1:HighlightedProducts runat="server" id="HighlightedProducts" />
+    </cms:CMSPagePlaceholder>  
 
 </asp:Content>

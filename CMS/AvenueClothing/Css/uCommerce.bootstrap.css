@@ -3967,6 +3967,10 @@ a.thumbnail:hover {
 .alert-block p + p {
   margin-top: 5px;
 }
+.alert-basket{
+    padding-top: 15px;
+    margin-top: 40px;
+}
 @-webkit-keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
@@ -5830,6 +5834,7 @@ button.close {
     overflow: visible !important;
   }
 }
+
 
 .voucher-button {
     background: #ffffff;

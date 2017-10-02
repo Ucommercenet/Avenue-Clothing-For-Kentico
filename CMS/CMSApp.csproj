@@ -136,8 +136,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="Ucommerce, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.dll</HintPath>
+    <Reference Include="UCommerce, Version=7.7.1.17180, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\uCommerce.Core.7.7.1.17180\lib\net45\UCommerce.dll</HintPath>
     </Reference>
     <Reference Include="Ucommerce.Admin, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ucommerce-for-Kentico.0.0.7\lib\Ucommerce.Admin.dll</HintPath>
@@ -4237,15 +4238,24 @@
     <Content Include="CMSWebParts\Text\QRCode.ascx" />
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\BasketTotals.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx" />
     <Content Include="CMSWebParts\Ucommerce\AddressPicker.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketPreview.ascx" />
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Facets.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\ProductDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\PaymentPicker.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\QuantityEditor.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Shipping.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
     <Content Include="CMSWebParts\UserContributions\EditContribution.ascx" />
@@ -16792,6 +16802,9 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx.cs">
       <DependentUpon>Breadcrumbs.ascx</DependentUpon>
+      </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\BasketTotals.ascx.cs">
+      <DependentUpon>BasketTotals.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx.designer.cs">
@@ -16801,12 +16814,22 @@
       <DependentUpon>AddressPicker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\BasketTotals.ascx.designer.cs">
+      <DependentUpon>BasketTotals.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\AddressPicker.ascx.designer.cs">
       <DependentUpon>AddressPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx.cs">
+      <DependentUpon>DeleteOrderline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketPreview.ascx.cs">
       <DependentUpon>BasketPreview.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx.designer.cs">
+      <DependentUpon>DeleteOrderline.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketPreview.ascx.designer.cs">
       <DependentUpon>BasketPreview.ascx</DependentUpon>
@@ -16832,12 +16855,40 @@
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.designer.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.cs">
+      <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.cs">
       <DependentUpon>PaymentPicker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.designer.cs">
+      <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.designer.cs">
       <DependentUpon>PaymentPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\ProductDataSource.ascx.cs">
+      <DependentUpon>ProductDataSource.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx.cs">
+      <DependentUpon>PromoProductDataSource.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\ProductDataSource.ascx.designer.cs">
+      <DependentUpon>ProductDataSource.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx.designer.cs">
+      <DependentUpon>PromoProductDataSource.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\QuantityEditor.ascx.cs">
+      <DependentUpon>QuantityEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\QuantityEditor.ascx.designer.cs">
+      <DependentUpon>QuantityEditor.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
@@ -16846,12 +16897,33 @@
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.designer.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.cs">
+      <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.cs">
       <DependentUpon>Shipping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.designer.cs">
+      <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.designer.cs">
       <DependentUpon>Shipping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx.cs">
+      <DependentUpon>UCommerceProductsDataControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx.cs">
+      <DependentUpon>UCommercePromoProductsDataControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx.designer.cs">
+      <DependentUpon>UCommerceProductsDataControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx.designer.cs">
+      <DependentUpon>UCommercePromoProductsDataControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>
@@ -22143,6 +22215,13 @@
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Filters\CropImageFilter.cs" />
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Filters\ResizeImageFilter.cs" />
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Definitions\MediumSizeImageVariantDefinition.cs" />
+    <Compile Include="Old_App_Code\ListExtensions.cs" />
+    <Compile Include="Old_App_Code\UCommerceContext.cs" />
+    <Compile Include="Old_App_Code\UCommerceMacroNamespace.cs" />
+    <Compile Include="Old_App_Code\UCommerceModule.cs" />
+    <Compile Include="Old_App_Code\UCommerceOrderline.cs" />
+    <Compile Include="Old_App_Code\UCommerceProduct.cs" />
+    <Compile Include="Old_App_Code\UCommerceTransformationMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
