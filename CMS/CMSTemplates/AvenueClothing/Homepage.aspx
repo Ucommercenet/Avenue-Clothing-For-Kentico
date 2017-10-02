@@ -4,7 +4,7 @@
 
 <asp:Content runat="server" ContentPlaceHolderID="MainContentPlaceholder" >
   
-    <uc1:HomepageBanner ID="HomepageBanner1" runat="server" />
+<%--    <uc1:HomepageBanner ID="HomepageBanner1" runat="server" />--%>
 
     <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
         <LayoutTemplate>
