@@ -4238,6 +4238,7 @@
     <Content Include="CMSWebParts\Text\QRCode.ascx" />
     <Content Include="CMSWebParts\Text\staticHTML.ascx" />
     <Content Include="CMSWebParts\Text\statictext.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\BannerWithText.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketTotals.ascx" />
     <Content Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx" />
     <Content Include="CMSWebParts\Ucommerce\AddressPicker.ascx" />
@@ -16799,6 +16800,12 @@
     </Compile>
     <Compile Include="CMSWebParts\Text\statictext.ascx.designer.cs">
       <DependentUpon>statictext.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\BannerWithText.ascx.cs">
+      <DependentUpon>BannerWithText.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\BannerWithText.ascx.designer.cs">
+      <DependentUpon>BannerWithText.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Breadcrumbs.ascx.cs">
       <DependentUpon>Breadcrumbs.ascx</DependentUpon>
