@@ -16803,6 +16803,7 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BannerWithText.ascx.cs">
       <DependentUpon>BannerWithText.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BannerWithText.ascx.designer.cs">
       <DependentUpon>BannerWithText.ascx</DependentUpon>
