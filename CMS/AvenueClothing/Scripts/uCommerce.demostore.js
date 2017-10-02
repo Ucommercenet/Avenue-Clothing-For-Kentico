@@ -1,7 +1,7 @@
 ﻿$(function () {
     $("#submitSearch").click(function (event) {
         event.preventDefault();
-        window.location = window.location.origin + applicationName + "/search.aspx?search=" + $("#site-search").val();
+        window.location = window.location.origin + applicationName + "/search.aspx?search=" + $('.search-query').val();
     } );
 
     $('form.validate').each(function () {

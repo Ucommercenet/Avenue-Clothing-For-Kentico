@@ -2,9 +2,11 @@
 <div class="nav-collapse pull-right">
     <ul class="nav">
         <li>
-
-            <asp:Literal ID="litMinicart" runat="server"/>
-  
+            <a id="hlMinicart" runat="server">
+                <i id="imgMinicart" runat="server" />
+                <asp:label ID="lblMinicartAmount" runat="server" />
+                <asp:label ID="lblMinicartPrice" runat="server" />
+            </a>
         </li>
     </ul>
 </div>

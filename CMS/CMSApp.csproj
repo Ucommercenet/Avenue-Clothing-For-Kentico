@@ -3935,7 +3935,6 @@
     <Content Include="CMSTemplates\AvenueClothing\ConfirmationEmail.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Catalog.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx" />
-    <Content Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\Header\Searchbar.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\HighlightedProducts.ascx" />
@@ -4243,13 +4242,21 @@
     <Content Include="CMSWebParts\Text\statictext.ascx" />
     <Content Include="CMSWebParts\Ucommerce\BasketTotals.ascx" />
     <Content Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\AddressPicker.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\BasketPreview.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\Facets.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
     <Content Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\ProductDataSource.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\PaymentPicker.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\QuantityEditor.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\Shipping.ascx" />
+    <Content Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Voucher.ascx" />
     <Content Include="CMSWebParts\UserContributions\ContributionList.ascx" />
     <Content Include="CMSWebParts\UserContributions\EditContribution.ascx" />
@@ -15293,13 +15300,6 @@
     <Compile Include="CMSTemplates\AvenueClothing\Controls\CategoryNavigation.ascx.designer.cs">
       <DependentUpon>CategoryNavigation.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx.cs">
-      <DependentUpon>Facets.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSTemplates\AvenueClothing\Controls\Facets.ascx.designer.cs">
-      <DependentUpon>Facets.ascx</DependentUpon>
-    </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\Header\MiniBasket.ascx.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -16817,17 +16817,39 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketTotals.ascx.cs">
       <DependentUpon>BasketTotals.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\AddressPicker.ascx.cs">
+      <DependentUpon>AddressPicker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\BasketTotals.ascx.designer.cs">
       <DependentUpon>BasketTotals.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\AddressPicker.ascx.designer.cs">
+      <DependentUpon>AddressPicker.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx.cs">
       <DependentUpon>DeleteOrderline.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\BasketPreview.ascx.cs">
+      <DependentUpon>BasketPreview.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx.designer.cs">
       <DependentUpon>DeleteOrderline.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\BasketPreview.ascx.designer.cs">
+      <DependentUpon>BasketPreview.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx.cs">
+      <DependentUpon>CategoryNavigation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx.designer.cs">
+      <DependentUpon>CategoryNavigation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Facets.ascx.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\Facets.ascx.designer.cs">
+      <DependentUpon>Facets.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
@@ -16838,17 +16860,25 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.cs">
       <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.cs">
+      <DependentUpon>PaymentPicker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.designer.cs">
       <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.designer.cs">
+      <DependentUpon>PaymentPicker.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\ProductDataSource.ascx.cs">
       <DependentUpon>ProductDataSource.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx.cs">
+      <DependentUpon>PromoProductDataSource.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\ProductDataSource.ascx.designer.cs">
       <DependentUpon>ProductDataSource.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx.designer.cs">
+      <DependentUpon>PromoProductDataSource.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\QuantityEditor.ascx.cs">
       <DependentUpon>QuantityEditor.ascx</DependentUpon>
@@ -16866,17 +16896,25 @@
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.cs">
       <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.cs">
+      <DependentUpon>Shipping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.designer.cs">
       <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.designer.cs">
+      <DependentUpon>Shipping.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx.cs">
       <DependentUpon>UCommerceProductsDataControl.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx.cs">
+      <DependentUpon>UCommercePromoProductsDataControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx.designer.cs">
       <DependentUpon>UCommerceProductsDataControl.ascx</DependentUpon>
+    <Compile Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx.designer.cs">
+      <DependentUpon>UCommercePromoProductsDataControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>
@@ -16885,6 +16923,7 @@
     <Compile Include="CMSWebParts\Ucommerce\Voucher.ascx.designer.cs">
       <DependentUpon>Voucher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\WebPartExtensions.cs" />
     <Compile Include="CMSWebParts\UserContributions\ContributionList.ascx.designer.cs">
       <DependentUpon>ContributionList.ascx</DependentUpon>
     </Compile>
@@ -23002,7 +23041,9 @@
     <None Include="Old_App_WebReferences\WS\WebService.discomap" />
     <None Include="Old_App_WebReferences\WS\WebService.wsdl" />
     <Content Include="CMSAdminControls\web.config" />
-    <Content Include="Admin\web.config" />
+    <Content Include="Admin\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CMSFormControls\web.config" />
     <Content Include="CMSInstall\Web.config" />
     <Content Include="CMSMasterPages\LiveSite\Dialogs\ModalDialogPage.master" />

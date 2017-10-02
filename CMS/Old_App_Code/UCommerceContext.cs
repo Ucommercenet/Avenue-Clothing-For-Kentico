@@ -9,7 +9,6 @@ namespace CMSApp.Old_App_Code.Custom
     public class UCommerceContext : AbstractContext<UCommerceContext>
     {
         private List<UCommerceProduct> _products = null;
-        private List<UCommerceOrderline> _orderlines = null;
 
         // ----------------------------------------------------------------------------------------
         //
@@ -32,7 +31,8 @@ namespace CMSApp.Old_App_Code.Custom
             var property = productObj.GetType().GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             return property.GetValue(productObj);
         }
-
+    }
+}
         // ----------------------------------------------------------------------------------------
         //
         // Functions for orderlines

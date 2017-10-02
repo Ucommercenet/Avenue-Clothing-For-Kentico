@@ -12,11 +12,38 @@
 public partial class CMSWebParts_Ucommerce_MiniBasket {
     
     /// <summary>
-    /// litMinicart control.
+    /// hlMinicart control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal litMinicart;
+    protected global::System.Web.UI.HtmlControls.HtmlAnchor hlMinicart;
+    
+    /// <summary>
+    /// imgMinicart control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl imgMinicart;
+    
+    /// <summary>
+    /// lblMinicartAmount control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Label lblMinicartAmount;
+    
+    /// <summary>
+    /// lblMinicartPrice control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Label lblMinicartPrice;
 }

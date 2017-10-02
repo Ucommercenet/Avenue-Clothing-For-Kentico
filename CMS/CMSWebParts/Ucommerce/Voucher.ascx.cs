@@ -13,7 +13,7 @@ public partial class CMSWebParts_Ucommerce_Voucher : CMSAbstractWebPart
 {
     #region "Properties"
 
-    
+
 
     #endregion
 
@@ -25,6 +25,7 @@ public partial class CMSWebParts_Ucommerce_Voucher : CMSAbstractWebPart
     /// </summary>
     public override void OnContentLoaded()
     {
+
         base.OnContentLoaded();
         SetupControl();
     }
@@ -41,7 +42,11 @@ public partial class CMSWebParts_Ucommerce_Voucher : CMSAbstractWebPart
         }
         else
         {
-            
+            string placeholderText = ValidationHelper.GetString(GetValue("PlaceholderText"), "Enter your voucher code here");
+            string buttonText = ValidationHelper.GetString(GetValue("ButtonText"), "Add Voucher");
+            txtVoucherCode.Attributes.Add("placeholder", placeholderText);
+            btnAddVoucher.Text = buttonText;
+
         }
     }
 
@@ -66,6 +71,3 @@ public partial class CMSWebParts_Ucommerce_Voucher : CMSAbstractWebPart
 
     #endregion
 }
-
-
-

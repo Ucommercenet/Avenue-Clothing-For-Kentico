@@ -23,9 +23,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 
         private void Page_Load(object sender, EventArgs e)
         {
-            // This needs to change, just doing first category for testing purposes.
-            SiteContext.Current.CatalogContext.CurrentCategory = Category.FirstOrDefault(x=>x.Deleted == false);
-
             CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
             //string imageMediaId = CurrentCategory.ImageMediaId;
             //if (!string.IsNullOrWhiteSpace(imageMediaId))

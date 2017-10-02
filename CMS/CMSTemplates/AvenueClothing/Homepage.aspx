@@ -10,6 +10,6 @@
         <LayoutTemplate>
         <cms:CMSWebPartZone runat="server" ID="MainContentZone"/>
         </LayoutTemplate>
-    </cms:CMSPagePlaceholder>
+    </cms:CMSPagePlaceholder>  
 
 </asp:Content>

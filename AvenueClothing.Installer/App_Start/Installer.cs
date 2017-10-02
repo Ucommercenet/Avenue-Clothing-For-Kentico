@@ -4,8 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml;
 using AvenueClothing.Installer.uCommerce.Install.Helpers;
+using CMS.Modules;
+using CMS.SiteProvider;
 using UCommerce.EntitiesV2;
+using UCommerce.Extensions;
+using UCommerce.Installer.Extensions;
+using CMS.DataEngine;
 
 namespace AvenueClothing.Installer.App_Start
 {
@@ -34,6 +40,34 @@ namespace AvenueClothing.Installer.App_Start
 
         private static bool InstallInternal()
         {
+            // Get the avenueClothing site by it's GUID.
+            var avenueClothingSiteInfoByGuid = SiteInfoProvider.GetSiteInfoByGUID(Guid.Parse("f7e02dbb-5b44-4d3b-ab21-67913faca0b5"));
+            if (SiteContext.CurrentSite != null)
+            {
+                return false;
+            }
+            StopAllExistingKenticoSites();
+
+            
+            if (avenueClothingSiteInfoByGuid != null)
+            {
+                // Start up the site, which is by default stopped when restoring with Continuous Integration
+                SiteInfoProvider.RunSite(avenueClothingSiteInfoByGuid.SiteName);
+                
+                SettingsKeyInfoProvider.SetValue("CMSFriendlyURLExtension", SiteContext.CurrentSiteName, "");
+
+                // Switch sitecontext to AvenueClothing as current site.
+                SiteContext.CurrentSite = avenueClothingSiteInfoByGuid;
+
+                var modules = ResourceInfoProvider.GetResources();
+                foreach (ResourceInfo module in modules)
+                {
+                    ResourceSiteInfoProvider.AddResourceToSite(module.ResourceID, avenueClothingSiteInfoByGuid.SiteID);
+                }
+            }
+
+            // Modify URL rewrites to match virtual application URL.
+            UpdateUrlRewriteRulesWithCurrentVirtualApplicationName();
             var installer = new ConfigurationInstaller();
             installer.Configure();
 
@@ -46,9 +80,42 @@ namespace AvenueClothing.Installer.App_Start
             mediaInstaller.Configure();
 
             DeleteOldUCommerceData();
-
+            
             return true;
         }
+
+        private static void UpdateUrlRewriteRulesWithCurrentVirtualApplicationName()
+        {
+            XmlDocument webConfig = new XmlDocument();
+            var webConfigPath = HttpContext.Current.Request.PhysicalApplicationPath + "../Web.config";
+
+            webConfig.Load(webConfigPath);
+
+            string virtualApplicationName = HttpContext.Current.Request.ApplicationPath.Replace("/", String.Empty);
+            
+            for (int i = 1; i <= 4; i++)
+            {
+                XmlNode node =
+                    webConfig.SelectSingleNode(String.Format("configuration/system.webServer/rewrite/rules/rule[{0}]/action", i));
+                var oldVirtualApplicationName = node.Attributes["url"].Value.Split('/')[1];
+
+                if (node != null)
+                {
+                    node.Attributes["url"].Value = node.Attributes["url"].Value.Replace("/" + oldVirtualApplicationName + "/", "/" + virtualApplicationName + "/");
+                }
+            }
+
+            webConfig.Save(webConfigPath);
+        }
+
+        private static void StopAllExistingKenticoSites()
+        {
+            foreach (var site in SiteInfoProvider.GetSites())
+            {
+                SiteInfoProvider.StopSite(site.SiteName);
+            }
+        }
+
         private static void DeleteOldUCommerceData()
         {
             var group = ProductCatalogGroup.SingleOrDefault(g => g.Name == "uCommerce.dk");

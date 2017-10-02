@@ -833,7 +833,7 @@ table {
 }
 .table th,
 .table td {
-  padding: 8px;
+  padding: 1rem;
   line-height: 20px;
   text-align: left;
   vertical-align: top;
@@ -1127,7 +1127,7 @@ textarea {
 }
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.75rem;
 }
 select,
 textarea,
@@ -3468,8 +3468,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav > li > a:focus,
 .navbar .nav > li > a:hover {
   background-color: transparent;
-  color: #333333;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -5842,5 +5841,86 @@ button.close {
 }
 
 
+.voucher-button {
+    background: #ffffff;
+    color: black;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid transparent;
+    display: inline-block;
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+    box-sizing: inherit;
+}
 
+.navbar .nav > li > a.white {
+    padding: 1rem;
+    color: white;
+}
+
+.navbar .nav > li > a.black {
+    padding: 1rem;
+    color: black;
+}
+
+input.voucher {
+    float: left;
+    width: 83%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+}
+
+.margin-top-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.nav > li > a.catnav {
+    color: #767676;
+    display: block;
+    padding: .5em 1em;
+    border-radius: .25rem;
+}
+.nav > li > a.catnav:hover {
+    text-decoration: underline;
+    background-color: transparent;
+}
+.table-striped tbody tr:nth-child(odd) td.white-background {
+    background-color: white;
+}
+
+input.update-cart {
+    padding: 3px;
+}
+
+input.update-cart-button {
+    background-color:transparent;
+    border: none;
+    margin-top: 0.4rem;
+    margin-left: 0.4rem;
+}
+
+div.input-append > input.textbox-to-label {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: black;
+    padding: 0;
+}
+
+table.payment > tbody > tr > td > input {
+    margin-bottom: 0.5rem
+}
+
+.facets {
+    margin-bottom: 0.4rem;
+    color: #767676
+}
+input.boxborder: select.boxborder {
+    border-color: #e2e2e2;
+}
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
