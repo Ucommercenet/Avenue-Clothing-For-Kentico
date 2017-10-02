@@ -3,7 +3,7 @@
 <%@ Register Src="~/CMSTemplates/AvenueClothing/Controls/Product.ascx" TagPrefix="uc1" TagName="Product" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="SidebarPlaceholder" runat="server">
-    <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
+    <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder1">
     <layouttemplate>
         <cms:CMSWebPartZone runat="server" ID="FacetsContentZone"/>
     </layouttemplate>
