@@ -5,18 +5,20 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="SidebarPlaceholder" runat="server">
     <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder1">
-    <layouttemplate>
-        <cms:CMSWebPartZone runat="server" ID="FacetsContentZone"/>
-    </layouttemplate>
-</cms:CMSPagePlaceholder>
+        <LayoutTemplate>
+            <cms:CMSWebPartZone runat="server" ID="FacetsContentZone" />
+        </LayoutTemplate>
+    </cms:CMSPagePlaceholder>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
     <div class="row-fluid">
 
-            <asp:Image runat="server" ID="CategoryImage" Width="870" Height="350" />
+        <asp:Image runat="server" ID="CategoryImage" Width="870" Height="350" />
+        <h1 runat="server" id="CategoryName"></h1>
+
         <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
             <LayoutTemplate>
-                <cms:CMSWebPartZone runat="server" ID="MainContentZone"/>
+                <cms:CMSWebPartZone runat="server" ID="MainContentZone" />
             </LayoutTemplate>
         </cms:CMSPagePlaceholder>
 

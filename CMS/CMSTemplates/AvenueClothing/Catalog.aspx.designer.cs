@@ -22,13 +22,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder1;
         
         /// <summary>
-        /// WebPartZonePlaceholder control.
+        /// CategoryImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
+        protected global::System.Web.UI.WebControls.Image CategoryImage;
+        
+        /// <summary>
         /// CategoryName control.
         /// </summary>
         /// <remarks>
@@ -38,5 +40,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CategoryName;
         
         /// <summary>
+        /// WebPartZonePlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CMS.PortalEngine.Web.UI.CMSPagePlaceholder WebPartZonePlaceholder;
     }
 }
