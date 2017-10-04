@@ -39,7 +39,7 @@
     </asp:PlaceHolder>
 
     <asp:PlaceHolder runat="server" ID="NoAvailableStatusPlaceHolder">
-        <div class="propertyPane dialog-actions">
+        <div class="propertyPane dialog-header">
             <h3>
                 <asp:Localize ID="Localize5" runat="server" meta:resourceKey="Header" />
             </h3>
@@ -48,7 +48,11 @@
                     <asp:Localize ID="Localize6" runat="server" meta:resourceKey="SubHeader" />
                 </p>
             </div>
-            <asp:Localize ID="Localize7" runat="server" meta:resourceKey="NoStatus" />
+        </div>
+        <div class="propertyPane contentPane">
+	        <div class="propertyContainer propertyItems ">
+	            <asp:Localize ID="Localize7" runat="server" meta:resourceKey="NoStatus" />
+            </div>
         </div>
         <div class="propertyPane dialog-actions">
             <a href="#" onclick="UCommerceClientMgr.closeModalWindow();" style="color: blue; cursor: hand">Cancel</a>
