@@ -4,6 +4,8 @@ VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSApp", "CMS\CMSApp.csproj", "{BB8817AE-48DF-4672-A1CB-CFB7441B88DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvenueClothing.Installer", "AvenueClothing.Installer\AvenueClothing.Installer.csproj", "{49FD2A91-3DF0-4139-8648-C16BEAD24F2B}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A72444E2-4848-4DA6-B8CF-2178478D4BE7}"
 	ProjectSection(SolutionItems) = preProject
 		Lib\AjaxControlToolkit.dll = Lib\AjaxControlToolkit.dll
@@ -73,10 +75,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A72444E2-484
 		Lib\CMS.DocumentEngine.XML = Lib\CMS.DocumentEngine.XML
 		Lib\CMS.DocumentWebServices.dll = Lib\CMS.DocumentWebServices.dll
 		Lib\CMS.DocumentWebServices.XML = Lib\CMS.DocumentWebServices.XML
-		Lib\CMS.Ecommerce.dll = Lib\CMS.Ecommerce.dll
-		Lib\CMS.Ecommerce.Web.UI.dll = Lib\CMS.Ecommerce.Web.UI.dll
-		Lib\CMS.Ecommerce.Web.UI.xml = Lib\CMS.Ecommerce.Web.UI.xml
-		Lib\CMS.Ecommerce.XML = Lib\CMS.Ecommerce.XML
 		Lib\CMS.EmailEngine.dll = Lib\CMS.EmailEngine.dll
 		Lib\CMS.EmailEngine.XML = Lib\CMS.EmailEngine.XML
 		Lib\CMS.EventLog.dll = Lib\CMS.EventLog.dll
@@ -207,10 +205,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A72444E2-484
 		Lib\CMS.SocialMarketing.Web.UI.dll = Lib\CMS.SocialMarketing.Web.UI.dll
 		Lib\CMS.SocialMarketing.Web.UI.xml = Lib\CMS.SocialMarketing.Web.UI.xml
 		Lib\CMS.SocialMarketing.xml = Lib\CMS.SocialMarketing.xml
-		Lib\CMS.StrandsRecommender.dll = Lib\CMS.StrandsRecommender.dll
-		Lib\CMS.StrandsRecommender.Web.UI.dll = Lib\CMS.StrandsRecommender.Web.UI.dll
-		Lib\CMS.StrandsRecommender.Web.UI.XML = Lib\CMS.StrandsRecommender.Web.UI.XML
-		Lib\CMS.StrandsRecommender.XML = Lib\CMS.StrandsRecommender.XML
 		Lib\CMS.Synchronization.dll = Lib\CMS.Synchronization.dll
 		Lib\CMS.Synchronization.dll.config = Lib\CMS.Synchronization.dll.config
 		Lib\CMS.Synchronization.Web.UI.dll = Lib\CMS.Synchronization.Web.UI.dll
@@ -309,8 +303,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{79B2222A
 		Lib\Azure\System.Spatial.dll = Lib\Azure\System.Spatial.dll
 		Lib\Azure\System.Spatial.xml = Lib\Azure\System.Spatial.xml
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvenueClothing.Installer", "AvenueClothing.Installer\AvenueClothing.Installer.csproj", "{49FD2A91-3DF0-4139-8648-C16BEAD24F2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
