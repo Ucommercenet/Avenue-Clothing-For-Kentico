@@ -192,11 +192,6 @@
     <Content Include="App_Data\CMSModules\Cms\UI\Grids\CMS_Workflow\default.xml" />
     <Content Include="App_Data\CMSModules\Design\UI\Grids\CMS_WebPartLayout\WebPartLayoutInherited.xml" />
     <Content Include="App_Data\CMSModules\DeviceProfiles\devices.xml" />
-    <Content Include="App_Data\CMSModules\Ecommerce\UI\Grids\Ecommerce_Carrier\default.xml" />
-    <Content Include="App_Data\CMSModules\Ecommerce\UI\Grids\Ecommerce_MultiBuyCouponCode\default.xml" />
-    <Content Include="App_Data\CMSModules\Ecommerce\UI\Grids\Ecommerce_MultibuyDiscount\default.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_Data\CMSModules\Form\UI\Grids\CMS_FormUserControl\default.xml" />
     <Content Include="App_Data\CMSModules\Form\UI\Grids\CMS_FormUserControl\usage.xml" />
     <Content Include="App_Data\CMSModules\Forums\UI\Grids\forums_forumgroup\default.xml" />
@@ -1525,7 +1520,6 @@
     <Content Include="CMSModules\Content\Controls\Attachments\DocumentAttachments\Transformations\Attachment.ascx" />
     <Content Include="CMSModules\Content\Controls\Attachments\DocumentAttachments\Transformations\AttachmentSize.ascx" />
     <Content Include="CMSModules\Content\FormControls\Tags\TagSelectorService.asmx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\ShippingServiceSelector.ascx" />
     <Content Include="CMSModules\EmailTemplates\FormControls\EmailTemplateTypeSelector.ascx" />
     <Content Include="CMSModules\EmailTemplates\Pages\SendDraft.aspx" />
     <Content Include="CMSModules\ImportExport\Controls\Export\cms_resource.ascx" />
@@ -1551,8 +1545,6 @@
     <Content Include="CMSModules\Content\CMSDesk\View\ViewTabs.js" />
     <Content Include="CMSModules\Content\Controls\NewCultureVersion.ascx" />
     <Content Include="CMSModules\Content\Controls\TreeLanguageMenu.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\NewCultureVersion.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\ProductTabs.js" />
     <Content Include="CMSModules\Groups\Tools\Group_Edit_CustomFields.aspx" />
     <Content Include="CMSModules\Personas\Controls\PersonaInformation.ascx" />
     <Content Include="CMSModules\Personas\Dialogs\DocumentsMassTagging.aspx" />
@@ -1583,8 +1575,6 @@
     <Content Include="CMSPages\DevicePreview.aspx" />
     <Content Include="CMSPages\Dialogs\CaptchaImage.aspx" />
     <Content Include="CMSPages\Dialogs\UserRegistration.aspx" />
-    <Content Include="CMSPages\Ecommerce\GetProduct.aspx" />
-    <Content Include="CMSPages\Ecommerce\GetProductFile.aspx" />
     <Content Include="CMSPages\GoogleSiteMap.aspx" />
     <Content Include="CMSPages\IntegrationNotify.aspx" />
     <Content Include="CMSPages\LiveIDLogin.aspx" />
@@ -2058,8 +2048,6 @@
     <Content Include="CMSFormControls\Metafiles\MetaFileUploadControl.ascx" />
     <Content Include="CMSModules\Content\Controls\ContentNavigationPanel.ascx" />
     <Content Include="CMSModules\Content\Controls\TreeActionsPanel.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\Customers\CustomerLoginDetails.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Departments\Department_List.aspx" />
     <Content Include="App_Data\CMSModules\Cms\UI\Grids\CMS_Class\default.xml" />
     <Content Include="CMSModules\Modules\Controls\Settings\Category\SettingsGroup.ascx" />
     <Content Include="CMSModules\Modules\Controls\Settings\Category\SettingsGroup_List.xml" />
@@ -2113,19 +2101,8 @@
     <Content Include="CMSModules\DocumentTypes\FormControls\DocumentTypeIconSelector.ascx" />
     <Content Include="CMSModules\DocumentTypes\Pages\Development\DocumentType_Edit_Query_Frameset.aspx" />
     <Content Include="CMSModules\DocumentTypes\Pages\Development\DocumentType_Edit_Query_Header.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Checkout\CartItemOptionsLineList.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Filters\DiscountFilter.ascx" />
-    <Content Include="App_Data\CMSModules\Ecommerce\UI\Grids\Ecommerce_CouponCode\default.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_Data\CMSModules\Ecommerce\UI\Grids\CMS_MacroRule\default.xml" />
-    <Content Include="App_Data\CMSModules\Ecommerce\UI\Grids\Ecommerce_ShippingOption\default.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Discount\Discount_Codes_Generator.aspx" />
     <Content Include="CMSModules\Groups\Tools\MediaLibrary\Library_List.xml" />
     <Content Include="CMSModules\Modules\Pages\Module\UserInterface\Properties.aspx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_DiscountSettings.ascx" />
     <Content Include="CMSModules\OnlineMarketing\Controls\UI\Grids\MacroRule.xml" />
     <Content Include="CMSModules\OnlineMarketing\Pages\Content\ABTesting\ABTest\FinishABTest.aspx" />
     <Content Include="CMSModules\OnlineMarketing\Pages\Content\ABTesting\ABTest\Overview.aspx" />
@@ -2213,30 +2190,6 @@
     <Content Include="CMSModules\DocumentTypes\Pages\Development\Scopes\List.xml" />
     <Content Include="CMSModules\DocumentTypes\Pages\Development\Scopes\Edit.aspx" />
     <Content Include="CMSModules\DocumentTypes\Pages\Development\Scopes\Scopes.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Checkout\CartItemPriceDetail.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Checkout\CartItemRemove.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Checkout\CartItemUnits.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Filters\OptionCategoryNameFilter.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Filters\OptionCategoryTypeFilter.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Filters\ProductVariantFilter.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Filters\SimpleProductFilter.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductOptionsSelector.xml" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\OptionCategoryEdit.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\SelectVariantCategory.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_SKUOptionSettings.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\OptionCategoryProductOptionSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\OptionCategorySelectionControlSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\QuickAdd.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_Products.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Dashboard\Dashboard.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Discount\Discount_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_Products.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_Products.xml" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Select_Options.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Variants.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Variant_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Variant_New.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Reports\Dashboard.aspx" />
     <Content Include="CMSModules\EmailTemplates\Pages\New.aspx" />
     <Content Include="CMSModules\FormControls\Controls\FormControlFieldEditor.ascx" />
     <Content Include="CMSModules\FormControls\Controls\InheritedFilter.ascx" />
@@ -2305,13 +2258,6 @@
     <Content Include="CMSModules\DeviceProfiles\Controls\DeviceView.ascx" />
     <Content Include="CMSModules\Content\Controls\Dialogs\General\ViewModeMenu.ascx" />
     <Content Include="CMSModules\DeviceProfiles\FormControls\FiftyOne_Activate.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Filters\OrderFilter.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductSectionsContextMenu.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_DiscountCouponSettings.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_AddressSettings.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_ExchangeTableSettings.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_New.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\New_ProductOrSection.aspx" />
     <Content Include="CMSModules\Forums\Content\Properties\Footer.aspx" />
     <Content Include="CMSModules\Macros\Controls\UI\MacroRule\CategoryFilter.ascx" />
     <Content Include="CMSModules\Membership\Pages\ChangePassword.aspx" />
@@ -2458,9 +2404,6 @@
     <Content Include="CMSModules\Content\Controls\Filters\DocumentCultureFilter.ascx" />
     <Content Include="CMSModules\Content\Controls\MasterPage.ascx" />
     <Content Include="CMSModules\DeviceProfiles\Controls\ProfilesMenuControl.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductFilter.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\SelectSKUBinding.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductNavigationPanel.ascx" />
     <Content Include="CMSModules\FormControls\FormControls\DataTypeFilter.ascx" />
     <Content Include="CMSModules\FormControls\FormControls\PresetFormControlSelector.ascx" />
     <Content Include="CMSModules\Forums\CMSPages\LiveUserUnsubscribe.aspx" />
@@ -2524,14 +2467,6 @@
     <Content Include="CMSModules\Membership\Controls\Facebook\MappingEditorItem.ascx" />
     <Content Include="CMSModules\Membership\FormControls\Facebook\Mapping.ascx" />
     <Content Include="CMSModules\Membership\Pages\Facebook\MappingEditor.aspx" />
-    <Content Include="CMSModules\StrandsRecommender\FormControls\StrandsCatalogUploadFrequency.ascx" />
-    <Content Include="CMSModules\StrandsRecommender\FormControls\StrandsWebTemplateSelector.ascx" />
-    <Content Include="CMSModules\StrandsRecommender\Pages\WebMethods.aspx" />
-    <Content Include="CMSModules\StrandsRecommender\Scripts\InsertEmailWidget.js" />
-    <Content Include="CMSModules\StrandsRecommender\Pages\InsertEmailWidget.aspx" />
-    <Content Include="CMSModules\StrandsRecommender\Scripts\StrandsModule.js" />
-    <Content Include="CMSModules\StrandsRecommender\Scripts\WebTemplateSelector.js" />
-    <Content Include="CMSModules\StrandsRecommender\Stylesheets\InsertEmailWidget.css" />
     <Content Include="CMSModules\System\Controls\MacrosGrid.ascx" />
     <Content Include="CMSModules\System\Macros\Benchmark.aspx" />
     <Content Include="CMSModules\System\Macros\System_MacroReport.aspx" />
@@ -2548,10 +2483,7 @@
     <Content Include="CMSModules\Objects\FormControls\Cloning\CMS_WebPartLayoutSettings.ascx" />
     <Content Include="CMSModules\ContactManagement\FormControls\Cloning\OM_ContactGroupSettings.ascx" />
     <Content Include="CMSModules\ContactManagement\FormControls\Cloning\OM_AccountSettings.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_OptionCategorySettings.ascx" />
     <Content Include="CMSModules\Newsletters\FormControls\Cloning\Newsletter_NewsletterSettings.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_TaxClassSettings.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_SKUSettings.ascx" />
     <Content Include="CMSModules\MediaLibrary\FormControls\Cloning\Media_LibrarySettings.ascx" />
     <Content Include="CMSModules\Forums\FormControls\Cloning\Forums_ForumGroupSettings.ascx" />
     <Content Include="CMSModules\Forums\FormControls\Cloning\Forums_ForumSettings.ascx" />
@@ -2586,21 +2518,6 @@
     <Content Include="CMSModules\AdminControls\Controls\Preview\PreviewFooter.ascx" />
     <Content Include="CMSModules\AdminControls\Controls\Preview\PreviewNavigationButtons.ascx" />
     <Content Include="CMSModules\DocumentTypes\Pages\Development\DocumentType_Edit_Transformation_Preview.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductEdit.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\SelectOptionCategoryType.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\SelectEproductFiles.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\SelectProductImage.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\SelectProductsTreeMode.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_OnlineMarketing.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Products_Frameset.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Attachments.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Categories.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Metadata.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Related.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Versions.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Workflow.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_List_Documents.xml" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Section.aspx" />
     <Content Include="CMSModules\EmailTemplates\Filters\EmailTemplateTypeFilter.ascx" />
     <Content Include="CMSModules\EmailTemplates\FormControls\EmailTemplateSelector.ascx" />
     <Content Include="CMSModules\FormControls\FormControls\FormControlSelector.ascx" />
@@ -3047,94 +2964,6 @@
     <Content Include="CMSModules\CustomTables\Tools\CustomTable_Data_ViewItem.aspx" />
     <Content Include="CMSModules\CustomTables\Tools\CustomTable_List.aspx" />
     <Content Include="CMSModules\CustomTables\Tools\CustomTable_List.xml" />
-    <Content Include="CMSModules\Ecommerce\CMSPages\GetInvoice.aspx" />
-    <Content Include="CMSModules\Ecommerce\CMSPages\PayPalIPN.aspx" />
-    <Content Include="CMSModules\Ecommerce\CMSPages\ShoppingCartSKUPriceDetail.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Content\Product\Product_Edit_General.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\MyDetails\MyAddresses.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\MyDetails\MyCredit.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\MyDetails\MyDetails.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\MyDetails\MyOrders.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\PaymentGateways\AuthorizeNetForm.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\PaymentGateways\CreditPaymentForm.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\PaymentGateways\PayPalForm.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ProductOptions\ProductOptionSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ProductOptions\ShoppingCartItemSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\OrderItemEdit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCart.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartCheckRegistration.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartContent.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartCustomerSelection.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartOrderAddresses.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPaymentGateway.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPaymentShipping.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPreview.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartSKUPriceDetail.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartSKUPriceDetail.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\OrderList.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\PriceSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductDocuments.ascx" />
-    <Content Include="CMSModules\Ecommerce\Controls\UI\ProductOptions.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Development\DocumentTypes\DocumentType_Edit_Ecommerce.aspx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\CheckoutProcess.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\CurrencySelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\CustomerSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\DepartmentSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\InternalStatusSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\ManufacturerSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\OrderStatusSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\PaymentSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\PublicStatusSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\ShippingSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\SKUSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\SupplierSelector.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Currencies\Currency_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Currencies\Currency_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ExchangeRates\ExchangeTable_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ExchangeRates\ExchangeTable_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InternalStatus\InternalStatus_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InternalStatus\InternalStatus_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InvoiceTemplate\InvoiceTemplate_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\OrderStatus\OrderStatus_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\OrderStatus\OrderStatus_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PaymentOptions\PaymentOption_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PublicStatus\PublicStatus_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PublicStatus\PublicStatus_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_ChangeCurrency.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_CheckoutProcess.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_Emails.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_General.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_Country.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_State.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Address_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Address_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Credit_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Credit_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\DiscountCoupons\DiscountCoupon_Edit_Product_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\DiscountCoupons\DiscountCoupon_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Manufacturers\Manufacturer_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_AddItems.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Billing.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_General.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_History.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Invoice.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_OrderItems.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Shipping.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_New.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_General.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_Options.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Documents.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_General.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Options.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_VolumeDiscount_Edit.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_VolumeDiscount_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_List.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_New.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Suppliers\Supplier_List.aspx" />
     <Content Include="CMSModules\EmailQueue\EmailQueue.aspx" />
     <Content Include="CMSModules\EmailQueue\EmailQueue_Details.aspx" />
     <Content Include="CMSModules\EmailQueue\MassEmails_Recipients.aspx" />
@@ -3945,8 +3774,6 @@
     <Content Include="CMSTemplates\AvenueClothing\Search.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Shipping.aspx" />
     <Content Include="CMSTemplates\BlankSiteASPX\root.aspx" />
-    <Content Include="CMSTemplates\CorporateSite\HomeASPX.aspx" />
-    <Content Include="CMSTemplates\CorporateSite\HomeMixed.aspx" />
     <Content Include="CMSWebParts\AbuseReport\AbuseReport.ascx" />
     <Content Include="CMSWebParts\AbuseReport\InlineAbuseReport.ascx" />
     <Content Include="CMSWebParts\Attachments\AttachmentsDataSource.ascx" />
@@ -3994,9 +3821,6 @@
     <Content Include="CMSWebParts\Chat\InitiatedChat_files\InitiatedChat.js" />
     <Content Include="CMSWebParts\Chat\InitiatedChat.ascx" />
     <Content Include="CMSWebParts\DataSources\LanguageDataSource.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\InputFields\RegisterAfterCheckout.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\CustomerCompanyDetails.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\CustomerEditAddress.ascx" />
     <Content Include="CMSWebParts\SharePoint\SharePointDataSourceV2.ascx" />
     <Content Include="CMSWebParts\SharePoint\SharePointDataSource_files\SharePointDataSourceV2.ascx" />
     <Content Include="CMSWebParts\Media\YouTubeVideo.ascx" />
@@ -4059,28 +3883,6 @@
     <Content Include="CMSWebParts\DataSources\XMLDataSource.ascx" />
     <Content Include="CMSWebParts\DeviceProfiles\SwitchDeviceDetection.ascx" />
     <Content Include="CMSWebParts\DocumentWizard\DocumentWizardStepAction.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Forms\CustomerAddress.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Forms\CustomerDetail.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Forms\PaymentForm.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\InputFields\DiscountCoupon.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\InputFields\OrderNote.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Selectors\CurrencySelection.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Selectors\PaymentMethodSelection.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Selectors\ShippingSelection.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Viewers\ShoppingCartContent.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Viewers\MessagePanel.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Checkout\Viewers\ShoppingCartTotals.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Orders.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Products\Products.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Products\ProductsDataSource.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Products\RandomProducts.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Products\SimilarProductsBySale.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Products\TopNNewestProducts.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Products\TopNProductsBySales.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\RemainingAmountForFreeShipping.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\ShoppingCart\ShoppingCartWebPart.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Syndication\ProductsRSSFeed.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Wishlist.ascx" />
     <Content Include="CMSWebParts\EventManager\EventCalendar.ascx" />
     <Content Include="CMSWebParts\EventManager\EventManager.ascx" />
     <Content Include="CMSWebParts\Forums\ForumBreadcrumbs.ascx" />
@@ -4217,8 +4019,6 @@
     <Content Include="CMSWebParts\SmartSearch\SearchFilter.ascx" />
     <Content Include="CMSWebParts\SmartSearch\SearchResults.ascx" />
     <Content Include="CMSWebParts\SmartSearch\SearchBox_files\PredictiveSearch.js" />
-    <Content Include="CMSWebParts\StrandsRecommender\StrandsRecommendations.ascx" />
-    <Content Include="CMSWebParts\StrandsRecommender\StrandsRecommendations.css" />
     <Content Include="CMSWebParts\Syndication\Basic\AtomFeed.ascx" />
     <Content Include="CMSWebParts\Syndication\Basic\AtomRepeater.ascx" />
     <Content Include="CMSWebParts\Syndication\Basic\RSSFeed.ascx" />
@@ -4469,8 +4269,6 @@
     <Content Include="Default.aspx" />
     <Content Include="CMSMasterPages\UI\UIPage.master" />
     <Content Include="App_Data\CMSModules\SmartSearch\_Synonyms\en.zip" />
-    <Content Include="CMSModules\StrandsRecommender\CMSPages\StrandsCatalogFeed.ashx" />
-    <Content Include="CMSModules\StrandsRecommender\Web.config" />
     <Content Include="PersonalSite\Images\close.png" />
     <Content Include="PersonalSite\Images\loading.gif" />
     <Content Include="PersonalSite\Images\next.png" />
@@ -5125,34 +4923,6 @@
     <Compile Include="CMSModules\Content\Controls\TreeLanguageMenu.ascx.designer.cs">
       <DependentUpon>TreeLanguageMenu.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\Customers\CustomerLoginDetails.ascx.cs">
-      <DependentUpon>CustomerLoginDetails.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\Customers\CustomerLoginDetails.ascx.designer.cs">
-      <DependentUpon>CustomerLoginDetails.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\ShippingServiceSelector.ascx.cs">
-      <DependentUpon>ShippingServiceSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\ShippingServiceSelector.ascx.designer.cs">
-      <DependentUpon>ShippingServiceSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Departments\Department_List.aspx.cs">
-      <DependentUpon>Department_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Departments\Department_List.aspx.designer.cs">
-      <DependentUpon>Department_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\NewCultureVersion.aspx.cs">
-      <DependentUpon>NewCultureVersion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\NewCultureVersion.aspx.designer.cs">
-      <DependentUpon>NewCultureVersion.aspx</DependentUpon>
-    </Compile>
     <Compile Include="CMSModules\EmailTemplates\FormControls\EmailTemplateTypeSelector.ascx.cs">
       <DependentUpon>EmailTemplateTypeSelector.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5524,40 +5294,12 @@
     <Compile Include="CMSModules\DocumentTypes\Pages\Development\DocumentType_Edit_Query_Header.aspx.designer.cs">
       <DependentUpon>DocumentType_Edit_Query_Header.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemOptionsLineList.ascx.cs">
-      <DependentUpon>CartItemOptionsLineList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemOptionsLineList.ascx.designer.cs">
-      <DependentUpon>CartItemOptionsLineList.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\DiscountFilter.ascx.cs">
-      <DependentUpon>DiscountFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\DiscountFilter.ascx.designer.cs">
-      <DependentUpon>DiscountFilter.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Discount\Discount_Codes_Generator.aspx.cs">
-      <DependentUpon>Discount_Codes_Generator.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Discount\Discount_Codes_Generator.aspx.designer.cs">
-      <DependentUpon>Discount_Codes_Generator.aspx</DependentUpon>
-    </Compile>
     <Compile Include="CMSModules\Modules\Pages\Module\UserInterface\Properties.aspx.cs">
       <DependentUpon>Properties.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSModules\Modules\Pages\Module\UserInterface\Properties.aspx.designer.cs">
       <DependentUpon>Properties.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_DiscountSettings.ascx.cs">
-      <DependentUpon>Ecommerce_DiscountSettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_DiscountSettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_DiscountSettings.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSModules\OnlineMarketing\Pages\Content\ABTesting\ABTest\FinishABTest.aspx.cs">
       <DependentUpon>FinishABTest.aspx</DependentUpon>
@@ -6157,160 +5899,6 @@
     <Compile Include="CMSModules\DocumentTypes\Pages\Development\Scopes\Scopes.aspx.designer.cs">
       <DependentUpon>Scopes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemPriceDetail.ascx.cs">
-      <DependentUpon>CartItemPriceDetail.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemPriceDetail.ascx.designer.cs">
-      <DependentUpon>CartItemPriceDetail.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemRemove.ascx.cs">
-      <DependentUpon>CartItemRemove.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemRemove.ascx.designer.cs">
-      <DependentUpon>CartItemRemove.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemUnits.ascx.cs">
-      <DependentUpon>CartItemUnits.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Checkout\CartItemUnits.ascx.designer.cs">
-      <DependentUpon>CartItemUnits.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\OptionCategoryNameFilter.ascx.cs">
-      <DependentUpon>OptionCategoryNameFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\OptionCategoryNameFilter.ascx.designer.cs">
-      <DependentUpon>OptionCategoryNameFilter.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\OptionCategoryTypeFilter.ascx.cs">
-      <DependentUpon>OptionCategoryTypeFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\OptionCategoryTypeFilter.ascx.designer.cs">
-      <DependentUpon>OptionCategoryTypeFilter.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\ProductVariantFilter.ascx.cs">
-      <DependentUpon>ProductVariantFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\ProductVariantFilter.ascx.designer.cs">
-      <DependentUpon>ProductVariantFilter.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\SimpleProductFilter.ascx.cs">
-      <DependentUpon>SimpleProductFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\SimpleProductFilter.ascx.designer.cs">
-      <DependentUpon>SimpleProductFilter.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\OptionCategoryEdit.ascx.cs">
-      <DependentUpon>OptionCategoryEdit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\OptionCategoryEdit.ascx.designer.cs">
-      <DependentUpon>OptionCategoryEdit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\SelectVariantCategory.ascx.cs">
-      <DependentUpon>SelectVariantCategory.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\SelectVariantCategory.ascx.designer.cs">
-      <DependentUpon>SelectVariantCategory.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_SKUOptionSettings.ascx.cs">
-      <DependentUpon>Ecommerce_SKUOptionSettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_SKUOptionSettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_SKUOptionSettings.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\OptionCategoryProductOptionSelector.ascx.cs">
-      <DependentUpon>OptionCategoryProductOptionSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\OptionCategoryProductOptionSelector.ascx.designer.cs">
-      <DependentUpon>OptionCategoryProductOptionSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\OptionCategorySelectionControlSelector.ascx.cs">
-      <DependentUpon>OptionCategorySelectionControlSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\OptionCategorySelectionControlSelector.ascx.designer.cs">
-      <DependentUpon>OptionCategorySelectionControlSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\QuickAdd.aspx.cs">
-      <DependentUpon>QuickAdd.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\QuickAdd.aspx.designer.cs">
-      <DependentUpon>QuickAdd.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_Products.aspx.cs">
-      <DependentUpon>TaxClass_Products.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_Products.aspx.designer.cs">
-      <DependentUpon>TaxClass_Products.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Dashboard\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Dashboard\Dashboard.aspx.designer.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Discount\Discount_List.aspx.cs">
-      <DependentUpon>Discount_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Discount\Discount_List.aspx.designer.cs">
-      <DependentUpon>Discount_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_Products.aspx.cs">
-      <DependentUpon>OptionCategory_Edit_Products.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_Products.aspx.designer.cs">
-      <DependentUpon>OptionCategory_Edit_Products.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Select_Options.aspx.cs">
-      <DependentUpon>OptionCategory_Select_Options.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Select_Options.aspx.designer.cs">
-      <DependentUpon>OptionCategory_Select_Options.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Variants.aspx.cs">
-      <DependentUpon>Product_Edit_Variants.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Variants.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Variants.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Variant_Edit.aspx.cs">
-      <DependentUpon>Product_Edit_Variant_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Variant_Edit.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Variant_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Variant_New.aspx.cs">
-      <DependentUpon>Variant_New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Variant_New.aspx.designer.cs">
-      <DependentUpon>Variant_New.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Reports\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Reports\Dashboard.aspx.designer.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
-    </Compile>
     <Compile Include="CMSModules\EmailTemplates\Pages\New.aspx.cs">
       <DependentUpon>New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6779,55 +6367,6 @@
     </Compile>
     <Compile Include="CMSModules\DeviceProfiles\FormControls\FiftyOne_Activate.ascx.designer.cs">
       <DependentUpon>FiftyOne_Activate.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\OrderFilter.ascx.cs">
-      <DependentUpon>OrderFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\OrderFilter.ascx.designer.cs">
-      <DependentUpon>OrderFilter.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductSectionsContextMenu.ascx.cs">
-      <DependentUpon>ProductSectionsContextMenu.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductSectionsContextMenu.ascx.designer.cs">
-      <DependentUpon>ProductSectionsContextMenu.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_DiscountCouponSettings.ascx.cs">
-      <DependentUpon>Ecommerce_DiscountCouponSettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_DiscountCouponSettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_DiscountCouponSettings.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_AddressSettings.ascx.cs">
-      <DependentUpon>Ecommerce_AddressSettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_AddressSettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_AddressSettings.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_ExchangeTableSettings.ascx.cs">
-      <DependentUpon>Ecommerce_ExchangeTableSettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_ExchangeTableSettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_ExchangeTableSettings.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_New.aspx.cs">
-      <DependentUpon>OptionCategory_New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_New.aspx.designer.cs">
-      <DependentUpon>OptionCategory_New.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\New_ProductOrSection.aspx.cs">
-      <DependentUpon>New_ProductOrSection.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\New_ProductOrSection.aspx.designer.cs">
-      <DependentUpon>New_ProductOrSection.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSModules\Forums\Content\Properties\Footer.aspx.cs">
       <DependentUpon>Footer.aspx</DependentUpon>
@@ -7626,27 +7165,6 @@
     <Compile Include="CMSModules\DeviceProfiles\Controls\ProfilesMenuControl.ascx.designer.cs">
       <DependentUpon>ProfilesMenuControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductFilter.ascx.cs">
-      <DependentUpon>ProductFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductFilter.ascx.designer.cs">
-      <DependentUpon>ProductFilter.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectSKUBinding.ascx.cs">
-      <DependentUpon>SelectSKUBinding.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectSKUBinding.ascx.designer.cs">
-      <DependentUpon>SelectSKUBinding.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductNavigationPanel.ascx.cs">
-      <DependentUpon>ProductNavigationPanel.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductNavigationPanel.ascx.designer.cs">
-      <DependentUpon>ProductNavigationPanel.ascx</DependentUpon>
-    </Compile>
     <Compile Include="CMSModules\FormControls\FormControls\DataTypeFilter.ascx.cs">
       <DependentUpon>DataTypeFilter.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8060,34 +7578,6 @@
     <Compile Include="CMSModules\Staging\Tools\TaskGroup\TaskGroup.aspx.designer.cs">
       <DependentUpon>TaskGroup.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\FormControls\StrandsCatalogUploadFrequency.ascx.cs">
-      <DependentUpon>StrandsCatalogUploadFrequency.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\FormControls\StrandsCatalogUploadFrequency.ascx.designer.cs">
-      <DependentUpon>StrandsCatalogUploadFrequency.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\FormControls\StrandsWebTemplateSelector.ascx.cs">
-      <DependentUpon>StrandsWebTemplateSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\FormControls\StrandsWebTemplateSelector.ascx.designer.cs">
-      <DependentUpon>StrandsWebTemplateSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\Pages\InsertEmailWidget.aspx.cs">
-      <DependentUpon>InsertEmailWidget.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\Pages\InsertEmailWidget.aspx.designer.cs">
-      <DependentUpon>InsertEmailWidget.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\Pages\WebMethods.aspx.cs">
-      <DependentUpon>WebMethods.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\StrandsRecommender\Pages\WebMethods.aspx.designer.cs">
-      <DependentUpon>WebMethods.aspx</DependentUpon>
-    </Compile>
     <Compile Include="CMSModules\SystemDevelopment\DevMenu.ascx.cs">
       <DependentUpon>DevMenu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8228,33 +7718,12 @@
     <Compile Include="CMSModules\ContactManagement\FormControls\Cloning\OM_AccountSettings.ascx.designer.cs">
       <DependentUpon>OM_AccountSettings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_OptionCategorySettings.ascx.cs">
-      <DependentUpon>Ecommerce_OptionCategorySettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_OptionCategorySettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_OptionCategorySettings.ascx</DependentUpon>
-    </Compile>
     <Compile Include="CMSModules\Newsletters\FormControls\Cloning\Newsletter_NewsletterSettings.ascx.cs">
       <DependentUpon>Newsletter_NewsletterSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSModules\Newsletters\FormControls\Cloning\Newsletter_NewsletterSettings.ascx.designer.cs">
       <DependentUpon>Newsletter_NewsletterSettings.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_TaxClassSettings.ascx.cs">
-      <DependentUpon>Ecommerce_TaxClassSettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_TaxClassSettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_TaxClassSettings.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_SKUSettings.ascx.cs">
-      <DependentUpon>Ecommerce_SKUSettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\Cloning\Ecommerce_SKUSettings.ascx.designer.cs">
-      <DependentUpon>Ecommerce_SKUSettings.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSModules\MediaLibrary\FormControls\Cloning\Media_LibrarySettings.ascx.cs">
       <DependentUpon>Media_LibrarySettings.ascx</DependentUpon>
@@ -8500,111 +7969,6 @@
     </Compile>
     <Compile Include="CMSModules\DocumentTypes\Pages\Development\DocumentType_Edit_Transformation_Preview.aspx.designer.cs">
       <DependentUpon>DocumentType_Edit_Transformation_Preview.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\Donate.aspx.cs">
-      <DependentUpon>Donate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\Donate.aspx.designer.cs">
-      <DependentUpon>Donate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductEdit.ascx.cs">
-      <DependentUpon>ProductEdit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductEdit.ascx.designer.cs">
-      <DependentUpon>ProductEdit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\SelectOptionCategoryType.ascx.cs">
-      <DependentUpon>SelectOptionCategoryType.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions\SelectOptionCategoryType.ascx.designer.cs">
-      <DependentUpon>SelectOptionCategoryType.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectEproductFiles.ascx.cs">
-      <DependentUpon>SelectEproductFiles.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectEproductFiles.ascx.designer.cs">
-      <DependentUpon>SelectEproductFiles.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectProductImage.ascx.cs">
-      <DependentUpon>SelectProductImage.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectProductImage.ascx.designer.cs">
-      <DependentUpon>SelectProductImage.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectProductsTreeMode.ascx.cs">
-      <DependentUpon>SelectProductsTreeMode.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectProductsTreeMode.ascx.designer.cs">
-      <DependentUpon>SelectProductsTreeMode.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_OnlineMarketing.aspx.cs">
-      <DependentUpon>StoreSettings_OnlineMarketing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_OnlineMarketing.aspx.designer.cs">
-      <DependentUpon>StoreSettings_OnlineMarketing.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Products_Frameset.aspx.cs">
-      <DependentUpon>Products_Frameset.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Products_Frameset.aspx.designer.cs">
-      <DependentUpon>Products_Frameset.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Attachments.aspx.cs">
-      <DependentUpon>Product_Edit_Attachments.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Attachments.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Attachments.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Categories.aspx.cs">
-      <DependentUpon>Product_Edit_Categories.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Categories.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Categories.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Metadata.aspx.cs">
-      <DependentUpon>Product_Edit_Metadata.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Metadata.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Metadata.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Related.aspx.cs">
-      <DependentUpon>Product_Edit_Related.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Related.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Related.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Versions.aspx.cs">
-      <DependentUpon>Product_Edit_Versions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Versions.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Versions.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Workflow.aspx.cs">
-      <DependentUpon>Product_Edit_Workflow.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Workflow.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Workflow.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Section.aspx.cs">
-      <DependentUpon>Product_Section.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Section.aspx.designer.cs">
-      <DependentUpon>Product_Section.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSModules\EmailTemplates\Filters\EmailTemplateTypeFilter.ascx.cs">
       <DependentUpon>EmailTemplateTypeFilter.ascx</DependentUpon>
@@ -10073,20 +9437,6 @@
     <Compile Include="CMSModules\Departments\FormControls\DepartmentSectionsManager.ascx.designer.cs">
       <DependentUpon>DepartmentSectionsManager.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\EProducts.aspx.cs">
-      <DependentUpon>EProducts.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\EProducts.aspx.designer.cs">
-      <DependentUpon>EProducts.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ProductOptions\DonationProperties.ascx.cs">
-      <DependentUpon>DonationProperties.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ProductOptions\DonationProperties.ascx.designer.cs">
-      <DependentUpon>DonationProperties.ascx</DependentUpon>
-    </Compile>
     <Compile Include="CMSModules\Membership\FormControls\Passwords\EncryptedPassword.ascx.cs">
       <DependentUpon>EncryptedPassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -10661,40 +10011,12 @@
     <Compile Include="CMSModules\Workflows\Workflow_Emails.aspx.designer.cs">
       <DependentUpon>Workflow_Emails.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\CustomerTypeFilter.ascx.cs">
-      <DependentUpon>CustomerTypeFilter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\Filters\CustomerTypeFilter.ascx.designer.cs">
-      <DependentUpon>CustomerTypeFilter.ascx</DependentUpon>
-    </Compile>
     <Compile Include="CMSAdminControls\UI\Selectors\SelectValidity.ascx.cs">
       <DependentUpon>SelectValidity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSAdminControls\UI\Selectors\SelectValidity.ascx.designer.cs">
       <DependentUpon>SelectValidity.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectProductType.ascx.cs">
-      <DependentUpon>SelectProductType.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SelectProductType.ascx.designer.cs">
-      <DependentUpon>SelectProductType.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Administration\Membership\Membership_Edit_Products.aspx.cs">
-      <DependentUpon>Membership_Edit_Products.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Administration\Membership\Membership_Edit_Products.aspx.designer.cs">
-      <DependentUpon>Membership_Edit_Products.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_GlobalObjects.aspx.cs">
-      <DependentUpon>StoreSettings_GlobalObjects.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_GlobalObjects.aspx.designer.cs">
-      <DependentUpon>StoreSettings_GlobalObjects.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSModules\EmailTemplates\Controls\Edit.ascx.cs">
       <DependentUpon>Edit.ascx</DependentUpon>
@@ -11363,20 +10685,6 @@
     </Compile>
     <Compile Include="CMSModules\Content\Controls\VersionList.ascx.designer.cs">
       <DependentUpon>VersionList.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ShippingOptions\ShippingOption_Edit_ShippingCosts.aspx.cs">
-      <DependentUpon>ShippingOption_Edit_ShippingCosts.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ShippingOptions\ShippingOption_Edit_ShippingCosts.aspx.designer.cs">
-      <DependentUpon>ShippingOption_Edit_ShippingCosts.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ShippingOptions\ShippingOption_Edit_ShippingCosts_Edit.aspx.cs">
-      <DependentUpon>ShippingOption_Edit_ShippingCosts_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ShippingOptions\ShippingOption_Edit_ShippingCosts_Edit.aspx.designer.cs">
-      <DependentUpon>ShippingOption_Edit_ShippingCosts_Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSModules\EmailQueue\Controls\EmailQueue.ascx.cs">
       <DependentUpon>EmailQueue.ascx</DependentUpon>
@@ -12369,270 +11677,6 @@
     </Compile>
     <Compile Include="CMSModules\CustomTables\Tools\CustomTable_List.aspx.designer.cs">
       <DependentUpon>CustomTable_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\GetInvoice.aspx.designer.cs">
-      <DependentUpon>GetInvoice.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\PayPalIPN.aspx.designer.cs">
-      <DependentUpon>PayPalIPN.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\ShoppingCartSKUPriceDetail.aspx.designer.cs">
-      <DependentUpon>ShoppingCartSKUPriceDetail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Content\Product\Product_Edit_General.aspx.designer.cs">
-      <DependentUpon>Product_Edit_General.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyAddresses.ascx.designer.cs">
-      <DependentUpon>MyAddresses.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyCredit.ascx.designer.cs">
-      <DependentUpon>MyCredit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyDetails.ascx.designer.cs">
-      <DependentUpon>MyDetails.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyOrders.ascx.designer.cs">
-      <DependentUpon>MyOrders.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\PaymentGateways\AuthorizeNetForm.ascx.designer.cs">
-      <DependentUpon>AuthorizeNetForm.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\PaymentGateways\CreditPaymentForm.ascx.designer.cs">
-      <DependentUpon>CreditPaymentForm.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\PaymentGateways\PayPalForm.ascx.designer.cs">
-      <DependentUpon>PayPalForm.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ProductOptions\ProductOptionSelector.ascx.designer.cs">
-      <DependentUpon>ProductOptionSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ProductOptions\ShoppingCartItemSelector.ascx.designer.cs">
-      <DependentUpon>ShoppingCartItemSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\OrderItemEdit.aspx.designer.cs">
-      <DependentUpon>OrderItemEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCart.ascx.designer.cs">
-      <DependentUpon>ShoppingCart.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartCheckRegistration.ascx.designer.cs">
-      <DependentUpon>ShoppingCartCheckRegistration.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartContent.ascx.designer.cs">
-      <DependentUpon>ShoppingCartContent.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartCustomerSelection.ascx.designer.cs">
-      <DependentUpon>ShoppingCartCustomerSelection.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartOrderAddresses.ascx.designer.cs">
-      <DependentUpon>ShoppingCartOrderAddresses.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPaymentGateway.ascx.designer.cs">
-      <DependentUpon>ShoppingCartPaymentGateway.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPaymentShipping.ascx.designer.cs">
-      <DependentUpon>ShoppingCartPaymentShipping.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPreview.ascx.designer.cs">
-      <DependentUpon>ShoppingCartPreview.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartSKUPriceDetail.ascx.designer.cs">
-      <DependentUpon>ShoppingCartSKUPriceDetail.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartSKUPriceDetail.aspx.designer.cs">
-      <DependentUpon>ShoppingCartSKUPriceDetail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\OrderList.ascx.designer.cs">
-      <DependentUpon>OrderList.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\PriceSelector.ascx.designer.cs">
-      <DependentUpon>PriceSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductDocuments.ascx.designer.cs">
-      <DependentUpon>ProductDocuments.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions.ascx.designer.cs">
-      <DependentUpon>ProductOptions.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Development\DocumentTypes\DocumentType_Edit_Ecommerce.aspx.designer.cs">
-      <DependentUpon>DocumentType_Edit_Ecommerce.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\CheckoutProcess.ascx.designer.cs">
-      <DependentUpon>CheckoutProcess.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\CurrencySelector.ascx.designer.cs">
-      <DependentUpon>CurrencySelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\CustomerSelector.ascx.designer.cs">
-      <DependentUpon>CustomerSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\DepartmentSelector.ascx.designer.cs">
-      <DependentUpon>DepartmentSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\InternalStatusSelector.ascx.designer.cs">
-      <DependentUpon>InternalStatusSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\ManufacturerSelector.ascx.designer.cs">
-      <DependentUpon>ManufacturerSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\OrderStatusSelector.ascx.designer.cs">
-      <DependentUpon>OrderStatusSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\PaymentSelector.ascx.designer.cs">
-      <DependentUpon>PaymentSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\PublicStatusSelector.ascx.designer.cs">
-      <DependentUpon>PublicStatusSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\ShippingSelector.ascx.designer.cs">
-      <DependentUpon>ShippingSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SKUSelector.ascx.designer.cs">
-      <DependentUpon>SKUSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SupplierSelector.ascx.designer.cs">
-      <DependentUpon>SupplierSelector.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Currencies\Currency_Edit.aspx.designer.cs">
-      <DependentUpon>Currency_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Currencies\Currency_List.aspx.designer.cs">
-      <DependentUpon>Currency_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ExchangeRates\ExchangeTable_Edit.aspx.designer.cs">
-      <DependentUpon>ExchangeTable_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ExchangeRates\ExchangeTable_List.aspx.designer.cs">
-      <DependentUpon>ExchangeTable_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InternalStatus\InternalStatus_Edit.aspx.designer.cs">
-      <DependentUpon>InternalStatus_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InternalStatus\InternalStatus_List.aspx.designer.cs">
-      <DependentUpon>InternalStatus_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InvoiceTemplate\InvoiceTemplate_Edit.aspx.designer.cs">
-      <DependentUpon>InvoiceTemplate_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\OrderStatus\OrderStatus_Edit.aspx.designer.cs">
-      <DependentUpon>OrderStatus_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\OrderStatus\OrderStatus_List.aspx.designer.cs">
-      <DependentUpon>OrderStatus_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PaymentOptions\PaymentOption_List.aspx.designer.cs">
-      <DependentUpon>PaymentOption_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PublicStatus\PublicStatus_Edit.aspx.designer.cs">
-      <DependentUpon>PublicStatus_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PublicStatus\PublicStatus_List.aspx.designer.cs">
-      <DependentUpon>PublicStatus_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_ChangeCurrency.aspx.designer.cs">
-      <DependentUpon>StoreSettings_ChangeCurrency.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_CheckoutProcess.aspx.designer.cs">
-      <DependentUpon>StoreSettings_CheckoutProcess.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_Emails.aspx.designer.cs">
-      <DependentUpon>StoreSettings_Emails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_General.aspx.designer.cs">
-      <DependentUpon>StoreSettings_General.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_Country.aspx.designer.cs">
-      <DependentUpon>TaxClass_Country.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_List.aspx.designer.cs">
-      <DependentUpon>TaxClass_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_State.aspx.designer.cs">
-      <DependentUpon>TaxClass_State.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Address_Edit.aspx.designer.cs">
-      <DependentUpon>Customer_Edit_Address_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Address_List.aspx.designer.cs">
-      <DependentUpon>Customer_Edit_Address_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Credit_Edit.aspx.designer.cs">
-      <DependentUpon>Customer_Edit_Credit_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Credit_List.aspx.designer.cs">
-      <DependentUpon>Customer_Edit_Credit_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_List.aspx.designer.cs">
-      <DependentUpon>Customer_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\DiscountCoupons\DiscountCoupon_Edit_Product_List.aspx.designer.cs">
-      <DependentUpon>DiscountCoupon_Edit_Product_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\DiscountCoupons\DiscountCoupon_List.aspx.designer.cs">
-      <DependentUpon>DiscountCoupon_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Manufacturers\Manufacturer_List.aspx.designer.cs">
-      <DependentUpon>Manufacturer_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_AddItems.aspx.designer.cs">
-      <DependentUpon>Order_Edit_AddItems.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Billing.aspx.designer.cs">
-      <DependentUpon>Order_Edit_Billing.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_General.aspx.designer.cs">
-      <DependentUpon>Order_Edit_General.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_History.aspx.designer.cs">
-      <DependentUpon>Order_Edit_History.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Invoice.aspx.designer.cs">
-      <DependentUpon>Order_Edit_Invoice.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_OrderItems.aspx.designer.cs">
-      <DependentUpon>Order_Edit_OrderItems.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Shipping.aspx.designer.cs">
-      <DependentUpon>Order_Edit_Shipping.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_List.aspx.designer.cs">
-      <DependentUpon>Order_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_New.aspx.designer.cs">
-      <DependentUpon>Order_New.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_General.aspx.designer.cs">
-      <DependentUpon>OptionCategory_Edit_General.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_Options.aspx.designer.cs">
-      <DependentUpon>OptionCategory_Edit_Options.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_List.aspx.designer.cs">
-      <DependentUpon>OptionCategory_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Documents.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Documents.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_General.aspx.designer.cs">
-      <DependentUpon>Product_Edit_General.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Options.aspx.designer.cs">
-      <DependentUpon>Product_Edit_Options.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_VolumeDiscount_Edit.aspx.designer.cs">
-      <DependentUpon>Product_Edit_VolumeDiscount_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_VolumeDiscount_List.aspx.designer.cs">
-      <DependentUpon>Product_Edit_VolumeDiscount_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_List.aspx.designer.cs">
-      <DependentUpon>Product_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_New.aspx.designer.cs">
-      <DependentUpon>Product_New.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Suppliers\Supplier_List.aspx.designer.cs">
-      <DependentUpon>Supplier_List.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMSModules\EmailQueue\EmailQueue.aspx.designer.cs">
       <DependentUpon>EmailQueue.aspx</DependentUpon>
@@ -14956,20 +14000,6 @@
     <Compile Include="CMSPages\Dialogs\UserRegistration.aspx.designer.cs">
       <DependentUpon>UserRegistration.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CMSPages\Ecommerce\GetProduct.aspx.cs">
-      <DependentUpon>GetProduct.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSPages\Ecommerce\GetProduct.aspx.designer.cs">
-      <DependentUpon>GetProduct.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSPages\Ecommerce\GetProductFile.aspx.cs">
-      <DependentUpon>GetProductFile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSPages\Ecommerce\GetProductFile.aspx.designer.cs">
-      <DependentUpon>GetProductFile.aspx</DependentUpon>
-    </Compile>
     <Compile Include="CMSPages\GoogleSiteMap.aspx.cs">
       <DependentUpon>GoogleSiteMap.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -15389,27 +14419,6 @@
     <Compile Include="CMSTemplates\BlankSiteASPX\root.aspx.designer.cs">
       <DependentUpon>root.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CMSTemplates\CorporateSite\HomeASPX.aspx.cs">
-      <DependentUpon>HomeASPX.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSTemplates\CorporateSite\HomeASPX.aspx.designer.cs">
-      <DependentUpon>HomeASPX.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSTemplates\CorporateSite\HomeMixed.aspx.cs">
-      <DependentUpon>HomeMixed.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSTemplates\CorporateSite\HomeMixed.aspx.designer.cs">
-      <DependentUpon>HomeMixed.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSTemplates\CorporateSite\Root.master.cs">
-      <DependentUpon>Root.master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSTemplates\CorporateSite\Root.master.designer.cs">
-      <DependentUpon>Root.master</DependentUpon>
-    </Compile>
     <Compile Include="CMSWebParts\AbuseReport\AbuseReport.ascx.designer.cs">
       <DependentUpon>AbuseReport.ascx</DependentUpon>
     </Compile>
@@ -15595,27 +14604,6 @@
     </Compile>
     <Compile Include="CMSWebParts\DataSources\LanguageDataSource.ascx.designer.cs">
       <DependentUpon>LanguageDataSource.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\InputFields\RegisterAfterCheckout.ascx.cs">
-      <DependentUpon>RegisterAfterCheckout.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\InputFields\RegisterAfterCheckout.ascx.designer.cs">
-      <DependentUpon>RegisterAfterCheckout.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\CustomerCompanyDetails.ascx.cs">
-      <DependentUpon>CustomerCompanyDetails.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\CustomerCompanyDetails.ascx.designer.cs">
-      <DependentUpon>CustomerCompanyDetails.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\CustomerEditAddress.ascx.cs">
-      <DependentUpon>CustomerEditAddress.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\CustomerEditAddress.ascx.designer.cs">
-      <DependentUpon>CustomerEditAddress.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\SharePoint\SharePointDataSourceV2.ascx.cs">
       <DependentUpon>SharePointDataSourceV2.ascx</DependentUpon>
@@ -15865,142 +14853,6 @@
     </Compile>
     <Compile Include="CMSWebParts\DocumentWizard\DocumentWizardStepAction.ascx.designer.cs">
       <DependentUpon>DocumentWizardStepAction.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Forms\CustomerAddress.ascx.cs">
-      <DependentUpon>CustomerAddress.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Forms\CustomerAddress.ascx.designer.cs">
-      <DependentUpon>CustomerAddress.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Forms\CustomerDetail.ascx.cs">
-      <DependentUpon>CustomerDetail.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Forms\CustomerDetail.ascx.designer.cs">
-      <DependentUpon>CustomerDetail.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Forms\PaymentForm.ascx.cs">
-      <DependentUpon>PaymentForm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Forms\PaymentForm.ascx.designer.cs">
-      <DependentUpon>PaymentForm.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\InputFields\DiscountCoupon.ascx.cs">
-      <DependentUpon>DiscountCoupon.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\InputFields\DiscountCoupon.ascx.designer.cs">
-      <DependentUpon>DiscountCoupon.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\InputFields\OrderNote.ascx.cs">
-      <DependentUpon>OrderNote.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\InputFields\OrderNote.ascx.designer.cs">
-      <DependentUpon>OrderNote.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Selectors\CurrencySelection.ascx.cs">
-      <DependentUpon>CurrencySelection.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Selectors\CurrencySelection.ascx.designer.cs">
-      <DependentUpon>CurrencySelection.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Selectors\PaymentMethodSelection.ascx.cs">
-      <DependentUpon>PaymentMethodSelection.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Selectors\PaymentMethodSelection.ascx.designer.cs">
-      <DependentUpon>PaymentMethodSelection.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Selectors\ShippingSelection.ascx.cs">
-      <DependentUpon>ShippingSelection.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Selectors\ShippingSelection.ascx.designer.cs">
-      <DependentUpon>ShippingSelection.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Viewers\ShoppingCartContent.ascx.cs">
-      <DependentUpon>ShoppingCartContent.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Viewers\ShoppingCartContent.ascx.designer.cs">
-      <DependentUpon>ShoppingCartContent.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Viewers\MessagePanel.ascx.cs">
-      <DependentUpon>MessagePanel.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Viewers\MessagePanel.ascx.designer.cs">
-      <DependentUpon>MessagePanel.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Viewers\ShoppingCartTotals.ascx.cs">
-      <DependentUpon>ShoppingCartTotals.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Checkout\Viewers\ShoppingCartTotals.ascx.designer.cs">
-      <DependentUpon>ShoppingCartTotals.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Donate.ascx.cs">
-      <DependentUpon>Donate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Donate.ascx.designer.cs">
-      <DependentUpon>Donate.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Donations.ascx.cs">
-      <DependentUpon>Donations.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Donations.ascx.designer.cs">
-      <DependentUpon>Donations.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Orders.ascx.cs">
-      <DependentUpon>Orders.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Orders.ascx.designer.cs">
-      <DependentUpon>Orders.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\Products.ascx.cs">
-      <DependentUpon>Products.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\Products.ascx.designer.cs">
-      <DependentUpon>Products.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\ProductsDataSource.ascx.designer.cs">
-      <DependentUpon>ProductsDataSource.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\RandomProducts.ascx.designer.cs">
-      <DependentUpon>RandomProducts.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\SimilarProductsBySale.ascx.designer.cs">
-      <DependentUpon>SimilarProductsBySale.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\TopNNewestProducts.ascx.designer.cs">
-      <DependentUpon>TopNNewestProducts.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\TopNProductsBySales.ascx.designer.cs">
-      <DependentUpon>TopNProductsBySales.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\RemainingAmountForFreeShipping.ascx.cs">
-      <DependentUpon>RemainingAmountForFreeShipping.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\RemainingAmountForFreeShipping.ascx.designer.cs">
-      <DependentUpon>RemainingAmountForFreeShipping.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\ShoppingCart\ShoppingCartWebPart.ascx.designer.cs">
-      <DependentUpon>ShoppingCartWebPart.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Syndication\ProductsRSSFeed.ascx.designer.cs">
-      <DependentUpon>ProductsRSSFeed.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Wishlist.ascx.designer.cs">
-      <DependentUpon>Wishlist.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\EventManager\EventCalendar.ascx.designer.cs">
       <DependentUpon>EventCalendar.ascx</DependentUpon>
@@ -16698,13 +15550,6 @@
     </Compile>
     <Compile Include="CMSWebParts\SmartSearch\SearchResults.ascx.designer.cs">
       <DependentUpon>SearchResults.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="CMSWebParts\StrandsRecommender\StrandsRecommendations.ascx.cs">
-      <DependentUpon>StrandsRecommendations.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\StrandsRecommender\StrandsRecommendations.ascx.designer.cs">
-      <DependentUpon>StrandsRecommendations.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Syndication\Basic\AtomFeed.ascx.designer.cs">
       <DependentUpon>AtomFeed.ascx</DependentUpon>
@@ -18540,358 +17385,6 @@
     </Compile>
     <Compile Include="CMSModules\CustomTables\Tools\CustomTable_List.aspx.cs">
       <DependentUpon>CustomTable_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\GetInvoice.aspx.cs">
-      <DependentUpon>GetInvoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\PayPalIPN.aspx.cs">
-      <DependentUpon>PayPalIPN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\CMSPages\ShoppingCartSKUPriceDetail.aspx.cs">
-      <DependentUpon>ShoppingCartSKUPriceDetail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Content\Product\Product_Edit_General.aspx.cs">
-      <DependentUpon>Product_Edit_General.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyAddresses.ascx.cs">
-      <DependentUpon>MyAddresses.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyCredit.ascx.cs">
-      <DependentUpon>MyCredit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyDetails.ascx.cs">
-      <DependentUpon>MyDetails.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\MyDetails\MyOrders.ascx.cs">
-      <DependentUpon>MyOrders.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\PaymentGateways\AuthorizeNetForm.ascx.cs">
-      <DependentUpon>AuthorizeNetForm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\PaymentGateways\CreditPaymentForm.ascx.cs">
-      <DependentUpon>CreditPaymentForm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\PaymentGateways\PayPalForm.ascx.cs">
-      <DependentUpon>PayPalForm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ProductOptions\ProductOptionSelector.ascx.cs">
-      <DependentUpon>ProductOptionSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ProductOptions\ShoppingCartItemSelector.ascx.cs">
-      <DependentUpon>ShoppingCartItemSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\OrderItemEdit.aspx.cs">
-      <DependentUpon>OrderItemEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCart.ascx.cs">
-      <DependentUpon>ShoppingCart.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartCheckRegistration.ascx.cs">
-      <DependentUpon>ShoppingCartCheckRegistration.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartContent.ascx.cs">
-      <DependentUpon>ShoppingCartContent.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartCustomerSelection.ascx.cs">
-      <DependentUpon>ShoppingCartCustomerSelection.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartOrderAddresses.ascx.cs">
-      <DependentUpon>ShoppingCartOrderAddresses.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPaymentGateway.ascx.cs">
-      <DependentUpon>ShoppingCartPaymentGateway.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPaymentShipping.ascx.cs">
-      <DependentUpon>ShoppingCartPaymentShipping.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartPreview.ascx.cs">
-      <DependentUpon>ShoppingCartPreview.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartSKUPriceDetail.ascx.cs">
-      <DependentUpon>ShoppingCartSKUPriceDetail.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartSKUPriceDetail.aspx.cs">
-      <DependentUpon>ShoppingCartSKUPriceDetail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\OrderList.ascx.cs">
-      <DependentUpon>OrderList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\PriceSelector.ascx.cs">
-      <DependentUpon>PriceSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductDocuments.ascx.cs">
-      <DependentUpon>ProductDocuments.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Controls\UI\ProductOptions.ascx.cs">
-      <DependentUpon>ProductOptions.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Development\DocumentTypes\DocumentType_Edit_Ecommerce.aspx.cs">
-      <DependentUpon>DocumentType_Edit_Ecommerce.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\CheckoutProcess.ascx.cs">
-      <DependentUpon>CheckoutProcess.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\CurrencySelector.ascx.cs">
-      <DependentUpon>CurrencySelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\CustomerSelector.ascx.cs">
-      <DependentUpon>CustomerSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\DepartmentSelector.ascx.cs">
-      <DependentUpon>DepartmentSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\InternalStatusSelector.ascx.cs">
-      <DependentUpon>InternalStatusSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\ManufacturerSelector.ascx.cs">
-      <DependentUpon>ManufacturerSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\OrderStatusSelector.ascx.cs">
-      <DependentUpon>OrderStatusSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\PaymentSelector.ascx.cs">
-      <DependentUpon>PaymentSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\PublicStatusSelector.ascx.cs">
-      <DependentUpon>PublicStatusSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\ShippingSelector.ascx.cs">
-      <DependentUpon>ShippingSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SKUSelector.ascx.cs">
-      <DependentUpon>SKUSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\FormControls\SupplierSelector.ascx.cs">
-      <DependentUpon>SupplierSelector.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Currencies\Currency_Edit.aspx.cs">
-      <DependentUpon>Currency_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\Currencies\Currency_List.aspx.cs">
-      <DependentUpon>Currency_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ExchangeRates\ExchangeTable_Edit.aspx.cs">
-      <DependentUpon>ExchangeTable_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ExchangeRates\ExchangeTable_List.aspx.cs">
-      <DependentUpon>ExchangeTable_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InternalStatus\InternalStatus_Edit.aspx.cs">
-      <DependentUpon>InternalStatus_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InternalStatus\InternalStatus_List.aspx.cs">
-      <DependentUpon>InternalStatus_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\InvoiceTemplate\InvoiceTemplate_Edit.aspx.cs">
-      <DependentUpon>InvoiceTemplate_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\OrderStatus\OrderStatus_Edit.aspx.cs">
-      <DependentUpon>OrderStatus_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\OrderStatus\OrderStatus_List.aspx.cs">
-      <DependentUpon>OrderStatus_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PaymentOptions\PaymentOption_List.aspx.cs">
-      <DependentUpon>PaymentOption_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PublicStatus\PublicStatus_Edit.aspx.cs">
-      <DependentUpon>PublicStatus_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\PublicStatus\PublicStatus_List.aspx.cs">
-      <DependentUpon>PublicStatus_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_ChangeCurrency.aspx.cs">
-      <DependentUpon>StoreSettings_ChangeCurrency.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_CheckoutProcess.aspx.cs">
-      <DependentUpon>StoreSettings_CheckoutProcess.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_Emails.aspx.cs">
-      <DependentUpon>StoreSettings_Emails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_General.aspx.cs">
-      <DependentUpon>StoreSettings_General.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_Country.aspx.cs">
-      <DependentUpon>TaxClass_Country.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_List.aspx.cs">
-      <DependentUpon>TaxClass_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Configuration\TaxClasses\TaxClass_State.aspx.cs">
-      <DependentUpon>TaxClass_State.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Address_Edit.aspx.cs">
-      <DependentUpon>Customer_Edit_Address_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Address_List.aspx.cs">
-      <DependentUpon>Customer_Edit_Address_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Credit_Edit.aspx.cs">
-      <DependentUpon>Customer_Edit_Credit_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_Edit_Credit_List.aspx.cs">
-      <DependentUpon>Customer_Edit_Credit_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Customers\Customer_List.aspx.cs">
-      <DependentUpon>Customer_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\DiscountCoupons\DiscountCoupon_Edit_Product_List.aspx.cs">
-      <DependentUpon>DiscountCoupon_Edit_Product_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\DiscountCoupons\DiscountCoupon_List.aspx.cs">
-      <DependentUpon>DiscountCoupon_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Manufacturers\Manufacturer_List.aspx.cs">
-      <DependentUpon>Manufacturer_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_AddItems.aspx.cs">
-      <DependentUpon>Order_Edit_AddItems.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Billing.aspx.cs">
-      <DependentUpon>Order_Edit_Billing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_General.aspx.cs">
-      <DependentUpon>Order_Edit_General.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_History.aspx.cs">
-      <DependentUpon>Order_Edit_History.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Invoice.aspx.cs">
-      <DependentUpon>Order_Edit_Invoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_OrderItems.aspx.cs">
-      <DependentUpon>Order_Edit_OrderItems.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_Edit_Shipping.aspx.cs">
-      <DependentUpon>Order_Edit_Shipping.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_List.aspx.cs">
-      <DependentUpon>Order_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Orders\Order_New.aspx.cs">
-      <DependentUpon>Order_New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_General.aspx.cs">
-      <DependentUpon>OptionCategory_Edit_General.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_Edit_Options.aspx.cs">
-      <DependentUpon>OptionCategory_Edit_Options.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\ProductOptions\OptionCategory_List.aspx.cs">
-      <DependentUpon>OptionCategory_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Documents.aspx.cs">
-      <DependentUpon>Product_Edit_Documents.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_General.aspx.cs">
-      <DependentUpon>Product_Edit_General.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_Options.aspx.cs">
-      <DependentUpon>Product_Edit_Options.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_VolumeDiscount_Edit.aspx.cs">
-      <DependentUpon>Product_Edit_VolumeDiscount_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_Edit_VolumeDiscount_List.aspx.cs">
-      <DependentUpon>Product_Edit_VolumeDiscount_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_List.aspx.cs">
-      <DependentUpon>Product_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Products\Product_New.aspx.cs">
-      <DependentUpon>Product_New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSModules\Ecommerce\Pages\Tools\Suppliers\Supplier_List.aspx.cs">
-      <DependentUpon>Supplier_List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CMSModules\EmailQueue\EmailQueue.aspx.cs">
@@ -21522,38 +20015,6 @@
       <DependentUpon>XMLDataSource.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\ProductsDataSource.ascx.cs">
-      <DependentUpon>ProductsDataSource.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\RandomProducts.ascx.cs">
-      <DependentUpon>RandomProducts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\SimilarProductsBySale.ascx.cs">
-      <DependentUpon>SimilarProductsBySale.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\TopNNewestProducts.ascx.cs">
-      <DependentUpon>TopNNewestProducts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Products\TopNProductsBySales.ascx.cs">
-      <DependentUpon>TopNProductsBySales.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\ShoppingCart\ShoppingCartWebPart.ascx.cs">
-      <DependentUpon>ShoppingCartWebPart.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Syndication\ProductsRSSFeed.ascx.cs">
-      <DependentUpon>ProductsRSSFeed.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ecommerce\Wishlist.ascx.cs">
-      <DependentUpon>Wishlist.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="CMSWebParts\EventManager\EventCalendar.ascx.cs">
       <DependentUpon>EventCalendar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -22160,10 +20621,6 @@
     <Compile Include="Old_App_Code\CMSModules\Cultures\CultureListExtender.cs" />
     <Compile Include="Old_App_Code\CMSModules\Cultures\CultureSitesExtender.cs" />
     <Compile Include="Old_App_Code\CMSModules\DocumentTypes\TransformationTabsExtender.cs" />
-    <Compile Include="Old_App_Code\CMSModules\Ecommerce\CMSTransformation.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\CMSModules\Ecommerce\EcommerceFunctions.cs" />
     <Compile Include="Old_App_Code\CMSModules\EmailEngine\LiveTileModelProviders\EmailsLiveTileModelProvider.cs" />
     <Compile Include="Old_App_Code\CMSModules\EmailTemplates\EmailTemplateEditExtender.cs" />
     <Compile Include="Old_App_Code\CMSModules\EmailTemplates\EmailTemplateListExtender.cs" />
@@ -22315,9 +20772,6 @@
     <Content Include="CMSModules\Content\CMSDesk\Validation\ValidationResults.aspx" />
     <Content Include="CMSModules\Content\CMSDesk\Validation\ViewCode.aspx" />
     <Content Include="CMSModules\Content\CMSDesk\View\View.aspx" />
-    <Content Include="CMSModules\Ecommerce\CMSPages\Donate.aspx" />
-    <Content Include="CMSModules\Ecommerce\CMSPages\EProducts.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\ProductOptions\DonationProperties.ascx" />
     <Content Include="CMSModules\Membership\FormControls\Passwords\EncryptedPassword.ascx" />
     <Content Include="CMSModules\OnlineMarketing\Controls\UI\ContentPersonalizationVariant\Edit.ascx" />
     <Content Include="CMSModules\OnlineMarketing\Controls\UI\ContentPersonalizationVariant\List.ascx" />
@@ -22485,10 +20939,7 @@
     <Content Include="CMSModules\Content\CMSDesk\OnlineMarketing\Reports.aspx" />
     <Content Include="CMSModules\Content\CMSDesk\SplitView\Separator.aspx" />
     <Content Include="CMSModules\Content\CMSDesk\SplitView\Toolbar.aspx" />
-    <Content Include="CMSModules\Ecommerce\Controls\Filters\CustomerTypeFilter.ascx" />
     <Content Include="CMSAdminControls\UI\Selectors\SelectValidity.ascx" />
-    <Content Include="CMSModules\Ecommerce\FormControls\SelectProductType.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Administration\Membership\Membership_Edit_Products.aspx" />
     <Content Include="CMSModules\EmailTemplates\Controls\Edit.ascx" />
     <Content Include="CMSModules\EmailTemplates\Pages\Tab_General.aspx" />
     <Content Include="CMSModules\EmailTemplates\Pages\Frameset.aspx" />
@@ -22637,7 +21088,6 @@
     <Content Include="CMSModules\Content\FormControls\Relationships\RelatedDocuments.ascx" />
     <Content Include="CMSModules\Departments\FormControls\DepartmentRolesSelector.ascx" />
     <Content Include="CMSModules\Departments\FormControls\DepartmentSectionsManager.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\StoreSettings\StoreSettings_GlobalObjects.aspx" />
     <Content Include="CMSModules\ImportExport\Controls\Import\cms_user.ascx" />
     <Content Include="CMSModules\ImportExport\Controls\Import\cms_widget.ascx" />
     <Content Include="CMSModules\IntranetPortal\Controls\EmployeesFilterControl.ascx" />
@@ -22679,8 +21129,6 @@
     <Content Include="CMSModules\Content\Controls\Dialogs\Properties\CopyMoveLinkProperties.ascx" />
     <Content Include="CMSModules\Content\Controls\Security.ascx" />
     <Content Include="CMSModules\Content\Controls\VersionList.ascx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ShippingOptions\ShippingOption_Edit_ShippingCosts.aspx" />
-    <Content Include="CMSModules\Ecommerce\Pages\Tools\Configuration\ShippingOptions\ShippingOption_Edit_ShippingCosts_Edit.aspx" />
     <Content Include="CMSModules\EmailQueue\Controls\EmailQueue.ascx" />
     <Content Include="CMSModules\EventManager\Controls\EventAttendees.ascx" />
     <Content Include="CMSModules\EventManager\Controls\EventAttendeesSendEmail.ascx" />
@@ -22802,8 +21250,6 @@
     <Content Include="CMSWebParts\DashBoard\EventLog.ascx" />
     <Content Include="CMSWebParts\DashBoard\ObjectsRecycleBin.ascx" />
     <Content Include="CMSWebParts\DashBoard\System.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Donate.ascx" />
-    <Content Include="CMSWebParts\Ecommerce\Donations.ascx" />
     <Content Include="CMSWebParts\EventManager\EventManagement.ascx" />
     <Content Include="CMSWebParts\Filters\DocumentNameFilter.ascx" />
     <Content Include="CMSWebParts\Filters\DocumentNameFilter_files\DocumentNameFilterControl.ascx" />
@@ -23016,7 +21462,6 @@
     <Content Include="CMSScripts\Underscore\underscore-min.map" />
     <Content Include="CMSModules\Chat\web.config" />
     <Content Include="CMSTemplates\BlankSiteASPX\Blank.master" />
-    <Content Include="CMSTemplates\CorporateSite\Root.master" />
     <Content Include="CommunitySite\media\Media\Documents\Sample-document.docx" />
     <Content Include="CommunitySite\media\Media\Documents\Sample-document.pdf" />
     <Content Include="CommunitySite\media\Media\Documents\Sample-document.pptx" />
@@ -23346,14 +21791,6 @@
       <HintPath>..\Lib\CMS.SocialMarketing.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="CMS.StrandsRecommender.Web.UI, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
-      <HintPath>..\Lib\CMS.StrandsRecommender.Web.UI.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="CMS.StrandsRecommender, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
-      <HintPath>..\Lib\CMS.StrandsRecommender.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="CMS.Synchronization.Web.UI, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
       <HintPath>..\Lib\CMS.Synchronization.Web.UI.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -23380,14 +21817,6 @@
     </Reference>
     <Reference Include="CMS.DocumentEngine, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
       <HintPath>..\Lib\CMS.DocumentEngine.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="CMS.Ecommerce.Web.UI, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
-      <HintPath>..\Lib\CMS.Ecommerce.Web.UI.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="CMS.Ecommerce, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
-      <HintPath>..\Lib\CMS.Ecommerce.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="CMS.EmailEngine, Version=10.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
