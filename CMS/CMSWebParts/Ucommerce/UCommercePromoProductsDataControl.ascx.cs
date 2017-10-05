@@ -116,11 +116,11 @@ namespace CMSApp.CMSWebParts.Custom
                 var image = imageService.GetImage(product.ThumbnailImageMediaId);
 
                 imageUrl = image.Url;
-                data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl });
+                data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl, Tax = price.YourTax.ToString() });
             }
             else
             {
-                data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url });
+                data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, Tax = price.YourTax.ToString() });
             }
         }
 

@@ -485,6 +485,7 @@ input[type=text], input[type=email] {
         margin: 10px 0 0 0;
         height: 46px;
         overflow: hidden;
+        display: block;
     }
     .product-list .product .item-price {
     }
