@@ -109,7 +109,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
                 var price = shippingMethod.GetPriceForCurrency(currentBasket.BillingCurrency);
                 var formattedPrice = new Money((price == null ? 0 : price.Price), currentBasket.BillingCurrency);
 
-                ListItem currentListItem = new ListItem(shippingMethod.Name + "<text>(</text>" + formattedPrice + "<text>)</text>, ", shippingMethod.Id.ToString());
+                ListItem currentListItem = new ListItem($"{shippingMethod.Name} <text>(</text>{formattedPrice}<text>)</text>", shippingMethod.Id.ToString());
 
                 if (currentShippingMethod.Id == shippingMethod.Id)
                 {

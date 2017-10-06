@@ -79,11 +79,12 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
             if (showForCurrentCountry)
             {
                 availableBillingMethods = TransactionLibrary.GetPaymentMethods(billingCountry).ToList();
-            } else
+            }
+            else
             {
                 var paymentMethods = ObjectFactory.Instance.Resolve<IRepository<PaymentMethod>>();
                 availableBillingMethods = paymentMethods.Select(x => !x.Deleted).ToList();
-               
+
             }
             foreach (PaymentMethod paymentMethod in availableBillingMethods)
             {
@@ -92,8 +93,7 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
                 var fee = paymentMethod.GetFeeForCurrency(basket.BillingCurrency);
                 var formattedFee = new Money((fee == null ? 0 : fee.Fee), basket.BillingCurrency);
 
-                string paymentMethodText = paymentMethod.Name + "<text> (</text>" + formattedFee + "<text> + </text>"
-                                           + feePercent.ToString("0.00") + "<text>%)</text>";
+                string paymentMethodText = $"{paymentMethod.Name} <text>(</text>{formattedFee}<text> + </text>{feePercent.ToString("0.00")}<text>%)</text>";
 
                 ListItem currentListItem = new ListItem(paymentMethodText, paymentMethod.Id.ToString());
                 rblPaymentMethods.Items.Add(currentListItem);
