@@ -62,7 +62,7 @@
         <hr>
         <footer>
             <div class="footerAddress">
-                <span itemprop="name" class="fpHighlight">uCommerce Aps</span> -
+                <span itemprop="name" class="fpHighlight">Ucommerce ApS</span> -
                 <span itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
                     <span itemprop="streetAddress" class="fpHighlight">Vestergade 58N 4th floor</span> -
                     <span itemprop="postalCode" class="fpHighlight">8000</span> <span itemprop="addressLocality" class="fpHighlight">Aarhus C</span> -
