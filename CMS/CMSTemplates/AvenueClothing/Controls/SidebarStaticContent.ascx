@@ -11,7 +11,7 @@
     </ol>
     <p id="powered-by-ucommerce">
         <a href="http://ucommerce.net/" title="The most feature rich e-commerce package for Kentico" target="_blank">
-            <img src="~/AvenueClothing/img/ucommerce/ucommerce.png" alt="Powered by uCommerce" /></a>
+            <img src="~/AvenueClothing/img/ucommerce/ucommerce-logo.svg" alt="Powered by uCommerce" /></a>
     </p>
 </div>
 <div class="well sidebar-nav" id="about">

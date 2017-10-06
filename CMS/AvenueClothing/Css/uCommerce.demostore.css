@@ -413,8 +413,8 @@ input[type=text], input[type=email] {
         margin-top: 15px;
     }
 
-.catalog-image {
-    width: 100%; 
+.catalog-image, .product-page-image {
+    width: 100%;
 }
 /* Product List Page
 -------------------------------------------*/
