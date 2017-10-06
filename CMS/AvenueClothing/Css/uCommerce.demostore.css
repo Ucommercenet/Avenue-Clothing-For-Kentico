@@ -175,8 +175,13 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .navbar .brand {
     font-family: Arial, Helvetica, sans-serif;
     background: url("../../img/ucommerce/logo.png") 0 6px no-repeat;
-    padding-left: 40px;
+    padding-left: 0px;
 }
+
+.navbar .nav {
+    margin: 0px;
+}
+
 .navbar-search .search-query {
     padding: 3px 14px;
     border: 0 none;
@@ -408,6 +413,9 @@ input[type=text], input[type=email] {
         margin-top: 15px;
     }
 
+.catalog-image {
+    width: 100%; 
+}
 /* Product List Page
 -------------------------------------------*/
 .product-list {

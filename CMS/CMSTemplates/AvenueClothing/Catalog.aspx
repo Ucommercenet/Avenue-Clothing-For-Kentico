@@ -13,7 +13,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
     <div class="row-fluid">
 
-        <asp:Image runat="server" ID="CategoryImage" Width="870" Height="350" />
+        <asp:Image runat="server" ID="CategoryImage" CssClass="catalog-image"/>
         <h1 runat="server" id="CategoryName"></h1>
 
         <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
