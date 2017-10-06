@@ -10,5 +10,7 @@
     <p class="item-name"><asp:HyperLink runat="server" ID="hlProduct"/></p>
     <p class="item-price"><asp:Literal runat="server" ID="litPrice"/></p>
     <p class="item-tax"><small class="tax">incl. <asp:Literal runat="server" ID="litTax"/></small></p>
-    <p class="btn-group view-details"><asp:HyperLink runat="server" ID="hlViewMore" CssClass="btn" >View more <span><i class="icon-shopping-cart icon-white"></i></span></asp:HyperLink></p>
+    <p class="btn-group view-details">
+        <asp:HyperLink runat="server" ID="hlViewMore" CssClass="btn" >View more <span><i class="icon-shopping-cart icon-white"></i></span></asp:HyperLink>
+    </p>
 </div>
