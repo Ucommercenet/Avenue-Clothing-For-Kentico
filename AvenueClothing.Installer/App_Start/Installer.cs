@@ -35,13 +35,17 @@ namespace AvenueClothing.Installer.App_Start
                     {
                         _hasStarted = InstallInternal();
                     }
+                    else
+                    {
+                        _hasStarted = true;
+                    }
                 }
             }
         }
 
         private bool isPendingInstallation()
         {
-            // * If there's multiple sites, we assmue the installation has already run.
+            // * If there are multiple sites, we assmue the installation has already run.
             // * If installation has completed before, and an iisreset is run, the installation will not know if it
             //   ran previous. If there's only ONE site (avenue clothing), and it was turned off on purpose before
             //   the iisreset, the installation is going to start the site again.
