@@ -16,8 +16,9 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
     {
         private string productFolder = "Product";
         private string categoryFolder = "Category";
+	    private string emsFolder = "EMS";
 
-        public void Configure()
+		public void Configure()
         {
             if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) == null)
             {
@@ -77,7 +78,11 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 	        // Prepares a path to a local file
 			var pathWithSiteName = "~/" + SiteContext.CurrentSiteName + "/media/AvenueClothing/";
 			string filePath = HttpContext.Current.Server.MapPath(pathWithSiteName);
-			
+
+	        var emsImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + emsFolder);
+	        UploadImages(emsImagesDirectory);
+	        CreateFilesAsMediaInfos(libraryId, emsImagesDirectory, emsFolder);
+
 			var productImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + productFolder);
 	        UploadImages(productImagesDirectory);
 	        CreateFilesAsMediaInfos(libraryId, productImagesDirectory, productFolder);
@@ -136,6 +141,8 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
         {
             MediaLibraryInfoProvider.CreateMediaLibraryFolder(SiteContext.CurrentSiteName, libraryId, productFolder);
             MediaLibraryInfoProvider.CreateMediaLibraryFolder(SiteContext.CurrentSiteName, libraryId, categoryFolder);
+            MediaLibraryInfoProvider.CreateMediaLibraryFolder(SiteContext.CurrentSiteName, libraryId, emsFolder);
+
         }
 
         private int CreateMediaLibrary()
