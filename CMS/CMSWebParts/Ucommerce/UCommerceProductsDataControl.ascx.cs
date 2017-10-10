@@ -6,7 +6,9 @@ using CMS.DocumentEngine.Web.UI;
 using CMS.Helpers;
 using CMSApp.Old_App_Code.Custom;
 using UCommerce.Api;
+using UCommerce.Content;
 using UCommerce.EntitiesV2;
+using UCommerce.Infrastructure;
 using UCommerce.Kentico.Content;
 using UCommerce.Runtime;
 using UCommerce.Search.Facets;
@@ -30,7 +32,6 @@ namespace CMSApp.CMSWebParts.Ucommerce
 
 		protected override object GetDataSource(int offset, int maxRecords)
 		{
-			//var data = base.GetDataSource(offset, maxRecords) as List<UCommerceProduct>;
 			var data = GetDataSourceFromDB() as List<UCommerceProduct>;
 
 			UCommerceContext.SetProducts(data);
@@ -103,23 +104,19 @@ namespace CMSApp.CMSWebParts.Ucommerce
 
 		public List<UCommerceProduct> convertToUcommerceProduct(ICollection<Product> _products)
 		{
-			string url;
-			PriceCalculation price;
-			string imageUrl;
-
 			var data = new List<UCommerceProduct>();
 
 			foreach (Product product in _products)
 			{
-				url = CatalogLibrary.GetNiceUrlForProduct(product);
-				price = CatalogLibrary.CalculatePrice(product);
+				var url = CatalogLibrary.GetNiceUrlForProduct(product);
+				var price = CatalogLibrary.CalculatePrice(product);
 
 				if (!string.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
 				{
-					var imageService = new ImageService();
-					var image = imageService.GetImage(product.ThumbnailImageMediaId);
 
-					imageUrl = image.Url;
+					var image = ObjectFactory.Instance.Resolve<IImageService>().GetImage(product.PrimaryImageMediaId);
+					var imageUrl = image.Url;
+
 					data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl });
 				}
 				else
