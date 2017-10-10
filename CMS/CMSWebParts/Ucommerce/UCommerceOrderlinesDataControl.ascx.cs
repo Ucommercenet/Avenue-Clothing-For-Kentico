@@ -24,7 +24,7 @@ namespace CMSApp.CMSWebParts.Custom
 
         protected override object GetDataSource(int offset, int maxRecords)
         {
-            var data = base.GetDataSource(offset, maxRecords) as List<UCommerceOrderline>;
+	        var data = GetDataSourceFromDB() as List<UCommerceOrderline>;
 
             UCommerceContext.SetOrderlines(data);
 
