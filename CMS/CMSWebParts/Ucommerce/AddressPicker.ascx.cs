@@ -147,11 +147,10 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
         billingAddress.MobilePhoneNumber = billingMobile.Text;
 
         billingCountry.DataSource = countries;
-        billingCountry.DataBind();
-        var billingCountryID = Int32.Parse(billingCountry.SelectedValue);
+        var billingCountryId = Int32.Parse(billingCountry.SelectedValue);
 
         var billingCountries = ObjectFactory.Instance.Resolve<IRepository<Country>>();
-        billingAddress.Country = billingCountries.Select(x => x.CountryId == billingCountryID).ToList().FirstOrDefault();
+        billingAddress.Country = billingCountries.Select(x => x.CountryId == billingCountryId).ToList().FirstOrDefault();
 
         shipmentAddress.FirstName = shippingFirstName.Text;
         shipmentAddress.LastName = shippingLastName.Text;
@@ -166,11 +165,10 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
         shipmentAddress.MobilePhoneNumber = shippingMobile.Text;
 
         shippingCountry.DataSource = countries;
-        shippingCountry.DataBind();
-        var shippingCountryID = Int32.Parse(shippingCountry.SelectedValue);
+        var shippingCountryId = Int32.Parse(shippingCountry.SelectedValue);
 
         var shippingCountries = ObjectFactory.Instance.Resolve<IRepository<Country>>();
-        shipmentAddress.Country = shippingCountries.Select(x => x.CountryId == shippingCountryID).ToList().FirstOrDefault();
+        shipmentAddress.Country = shippingCountries.Select(x => x.CountryId == shippingCountryId).ToList().FirstOrDefault();
 
         BillingAddress = billingAddress;
         ShippingAddress = shipmentAddress;
