@@ -24,31 +24,43 @@ namespace AvenueClothing.Installer.App_Start
         }
 
         private static object _padLock = new object();
-        private static bool _installationWasRun = false;
+        private static bool _hasStarted = false;
         public void PreStart(object sender, EventArgs e)
         {
-            if (!_installationWasRun)
+            if (!_hasStarted)
             {
                 lock (_padLock)
                 {
-                    if (!_installationWasRun)
+                    if (!_hasStarted && isPendingInstallation())
                     {
-                        _installationWasRun = InstallInternal();
+                        _hasStarted = InstallInternal();
+                    }
+                    else
+                    {
+                        _hasStarted = true;
                     }
                 }
             }
+        }
+
+        private bool isPendingInstallation()
+        {
+            // * If there are multiple sites, we assmue the installation has already run.
+            // * If installation has completed before, and an iisreset is run, the installation will not know if it
+            //   ran previous. If there's only ONE site (avenue clothing), and it was turned off on purpose before
+            //   the iisreset, the installation is going to start the site again.
+            var hasOnlyOneSite = SiteInfoProvider.GetSites().Count() == 1;
+            var thereAreNoARunningSite = SiteContext.CurrentSite == null;
+
+            return thereAreNoARunningSite && hasOnlyOneSite;
         }
 
         private static bool InstallInternal()
         {
             // Get the avenueClothing site by it's GUID.
             var avenueClothingSiteInfoByGuid = SiteInfoProvider.GetSiteInfoByGUID(Guid.Parse("f7e02dbb-5b44-4d3b-ab21-67913faca0b5"));
-            if (SiteContext.CurrentSite != null)
-            {
-                return false;
-            }
-            StopAllExistingKenticoSites();
 
+            StopAllExistingKenticoSites();
             
             if (avenueClothingSiteInfoByGuid != null)
             {
