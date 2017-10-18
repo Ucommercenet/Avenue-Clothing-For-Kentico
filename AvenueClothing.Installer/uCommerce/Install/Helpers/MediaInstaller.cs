@@ -2,12 +2,10 @@
 using CMS.MediaLibrary;
 using CMS.SiteProvider;
 using System.Web;
-using CMS.FileSystemStorage;
 using CMS.Helpers;
 using UCommerce.EntitiesV2;
 using System.Linq;
 using System.Text;
-using System.IO;
 
 
 namespace AvenueClothing.Installer.uCommerce.Install.Helpers
@@ -31,42 +29,47 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
             AddUcommerceCategoryImages();
         }
 
-        //TO DO
         private void AddUcommerceProductImages()
         {
             var products = Product.All().ToList();
+            var media = MediaFileInfoProvider.GetMediaFiles().ToList();
 
             foreach (var product in products)
             {
-                if (product.IsVariant == true)
+                if (product.IsVariant)
                     continue;
 
-                var media = MediaFileInfoProvider.GetMediaFiles().ToList();
                 foreach (var medium in media)
                 {
                     if (medium.FileName == product.Sku)
                     {
-                        product.PrimaryImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
-                        product.ThumbnailImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
+                        var path = new StringBuilder(@"AvenueClothing\media\AvenueClothing\").Append(medium.FilePath).ToString();
+
+                        product.PrimaryImageMediaId = EncodePath(path);
+                        product.ThumbnailImageMediaId = EncodePath(path);
                         product.Save();
+                        break;
                     }
                 }
             }
-
         }
 
         private void AddUcommerceCategoryImages()
         {
             var categories = Category.All().ToList();
+            var media = MediaFileInfoProvider.GetMediaFiles().ToList();
+
             foreach (var category in categories)
             {
-                var media = MediaFileInfoProvider.GetMediaFiles().ToList();
                 foreach (var medium in media)
                 {
                     if (medium.FileName == category.Name)
                     {
-                        category.ImageMediaId = EncodePath(HttpContext.Current.Server.MapPath("~/AvenueClothing/media/AvenueClothing/" + medium.FilePath));
+                        var path = new StringBuilder("~/AvenueClothing/media/AvenueClothing/").Append(medium.FilePath).ToString();
+
+                        category.ImageMediaId = EncodePath(path);
                         category.Save();
+                        break;
                     }
                 }
             }
@@ -74,62 +77,75 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
         private void CreateAndUploadMediaFiles(int libraryId)
         {
-	        // Prepares a path to a local file
-			var pathWithSiteName = "~/" + SiteContext.CurrentSiteName + "/media/AvenueClothing/";
-			string filePath = HttpContext.Current.Server.MapPath(pathWithSiteName);
-			
-			var productImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + productFolder);
-	        UploadImages(productImagesDirectory);
-	        CreateFilesAsMediaInfos(libraryId, productImagesDirectory, productFolder);
+            // Prepares a path to a local file
+            var pathWithSiteName = new StringBuilder("~/")
+                .Append(SiteContext.CurrentSiteName)
+                .Append("/media/AvenueClothing/")
+                .ToString();
 
-			var categoryImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + categoryFolder);
-			UploadImages(categoryImagesDirectory);
-			CreateFilesAsMediaInfos(libraryId, categoryImagesDirectory, categoryFolder);
+            string filePath = HttpContext.Current.Server.MapPath(pathWithSiteName);
 
-		}
+            var productImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + productFolder);
+            UploadImages(productImagesDirectory);
+            CreateFilesAsMediaInfos(libraryId, productImagesDirectory, productFolder);
 
-		private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
-		{
-			//Convert to System.IO.DirectoryInfo to get the parent (outside the CMS folder) without hardcoding.
-			var fromParentDirectory = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("/"));
-			//Create path to location in installer where the files will be copied from
-			var fromPath = new System.IO.DirectoryInfo(fromParentDirectory.FullName + "AvenueClothing.Installer/uCommerce/Install/Files/" +
-			               imagesDirectory.Name + "/");
+            var categoryImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + categoryFolder);
+            UploadImages(categoryImagesDirectory);
+            CreateFilesAsMediaInfos(libraryId, categoryImagesDirectory, categoryFolder);
+        }
 
-			foreach (var file in fromPath.GetFiles())
-			{
-                if (System.IO.File.Exists(imagesDirectory.FullName + "/" + file.Name) == false)
+        private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
+        {
+            //Convert to System.IO.DirectoryInfo to get the parent (outside the CMS folder) without hardcoding.
+            var fromParentDirectory = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("/"));
+            var fromPath = new StringBuilder().Append(fromParentDirectory.FullName)
+                .Append("AvenueClothing.Installer/uCommerce/Install/Files/")
+                .Append(imagesDirectory.Name)
+                .Append("/")
+                .ToString();
+            //Create path to location in installer where the files will be copied from
+            var fromDirectory = new System.IO.DirectoryInfo(fromPath);
+
+            foreach (var file in fromDirectory.GetFiles())
+            {
+                var path = new StringBuilder(imagesDirectory.FullName)
+                    .Append("/")
+                    .Append(file.Name)
+                    .ToString();
+
+                if (System.IO.File.Exists(path) == false)
                 {
-                    file.CopyTo(imagesDirectory.FullName + "/" + file.Name);
+                    file.CopyTo(path);
                 }
-			}
-		}
+            }
+        }
 
-		private static void CreateFilesAsMediaInfos(int libraryId, CMS.FileSystemStorage.DirectoryInfo productImagesDirectory, string folderName)
+        private static void CreateFilesAsMediaInfos(int libraryId, CMS.FileSystemStorage.DirectoryInfo productImagesDirectory,
+            string folderName)
         {
             foreach (var file in productImagesDirectory.GetFiles())
             {
-				// Prepares a CMS.IO.FileInfo object representing the local file
-				if (file != null)
+                // Prepares a CMS.IO.FileInfo object representing the local file
+                if (file != null)
                 {
                     // Creates a new media library file object
-                    MediaFileInfo mediaFile = new MediaFileInfo(file.FullName, libraryId);
-
-                    // Sets the media library file properties
-                    mediaFile.FileName = file.Name.Replace(".jpg", "");
-                    mediaFile.FileTitle = "File title";
-                    mediaFile.FileDescription = "This file was added through the API.";
-                    mediaFile.FilePath = folderName + "/" + file.Name; // Sets the path within the media library's folder structure
-                    mediaFile.FileExtension = file.Extension;
-                    mediaFile.FileMimeType = MimeTypeHelper.GetMimetype(file.Extension);
-                    mediaFile.FileSiteID = SiteContext.CurrentSiteID;
-                    mediaFile.FileLibraryID = libraryId;
-                    mediaFile.FileSize = file.Length;
+                    MediaFileInfo mediaFile = new MediaFileInfo(file.FullName, libraryId)
+                    {
+                        FileName = file.Name.Replace(".jpg", ""),
+                        FileTitle = "File title",
+                        FileDescription = "This file was added through the API.",
+                        FilePath = folderName + "/" + file.Name, // Sets the path within the media library's folder structure
+                        FileExtension = file.Extension,
+                        FileMimeType = MimeTypeHelper.GetMimetype(file.Extension),
+                        FileSiteID = SiteContext.CurrentSiteID,
+                        FileLibraryID = libraryId,
+                        FileSize = file.Length
+                    };
 
                     // Saves and imports the media library file
-	                MediaFileInfoProvider.ImportMediaFileInfo(mediaFile);
-				}
-			}
+                    MediaFileInfoProvider.ImportMediaFileInfo(mediaFile);
+                }
+            }
         }
 
         private void CreateMediaLibraryFolders(int libraryId)
@@ -140,14 +156,14 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
         private int CreateMediaLibrary()
         {
-            MediaLibraryInfo newLibrary = new MediaLibraryInfo();
-
-            // Sets the library properties
-            newLibrary.LibraryDisplayName = "Avenue Clothing";
-            newLibrary.LibraryName = "AvenueClothing";
-            newLibrary.LibraryDescription = "This media library was created for Avenue Clothing";
-            newLibrary.LibraryFolder = "AvenueClothing";
-            newLibrary.LibrarySiteID = SiteContext.CurrentSiteID;
+            MediaLibraryInfo newLibrary = new MediaLibraryInfo
+            {
+                LibraryDisplayName = "Avenue Clothing",
+                LibraryName = "AvenueClothing",
+                LibraryDescription = "This media library was created for Avenue Clothing",
+                LibraryFolder = "AvenueClothing",
+                LibrarySiteID = SiteContext.CurrentSiteID
+            };
 
             // Saves the new media library to the database
             MediaLibraryInfoProvider.SetMediaLibraryInfo(newLibrary);
