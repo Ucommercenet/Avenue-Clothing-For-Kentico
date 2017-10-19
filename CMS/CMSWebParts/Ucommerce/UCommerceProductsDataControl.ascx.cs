@@ -108,7 +108,7 @@ namespace CMSApp.CMSWebParts.Ucommerce
 
 			foreach (Product product in _products)
 			{
-				var url = CatalogLibrary.GetNiceUrlForProduct(product);
+				var url = CatalogLibrary.GetNiceUrlForProduct(product, SiteContext.Current.CatalogContext.CurrentCategory, SiteContext.Current.CatalogContext.CurrentCatalog);
 				var price = CatalogLibrary.CalculatePrice(product);
 
 				if (!string.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
