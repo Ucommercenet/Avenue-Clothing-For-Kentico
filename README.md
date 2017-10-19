@@ -2,7 +2,7 @@
 
 ### What is this repository for? ###
 
-* This project contains the full solution for a functional e-commerce store, which can be used as a starting point for projects, to accelerate development time.
+* This project contains the full Kentico solution with a functional Ucommerce store, which can be used as a starting point for projects, to accelerate development time.
 * It is built with Ucommerce and Kentico best practices in mind.
 * Version: This product is currently under development
 
