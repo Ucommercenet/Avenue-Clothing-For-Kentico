@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="CMSWebParts_Ucommerce_AddressPicker" CodeBehind="~/CMSWebParts/Ucommerce/AddressPicker.ascx.cs" %>
 
-<div id="Address" class="row-fluid">
+<div runat="server" id="Address" class="row-fluid">
     <div id="billingDiv" class="span12" runat="server" clientidmode="Static">
         <legend>Billing address</legend>
         <div class="span12">
@@ -254,4 +254,7 @@
             <input type="checkbox" id="checkShowShipping" />
         </label>
     </div>
+</div>
+<div id="cartIsEmpty" runat="server" visible="False" class="alert alert-info">
+    <p>Your cart is empty. Please return to our store and add some items.</p>
 </div>

@@ -54,6 +54,10 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
         {
             return;
         }
+        if (IsPostBack || !TransactionLibrary.HasBasket())
+        {
+            return;
+        }
         base.OnContentLoaded();
         SetupControl();
     }

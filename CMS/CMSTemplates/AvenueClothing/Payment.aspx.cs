@@ -15,7 +15,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 return;
             }
-            if (IsPostBack)
+            if (IsPostBack || !TransactionLibrary.HasBasket())
             {
                 return;
             }

@@ -70,7 +70,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
             {
                 return;
             }
-            if (IsPostBack)
+            if (IsPostBack || !TransactionLibrary.HasBasket())
             {
                 return;
             }

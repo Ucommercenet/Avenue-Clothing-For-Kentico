@@ -56,6 +56,10 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
         {
             return;
         }
+        if (IsPostBack)
+        {
+            return;
+        }
         base.OnContentLoaded();
         SetupControl();
     }
@@ -72,58 +76,57 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
         }
         else
         {
-            if (!IsPostBack)
+            if (!TransactionLibrary.HasBasket())
             {
-            
-                var billingAddress = TransactionLibrary.GetBillingInformation();
-                var shipmentAddress = TransactionLibrary.GetShippingInformation();
-                var countries = TransactionLibrary.GetCountries().OrderBy(x => x.Name);
-
-                billingFirstName.Text = billingAddress.FirstName;
-                billingLastName.Text = billingAddress.LastName;
-                billingEmail.Text = billingAddress.EmailAddress;
-                billingCompany.Text = billingAddress.CompanyName;
-                billingAttention.Text = billingAddress.Attention;
-                billingStreet.Text = billingAddress.Line1;
-                billingStreetTwo.Text = billingAddress.Line2;
-                billingCity.Text = billingAddress.City;
-                billingPostalCode.Text = billingAddress.PostalCode;
-                billingPhone.Text = billingAddress.PhoneNumber;
-                billingMobile.Text = billingAddress.MobilePhoneNumber;
-
-                billingCountry.DataSource = countries;
-                billingCountry.DataBind();
-                if (billingAddress.Country != null)
-                {
-                    billingCountry.SelectedValue = billingAddress.Country.Id.ToString();
-                }
-
-                shippingFirstName.Text = shipmentAddress.FirstName;
-                shippingLastName.Text = shipmentAddress.LastName;
-                shippingEmail.Text = shipmentAddress.EmailAddress;
-                shippingCompany.Text = shipmentAddress.CompanyName;
-                shippingAttention.Text = shipmentAddress.Attention;
-                shippingStreet.Text = shipmentAddress.Line1;
-                shippingStreetTwo.Text = shipmentAddress.Line2;
-                shippingCity.Text = shipmentAddress.City;
-                shippingPostalCode.Text = shipmentAddress.PostalCode;
-                shippingPhone.Text = shipmentAddress.PhoneNumber;
-                shippingMobile.Text = shipmentAddress.MobilePhoneNumber;
-
-                shippingCountry.DataSource = countries;
-                shippingCountry.DataBind();
-
-                if (billingAddress.Country != null)
-                {
-                    shippingCountry.SelectedValue = shipmentAddress.Country.Id.ToString();
-                }
-                BillingAddress = billingAddress;
-                ShippingAddress = shipmentAddress;
+                cartIsEmpty.Visible = true;
+                Address.Visible = false;
+                
+                return;
             }
-            else
+            var billingAddress = TransactionLibrary.GetBillingInformation();
+            var shipmentAddress = TransactionLibrary.GetShippingInformation();
+            var countries = TransactionLibrary.GetCountries().OrderBy(x => x.Name);
+
+            billingFirstName.Text = billingAddress.FirstName;
+            billingLastName.Text = billingAddress.LastName;
+            billingEmail.Text = billingAddress.EmailAddress;
+            billingCompany.Text = billingAddress.CompanyName;
+            billingAttention.Text = billingAddress.Attention;
+            billingStreet.Text = billingAddress.Line1;
+            billingStreetTwo.Text = billingAddress.Line2;
+            billingCity.Text = billingAddress.City;
+            billingPostalCode.Text = billingAddress.PostalCode;
+            billingPhone.Text = billingAddress.PhoneNumber;
+            billingMobile.Text = billingAddress.MobilePhoneNumber;
+
+            billingCountry.DataSource = countries;
+            billingCountry.DataBind();
+            if (billingAddress.Country != null)
             {
-
+                billingCountry.SelectedValue = billingAddress.Country.Id.ToString();
             }
+
+            shippingFirstName.Text = shipmentAddress.FirstName;
+            shippingLastName.Text = shipmentAddress.LastName;
+            shippingEmail.Text = shipmentAddress.EmailAddress;
+            shippingCompany.Text = shipmentAddress.CompanyName;
+            shippingAttention.Text = shipmentAddress.Attention;
+            shippingStreet.Text = shipmentAddress.Line1;
+            shippingStreetTwo.Text = shipmentAddress.Line2;
+            shippingCity.Text = shipmentAddress.City;
+            shippingPostalCode.Text = shipmentAddress.PostalCode;
+            shippingPhone.Text = shipmentAddress.PhoneNumber;
+            shippingMobile.Text = shipmentAddress.MobilePhoneNumber;
+
+            shippingCountry.DataSource = countries;
+            shippingCountry.DataBind();
+
+            if (billingAddress.Country != null)
+            {
+                shippingCountry.SelectedValue = shipmentAddress.Country.Id.ToString();
+            }
+            BillingAddress = billingAddress;
+            ShippingAddress = shipmentAddress;
         }
     }
 
