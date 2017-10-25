@@ -63,7 +63,7 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
             if (!orderlineItemNo) { itemno.InnerText = ""; }
 
             Page.ClientScript.RegisterStartupScript(
-                GetType(), "UCommerce.DemoStore.cart", "<script src=\"/scripts/UCommerce.DemoStore.cart.js\"></script>");
+                GetType(), "UCommerce.DemoStore.cart", "<script src=\"~/AvenueClothing/scripts/UCommerce.DemoStore.cart.js\"></script>");
 
             PurchaseOrder basket = null;
 
