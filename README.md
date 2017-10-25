@@ -21,10 +21,10 @@ Here at Ucommerce we put a lot of emphasis on getting set up quick and without t
 ![Application](http://i.imgur.com/WuqknUi.png)
 
 * The next step is to restore all database data from Kentico's Continuous Integration repository. To restore data from CIRepository, you have to open a Command Prompt with administrator privileges (right-click and select 'run as administrator'), then you need to navigate to the **bin** folder of the website where the  **ContinuousIntegration.exe** is located (for example: ```cd "c:\Repositories\Avenue Clothing Kentico (WF)\CMS\bin"```). and running the following command: ```ContinuousIntegration.exe -r```. You will be notified when the restoration is complete.
-* The final step is to build the solution by opening the '.sln' file using Visual Studio and using the F6 (build solution) shortcut, or right-clicking the solution in the Solution Explorer and clicking 'Build Solution'.
-* When the build process is finished, you are ready to start using the Avenue Clothing for Kentico Accelerator.
+* The final step is to build the solution by opening the '.sln' file using Visual Studio and build the solution, e.g. by right-clicking the solution in the Solution Explorer and clicking 'Build Solution'.
+* When the build process is finished, you are ready to start using the Avenue Clothing Accelerator for Ucommerce on Kentico.
 
 ### Get to know us better! ###
-* You can get free support for Ucommerce or Avenue Clothing for Kentico related isses or questions at our open support forum [Eureka!](http://eureka.ucommerce.net/#!/)
+* You can get free support for Ucommerce or Avenue Clothing for Kentico related issues or questions at our open support forum [Eureka!](http://eureka.ucommerce.net/#!/)
 * You can find out more about Ucommerce at [Ucommerce.net](http://ucommerce.net).
 * You can find technical information about Ucommerce in our [documentation](http://docs.ucommerce.net).
