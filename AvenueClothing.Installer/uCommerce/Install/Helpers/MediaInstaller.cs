@@ -23,7 +23,9 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 				var libraryId = CreateMediaLibrary();
 				CreateMediaLibraryFolders(libraryId);
 				CreateAndUploadMediaFiles(libraryId);
+
 			}
+			//var libraryId = MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName).LibraryID;
 
 			AddUcommerceProductImages();
 			AddUcommerceCategoryImages();
@@ -94,24 +96,18 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 			CreateFilesAsMediaInfos(libraryId, categoryImagesDirectory, categoryFolder);
 		}
 
+
 		private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
 		{
-			//Convert to System.IO.DirectoryInfo to get the parent (outside the CMS folder) without hardcoding.
-			var fromParentDirectory = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("/"));
-			var fromPath = new StringBuilder().Append(fromParentDirectory.FullName)
-				.Append("AvenueClothing.Installer/uCommerce/Install/Files/")
-				.Append(imagesDirectory.Name)
-				.Append("/")
-				.ToString();
+			var physicalApplicationPath = HttpContext.Current.Request.PhysicalApplicationPath;
+			var fullPathToImages = System.IO.Path.Combine(physicalApplicationPath, "..", "AvenueClothing.Installer/uCommerce/Install/Files/", imagesDirectory.Name);
+
 			//Create path to location in installer where the files will be copied from
-			var fromDirectory = new System.IO.DirectoryInfo(fromPath);
+			var fromDirectory = new System.IO.DirectoryInfo(fullPathToImages);
 
 			foreach (var file in fromDirectory.GetFiles())
 			{
-				var path = new StringBuilder(imagesDirectory.FullName)
-					.Append("/")
-					.Append(file.Name)
-					.ToString();
+				var path = System.IO.Path.Combine(imagesDirectory.FullName, file.Name);
 
 				if (System.IO.File.Exists(path) == false)
 				{
