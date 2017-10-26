@@ -302,8 +302,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 .form-search .input-append .btn {
     height: 2.3rem;
-    width: 2.3rem;
-    
 }
 
 .form-search .input-append .search-query {

@@ -108,6 +108,10 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
                 };
                 breadcrumbs.Add(breadcrumb);
             }
+            if (breadcrumbs.Last().BreadcrumbName == delimiter)
+            {
+                breadcrumbs.Remove(breadcrumbs.Last());
+            }
 
             Breadcrumbs.DataSource = breadcrumbs;
             Breadcrumbs.DataBind();
