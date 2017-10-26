@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using CMS.UIControls;
-using UCommerce.Api;
-using UCommerce.Catalog;
-using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
 using UCommerce.Infrastructure;
 using UCommerce.Kentico.Content;
 using UCommerce.Runtime;
-using UCommerce.Search.Facets;
+using CMS.PortalEngine;
 
 namespace CMSApp.CMSTemplates.AvenueClothing
 {
@@ -18,9 +12,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
     {
         private void Page_Load(object sender, EventArgs e)
         {
-            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
-            
-            if (viewMode == 6 || viewMode == 3)
+            if (!SetupIsNeeded())
             {
                 return;
             }
@@ -31,5 +23,14 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             CategoryName.InnerText = catalogContext.CurrentCategory.DisplayName();
         }
 
+        private bool SetupIsNeeded()
+        {
+            if (PortalContext.ViewMode.IsDesign() || PortalContext.ViewMode.IsEdit())
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
