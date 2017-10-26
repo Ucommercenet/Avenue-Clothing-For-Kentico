@@ -34,7 +34,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
     }
 
     #endregion
-    
+
     #region "Methods"
 
     /// <summary>
@@ -42,6 +42,11 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
     /// </summary>
     public override void OnContentLoaded()
     {
+        if (!SetupIsNeeded())
+        {
+            return;
+        }
+
         base.OnContentLoaded();
         SetupControl();
     }
@@ -57,21 +62,14 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
         }
         else
         {
-            if (!SetupIsNeeded())
-            {
-                return;
-            }
-
             var availableShippingMethods = GetShippingMethods();
 
             if (availableShippingMethods.Count == 0)
             {
                 litAlert.Text = "No shipping methods available for the shipping country.";
+                return;
             }
-            else
-            {
-                pPaymentAlert.Visible = false;
-            }
+            pPaymentAlert.Visible = false;
 
             SetupShippingMethods(availableShippingMethods);
         }
