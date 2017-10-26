@@ -76,15 +76,7 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
             Product product = SiteContext.Current.CatalogContext.CurrentProduct;
             Category lastCategory = SiteContext.Current.CatalogContext.CurrentCategory;
 
-            if (product != null || lastCategory != null)
-            {
-                breadcrumbs.Add(new BreadcrumbViewModel
-                {
-                    BreadcrumbName = SiteContext.Current.CatalogContext.CurrentCatalog.Name,
-                    BreadcrumbUrl = ""
-                });
-                breadcrumbs.Add(delimiterBreadcrumb);
-            }
+       
 
             if (SiteContext.Current.CatalogContext.CurrentCategories.Any())
             {
