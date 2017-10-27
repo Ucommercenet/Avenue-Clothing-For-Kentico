@@ -1,17 +1,18 @@
-﻿$(function () {
-    $("#submitSearch").click(function (event) {
+﻿$(function() {
+
+    $("#submitSearch").click(function(event) {
         event.preventDefault();
         window.location = window.location.origin + applicationName + "/search.aspx?search=" + $('.search-query').val();
-    } );
+    });
 
-    $('form.validate').each(function () {
+    $('form.validate').each(function() {
         $(this).validate({
             errorElement: "span",
             errorClass: "help-inline",
-            highlight: function (label) {
+            highlight: function(label) {
                 $(label).closest('.control-group').addClass('error');
             },
-            success: function (label) {
+            success: function(label) {
                 label.closest('.control-group').addClass('success');
             }
         });
@@ -19,37 +20,47 @@
     });
     $('#site-search').typeahead({
         minLength: 3,
-        source: function (query, process) {
-            $.uCommerce.search({ keyword: query }, function (resp) {
-                $.map(resp, function (data) {
-                    var matches = [];
-                    for (var i = 0; i < data.length; i++) {
-                        matches.push(data[i].ProductName);
-                    }
-                    return process(matches);
+        source: function(query, process) {
+            $.uCommerce.search({ keyword: query },
+                function(resp) {
+                    $.map(resp,
+                        function(data) {
+                            var matches = [];
+                            for (var i = 0; i < data.length; i++) {
+                                matches.push(data[i].ProductName);
+                            }
+                            return process(matches);
+                        });
                 });
-            });
         }
     });
-    $('#newsletter-form').submit(function (e) {
+    $('#newsletter-form').submit(function(e) {
         e.preventDefault();
         var form = $(this);
         if (!form.validate()) {
             return false;
         }
         form.css('opacity', 0.5);
-        $.getJSON(this.action + "?callback=&", $(this).serialize(), function (data) {
-            var thanks = $('<p />', { text: "Thanks! We\'ll be in touch soon!" });
-            if (data.Status === 400) {
-                alert("Error: " + data.Message);
-                form.css('opacity', 1);
-                $('input:first', form).focus();
-            } else { // 200
-                form.fadeOut(300, function () { $(this).css('opacity', 1).html(thanks).fadeIn(300); });
-            }
-        });
+        $.getJSON(this.action + "?callback=&",
+            $(this).serialize(),
+            function(data) {
+                var thanks = $('<p />', { text: "Thanks! We\'ll be in touch soon!" });
+                if (data.Status === 400) {
+                    alert("Error: " + data.Message);
+                    form.css('opacity', 1);
+                    $('input:first', form).focus();
+                } else { // 200
+                    form.fadeOut(300, function() { $(this).css('opacity', 1).html(thanks).fadeIn(300); });
+                }
+            });
         return false;
     });
+
+    //Push hidden content below the debug bar from kentico. 
+    var debugBar = $("#ctl00_portalManager")[0];
+    if (debugBar) {
+        $(".navbar-fixed-top").css("top", "38px");
+    }
 });
 function updateCartTotals() {
     if ($('#empty-cart').length != 0) {
