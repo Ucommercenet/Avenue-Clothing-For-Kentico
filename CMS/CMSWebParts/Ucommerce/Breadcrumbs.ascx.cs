@@ -39,6 +39,10 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
         }
         else
         {
+            if (PortalContext.ViewMode == ViewModeEnum.Edit || PortalContext.ViewMode == ViewModeEnum.Design)
+            {
+                return;
+            }
             var delimiter = GetStringValue("Delimiter", ">");
             bool includeKenticoNodes = ValidationHelper.GetBoolean(this.GetValue("IncludeKenticoNodes"), true);
 
@@ -108,6 +112,7 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
                 };
                 breadcrumbs.Add(breadcrumb);
             }
+
             if (breadcrumbs.Last().BreadcrumbName == delimiter)
             {
                 breadcrumbs.Remove(breadcrumbs.Last());
