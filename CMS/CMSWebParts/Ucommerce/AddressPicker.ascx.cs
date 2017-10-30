@@ -1,21 +1,15 @@
-using System;
-using System.Data;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
+using System.Collections.Generic;
 using CMS.PortalEngine.Web.UI;
-using CMS.Helpers;
 using UCommerce.Api;
 using System.Linq;
+using CMS.PortalEngine;
 using UCommerce.EntitiesV2;
-using UCommerce.Infrastructure;
 
 public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
 {
     #region "Properties"
-    private static OrderAddress billingAddress = new OrderAddress();
+
+    private OrderAddress billingAddress = new OrderAddress();
     public OrderAddress BillingAddress
     {
         get
@@ -28,7 +22,7 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
         }
     }
 
-    private static OrderAddress shippingAddress = new OrderAddress();
+    private OrderAddress shippingAddress = new OrderAddress();
     public OrderAddress ShippingAddress
     {
         get
@@ -43,7 +37,6 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
 
     #endregion
 
-
     #region "Methods"
 
     /// <summary>
@@ -51,19 +44,14 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
     /// </summary>
     public override void OnContentLoaded()
     {
-        var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
-        if (viewMode == 6 || viewMode == 3)
+        if (!SetupIsNeeded())
         {
             return;
         }
-        if (IsPostBack)
-        {
-            return;
-        }
+
         base.OnContentLoaded();
         SetupControl();
     }
-
 
     /// <summary>
     /// Initializes the control properties.
@@ -76,105 +64,143 @@ public partial class CMSWebParts_Ucommerce_AddressPicker : CMSAbstractWebPart
         }
         else
         {
-            if (!TransactionLibrary.HasBasket())
-            {
-                cartIsEmpty.Visible = true;
-                Address.Visible = false;
-                
-                return;
-            }
-            var billingAddress = TransactionLibrary.GetBillingInformation();
-            var shipmentAddress = TransactionLibrary.GetShippingInformation();
-            var countries = TransactionLibrary.GetCountries().OrderBy(x => x.Name);
+            var countries = TransactionLibrary.GetCountries().OrderBy(x => x.Name).ToList();
 
-            billingFirstName.Text = billingAddress.FirstName;
-            billingLastName.Text = billingAddress.LastName;
-            billingEmail.Text = billingAddress.EmailAddress;
-            billingCompany.Text = billingAddress.CompanyName;
-            billingAttention.Text = billingAddress.Attention;
-            billingStreet.Text = billingAddress.Line1;
-            billingStreetTwo.Text = billingAddress.Line2;
-            billingCity.Text = billingAddress.City;
-            billingPostalCode.Text = billingAddress.PostalCode;
-            billingPhone.Text = billingAddress.PhoneNumber;
-            billingMobile.Text = billingAddress.MobilePhoneNumber;
-
-            billingCountry.DataSource = countries;
-            billingCountry.DataBind();
-            if (billingAddress.Country != null)
-            {
-                billingCountry.SelectedValue = billingAddress.Country.Id.ToString();
-            }
-
-            shippingFirstName.Text = shipmentAddress.FirstName;
-            shippingLastName.Text = shipmentAddress.LastName;
-            shippingEmail.Text = shipmentAddress.EmailAddress;
-            shippingCompany.Text = shipmentAddress.CompanyName;
-            shippingAttention.Text = shipmentAddress.Attention;
-            shippingStreet.Text = shipmentAddress.Line1;
-            shippingStreetTwo.Text = shipmentAddress.Line2;
-            shippingCity.Text = shipmentAddress.City;
-            shippingPostalCode.Text = shipmentAddress.PostalCode;
-            shippingPhone.Text = shipmentAddress.PhoneNumber;
-            shippingMobile.Text = shipmentAddress.MobilePhoneNumber;
-
-            shippingCountry.DataSource = countries;
-            shippingCountry.DataBind();
-
-            if (billingAddress.Country != null)
-            {
-                shippingCountry.SelectedValue = shipmentAddress.Country.Id.ToString();
-            }
-            BillingAddress = billingAddress;
-            ShippingAddress = shipmentAddress;
+            PopulateBillingAddress(countries);
+            PopulateShippingAddress(countries);
         }
     }
 
-    //Used for setting the data
-    public void SetData()
+    public void UpdateAddresses()
     {
-        var billingAddress = TransactionLibrary.GetBillingInformation();
-        var shipmentAddress = TransactionLibrary.GetShippingInformation();
-        var countries = TransactionLibrary.GetCountries().OrderBy(x => x.Name);
+        EditBillingInformation();
+        EditShippingInformation();
+    }
 
-        billingAddress.FirstName = billingFirstName.Text;
-        billingAddress.LastName = billingLastName.Text;
-        billingAddress.EmailAddress = billingEmail.Text;
-        billingAddress.CompanyName = billingCompany.Text;
-        billingAddress.Attention = billingAttention.Text;
-        billingAddress.Line1 = billingStreet.Text;
-        billingAddress.Line2 = billingStreetTwo.Text;
-        billingAddress.City = billingCity.Text;
-        billingAddress.PostalCode = billingPostalCode.Text;
-        billingAddress.PhoneNumber = billingPhone.Text;
-        billingAddress.MobilePhoneNumber = billingMobile.Text;
+    private void EditShippingInformation()
+    {
+        if (UseDIfferentShippingAddress.Checked)
+        {
+            TransactionLibrary.EditShippingInformation(
+                shippingFirstName.Text,
+                shippingLastName.Text,
+                shippingEmail.Text,
+                shippingPhone.Text,
+                shippingMobile.Text,
+                shippingCompany.Text,
+                shippingStreet.Text,
+                shippingStreetTwo.Text,
+                shippingPostalCode.Text,
+                shippingCity.Text,
+                "",
+                shippingAttention.Text,
+                int.Parse(shippingCountry.SelectedValue));
+        }
+        else
+        {
+            TransactionLibrary.EditShippingInformation(
+                billingFirstName.Text,
+                billingLastName.Text,
+                billingEmail.Text,
+                billingPhone.Text,
+                billingMobile.Text,
+                billingCompany.Text,
+                billingStreet.Text,
+                billingStreetTwo.Text,
+                billingPostalCode.Text,
+                billingCity.Text,
+                "",
+                billingAttention.Text,
+                int.Parse(billingCountry.SelectedValue));
+        }
+    }
 
-        billingCountry.DataSource = countries;
-        var billingCountryId = Int32.Parse(billingCountry.SelectedValue);
+    private void EditBillingInformation()
+    {
+        TransactionLibrary.EditBillingInformation(
+            billingFirstName.Text,
+            billingLastName.Text,
+            billingEmail.Text,
+            billingPhone.Text,
+            billingMobile.Text,
+            billingCompany.Text,
+            billingStreet.Text,
+            billingStreetTwo.Text,
+            billingPostalCode.Text,
+            billingCity.Text,
+            "",
+            billingAttention.Text,
+            int.Parse(billingCountry.SelectedValue));
+    }
 
-        var billingCountries = ObjectFactory.Instance.Resolve<IRepository<Country>>();
-        billingAddress.Country = billingCountries.Select(x => x.CountryId == billingCountryId).ToList().FirstOrDefault();
+    private void PopulateShippingAddress(List<Country> countries)
+    {
+        var existingShipmentAddress = TransactionLibrary.GetShippingInformation();
 
-        shipmentAddress.FirstName = shippingFirstName.Text;
-        shipmentAddress.LastName = shippingLastName.Text;
-        shipmentAddress.EmailAddress = shippingEmail.Text;
-        shipmentAddress.CompanyName = shippingCompany.Text;
-        shipmentAddress.Attention = shippingAttention.Text;
-        shipmentAddress.Line1 = shippingStreet.Text;
-        shipmentAddress.Line2 = shippingStreetTwo.Text;
-        shipmentAddress.City = shippingCity.Text;
-        shipmentAddress.PostalCode = shippingPostalCode.Text;
-        shipmentAddress.PhoneNumber = shippingPhone.Text;
-        shipmentAddress.MobilePhoneNumber = shippingMobile.Text;
+        shippingFirstName.Text = existingShipmentAddress.FirstName;
+        shippingLastName.Text = existingShipmentAddress.LastName;
+        shippingEmail.Text = existingShipmentAddress.EmailAddress;
+        shippingCompany.Text = existingShipmentAddress.CompanyName;
+        shippingAttention.Text = existingShipmentAddress.Attention;
+        shippingStreet.Text = existingShipmentAddress.Line1;
+        shippingStreetTwo.Text = existingShipmentAddress.Line2;
+        shippingCity.Text = existingShipmentAddress.City;
+        shippingPostalCode.Text = existingShipmentAddress.PostalCode;
+        shippingPhone.Text = existingShipmentAddress.PhoneNumber;
+        shippingMobile.Text = existingShipmentAddress.MobilePhoneNumber;
 
         shippingCountry.DataSource = countries;
-        var shippingCountryId = Int32.Parse(shippingCountry.SelectedValue);
+        shippingCountry.DataBind();
 
-        var shippingCountries = ObjectFactory.Instance.Resolve<IRepository<Country>>();
-        shipmentAddress.Country = shippingCountries.Select(x => x.CountryId == shippingCountryId).ToList().FirstOrDefault();
+        if (billingAddress.Country != null)
+        {
+            shippingCountry.SelectedValue = existingShipmentAddress.Country.Id.ToString();
+        }
 
-        BillingAddress = billingAddress;
-        ShippingAddress = shipmentAddress;
+        ShippingAddress = existingShipmentAddress;
+    }
+
+    private void PopulateBillingAddress(IList<Country> countries)
+    {
+        var existingBillingAddress = TransactionLibrary.GetBillingInformation();
+
+        billingFirstName.Text = existingBillingAddress.FirstName;
+        billingLastName.Text = existingBillingAddress.LastName;
+        billingEmail.Text = existingBillingAddress.EmailAddress;
+        billingCompany.Text = existingBillingAddress.CompanyName;
+        billingAttention.Text = existingBillingAddress.Attention;
+        billingStreet.Text = existingBillingAddress.Line1;
+        billingStreetTwo.Text = existingBillingAddress.Line2;
+        billingCity.Text = existingBillingAddress.City;
+        billingPostalCode.Text = existingBillingAddress.PostalCode;
+        billingPhone.Text = existingBillingAddress.PhoneNumber;
+        billingMobile.Text = existingBillingAddress.MobilePhoneNumber;
+
+        billingCountry.DataSource = countries;
+        billingCountry.DataBind();
+        if (existingBillingAddress.Country != null)
+        {
+            billingCountry.SelectedValue = existingBillingAddress.Country.Id.ToString();
+        }
+
+        BillingAddress = existingBillingAddress;
+    }
+
+    private bool SetupIsNeeded()
+    {
+        if (IsPostBack || ViewMode.IsDesign() || ViewMode.IsEdit())
+        {
+            return false;
+        }
+        if (!TransactionLibrary.HasBasket())
+        {
+            cartIsEmpty.Visible = true;
+            Address.Visible = false;
+
+            return false;
+        }
+
+        return true;
     }
 
     /// <summary>

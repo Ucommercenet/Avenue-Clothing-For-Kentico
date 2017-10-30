@@ -251,7 +251,7 @@
     <div class="span12">
         <label>
             Use a different address for shipping
-            <input type="checkbox" id="checkShowShipping" />
+            <input runat="server" type="checkbox" id="UseDIfferentShippingAddress" ClientIDMode="Static" />
         </label>
     </div>
 </div>

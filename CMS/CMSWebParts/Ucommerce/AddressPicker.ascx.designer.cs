@@ -408,6 +408,15 @@ public partial class CMSWebParts_Ucommerce_AddressPicker {
     protected global::System.Web.UI.WebControls.TextBox shippingMobile;
     
     /// <summary>
+    /// UseDIfferentShippingAddress control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox UseDIfferentShippingAddress;
+    
+    /// <summary>
     /// cartIsEmpty control.
     /// </summary>
     /// <remarks>
