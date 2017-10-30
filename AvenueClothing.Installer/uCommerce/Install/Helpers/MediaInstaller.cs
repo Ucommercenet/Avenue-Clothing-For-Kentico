@@ -18,7 +18,6 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
 		public void Configure()
 		{
-			//int libraryId = MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName).LibraryID;
 			if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) == null)
 			{
 				CMS.DataEngine.CMSApplication.Init();
@@ -27,7 +26,6 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 				CreateAndUploadMediaFiles(libraryId);
 
 			}
-			//var libraryId = MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName).LibraryID;
 
 			AddUcommerceProductImages();
 			AddUcommerceCategoryImages();
@@ -69,7 +67,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 				{
 					if (medium.FileName == category.Name)
 					{
-						var path = new StringBuilder("~/AvenueClothing/media/AvenueClothing/").Append(medium.FilePath).ToString();
+						var path = new StringBuilder(@"AvenueClothing\media\AvenueClothing\").Append(medium.FilePath).ToString();
 
 						category.ImageMediaId = EncodePath(path);
 						category.Save();
@@ -97,26 +95,6 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 			UploadImages(categoryImagesDirectory);
 			CreateFilesAsMediaInfos(libraryId, categoryImagesDirectory, categoryFolder);
 		}
-
-
-		//private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
-		//{
-		//	var physicalApplicationPath = HttpContext.Current.Request.PhysicalApplicationPath;
-		//	var fullPathToImages = System.IO.Path.Combine(physicalApplicationPath, "..", "AvenueClothing.Installer/uCommerce/Install/Files/", imagesDirectory.Name);
-
-		//	//Create path to location in installer where the files will be copied from
-		//	var fromDirectory = new System.IO.DirectoryInfo(fullPathToImages);
-
-		//	foreach (var file in fromDirectory.GetFiles())
-		//	{
-		//		var path = System.IO.Path.Combine(imagesDirectory.FullName, file.Name);
-
-		//		if (System.IO.File.Exists(path) == false)
-		//		{
-		//			file.CopyTo(path);
-		//		}
-		//	}
-		//}
 
 		private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
 		{
