@@ -57,7 +57,6 @@ public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
                 }
             }
 
-            var applicationUrl = HttpContext.Current.Request.ApplicationPath;
             string textColor = ValidationHelper.GetString(GetValue("TextColor"), "black").ToLower();
             bool valuePrice = ValidationHelper.GetBoolean(GetValue("ShowPrice"), false);
             bool valueAmount = ValidationHelper.GetBoolean(GetValue("ShowProductAmount"), false);
@@ -69,7 +68,7 @@ public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
             }
             else
             {
-                hlMinicart.Attributes.Add("href", applicationUrl + "/basket");
+                hlMinicart.Attributes.Add("href", "~/basket");
                 hlMinicart.Attributes.Add("class", "" + textColor);
                 imgMinicart.Attributes.Add("class", "icon-shopping-cart icon-" + iconColor);
                 if (valuePrice && valueAmount)
