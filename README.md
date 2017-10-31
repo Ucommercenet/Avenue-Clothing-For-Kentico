@@ -4,6 +4,7 @@
 
 * This project contains the full Kentico solution with a functional Ucommerce store, which can be used as a starting point for projects, to accelerate development time.
 * It is built with Ucommerce and Kentico best practices in mind.
+* When cloning the repository, you can chose between using 2 separate branches: One that contains a simple CMS version of the accelerator, and one with EMS capabilities enabled and set up (eg. personalization variants, a/b test, abandoned basket e-mail). For the CMS version simply clone the 'default' branch, for the EMS version you are looking for the 'EMS functionality'.
 
 ### Requirements ###
 Currently, the requirements of running this version of the accelerator are:
