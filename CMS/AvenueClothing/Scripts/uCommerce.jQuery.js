@@ -1,20 +1,15 @@
 //var uCommerce = uCommerce || {};
 
-$( "#checkShowShipping" ).change( function() {
+$( "#UseDIfferentShippingAddress" ).change( function() {
     if (!this.checked) {
         $("#shippingDiv").addClass("hide");
-        $("#btnBillingAndShippingUpdate").addClass("hide");
-        $("#btnBillingUpdate").removeClass("hide");
         $("#billingDiv").removeClass("span6");
         $("#billingDiv").addClass("span12");
     }
     else {
         $("#shippingDiv").removeClass("hide");
-        $("#btnBillingAndShippingUpdate").removeClass("hide");
-        $("#btnBillingUpdate").addClass("hide");
         $("#billingDiv").removeClass("span12");
         $("#billingDiv").addClass("span6");
-        
     }
 } );
 

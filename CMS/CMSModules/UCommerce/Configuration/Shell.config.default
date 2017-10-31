@@ -1,0 +1,286 @@
+﻿<configuration>
+
+  <!-- Configuration for Kentico specific implementations -->
+  <components>
+	  
+    <!-- Content -->
+    <component id="ContentService"
+      service="UCommerce.Content.IContentService, UCommerce"
+      type="UCommerce.Kentico.Content.ContentService, UCommerce.Kentico" />
+
+    <component id="DomainService"
+      service="UCommerce.Content.IDomainService, UCommerce"
+      type="UCommerce.Kentico.Content.DomainService, UCommerce.Kentico" />
+
+    <component id="ImageService"
+      service="UCommerce.Content.IImageService, UCommerce"
+      type="UCommerce.Kentico.Content.ImageService, UCommerce.Kentico" />
+
+    <component id="TreeServiceImagePicker"
+      service="UCommerce.Tree.ITreeContentService, UCommerce"
+      type="UCommerce.Kentico.Content.KenticoImageTreeService, UCommerce.Kentico" />
+
+    <component id="TreeServiceImageNodeConverter"
+		  service="UCommerce.Web.Api.Services.Nodes.ITreeNodeContentToTreeNodeConverter, UCommerce.Web.Api"
+		  type="UCommerce.Kentico.Content.KenticoImageTreeNodeConverter, UCommerce.Kentico" />
+
+    <component id="TreeServiceContentPicker"
+      service="UCommerce.Tree.ITreeContentService, UCommerce"
+      type="UCommerce.Kentico.Content.KenticoContentTreeService, UCommerce.Kentico" />
+
+    <component id="TreeServiceContentNodeConverter"
+		  service="UCommerce.Web.Api.Services.Nodes.ITreeNodeContentToTreeNodeConverter, UCommerce.Web.Api"
+		  type="UCommerce.Kentico.Content.KenticoContentTreeNodeConverter, UCommerce.Kentico" />
+
+    <!-- Globalization -->
+    <component id="LanguageService"
+      service="UCommerce.Infrastructure.Globalization.ILanguageService, UCommerce.Infrastructure"
+      type="UCommerce.Kentico.Globalization.LanguageService, UCommerce.Kentico" />
+
+    <!-- Logging -->
+    <component id="LoggingService"
+      service="UCommerce.Infrastructure.Logging.ILoggingService, UCommerce.Infrastructure"
+      type="UCommerce.Kentico.Logging.LoggingService, UCommerce.Kentico" />
+
+    <!-- Security -->
+    <component id="AuthenticationService"
+      service="UCommerce.Security.IAuthenticationService, UCommerce"
+      type="UCommerce.Kentico.Security.AuthenticationService, UCommerce.Kentico" />
+
+    <component id="MemberService"
+			service="UCommerce.Security.IMemberService, UCommerce"
+			type="UCommerce.Kentico.Security.MemberService, UCommerce.Kentico" />
+
+    <component id="UserService"
+      service="UCommerce.Security.IUserService, UCommerce"
+      type="UCommerce.Kentico.Security.UserService, UCommerce.Kentico">
+    </component>
+
+    <component id="UserGroupService"
+      service="UCommerce.Security.IUserGroupService, UCommerce"
+      type="UCommerce.Kentico.Security.UserGroupService, UCommerce.Kentico" />
+
+    <!-- UI -->
+    <component id="JavaScriptFactory"
+      service="UCommerce.Presentation.UI.IJavaScriptFactory, UCommerce.Presentation"
+      type="UCommerce.Kentico.UI.JavaScriptFactory, UCommerce.Kentico" />
+
+    <!-- UI / Resources -->
+    <component id="ResourcesIncludeShellList"
+      service="UCommerce.Presentation.UI.Resources.IResourcesIncludeList, UCommerce.Presentation"
+      type="UCommerce.Kentico.UI.Resources.ResourcesIncludeListShell, UCommerce.Kentico" />
+
+    <component id="ResourcesIncludeList"
+      service="UCommerce.Presentation.UI.Resources.IResourcesIncludeList, UCommerce.Presentation"
+      type="UCommerce.Kentico.UI.Resources.ResourcesIncludeList, UCommerce.Kentico" />
+
+    <component id="ResourcesDependencyLoader"
+      service="ClientDependency.Core.Controls.ClientDependencyLoader, ClientDependency.Core, Version=1.8.2.1"
+      type="UCommerce.Kentico.UI.Resources.ResourcesDependencyLoader, UCommerce.Kentico" />
+
+    <!-- Web -->
+    <component id="BackendLocalizationService"
+      service="UCommerce.Presentation.Web.Pages.IBackendLocalizationService, UCommerce.Presentation"
+      type="UCommerce.Kentico.Web.BackendLocalizationService, UCommerce.Kentico" />
+
+    <component id="UrlResolver"
+      service="UCommerce.Presentation.Web.IUrlResolver, UCommerce.Presentation"
+      type="UCommerce.Kentico.Web.UrlResolver, UCommerce.Kentico" />
+
+    <!-- End Kentico specific components. -->
+
+    <!-- This does not need to be in Shell.config? -->
+    <component id="CommerceConfigurationProvider"
+			service="UCommerce.Infrastructure.Configuration.CommerceConfigurationProvider, UCommerce.Infrastructure"
+			type="UCommerce.Infrastructure.Configuration.CommerceConfigurationProvider, UCommerce.Infrastructure" />
+
+    <!-- This does not need to be in Shell.config? -->
+    <component id="controls.shell"
+				service="UCommerce.Presentation.UI.Resources.IResourcesControls, UCommerce.Presentation"
+				type="UCommerce.Presentation.UI.Resources.Impl.ResourcesControls, UCommerce.Presentation" >
+      <parameters>
+        <resouresIncludeLists>
+          <array>
+            <item>${ResourcesIncludeShellList}</item>
+          </array>
+        </resouresIncludeLists>
+      </parameters>
+    </component>
+
+
+    <component id="JavascriptResourcesIncludeList"
+      service="UCommerce.Presentation.UI.Resources.IResourcesIncludeList, UCommerce.Presentation"
+      type="UCommerce.Presentation.UI.Resources.Impl.JavascriptResourceIncludeList, UCommerce.Presentation" />
+
+    <component id="ApplicationBootStrapper"
+      service="UCommerce.Presentation.UI.Resources.IResourcesIncludeList, UCommerce.Presentation"
+      type="UCommerce.Presentation.UI.Resources.Impl.ApplicationBootStrapper, UCommerce.Presentation" />
+
+    <component id="WidgetResourcesIncludeList"
+      service="UCommerce.Presentation.UI.Resources.IResourcesIncludeList, UCommerce.Presentation"
+      type="UCommerce.Presentation.UI.Resources.Impl.WidgetResourcesIncludeList, UCommerce.Presentation" />
+
+    <component id="controls.ucommerceMain"
+      service="UCommerce.Presentation.UI.Resources.IResourcesControls, UCommerce.Presentation"
+      type="UCommerce.Presentation.UI.Resources.Impl.ResourcesControls, UCommerce.Presentation" >
+      <parameters>
+        <resouresIncludeLists>
+          <array>
+            <item>${JavascriptResourcesIncludeList}</item>
+            <item>${ResourcesIncludeList}</item>
+            <item>${WidgetResourcesIncludeList}</item>
+            <item>${ApplicationBootStrapper}</item>
+          </array>
+        </resouresIncludeLists>
+      </parameters>
+    </component>
+
+    <component
+			id="MediaControlFactory"
+			service="UCommerce.Presentation.Web.Controls.IControlFactory, UCommerce.Presentation"
+			type="UCommerce.Presentation.Web.Controls.Factories.ImagePickerControlFactory, UCommerce.Presentation"/>
+
+    <component
+			id="ContentControlFactory"
+			service="UCommerce.Presentation.Web.Controls.IControlFactory, UCommerce.Presentation"
+			type="UCommerce.Presentation.Web.Controls.Factories.ContentPickerControlFactory, UCommerce.Presentation"/>
+
+    <component
+      id="ImagePickerControlAdapter"
+      service="UCommerce.Presentation.Web.Controls.IControlAdapter, UCommerce.Presentation"
+      type="UCommerce.Presentation.Web.Controls.Adapters.ImagePickerControlAdapter, UCommerce.Presentation" />
+
+    <component
+      id="ContentPickerControlAdapter"
+      service="UCommerce.Presentation.Web.Controls.IControlAdapter, UCommerce.Presentation"
+      type="UCommerce.Presentation.Web.Controls.Adapters.ContentPickerControlAdapter, UCommerce.Presentation" />
+
+    <component id="ImageNodeService" service="UCommerce.Web.Api.Services.Nodes.ITreeNodeService, UCommerce.Web.Api" type="UCommerce.Web.Api.Services.Nodes.Impl.ContentNodeService, UCommerce.Web.Api">
+      <parameters>
+        <serviceType>Image</serviceType>
+        <treeNodeContentToTreeNodeConverter>${TreeServiceImageNodeConverter}</treeNodeContentToTreeNodeConverter>
+        <treeContentService>${TreeServiceImagePicker}</treeContentService>
+      </parameters>
+    </component>
+
+    <component id="ContentNodeService" service="UCommerce.Web.Api.Services.Nodes.ITreeNodeService, UCommerce.Web.Api" type="UCommerce.Web.Api.Services.Nodes.Impl.ContentNodeService, UCommerce.Web.Api">
+      <parameters>
+        <serviceType>Content</serviceType>
+        <treeNodeContentToTreeNodeConverter>${TreeServiceContentNodeConverter}</treeNodeContentToTreeNodeConverter>
+        <treeContentService>${TreeServiceContentPicker}</treeContentService>
+      </parameters>
+    </component>
+
+    <!-- Email service -->
+    <component
+      id="EmailService"
+      service="UCommerce.Transactions.IEmailService, UCommerce"
+      type="UCommerce.Kentico.Email.EmailService, UCommerce.Kentico"/>
+
+    <!-- EMS components -->
+    <component id="Kentico.EMS.ActivityLogger"
+               service="UCommerce.Kentico.Ems.IActivityLogger, UCommerce.Kentico"
+               type="UCommerce.Kentico.Ems.ActivityLoggerKenticoEmsActivities, UCommerce.Kentico"/>
+
+    <component id="Kentico.EMS.AbandonedBasketActivityLogger"
+               service="UCommerce.Kentico.Ems.IAbandonedBasketActivityLogger, UCommerce.Kentico"
+               type="UCommerce.Kentico.Ems.AbandonedBasketActivityLogger, UCommerce.Kentico"/>
+
+    <component id="AddToBasket.RegisterProductsAddedToBasketActivity"
+               service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.Pipelines.IPipelineArgs`2[[UCommerce.Pipelines.AddToBasket.AddToBasketRequest, UCommerce],[UCommerce.Pipelines.AddToBasket.AddToBasketResponse, UCommerce]], UCommerce]], UCommerce"
+               type="UCommerce.Kentico.Ems.RegisterProductAddedToBasketActivityTask, UCommerce.Kentico" />
+
+    <partial-component id="AddToBasket">
+      <parameters>
+        <tasks>
+          <array>
+            <value insert="last">${AddToBasket.RegisterProductsAddedToBasketActivity}</value>
+          </array>
+        </tasks>
+      </parameters>
+    </partial-component>
+    
+    <component id="Checkout.RegisterOrderAndProductsPurchasedActivities"
+               service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+               type="UCommerce.Kentico.Ems.RegisterOrderPurchasedActivityTask, UCommerce.Kentico" />
+
+    <partial-component id="Checkout">
+      <parameters>
+        <tasks>
+          <array>
+            <value insert="last">${Checkout.RegisterOrderAndProductsPurchasedActivities}</value>
+          </array>
+        </tasks>
+      </parameters>
+    </partial-component>
+
+    <!-- EMS macro services. -->
+    <component id="EMS.CheckActivityLinkedToProduct"
+               service="UCommerce.Kentico.Macros.ICheckActivityLinkedToProduct, UCommerce.Kentico"
+               type="UCommerce.Kentico.Macros.Impl.CheckActivityLinkedToProduct, UCommerce.Kentico" />
+
+    <!-- Personalization macro services. -->
+    <component id="Personalization.CheckIsBasketIsEmpty"
+               service="UCommerce.Kentico.Macros.ICheckIfBasketIsEmpty, UCommerce.Kentico"
+               type="UCommerce.Kentico.Macros.Impl.CheckIfBasketIsEmpty, UCommerce.Kentico" />
+
+    <component id="Personalization.CheckIsBasketContainsSku"
+             service="UCommerce.Kentico.Macros.ICheckIfBasketContainsSku, UCommerce.Kentico"
+             type="UCommerce.Kentico.Macros.Impl.CheckIfBasketContainsSku, UCommerce.Kentico" />
+
+    <component id="AddAddress.AddDetailsToContact"
+							 service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.Pipelines.IPipelineArgs`2[[UCommerce.Pipelines.AddAddress.AddAddressRequest, UCommerce],[UCommerce.Pipelines.AddAddress.AddAddressResult, UCommerce]], UCommerce]], UCommerce"
+							 type="UCommerce.Kentico.Ems.AddDetailsToContact, UCommerce.Kentico" />
+
+    <partial-component id="AddAddress">
+      <parameters>
+        <tasks>
+          <array>
+            <value insert="last">${AddAddress.AddDetailsToContact}</value>
+          </array>
+        </tasks>
+      </parameters>
+    </partial-component>
+    
+    <component id="Kentico.SetContactIdOnBasket"
+               service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+               type="UCommerce.Kentico.Ems.Tasks.SetContactIdOnBasketTask, UCommerce.Kentico" />
+
+    <partial-component id="Basket">
+      <parameters>
+        <tasks>
+          <array>
+            <value insert-before="${Basket.Save}">${Kentico.SetContactIdOnBasket}</value>
+          </array>
+        </tasks>
+      </parameters>
+    </partial-component>
+
+    <component id="Kentico.SetSiteIdOnBasket"
+               service="UCommerce.Pipelines.IPipelineTask`1[[UCommerce.EntitiesV2.PurchaseOrder, UCommerce]], UCommerce"
+               type="UCommerce.Kentico.Ems.Tasks.SetSiteIdOnBasketTask, UCommerce.Kentico" />
+
+    <partial-component id="Basket">
+      <parameters>
+        <tasks>
+          <array>
+            <value insert-before="${Basket.Save}">${Kentico.SetSiteIdOnBasket}</value>
+          </array>
+        </tasks>
+      </parameters>
+    </partial-component>
+
+    <component id="Kentico.FindAbandonedBaskets"
+               service="UCommerce.Kentico.Ems.IFindAbandonedBaskets, UCommerce.Kentico"
+               type="UCommerce.Kentico.Ems.FindAbandonedBasketService, UCommerce.Kentico" />
+    
+    <component id="Kentico.FindPurchaseOrderByGuid"
+               service="UCommerce.Kentico.Macros.IFindPurchaseOrdersByOrderGuid, UCommerce.Kentico"
+               type="UCommerce.Kentico.Macros.Impl.FindPurchaseOrdersByOrderGuid, UCommerce.Kentico"/>
+
+    <component id="Kentico.FindBasketByGuid"
+               service="UCommerce.Kentico.Macros.IFindBasketsByOrderGuid, UCommerce.Kentico"
+               type="UCommerce.Kentico.Macros.Impl.FindBasketsByOrderGuid, UCommerce.Kentico"/>
+
+  </components>
+</configuration>

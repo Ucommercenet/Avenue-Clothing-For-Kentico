@@ -2,6 +2,6 @@
 <div class="margin-top-bottom">
     <div class="input-append">
         <input id="txtVoucherCode" class="voucher" type="text" runat="server"  placeholder="Enter your voucher code here" />
-        <asp:button runat="server" ID="btnAddVoucher" CssClass="voucher-button"  OnClick="btnAddVoucher_Click"></asp:button>
+        <asp:button runat="server" ID="btnAddVoucher" CssClass="voucher-button"  OnClick="UseVoucher"></asp:button>
     </div>
 </div>

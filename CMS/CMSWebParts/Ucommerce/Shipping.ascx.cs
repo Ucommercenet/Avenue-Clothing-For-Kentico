@@ -1,10 +1,4 @@
-using System;
-using System.Data;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
 using UCommerce.Api;
@@ -12,6 +6,7 @@ using UCommerce.EntitiesV2;
 using UCommerce;
 using System.Collections.Generic;
 using System.Linq;
+using CMS.PortalEngine;
 using UCommerce.Infrastructure;
 
 public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
@@ -28,7 +23,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
         {
             this.rblShippingMethods.SelectedValue = value;
         }
-    }    
+    }
 
     public RadioButtonList RadioButtonList
     {
@@ -40,7 +35,6 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 
     #endregion
 
-
     #region "Methods"
 
     /// <summary>
@@ -48,10 +42,14 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
     /// </summary>
     public override void OnContentLoaded()
     {
+        if (!SetupIsNeeded())
+        {
+            return;
+        }
+
         base.OnContentLoaded();
         SetupControl();
     }
-
 
     /// <summary>
     /// Initializes the control properties.
@@ -64,65 +62,67 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
         }
         else
         {
-            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
+            var availableShippingMethods = GetShippingMethods();
 
-            if (viewMode == 6 || viewMode == 3)
+            if (availableShippingMethods.Count == 0)
             {
+                litAlert.Text = "No shipping methods available for the shipping country.";
                 return;
             }
-            if (IsPostBack)
-            {
-                return;
-            }
+            pPaymentAlert.Visible = false;
 
-            bool showForCurrentCountry = ValidationHelper.GetBoolean(GetValue("ShowForCurrentCountry"), true);
-            var currentShippingMethod = TransactionLibrary.GetShippingMethod();
-            var currentBasket = TransactionLibrary.GetBasket().PurchaseOrder;
-            var shippingCountry = TransactionLibrary.GetShippingInformation().Country;
-            var availableShippingMethods = new List<ShippingMethod>();
-           
-
-            if (showForCurrentCountry)
-            {
-                availableShippingMethods = TransactionLibrary.GetShippingMethods(shippingCountry).ToList();
-            }
-            else
-            {
-                var shippingMethods = ObjectFactory.Instance.Resolve<IRepository<ShippingMethod>>();
-                availableShippingMethods = shippingMethods.Select(x => !x.Deleted).ToList();
-            }
-
-            if (availableShippingMethods.Count != 0)
-            {
-                pPaymentAlert.Visible = false;
-            }
-            else
-            {
-                string warning =
-                    "WARNING: No payment methods have been configured for " + shippingCountry.Name + " within <a href=\"http://ucommerce.net\">UCommerce</a> administration area.";
-                litAlert.Text = warning;
-
-            }
-
-            foreach (ShippingMethod shippingMethod in availableShippingMethods)
-            {
-                var price = shippingMethod.GetPriceForCurrency(currentBasket.BillingCurrency);
-                var formattedPrice = new Money((price == null ? 0 : price.Price), currentBasket.BillingCurrency);
-
-                ListItem currentListItem = new ListItem($"{shippingMethod.Name} <text>(</text>{formattedPrice}<text>)</text>", shippingMethod.Id.ToString());
-
-                if (currentShippingMethod.Id == shippingMethod.Id)
-                {
-                    currentListItem.Selected = true;
-                }
-
-                rblShippingMethods.Items.Add(currentListItem);
-            }
-
-
+            SetupShippingMethods(availableShippingMethods);
         }
     }
 
+    private void SetupShippingMethods(List<ShippingMethod> shippingMethods)
+    {
+        var currentShippingMethod = TransactionLibrary.GetShippingMethod();
+        var currentBasket = TransactionLibrary.GetBasket().PurchaseOrder;
+
+        foreach (ShippingMethod shippingMethod in shippingMethods)
+        {
+            var price = shippingMethod.GetPriceForCurrency(currentBasket.BillingCurrency);
+            var formattedPrice = new Money((price == null ? 0 : price.Price), currentBasket.BillingCurrency);
+
+            ListItem currentListItem = new ListItem($"{shippingMethod.Name} <text>(</text>{formattedPrice}<text>)</text>", shippingMethod.Id.ToString());
+            currentListItem.Selected = currentShippingMethod.Id == shippingMethod.Id;
+
+            rblShippingMethods.Items.Add(currentListItem);
+        }
+    }
+
+    private List<ShippingMethod> GetShippingMethods()
+    {
+        List<ShippingMethod> availableShippingMethods;
+        bool showForCurrentCountry = ValidationHelper.GetBoolean(GetValue("ShowForCurrentCountry"), true);
+
+        if (showForCurrentCountry)
+        {
+            availableShippingMethods = TransactionLibrary.GetShippingMethods().ToList();
+        }
+        else
+        {
+            var shippingMethods = ObjectFactory.Instance.Resolve<IRepository<ShippingMethod>>();
+            availableShippingMethods = shippingMethods.Select(x => !x.Deleted).ToList();
+        }
+
+        return availableShippingMethods;
+    }
+
+    private bool SetupIsNeeded()
+    {
+        if (IsPostBack || ViewMode.IsDesign() || ViewMode.IsEdit())
+        {
+            return false;
+        }
+        if (!TransactionLibrary.HasBasket())
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     /// <summary>
     /// Reloads the control data.
@@ -133,8 +133,6 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 
         SetupControl();
     }
-
-
 
     #endregion
 }

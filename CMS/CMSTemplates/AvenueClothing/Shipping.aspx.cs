@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using CMS.UIControls;
 using UCommerce;
 using UCommerce.Api;
-using UCommerce.EntitiesV2;
 
 namespace CMSApp.CMSTemplates.AvenueClothing
 {
@@ -15,16 +10,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
     {
         private void Page_Load(object sender, EventArgs e)
         {
-            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
 
-            if (viewMode == 6 || viewMode == 3)
-            {
-                return;
-            }
-            if (IsPostBack)
-            {
-                return;
-            }
         }
 
         public void btnUpdateShipment_Click(object sender, EventArgs e)
