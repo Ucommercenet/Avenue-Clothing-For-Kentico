@@ -348,6 +348,7 @@
     <Compile Include="uCommerce\Install\Helpers\ConfigurationInstaller.cs" />
     <Compile Include="uCommerce\Install\Helpers\GenericHelpers.cs" />
     <Compile Include="uCommerce\Install\Helpers\MediaInstaller.cs" />
+    <Compile Include="uCommerce\Install\Helpers\MediaInstallerEms.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

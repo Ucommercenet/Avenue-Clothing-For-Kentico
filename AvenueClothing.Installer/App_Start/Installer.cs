@@ -77,8 +77,8 @@ namespace AvenueClothing.Installer.App_Start
             installer2.Configure();
 
             //CreateMediaContent();
-            var mediaInstaller = new MediaInstaller();
-            mediaInstaller.Configure();
+            var mediaInstaller = new MediaInstallerEms();
+	        mediaInstaller.Configure();
 
             DeleteOldUCommerceData();
             
