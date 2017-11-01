@@ -132,4 +132,10 @@
   <data name="UniqueNameValidator.ErrorMessage" xml:space="preserve">
     <value>The definition already exists. Please select another name.</value>
   </data>
+  <data name="Name.Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="Definition.Text" xml:space="preserve">
+    <value>Definition:</value>
+  </data>
 </root>

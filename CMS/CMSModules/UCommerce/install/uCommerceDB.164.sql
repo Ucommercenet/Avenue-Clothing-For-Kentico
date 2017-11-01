@@ -11,3 +11,15 @@ BEGIN
 	ON uCommerce_ProductCatalog(Name, ProductCatalogGroupId)
 	WHERE Deleted = 0
 END
+
+/*Adds a definition field on the datatype*/
+
+IF NOT EXISTS (SELECT * FROM sys.columns
+  WHERE  object_id = OBJECT_ID(N'[dbo].[uCommerce_DataType]') 
+         AND name = 'DefinitionId'
+)
+BEGIN
+  ALTER TABLE uCommerce_DataType
+    ADD DefinitionId int,
+    FOREIGN KEY(DefinitionId) REFERENCES uCommerce_Definition(DefinitionId);
+END

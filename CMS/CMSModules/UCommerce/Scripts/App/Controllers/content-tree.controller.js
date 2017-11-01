@@ -200,8 +200,7 @@
 	}
 
 	$scope.toggleCheckBoxSelected = function (node) {
-
-		this.$emit('toggleSelectedNode', node);
+	    this.$emit('toggleSelectedNode', node);
 		var inputField = $scope.currentNodeElement.find('input').first();
 		if (inputField.attr('checked') == 'checked') {
 			inputField.removeAttr('checked', '');
@@ -304,6 +303,7 @@
 	        if (node && $scope.showCheckBoxForNode(node) && $scope.enforceCheckboxClick != 'true') {
 	            $scope.toggleCheckBoxSelected(node);
 	        }
+
 	        swapSelectedNode(node);
 	        $scope.$emit('nodeSelected', node);
 	    });
@@ -346,7 +346,7 @@
 			}
 
 			if (UCommerceClientMgr.Shell == 'Sitecore' || UCommerceClientMgr.Shell == 'Kentico') {
-				if ($scope.iconFolder == 'uCommerce') {
+			    if ($scope.iconFolder == 'uCommerce') {
 					if (icon.indexOf("/Apps/") > -1) {
 						var object = {
 							'background-image': 'url("' + UCommerceClientMgr.BaseUCommerceUrl + icon + '")'

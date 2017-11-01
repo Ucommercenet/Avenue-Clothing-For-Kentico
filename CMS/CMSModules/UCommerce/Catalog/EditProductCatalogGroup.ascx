@@ -8,7 +8,10 @@
 <commerce:ValidationSummary ID="Audit" runat="server" />
 
 <div class="propertyPane">      
-    <h2 class="propertyPaneTitel"><asp:Localize runat="server" meta:resourcekey="storeHostName"></asp:Localize></h2>    
+    <h2 class="propertyPaneTitel"><asp:Localize runat="server" meta:resourcekey="storeHostName"></asp:Localize></h2> 
+    <commerce:PropertyPanel runat="server" meta:resourceKey="Definition">
+        <asp:DropDownList runat="server" ID="DefinitionDropDown" DataSource="<%# Definitions %>" DataValueField="DefinitionId" DataTextField="Name" CssClass="mediumWidth"></asp:DropDownList>
+    </commerce:PropertyPanel>
     <commerce:PropertyPanel runat="server" meta:resourceKey="Domain">
         <asp:DropDownList runat="server" ID="DomainDropDown" DataSource="<%# Domains %>" DataValueField="DomainId" DataTextField="DomainName" CssClass="mediumWidth"></asp:DropDownList>
     </commerce:PropertyPanel>
@@ -53,5 +56,8 @@
     </commerce:PropertyPanel>
     <div class="propertyPaneFooter">-</div>
 </div>
+
+<asp:Panel CssClass="propertyPane" ID="DefinitionPropertiesPanel" runat="server">
+</asp:Panel>
 
 <commerce:auditinformation Entity="<%# View.ProductCatalogGroup %>" ID="ValidationSummary2" runat="server" />

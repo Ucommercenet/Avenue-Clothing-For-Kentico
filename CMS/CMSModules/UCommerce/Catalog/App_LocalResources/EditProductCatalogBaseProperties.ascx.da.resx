@@ -150,4 +150,7 @@
   <data name="CatalogPricing.Text" xml:space="preserve">
     <value>Priser</value>
   </data>
+  <data name="ProductCatalogDefinition" xml:space="preserve">
+    <value>Produktkatalog definition</value>
+  </data>
 </root>

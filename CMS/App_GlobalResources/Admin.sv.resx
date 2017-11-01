@@ -208,7 +208,7 @@
     <value>definitioner</value>
   </data>
   <data name="menu_settings_catalog_productdefinitions" xml:space="preserve">
-    <value>Produktdefinitioner</value>
+    <value>Produkter</value>
   </data>
   <data name="LicenseMessage" xml:space="preserve">
     <value>Din licens understödder inte flera.</value>
@@ -617,5 +617,8 @@
   </data>
   <data name="Back" xml:space="preserve">
     <value>Tillbaka</value>
+  </data>
+  <data name="definition_type_product" xml:space="preserve">
+    <value>Product</value>
   </data>
 </root>

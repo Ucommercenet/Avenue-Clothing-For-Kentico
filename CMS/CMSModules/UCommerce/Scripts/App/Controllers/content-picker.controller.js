@@ -48,11 +48,11 @@
 		setSelectedImagePreviewUrl(node);
 		setSelectedId(node.id);
 		setSelectedName(node.name);
-
 	});
 
-	$scope.shouldShowPreSelectedValues = function() {
-	    return $scope.multiSelect == 'true';
+	$scope.shouldShowPreSelectedValues = function () {
+	    if ($scope.multiSelect)
+	        return $scope.multiSelect.toLowerCase() == 'true';
 	}
 
     $scope.$on('sortOrderChanged', function(event, data) {
@@ -116,7 +116,6 @@
 	}
 	
 	$scope.$on('toggleSelectedNode', function (event, node) {
-
 	    for (n in $scope.selectedNodes) {
 	        var selectedNode = $scope.selectedNodes[n];
 	        if (selectedNode.id == node.id && selectedNode.nodeType == node.nodeType) {
@@ -221,7 +220,7 @@
 			contentToSave: ''
 		};
 
-	    if ($scope.multiSelect == 'true') { // multi select is enabled and checkboxes are shown for specific nodes in the tree. 
+		if ($scope.multiSelect && $scope.multiSelect.toLowerCase() == 'true') { // multi select is enabled and checkboxes are shown for specific nodes in the tree. 
 		    contentToSave.selectedValue = $scope.preSelectedValues;
 	    } 
 	    else {

@@ -95,7 +95,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ClientDependency.Core, Version=1.8.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\ClientDependency.Core.dll</HintPath>
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\ClientDependency.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth, Version=4.0.0.11165, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <HintPath>..\Lib\DotNetOpenAuth.dll</HintPath>
@@ -111,14 +111,14 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.XmlTransform, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Microsoft.Web.XmlTransform.dll</HintPath>
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Microsoft.Web.XmlTransform.dll</HintPath>
     </Reference>
     <Reference Include="NetSpell.SpellChecker, Version=2.1.7.25114, Culture=neutral, PublicKeyToken=318b389f0db66e46, processorArchitecture=MSIL">
       <HintPath>..\Lib\NetSpell.SpellChecker.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ServiceStack, Version=3.9.55.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\ServiceStack.dll</HintPath>
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -136,44 +136,44 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="Ucommerce, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.dll</HintPath>
+    <Reference Include="Ucommerce, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Admin, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Admin.dll</HintPath>
+    <Reference Include="Ucommerce.Admin, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Admin.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Infrastructure, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Infrastructure.dll</HintPath>
+    <Reference Include="Ucommerce.Infrastructure, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Installer, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\UCommerce.Installer.dll</HintPath>
+    <Reference Include="UCommerce.Installer, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\UCommerce.Installer.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Kentico, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Kentico.dll</HintPath>
+    <Reference Include="Ucommerce.Kentico, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Kentico.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Kentico.Installer, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\UCommerce.Kentico.Installer.dll</HintPath>
+    <Reference Include="UCommerce.Kentico.Installer, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\UCommerce.Kentico.Installer.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Pipelines, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Pipelines.dll</HintPath>
+    <Reference Include="Ucommerce.Pipelines, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Pipelines.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Presentation, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Presentation.dll</HintPath>
+    <Reference Include="Ucommerce.Presentation, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Presentation.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Transactions.Payments, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Transactions.Payments.dll</HintPath>
+    <Reference Include="Ucommerce.Transactions.Payments, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Transactions.Payments.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Web.Api, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Web.Api.dll</HintPath>
+    <Reference Include="Ucommerce.Web.Api, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Web.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Ucommerce.Web.Shell, Version=7.7.1.17170, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.0.1.0\lib\Ucommerce.Web.Shell.dll</HintPath>
+    <Reference Include="Ucommerce.Web.Shell, Version=7.8.1.17300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.7.8.1.17300\lib\Ucommerce.Web.Shell.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\Default.aspx" />
     <Content Include="App_Data\CMSModules\Chat\UI\Grids\Chat_User\default.xml" />
-    <Content Include="App_Data\CMSModules\CMSInstallation\Packages\uCommerce_1.0.0.xml" />
+    <Content Include="App_Data\CMSModules\CMSInstallation\Packages\uCommerce_7.8.1.xml" />
     <Content Include="App_Data\CMSModules\Cms\UI\Grids\CMS_Class\objecttypes.xml" />
     <Content Include="App_Data\CMSModules\Cms\UI\Grids\CMS_HelpTopic\default.xml" />
     <Content Include="App_Data\CMSModules\Cms\UI\Grids\CMS_Permission\default.xml" />
@@ -4309,7 +4309,7 @@
     <Content Include="App_Themes\Default\Bootstrap\modals.less" />
     <Content Include="App_Data\CMSModules\Modules\tools\Install.ps1" />
     <Content Include="App_Themes\Default\CMSModules\cms.content\cms.content.pages.less" />
-    <Content Include="App_Data\CMSModules\uCommerce\Install\uCommerce_1.0.0.zip" />
+    <Content Include="App_Data\CMSModules\uCommerce\Install\uCommerce_7.8.1.zip" />
     <None Include="App_Themes\Default\CMSModules\cms.emailmarketing\cms.emailmarketing.emailcontent.less" />
     <Content Include="App_Themes\Default\CMSModules\cms.campaigns.less" />
     <Content Include="App_Themes\Default\CMSModules\cms.webanalytics.less" />

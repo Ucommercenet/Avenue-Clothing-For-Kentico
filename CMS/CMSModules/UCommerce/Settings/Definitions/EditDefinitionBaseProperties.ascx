@@ -9,6 +9,9 @@
 <commerce:ValidationSummary id="ValidationSummary1" runat="server" />
 <div style="text-align: left;">
 	<div class="propertyPane leftAligned">
+<%--        <commerce:PropertyPanel runat="server" meta:resourcekey="Definition">
+		    <asp:DropDownList runat="server" ID="DefinitionDropDown" CssClass="mediumWidth" DataSource="<%# View.Definitions %>" DataValueField="DefinitionId" DataTextField="Name"/>
+	    </commerce:PropertyPanel>--%>
         <div class="propertyItem">
 	        <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="Description" /></div>
             <div class="propertyItemContent"><asp:TextBox runat="server" ID="DescriptionTextBox" TextMode="MultiLine" CssClass="mediumWidth smallHeight" Text="<%# View.Definition.Description %>" /></div>
@@ -23,4 +26,5 @@
 		</div>
         <div class="propertyPaneFooter"></div>
 	</div>
+    <asp:Panel CssClass="propertyPane" ID="DefinitionPropertiesPanel"  runat="server"></asp:Panel>
 </div>

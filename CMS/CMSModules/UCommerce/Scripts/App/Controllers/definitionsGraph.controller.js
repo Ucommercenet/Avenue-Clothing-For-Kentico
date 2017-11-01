@@ -1,13 +1,15 @@
-﻿var uc_definitionsGraphController =function($scope, definitionsService) {
+﻿var uc_definitionsGraphController = function($scope, definitionsService) {
 
     $scope.network = null;
     $scope.definitionGraph = {};
     $scope.selectedNode;
     $scope.selectedNodeInheritedFields;
     $scope.colouredNodes;
+    $scope.id = /id=(.+)&?/g.exec(window.location.search);
+    $scope.id = ($scope.id == null) ? null : $scope.id[1];
 
     $scope.saveGraph = function () {
-	    definitionsService.saveDefinitionGraph($scope.definitionGraph);
+        definitionsService.saveDefinitionGraph($scope.definitionGraph, $scope.id);
 	    UCommerceClientMgr.showSpeechBubble('success', "save", "save");
 	}
 
@@ -192,13 +194,12 @@
         }
     };
 
-    definitionsService.getDefinitionGraph().then(function(data) {
+    definitionsService.getDefinitionGraph($scope.id).then(function (data) {
         $scope.definitionGraph = data;
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             $scope.drawGraph();
         }, 500);
     });
-
 
     $scope.drawGraph = function() {
             // create a network

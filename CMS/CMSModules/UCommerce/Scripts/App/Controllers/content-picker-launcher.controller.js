@@ -61,7 +61,7 @@
 		    var arrayOfSelectedValues = $scope.inputValue.toString().split(',');
 		    var firstSelectedId = arrayOfSelectedValues[0]; //force into same datatype as can both be array and simple string. toString will comma seperate all values.
 
-		    uCommerceContentService.getNodes($scope.contentPickerType, firstSelectedId).then(function(response) {
+		    uCommerceContentService.getNodes($scope.hasCheckboxFor, firstSelectedId).then(function (response) {
 		        var data = response.data;
 		        for (n in data) {
 		            var firstSelectedNode = data[n]; //Always only one, but return type can contain more

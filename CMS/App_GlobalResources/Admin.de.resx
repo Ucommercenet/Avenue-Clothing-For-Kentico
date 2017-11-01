@@ -142,7 +142,7 @@
     <value>Preisgruppen</value>
   </data>
   <data name="menu_settings_definition_definitions_products" xml:space="preserve">
-    <value>Produktdefinitionen</value>
+    <value>Produkten</value>
   </data>
   <data name="menu_settings_catalog_root" xml:space="preserve">
     <value>Katalog</value>
@@ -628,5 +628,8 @@
   </data>
   <data name="Back" xml:space="preserve">
     <value>Zurück</value>
+  </data>
+  <data name="definition_type_product" xml:space="preserve">
+    <value>Produkte</value>
   </data>
 </root>

@@ -132,4 +132,10 @@
   <data name="CancelButton.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ProductMustExistInOneCategories.Text" xml:space="preserve">
+    <value>Product must exist in at least one category.</value>
+  </data>
+  <data name="ProductCategories" xml:space="preserve">
+    <value>ProductCategories</value>
+  </data>
 </root>
