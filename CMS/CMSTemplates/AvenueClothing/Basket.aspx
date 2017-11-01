@@ -6,4 +6,7 @@
             <cms:CMSWebPartZone runat="server" ID="BasketContentZone"/>
         </LayoutTemplate>
     </cms:CMSPagePlaceholder>
+    <div class="pull-right">
+        <a href="~/basket/address/" class="btn btn-large btn-success">Continue</a>
+    </div>
 </asp:Content>

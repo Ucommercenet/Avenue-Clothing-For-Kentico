@@ -91,9 +91,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="pull-right">
-        <a href="~/basket/address/" class="btn btn-large btn-success">Continue</a>
-    </div>
+ 
 </asp:Panel>
 <div id="test" runat="server" visible="False" class="alert alert-info">
     <p>Your cart is empty. Please return to our store and add some items.</p>
