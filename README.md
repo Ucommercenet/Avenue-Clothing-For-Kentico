@@ -27,7 +27,7 @@ At Ucommerce we put a lot of emphasis on getting set up quick and without too ma
 6. Browse to the backend of Ucommerce to update the **faceted search**. You do this by browsing to **localhost/admin** (replace to 'localhost' to match your hostname). Login with username "administrator" and leave the password empty.
 In the left hand menu select Ucommerce -> Settings. In the Ucommerce tree, select Settings -> Search and click "Index everything from scratch". This will reindex all products, so they can be filtered through faceted search.
 
-6. When the build process is finished, you are ready to start using the Avenue Clothing Accelerator for Ucommerce on Kentico.
+7. You're now ready to browse the Avenue Clothing Store on **localhost/home** (again, replace 'localhost' to match your hostname).
 
 ### Running the site as an IIS application ###
 
