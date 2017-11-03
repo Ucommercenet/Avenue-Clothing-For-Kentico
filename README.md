@@ -22,7 +22,10 @@ At Ucommerce we put a lot of emphasis on getting set up quick and without too ma
 
 4. Now that you have the database restored, you need to set the connection string in the **web.config** of the site located in the CMS folder in this repository to use this database.
 
-5. The final step is to build the solution by opening the '.sln' file using Visual Studio and build the solution, e.g. by right-clicking the solution in the Solution Explorer and clicking 'Build Solution'.
+5. Build the solution by opening the '.sln' file using Visual Studio and build the solution, e.g. by right-clicking the solution in the Solution Explorer and clicking 'Build Solution'.
+
+6. Browse to the backend of Ucommerce to update the **faceted search**. You do this by browsing to **localhost/admin** (replace to 'localhost' to match your hostname). Login with username "administrator" and leave the password empty.
+In the left hand menu select Ucommerce -> Settings. In the Ucommerce tree, select Settings -> Search and click "Index everything from scratch". This will reindex all products, so they can be filtered through faceted search.
 
 6. When the build process is finished, you are ready to start using the Avenue Clothing Accelerator for Ucommerce on Kentico.
 
