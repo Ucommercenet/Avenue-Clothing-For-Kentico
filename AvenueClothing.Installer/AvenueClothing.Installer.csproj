@@ -359,6 +359,7 @@
     <Content Include="uCommerce\Install\Files\Category\Formal.jpg" />
     <Content Include="uCommerce\Install\Files\Category\Scarves.jpg" />
     <Content Include="uCommerce\Install\Files\Category\Shoes.jpg" />
+    <Content Include="uCommerce\Install\Files\Category\Ties.jpg" />
     <Content Include="uCommerce\Install\Files\Category\Tops.jpg" />
     <Content Include="uCommerce\Install\Files\Product\074617.jpg" />
     <Content Include="uCommerce\Install\Files\Product\19324.jpg" />
