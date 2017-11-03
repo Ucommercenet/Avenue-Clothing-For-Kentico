@@ -29,6 +29,12 @@ In the left hand menu select Ucommerce -> Settings. In the Ucommerce tree, selec
 
 7. You're now ready to browse the Avenue Clothing Store on **localhost/home** (again, replace 'localhost' to match your hostname).
 
+### Troubleshooting ###
+
+* When downloading the .zip-file Windows might mark the file as untrusted. If you experience read access denied to files, you could try to unblock the downloaded .zip-file. Right click the file in File Explorer and tick the "Unblock" checkbox.
+
+* If you place the content of the .zip-file in your inetpub-folder, the application pool setup in IIS might need to be set to Identity = "LocalSystem" to have write access to the subfolders of inetpub.
+
 ### Running the site as an IIS application ###
 
 If you'd like to run the site as an IIS application, you have to follow the following steps:
