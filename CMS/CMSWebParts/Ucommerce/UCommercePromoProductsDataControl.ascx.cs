@@ -59,9 +59,8 @@ namespace CMSApp.CMSWebParts.Custom
             CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
             var data = new List<UCommerceProduct>();
 
-            _products = Product.All()
-            .Where(x => x.ProductProperties.Any(
-                pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && pp.Value == "true")).ToList();
+            _products = SiteContext.Current.CatalogContext.CurrentCatalog.Categories
+                .SelectMany(c => c.Products.Where(p => p.ProductProperties.Any(pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && Convert.ToBoolean(pp.Value)))).ToList();
 
             Product altProduct = null; ;
             try
