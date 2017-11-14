@@ -200,6 +200,13 @@ public partial class CMSPages_logon : CMSPage, ICallbackEventHandler
         CMSTextBox txtUserName = (CMSTextBox)Login1.FindControl("UserName");
         if (txtUserName != null)
         {
+            ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "CredentialsPrefill",
+                ScriptHelper.GetScript(
+                    "document.addEventListener('DOMContentLoaded', function(){" +
+                    "var input = document.getElementById('" + txtUserName.ClientID + "'); if(input!=null){ input.value = 'administrator'; }" +
+                    "}, false);"
+                ));
+
             ScriptHelper.RegisterStartupScript(this, GetType(), "SetFocus", ScriptHelper.GetScript("var txt=document.getElementById('" + txtUserName.ClientID + "');if(txt!=null){txt.focus();}"));
             txtUserName.EnableAutoComplete = SecurityHelper.IsAutoCompleteEnabledForLogin(SiteContext.CurrentSiteName);
         }
