@@ -78,7 +78,11 @@ div.inline {
 }
 
 .propertyItemContent input[type=checkbox] {
-	margin-top: 8px;
+    margin-top: 8px;
+}
+
+.imagePickerContainer .propertyItemContent input[type=checkbox] {
+    margin-top: 2px;
 }
 
 .propertyItemContent input[type="text"]:focus, .propertyItemContent textarea:focus
