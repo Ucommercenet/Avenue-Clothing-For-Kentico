@@ -361,6 +361,8 @@
     <Content Include="uCommerce\Install\Files\Category\Shoes.jpg" />
     <Content Include="uCommerce\Install\Files\Category\Ties.jpg" />
     <Content Include="uCommerce\Install\Files\Category\Tops.jpg" />
+    <Content Include="uCommerce\Install\Files\EMS\Abandoned-Checkout.jpg" />
+    <Content Include="uCommerce\Install\Files\EMS\Basket-isnt-empty.jpg" />
     <Content Include="uCommerce\Install\Files\Product\074617.jpg" />
     <Content Include="uCommerce\Install\Files\Product\19324.jpg" />
     <Content Include="uCommerce\Install\Files\Product\19849.jpg" />
