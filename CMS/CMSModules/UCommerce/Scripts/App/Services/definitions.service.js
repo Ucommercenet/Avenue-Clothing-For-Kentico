@@ -1,11 +1,11 @@
 ﻿var uc_definitions_service = function (uCommerceDefinitionsResource) {
 	return {
-		getDefinitionGraph: function () {
-			return uCommerceDefinitionsResource.getDefinitionGraph();
-		},
+        getDefinitionGraph: function (id) {
+			return uCommerceDefinitionsResource.getDefinitionGraph(id);
+        },
 
-		saveDefinitionGraph: function (definitionGraph) {
-			return uCommerceDefinitionsResource.saveDefinitionGraph(definitionGraph);
-		}
+		saveDefinitionGraph: function (definitionGraph, id) {
+			return uCommerceDefinitionsResource.saveDefinitionGraph(definitionGraph, id);
+        }
 	};
 }

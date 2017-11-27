@@ -1,10 +1,4 @@
 using System;
-using System.Data;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
 using UCommerce.Api;
@@ -46,11 +40,10 @@ public partial class CMSWebParts_Ucommerce_Voucher : CMSAbstractWebPart
             string buttonText = ValidationHelper.GetString(GetValue("ButtonText"), "Add Voucher");
             txtVoucherCode.Attributes.Add("placeholder", placeholderText);
             btnAddVoucher.Text = buttonText;
-
         }
     }
 
-    protected void btnAddVoucher_Click(object sender, EventArgs e)
+    protected void UseVoucher(object sender, EventArgs e)
     {
         MarketingLibrary.AddVoucher(txtVoucherCode.Value);
         TransactionLibrary.ExecuteBasketPipeline();

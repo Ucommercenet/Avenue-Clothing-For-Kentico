@@ -29,6 +29,7 @@ function queryString() {
 // Using "parent" object to reference the main page, that hosts this iframe.
 
 var UCommerceClientMgr = {
+    BaseServiceUrl: '/ucommerceapi/',
     BaseUCommerceUrl: "/sitecore modules/Shell/ucommerce/",
     Shell: "Sitecore",
 

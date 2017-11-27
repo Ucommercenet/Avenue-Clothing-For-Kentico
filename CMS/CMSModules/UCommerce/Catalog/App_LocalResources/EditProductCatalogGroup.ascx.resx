@@ -162,4 +162,7 @@
   <data name="generalInformation.Text" xml:space="preserve">
     <value>General Information</value>
   </data>
+  <data name="Definition.Text" xml:space="preserve">
+    <value>Definition</value>
+  </data>
 </root>

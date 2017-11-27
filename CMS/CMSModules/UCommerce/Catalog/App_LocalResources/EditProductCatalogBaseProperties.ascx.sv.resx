@@ -147,4 +147,7 @@
   <data name="AllowedPriceGroups.Text" xml:space="preserve">
     <value>Tillgängliga prisgrupper</value>
   </data>
+  <data name="ProductCatalogDefinition.Text" xml:space="preserve">
+    <value>Produktkatalog definition</value>
+  </data>
 </root>

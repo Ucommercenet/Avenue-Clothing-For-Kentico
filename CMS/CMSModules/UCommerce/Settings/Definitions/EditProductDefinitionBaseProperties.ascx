@@ -28,4 +28,6 @@
 		</div>
 		<div class="propertyPaneFooter"></div>
 	</div>
+
+    <asp:Panel CssClass="propertyPane" ID="DefinitionPropertiesPanel" runat="server"></asp:Panel>
 </div>

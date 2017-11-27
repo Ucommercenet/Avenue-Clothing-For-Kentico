@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using CMS.Base.Web.UI;
+using CMS.PortalEngine;
 using CMS.UIControls;
 using UCommerce;
 using UCommerce.EntitiesV2;
@@ -15,12 +13,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
-            if (viewMode == 6 || viewMode == 3)
-            {
-                return;
-            }
-            if (IsPostBack)
+            if (!SetupIsNeeded())
             {
                 return;
             }
@@ -220,6 +213,16 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             litVat.Text = itemTax.ToString();
             litTotal.Text = lineTotal.ToString();
             litQuantity.Text = currentItem.Quantity.ToString();
+        }
+
+        private bool SetupIsNeeded()
+        {
+            if (IsPostBack || PortalContext.ViewMode.IsDesign() || PortalContext.ViewMode.IsEdit())
+            {
+                return false;
+            }
+
+            return true;
         }
 
     }

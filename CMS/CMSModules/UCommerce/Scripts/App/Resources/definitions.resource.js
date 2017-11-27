@@ -2,14 +2,17 @@
     var serviceUrl = UCommerceClientMgr.BaseServiceUrl;
 
     return {
-        getDefinitionGraph: function () {
-        	return $http.get(serviceUrl + 'Definitions/Definitiongraph').then(function (response) {
+         getDefinitionGraph: function (id) {
+            var url = serviceUrl + 'Definitions/Definitiongraph';
+            if (id != null) url += '/' + id;
+            return $http.get(url).then(function (response) {
                 return response.data;
             });
         },
 
-		saveDefinitionGraph: function(definitionGraph) {
-			var url = serviceUrl + 'Definitions/UpdateDefinitionGraph';
+		saveDefinitionGraph: function(definitionGraph, id) {
+            var url = serviceUrl + 'Definitions/UpdateDefinitionGraph';
+		    if (id != null) url += '/' + id;
 			$http.post(
         		url,
 		        {
@@ -19,6 +22,6 @@
 		        	dataType: "application/json"
 		        }
 	        );
-		}
+        }
     };
 }

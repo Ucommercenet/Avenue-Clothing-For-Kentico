@@ -20,7 +20,7 @@ function ucommerceContentPicker($compile) {
 				    '<div class="imagePickerContainer propertyPane">' +
 					    '<div class="imagePickerContainerBody propertyItem">' +
 						    '<div class="contentTree imagePickerContainerTreeContainer propertyItemContent" ng-style="contentStyle()">' +
-							    '<ucommerce-tree class="tree" has-checkbox-for="hasCheckboxFor" enforce-checkbox-click="enforceCheckboxClick" pre-selected-values="preSelectedValues" content-picker-type="contentPickerType" load-on-compile="true" tree="data"></ucommerce-tree>' +
+							    '<ucommerce-tree class="tree" has-checkbox-for="hasCheckboxFor" multi-select="multiSelect" icon-folder="iconFolder" pickertype="hasCheckboxFor" enforce-checkbox-click="enforceCheckboxClick" pre-selected-values="preSelectedValues" content-picker-type="contentPickerType" load-on-compile="true" tree="data"></ucommerce-tree>' +
 						    '</div>' +
 						    '<div class="imagePickerContainerPreview" data-ng-show="showImagePreview()">' +
 							    '<img ng-src="{{imagePreviewUrl}}" class="imagePreview" id="selectedImagePreview" />' +
@@ -62,16 +62,17 @@ function ucommerceContentPicker($compile) {
 					var saveOrText = attrs["saveortext"];
 					var cancelText = attrs["canceltext"];
 
-
-					scope.multiSelect = attrs["multiselect"];
 					if (attrs["preselectedvalues"]) {
 					    scope.preSelectedValues = attrs["preselectedvalues"];
 					} else {
 					    scope.preSelectedValues = [];
 					}
 					scope.selectedNodeStyle = attrs["selectednodestyle"];
-				    scope.enforceCheckboxClick = attrs["enforcecheckboxclick"];
-					scope.hasCheckboxFor = attrs["hascheckboxfor"];
+					scope.enforceCheckboxClick = attrs["enforcecheckboxclick"];
+					scope.multiSelect = attrs["multiselect"];
+                    if (scope.multiSelect && scope.multiSelect.toLowerCase() === "true")
+					    scope.hasCheckboxFor = attrs["hascheckboxfor"];
+					scope.iconFolder = attrs["iconfolder"];
 					scope.dialogHeaderTinyText = dialogHeaderTinyText;
 					scope.dialogHeaderText = dialogHeaderText;
 					scope.saveText = saveText;

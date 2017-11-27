@@ -16,7 +16,7 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
     #region "Properties"
 
     private int _currentIteration = 0;
-    
+
 
 
     #endregion
@@ -62,10 +62,21 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
             if (!orderlineQuantity) { quantity.InnerText = ""; }
             if (!orderlineItemNo) { itemno.InnerText = ""; }
 
-            Page.ClientScript.RegisterStartupScript(
-                GetType(), "UCommerce.DemoStore.cart", "<script src=\"/scripts/UCommerce.DemoStore.cart.js\"></script>");
+            PurchaseOrder basket = null;
 
-            var basket = TransactionLibrary.GetBasket(true).PurchaseOrder;
+            if (TransactionLibrary.HasBasket())
+            {
+                basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
+            }
+
+            if (basket == null || basket.OrderLines.Count == 0)
+            {
+                test.Visible = true;
+                cartPanel.Visible = false;
+
+                return;
+            }
+
             Currency currency = basket.BillingCurrency;
 
             var subTotal = new Money(0, currency);
@@ -74,7 +85,7 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
             var shipping = new Money(0, currency);
             var payment = new Money(0, currency);
             var orderTotal = new Money(0, currency);
-            
+
             if (basket.SubTotal.HasValue)
             {
                 subTotal = new Money(basket.SubTotal.Value, currency);
@@ -112,7 +123,7 @@ public partial class CMSWebParts_Ucommerce_BasketPreview : CMSAbstractWebPart
             discountOrder.Visible = orderDiscount;
             shippingOrder.Visible = orderShipping;
             paymentOrder.Visible = orderPayment;
-           
+
 
             rptCart.DataSource = basket.OrderLines;
             rptCart.DataBind();

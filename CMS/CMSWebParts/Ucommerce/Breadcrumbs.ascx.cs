@@ -39,6 +39,10 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
         }
         else
         {
+            if (PortalContext.ViewMode == ViewModeEnum.Edit || PortalContext.ViewMode == ViewModeEnum.Design)
+            {
+                return;
+            }
             var delimiter = GetStringValue("Delimiter", ">");
             bool includeKenticoNodes = ValidationHelper.GetBoolean(this.GetValue("IncludeKenticoNodes"), true);
 
@@ -76,15 +80,7 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
             Product product = SiteContext.Current.CatalogContext.CurrentProduct;
             Category lastCategory = SiteContext.Current.CatalogContext.CurrentCategory;
 
-            if (product != null || lastCategory != null)
-            {
-                breadcrumbs.Add(new BreadcrumbViewModel
-                {
-                    BreadcrumbName = SiteContext.Current.CatalogContext.CurrentCatalog.Name,
-                    BreadcrumbUrl = ""
-                });
-                breadcrumbs.Add(delimiterBreadcrumb);
-            }
+       
 
             if (SiteContext.Current.CatalogContext.CurrentCategories.Any())
             {
@@ -115,6 +111,11 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
                     BreadcrumbUrl = CatalogLibrary.GetNiceUrlForProduct(product, lastCategory)
                 };
                 breadcrumbs.Add(breadcrumb);
+            }
+
+            if (breadcrumbs.Last().BreadcrumbName == delimiter)
+            {
+                breadcrumbs.Remove(breadcrumbs.Last());
             }
 
             Breadcrumbs.DataSource = breadcrumbs;

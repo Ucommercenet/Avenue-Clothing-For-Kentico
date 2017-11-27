@@ -14,6 +14,7 @@
     <link href="~/AvenueClothing/css/ucommerce.bootstrap-responsive.css" rel="stylesheet">
     <link href="~/AvenueClothing/css/UCommerce.DemoStore.css" rel="stylesheet">
     <link rel="stylesheet" href="~/AvenueClothing/Css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="~/favicon.ico" />
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script>
     <![endif]-->
@@ -62,7 +63,7 @@
         <hr>
         <footer>
             <div class="footerAddress">
-                <span itemprop="name" class="fpHighlight">uCommerce Aps</span> -
+                <span itemprop="name" class="fpHighlight">Ucommerce ApS</span> -
                 <span itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
                     <span itemprop="streetAddress" class="fpHighlight">Vestergade 58N 4th floor</span> -
                     <span itemprop="postalCode" class="fpHighlight">8000</span> <span itemprop="addressLocality" class="fpHighlight">Aarhus C</span> -

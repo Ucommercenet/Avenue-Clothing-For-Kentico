@@ -21,3 +21,7 @@
     </div>
     <div class="propertyPaneFooter"></div>
 </div>
+
+<div class="contentPane">
+	<asp:Panel ID="PropertyPanel" runat="server" CssClass="propertyPane propertyItems" />
+</div>

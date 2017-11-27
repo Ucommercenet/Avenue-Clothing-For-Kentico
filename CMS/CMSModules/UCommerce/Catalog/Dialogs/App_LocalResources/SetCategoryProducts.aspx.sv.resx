@@ -132,4 +132,7 @@
   <data name="CancelButton.Text" xml:space="preserve">
     <value>Avboka</value>
   </data>
+  <data name="ProductMustExistInOneCategories.Text" xml:space="preserve">
+    <value>Produkten måste finnas i minst en kategori.</value>
+  </data>
 </root>

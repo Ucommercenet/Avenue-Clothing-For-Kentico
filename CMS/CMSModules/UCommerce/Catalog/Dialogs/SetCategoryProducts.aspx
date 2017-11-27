@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="../../masterpages/Dialog.master" CodeBehind="SetCategoryProducts.aspx.cs" Inherits="UCommerce.Web.UI.UCommerce.Catalog.Dialogs.SetCategoryProducts" %>
+<%@ Register tagPrefix="commerce" tagName="ValidationSummary" src="../../Controls/ValidationSummaryDisplay.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderLabel" runat="server">
@@ -18,9 +20,12 @@
 	    </div>
         <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
    	</div>
+    <commerce:ValidationSummary runat="server" />
     <div class="propertyPane contentPane set-category-products">
         <asp:PlaceHolder ID="ProductsPlaceHolder" runat="server"></asp:PlaceHolder>
     </div>
+
+    <asp:CustomValidator runat="server" ID="ProductCategoriesValidator" ErrorMessage='<%# GetLocalResourceObject("ProductCategories") %>' Display="None" OnServerValidate="OnServerValidate"></asp:CustomValidator>
     
     <div class="propertyPane dialog-actions">
 	    <div class="footerOkCancel">

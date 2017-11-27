@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using CMS.PortalEngine;
 using CMS.UIControls;
 using UCommerce.Runtime;
 using UCommerce.EntitiesV2;
@@ -17,110 +18,75 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 {
     public partial class ProductPage : TemplatePage
     {
-        private Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         private void Page_Load(object sender, EventArgs e)
         {
-
-            var viewMode = Convert.ToInt32(Request.QueryString["viewmode"]);
-
-            if (viewMode == 6 || viewMode == 3)
+            if (!SetupIsNeeded())
             {
                 return;
             }
-            
+
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
-            if (!string.IsNullOrWhiteSpace(currentProduct.ThumbnailImageMediaId))
-            {
-                var imageService = ObjectFactory.Instance.Resolve<IImageService>();
-                var image = imageService.GetImage(currentProduct.ThumbnailImageMediaId);
+            SetupProduct(currentProduct);
 
-                imgTop.ImageUrl = image.Url;
-            }
+            SetupReviews(currentProduct);
 
-            foreach (var queryString in HttpContext.Current.Request.QueryString.AllKeys)
-            {
-                _parameters[queryString] = HttpContext.Current.Request.QueryString[queryString].ToLower();
-            }
+            rptVariant.DataSource = GetUniqueVariants(currentProduct);
+            rptVariant.DataBind();
+        }
 
-            litHeadline.Text = currentProduct.Name;
-
-            var price = CatalogLibrary.CalculatePrice(currentProduct);
-
-            litPrice.Text = price.YourPrice.Amount.ToString();
-            litTax.Text = price.YourTax.ToString();
-       
-
+        private IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> GetUniqueVariants(Product product)
+        {
             IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> uniqueVariants =
-                from v in currentProduct.Variants.SelectMany(p => p.ProductProperties)
+                from v in product.Variants.SelectMany(p => p.ProductProperties)
                 where v.ProductDefinitionField.DisplayOnSite
                 group v by v.ProductDefinitionField
                 into g
                 select g;
 
+            return uniqueVariants;
+        }
 
-            foreach (var queryString in HttpContext.Current.Request.QueryString.AllKeys)
-            {
-                _parameters[queryString] = HttpContext.Current.Request.QueryString[queryString];
-            }
-
-            RemoveUcommerceAndKenticoQueryStringsFromDictionary(_parameters);
-
-            if (_parameters.Any())
-            {
-                Product foundProduct = null;
-                foreach (var variant in currentProduct.Variants)
-                {
-                    foreach (var property in variant.ProductProperties)
-                    {
-                        if (property.Value != _parameters[property.GetDefinitionField().Name])
-                        {
-                            foundProduct = null;
-                            break;
-                        }
-                        foundProduct = variant;
-                    }
-
-                    if (foundProduct != null)
-                    {
-                        var newPrice = CatalogLibrary.CalculatePrice(foundProduct);
-
-                        litPrice.Text = newPrice.YourPrice.Amount.ToString();
-                        litTax.Text = newPrice.YourTax.ToString();
-                        break;
-                    }
-                }
-            }
-
-            productSku.Text = currentProduct.Sku;
-
-
-            litDescription.Text = currentProduct.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
-
-            if (currentProduct.ProductReviews.Any())
+        private void SetupReviews(Product product)
+        {
+            if (product.ProductReviews.Any())
             {
                 litReviewHeadline.Text = "<h5>Latest Reviews</h5>";
-                rptReviews.DataSource = currentProduct.ProductReviews;
+                rptReviews.DataSource = product.ProductReviews;
                 rptReviews.DataBind();
             }
             else
             {
                 litReviewHeadline.Text = "<p>No-one has reviewed this product yet.</p>";
             }
-
-            rptVariant.DataSource = uniqueVariants;
-            rptVariant.DataBind();
-
         }
 
-        private void RemoveUcommerceAndKenticoQueryStringsFromDictionary(Dictionary<string, string> parameters)
+        private void SetupProduct(Product product)
         {
-            parameters.Remove("catalog");
-            parameters.Remove("category");
-            parameters.Remove("product");
-            parameters.Remove("aliaspath");
-            parameters.Remove("viewmode");
+            litHeadline.Text = product.Name;
+            productSku.Text = product.Sku;
+            litDescription.Text = product.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
+
+            var price = CatalogLibrary.CalculatePrice(product);
+            litPrice.Text = price.YourPrice.Amount.ToString();
+            litTax.Text = price.YourTax.ToString();
+
+            if (string.IsNullOrWhiteSpace(product.PrimaryImageMediaId)) return;
+
+            var imageService = ObjectFactory.Instance.Resolve<IImageService>();
+            var image = imageService.GetImage(product.PrimaryImageMediaId);
+            imgTop.ImageUrl = image.Url;
+        }
+
+        private bool SetupIsNeeded()
+        {
+            if (PortalContext.ViewMode.IsDesign() || PortalContext.ViewMode.IsEdit())
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public void ReviewRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -221,22 +187,8 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             litSelect.Text = "<select name=\"" + controlName + "\" class=\"variant\" id=\"" + controlName + "\">";
             string options = "";
 
-            KeyValuePair<string, string> currentKVP = new KeyValuePair<string, string>();
-
-            foreach (var query in _parameters)
-            {
-                if (query.Key.ToLower() == currentItem.Key.GetDisplayName().ToLower())
-                {
-                    currentKVP = query;
-                }
-            }
             foreach (var value in currentItem.Select(p => p.Value).Distinct())
             {
-                if (currentKVP.Key != null && value.ToLower() == currentKVP.Value.ToLower())
-                {
-                    options += "<option selected value=\"" + value + "\">" + value + "</option>";
-                    continue;
-                }
                 options += "<option value=\"" + value + "\">" + value + "</option>";
             }
 
@@ -331,7 +283,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             PipelineFactory.Create<ProductReview>("ProductReview").Execute(review);
             Response.Redirect(Request.RawUrl);
-
         }
     }
 }

@@ -199,7 +199,7 @@
     <value>Kategori definitioner</value>
   </data>
   <data name="menu_settings_definition_definitions_products" xml:space="preserve">
-    <value>Produkt definitioner</value>
+    <value>Produkter</value>
   </data>
   <data name="menu_settings_definition_root" xml:space="preserve">
     <value>Definitioner</value>
@@ -623,5 +623,8 @@
   </data>
   <data name="Back" xml:space="preserve">
     <value>Tilbage</value>
+  </data>
+  <data name="definition_type_product" xml:space="preserve">
+    <value>Produkt</value>
   </data>
 </root>

@@ -132,4 +132,7 @@
   <data name="CancelButton.Text" xml:space="preserve">
     <value>Anuller</value>
   </data>
+  <data name="ProductMustExistInOneCategories.Text" xml:space="preserve">
+    <value>Produktet skal være tilknyttet mindst en kategory.</value>
+  </data>
 </root>

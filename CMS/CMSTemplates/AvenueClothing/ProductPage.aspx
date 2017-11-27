@@ -20,10 +20,10 @@
     <cms:BasicRepeater runat="server" ID="paymentsRepeater"/>
     
     <div class="row-fluid" id="product-details" itemtype="http://schema.org/Product" itemscope="">
-        <div class="span6 row">
-            <asp:Image ID="imgTop" runat="server" />
+        <div class="span5 row">
+            <asp:Image ID="imgTop" runat="server" CssClass="product-page-image" />
         </div>
-        <section class="span6">
+        <section class="span7">
             <header class="span12 page-header">
                 <h2 itemprop="name">
                     <asp:Literal ID="litHeadline" runat="server" />
@@ -35,7 +35,7 @@
                         <asp:Literal ID="litPrice" runat="server" />
                     </p>
                     <p class="item-tax">
-                        <abbr title="Including">Inc.</abbr>
+                        <abbr title="Including">Incl.</abbr>
                         <asp:Literal ID="litTax" runat="server" />
                         tax
                     </p>
@@ -60,7 +60,7 @@
                 </asp:Repeater>
                 <asp:TextBox type="hidden" runat="server" ID="productSku" ClientIDMode="static" />
                 <input name="quantity-to-add" id="quantity-to-add" type="hidden" value="1" />
-                <asp:Button runat="server" ID="btnAddToBasket" ClientIDMode="static" class="btn btn-block btn-success" Text="Add to basket!" OnClick="btnAddToBasket_Click" />
+                <asp:Button runat="server" ID="btnAddToBasket" ClientIDMode="static" class="btn btn-block btn-success" Text="Add to basket" OnClick="btnAddToBasket_Click" />
            
             </div>
             <div class="tabbable">
