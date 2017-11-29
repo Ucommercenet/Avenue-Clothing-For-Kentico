@@ -169,8 +169,8 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_Tab_General : 
     private void RegisterAngularModule()
     {
         var moduleId = "CMS.WebAnalytics/Campaign/build";
-        var angularLocalizationProvider = Service.Entry<IAngularLocalizationProvider>();
-        var resources = angularLocalizationProvider.GetAngularLocalization(moduleId);
+        var localizationProvider = Service.Resolve<IClientLocalizationProvider>();
+        var resources = localizationProvider.GetClientLocalization(moduleId);
 
         var campaign = new CampaignEditViewModel(GetCampaignInfo(), DateTime.Now);
 
@@ -194,7 +194,7 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_Tab_General : 
 
     private object GetObjective(int campaignID)
     {
-        var service = Service.Entry<ICampaignObjectiveService>();
+        var service = Service.Resolve<ICampaignObjectiveService>();
         return CampaignObjectiveInfoProvider.GetCampaignObjectives()
             .WhereEquals("CampaignObjectiveCampaignID", campaignID)
             .ToList()
@@ -301,7 +301,7 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_Tab_General : 
 
     private Dictionary<int, CampaignAssetViewModel> GetAssets(int campaignId)
     {
-        var service = Service.Entry<ICampaignAssetModelService>();
+        var service = Service.Resolve<ICampaignAssetModelService>();
         return CampaignAssetInfoProvider.GetCampaignAssets()
             .WhereEquals("CampaignAssetCampaignID", campaignId)
             .ToList()
@@ -312,7 +312,7 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_Tab_General : 
 
     private IEnumerable<CampaignConversionViewModel> GetConversions(int campaignId)
     {
-        var service = Service.Entry<ICampaignConversionService>();
+        var service = Service.Resolve<ICampaignConversionService>();
         return CampaignConversionInfoProvider.GetCampaignConversions()
             .WhereEquals("CampaignConversionCampaignID", campaignId)
             .OrderBy("CampaignConversionOrder")
@@ -323,7 +323,7 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_Tab_General : 
 
     private IEnumerable<ActivityTypeViewModel> GetActivityTypes()
     {
-        var service = Service.Entry<IActivityTypeService>();
+        var service = Service.Resolve<IActivityTypeService>();
         return service.GetActivityTypeViewModels(mAllowedActivities, SiteContext.CurrentSite.SiteIsContentOnly);
     }
 }

@@ -15,7 +15,7 @@
     "newsletterResourceFactory": "CMS.WebAnalytics/Services/NewsletterResource",
     "_":  "Underscore",
     "uiBootstrap": "uiBootstrap",
-    "Tabs": "CMS/Tabs",
+    "Tabs": "CMS/UITabs",
     "cmsSelectDirective": "CMS.Forms/Directives/CMSSelect",
     "cmsSelect2Directive": "CMS.Forms/Directives/Select2",
     "cmsRadioButtonDirective": "CMS.Forms/Directives/CMSRadioButton",

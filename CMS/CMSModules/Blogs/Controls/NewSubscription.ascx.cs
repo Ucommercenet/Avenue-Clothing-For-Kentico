@@ -141,7 +141,7 @@ public partial class CMSModules_Blogs_Controls_NewSubscription : CMSUserControl
                     if (bpsi.SubscriptionApproved)
                     {
                         lblInfo.Text = GetString("blog.subscription.beensubscribed");
-                        Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(bpsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                        Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(bpsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                         var blogsActivityLogger = new BlogsActivityLogger();
                         blogsActivityLogger.LogBlogPostSubscriptionActivity(bpsi);
                     }

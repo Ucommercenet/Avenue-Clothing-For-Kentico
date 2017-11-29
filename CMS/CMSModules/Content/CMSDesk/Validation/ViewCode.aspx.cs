@@ -3,8 +3,8 @@ using System.Web;
 using System.Web.UI;
 
 using CMS.Base.Web.UI;
-using CMS.DocumentEngine;
 using CMS.Helpers;
+using CMS.PortalEngine.Web.UI;
 using CMS.UIControls;
 
 
@@ -12,7 +12,7 @@ using CMS.UIControls;
 public partial class CMSModules_Content_CMSDesk_Validation_ViewCode : CMSPage, IPostBackEventHandler
 {
     #region "Properties"
-    
+
     /// <summary>
     /// Overriding message placeholder.
     /// </summary>
@@ -23,7 +23,7 @@ public partial class CMSModules_Content_CMSDesk_Validation_ViewCode : CMSPage, I
             return plcMess;
         }
     }
-    
+
     #endregion
 
 
@@ -42,7 +42,7 @@ public partial class CMSModules_Content_CMSDesk_Validation_ViewCode : CMSPage, I
     {
         string url = HttpUtility.UrlDecode(QueryHelper.GetString("url", null));
         string format = QueryHelper.GetString("format", null);
-        
+
         string message = HttpUtility.UrlDecode(QueryHelper.GetString("message", null));
         if (!String.IsNullOrEmpty(message))
         {
@@ -61,7 +61,7 @@ public partial class CMSModules_Content_CMSDesk_Validation_ViewCode : CMSPage, I
         InitializeScripts(url);
     }
 
-    
+
     /// <summary>
     /// Initializes the validation scripts
     /// </summary>

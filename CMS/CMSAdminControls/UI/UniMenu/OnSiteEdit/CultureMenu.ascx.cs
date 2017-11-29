@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Web.UI.WebControls;
 
 using CMS.Base;
@@ -11,12 +10,12 @@ using CMS.DocumentEngine;
 using CMS.Helpers;
 using CMS.Localization;
 using CMS.Membership;
+using CMS.PortalEngine.Web.UI;
 using CMS.SiteProvider;
 using CMS.UIControls;
 
 using MenuItem = CMS.UIControls.UniMenuConfig.Item;
 using SubMenuItem = CMS.UIControls.UniMenuConfig.SubItem;
-
 
 public partial class CMSAdminControls_UI_UniMenu_OnSiteEdit_CultureMenu : CMSUserControl
 {
@@ -78,9 +77,9 @@ public partial class CMSAdminControls_UI_UniMenu_OnSiteEdit_CultureMenu : CMSUse
         cultureItem.CssClass = "BigButton";
         cultureItem.ImageAlign = ImageAlign.Top;
         cultureItem.ImagePath = URLHelper.UnResolveUrl(UIHelper.GetFlagIconUrl(Page, preferredCultureCode, "16x16"), SystemContext.ApplicationPath);
-        cultureItem.Text = GetString("general.cultures");
-        cultureItem.Tooltip = GetString("onsiteedit.languageselector");
-        cultureItem.ImageAltText = GetString("general.cultures");
+        cultureItem.Text = PortalHelper.LocalizeStringForUI("general.cultures");
+        cultureItem.Tooltip = PortalHelper.LocalizeStringForUI("onsiteedit.languageselector");
+        cultureItem.ImageAltText = PortalHelper.LocalizeStringForUI("general.cultures");
 
         // Add all cultures to the sub menu
         foreach (CultureInfo culture in siteCultures)
@@ -111,7 +110,7 @@ public partial class CMSAdminControls_UI_UniMenu_OnSiteEdit_CultureMenu : CMSUse
                 {
                     // Display the "Not translated" image
                     menuItem.RightImageIconClass = "icon-ban-sign";
-                    menuItem.RightImageAltText = GetString("onsitedit.culturenotavailable");
+                    menuItem.RightImageAltText = PortalHelper.LocalizeStringForUI("onsitedit.culturenotavailable");
 
                     // Assign click action -> Create new document culture
                     menuItem.OnClientClick = "NewDocumentCulture(" + pi.NodeID + ",'" + cultureCode + "');";

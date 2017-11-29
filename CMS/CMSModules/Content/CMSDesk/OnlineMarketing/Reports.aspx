@@ -16,12 +16,12 @@
         <cms:GraphPreLoader runat="server" ID="ucGraphPreLoader" />
         <cms:GraphType runat="server" ID="ucGraphType" />
     </div>
-    <div class="header-panel radio-list-vertical">
+    <asp:Panel ID="reportTypePnl" class="header-panel radio-list-vertical" runat="server">
         <cms:CMSRadioButton runat="server" ID="rbContent" ResourceString="development.content"
             AutoPostBack="true" CssClass="PageReportRadioButton" GroupName="Radio" Checked="true" />
         <cms:CMSRadioButton runat="server" ID="rbTraffic" ResourceString="analytics_codename.trafficsources"
             AutoPostBack="true" CssClass="PageReportRadioButton" GroupName="Radio" />
-    </div>
+    </asp:Panel>
     <div class="ReportBody">
         <asp:Panel runat="server" ID="pnlContent">
         </asp:Panel>

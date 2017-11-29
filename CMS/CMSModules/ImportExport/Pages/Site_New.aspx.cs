@@ -3,11 +3,13 @@
 using CMS.Core;
 using CMS.FormEngine.Web.UI;
 using CMS.UIControls;
-
+using CMS.DataEngine;
 
 [UIElement(ModuleName.CMS, "NewSite")]
 public partial class CMSModules_ImportExport_Pages_Site_New : CMSImportExportPage
 {
+    private const string CI_SETTINGS_KEY = "CMSEnableCI";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         // Set breadcrumbs
@@ -19,5 +21,11 @@ public partial class CMSModules_ImportExport_Pages_Site_New : CMSImportExportPag
         PageTitle.HeadingLevel = 3;
         PageTitle.ShowCloseButton = false;
         PageTitle.ShowFullScreenButton = false;
+
+        var isCIEnabled = SettingsKeyInfoProvider.GetBoolValue(CI_SETTINGS_KEY);
+        if (isCIEnabled)
+        {
+            ShowWarning(GetString("newsite.cienabled.warning"));
+        }
     }
 }

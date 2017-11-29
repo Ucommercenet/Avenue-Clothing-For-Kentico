@@ -13,10 +13,10 @@ public partial class CMSModules_MessageBoards_Controls_Unsubscription : CMSUserC
     #region "Private variables"
 
     private Guid mSubGuid = Guid.Empty;
-    string mSubscriptionHash = null;
-    string mRequestTime = null;
-    private BoardSubscriptionInfo mSubscriptionObject = null;
-    private BoardInfo mSubscriptionSubject = null;
+    string mSubscriptionHash;
+    string mRequestTime;
+    private BoardSubscriptionInfo mSubscriptionObject;
+    private BoardInfo mSubscriptionSubject;
 
     #endregion
 
@@ -92,12 +92,7 @@ public partial class CMSModules_MessageBoards_Controls_Unsubscription : CMSUserC
         {
             if (mSubscriptionObject == null)
             {
-                mSubscriptionObject = BoardSubscriptionInfoProvider.GetBoardSubscriptionInfo(mSubGuid);
-
-                if (mSubscriptionObject == null)
-                {
-                    mSubscriptionObject = BoardSubscriptionInfoProvider.GetBoardSubscriptionInfo(mSubscriptionHash);
-                }
+                mSubscriptionObject = BoardSubscriptionInfoProvider.GetBoardSubscriptionInfo(mSubGuid) ?? BoardSubscriptionInfoProvider.GetBoardSubscriptionInfo(mSubscriptionHash);
             }
 
             return mSubscriptionObject;
@@ -144,7 +139,6 @@ public partial class CMSModules_MessageBoards_Controls_Unsubscription : CMSUserC
         if (StopProcessing)
         {
             Visible = false;
-            return;
         }
         else
         {
@@ -215,7 +209,7 @@ public partial class CMSModules_MessageBoards_Controls_Unsubscription : CMSUserC
         {
             try
             {
-                datetime = DateTime.ParseExact(requestTime, SecurityHelper.EMAIL_CONFIRMATION_DATETIME_FORMAT, null);
+                datetime = DateTimeUrlFormatter.Parse(requestTime);
             }
             catch
             {
@@ -228,29 +222,17 @@ public partial class CMSModules_MessageBoards_Controls_Unsubscription : CMSUserC
         {
             if (SubscriptionObject != null)
             {
-                if (!checkOnly)
-                {
-                    result = BoardSubscriptionInfoProvider.Unsubscribe(SubscriptionObject, true);
-                }
-                else
-                {
-                    result = OptInApprovalResultEnum.Success;
-                }
+                result = !checkOnly 
+                    ? BoardSubscriptionInfoProvider.Unsubscribe(SubscriptionObject, true) 
+                    : OptInApprovalResultEnum.Success;
             }
         }
         // Check if subscription approval hash is supplied
         else if (!string.IsNullOrEmpty(subscriptionHash))
         {
-            if (checkOnly)
-            {
-                // Validate hash 
-                result = BoardSubscriptionInfoProvider.ValidateHash(SubscriptionObject, subscriptionHash, SiteContext.CurrentSiteName, datetime);
-            }
-            else
-            {
-                // Check if hash is valid
-                result = BoardSubscriptionInfoProvider.Unsubscribe(subscriptionHash, true, SiteContext.CurrentSiteName, datetime);
-            }
+            result = checkOnly 
+                ? BoardSubscriptionInfoProvider.ValidateHash(SubscriptionObject, subscriptionHash, SiteContext.CurrentSiteName, datetime) 
+                : BoardSubscriptionInfoProvider.Unsubscribe(subscriptionHash, true, SiteContext.CurrentSiteName, datetime);
         }
 
         switch (result)
@@ -274,7 +256,6 @@ public partial class CMSModules_MessageBoards_Controls_Unsubscription : CMSUserC
 
             // Subscription not found
             default:
-            case OptInApprovalResultEnum.NotFound:
                 DisplayError(DataHelper.GetNotEmpty(UnsuccessfulUnsubscriptionText, GetString("general.unsubscription_NotSubscribed")));
                 break;
         }

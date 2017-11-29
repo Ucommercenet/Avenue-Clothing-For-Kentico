@@ -227,7 +227,7 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardUserSubscript
                     // Log activity
                     if (MembershipContext.AuthenticatedUser.UserID == UserID)
                     {
-                        Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                        Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                         BoardSubscriptionInfoProvider.LogSubscriptionActivity(bsi, bi, PredefinedActivityType.SUBSCRIPTION_MESSAGE_BOARD, false);
                     }
                 }

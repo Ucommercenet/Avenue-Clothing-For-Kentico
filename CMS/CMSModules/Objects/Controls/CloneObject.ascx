@@ -20,7 +20,7 @@
                 <cms:LocalizedLabel CssClass="control-label" runat="server" ID="lblDisplayName" EnableViewState="false" DisplayColon="true" AssociatedControlID="txtDisplayName" />
             </div>
             <div class="editing-form-value-cell">
-                <cms:LocalizableTextBox runat="server" ID="txtDisplayName" MaxLength="100" />
+                <cms:LocalizableTextBox runat="server" ID="txtDisplayName" />
             </div>
         </div>
     </asp:PlaceHolder>
@@ -30,7 +30,7 @@
                 <cms:LocalizedLabel CssClass="control-label" runat="server" ID="lblCodeName" EnableViewState="false" DisplayColon="true" AssociatedControlID="txtCodeName" />
             </div>
             <div class="editing-form-value-cell">
-                <cms:CodeName runat="server" ID="txtCodeName" MaxLength="100" />
+                <cms:CodeName runat="server" ID="txtCodeName" />
             </div>
         </div>
     </asp:PlaceHolder>

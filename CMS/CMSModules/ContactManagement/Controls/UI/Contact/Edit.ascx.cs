@@ -84,6 +84,7 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Edit : CMS
     {
         RepairNoneSelectorValues();
         ChangeContactLastName();
+        SetAdministrationFlag();
     }
 
 
@@ -93,6 +94,13 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Edit : CMS
         {
             EditForm.Data["ContactLastName"] = ContactHelper.ANONYMOUS + DateTime.Now.ToString(ContactHelper.ANONYMOUS_CONTACT_LASTNAME_DATE_PATTERN);
         }
+    }
+
+
+    private void SetAdministrationFlag()
+    {
+        var contact = (ContactInfo)EditForm.EditedObject;
+        contact.ContactCreatedInAdministration = true;
     }
 
 
@@ -124,6 +132,7 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Edit : CMS
 
         // Refresh breadcrumbs
         ScriptHelper.RefreshTabHeader(Page, contact.ContactDescriptiveName);
+        
     }
 
     #endregion
@@ -207,6 +216,6 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Edit : CMS
 
     private bool IsFullContact()
     {
-        return Service.Entry<ILicenseService>().IsFeatureAvailable(FeatureEnum.FullContactManagement);
+        return ObjectFactory<ILicenseService>.StaticSingleton().IsFeatureAvailable(FeatureEnum.FullContactManagement);
     }
 }

@@ -9,11 +9,6 @@
             Form control for the media library selection.
             </summary>
         </member>
-        <member name="M:CMS.MediaLibrary.Web.UI.FullMediaLibrarySelector.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
         <member name="P:CMS.MediaLibrary.Web.UI.FullMediaLibrarySelector.SiteID">
             <summary>
             ID of the site libraries should belongs to.
@@ -39,25 +34,14 @@
             Gets current uni selector
             </summary>
         </member>
+        <member name="M:CMS.MediaLibrary.Web.UI.FullMediaLibrarySelector.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="T:CMS.MediaLibrary.Web.UI.MediaFileDataSource">
             <summary>
             Media file data source server control.
-            </summary>
-        </member>
-        <member name="M:CMS.MediaLibrary.Web.UI.MediaFileDataSource.GetDataSourceFromDB">
-            <summary>
-            Gets data source from DB.
-            </summary>
-            <returns>Dataset as object</returns>
-        </member>
-        <member name="M:CMS.MediaLibrary.Web.UI.MediaFileDataSource.GetDefaultCacheDependencies">
-            <summary>
-            Gets the default cache dependencies for the data source.
-            </summary>
-        </member>
-        <member name="M:CMS.MediaLibrary.Web.UI.MediaFileDataSource.GetDefaultCacheKey">
-            <summary>
-            Gets default cache key.
             </summary>
         </member>
         <member name="P:CMS.MediaLibrary.Web.UI.MediaFileDataSource.FilePath">
@@ -90,9 +74,35 @@
             Gets or sets if user permissions to file should be checked.
             </summary>
         </member>
+        <member name="M:CMS.MediaLibrary.Web.UI.MediaFileDataSource.GetDataSourceFromDB">
+            <summary>
+            Gets data source from DB.
+            </summary>
+            <returns>Dataset as object</returns>
+        </member>
+        <member name="M:CMS.MediaLibrary.Web.UI.MediaFileDataSource.GetDefaultCacheDependencies">
+            <summary>
+            Gets the default cache dependencies for the data source.
+            </summary>
+        </member>
+        <member name="M:CMS.MediaLibrary.Web.UI.MediaFileDataSource.GetDefaultCacheKey">
+            <summary>
+            Gets default cache key.
+            </summary>
+        </member>
         <member name="T:CMS.MediaLibrary.Web.UI.MediaLibraryDataSource">
             <summary>
             Media library data source server control.
+            </summary>
+        </member>
+        <member name="P:CMS.MediaLibrary.Web.UI.MediaLibraryDataSource.GroupID">
+            <summary>
+            Gets or sets the group ID.
+            </summary>
+        </member>
+        <member name="P:CMS.MediaLibrary.Web.UI.MediaLibraryDataSource.ShowGroupLibraries">
+            <summary>
+            Indicates if the group libraries should be included. (If no group ID is provided.).
             </summary>
         </member>
         <member name="M:CMS.MediaLibrary.Web.UI.MediaLibraryDataSource.GetDataSourceFromDB">
@@ -109,16 +119,6 @@
         <member name="M:CMS.MediaLibrary.Web.UI.MediaLibraryDataSource.GetDefaultCacheKey">
             <summary>
             Gets default cache key.
-            </summary>
-        </member>
-        <member name="P:CMS.MediaLibrary.Web.UI.MediaLibraryDataSource.GroupID">
-            <summary>
-            Gets or sets the group ID.
-            </summary>
-        </member>
-        <member name="P:CMS.MediaLibrary.Web.UI.MediaLibraryDataSource.ShowGroupLibraries">
-            <summary>
-            Indicates if the group libraries should be included. (If no group ID is provided.).
             </summary>
         </member>
         <member name="T:CMS.MediaLibrary.Web.UI.FolderTree">
@@ -196,6 +196,11 @@
             Multifile media library uploader class for Http handler.
             </summary>
         </member>
+        <member name="P:CMS.MediaLibrary.Web.UI.MediaLibraryUploader.IsReusable">
+            <summary>
+            Gets a value indicating whether another request can use the System.Web.IHttpHandler instance.
+            </summary>
+        </member>
         <member name="M:CMS.MediaLibrary.Web.UI.MediaLibraryUploader.ProcessRequest(System.Web.HttpContext)">
             <summary>
             Processes request
@@ -214,27 +219,10 @@
             Gets media file info object representing the updated version of original file
             </summary>
         </member>
-        <member name="P:CMS.MediaLibrary.Web.UI.MediaLibraryUploader.IsReusable">
-            <summary>
-            Gets a value indicating whether another request can use the System.Web.IHttpHandler instance.
-            </summary>
-        </member>
         <member name="T:CMS.MediaLibrary.Web.UI.MediaFilePreview">
             <summary>
             Media file preview class.
             </summary>
-        </member>
-        <member name="M:CMS.MediaLibrary.Web.UI.MediaFilePreview.ShowPreviewOrIcon(CMS.MediaLibrary.MediaFileInfo,System.Int32,System.Int32,System.Int32,System.String,System.String,System.Web.UI.Page)">
-            <summary>
-            Shows preview for file if exists or file icon.
-            </summary>
-            <param name="fileInfo">Media file info</param>
-            <param name="width">Width of preview to display</param>
-            <param name="height">Height of preview to display</param>
-            <param name="maxSideSize">Max side size of preview to display</param>
-            <param name="previewSuffix">Media file preview suffix</param>
-            <param name="iconSet">Name of the subfolder where icon images are located</param>
-            <param name="page">Page</param>
         </member>
         <member name="P:CMS.MediaLibrary.Web.UI.MediaFilePreview.PreviewSuffix">
             <summary>
@@ -248,13 +236,25 @@
         </member>
         <member name="P:CMS.MediaLibrary.Web.UI.MediaFilePreview.DisplayActiveContent">
             <summary>
-            Indicates if active content (video, flash etc.) should be displayed.
+            Indicates if active content (video etc.) should be displayed.
             </summary>
         </member>
         <member name="P:CMS.MediaLibrary.Web.UI.MediaFilePreview.UseSecureLinks">
             <summary>
             Indicates whether the links to media file should be processed in a secure way.
             </summary>
+        </member>
+        <member name="M:CMS.MediaLibrary.Web.UI.MediaFilePreview.ShowPreviewOrIcon(CMS.MediaLibrary.MediaFileInfo,System.Int32,System.Int32,System.Int32,System.String,System.String,System.Web.UI.Page)">
+            <summary>
+            Shows preview for file if exists or file icon.
+            </summary>
+            <param name="fileInfo">Media file info</param>
+            <param name="width">Width of preview to display</param>
+            <param name="height">Height of preview to display</param>
+            <param name="maxSideSize">Max side size of preview to display</param>
+            <param name="previewSuffix">Media file preview suffix</param>
+            <param name="iconSet">Name of the subfolder where icon images are located</param>
+            <param name="page">Page</param>
         </member>
         <member name="T:CMS.MediaLibrary.Web.UI.MediaLibraryMethods">
             <summary>

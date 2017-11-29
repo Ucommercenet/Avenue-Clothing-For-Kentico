@@ -6,7 +6,6 @@ using CMS.Base.Web.UI;
 using CMS.DocumentEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
-using CMS.PortalEngine.Web.UI;
 using CMS.Taxonomy;
 
 
@@ -166,7 +165,9 @@ public partial class CMSModules_Content_FormControls_Tags_TagSelector : FormEngi
     protected override void OnInit(EventArgs e)
     {
         // Ensure the script manager
-        PortalHelper.EnsureScriptManager(Page);
+        ControlsHelper.EnsureScriptManager(Page);
+
+        base.OnInit(e);
     }
 
 

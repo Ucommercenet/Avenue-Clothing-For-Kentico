@@ -10,7 +10,6 @@ using CMS.Base.Web.UI;
 using CMS.DataEngine;
 using CMS.EventLog;
 using CMS.Helpers;
-using CMS.PortalEngine.Web.UI;
 using CMS.SiteProvider;
 using CMS.UIControls;
 using CMS.WebFarmSync;
@@ -157,7 +156,7 @@ public partial class CMSInstall_JoinDB : GlobalAdminPage
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
-        PortalHelper.EnsureScriptManager(Page);
+        ControlsHelper.EnsureScriptManager(Page);
 
         if (FinishNextButton != null)
         {
@@ -497,8 +496,8 @@ public partial class CMSInstall_JoinDB : GlobalAdminPage
     /// Returns text for azure containing tables which need to be manually copied.
     /// </summary>
     private string GetManualCopyText()
-    {
-        SeparatedTables tables = new SeparatedTables(Server.MapPath("~/App_Data/DBSeparation"), null);
+   { 
+        SeparatedTables tables = new SeparatedTables(Server.MapPath("~/App_Data/DBSeparation"));
         return ResHelper.GetString("separationDB.manualcopy") + tables.GetTableNames("<br />");
     }
 

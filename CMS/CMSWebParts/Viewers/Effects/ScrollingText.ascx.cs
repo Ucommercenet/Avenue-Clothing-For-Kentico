@@ -4,7 +4,6 @@ using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
 using CMS.Helpers;
-using CMS.PortalEngine;
 using CMS.PortalEngine.Web.UI;
 
 
@@ -12,7 +11,7 @@ public partial class CMSWebParts_Viewers_Effects_ScrollingText : CMSAbstractWebP
 {
     #region "Variables"
 
-    protected string mStyleOptions = null;
+    protected string mStyleOptions;
     protected int totalItems = 0;
 
     #endregion
@@ -692,53 +691,33 @@ public partial class CMSWebParts_Viewers_Effects_ScrollingText : CMSAbstractWebP
     {
         base.OnPreRender(e);
 
-        bool checkCollision = false;
-        if (ParentZone != null)
+        if (StopProcessing)
         {
-            checkCollision = ParentZone.WebPartManagementRequired;
+            Visible = false;
         }
         else
         {
-            checkCollision = PortalContext.IsDesignMode(ViewMode, false);
-        }
+            string divScript = "<div style=\"" +
+                               "width: " + (DivWidth) + "px; " +
+                               "height: " + DivHeight + "px; " +
+                               "overflow: hidden; " +
+                               "z-index: 0; " + (DivStyle) + "\">" +
+                               "<div id=\"" + ClientID + "\" style=\"" +
+                               "width: " + (DivWidth) + "px; " +
+                               "height: " + DivHeight + "px; " +
+                               "overflow:hidden;" +
+                               "visibility:hidden;" +
+                               "position:relative;\">";
 
-        if (ScriptHelper.IsPrototypeBoxRegistered() && checkCollision)
-        {
-            Label lblError = new Label();
-            lblError.EnableViewState = false;
-            lblError.CssClass = "ErrorLabel";
-            lblError.Text = GetString("javascript.mootoolsprototype");
-            Controls.Add(lblError);
-        }
-        else
-        {
-            if (StopProcessing)
-            {
-                Visible = false;
-            }
-            else
-            {
-                string divScript = "<div style=\"" +
-                                   "width: " + (DivWidth) + "px; " +
-                                   "height: " + DivHeight + "px; " +
-                                   "overflow: hidden; " +
-                                   "z-index: 0; " + (DivStyle) + "\">" +
-                                   "<div id=\"" + ClientID + "\" style=\"" +
-                                   "width: " + (DivWidth) + "px; " +
-                                   "height: " + DivHeight + "px; " +
-                                   "overflow:hidden;" +
-                                   "visibility:hidden;" +
-                                   "position:relative;\">";
+            ltlBefore.Text = divScript;
+            ltlAfter.Text = "</div></div>";
 
-                ltlBefore.Text = divScript;
-                ltlAfter.Text = "</div></div>";
+            // Register Slider javascript
+            ScriptHelper.RegisterScriptFile(Page, "~/CMSWebParts/Viewers/Effects/ScrollingText_files/ScrollingText.js");
 
-                // Register Slider javascript
-                ScriptHelper.RegisterScriptFile(Page, "~/CMSWebParts/Viewers/Effects/ScrollingText_files/ScrollingText.js");
-
-                // Build Javascript
-                string jScript =
-                    @"window.addEvent('load', function(){
+            // Build Javascript
+            string jScript =
+                @"window.addEvent('load', function(){
                     try {
                         var scroller_" + ClientID + " = new Sroller('" + ClientID + "'," + JsDirection + "," + JsMoveTime + "," + JsStopTime + ",'" + JsOnMouseStop + "'," + DivWidth + "," + DivHeight + @");
                         if (scrollernodes['" + ClientID + @"'].length != 0) 
@@ -748,25 +727,24 @@ public partial class CMSWebParts_Viewers_Effects_ScrollingText : CMSAbstractWebP
                     } catch (ex) {}
                 });";
 
-                ScriptHelper.RegisterClientScriptBlock(this, typeof(string), ("scrollingScript" + ClientID), ScriptHelper.GetScript(jScript));
+            ScriptHelper.RegisterClientScriptBlock(this, typeof(string), ("scrollingScript" + ClientID), ScriptHelper.GetScript(jScript));
 
-                // Hide control based on repeater datasource and HideControlForZeroRows property
-                if (!repItems.HasData())
+            // Hide control based on repeater datasource and HideControlForZeroRows property
+            if (!repItems.HasData())
+            {
+                if (!HideControlForZeroRows)
                 {
-                    if (!HideControlForZeroRows)
-                    {
-                        lblNoData.Text = ZeroRowsText;
-                        lblNoData.Visible = true;
-                    }
-                    else
-                    {
-                        Visible = false;
-                    }
+                    lblNoData.Text = ZeroRowsText;
+                    lblNoData.Visible = true;
                 }
                 else
                 {
-                    Visible = repItems.Visible;
+                    Visible = false;
                 }
+            }
+            else
+            {
+                Visible = repItems.Visible;
             }
         }
     }

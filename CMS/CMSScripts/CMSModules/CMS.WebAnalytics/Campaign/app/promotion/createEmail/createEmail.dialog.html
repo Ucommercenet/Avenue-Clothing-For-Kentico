@@ -67,16 +67,46 @@
                         id="template-issue">
                 </cms-select>
             </div>
-
+            
             <div ng-show="!$ctrl.isNewCampaignType()">
-                <cms-select
-                        value="$ctrl.emailCampaignSelect"
-                        options="$ctrl.data.emailCampaigns"
-                        required="!$ctrl.isNewCampaignType()"
-                        title="{$ newsletter_newsletter.select.selectitem $}"
-                        label="{$ newsletter_newsletter.select.selectitem $}"
-                        id="email-campaign-select">
-                </cms-select>
+                <div title="{$ newsletter_newsletter.select.selectitem $}" class="form-group">
+                    <div class="editing-form-label-cell">
+                        <label for="template-issue" class="control-label editing-form-label">
+                            {$ newsletter_newsletter.select.selectitem $}:<span class="required-mark">*</span>
+                        </label>
+                    </div>
+                    <div class="editing-form-value-cell">
+                        <div class="editing-form-control-nested-control">
+                            <select class="form-control" id="email-campaign-select" data-ng-model="$ctrl.emailCampaignSelect" 
+                                    data-ng-required="!$ctrl.isNewCampaignType()" name="email-campaign-select" 
+                                    data-ng-options="campaign as campaign.name for campaign in $ctrl.data.emailCampaigns track by campaign.id"
+                                    data-ng-change="templatesSelector = $ctrl.emailCampaignSelect.templates">
+                            </select>
+                            <span class="form-control-error" data-ng-if="(newEmailForm.$submitted || $ctrl.emailCampaignSelect.$dirty)">
+                                {{"general.requiresvalue"|resolve}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div title="{$ newsletter_edit.newslettertemplate $}" class="form-group">
+                    <div class="editing-form-label-cell">
+                        <label for="email-template-select" class="control-label editing-form-label">
+                            {$ newsletter_edit.newslettertemplate $}:<span class="required-mark">*</span>
+                        </label>
+                    </div>
+                    <div class="editing-form-value-cell">
+                        <div class="editing-form-control-nested-control">
+                            <select class="form-control" id="email-template-select" data-ng-model="$ctrl.templateIssue"
+                                    data-ng-required="!$ctrl.isNewCampaignType()" name="email-template-select"
+                                    data-ng-options="template as template.displayName for template in templatesSelector track by template.id">                                
+                            </select>
+                            <span class="form-control-error" data-ng-if="(newEmailForm.$submitted || $ctrl.templateIssue.$dirty)">
+                                {{"general.requiresvalue"|resolve}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>

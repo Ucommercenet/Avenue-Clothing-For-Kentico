@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -49,9 +48,6 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
 
     #region "Private fields"
 
-    private NewClassWizardModeEnum mMode = NewClassWizardModeEnum.DocumentType;
-
-    private string mStep6Description = "documenttype_new_step6.description";
     private DataClassInfo mDataClassInfo;
 
     #endregion
@@ -196,16 +192,9 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
     /// </summary>
     public NewClassWizardModeEnum Mode
     {
-        get
-        {
-            return mMode;
-        }
-
-        set
-        {
-            mMode = value;
-        }
-    }
+        get;
+        set;
+    } = NewClassWizardModeEnum.DocumentType;
 
 
     /// <summary>
@@ -213,15 +202,9 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
     /// </summary>
     public string Step6Description
     {
-        get
-        {
-            return mStep6Description;
-        }
-        set
-        {
-            mStep6Description = value;
-        }
-    }
+        get;
+        set;
+    } = "documenttype_new_step6.description";
 
 
     /// <summary>
@@ -290,7 +273,7 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
                         revCodeName.ErrorMessage = GetString("sysdev.class_new.general.CodeNameIdentifier");
 
                         // Get current module name
-                        string moduleName = BaseAbstractInfoProvider.GetCodeName(ResourceInfo.OBJECT_TYPE, ModuleID);
+                        string moduleName = ProviderHelper.GetCodeName(ResourceInfo.OBJECT_TYPE, ModuleID);
 
                         txtNamespaceName.Text = moduleName.Contains(".") ? moduleName.Substring(0, moduleName.IndexOf('.')) : moduleName;
                         ucHeader.Description = GetString("sysdev.class_new_Step1.Description");
@@ -366,6 +349,11 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
         // Add explanation tooltip to content only page type checkbox
         ScriptHelper.AppendTooltip(lblContentOnly, GetString("DocumentType.ContentOnly.explanation"), "help");
         ScriptHelper.RegisterTooltip(Page);
+
+        // Register selection changed postback for the inherits class selector
+        selInherits.DropDownSingleSelect.AutoPostBack = true;
+        selInherits.UniSelector.OnSelectionChanged += selInherits_OnChanged;
+        ControlsHelper.RegisterPostbackControl(selInherits.UniSelector);
     }
 
 
@@ -483,6 +471,25 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
             chkItemCreatedWhen.Checked = false;
             chkItemModifiedBy.Checked = false;
             chkItemModifiedWhen.Checked = false;
+        }
+    }
+
+
+    protected void selInherits_OnChanged(object sender, EventArgs e)
+    {
+        var inheritedClassID = ValidationHelper.GetInteger(selInherits.Value, 0);
+
+        if (inheritedClassID > 0)
+        {
+            // Set IsContentOnly according to the inherited class
+            var inheritedClass = DataClassInfoProvider.GetDataClassInfo(inheritedClassID);
+            chbContentOnly.Checked = inheritedClass.ClassIsContentOnly;
+            chbContentOnly.Enabled = false;
+        }
+        else
+        {
+            chbContentOnly.Enabled = true;
+            chbContentOnly.Checked = IsCurrentSiteContentOnly();
         }
     }
 
@@ -912,32 +919,6 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
 
                         if ((pnlMessages2.ErrorLabel.Text == "") && !e.Cancel)
                         {
-                            // Change table owner                        
-                            try
-                            {
-                                string owner = "";
-
-                                // Get site related DB object owner setting when creating new wizard and global otherwise
-                                switch (Mode)
-                                {
-                                    case NewClassWizardModeEnum.DocumentType:
-                                    case NewClassWizardModeEnum.Class:
-                                    case NewClassWizardModeEnum.CustomTable:
-                                        owner = SqlHelper.GetDBSchema(SiteContext.CurrentSiteName);
-                                        break;
-                                }
-
-                                if ((owner != "") && (owner.ToLowerCSafe() != "dbo"))
-                                {
-                                    tm.ChangeDBObjectOwner(tableName, owner);
-                                    tableName = SqlHelper.GetSafeOwner(owner) + "." + tableName;
-                                }
-                            }
-                            catch
-                            {
-                                // Suppress error
-                            }
-
                             FormInfo fi;
                             if (fromExisting)
                             {
@@ -1200,7 +1181,7 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
             ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, string.Empty);
             ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, string.Empty);
             ffi.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
             ffi.PrimaryKey = false;
             ffi.System = true;
             ffi.Visible = false;
@@ -1222,11 +1203,12 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
             ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, string.Empty);
             ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, string.Empty);
             ffi.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
             ffi.PrimaryKey = false;
             ffi.System = true;
             ffi.Visible = false;
             ffi.Size = 0;
+            ffi.Precision = DataTypeManager.GetDataType(TypeEnum.Field, FieldDataType.DateTime).DefaultPrecision;
             ffi.AllowEmpty = true;
 
             fi.AddFormItem(ffi);
@@ -1244,7 +1226,7 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
             ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, string.Empty);
             ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, string.Empty);
             ffi.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
             ffi.PrimaryKey = false;
             ffi.System = true;
             ffi.Visible = false;
@@ -1266,11 +1248,12 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
             ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, string.Empty);
             ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, string.Empty);
             ffi.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
             ffi.PrimaryKey = false;
             ffi.System = true;
             ffi.Visible = false;
             ffi.Size = 0;
+            ffi.Precision = DataTypeManager.GetDataType(TypeEnum.Field, FieldDataType.DateTime).DefaultPrecision;
             ffi.AllowEmpty = true;
 
             fi.AddFormItem(ffi);
@@ -1288,7 +1271,7 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
             ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, string.Empty);
             ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, string.Empty);
             ffi.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
             ffi.PrimaryKey = false;
             ffi.System = true;
             ffi.Visible = false;
@@ -1340,7 +1323,7 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
             ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, String.Empty);
             ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, String.Empty);
             ffi.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+            ffi.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
             ffi.PrimaryKey = false;
             ffi.System = true;
             ffi.Visible = false;
@@ -1373,7 +1356,7 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
         ffiGuid.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, String.Empty);
         ffiGuid.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, String.Empty);
         ffiGuid.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-        ffiGuid.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+        ffiGuid.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
         ffiGuid.PrimaryKey = false;
         ffiGuid.System = true;
         ffiGuid.Visible = false;
@@ -1401,7 +1384,7 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
         ffiPK.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, string.Empty);
         ffiPK.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, string.Empty);
         ffiPK.FieldType = FormFieldControlTypeEnum.CustomUserControl;
-        ffiPK.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerCSafe();
+        ffiPK.Settings["controlname"] = FormHelper.GetFormFieldControlTypeString(FormFieldControlTypeEnum.LabelControl).ToLowerInvariant();
         ffiPK.PrimaryKey = true;
         ffiPK.System = AllowSystemFields;
         ffiPK.Visible = false;
@@ -1708,12 +1691,13 @@ public partial class CMSModules_AdminControls_Controls_Class_NewClassWizard : CM
         if (Mode == NewClassWizardModeEnum.DocumentType)
         {
             // Preselect Menu items document types
-            DataSet ds = DataClassInfoProvider.GetClasses()
+            var docTypeIDs = DataClassInfoProvider.GetClasses()
                 .WhereTrue("ClassIsDocumentType")
                 .WhereTrue("ClassIsMenuItemType")
-                .Column("ClassID");
+                .Column("ClassID")
+                .GetListResult<int>();
 
-            usParentTypes.Value = TextHelper.Join(";", DataHelper.GetStringValues(ds.Tables[0], "ClassID"));
+            usParentTypes.Value = TextHelper.Join(";", docTypeIDs);
             usParentTypes.Reload(true);
         }
     }

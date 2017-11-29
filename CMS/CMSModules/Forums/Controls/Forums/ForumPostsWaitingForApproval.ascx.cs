@@ -370,7 +370,7 @@ public partial class CMSModules_Forums_Controls_Forums_ForumPostsWaitingForAppro
                 {
                     string toReturn = "<strong>" + HTMLHelper.HTMLEncode(ValidationHelper.GetString(dr["PostUserName"], "")) + ":</strong> ";
                     toReturn += HTMLHelper.HTMLEncode(ValidationHelper.GetString(dr["PostSubject"], "")) + "<br />";
-                    toReturn += TextHelper.LimitLength(HTMLHelper.HTMLEncode(ValidationHelper.GetString(dr["PostText"], "")), 150);
+                    toReturn += HTMLHelper.HTMLEncode(TextHelper.LimitLength(ValidationHelper.GetString(dr["PostText"], ""), 150));
                     return toReturn;
                 }
                 break;

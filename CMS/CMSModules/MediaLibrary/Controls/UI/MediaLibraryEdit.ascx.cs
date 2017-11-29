@@ -347,11 +347,6 @@ public partial class CMSModules_MediaLibrary_Controls_UI_MediaLibraryEdit : CMSA
             editElem.RedirectUrlAfterCreate = String.Empty;
         }
 
-        if (MediaLibraryGroupID > 0)
-        {
-            editElem.Data["LibraryGroupID"] = MediaLibraryGroupID;
-        }
-
         // If creating new group library setup default security
         if ((MediaLibraryGroupID > 0) && (MediaLibraryID == 0))
         {
@@ -414,6 +409,11 @@ public partial class CMSModules_MediaLibrary_Controls_UI_MediaLibraryEdit : CMSA
         if ((MediaLibraryID == 0) && (DisplayMode == ControlDisplayModeEnum.Simple))
         {
             editElem.FieldControls["LibraryName"].Text = ValidationHelper.GetCodeName(editElem.FieldControls["LibraryDisplayName"].Text, null, "_group_" + Guid.NewGuid());
+        }
+
+        if (MediaLibraryGroupID > 0)
+        {
+            editElem.Data["LibraryGroupID"] = MediaLibraryGroupID;
         }
     }
 

@@ -128,21 +128,26 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_Cultures : C
         if (eventArgument == "saved")
         {
             // Check if document index has at least one culture specified
-            DataSet ds = SearchIndexCultureInfoProvider.GetSearchIndexCultures(indexId);
-            if (DataHelper.DataSourceIsEmpty(ds))
+            if (!SearchIndexCultureInfoProvider.SearchIndexHasAnyCulture(indexId))
             {
                 ShowError(GetString("index.noculture"));
                 return;
             }
 
-            if (SearchHelper.CreateRebuildTask(indexId))
+            // Check if there is at least one site assigned
+            if (!SearchIndexSiteInfoProvider.SearchIndexHasAnySite(indexId))
             {
-                ShowInformation(GetString("srch.index.rebuildstarted"));
+                ShowError(GetString("index.nosite"));
+                return;
             }
-            else
+
+            if (!SearchHelper.CreateRebuildTask(indexId))
             {
                 ShowError(GetString("index.nocontent"));
+                return;
             }
+            
+            ShowInformation(GetString("srch.index.rebuildstarted"));
         }
     }
 

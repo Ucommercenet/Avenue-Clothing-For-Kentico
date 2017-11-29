@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/EventHub', 'CMS/NavigationBlocker', 'Underscore', 'jQuery', 'jQueryFancySelector'], function (EventHub, NavigationBlocker, _, $) {
-    'use strict';
 
     var Header = function(data) {
         var $selector = $('#' + data.selectorId),

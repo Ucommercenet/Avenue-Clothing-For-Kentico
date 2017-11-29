@@ -162,24 +162,8 @@ public partial class CMSModules_BizForms_Tools_BizForm_New : CMSBizFormPage
             return;
         }
 
-        // Change table owner
-        try
-        {
-            string owner = SqlHelper.GetDBSchema(SiteContext.CurrentSiteName);
-            if (!String.IsNullOrEmpty(owner) && (owner.ToLowerCSafe() != "dbo"))
-            {
-                tm.ChangeDBObjectOwner(tableName, owner);
-                tableName = owner + "." + tableName;
-            }
-        }
-        catch (Exception ex)
-        {
-            EventLogProvider.LogException("BIZFORM_NEW", EventType.ERROR, ex);
-        }
-
         // Create the BizForm class
         DataClassInfo dci = BizFormInfoProvider.CreateBizFormDataClass(className, formDisplayName, tableName, primaryKey);
-
         try
         {
             // Create new bizform dataclass

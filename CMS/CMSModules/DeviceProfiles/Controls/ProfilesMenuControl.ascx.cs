@@ -7,7 +7,6 @@ using System.Text;
 using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
-using CMS.DataEngine;
 using CMS.DeviceProfiles;
 using CMS.Localization;
 using CMS.Membership;
@@ -265,7 +264,6 @@ $cmsj(document).ready(function () {
         }
 
         string defaultString = HTMLHelper.HTMLEncode(GetString("deviceselector.default", ResourceCulture));
-        StringBuilder sbDeviceProfiles = new StringBuilder();
         MenuItem devMenuItem = null;
 
         if (!UseSmallButton)
@@ -286,13 +284,20 @@ $cmsj(document).ready(function () {
             buttons.Buttons.Add(devMenuItem);
         }
 
-        // Load enabled profiles
-        InfoDataSet<DeviceProfileInfo> ds = DeviceProfileInfoProvider.GetDeviceProfiles()
-            .WhereEquals("ProfileEnabled", 1)
-            .OrderBy("ProfileOrder")
-            .TypedResult;
+        var enabledProfiles = CacheHelper.Cache(cs => 
+        {
+            // Load enabled profiles
+            var result = DeviceProfileInfoProvider.GetDeviceProfiles()
+                .WhereTrue("ProfileEnabled")
+                .OrderBy("ProfileOrder")
+                .TypedResult;
 
-        if (!DataHelper.DataSourceIsEmpty(ds))
+            cs.CacheDependency = CacheHelper.GetCacheDependency(DeviceProfileInfo.OBJECT_TYPE + "|all");
+
+            return result;
+        }, new CacheSettings(10, "DeviceProfileSelector", "EnabledProfiles"));
+
+        if (!DataHelper.DataSourceIsEmpty(enabledProfiles))
         {
             // Create default item
             SubMenuItem defaultMenuItem = new SubMenuItem
@@ -318,7 +323,7 @@ $cmsj(document).ready(function () {
             }
 
             // Load the profiles list
-            foreach (DeviceProfileInfo profileInfo in ds.Items)
+            foreach (DeviceProfileInfo profileInfo in enabledProfiles.Items)
             {
                 string profileName = GetString(profileInfo.ProfileDisplayName, ResourceCulture);
                 CMSButtonAction deviceButton = null;

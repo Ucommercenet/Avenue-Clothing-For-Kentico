@@ -45,9 +45,9 @@ public partial class CMSModules_Modules_Pages_Class_Search : GlobalAdminPage
                     searchFields.Visible = false;
                     break;
 
-                case "ecommerce.sku":
+                case PredefinedObjectType.SKU:
                     ShowWarning(GetString("systbl.search.warninfo"));
-                    DataClassInfo dci = DataClassInfoProvider.GetDataClassInfo("cms.document");
+                    DataClassInfo dci = DataClassInfoProvider.GetDataClassInfo(PredefinedObjectType.DOCUMENT);
                     if (dci != null)
                     {
                         searchFields.ItemID = dci.ClassID;

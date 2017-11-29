@@ -284,13 +284,12 @@ public partial class CMSFormControls_TimeZones_TimeZoneSelector : FormEngineUser
     /// <summary>
     /// Fill drop down list.
     /// </summary>
-    /// <param name="ds">Data set with time zones</param>
     /// <param name="dataValue">Data value field</param>
     private void FillDropdown(string dataValue)
     {
         if (drpTimeZoneSelector.Items.Count == 0)
         {
-            DataSet ds = TimeZoneInfoProvider.GetTimeZones(null, "TimeZoneGMT", -1, "TimeZoneID ,TimeZoneGMT, TimeZoneName, TimeZoneDisplayName");
+            DataSet ds = TimeZoneInfoProvider.GetTimeZones().OrderBy("TimeZoneGMT").Columns("TimeZoneID ,TimeZoneGMT, TimeZoneName, TimeZoneDisplayName");
 
             if (!DataHelper.DataSourceIsEmpty(ds))
             {

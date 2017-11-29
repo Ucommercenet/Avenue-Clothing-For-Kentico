@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Data;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -88,6 +89,22 @@ public partial class CMSModules_Activities_Controls_UI_Activity_List : CMSAdminL
         set
         {
             mPageSize = value;
+        }
+    }
+
+
+    /// <summary>
+    /// Gets or sets limit of the unigrid filter
+    /// </summary>
+    public int FilterLimit
+    {
+        get
+        {
+            return gridElem.FilterLimit;
+        }
+        set
+        {
+            gridElem.FilterLimit = value;
         }
     }
 
@@ -187,16 +204,6 @@ public partial class CMSModules_Activities_Controls_UI_Activity_List : CMSAdminL
 
 
     /// <summary>
-    /// Gets or sets the callback argument.
-    /// </summary>
-    private string CallbackArgument
-    {
-        get;
-        set;
-    }
-
-
-    /// <summary>
     /// Activities with given site id will be displayed.
     /// If <see cref="UniSelector.US_GLOBAL_RECORD"/> is supplied, then only activities without site will be displayed.
     /// By default <see cref=SiteContext.CurrentSite/> is used.
@@ -208,6 +215,24 @@ public partial class CMSModules_Activities_Controls_UI_Activity_List : CMSAdminL
     {
         get;
         set;
+    }
+
+
+    /// <summary>
+    /// If true, column allowing the selection of rows is displayed on the left of the UniGrid,
+    /// that can be used to perform mass action like delete. By default is true.
+    /// </summary>
+    public bool ShowSelection
+    {
+        get
+        {
+            return mShowSelection;
+        }
+
+        set
+        {
+            mShowSelection = value;
+        }
     }
 
 
@@ -231,20 +256,12 @@ public partial class CMSModules_Activities_Controls_UI_Activity_List : CMSAdminL
 
 
     /// <summary>
-    /// If true, column allowing the selection of rows is displayed on the left of the UniGrid,
-    /// that can be used to perform mass action like delete. By default is true.
+    /// Gets or sets the callback argument.
     /// </summary>
-    public bool ShowSelection
+    private string CallbackArgument
     {
-        get
-        {
-            return mShowSelection;
-        }
-
-        set
-        {
-            mShowSelection = value;
-        }
+        get;
+        set;
     }
 
     #endregion
@@ -252,17 +269,79 @@ public partial class CMSModules_Activities_Controls_UI_Activity_List : CMSAdminL
 
     #region "Methods"
 
+    /// <summary>
+    /// Raise callback method.
+    /// </summary>
+    public void RaiseCallbackEvent(string eventArgument)
+    {
+        CallbackArgument = eventArgument;
+        ActivityID = ValidationHelper.GetInteger(eventArgument, 0);
+    }
+
+
+    /// <summary>
+    /// Gets callback result.
+    /// </summary>
+    public string GetCallbackResult()
+    {
+        mParameters = new Hashtable();
+        string queryString = null;
+        mParameters["returnlocation"] = RequestContext.CurrentURL;
+        mParameters["contactid"] = ContactID;
+
+        // ...for mass action
+        if (CallbackArgument.StartsWithCSafe("massaction;", true))
+        {
+            // Get values of callback argument
+            string[] selection = CallbackArgument.Split(new[]
+            {
+                ";"
+            }, StringSplitOptions.RemoveEmptyEntries);
+            if (selection.Length != 3)
+            {
+                return null;
+            }
+
+            Action action = (Action)ValidationHelper.GetInteger(selection[2], 0);
+            switch (action)
+            {
+                case Action.Delete:
+                    mParameters["where"] = GetWhereCondition(selection[1]);
+                    break;
+                default:
+                    return null;
+            }
+
+            WindowHelper.Add(Identifier.ToString(), mParameters);
+            queryString = "?params=" + Identifier;
+            queryString = URLHelper.AddParameterToUrl(queryString, "hash", QueryHelper.GetHash(queryString));
+
+            return queryString;
+        }
+
+        mParameters["where"] = gridElem.WhereCondition;
+        string sortDirection = gridElem.SortDirect;
+        if (String.IsNullOrEmpty(sortDirection))
+        {
+            sortDirection = gridElem.OrderBy;
+        }
+        mParameters["orderby"] = sortDirection;
+
+        WindowHelper.Add(Identifier.ToString(), mParameters);
+
+        queryString = "?params=" + Identifier;
+        queryString = URLHelper.AddParameterToUrl(queryString, "hash", QueryHelper.GetHash(queryString));
+        queryString = URLHelper.AddParameterToUrl(queryString, "activityid", ActivityID.ToString());
+
+        return queryString;
+    }
+
+
     protected override void OnInit(EventArgs e)
     {
         SiteID = SiteContext.CurrentSiteID;
         gridElem.OnFilterFieldCreated += gridElem_OnFilterFieldCreated;
         base.OnInit(e);
-    }
-
-
-    private void gridElem_OnFilterFieldCreated(string columnName, UniGridFilterField filterDefinition)
-    {
-        filter = filterDefinition.ValueControl as CMSModules_Activities_Controls_UI_Activity_Filter;
     }
 
 
@@ -323,6 +402,83 @@ public partial class CMSModules_Activities_Controls_UI_Activity_List : CMSAdminL
             InitMassActionDDs();
             pnlFooter.Visible = true;
         }
+    }
+
+
+    protected object gridElem_OnExternalDataBound(object sender, string sourceName, object parameter)
+    {
+        switch (sourceName)
+        {
+            case "view":
+                CMSGridActionButton viewBtn = (CMSGridActionButton)sender;
+                viewBtn.OnClientClick = string.Format("dialogParams_{0} = '{1}';{2};return false;",
+                    ClientID,
+                    viewBtn.CommandArgument, Page.ClientScript.GetCallbackEventReference(this, "dialogParams_" + ClientID, "ViewDetails", null));
+                break;
+            case "delete":
+                CMSGridActionButton deleteBtn = (CMSGridActionButton)sender;
+                if (!ShowRemoveButton || !modifyPermission)
+                {
+                    deleteBtn.Enabled = false;
+                }
+                deleteBtn.Visible = ShowRemoveButton;
+                break;
+            case "acttypedesc":
+                var activityTypeDescription = GetActivityTypeDescription(parameter);
+                return HTMLHelper.HTMLEncode(activityTypeDescription);
+            case "acttype":
+                var activityTypeInfo = GetActivityTypeByCodeName(parameter);
+                var activityTypeName = GetActivityTypeName(parameter, activityTypeInfo);
+                var activityTypeColor = activityTypeInfo?.ActivityTypeColor;
+
+                return new Tag
+                {
+                    Text = activityTypeName,
+                    Color = activityTypeColor
+                };
+        }
+        return null;
+    }
+
+
+    private void gridElem_OnFilterFieldCreated(string columnName, UniGridFilterField filterDefinition)
+    {
+        filter = filterDefinition.ValueControl as CMSModules_Activities_Controls_UI_Activity_Filter;
+    }
+
+
+    /// <summary>
+    /// Returns activity type description for provided activity type <paramref name="activityTypeCodeName"/>. 
+    /// If no such activity type exists, returns activity code name.
+    /// </summary>
+    private static string GetActivityTypeDescription(object activityTypeCodeName)
+    {
+        ActivityTypeInfo activityTypeInfo = GetActivityTypeByCodeName(activityTypeCodeName);
+        var activityTypeDescription = activityTypeInfo != null ? ResHelper.LocalizeString(activityTypeInfo.ActivityTypeDescription) : 
+                                                                 ValidationHelper.GetString(activityTypeCodeName, null);
+        return HTMLHelper.HTMLEncode(activityTypeDescription);
+    }
+
+
+    /// <summary>
+    /// Returns activity type name for provided activity type <paramref name="activityTypeCodeName"/> and <paramref name="activityTypeInfo"/>. 
+    /// If no such activity type exists, returns activity code name.
+    /// </summary>
+    private static string GetActivityTypeName(object activityTypeCodeName, ActivityTypeInfo activityTypeInfo)
+    {
+        var activityTypeName = activityTypeInfo != null ? ResHelper.LocalizeString(activityTypeInfo.ActivityTypeDisplayName) : 
+                                                          ValidationHelper.GetString(activityTypeCodeName, null);
+        return HTMLHelper.HTMLEncode(activityTypeName);
+    }
+
+
+    /// <summary>
+    /// Returns existing <see cref="ActivityTypeInfo"/> with corresponding <paramref name="activityTypeCodeName"/>.
+    /// </summary>
+    private static ActivityTypeInfo GetActivityTypeByCodeName(object activityTypeCodeName)
+    {
+        string activityTypeName = ValidationHelper.GetString(activityTypeCodeName, null);
+        return ActivityTypeInfoProvider.GetActivityTypeInfo(activityTypeName);
     }
 
 
@@ -408,107 +564,6 @@ function SelectValue_" + ClientID + @"(valueID) {
     }
 
 
-    protected object gridElem_OnExternalDataBound(object sender, string sourceName, object parameter)
-    {
-        switch (sourceName)
-        {
-            case "view":
-                CMSGridActionButton viewBtn = (CMSGridActionButton)sender;
-                viewBtn.OnClientClick = string.Format("dialogParams_{0} = '{1}';{2};return false;",
-                    ClientID,
-                    viewBtn.CommandArgument, Page.ClientScript.GetCallbackEventReference(this, "dialogParams_" + ClientID, "ViewDetails", null));
-                break;
-            case "delete":
-                CMSGridActionButton deleteBtn = (CMSGridActionButton)sender;
-                if (!ShowRemoveButton || !modifyPermission)
-                {
-                    deleteBtn.Enabled = false;
-                }
-                deleteBtn.Visible = ShowRemoveButton;
-                break;
-            case "acttype":
-            case "acttypedesc":
-                string codeName = ValidationHelper.GetString(parameter, null);
-                string value = null;
-                ActivityTypeInfo ati = ActivityTypeInfoProvider.GetActivityTypeInfo(codeName);
-                if (ati != null)
-                {
-                    if (sourceName == "acttype")
-                    {
-                        value = ResHelper.LocalizeString(ati.ActivityTypeDisplayName);
-                    }
-                    else
-                    {
-                        value = ResHelper.LocalizeString(ati.ActivityTypeDescription);
-                    }
-                    return HTMLHelper.HTMLEncode(value);
-                }
-                return HTMLHelper.HTMLEncode(codeName);
-        }
-        return null;
-    }
-
-    #endregion
-
-
-    /// <summary>
-    /// Gets callback result.
-    /// </summary>
-    public string GetCallbackResult()
-    {
-        mParameters = new Hashtable();
-        string queryString = null;
-        mParameters["returnlocation"] = RequestContext.CurrentURL;
-        mParameters["contactid"] = ContactID;
-
-        // ...for mass action
-        if (CallbackArgument.StartsWithCSafe("massaction;", true))
-        {
-            // Get values of callback argument
-            string[] selection = CallbackArgument.Split(new[]
-            {
-                ";"
-            }, StringSplitOptions.RemoveEmptyEntries);
-            if (selection.Length != 3)
-            {
-                return null;
-            }
-
-            Action action = (Action)ValidationHelper.GetInteger(selection[2], 0);
-            switch (action)
-            {
-                case Action.Delete:
-                    mParameters["where"] = GetWhereCondition(selection[1]);
-                    break;
-                default:
-                    return null;
-            }
-
-            WindowHelper.Add(Identifier.ToString(), mParameters);
-            queryString = "?params=" + Identifier;
-            queryString = URLHelper.AddParameterToUrl(queryString, "hash", QueryHelper.GetHash(queryString));
-
-            return queryString;
-        }
-
-        mParameters["where"] = gridElem.WhereCondition;
-        string sortDirection = gridElem.SortDirect;
-        if (String.IsNullOrEmpty(sortDirection))
-        {
-            sortDirection = gridElem.OrderBy;
-        }
-        mParameters["orderby"] = sortDirection;
-
-        WindowHelper.Add(Identifier.ToString(), mParameters);
-
-        queryString = "?params=" + Identifier;
-        queryString = URLHelper.AddParameterToUrl(queryString, "hash", QueryHelper.GetHash(queryString));
-        queryString = URLHelper.AddParameterToUrl(queryString, "activityid", ActivityID.ToString());
-
-        return queryString;
-    }
-
-
     /// <summary>
     /// Returns where condition depending on mass action selection.
     /// </summary>
@@ -564,13 +619,5 @@ function SelectValue_" + ClientID + @"(valueID) {
         return where;
     }
 
-
-    /// <summary>
-    /// Raise callback method.
-    /// </summary>
-    public void RaiseCallbackEvent(string eventArgument)
-    {
-        CallbackArgument = eventArgument;
-        ActivityID = ValidationHelper.GetInteger(eventArgument, 0);
-    }
+    #endregion
 }

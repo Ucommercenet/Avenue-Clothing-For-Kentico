@@ -12,15 +12,6 @@
 public partial class CMSModules_ImportExport_Pages_ImportSite {
     
     /// <summary>
-    /// form1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-    
-    /// <summary>
     /// pnlBody control.
     /// </summary>
     /// <remarks>
@@ -55,6 +46,15 @@ public partial class CMSModules_ImportExport_Pages_ImportSite {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Panel pnlImport;
+    
+    /// <summary>
+    /// pnlMessages control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.MessagesPlaceHolder pnlMessages;
     
     /// <summary>
     /// wzdImport control.

@@ -6,7 +6,7 @@
     /*@ngInject*/
     function controller($scope, $q, $uibModalInstance, items, newsletterResource, messagesService, serverDataService) {
         var ctrl = this;
-
+        
         ctrl.items = items;
         ctrl.EMAIL_REGEXP = serverDataService.getEmailRegexp();
         ctrl.emailCampaignType = _.isEmpty(items) ? 'new' : 'assign';
@@ -48,9 +48,7 @@
                 return;
             }
 
-            var email = prepareEmailToCreate();
-
-            createIssueModelPromise(email).then(function (issueModel) {
+            createIssueModelPromise().then(function (issueModel) {
                 ctrl.newIssueModel = issueModel;
             }).catch(function (error) {
                 requestFailed(error);
@@ -98,7 +96,8 @@
             return _.map(newsletters, function (newsletter) {
                 return {
                     id: newsletter.id,
-                    name: newsletter.displayName
+                    name: newsletter.displayName,
+                    templates: newsletter.issueTemplates
                 }
             });
         }
@@ -126,36 +125,35 @@
             return hints.concat(options);
         }
 
-        function prepareEmailToCreate() {
+        function prepareEmailCampaignToCreate() {
             return {
-                subject: ctrl.emailSubject,
                 displayName: ctrl.emailDisplayName,
                 senderName: ctrl.emailSenderName,
                 senderEmail: ctrl.emailSenderAddress,
-                templates: {
-                    issue: ctrl.templateIssue,
-                    unsubscription: ctrl.templateUnsubscription
-                }
+                unsubscriptionTemplateId: ctrl.templateUnsubscription,
+                issueTemplateId: ctrl.templateIssue
             }
         }
 
-        function createIssueModelPromise(email) {
+        function createIssueModelPromise() {
             if (ctrl.emailCampaignType === 'new') {
+                var emailCapmaign = prepareEmailCampaignToCreate();
+
                 // Create static email campaign and then email
                 return newsletterResource
-                    .createEmailCampaign(email)
+                    .createEmailCampaign(emailCapmaign)
                     .$promise.then(function (newsletterModel) {
-                        return createNewIssuePromise(newsletterModel.id, email.subject);
+                        return createNewIssuePromise(newsletterModel.id, ctrl.emailSubject, ctrl.templateIssue);
                     });
             }
             else {
                 // Create email only
-                return createNewIssuePromise(ctrl.emailCampaignSelect, email.subject);
+                return createNewIssuePromise(ctrl.emailCampaignSelect.id, ctrl.emailSubject, ctrl.templateIssue.id);
             }
         }
 
-        function createNewIssuePromise(id, subject) {
-            return newsletterResource.createNewIssue({ newsletterId: id }, '"' + subject + '"').$promise;
+        function createNewIssuePromise(id, subject, template) {
+            return newsletterResource.createNewIssue({ newsletterId: id, templateId: template}, '"' + subject + '"').$promise;
         }
     }
 

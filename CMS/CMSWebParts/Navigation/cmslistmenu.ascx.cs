@@ -523,7 +523,7 @@ public partial class CMSWebParts_Navigation_cmslistmenu : CMSAbstractWebPart
 
 
     /// <summary>
-    /// Gets or sets the css class name, which create envelope around menu and automatically register LIHover.htc script (IE6 required this).
+    /// Gets or sets the css class name, which create envelope around menu.
     /// </summary>
     public string HoverCssClassName
     {

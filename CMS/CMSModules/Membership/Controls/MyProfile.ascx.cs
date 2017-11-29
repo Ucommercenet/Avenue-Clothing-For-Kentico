@@ -2,6 +2,7 @@
 
 using CMS.Base;
 using CMS.Base.Web.UI;
+using CMS.ContactManagement;
 using CMS.DataEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
@@ -240,8 +241,8 @@ public partial class CMSModules_Membership_Controls_MyProfile : CMSUserControl
     private void editProfileForm_OnAfterSave(object sender, EventArgs e)
     {
         // Update current contact info
-        ModuleCommands.OnlineMarketingUpdateContactFromExternalData(editProfileForm.Info, DataClassInfoProvider.GetDataClassInfo(editProfileForm.ClassName).ClassContactOverwriteEnabled,
-        ModuleCommands.OnlineMarketingGetCurrentContactID());
+        var classInfo = DataClassInfoProvider.GetDataClassInfo(editProfileForm.ClassName);
+        ContactInfoProvider.UpdateContactFromExternalData(editProfileForm.Info, classInfo.ClassContactOverwriteEnabled, ModuleCommands.OnlineMarketingGetCurrentContactID());
     }
 
 

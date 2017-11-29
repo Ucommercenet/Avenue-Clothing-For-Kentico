@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using CMS.Base;
 
-using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Web.UI.WebControls;
@@ -101,6 +100,8 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
         };
         HeaderActions.AddAction(mSerializeAction);
         HeaderActions.ActionPerformed += ActionPerformed;
+
+        ScriptHelper.RegisterBootstrapTooltip(Page, ".info-icon > i");
 
         ShowInformation(GetString("ci.performancemessage"));
     }
@@ -216,9 +217,13 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
         };
 
         ffi.SetPropertyValue(FormFieldPropertyEnum.FieldCaption, setting.KeyDisplayName);
-        ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, setting.KeyDescription);
         ffi.SetPropertyValue(FormFieldPropertyEnum.ExplanationText, setting.KeyExplanationText);
         ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, setting.KeyDefaultValue);
+        if (!string.IsNullOrEmpty(setting.KeyDescription))
+        {
+            ffi.SetPropertyValue(FormFieldPropertyEnum.FieldCssClass, "form-group settings-group-inline");
+            ffi.SetPropertyValue(FormFieldPropertyEnum.ContentAfter, UIHelper.GetIcon("icon-question-circle", GetString(setting.KeyDescription)).GetRenderedHTML());
+        }
 
         return ffi;
     }
@@ -363,7 +368,7 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
         else
         {
             ShowError(GetMessageCombinedWithEventLogInfo("ci.serialization.failed"));
-            SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_FAILED_EVENT_CODE, 
+            SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_FAILED_EVENT_CODE,
                 GetCombinedErrorDescription(result));
         }
 

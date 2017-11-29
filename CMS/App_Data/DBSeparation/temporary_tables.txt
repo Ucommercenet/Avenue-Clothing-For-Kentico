@@ -1,4 +1,5 @@
 CMS_Country CountryID
+CMS_Consent ConsentID
 CMS_State StateID
 CMS_User UserID
 CMS_Site SiteID

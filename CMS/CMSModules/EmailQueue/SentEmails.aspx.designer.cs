@@ -102,6 +102,15 @@ public partial class CMSModules_EmailQueue_SentEmails {
     protected global::CMSAdminControls_UI_UniGrid_Filters_TextSimpleFilter fltSubject;
     
     /// <summary>
+    /// pnlBodyFilter control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Panel pnlBodyFilter;
+    
+    /// <summary>
     /// lblBody control.
     /// </summary>
     /// <remarks>

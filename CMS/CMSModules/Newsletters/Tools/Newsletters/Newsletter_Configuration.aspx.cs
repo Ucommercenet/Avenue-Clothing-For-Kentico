@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 using CMS.Base;
@@ -19,6 +20,8 @@ using CMS.UIControls;
 [EditedObject(NewsletterInfo.OBJECT_TYPE, "objectid")]
 public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configuration : CMSNewsletterPage
 {
+    private string mCurrentTemplates;
+
     /// <summary>
     /// It is true if edited newsletter is dynamic.
     /// </summary>
@@ -125,20 +128,17 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configu
         // Initialize template selectors
         string whereTemplate = "TemplateType='{0}' AND TemplateSiteID=" + siteId;
 
-        subscriptionTemplate.WhereCondition = String.Format(whereTemplate, EmailTemplateType.Subscription);
-        unsubscriptionTemplate.WhereCondition = String.Format(whereTemplate, EmailTemplateType.Unsubscription);
-        optInSelector.WhereCondition = String.Format(whereTemplate, EmailTemplateType.DoubleOptIn);
-
-        issueTemplate.WhereCondition = String.Format(whereTemplate, EmailTemplateType.Issue);
-
-        issueTemplate.WhereCondition = SqlHelper.AddWhereCondition(issueTemplate.WhereCondition, String.Format("TemplateID={0}", EditedNewsletter.NewsletterTemplateID), "OR");
+        subscriptionTemplate.WhereCondition = String.Format(whereTemplate, EmailTemplateTypeEnum.Subscription.ToStringRepresentation());
+        unsubscriptionTemplate.WhereCondition = String.Format(whereTemplate, EmailTemplateTypeEnum.Unsubscription.ToStringRepresentation());
+        optInSelector.WhereCondition = String.Format(whereTemplate, EmailTemplateTypeEnum.DoubleOptIn.ToStringRepresentation());
+        usTemplates.WhereCondition = String.Format(whereTemplate, EmailTemplateTypeEnum.Issue.ToStringRepresentation());
 
         // Check if the newsletter is dynamic and adjust config dialog
         isDynamic = String.Equals(EditedNewsletter.NewsletterSource, NewsletterSource.Dynamic, StringComparison.InvariantCultureIgnoreCase);
 
         // Display template/dynamic based newsletter config and online marketing config
         plcDynamic.Visible = isDynamic;
-        plcTemplate.Visible = !isDynamic;
+        plcTemplates.Visible = !isDynamic;
         plcTracking.Visible = TrackingEnabled;
         plcOM.Visible = OnlineMarketingEnabled;
 
@@ -155,8 +155,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configu
 
             if (!isDynamic)
             {
-                // Initialize issue template selector
-                issueTemplate.Value = EditedNewsletter.NewsletterTemplateID.ToString();
+                LoadTemplates();
             }
             else
             {
@@ -329,14 +328,14 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configu
         {
             newsletterObj.NewsletterSource = NewsletterSource.TemplateBased;
 
-            // Check if issue template was selected
-            int issueTemplateValue = ValidationHelper.GetInteger(issueTemplate.Value, 0);
-            if (issueTemplateValue == 0)
+            // Check if at least one template is selected
+            if (string.IsNullOrEmpty(ValidationHelper.GetString(usTemplates.Value, null)))
             {
                 ShowError(GetString("Newsletter_Edit.NoEmailTemplateSelected"));
+                usTemplates.Value = mCurrentTemplates;
                 return;
             }
-            newsletterObj.NewsletterTemplateID = issueTemplateValue;
+            SaveTemplates();          
         }
 
         // Save changes to DB
@@ -351,6 +350,90 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configu
 
         // Update breadcrumbs
         ScriptHelper.RefreshTabHeader(Page, newsletterObj.NewsletterDisplayName);
+    }
+
+
+    /// <summary>
+    /// Load templates.
+    /// </summary>
+    private void LoadTemplates()
+    {
+        GetCurrentTemplates();
+        usTemplates.Value = mCurrentTemplates;
+        usTemplates.Reload(true);
+    }
+
+
+    /// <summary>
+    /// Loads current templates from DB.
+    /// </summary>
+    private void GetCurrentTemplates()
+    {
+        var templateNewsletters = EmailTemplateNewsletterInfoProvider
+                                    .GetEmailTemplateNewsletters()
+                                    .WhereEquals("NewsletterID", EditedNewsletter.NewsletterID)
+                                    .Column("TemplateID")
+                                    .Select(template => template.TemplateID);
+
+        mCurrentTemplates = TextHelper.Join(";", templateNewsletters);
+    }
+
+
+    /// <summary>
+    /// Save templates.
+    /// </summary>
+    private void SaveTemplates()
+    {
+        if (RequestHelper.IsPostBack())
+        {
+            GetCurrentTemplates();
+        }
+
+        var newTemplatesString = ValidationHelper.GetString(usTemplates.Value, null);
+
+        RemoveOldTemplates(newTemplatesString, mCurrentTemplates);
+        AddNewTemplates(newTemplatesString, mCurrentTemplates);
+        mCurrentTemplates = newTemplatesString;
+    }
+
+
+    /// <summary>
+    /// Remove templates from newsletter.
+    /// </summary>
+    private void RemoveOldTemplates(string newValues, string currentRecords)
+    {
+        var items = DataHelper.GetNewItemsInList(newValues, currentRecords);
+
+        if (String.IsNullOrEmpty(items))
+        {
+            return;
+        }
+
+        var modifiedItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var item in modifiedItems)
+        {
+            EmailTemplateNewsletterInfoProvider.RemoveNewsletterFromTemplate(ValidationHelper.GetInteger(item, 0), EditedNewsletter.NewsletterID);
+        }
+    }
+
+
+    /// <summary>
+    /// Add templates to newsletter.
+    /// </summary>
+    private void AddNewTemplates(string newValues, string currentRecords)
+    {
+        var items = DataHelper.GetNewItemsInList(currentRecords, newValues);
+
+        if (String.IsNullOrEmpty(items))
+        {
+            return;
+        }
+
+        var modifiedItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var item in modifiedItems)
+        {
+            EmailTemplateNewsletterInfoProvider.AddNewsletterToTemplate(ValidationHelper.GetInteger(item, 0), EditedNewsletter.NewsletterID);
+        }
     }
 
 
@@ -452,6 +535,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configu
             .NotEmpty(txtNewsletterName.Text, GetString("Newsletter_Edit.ErrorEmptyName"))
             .NotEmpty(txtNewsletterSenderName.Text, GetString("Newsletter_Edit.ErrorEmptySenderName"))
             .NotEmpty(txtNewsletterSenderEmail.Text, GetString("Newsletter_Edit.ErrorEmptySenderEmail"))
+            .NotEmpty(usTemplates.Text, GetString("newsletter_edit.noemailtemplateselected"))
             .MatchesCondition(txtNewsletterSenderEmail, input => input.IsValid(), GetString("Newsletter_Edit.ErrorEmailFormat"))
             .IsCodeName(txtNewsletterName.Text, GetString("general.invalidcodename"))
             .MatchesCondition(txtDraftEmails, input => input.IsValid(), GetString("EmailInput.ValidationError"))
@@ -491,7 +575,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configu
         pnlNewsletterSenderName.ToolTip = lblNewsletterSenderName.ToolTip = GetString("newsletter_edit.newslettersendername.description");
         pnlNewsletterSenderEmail.ToolTip = lblNewsletterSenderEmail.ToolTip = GetString("newsletter_edit.newslettersenderemail.description");
         pnlNewsletterDraftEmails.ToolTip = lblDraftEmails.ToolTip = GetString("newsletter_edit.newsletterdraftemails.description");
-        pnlNewsletterIssueTemplate.ToolTip = lblIssueTemplate.ToolTip = GetString("newsletter_edit.newslettertemplate.description");
+        pnlUsTemplates.ToolTip = lblUsTemplates.ToolTip = GetString("newsletter_edit.newslettertemplates.description");
         pnlNewsletterDynamicSubject.ToolTip = lblSubject.ToolTip = GetString("newsletter_edit.newsletterdynamicsubject.description");
         pnlNewsletterDynamicUrl.ToolTip = lblNewsletterDynamicURL.ToolTip = GetString("newsletter_edit.newsletterdynamicurl.description");
         pnlNewsletterDynamicScheduler.ToolTip = lblSchedule.ToolTip = GetString("newsletter_edit.newsletterdynamicscheduledtask.description");

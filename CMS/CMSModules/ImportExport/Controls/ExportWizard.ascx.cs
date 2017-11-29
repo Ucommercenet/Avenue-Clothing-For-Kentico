@@ -14,7 +14,6 @@ using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.IO;
 using CMS.Membership;
-using CMS.PortalEngine.Web.UI;
 using CMS.UIControls;
 
 using IOExceptions = System.IO;
@@ -347,7 +346,7 @@ public partial class CMSModules_ImportExport_Controls_ExportWizard : CMSUserCont
                     }
                 }
 
-                PortalHelper.EnsureScriptManager(Page).EnablePageMethods = true;
+                ControlsHelper.EnsureScriptManager(Page).EnablePageMethods = true;
 
                 // Javascript functions
                 string script = String.Format(

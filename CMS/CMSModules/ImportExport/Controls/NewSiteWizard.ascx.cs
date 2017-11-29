@@ -342,12 +342,14 @@ public partial class CMSModules_ImportExport_Controls_NewSiteWizard : CMSUserCon
         }
         else
         {
-            selectTemplate.StopProcessing = (!CausedPostback(PreviousButton) || (wzdImport.ActiveStepIndex != 2)) && (wzdImport.ActiveStepIndex != 1);
+            var previousButton = PreviousButton;
+            var nextButton = NextButton;
+            selectTemplate.StopProcessing = (!CausedPostback(previousButton) || (wzdImport.ActiveStepIndex != 2)) && (wzdImport.ActiveStepIndex != 1);
             selectMaster.StopProcessing = (wzdImport.ActiveStepIndex != 5);
 
-            PreviousButton.Enabled = true;
-            PreviousButton.Visible = (wzdImport.ActiveStepIndex <= 4);
-            NextButton.Enabled = true;
+            previousButton.Enabled = true;
+            previousButton.Visible = (wzdImport.ActiveStepIndex <= 4);
+            nextButton.Enabled = true;
 
             // Bind async controls events
             ctrlAsyncSelection.OnFinished += ctrlAsyncSelection_OnFinished;
@@ -401,7 +403,7 @@ function Finished(sender) {{
                 lblWarning.LabelClientID,
                 pnlError.ClientID,
                 pnlWarning.ClientID,
-                NextButton.ClientID
+                nextButton.ClientID
             );
 
             // Register the script to perform get flags for showing buttons retrieval callback
@@ -538,15 +540,16 @@ function Finished(sender) {{
                                 settings.TemporaryFilesPath = path;
                                 settings.SourceFilePath = path;
                                 settings.TemporaryFilesCreated = true;
-                                settings.RefreshMacroSecurity = true;
                             }
                             else
                             {
                                 // Init the settings
                                 settings.TemporaryFilesCreated = false;
                                 settings.SourceFilePath = Server.MapPath(wi.WebTemplateFileName);
-                                settings.RefreshMacroSecurity = true;
                             }
+
+                            settings.RefreshMacroSecurity = true;
+                            settings.IsNewSite = true;
 
                             if (!File.Exists(settings.SourceFilePath))
                             {
@@ -629,14 +632,12 @@ function Finished(sender) {{
                         settings.TemporaryFilesPath = path;
                         settings.SourceFilePath = path;
                         settings.TemporaryFilesCreated = true;
-                        settings.RefreshMacroSecurity = true;
                     }
                     else
                     {
                         // Template from folder
                         settings.TemporaryFilesCreated = false;
                         settings.SourceFilePath = path;
-                        settings.RefreshMacroSecurity = true;
                         try
                         {
                             ImportProvider.CreateTemporaryFiles(settings);
@@ -648,6 +649,9 @@ function Finished(sender) {{
                             return;
                         }
                     }
+
+                    settings.RefreshMacroSecurity = true;
+                    settings.IsNewSite = true;
 
                     // Import all, but only add new data
                     settings.ImportType = ImportTypeEnum.AllNonConflicting;
@@ -756,17 +760,8 @@ function Finished(sender) {{
                     {
                         try
                         {
-                            // Convert default culture
-                            TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
-                            tree.ChangeSiteDefaultCulture(SiteName, Culture, "en-US");
-
-                            // Change root GUID
-                            TreeNode root = DocumentHelper.GetDocument(SiteName, "/", Culture, false, SystemDocumentTypes.Root, null, null, 1, false, null, tree);
-                            if (root != null)
-                            {
-                                root.NodeGUID = Guid.NewGuid();
-                                DocumentHelper.UpdateDocument(root, tree);
-                            }
+                            // Convert default culture and change root's GUID
+                            ImportPostProcess();
                         }
                         catch (Exception ex)
                         {
@@ -852,19 +847,9 @@ function Finished(sender) {{
     {
         try
         {
-            // Convert default culture
             if (!siteType.SelectTemplate)
             {
-                TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
-                tree.ChangeSiteDefaultCulture(SiteName, Culture, "en-US");
-
-                // Change root GUID
-                TreeNode root = DocumentHelper.GetDocument(SiteName, "/", Culture, false, SystemDocumentTypes.Root, null, null, 1, false, null, tree);
-                if (root != null)
-                {
-                    root.NodeGUID = Guid.NewGuid();
-                    DocumentHelper.UpdateDocument(root, tree);
-                }
+                ImportPostProcess();
             }
         }
         catch (Exception ex)
@@ -914,7 +899,7 @@ function Finished(sender) {{
         foreach (Control control in controls)
         {
             string uniqueID = control.UniqueID;
-            bool toReturn = (Request.Form[uniqueID] != null) || ((Request.Form[Page.postEventSourceID] != null) && Request.Form[Page.postEventSourceID].EqualsCSafe(uniqueID, true)) || ((Request.Form[uniqueID + ".x"] != null) && (Request.Form[uniqueID + ".y"] != null));
+            bool toReturn = (Request.Form[uniqueID] != null) || ((Request.Form[Page.postEventSourceID] != null) && Request.Form[Page.postEventSourceID].Equals(uniqueID, StringComparison.OrdinalIgnoreCase)) || ((Request.Form[uniqueID + ".x"] != null) && (Request.Form[uniqueID + ".y"] != null));
             if (toReturn)
             {
                 return true;
@@ -1034,6 +1019,22 @@ function Finished(sender) {{
     private void ClearErrorLabel()
     {
         lblError.Text = "";
+    }
+
+
+    private void ImportPostProcess()
+    {
+        // Convert default culture
+        TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
+        tree.ChangeSiteDefaultCulture(SiteName, Culture, "en-US");
+
+        // Change root GUID
+        TreeNode root = DocumentHelper.GetDocument(SiteName, "/", Culture, false, SystemDocumentTypes.Root, null, null, 1, false, null, tree);
+        if (root != null)
+        {
+            root.NodeGUID = Guid.NewGuid();
+            DocumentHelper.UpdateDocument(root, tree);
+        }
     }
 
     #endregion

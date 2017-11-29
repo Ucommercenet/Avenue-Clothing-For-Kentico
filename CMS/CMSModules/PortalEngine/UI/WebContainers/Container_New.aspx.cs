@@ -111,7 +111,7 @@ public partial class CMSModules_PortalEngine_UI_WebContainers_Container_New : CM
             string text = txtContainerText.Text;
             string after = "";
 
-            int wpIndex = text.IndexOf(WebPartContainerInfoProvider.WP_CHAR);
+            int wpIndex = text.IndexOf(WebPartContainerInfoProvider.WP_CHAR, StringComparison.Ordinal);
             if (wpIndex >= 0)
             {
                 after = text.Substring(wpIndex + 1).Replace(WebPartContainerInfoProvider.WP_CHAR, "");

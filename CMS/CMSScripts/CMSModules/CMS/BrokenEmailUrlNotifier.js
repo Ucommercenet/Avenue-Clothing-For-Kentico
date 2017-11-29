@@ -4,7 +4,6 @@
  * @exports CMS/BrokenEmailUrlNotifier
  */
 cmsdefine(['jQuery', 'CMS/UrlChecker'], function ($, UrlChecker) {
-    'use strict';
 
     /**
      * Data for BrokenEmailUrlNotifier.

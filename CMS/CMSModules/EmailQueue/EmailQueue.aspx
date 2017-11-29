@@ -38,13 +38,13 @@
                 </div>
                 <cms:TextSimpleFilter ID="fltSubject" runat="server" Column="EmailSubject" Size="450" />
             </div>
-            <div class="form-group">
+            <asp:Panel ID="pnlBodyFilter" runat="server" class="form-group">
                 <div class="filter-form-label-cell">
                     <cms:LocalizedLabel CssClass="control-label" ID="lblBody" runat="server" EnableViewState="false" DisplayColon="true"
                         ResourceString="general.body" />
                 </div>
                 <cms:TextSimpleFilter ID="fltBody" runat="server" Column="EmailBody" />
-            </div>
+            </asp:Panel>
             <div class="form-group">
                 <div class="filter-form-label-cell">
                     <cms:LocalizedLabel CssClass="control-label" ID="lblPriority" runat="server" EnableViewState="false" DisplayColon="true"

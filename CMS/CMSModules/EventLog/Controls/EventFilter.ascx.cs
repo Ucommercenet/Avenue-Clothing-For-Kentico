@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using CMS.DataEngine;
@@ -10,14 +9,23 @@ using CMS.UIControls;
 
 public partial class CMSModules_EventLog_Controls_EventFilter : CMSAbstractBaseFilterControl
 {
-    #region "Variables"
+    #region "Properties"
 
-    private bool isAdvancedMode;
+    /// <summary>
+    /// Indicates if filter is in advanced mode.
+    /// </summary>
+    protected bool IsAdvancedMode
+    {
+        get
+        {
+            return ValidationHelper.GetBoolean(ViewState["IsAdvancedMode"], false);
+        }
+        set
+        {
+            ViewState["IsAdvancedMode"] = value;
+        }
+    }
 
-    #endregion
-
-
-    #region "Public properties"
 
     /// <summary>
     /// Gets the where condition created using filtered parameters.
@@ -38,20 +46,19 @@ public partial class CMSModules_EventLog_Controls_EventFilter : CMSAbstractBaseF
     {
         get
         {
-            EnsureFilterMode();
-
-            // Advanced mode has already been switched this postback.
-            return isAdvancedMode ? lnkShowAdvancedFilter : lnkShowSimpleFilter;
+            return lnkToggleFilter;
         }
     }
 
     #endregion
 
 
-    #region "Page methods"
+    #region "Control methods"
 
-    protected void Page_Init(object sender, EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
+        base.OnInit(e);
+
         if (!URLHelper.IsPostback())
         {
             drpEventLogType.Value = QueryHelper.GetString("type", null);
@@ -59,196 +66,19 @@ public partial class CMSModules_EventLog_Controls_EventFilter : CMSAbstractBaseF
     }
 
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected override void OnLoad(EventArgs e)
     {
-        EnsureFilterMode();
+        base.OnLoad(e);
+
         InitializeForm();
     }
 
-    #endregion
 
-
-    #region "UI methods"
-
-    /// <summary>
-    /// Shows/hides all elements for advanced or simple mode.
-    /// </summary>
-    /// <param name="showAdvanced">Whether to display advanced filter</param>
-    private void ShowFilterElements(bool showAdvanced)
+    protected override void OnPreRender(EventArgs e)
     {
-        plcAdvancedSearch.Visible = showAdvanced;
-        pnlAdvanced.Visible = showAdvanced;
-        pnlSimple.Visible = !showAdvanced;
-    }
+        base.OnPreRender(e);
 
-
-    /// <summary>
-    /// Initializes the layout of the form.
-    /// </summary>
-    private void InitializeForm()
-    {
-        // General UI
-        lnkShowAdvancedFilter.Text = GetString("general.displayadvancedfilter");
-        lnkShowSimpleFilter.Text = GetString("general.displaysimplefilter");
-        plcAdvancedSearch.Visible = isAdvancedMode;
-        pnlAdvanced.Visible = isAdvancedMode;
-        pnlSimple.Visible = !isAdvancedMode;
-
-        UniGrid grid = FilteredControl as UniGrid;
-        if (grid != null && grid.RememberState)
-        {
-            grid.RememberDefaultState = true;
-            btnReset.Text = GetString("general.reset");
-            btnReset.Click += btnReset_Click;
-        }
-        else
-        {
-            btnReset.Visible = false;
-        }
-    }
-
-
-    /// <summary>
-    /// Ensures correct filter mode flag if filter mode was just changed.
-    /// </summary>
-    private void EnsureFilterMode()
-    {
-        if (URLHelper.IsPostback())
-        {
-            // Get current event target
-            string uniqieId = ValidationHelper.GetString(Request.Params[Page.postEventSourceID], String.Empty);
-
-            // If postback was fired by mode switch, update isAdvancedMode variable
-            if (uniqieId == lnkShowAdvancedFilter.UniqueID)
-            {
-                isAdvancedMode = true;
-            }
-            else if (uniqieId == lnkShowSimpleFilter.UniqueID)
-            {
-                isAdvancedMode = false;
-            }
-            else
-            {
-                isAdvancedMode = ValidationHelper.GetBoolean(ViewState["IsAdvancedMode"], false);
-            }
-        }
-    }
-
-
-    /// <summary>
-    /// Sets the advanced mode.
-    /// </summary>
-    protected void lnkShowAdvancedFilter_Click(object sender, EventArgs e)
-    {
-        isAdvancedMode = true;
-        ViewState["IsAdvancedMode"] = isAdvancedMode;
-        ShowFilterElements(isAdvancedMode);
-    }
-
-
-    /// <summary>
-    /// Sets the simple mode.
-    /// </summary>
-    protected void lnkShowSimpleFilter_Click(object sender, EventArgs e)
-    {
-        isAdvancedMode = false;
-        ViewState["IsAdvancedMode"] = isAdvancedMode;
-        ShowFilterElements(isAdvancedMode);
-    }
-
-    #endregion
-
-
-    #region "Search methods - where condition"
-
-    /// <summary>
-    /// Generates complete filter where condition.
-    /// </summary>    
-    private string GenerateWhereCondition()
-    {
-        // Get mode from viewstate
-        EnsureFilterMode();
-
-        string whereCond = "";
-
-        // Create WHERE condition for basic filter
-        string eventType = ValidationHelper.GetString(drpEventLogType.Value, null);
-        if (!String.IsNullOrEmpty(eventType))
-        {
-            whereCond = "EventType='" + eventType + "'";
-        }
-
-        whereCond = SqlHelper.AddWhereCondition(whereCond, fltSource.GetCondition());
-        whereCond = SqlHelper.AddWhereCondition(whereCond, fltEventCode.GetCondition());
-        whereCond = SqlHelper.AddWhereCondition(whereCond, fltTimeBetween.GetCondition());
-
-        // Create WHERE condition for advanced filter (id needed)
-        if (isAdvancedMode)
-        {
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltUserName.GetCondition());
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltIPAddress.GetCondition());
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltDocumentName.GetCondition());
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltMachineName.GetCondition());
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltEventURL.GetCondition());
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltEventURLRef.GetCondition());
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltDescription.GetCondition());
-            whereCond = SqlHelper.AddWhereCondition(whereCond, fltUserAgent.GetCondition());
-        }
-
-        return whereCond;
-    }
-
-    #endregion
-
-
-    #region "State management"
-
-    /// <summary>
-    /// Stores filter state to the specified object.
-    /// </summary>
-    /// <param name="state">The object that holds the filter state.</param>
-    public override void StoreFilterState(FilterState state)
-    {
-        base.StoreFilterState(state);
-        state.AddValue("AdvancedMode", isAdvancedMode);
-        state.AddValue("TimeBetweenFrom", fltTimeBetween.ValueFromTime);
-        state.AddValue("TimeBetweenTo", fltTimeBetween.ValueToTime);
-    }
-
-
-    /// <summary>
-    /// Restores filter state from the specified object.
-    /// </summary>
-    /// <param name="state">The object that holds the filter state.</param>
-    public override void RestoreFilterState(FilterState state)
-    {
-        base.RestoreFilterState(state);
-        isAdvancedMode = state.GetBoolean("AdvancedMode");
-        ViewState["IsAdvancedMode"] = isAdvancedMode;
-        ShowFilterElements(isAdvancedMode);
-
-        fltTimeBetween.ValueFromTime = state.GetDateTime("TimeBetweenFrom");
-        fltTimeBetween.ValueToTime = state.GetDateTime("TimeBetweenTo");
-    }
-
-
-    /// <summary>
-    /// Resets filter to the default state.
-    /// </summary>
-    public override void ResetFilter()
-    {
-        drpEventLogType.Value = String.Empty;
-        fltEventCode.ResetFilter();
-        fltSource.ResetFilter();
-        fltUserName.ResetFilter();
-        fltIPAddress.ResetFilter();
-        fltDocumentName.ResetFilter();
-        fltMachineName.ResetFilter();
-        fltEventURL.ResetFilter();
-        fltEventURLRef.ResetFilter();
-        fltDescription.ResetFilter();
-        fltUserAgent.ResetFilter();
-        fltTimeBetween.Clear();
+        EnsureCorrectToggleFilterText();
     }
 
 
@@ -276,7 +106,147 @@ public partial class CMSModules_EventLog_Controls_EventFilter : CMSAbstractBaseF
             grid.ApplyFilter(sender, e);
         }
 
-        ShowFilterElements(isAdvancedMode);
+        ShowFilterElements();
     }
+
+
+    protected override void ToggleAdvancedModeButton_Click(object sender, EventArgs e)
+    {
+        IsAdvancedMode = !IsAdvancedMode;
+        ShowFilterElements();
+
+        base.ToggleAdvancedModeButton_Click(sender, e);
+    }
+
+    #endregion
+
+
+    #region "UI methods"
+
+    /// <summary>
+    /// Shows/hides all elements for advanced or simple mode.
+    /// </summary>
+    private void ShowFilterElements()
+    {
+        plcAdvancedSearch.Visible = IsAdvancedMode;
+    }
+
+
+    /// <summary>
+    /// Initializes the layout of the form.
+    /// </summary>
+    private void InitializeForm()
+    {
+        // General UI
+        ShowFilterElements();
+
+        UniGrid grid = FilteredControl as UniGrid;
+        if (grid != null && grid.RememberState)
+        {
+            grid.RememberDefaultState = true;
+        }
+        else
+        {
+            btnReset.Visible = false;
+        }
+    }
+
+
+    private void EnsureCorrectToggleFilterText()
+    {
+        lnkToggleFilter.Text = IsAdvancedMode ? GetString("general.displaysimplefilter") : GetString("general.displayadvancedfilter");
+    }
+
+    #endregion
+
+
+    #region "Search methods - where condition"
+
+    /// <summary>
+    /// Generates complete filter where condition.
+    /// </summary>    
+    private string GenerateWhereCondition()
+    {
+        string whereCond = "";
+
+        // Create WHERE condition for basic filter
+        string eventType = ValidationHelper.GetString(drpEventLogType.Value, null);
+        if (!String.IsNullOrEmpty(eventType))
+        {
+            whereCond = "EventType='" + eventType + "'";
+        }
+
+        whereCond = SqlHelper.AddWhereCondition(whereCond, fltSource.GetCondition());
+        whereCond = SqlHelper.AddWhereCondition(whereCond, fltEventCode.GetCondition());
+        whereCond = SqlHelper.AddWhereCondition(whereCond, fltTimeBetween.GetCondition());
+
+        // Create WHERE condition for advanced filter (id needed)
+        if (IsAdvancedMode)
+        {
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltUserName.GetCondition());
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltIPAddress.GetCondition());
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltDocumentName.GetCondition());
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltMachineName.GetCondition());
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltEventURL.GetCondition());
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltEventURLRef.GetCondition());
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltDescription.GetCondition());
+            whereCond = SqlHelper.AddWhereCondition(whereCond, fltUserAgent.GetCondition());
+        }
+
+        return whereCond;
+    }
+
+    #endregion
+
+
+    #region "State management"
+
+    /// <summary>
+    /// Stores filter state to the specified object.
+    /// </summary>
+    /// <param name="state">The object that holds the filter state.</param>
+    public override void StoreFilterState(FilterState state)
+    {
+        base.StoreFilterState(state);
+        state.AddValue("AdvancedMode", IsAdvancedMode);
+        state.AddValue("TimeBetweenFrom", fltTimeBetween.ValueFromTime);
+        state.AddValue("TimeBetweenTo", fltTimeBetween.ValueToTime);
+    }
+
+
+    /// <summary>
+    /// Restores filter state from the specified object.
+    /// </summary>
+    /// <param name="state">The object that holds the filter state.</param>
+    public override void RestoreFilterState(FilterState state)
+    {
+        base.RestoreFilterState(state);
+        IsAdvancedMode = state.GetBoolean("AdvancedMode");
+        ShowFilterElements();
+
+        fltTimeBetween.ValueFromTime = state.GetDateTime("TimeBetweenFrom");
+        fltTimeBetween.ValueToTime = state.GetDateTime("TimeBetweenTo");
+    }
+
+
+    /// <summary>
+    /// Resets filter to the default state.
+    /// </summary>
+    public override void ResetFilter()
+    {
+        drpEventLogType.Value = String.Empty;
+        fltEventCode.ResetFilter();
+        fltSource.ResetFilter();
+        fltUserName.ResetFilter();
+        fltIPAddress.ResetFilter();
+        fltDocumentName.ResetFilter();
+        fltMachineName.ResetFilter();
+        fltEventURL.ResetFilter();
+        fltEventURLRef.ResetFilter();
+        fltDescription.ResetFilter();
+        fltUserAgent.ResetFilter();
+        fltTimeBetween.Clear();
+    }
+
     #endregion
 }

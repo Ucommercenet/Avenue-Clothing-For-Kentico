@@ -165,6 +165,6 @@ public partial class CMSModules_Forums_Controls_SubscriptionForm : ForumViewer
 
         var forumActivityLogger = new ForumActivityLogger();
         forumActivityLogger.LogForumSubscriptionActivity(forumInfo, forumSubscriptionInfo, DocumentContext.CurrentDocument);
-        Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(forumSubscriptionInfo.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+        Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(forumSubscriptionInfo.SubscriptionEmail, MembershipContext.AuthenticatedUser);
     }
 }

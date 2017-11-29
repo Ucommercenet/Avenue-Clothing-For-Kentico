@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Globalization;
-using System.Threading;
 
 using CMS.Helpers;
 using CMS.Membership;
@@ -25,7 +23,6 @@ public partial class CMSModules_Reporting_Tools_Analytics_Print : CMSWebAnalytic
 
             // Set cultures
             SetCulture();
-            CultureInfo currentCulture = CultureHelper.GetCultureInfo(Thread.CurrentThread.CurrentUICulture.IetfLanguageTag);
 
             // Get report info
             string reportName = QueryHelper.GetString("reportname", String.Empty);
@@ -35,7 +32,7 @@ public partial class CMSModules_Reporting_Tools_Analytics_Print : CMSWebAnalytic
             {
                 // Get report parameters
                 string parameters = QueryHelper.GetString("parameters", String.Empty);
-                DataRow reportParameters = ReportHelper.GetReportParameters(report, parameters, AnalyticsHelper.PARAM_SEMICOLON, CultureHelper.EnglishCulture, currentCulture);
+                DataRow reportParameters = ReportHelper.GetReportParameters(report, parameters, AnalyticsHelper.PARAM_SEMICOLON, CultureHelper.EnglishCulture);
 
                 // Init report
                 if (reportParameters != null)
@@ -55,6 +52,8 @@ public partial class CMSModules_Reporting_Tools_Analytics_Print : CMSWebAnalytic
 
     protected override void OnLoad(EventArgs e)
     {
+        base.OnLoad(e);
+
         ManagersContainer = plcMenu;
     }
 

@@ -6,6 +6,6 @@
 
 <asp:Content ID="cntContent" ContentPlaceHolderID="plcContent" runat="server">
     <cms:CMSPanel ID="pnlContent" runat="server">
-        <cms:IssueLinks runat="server" ID="issueLinks" ShowFilter="true" IncludeWinnerStatistics="true" ShowDeleteOutdated="true" AllowHidingClickRateColumnForAbTest="true" />
+        <cms:IssueLinks runat="server" ID="issueLinks" ShowFilter="true" IncludeWinnerStatistics="true" AllowHidingClickRateColumnForAbTest="true" />
     </cms:CMSPanel>
 </asp:Content>

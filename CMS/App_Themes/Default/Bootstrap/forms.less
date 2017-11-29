@@ -384,9 +384,7 @@ select[size] {
 
     .checkbox,
     .radio,
-    .CM,
-    .FiftyOneContainer,
-    .FiftyOneFooter {
+    .CM {
         display: inline-block;
         vertical-align: top;
 
@@ -822,7 +820,7 @@ select.form-control {
         }
     }
 
-    &:not(.checkbox-no-label) {
+    &:not(.checkbox-no-label):not(.control-group-inline, .checkbox) {
         label {
             margin-right: @base-unit * 0.5;
         }
@@ -1169,23 +1167,6 @@ input:invalid {
         &:nth-child(2) {
             margin-top: @base-unit * 0.75;
         }
-    }
-}
-
-// Styles for data.com mapping form
-.data-com-mapping {
-    .country-selector {
-        div {
-            display: inline;
-        }
-    }
-
-    .editing-form-value-cell .control-group-inline-forced .control-group-inline {
-        word-spacing: 0;
-    }
-
-    .editing-form-value-cell .checkbox {
-        max-width: none;
     }
 }
 

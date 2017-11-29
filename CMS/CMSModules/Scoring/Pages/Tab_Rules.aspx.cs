@@ -35,5 +35,6 @@ public partial class CMSModules_Scoring_Pages_Tab_Rules : CMSScorePage
 
         listElem.ScoreId = scoreId;
         listElem.EditActionUrl = string.Format("Tab_Rules_Edit.aspx?scoreid={0}&ruleId={{0}}", scoreId);
+        listElem.ModuleNameForPermissionCheck = ScoreInfo.TYPEINFO.ModuleName;
     }
 }

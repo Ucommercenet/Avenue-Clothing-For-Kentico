@@ -529,7 +529,7 @@ END))
         pnlCue.Style.Add("display", "none");
         pnlCue.Style.Add("position", "absolute");
 
-        pnlLoader.Controls.Add(new LiteralControl(ScriptHelper.GetLoaderInlineHtml(Page)));
+        pnlLoader.Controls.Add(new LiteralControl(ScriptHelper.GetLoaderInlineHtml()));
     }
 
 

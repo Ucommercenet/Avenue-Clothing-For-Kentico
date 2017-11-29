@@ -9,7 +9,6 @@ using AjaxControlToolkit;
 using CMS.Base.Web.UI;
 using CMS.FormEngine.Web.UI;
 using CMS.MacroEngine;
-using CMS.PortalEngine.Web.UI;
 
 
 public partial class CMSFormControls_Basic_Slider : FormEngineUserControl
@@ -250,7 +249,7 @@ public partial class CMSFormControls_Basic_Slider : FormEngineUserControl
         base.OnInit(e);
 
         // Initialize properties
-        PortalHelper.EnsureScriptManager(Page);
+        ControlsHelper.EnsureScriptManager(Page);
     }
 
 

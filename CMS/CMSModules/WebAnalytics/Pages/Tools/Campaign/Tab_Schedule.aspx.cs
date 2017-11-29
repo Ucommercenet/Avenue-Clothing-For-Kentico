@@ -22,8 +22,8 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_Tab_Schedule :
 
     private CampaignInfo mEditedCampaign;
     private CampaignStatusEnum mCampaignStatus;
-    private readonly ICampaignScheduleService mScheduleService = Service<ICampaignScheduleService>.Entry();
-    private readonly ICampaignValidationService mValidationService = Service<ICampaignValidationService>.Entry();
+    private readonly ICampaignScheduleService mScheduleService = Service.Resolve<ICampaignScheduleService>();
+    private readonly ICampaignValidationService mValidationService = Service.Resolve<ICampaignValidationService>();
     private readonly int mSiteID = SiteContext.CurrentSiteID;
 
 

@@ -185,13 +185,6 @@ public partial class CMSModules_Membership_Pages_Users_General_User_Online : CMS
     /// </summary>
     protected void gridElem_OnBeforeDataReload()
     {
-
-        if (gridElem.QueryParameters == null)
-        {
-            gridElem.QueryParameters = new QueryDataParameters();
-        }
-        gridElem.QueryParameters.Add("@Now", DateTime.Now);
-
         bool guestByDefault = QueryHelper.GetBoolean("guest", false);
 
         if (DisplayContacts)

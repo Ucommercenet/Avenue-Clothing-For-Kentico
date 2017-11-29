@@ -1,5 +1,4 @@
 ﻿cmsdefine(['amcharts.funnel', 'amcharts.cmstheme'], function (chart) {
-    'use strict';
 
     var Module = function(config) {
         chart.makeChart(config.chartDiv, {
@@ -10,6 +9,7 @@
             valueField: "value",
             labelPosition: "right",
             marginRight: 240,
+            marginBottom: 35,
             neckWidth: "40%",
             neckHeight: "0",
             balloonText: "<span class=\"overview-funnel-balloon\">[[title]]:&nbsp;[[value]]<br>[[rateText]]</span>",

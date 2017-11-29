@@ -23,7 +23,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSel
     #region "Private variables"
 
     // Content variables
-    private string mNodeID = string.Empty;
+    private string mSelectedNodePath = string.Empty;
     protected FileSystemDialogConfiguration mConfig;
     private Hashtable mParameters;
 
@@ -101,27 +101,27 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSel
 
 
     /// <summary>
-    /// Gets or sets ID of the node selected in the content tree.
+    /// Gets or sets path of the node selected in the content tree.
     /// </summary>
-    private string NodeID
+    private string SelectedNodePath
     {
         get
         {
-            if (String.IsNullOrEmpty(mNodeID))
+            if (String.IsNullOrEmpty(mSelectedNodePath))
             {
-                mNodeID = ValidationHelper.GetString(hdnLastNodeSlected.Value, string.Empty);
+                mSelectedNodePath = ValidationHelper.GetString(hdnLastNodeSlected.Value, string.Empty);
             }
 
-            return mNodeID;
+            return mSelectedNodePath;
         }
         set
         {
-            if (!value.StartsWithCSafe(FullStartingPath, true))
+            if (!value.StartsWith(FullStartingPath, StringComparison.InvariantCultureIgnoreCase))
             {
                 value = FullStartingPath;
             }
 
-            mNodeID = value;
+            mSelectedNodePath = value;
             hdnLastNodeSlected.Value = value;
         }
     }
@@ -296,7 +296,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSel
             ColorizeRow(ItemToColorize);
         }
 
-        var path = NodeID;
+        var path = SelectedNodePath;
 
         // Display info on listing more content
         if (IsDisplayMore && !Config.ShowFolders)
@@ -537,7 +537,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
         // If no action takes place
         if ((CurrentAction == string.Empty) && (URLHelper.IsPostback()))
         {
-            fileSystemView.StartingPath = NodeID;
+            fileSystemView.StartingPath = SelectedNodePath;
         }
     }
 
@@ -614,7 +614,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
 
             case "closelisting":
                 IsDisplayMore = false;
-                HandleFolderAction(NodeID, false);
+                HandleFolderAction(SelectedNodePath, false);
                 break;
 
             case "cancelfolder":
@@ -655,7 +655,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
 
         // Load new data filtered by searched text 
         fileSystemView.SearchText = argument;
-        fileSystemView.StartingPath = NodeID;
+        fileSystemView.StartingPath = SelectedNodePath;
         // Reload content
         fileSystemView.Reload();
         pnlUpdateView.Update();
@@ -689,9 +689,10 @@ function imageEdit_FileSystemRefresh(arg){{{{
     {
         plcFolderActions.Visible = plcMenu.Visible = Config.AllowManage;
 
-        folderActions.TargetFolderPath = menuElem.TargetFolderPath = NodeID;
+        folderActions.TargetFolderPath = SelectedNodePath;
+        folderActions.FullStartingPath = FullStartingPath;
 
-        menuElem.TargetFolderPath = NodeID;
+        menuElem.TargetFolderPath = SelectedNodePath;
         menuElem.AllowedExtensions = Config.AllowedExtensions;
         menuElem.NewTextFileExtension = Config.NewTextFileExtension;
     }
@@ -704,7 +705,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
     {
         // Load new data filtered by searched text 
         fileSystemView.SearchText = LastSearchedValue;
-        fileSystemView.StartingPath = NodeID;
+        fileSystemView.StartingPath = SelectedNodePath;
 
         // Reload the file system view
         fileSystemView.Reload();
@@ -726,10 +727,10 @@ function imageEdit_FileSystemRefresh(arg){{{{
         // Fill with new info
         if (!String.IsNullOrEmpty(argument))
         {
-            NodeID = argument;
+            SelectedNodePath = argument;
         }
 
-        var path = NodeID;
+        var path = SelectedNodePath;
 
         treeFileSystem.DefaultPath = path;
         treeFileSystem.ExpandDefaultPath = true;
@@ -768,10 +769,10 @@ function imageEdit_FileSystemRefresh(arg){{{{
             if (argArr.Length >= 2)
             {
                 // Get information from argument
-                string path = argArr[0];
+                string path = Path.GetFullPath(argArr[0]);
                 bool isFile = ValidationHelper.GetBoolean(argArr[2], true);
 
-                if (path.StartsWithCSafe(NodeID, true))
+                if (path.StartsWith(FullStartingPath, StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (isFile && File.Exists(path))
                     {
@@ -789,7 +790,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
 
                 // Load new data filtered by searched text 
                 fileSystemView.SearchText = LastSearchedValue;
-                fileSystemView.StartingPath = NodeID;
+                fileSystemView.StartingPath = SelectedNodePath;
 
                 // Reload the file system view
                 fileSystemView.Reload();
@@ -813,7 +814,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
     /// <param name="forceReload">Indicates if load should be forced</param>
     private void HandleFolderAction(string argument, bool forceReload)
     {
-        NodeID = ValidationHelper.GetString(argument, string.Empty);
+        SelectedNodePath = ValidationHelper.GetString(argument, string.Empty);
 
         // Reload content tree if necessary
         if (forceReload)
@@ -821,7 +822,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
             InitializeFileSystemTree();
 
             // Fill with new info
-            treeFileSystem.DefaultPath = NodeID;
+            treeFileSystem.DefaultPath = SelectedNodePath;
             treeFileSystem.ExpandDefaultPath = true;
 
             treeFileSystem.ReloadData();
@@ -833,12 +834,12 @@ function imageEdit_FileSystemRefresh(arg){{{{
         ColorizeLastSelectedRow();
 
         // Get parent node ID info
-        string parentId = string.Empty;
-        if (FullStartingPath.ToLowerCSafe() != NodeID.ToLowerCSafe())
+        string parentPath = string.Empty;
+        if (!string.Equals(FullStartingPath, SelectedNodePath, StringComparison.InvariantCultureIgnoreCase))
         {
             try
             {
-                parentId = (DirectoryInfo.New(NodeID)).Parent.FullName;
+                parentPath = DirectoryInfo.New(SelectedNodePath).Parent.FullName;
             }
             // Access denied to parent
             catch (SecurityException)
@@ -846,18 +847,18 @@ function imageEdit_FileSystemRefresh(arg){{{{
             }
         }
 
-        menuElem.ShowParentButton = !String.IsNullOrEmpty(parentId);
-        menuElem.NodeParentID = parentId;
+        menuElem.ShowParentButton = !String.IsNullOrEmpty(parentPath);
+        menuElem.NodeParentPath = parentPath;
 
         fileSystemView.Config = Config;
 
         // Load new data
-        if ((Config.ShowFolders) && (NodeID.LastIndexOfCSafe('\\') != -1))
+        if ((Config.ShowFolders) && (SelectedNodePath.LastIndexOf("\\", StringComparison.Ordinal) != -1))
         {
-            fileSystemView.StartingPath = NodeID.Substring(0, argument.LastIndexOfCSafe('\\') + 1);
+            fileSystemView.StartingPath = SelectedNodePath.Substring(0, argument.LastIndexOf("\\", StringComparison.Ordinal) + 1);
         }
         
-        fileSystemView.StartingPath = NodeID;
+        fileSystemView.StartingPath = SelectedNodePath;
 
         // Set the editing possibilities
         var canEdit = !StorageHelper.IsZippedFilePath(fileSystemView.StartingPath);
@@ -1008,7 +1009,7 @@ function imageEdit_FileSystemRefresh(arg){{{{
         pnlUpdateProperties.Update();
 
         // Remember item to colorize
-        ItemToColorize = NodeID.Replace("\\", "\\\\").Replace("'", "\\'");
+        ItemToColorize = SelectedNodePath.Replace("\\", "\\\\").Replace("'", "\\'");
     }
 
 

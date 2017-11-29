@@ -39,7 +39,7 @@ public partial class CMSModules_SystemTables_Pages_Development_Views_Views_List 
     {
         if (e.CommandName == "refreshallviews")
         {
-            lstSQL.RefresViews();
+            lstSQL.RefreshAllViews();
             ShowConfirmation(GetString("systbl.views.allviewsrefreshed"));
         }
     }

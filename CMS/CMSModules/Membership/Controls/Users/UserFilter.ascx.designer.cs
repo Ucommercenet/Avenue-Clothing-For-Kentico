@@ -54,7 +54,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.LinkButton lnkShowAdvancedFilter;
+    protected global::CMS.Base.Web.UI.LocalizedLinkButton lnkShowAdvancedFilter;
     
     /// <summary>
     /// btnReset control.
@@ -486,7 +486,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.LinkButton lnkShowSimpleFilter;
+    protected global::CMS.Base.Web.UI.LocalizedLinkButton lnkShowSimpleFilter;
     
     /// <summary>
     /// btnAdvancedReset control.

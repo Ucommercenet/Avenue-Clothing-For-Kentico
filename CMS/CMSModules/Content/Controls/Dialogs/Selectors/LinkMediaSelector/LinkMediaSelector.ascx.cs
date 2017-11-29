@@ -1167,14 +1167,9 @@ function RaiseHiddenPostBack(){{
                 return;
             }
 
-            if ((SelectableContent == SelectableContentEnum.OnlyFlash) && !MediaHelper.IsFlash(ext))
-            {
-                return;
-            }
-
             if (SelectableContent == SelectableContentEnum.OnlyMedia)
             {
-                var isMedia = ImageHelper.IsImage(ext) || MediaHelper.IsAudio(ext) || MediaHelper.IsAudioVideo(ext) || MediaHelper.IsVideo(ext) || MediaHelper.IsFlash(ext);
+                var isMedia = ImageHelper.IsImage(ext) || MediaHelper.IsAudioVideo(ext);
                 if (!isMedia)
                 {
                     return;

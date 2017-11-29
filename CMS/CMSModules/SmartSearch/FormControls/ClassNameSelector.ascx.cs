@@ -10,8 +10,6 @@ public partial class CMSModules_SmartSearch_FormControls_ClassNameSelector : For
     #region "Variables"
 
     private bool dataLoaded = false;
-    private bool mExcludeSmartSearchClassNames = false;
-    private bool whereConditionApplied = false;
     private bool mShowPleaseSelect = false;
 
     #endregion
@@ -102,21 +100,6 @@ public partial class CMSModules_SmartSearch_FormControls_ClassNameSelector : For
     }
 
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the classes which have their special smart search index type should be excluded from the uni selector.
-    /// </summary>
-    public bool ExcludeSmartSearchClassNames
-    {
-        get
-        {
-            return mExcludeSmartSearchClassNames;
-        }
-        set
-        {
-            mExcludeSmartSearchClassNames = value;
-        }
-    }
-
     #endregion
 
 
@@ -137,19 +120,12 @@ public partial class CMSModules_SmartSearch_FormControls_ClassNameSelector : For
     /// </summary>
     public void Reload(bool forceReload)
     {
-        if ((!dataLoaded) || forceReload)
+        if (!dataLoaded || forceReload)
         {
-            // Filter displayed class names
-            if ((ExcludeSmartSearchClassNames) || (!whereConditionApplied))
-            {
-                selObjects.WhereCondition = SqlHelper.AddWhereCondition(selObjects.WhereCondition, "(ClassIsDocumentType = 0) AND (ClassIsCustomTable = 0) AND (ClassIsCoupledClass = 1) AND (ClassSearchEnabled = 1 OR ClassSearchEnabled IS NULL) AND (ClassName NOT LIKE 'BizForm.%') AND (ClassName NOT LIKE 'cms.document%') AND (ClassName NOT LIKE 'Forums.%') AND (ClassName NOT LIKE 'cms.user%') AND (ClassName NOT LIKE 'customtable.%')");
-                whereConditionApplied = true;
-            }
-
             // Add "Please select" item into the drop down list
             if (ShowPleaseSelect)
             {
-                selObjects.SpecialFields.Add(new SpecialField() { Text = GetString("general.pleaseselect"), Value = String.Empty }); 
+                selObjects.SpecialFields.Add(new SpecialField { Text = GetString("general.pleaseselect"), Value = String.Empty }); 
             }
 
             // Reload the uniSelector

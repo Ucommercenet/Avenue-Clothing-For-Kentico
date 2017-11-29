@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using CMS.Activities.Loggers;
 using CMS.Base;
 using CMS.Base.Web.UI;
+using CMS.ContactManagement;
 using CMS.Core;
 using CMS.DataEngine;
 using CMS.DocumentEngine;
@@ -545,7 +546,7 @@ public partial class CMSWebParts_Membership_Registration_CustomRegistrationForm 
                 formUser.OnAfterSave += formUser_OnAfterSave;
 
                 // Reload form if not in PortalEngine environment and if post back
-                if ((StandAlone) && (RequestHelper.IsPostBack()))
+                if (StandAlone)
                 {
                     formUser.ReloadData();
                 }
@@ -709,7 +710,7 @@ public partial class CMSWebParts_Membership_Registration_CustomRegistrationForm 
 
         ui.Enabled = EnableUserAfterRegistration;
         ui.UserURLReferrer = CookieHelper.GetValue(CookieName.UrlReferrer);
-        ui.UserCampaign = Service<ICampaignService>.Entry().CampaignCode;
+        ui.UserCampaign = Service.Resolve<ICampaignService>().CampaignCode;
 
         ui.SiteIndependentPrivilegeLevel = UserPrivilegeLevelEnum.None;
 
@@ -805,7 +806,7 @@ public partial class CMSWebParts_Membership_Registration_CustomRegistrationForm 
         // Track successful registration conversion
         if (TrackConversionName != String.Empty)
         {
-            if (AnalyticsHelper.AnalyticsEnabled(CurrentSiteName) && !AnalyticsHelper.IsIPExcluded(CurrentSiteName, RequestContext.UserHostAddress))
+            if (AnalyticsHelper.AnalyticsEnabled(CurrentSiteName) && Service.Resolve<IAnalyticsConsentProvider>().HasConsentForLogging() && !AnalyticsHelper.IsIPExcluded(CurrentSiteName, RequestContext.UserHostAddress))
             {
                 HitLogProvider.LogConversions(CurrentSiteName, LocalizationContext.PreferredCultureCode, TrackConversionName, 0, ConversionValue);
             }
@@ -912,7 +913,8 @@ public partial class CMSWebParts_Membership_Registration_CustomRegistrationForm 
             int contactId = ModuleCommands.OnlineMarketingGetCurrentContactID();
             if (contactId > 0)
             {
-                ModuleCommands.OnlineMarketingCreateRelation(ui.UserID, MembershipType.CMS_USER, contactId);
+                var checker = new UserContactDataPropagationChecker();
+                Service.Resolve<IContactRelationAssigner>().Assign(ui.UserID, MembershipType.CMS_USER, contactId, checker);
             }
 
             try

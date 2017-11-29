@@ -65,7 +65,7 @@
                     <asp:Label ID="lblSubjectValue" CssClass="form-control-text" runat="server" EnableViewState="false" />
                 </div>
             </div>
-            <div class="form-group">
+            <asp:Panel id="pnlBody" CssClass="form-group" runat="server">
                 <div class="editing-form-label-cell">
                     <cms:LocalizedLabel CssClass="control-label" ID="lblBody" runat="server" ResourceString="emailqueue.detail.body"
                         DisplayColon="true" EnableViewState="false" />
@@ -75,8 +75,8 @@
                     <cms:CMSHtmlEditor ID="htmlTemplateBody" runat="server" Width="770px" Height="300px"
                         Visible="false" Enabled="false" ToolbarSet="Disabled" />
                 </div>
-            </div>
-            <asp:PlaceHolder ID="plcAttachments" runat="server">
+            </asp:Panel>
+            <asp:PlaceHolder ID="plcAttachments" runat="server" Visible="false">
                 <div class="form-group">
                     <div class="editing-form-label-cell">
                         <cms:LocalizedLabel CssClass="control-label" ID="lblAttachments" runat="server" ResourceString="emailqueue.detail.attachments"

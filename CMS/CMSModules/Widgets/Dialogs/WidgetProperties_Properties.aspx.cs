@@ -45,6 +45,9 @@ public partial class CMSModules_Widgets_Dialogs_WidgetProperties_Properties : CM
         widgetProperties.IsLiveSite = false;
         widgetProperties.CurrentPageInfo = PageInfo;
 
+        // Register the OnNotAllowed event handler
+        widgetProperties.OnNotAllowed += widgetProperties_OnNotAllowed;
+
         widgetProperties.LoadData();
     }
 
@@ -61,8 +64,6 @@ public partial class CMSModules_Widgets_Dialogs_WidgetProperties_Properties : CM
 
         // Setup the current document
         EditedDocument = Node;
-
-        widgetProperties.OnNotAllowed += widgetProperties_OnNotAllowed;
 
         // Register the OnSave event handler
         FramesManager.OnSave += (sender, arg) => { return widgetProperties.OnSave(); };

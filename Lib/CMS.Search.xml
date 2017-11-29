@@ -6,17 +6,22 @@
     <members>
         <member name="T:CMS.Search.SearchEvents">
             <summary>
-            Staging events
+            Search events.
             </summary>
         </member>
         <member name="F:CMS.Search.SearchEvents.Search">
             <summary>
-            Fires when the Smart search searches the results
+            Fires when the Smart search searches the results.
+            </summary>
+        </member>
+        <member name="F:CMS.Search.SearchEvents.SearchTaskCreationHandler">
+            <summary>
+            Fires when the search task is going to be created.
             </summary>
         </member>
         <member name="T:CMS.Search.SearchEventArgs">
             <summary>
-            Synchronization event arguments
+            Search event arguments
             </summary>
         </member>
         <member name="P:CMS.Search.SearchEventArgs.Parameters">
@@ -40,6 +45,27 @@
             </summary>
             <param name="parameters">Search parameters</param>
             <param name="results">Search results</param>
+        </member>
+        <member name="T:CMS.Search.SearchTaskCreationEventArgs">
+            <summary>
+            Arguments for event fired when new search task is going to be created.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchTaskCreationEventArgs.Parameters">
+            <summary>
+            Collection of <see cref="T:CMS.Search.SearchTaskCreationParameters"/> that are used for creating search tasks.
+            </summary>
+        </member>
+        <member name="T:CMS.Search.SearchTaskCreationHandler">
+            <summary>
+            Handler which belongs to an event that is fired when new search task is going to be created.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchTaskCreationHandler.StartEvent(System.Collections.Generic.ICollection{CMS.Search.SearchTaskCreationParameters})">
+            <summary>
+            Initiates the event handling.
+            </summary>
+            <param name="parameters">Collection of search task creation parameters.</param>
         </member>
         <member name="T:CMS.Search.SearchMacroMethods">
             <summary>
@@ -66,18 +92,6 @@
         <member name="T:CMS.Search.SearchContext">
             <summary>
             Search context.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchContext.GetSearchValue(System.String,System.String)">
-            <summary>
-            Returns column value for current search result item.
-            </summary>
-            <param name="id">ID of the item</param>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="M:CMS.Search.SearchContext.CloneForNewThread">
-            <summary>
-            Clones the object for new thread
             </summary>
         </member>
         <member name="P:CMS.Search.SearchContext.IsCrawler">
@@ -125,6 +139,18 @@
             Gets the regular expression specified for highlighting.
             </summary>
         </member>
+        <member name="M:CMS.Search.SearchContext.GetSearchValue(System.String,System.String)">
+            <summary>
+            Returns column value for current search result item.
+            </summary>
+            <param name="id">ID of the item</param>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.Search.SearchContext.CloneForNewThread">
+            <summary>
+            Clones the object for new thread
+            </summary>
+        </member>
         <member name="T:CMS.Search.ExportSpecialActions">
             <summary>
             Handles special actions during the export process.
@@ -145,6 +171,11 @@
             Initializes import handlers
             </summary>
         </member>
+        <member name="M:CMS.Search.ImportSpecialActions.RemoveObsoleteSearchSettings(System.Object,CMS.CMSImportExport.ImportEventArgs)">
+            <summary>
+            Makes sure that search settings are consistent with object definition.
+            </summary>
+        </member>
         <member name="T:CMS.Search.SearchModuleMetadata">
             <summary>
             Represents the Search module metadata.
@@ -158,6 +189,11 @@
         <member name="T:CMS.Search.SearchSynchronization">
             <summary>
             Web farm synchronization for Forums
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchSynchronization.SynchronizeSmartSearch">
+            <summary>
+            Gets or sets value that indicates whether smart search synchronization is enabled.
             </summary>
         </member>
         <member name="M:CMS.Search.SearchSynchronization.Init">
@@ -186,11 +222,6 @@
             <param name="data">Task data</param>
             <param name="binaryData">Task binary data</param>
         </member>
-        <member name="P:CMS.Search.SearchSynchronization.SynchronizeSmartSearch">
-            <summary>
-            Gets or sets value that indicates whether smart search synchronization is enabled.
-            </summary>
-        </member>
         <member name="T:CMS.Search.SearchModule">
             <summary>
             Represents the Search module.
@@ -204,6 +235,16 @@
         <member name="M:CMS.Search.SearchModule.OnInit">
             <summary>
             Initializes the module
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchModule.IsContentField(System.Object,CMS.DataEngine.IsContentFieldEventArgs)">
+            <summary>
+            Performs detection of content field for local (Lucene) indexes and for index agnostic detection.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchModule.IsIndexField(System.Object,CMS.DataEngine.IsIndexFieldEventArgs)">
+            <summary>
+            Performs detection of field to be included as dedicated index field for local (Lucene) indexes and for index agnostic detection.
             </summary>
         </member>
         <member name="T:CMS.Search.SearchHandlers">
@@ -261,70 +302,25 @@
             Base class for search value converter
             </summary>
         </member>
-        <member name="T:CMS.Search.ISearchValueConverter">
+        <member name="P:CMS.Search.AbstractSearchValueConverter.IntReplacerRegex">
             <summary>
-            Base class for search value converter
+            Gets the integer replacer regular expression.
             </summary>
         </member>
-        <member name="M:CMS.Search.ISearchValueConverter.ConvertToString(System.Object)">
+        <member name="P:CMS.Search.AbstractSearchValueConverter.DoubleReplacerRegex">
             <summary>
-            Converts the 
+            Gets the double replacer regular expression.
             </summary>
-            <param name="value">Value to convert</param>
         </member>
-        <member name="M:CMS.Search.ISearchValueConverter.ReplaceNumbers(System.String)">
+        <member name="P:CMS.Search.AbstractSearchValueConverter.DecimalReplacerRegex">
             <summary>
-            Replaces the number expressions within the given condition
+            Gets the decimal replacer regular expression.
             </summary>
-            <param name="condition">Condition to process</param>
         </member>
-        <member name="M:CMS.Search.ISearchValueConverter.IntToString(System.Int32)">
+        <member name="P:CMS.Search.AbstractSearchValueConverter.Culture">
             <summary>
-            Returns string representation of the integer value. Returned value has always uniform format.
+            Culture used to convert numbers to string and vice versa. 
             </summary>
-            <param name="value">Integer value</param>
-        </member>
-        <member name="M:CMS.Search.ISearchValueConverter.StringToInt(System.String)">
-            <summary>
-            Converts search string to the integer value.
-            </summary>
-            <param name="value">String representation of integer</param>
-        </member>
-        <member name="M:CMS.Search.ISearchValueConverter.DoubleToString(System.Double)">
-            <summary>
-            Returns string representation of the double value. Returned value has always uniform format.
-            </summary>
-            <param name="value">Double value</param>
-        </member>
-        <member name="M:CMS.Search.ISearchValueConverter.StringToDouble(System.String)">
-            <summary>
-            Converts search string to the integer value.
-            </summary>
-            <param name="value">String representation of double</param>
-        </member>
-        <member name="M:CMS.Search.ISearchValueConverter.DecimalToString(System.Decimal)">
-            <summary>
-            Returns string representation of the decimal value.
-            </summary>
-            <param name="value">Decimal value</param>
-        </member>
-        <member name="M:CMS.Search.ISearchValueConverter.StringToDecimal(System.String)">
-            <summary>
-            Converts search string to the decimal value.
-            </summary>
-            <param name="value">String representation of decimal</param>
-        </member>
-        <member name="M:CMS.Search.ISearchValueConverter.StringToDate(System.String)">
-            <summary>
-            Converts the string representation of the date time from searched document to a date time
-            </summary>
-            <param name="input">Input string</param>
-        </member>
-        <member name="M:CMS.Search.ISearchValueConverter.DateToString(System.DateTime)">
-            <summary>
-            Converts the date time from to its string representation
-            </summary>
-            <param name="input">Input date</param>
         </member>
         <member name="M:CMS.Search.AbstractSearchValueConverter.ConvertToString(System.Object)">
             <summary>
@@ -404,44 +400,11 @@
             </summary>
             <param name="input">Input date</param>
         </member>
-        <member name="P:CMS.Search.AbstractSearchValueConverter.IntReplacerRegex">
-            <summary>
-            Gets the integer replacer regular expression.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.AbstractSearchValueConverter.DoubleReplacerRegex">
-            <summary>
-            Gets the double replacer regular expression.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.AbstractSearchValueConverter.DecimalReplacerRegex">
-            <summary>
-            Gets the decimal replacer regular expression.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.AbstractSearchValueConverter.Culture">
-            <summary>
-            Culture used to convert numbers to string and vice versa. 
-            </summary>
-        </member>
         <member name="T:CMS.Search.DocumentSearchCondition">
             <summary>
             Specifies parameters for document search condition
             </summary>
-        </member>
-        <member name="M:CMS.Search.DocumentSearchCondition.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:CMS.Search.DocumentSearchCondition.#ctor(System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="classNames">Class names to include in the search</param>
-            <param name="culture">Culture to search</param>
-            <param name="defaultCulture">Default culture</param>
-            <param name="combineWithDefaultCulture">Combine with default culture</param>
+            <seealso cref="T:CMS.Search.SearchCondition"/>
         </member>
         <member name="P:CMS.Search.DocumentSearchCondition.ClassNames">
             <summary>
@@ -462,6 +425,20 @@
             <summary>
             Combine with default culture. Default false
             </summary>
+        </member>
+        <member name="M:CMS.Search.DocumentSearchCondition.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.Search.DocumentSearchCondition.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="classNames">Class names to include in the search</param>
+            <param name="culture">Culture to search</param>
+            <param name="defaultCulture">Default culture</param>
+            <param name="combineWithDefaultCulture">Combine with default culture</param>
         </member>
         <member name="T:CMS.Search.SearchModeEnum">
             <summary>
@@ -503,6 +480,32 @@
             Search current section.
             </summary>
         </member>
+        <member name="T:CMS.Search.CreateDefaultSearchSettingsEventArgs">
+            <summary>
+            Arguments of event represented by <see cref="T:CMS.Search.CreateDefaultSearchSettingsHandler"/>.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.CreateDefaultSearchSettingsEventArgs.SearchSettings">
+            <summary>
+            Search settings object being created.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.CreateDefaultSearchSettingsEventArgs.Name">
+            <summary>
+            Name of column the <see cref="P:CMS.Search.CreateDefaultSearchSettingsEventArgs.SearchSettings"/> is being created for.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.CreateDefaultSearchSettingsEventArgs.DataType">
+            <summary>
+            Data type of the column.
+            </summary>
+        </member>
+        <member name="T:CMS.Search.CreateDefaultSearchSettingsHandler">
+            <summary>
+            Handler for event raised when default search field settings is being created.
+            </summary>
+            <seealso cref="M:CMS.Search.SearchHelper.CreateDefaultSearchSettings(System.String,System.Type)"/>
+        </member>
         <member name="T:CMS.Search.SearchException">
             <summary>
             Base for exceptions thrown during smart search operations.  
@@ -531,6 +534,16 @@
             Exception thrown during smart search operations on indexes.  
             </summary>
         </member>
+        <member name="P:CMS.Search.SearchIndexException.SearchIndexInfo">
+            <summary>
+            Search index info
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexException.Message">
+            <summary>
+            Exception message
+            </summary>
+        </member>
         <member name="M:CMS.Search.SearchIndexException.#ctor(CMS.DataEngine.ISearchIndexInfo)">
             <summary>
             Contructor
@@ -551,68 +564,6 @@
             <param name="indexInfo">Search index info</param>
             <param name="message">Exception message</param>
             <param name="innerException">Exception that caused the current exception</param>
-        </member>
-        <member name="P:CMS.Search.SearchIndexException.SearchIndexInfo">
-            <summary>
-            Search index info
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexException.Message">
-            <summary>
-            Exception message
-            </summary>
-        </member>
-        <member name="T:CMS.Search.SearchField">
-            <summary>
-            Represents search field
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchField.Init(System.String,System.Boolean,System.Boolean,System.Object,System.Nullable{CMS.DataEngine.SearchAnalyzerTypeEnum})">
-            <summary>
-            Initializes object values.
-            </summary>
-            <param name="fieldName">Field name</param>
-            <param name="searchable">Indicates if the search is enabled for this field</param>
-            <param name="tokenizable">Indicates if field will be tokenized (processed by the analyzer)</param>
-            <param name="value">Field value</param>
-            <param name="analyzer">Explicit analyzer to process search field's value</param>
-        </member>
-        <member name="M:CMS.Search.SearchField.ToString">
-            <summary>
-            Converts this piece of data into a string.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchField.FieldName">
-            <summary>
-            Name of the field.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchField.Tokenized">
-            <summary>
-            True when field is tokenizable (analyzer is used to process it's value).
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchField.Analyzer">
-            <summary>
-            Explicit analyzer to process search field's value. 
-            When null default analyzer is used based on search index configuration. 
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchField.Searchable">
-            <summary>
-            True when field is marked as searchable.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchField.Value">
-            <summary>
-            Field value. May be null when field is not initialized with it's value.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchField.InsertDirectly">
-            <summary>
-            When field is marked to be insert directly, it will not be processed before it's inserted into search document. 
-            Will not be passed to SearchHelper.AddGeneralField method.
-            </summary>
         </member>
         <member name="T:CMS.Search.Internal.FileLock">
             <summary>
@@ -641,40 +592,161 @@
             Releases file lock.
             </summary>
         </member>
-        <member name="T:CMS.Search.SearchDocumentParameters">
+        <member name="T:CMS.Search.Internal.SearchablesRetriever">
             <summary>
-            Parameters used to create new ISearchDocument
+            Helps with retrieving <see cref="T:CMS.DataEngine.ISearchable"/> objects and <see cref="T:CMS.Search.SearchIndexInfo"/>s
+            related to search tasks.
+            </summary>
+            <seealso cref="M:CMS.Search.Internal.SearchablesRetrievers.Register``1(System.String)"/>
+        </member>
+        <member name="P:CMS.Search.Internal.SearchablesRetriever.Logger">
+            <summary>
+            Logs progress of a search task.
             </summary>
         </member>
-        <member name="P:CMS.Search.SearchDocumentParameters.Index">
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.GetRelevantIndexes(System.String,System.String,System.String)">
             <summary>
-            Index the documents belongs to. Null when document is not result of index search. 
+            Gets relevant indexes for given <paramref name="objectType"/>, <paramref name="siteName"/> and <paramref name="searchProvider"/>.
+            </summary>
+            <param name="objectType">Defines object type that index should cover.</param>
+            <param name="siteName">Only indexes on given site are checked. If not specified then indexes through all sites are checked if they are relevant.</param>
+            <param name="searchProvider">
+            Defines search provider for which to return relevant indexes.
+            If not defined then indexes for all search providers are returned.
+            </param>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.GetRelevantIndexes(CMS.DataEngine.ISearchable,System.String)">
+            <summary>
+            Gets the list of indexes relevant to the given object.
+            </summary>
+            <param name="searchObject">Search object.</param>
+            <param name="searchProvider">
+            Defines search provider for which to return relevant indexes.
+            If not defined then indexes for all search providers are returned.
+            </param>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/>   
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.GetRelevantIndexes(System.String,System.String)">
+            <summary>
+            Returns dataset of index IDs for specific type.
+            </summary>
+            <param name="taskType">Task type.</param>
+            <param name="searchProvider">
+            Defines search provider for which to return relevant indexes.
+            If not defined then indexes for all search providers are returned.
+            </param>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.IsObjectTypeIndexed(CMS.Search.SearchIndexInfo,System.String)">
+            <summary>
+            Indicates whether <paramref name="objectType"/> is to be included in <paramref name="index"/>.
+            </summary>
+            <param name="index">Index for which to perform the test.</param>
+            <param name="objectType">Object type whose presence in <paramref name="index"/> to test.</param>
+            <returns>True if <paramref name="objectType"/> is to be included in <paramref name="index"/> based on index settings, otherwise false.</returns>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.GetSearchableObject(CMS.Search.SearchIndexInfo,System.String,System.String,System.String)">
+            <summary>
+            Returns <see cref="T:CMS.DataEngine.ISearchable"/> object for given <paramref name="index"/>
+            that satisfies conditions given by <paramref name="objectType"/>, <paramref name="value"/> and <paramref name="field"/>.
+            Returns null if no <see cref="T:CMS.DataEngine.ISearchable"/> object satisfies given conditions.
+            </summary>
+            <param name="index">Index for which to return <see cref="T:CMS.DataEngine.ISearchable"/> object.</param>
+            <param name="objectType">Returned <see cref="T:CMS.DataEngine.ISearchable"/> object with given <paramref name="objectType"/>.</param>
+            <param name="value">Returned <see cref="T:CMS.DataEngine.ISearchable"/> object with given <paramref name="value"/> in given <paramref name="field"/>.</param>
+            <param name="field">Defines where to find <paramref name="value"/> and in what form to expect given data for a <see cref="T:CMS.DataEngine.ISearchable"/> object.</param>
+            <seealso cref="M:CMS.Search.Internal.SearchablesRetriever.IsObjectTypeIndexed(CMS.Search.SearchIndexInfo,System.String)"/>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.GetSearchableObjects(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Returns collection of all <see cref="T:CMS.DataEngine.ISearchable"/> objects for given <paramref name="indexInfo"/>.
+            </summary>
+            <param name="indexInfo"><see cref="T:CMS.Search.SearchIndexInfo"/> for which to return collection of <see cref="T:CMS.DataEngine.ISearchable"/>s.</param>
+            <seealso cref="M:CMS.DataEngine.ISearchable.GetSearchDocument(CMS.DataEngine.ISearchIndexInfo)"/>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.GetObjectID(System.String,System.String@)">
+            <summary>
+            Returns object ID from potentially compound ID (Id;objecttype in case of BizForms).
+            </summary>
+            <param name="itemId">Object ID</param>
+            <param name="objectType">Object type received from compound key</param>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.GetObjectID(System.String)">
+            <summary>
+            Returns object ID from potentially compound ID.
+            </summary>
+            <param name="itemId">Object ID</param>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetriever.LogFormBatchStart(System.Int32,System.Int32,System.String)">
+            <summary>
+            Logs start of batch processing. 
+            </summary>
+            <param name="batchNumber">Number of batch.</param>
+            <param name="lastID">ID of last item that is not present in the batch.</param>
+            <param name="formDisplayName">Form name</param>
+        </member>
+        <member name="T:CMS.Search.Internal.SearchablesRetrievers">
+            <summary>
+            Manages searchables retrievers used for specific object type.
             </summary>
         </member>
-        <member name="P:CMS.Search.SearchDocumentParameters.Type">
+        <member name="M:CMS.Search.Internal.SearchablesRetrievers.Register``1(System.String)">
             <summary>
-            Type of document
+            Registers given searchables retriever for the specific object type.
+            </summary>
+            <param name="objectType">Object type.</param>
+        </member>
+        <member name="M:CMS.Search.Internal.SearchablesRetrievers.Get(System.String)">
+            <summary>
+            Gets searchables retriever related to given <paramref name="objectType"/>.
+            </summary>
+            <param name="objectType">Object type.</param>
+        </member>
+        <member name="T:CMS.Search.Internal.IndexLogger">
+            <summary>
+            Class encapsulates logic to log actions related to indexes and search tasks.
             </summary>
         </member>
-        <member name="P:CMS.Search.SearchDocumentParameters.Id">
+        <member name="M:CMS.Search.Internal.IndexLogger.LogTaskStart(CMS.Search.SearchTaskInfo)">
             <summary>
-            ID value
+            Logs task started message to the log context. 
             </summary>
+            <param name="taskInfo"></param>
         </member>
-        <member name="P:CMS.Search.SearchDocumentParameters.Created">
+        <member name="M:CMS.Search.Internal.IndexLogger.LogBatchStart(System.Int32,System.Int32)">
             <summary>
-            Document created
+            Logs the start of batch processing. 
             </summary>
+            <param name="batchNumber">Number of batch</param>
+            <param name="lastID">ID of last item that is not present in the batch</param>
         </member>
-        <member name="P:CMS.Search.SearchDocumentParameters.SiteName">
+        <member name="M:CMS.Search.Internal.IndexLogger.LogBatchEnd(System.Int32)">
             <summary>
-            Site name
+            Logs the end of the batch processing.
             </summary>
+            <param name="itemsCount"></param>
         </member>
-        <member name="P:CMS.Search.SearchDocumentParameters.Culture">
+        <member name="M:CMS.Search.Internal.IndexLogger.LogBatchStart(System.Int32,System.Int32,System.String)">
             <summary>
-            Document culture
+            Logs start of batch processing. 
             </summary>
+            <param name="batchNumber">Number of batch.</param>
+            <param name="lastID">ID of last item that is not present in the batch.</param>
+            <param name="objectType">Object type of processed objects</param>
+        </member>
+        <member name="M:CMS.Search.Internal.IndexLogger.LogCustomTableBatchStart(System.Int32,System.Int32,System.String)">
+            <summary>
+            Logs start of batch processing. 
+            </summary>
+            <param name="batchNumber">Number of batch.</param>
+            <param name="lastID">ID of last item that is not present in the batch.</param>
+            <param name="tableName">Code name of the table of processed objects</param>
+        </member>
+        <member name="M:CMS.Search.Internal.IndexLogger.LogMessage(System.String)">
+            <summary>
+            Appends line to the log context. 
+            </summary>
+            <param name="message"></param>
         </member>
         <member name="T:CMS.Search.ExtractionContext">
             <summary>
@@ -736,6 +808,115 @@
             Returns list of the extensions (separated by comma and space) for which there is a content extractor registered in the system.
             </summary>
         </member>
+        <member name="T:CMS.Search.IIndexStatistics">
+            <summary>
+            Encapsulates statistics of an index.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.IIndexStatistics.DocumentCount">
+            <summary>
+            Gets the number of indexed documents.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.IIndexStatistics.Size">
+            <summary>
+            Gets the index size in bytes.
+            </summary>
+        </member>
+        <member name="T:CMS.Search.IIndexStatisticsProvider">
+            <summary>
+            Denotes class providing index statistics.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.IIndexStatisticsProvider.GetStatistics(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Gets statistics of an index.
+            </summary>
+            <param name="indexInfo">Index to retrieve statistics for.</param>
+            <returns>Statistics of given index, or null when statistics are not available.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="indexInfo"/> is null.</exception>
+        </member>
+        <member name="T:CMS.Search.IndexStatisticsProviders">
+            <summary>
+            Maintains registered <see cref="T:CMS.Search.IIndexStatisticsProvider"/>s.
+            </summary>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/>
+        </member>
+        <member name="P:CMS.Search.IndexStatisticsProviders.Instance">
+            <summary>
+            Gets the <see cref="T:CMS.Search.IndexStatisticsProviders"/> instance.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.IndexStatisticsProviders.Register(System.String,CMS.Search.IIndexStatisticsProvider)">
+            <summary>
+            Registers a new <see cref="T:CMS.Search.IIndexStatisticsProvider"/> for given <paramref name="indexProviderName"/>, or overwrites an existing one.
+            </summary>
+            <param name="indexProviderName">Name of index provider for which statistics provider is being registered.</param>
+            <param name="statisticsProvider">Statistics provider to be registered.</param>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/>
+        </member>
+        <member name="M:CMS.Search.IndexStatisticsProviders.Get(System.String)">
+            <summary>
+            Gets an <see cref="T:CMS.Search.IIndexStatisticsProvider"/> for given <paramref name="indexProviderName"/>.
+            </summary>
+            <param name="indexProviderName">Name of index provider to retrieve <see cref="T:CMS.Search.IIndexStatisticsProvider"/> implementation for.</param>
+            <returns>Index statistics provider for <paramref name="indexProviderName"/>.</returns>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/>
+        </member>
+        <member name="T:CMS.Search.LuceneIndexStatistics">
+            <summary>
+            Encapsulates statistics of a Lucene index.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.LuceneIndexStatistics.DocumentCount">
+            <summary>
+            Gets the number of indexed documents.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.LuceneIndexStatistics.Size">
+            <summary>
+            Gets the total size of Lucene index files.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.LuceneIndexStatistics.ComputeIndexFileSize">
+            <summary>
+            Computes sum of size of files located in <see cref="P:CMS.Search.SearchIndexInfo.CurrentIndexPath"/>
+            </summary>
+        </member>
+        <member name="M:CMS.Search.LuceneIndexStatistics.#ctor(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Initializes statistics for a Lucene index.
+            </summary>
+            <param name="searchIndex">Lucene index to initialize statistics for.</param>
+        </member>
+        <member name="T:CMS.Search.LuceneIndexStatisticsProvider">
+            <summary>
+            Provides statistics of Lucene indexes.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.LuceneIndexStatisticsProvider.GetStatistics(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Gets statistics of a Lucene index.
+            </summary>
+            <param name="indexInfo">Index to retrieve statistics for.</param>
+            <returns>Statistics of given index.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="indexInfo"/> is null.</exception>
+            <seealso cref="F:CMS.Search.SearchIndexInfo.LUCENE_SEARCH_PROVIDER"/>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfoExtensions.IsLuceneIndex(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Determines if the index is Lucene index.
+            </summary>
+            <param name="infoObj">Search index info.</param>
+            <returns>True, if the index is Lucene index. Otherwise false.</returns>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfoExtensions.IsAzureIndex(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Determines if the index is Azure index.
+            </summary>
+            <param name="infoObj">Search index info.</param>
+            <returns>True, if the index is Azure index. Otherwise false.</returns>
+        </member>
         <member name="T:CMS.Search.IIndexSearcher">
             <summary>
             Interface for the index searcher
@@ -786,14 +967,14 @@
             Interface for the search index writer
             </summary>
         </member>
-        <member name="M:CMS.Search.IIndexWriter.UpdateDocument(CMS.DataEngine.ISearchDocument,System.String)">
+        <member name="M:CMS.Search.IIndexWriter.UpdateDocument(CMS.Search.ILuceneSearchDocument,System.String)">
             <summary>
             Updates the document within the index
             </summary>
             <param name="doc">Document to update</param>
             <param name="docId">Document ID</param>
         </member>
-        <member name="M:CMS.Search.IIndexWriter.AddDocument(CMS.DataEngine.ISearchDocument)">
+        <member name="M:CMS.Search.IIndexWriter.AddDocument(CMS.Search.ILuceneSearchDocument)">
             <summary>
             Adds the document to the index
             </summary>
@@ -819,6 +1000,41 @@
             Sets the maximum field length
             </summary>
             <param name="maxFieldLength">New maximum field length</param>
+        </member>
+        <member name="T:CMS.Search.ILuceneSearchDocument">
+            <summary>
+            Interface for the search document
+            </summary>
+        </member>
+        <member name="M:CMS.Search.ILuceneSearchDocument.AddGeneralField(System.String,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a general-purpose field to the document, handles field conversion
+            </summary>
+            <param name="name">Name of new field</param>
+            <param name="value">Value of field</param>
+            <param name="store">Should be value stored</param>
+            <param name="tokenize">Should be value tokenized</param>
+        </member>
+        <member name="M:CMS.Search.ILuceneSearchDocument.Add(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Adds the given field to the document
+            </summary>
+            <param name="name">Field name</param>
+            <param name="value">Field value</param>
+            <param name="store">If true, the field value is stored</param>
+            <param name="tokenize">If true, the field value is tokenized</param>
+        </member>
+        <member name="M:CMS.Search.ILuceneSearchDocument.Get(System.String)">
+            <summary>
+            Gets the value of specified field
+            </summary>
+            <param name="name">Field name</param>
+        </member>
+        <member name="M:CMS.Search.ILuceneSearchDocument.RemoveField(System.String)">
+            <summary>
+            Removes field with the given name
+            </summary>
+            <param name="name">Field name</param>
         </member>
         <member name="T:CMS.Search.ISearchAnalyzer">
             <summary>
@@ -1017,13 +1233,7 @@
             <summary>
             Defines search condition parameters
             </summary>
-        </member>
-        <member name="M:CMS.Search.SearchCondition.#ctor(System.String,CMS.Search.SearchModeEnum,CMS.Search.SearchOptionsEnum,CMS.Search.DocumentSearchCondition,System.Boolean)">
-            <param name="extraConditions">Search condition that is added to any conditions specified in the search expression. You can use special characters (+ -) and field conditions (e.g. +documentnodeid:(int)255).</param>
-            <param name="searchMode">Search mode</param>
-            <param name="searchOptions">Search options</param>
-            <param name="documentCondition">Search condition for documents</param>
-            <param name="fuzzySearch">If true, the expression is transformed to support fuzzy search</param>
+            <seealso cref="M:CMS.Search.SearchSyntaxHelper.CombineSearchCondition(System.String,CMS.Search.SearchCondition)"/>
         </member>
         <member name="P:CMS.Search.SearchCondition.ExtraConditions">
             <summary>
@@ -1050,9 +1260,26 @@
             If true, the expression is transformed to support fuzzy search
             </summary>
         </member>
+        <member name="M:CMS.Search.SearchCondition.#ctor(System.String,CMS.Search.SearchModeEnum,CMS.Search.SearchOptionsEnum,CMS.Search.DocumentSearchCondition,System.Boolean)">
+            <param name="extraConditions">Search condition that is added to any conditions specified in the search expression. You can use special characters (+ -) and field conditions (e.g. +documentnodeid:(int)255).</param>
+            <param name="searchMode">Search mode</param>
+            <param name="searchOptions">Search options</param>
+            <param name="documentCondition">Search condition for documents</param>
+            <param name="fuzzySearch">If true, the expression is transformed to support fuzzy search</param>
+        </member>
         <member name="T:CMS.Search.SearchFields">
             <summary>
             Search fields collection and field constants
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchFields.StoreValues">
+            <summary>
+            Indicates if field values will be retrieved and stored in collection.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchFields.Items">
+            <summary>
+            Search fields
             </summary>
         </member>
         <member name="M:CMS.Search.SearchFields.#ctor">
@@ -1066,19 +1293,14 @@
             </summary>
             <param name="storeValues">Indicates if field values will be stored in fields.</param>
         </member>
-        <member name="M:CMS.Search.SearchFields.Add(System.String,System.Boolean,System.Boolean,System.Func{System.Object},System.Boolean,System.Nullable{CMS.DataEngine.SearchAnalyzerTypeEnum})">
+        <member name="M:CMS.Search.SearchFields.Add(CMS.DataEngine.ISearchField,System.Func{System.Object})">
             <summary>
-            Adds new field to collection. When field already exists, it will be updated (merged with existing one). 
-            When adding content field with it's value multiple times, the value is appended to existing content.
+            Adds a new field to the collection. If the field already exists, it is updated (merged with existing one).
+            When adding a content field and its value multiple times, the value is appended to the existing content field.
             </summary>
-            <param name="fieldName">Field name</param>
-            <param name="searchable">Indicates if field can be searched</param>
-            <param name="tokenized">Indicates if field will be tokenized</param>
-            <param name="getValueFunc">Function that returns value of the field</param>
-            <param name="insertDirectly">Indicates if field should be insert directly into search document without additional processing</param>
-            <param name="analyzer">Explicit analyzer to process search field's value. When null default analyzer is used</param>
-            <returns>Newly added or existing field</returns>
-            <exception cref="T:System.InvalidOperationException">When StoreValues is true and we try to add already existing field but with different value.</exception>
+            <param name="searchField">Search field to be added to the collection.</param>
+            <param name="getValueFunc">Function that returns value of the field.</param>
+            <returns>The search field added.</returns>
         </member>
         <member name="M:CMS.Search.SearchFields.Get(System.String)">
             <summary>
@@ -1093,7 +1315,7 @@
             <param name="value">Value to add</param> 
             <param name="stripTags">Indicates whether tags should be stripped</param>
         </member>
-        <member name="M:CMS.Search.SearchFields.Add(CMS.DataEngine.ISearchField)">
+        <member name="M:CMS.Search.SearchFields.AddInternal(CMS.DataEngine.ISearchField)">
             <summary>
             Adds new field to collection. When field already exists, it will be updated (merged with existing one). 
             When adding content field with it's value multiple times, the value is appended to existing content.
@@ -1118,26 +1340,10 @@
             <exception cref="T:System.InvalidOperationException">When StoreValues is true and we try to add already existing field but with different value.</exception>
             <exception cref="T:System.InvalidOperationException">When field with given field name doesn't exist.</exception>
         </member>
-        <member name="P:CMS.Search.SearchFields.StoreValues">
-            <summary>
-            Indicates if field values will be retrieved and stored in collection.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchFields.Items">
-            <summary>
-            Search fields
-            </summary>
-        </member>
         <member name="T:CMS.Search.ISearchCrawler">
             <summary>
             Contract for a search crawler which indexes HTML content of a web page.
             </summary>
-        </member>
-        <member name="M:CMS.Search.ISearchCrawler.DownloadHtmlContent(System.String)">
-            <summary>
-            Downloads the HTML code for the specified URL.
-            </summary>
-            <param name="url">URL of the page to download.</param>
         </member>
         <member name="P:CMS.Search.ISearchCrawler.CrawlerPassword">
             <summary>
@@ -1154,10 +1360,51 @@
             Gets the user name which should be used for crawler search.
             </summary>
         </member>
+        <member name="M:CMS.Search.ISearchCrawler.DownloadHtmlContent(System.String)">
+            <summary>
+            Downloads the HTML code for the specified URL.
+            </summary>
+            <param name="url">URL of the page to download.</param>
+        </member>
+        <member name="T:CMS.Search.LuceneSearchDocumentHelper">
+            <summary>
+            Contains <see cref="T:CMS.Search.ILuceneSearchDocument"/> related helper methods.
+            </summary>
+        </member>
+        <member name="F:CMS.Search.LuceneSearchDocumentHelper.InitializationParameterNames">
+            <summary>
+            Names of initialization parameters to omit when performing search document conversion.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.LuceneSearchDocumentHelper.ToLuceneSearchDocument(CMS.DataEngine.SearchDocument)">
+            <summary>
+            Converts object of general purpose type <see cref="T:CMS.DataEngine.SearchDocument"/> to Lucene search specific <see cref="T:CMS.Search.ILuceneSearchDocument"/>.
+            </summary>
+            <param name="searchDocument">Search document to convert.</param>
+            <returns>Lucene search document created from search document.</returns>
+            <remarks>
+            The default system implementation converts all search document field values to string and adds them to <see cref="T:CMS.Search.ILuceneSearchDocument"/>
+            by calling <see cref="M:CMS.Search.ILuceneSearchDocument.AddGeneralField(System.String,System.Object,System.Boolean,System.Boolean)"/>. Initialization fields of search document are added via <see cref="M:CMS.Search.ILuceneSearchDocument.Add(System.String,System.String,System.Boolean,System.Boolean)"/> call.
+            </remarks>
+            <seealso cref="M:CMS.DataEngine.SearchDocumentExtensions.Initialize(CMS.DataEngine.SearchDocument,CMS.DataEngine.SearchDocumentParameters)"/>
+        </member>
+        <member name="M:CMS.Search.LuceneSearchDocumentHelper.ToLuceneSearchDocumentInternal(CMS.DataEngine.SearchDocument)">
+            <summary>
+            Converts object of general purpose type <see cref="T:CMS.DataEngine.SearchDocument"/> to Lucene search specific <see cref="T:CMS.Search.ILuceneSearchDocument"/>.
+            </summary>
+            <param name="searchDocument">Search document to convert.</param>
+            <returns>Lucene search document created from search document.</returns>
+        </member>
         <member name="T:CMS.Search.SearchManager">
             <summary>
             Provides the connection between search engine and specific search index implementation
             </summary>
+        </member>
+        <member name="P:CMS.Search.SearchManager.TaskProcessingBatchSize">
+            <summary>
+            Maximum amount of search tasks that system retrieves from database in single query during search tasks processing.
+            </summary>
+            <remarks>Default value is 10.</remarks>
         </member>
         <member name="M:CMS.Search.SearchManager.Unlock(System.String)">
             <summary>
@@ -1218,115 +1465,14 @@
             Helper methods for search condition syntax
             </summary>
         </member>
-        <member name="T:CMS.Search.ISearchSyntaxHelper">
-            <summary>
-            Helper methods for search condition syntax
-            </summary>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.IsEmptyCondition(System.String)">
-            <summary>
-            Returns true if the given search condition is empty
-            </summary>
-            <param name="condition">Search condition to check</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.AddSearchCondition(System.String,System.String)">
-            <summary>
-            Adds the given search condition to the existing condition
-            </summary>
-            <param name="original">Original condition</param>
-            <param name="add">Condition to add</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetRange(System.Object,System.Object)">
-            <summary>
-            Gets the range expression
-            </summary>
-            <param name="from">From value</param>
-            <param name="to">To value. If not specified, the range covers only the from value.</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetFieldCondition(System.String,System.Object,System.Nullable{System.Boolean})">
-            <summary>
-            Gets the search condition for the given field
-            </summary>
-            <param name="fieldName">Field name</param>
-            <param name="val">Field value</param>
-            <param name="valueMatch">Defines if the condition is required. True means required, false means all except, null means default operator (typically optional)</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetFilterCondition(System.String,System.String)">
-            <summary>
-            Returns condition for search filter row
-            </summary>
-            <param name="row">Filter row</param>
-            <param name="value">Filter row value</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetExactPhraseCondition(System.String)">
-            <summary>
-            Gets the exact phrase condition from the given phrase
-            </summary>
-            <param name="phrase">Phrase to convert</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetRequiredCondition(System.String)">
-            <summary>
-            Gets a required condition from the given condition
-            </summary>
-            <param name="condition">Condition to convert to required</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetNotCondition(System.String)">
-            <summary>
-            Gets a not (except) condition from the given condition
-            </summary>
-            <param name="condition">Condition to convert to required</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetGroup(System.String[])">
-            <summary>
-            Groups the expressions
-            </summary>
-            <param name="expressions">Inner group expressions</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.ExpandWithSynonyms(System.String,System.String)">
-            <summary>
-            Expands given search expression with synonyms. If the data base of synonyms for given language is not found, searchExpression is returned without any modifications.
-            </summary>
-            <param name="searchExpression">Search expression which should be expanded with synonyms</param>
-            <param name="culture">Language code of the search expression (if null, en-us is used)</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.TransformToFuzzySearch(System.String)">
-            <summary>
-            Adds ~ signs to each term to force fuzzy search.
-            </summary>
-            <param name="searchExpression">Search expression to transform</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.EscapeKeyWords(System.String)">
-            <summary>
-            Escapes the key words to be searched
-            </summary>
-            <param name="keywords">Keywords</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.GetFieldCondition(System.String,System.Object,System.Object,System.Nullable{System.Boolean})">
-            <summary>
-            Gets the field condition for a range of values
-            </summary>
-            <param name="fieldName">Field name</param>
-            <param name="from">From value</param>
-            <param name="to">To value</param>
-            <param name="valueMatch">Defines if the condition is required. True means required, false means all except, null means default operator (typically optional)</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.CombineSearchCondition(System.String,CMS.Search.SearchCondition)">
-            <summary>
-            Returns string with combined search index conditions.
-            </summary>
-            <param name="keyWords">Search keywords, separated by space</param>
-            <param name="searchCondition">Search condition</param>
-        </member>
-        <member name="M:CMS.Search.ISearchSyntaxHelper.ProcessSearchKeywords(System.String,CMS.Search.SearchOptionsEnum)">
-            <summary>
-            Returns modified keywords string based on searchOptions.
-            </summary>
-            <param name="keywords">String with keyword</param>
-            <param name="searchOptions">Search options specifies encoding</param>
-        </member>
         <member name="F:CMS.Search.AbstractSearchSyntaxHelper.mFieldNameSyntaxRegex">
             <summary>
             Regular expression for field name.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.AbstractSearchSyntaxHelper.FieldNameSyntaxRegex">
+            <summary>
+            Gets the regular expression for field name.
             </summary>
         </member>
         <member name="M:CMS.Search.AbstractSearchSyntaxHelper.IsEmptyCondition(System.String)">
@@ -1473,11 +1619,6 @@
             </summary>
             <param name="classNames">List of class names separated by semicolon</param>
         </member>
-        <member name="P:CMS.Search.AbstractSearchSyntaxHelper.FieldNameSyntaxRegex">
-            <summary>
-            Gets the regular expression for field name.
-            </summary>
-        </member>
         <member name="T:CMS.Search.DocumentFilterSearchResultsParameters">
             <summary>
             Settings for search index permission check for documents
@@ -1527,16 +1668,6 @@
             Settings for search index permission check
             </summary>
         </member>
-        <member name="M:CMS.Search.SearchResults.#ctor(CMS.Base.IUserInfo,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Int32},System.Collections.Generic.List{CMS.Search.SearchIndexInfo})">
-            <summary>
-            Constructor
-            </summary>
-            <param name="user">User to check against</param>
-            <param name="inRoles">Returns results belonging to this roles</param>
-            <param name="notInRoles">Returns results not belonging to these roles</param>
-            <param name="siteIds">Site IDs for search</param>
-            <param name="indexes">Indexes to search</param>
-        </member>
         <member name="P:CMS.Search.SearchResults.Results">
             <summary>
             List of the results
@@ -1577,9 +1708,29 @@
             Indexes to search
             </summary>
         </member>
+        <member name="M:CMS.Search.SearchResults.#ctor(CMS.Base.IUserInfo,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Int32},System.Collections.Generic.List{CMS.Search.SearchIndexInfo})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="user">User to check against</param>
+            <param name="inRoles">Returns results belonging to this roles</param>
+            <param name="notInRoles">Returns results not belonging to these roles</param>
+            <param name="siteIds">Site IDs for search</param>
+            <param name="indexes">Indexes to search</param>
+        </member>
         <member name="T:CMS.Search.ISearchFilterable">
             <summary>
             Interface for search filter.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.ISearchFilterable.FilterSearchCondition">
+            <summary>
+            Seach condition.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.ISearchFilterable.FilterSearchSort">
+            <summary>
+            Sorting of search.
             </summary>
         </member>
         <member name="M:CMS.Search.ISearchFilterable.ApplyFilter(System.String,System.String,System.Boolean)">
@@ -1596,16 +1747,6 @@
             </summary>
             <param name="searchWebpartID">Filter webpart id</param>
             <param name="options">Filter option</param>
-        </member>
-        <member name="P:CMS.Search.ISearchFilterable.FilterSearchCondition">
-            <summary>
-            Seach condition.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.ISearchFilterable.FilterSearchSort">
-            <summary>
-            Sorting of search.
-            </summary>
         </member>
         <member name="T:CMS.Search.SearchFilterModeEnum">
             <summary>
@@ -1637,9 +1778,44 @@
             Search indexer for custom search index
             </summary>
         </member>
+        <member name="M:CMS.Search.CustomSearchIndexer.Rebuild(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Rebuilds the custom index
+            </summary>
+            <param name="srchInfo">Search index</param>
+        </member>
+        <member name="M:CMS.Search.CustomSearchIndexer.GetSearchFields(CMS.Search.SearchIndexInfo,CMS.DataEngine.ISearchFields)">
+            <summary>
+            Gets the collection of search fields. When no SearchFields collection is provided, new is created.
+            </summary>
+            <param name="index">Search index</param>
+            <param name="searchFields">Search fields collection</param>
+        </member>
         <member name="T:CMS.Search.SearchIndexer">
             <summary>
             Base class for search indexer
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexer.SearchablesRetriever">
+            <summary>
+            Helps with retrieving<see cref="T:CMS.DataEngine.ISearchable"/> objects and <see cref="T:CMS.Search.SearchIndexInfo"/> s
+            related to search tasks.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexer.Logger">
+            <summary>
+            Logs actions related to indexes and search tasks.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexer.#ctor(CMS.Search.Internal.SearchablesRetriever)">
+            <summary>
+            General search indexer.
+            </summary>
+            <param name="searchablesRetriever">Helps retrieving objects related to indexing.</param>
+        </member>
+        <member name="M:CMS.Search.SearchIndexer.#ctor">
+            <summary>
+            Search indexer. 
             </summary>
         </member>
         <member name="M:CMS.Search.SearchIndexer.ExecuteTask(CMS.Search.SearchTaskInfo)">
@@ -1666,12 +1842,7 @@
             Selects the search document based on the given ID
             </summary>
             <param name="documentId">Document ID</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.GetSearchIndexes(System.String)">
-            <summary>
-            Returns dataset of index IDs for specific type
-            </summary>
-            <param name="taskType">Task type</param>
+            <returns>Enumeration of searchable objects or empty enumeration.</returns>
         </member>
         <member name="M:CMS.Search.SearchIndexer.ExecuteDeleteTask(CMS.Search.SearchTaskInfo)">
             <summary>
@@ -1724,7 +1895,7 @@
             </summary>
             <param name="taskInfo">Search task</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexer.CheckResultPermissions(CMS.Search.SearchResults,CMS.DataEngine.ISearchDocument,System.Int32)">
+        <member name="M:CMS.Search.SearchIndexer.CheckResultPermissions(CMS.Search.SearchResults,CMS.Search.ILuceneSearchDocument,System.Int32)">
             <summary>
             Checks the permissions for the given result document
             </summary>
@@ -1732,14 +1903,14 @@
             <param name="currentDoc">Current result document</param>
             <param name="index">Current document index</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexer.LoadResults(System.Collections.Generic.IEnumerable{CMS.DataEngine.ISearchDocument},CMS.Base.SafeDictionary{System.String,System.Data.DataRow})">
+        <member name="M:CMS.Search.SearchIndexer.LoadResults(System.Collections.Generic.IEnumerable{CMS.Search.ILuceneSearchDocument},CMS.Base.SafeDictionary{System.String,System.Data.DataRow})">
             <summary>
             Loads the results to the given result collection
             </summary>
             <param name="results">Collection of results to load</param>
             <param name="result">Dictionary of the loaded results indexed by their key</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexer.FillSearchResult(System.Data.DataRow,System.Data.DataRow,CMS.DataEngine.ISearchDocument)">
+        <member name="M:CMS.Search.SearchIndexer.FillSearchResult(System.Data.DataRow,System.Data.DataRow,CMS.Search.ILuceneSearchDocument)">
             <summary>
             Fills the data to the search result data row. Returns true, if the data was correctly filled
             </summary>
@@ -1747,17 +1918,11 @@
             <param name="resultDr">Source data row with raw search results</param>
             <param name="doc">Found search document</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexer.GetDataClassInfo(CMS.DataEngine.ISearchDocument)">
+        <member name="M:CMS.Search.SearchIndexer.GetDataClassInfo(CMS.Search.ILuceneSearchDocument)">
             <summary>
             Returns the data class info for the given search document
             </summary>
             <param name="obj">Document object</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.GetRelevantIndexes(CMS.DataEngine.ISearchable)">
-            <summary>
-            Gets the list of indexes relevant to the given object
-            </summary>
-            <param name="searchObject">Search object</param>
         </member>
         <member name="M:CMS.Search.SearchIndexer.GetSearchImageUrl(System.String,System.String,System.String)">
             <summary>
@@ -1775,73 +1940,6 @@
             <param name="columnName">Column name</param>
         </member>
         <member name="M:CMS.Search.SearchIndexer.GetSearchFields(CMS.Search.SearchIndexInfo,CMS.DataEngine.ISearchFields)">
-            <summary>
-            Gets the collection of search fields. When no SearchFields colection is provided, new is created.
-            </summary>
-            <param name="index">Search index</param>
-            <param name="searchFields">Search fields collection</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.LogTaskStart(CMS.Search.SearchTaskInfo)">
-            <summary>
-            Logs task started message to the log context. 
-            </summary>
-            <param name="taskInfo"></param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.LogMessage(System.String)">
-            <summary>
-            Appends line to the log context. 
-            </summary>
-            <param name="message"></param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.LogBatchStart(System.Int32,System.Int32)">
-            <summary>
-            Logs the start of batch processing. 
-            </summary>
-            <param name="batchNumber">Number of batch</param>
-            <param name="lastID">ID of last item that is not present in the batch</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.LogBatchEnd(System.Int32)">
-            <summary>
-            Logs the end of the batch processing.
-            </summary>
-            <param name="itemsCount"></param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.LogBatchStart(System.Int32,System.Int32,System.String)">
-            <summary>
-            Logs start of batch processeing. 
-            </summary>
-            <param name="batchNumber">Number of batch.</param>
-            <param name="lastID">ID of last item that is not present in the batch.</param>
-            <param name="objectType">Object type of processed objects</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.LogFormBatchStart(System.Int32,System.Int32,System.String)">
-            <summary>
-            Logs start of batch processeing. 
-            </summary>
-            <param name="batchNumber">Number of batch.</param>
-            <param name="lastID">ID of last item that is not present in the batch.</param>
-            <param name="formDisplayName">Form name</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.GetObjectID(System.String)">
-            <summary>
-            Returns object ID from potentially compound ID.
-            </summary>
-            <param name="itemId">Object ID</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexer.GetObjectID(System.String,System.String@)">
-            <summary>
-            Returns object ID from potentially compound ID (Id;objecttype in case of BizForms).
-            </summary>
-            <param name="itemId">Object ID</param>
-            <param name="objectType">Object type recieved from compound key</param>
-        </member>
-        <member name="M:CMS.Search.CustomSearchIndexer.Rebuild(CMS.Search.SearchIndexInfo)">
-            <summary>
-            Rebuilds the custom index
-            </summary>
-            <param name="srchInfo">Search index</param>
-        </member>
-        <member name="M:CMS.Search.CustomSearchIndexer.GetSearchFields(CMS.Search.SearchIndexInfo,CMS.DataEngine.ISearchFields)">
             <summary>
             Gets the collection of search fields. When no SearchFields collection is provided, new is created.
             </summary>
@@ -1909,6 +2007,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Search.SearchIndexCultureInfo.IndexID">
+            <summary>
+            Index ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexCultureInfo.IndexCultureID">
+            <summary>
+            Culture ID of index.
+            </summary>
+        </member>
         <member name="M:CMS.Search.SearchIndexCultureInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -1927,23 +2035,6 @@
         <member name="M:CMS.Search.SearchIndexCultureInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new SearchCultureInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexCultureInfo.#ctor(CMS.Search.SearchIndexCultureInfo,System.Boolean)">
-            <summary>
-            Constructor - Creates a new SearchIndexCultureInfo object from the given DataClass.
-            </summary>
-            <param name="si">Source SearchCultureInfo info</param>
-            <param name="keepSourceData">If true, source data are kept in the object</param>
-        </member>
-        <member name="P:CMS.Search.SearchIndexCultureInfo.IndexID">
-            <summary>
-            Index ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexCultureInfo.IndexCultureID">
-            <summary>
-            Culture ID of index.
             </summary>
         </member>
         <member name="T:CMS.Search.SearchIndexCultureInfoProvider">
@@ -2005,10 +2096,11 @@
             <param name="indexId">SearchIndex id</param>
             <param name="cultureId">Culture id</param>   
         </member>
-        <member name="M:CMS.Search.SearchIndexCultureInfoProvider.GetSearchIndexCulturesInternal">
+        <member name="M:CMS.Search.SearchIndexCultureInfoProvider.SearchIndexHasAnyCulture(System.Int32)">
             <summary>
-            Returns all bindings between cultures and search indexes.
+            Returns <c>true</c> if given index has assigned at least one culture, <c>false</c> otherwise.
             </summary>
+            <param name="indexId">Smart search index id</param>
         </member>
         <member name="M:CMS.Search.SearchIndexCultureInfoProvider.GetSearchIndexCulturesInternal(System.String,System.String,System.String,System.Int32)">
             <summary>
@@ -2033,15 +2125,25 @@
             </summary>
             <param name="searchIndexCulture">SearchIndexCultureInfo to set</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexCultureInfoProvider.DeleteSearchIndexCultureInfoInternal(CMS.Search.SearchIndexCultureInfo)">
+        <member name="M:CMS.Search.SearchIndexCultureInfoProvider.DeleteInfo(CMS.Search.SearchIndexCultureInfo)">
             <summary>
-            Deletes specified SearchIndexCultureInfo.
+            Deletes the object to the database.
             </summary>
-            <param name="infoObj">SearchIndexCultureInfo object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="T:CMS.Search.SearchIndexInfo">
             <summary>
             Search index.
+            </summary>
+        </member>
+        <member name="F:CMS.Search.SearchIndexInfo.AZURE_SEARCH_PROVIDER">
+            <summary>
+            Identifies search index that is processed by Azure. Value should be used in <see cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/> property.
+            </summary>
+        </member>
+        <member name="F:CMS.Search.SearchIndexInfo.LUCENE_SEARCH_PROVIDER">
+            <summary>
+            Identifies search index that is processed by Lucene. Value should be used in <see cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/> property.
             </summary>
         </member>
         <member name="F:CMS.Search.SearchIndexInfo.OBJECT_TYPE">
@@ -2074,64 +2176,9 @@
             Contains object with search index settings, initialized by first get of IndexSettings property.
             </summary>
         </member>
-        <member name="F:CMS.Search.SearchIndexInfo.mIndexFileSize">
-            <summary>
-            Size of index in file system.
-            </summary>
-        </member>
-        <member name="F:CMS.Search.SearchIndexInfo.mNumberOfIndexedItems">
-            <summary>
-            Number of indexed items.
-            </summary>
-        </member>
         <member name="F:CMS.Search.SearchIndexInfo.mIndexStatus">
             <summary>
             Index status.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Clones metafile and inserts it to DB as new object.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SearchIndexInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SearchIndexInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.#ctor(CMS.Search.SearchIndexInfo,System.Boolean)">
-            <summary>
-            Constructor - Creates a new SearchIndexInfo object from the given DataClass.
-            </summary>
-            <param name="si">SearchIndexInfo</param>
-            <param name="keepSourceData">If true, source data are kept in the object</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.InvalidateIndexSizeInfo">
-            <summary>
-            Invalidates size of files in index and count of files in index.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfo.IsOptimized">
-            <summary>
-            Returns true if the index is optimized
             </summary>
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.Rebuild">
@@ -2141,13 +2188,16 @@
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.IndexBatchSize">
             <summary>
-            Gets or sets the batch size for data loading.
+            Gets or sets the batch size for data loading. The default value of 500 is returned when not explicitly set.
             </summary>
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.IndexFilesLastUpdate">
             <summary>
-            Time when index files were updated. Value is assigned to index files used by current application process.  
+            Time when index files were updated. Value is assigned to index files used by current application process.
             </summary>
+            <remarks>
+            The value of this property is based on index files and is inherently not valid for Azure indexes.
+            </remarks>
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.ActualRebuildTime">
             <summary>
@@ -2178,6 +2228,32 @@
             <summary>
             Display name.
             </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfo.IndexProvider">
+            <summary>
+            Defines a provider which performs actions on search index (e.g. <see cref="F:CMS.Search.SearchIndexInfo.AZURE_SEARCH_PROVIDER"/>, <see cref="F:CMS.Search.SearchIndexInfo.LUCENE_SEARCH_PROVIDER"/>).
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfo.IndexSearchServiceName">
+            <summary>
+            Name of the Azure Search service (on Microsoft Azure).
+            </summary>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexAdminKey"/>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexQueryKey"/>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfo.IndexAdminKey">
+            <summary>
+            Azure Search admin key for the search service.
+            </summary>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexSearchServiceName"/>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexQueryKey"/>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfo.IndexQueryKey">
+            <summary>
+            Azure Search query key for the search service.
+            </summary>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexSearchServiceName"/>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexAdminKey"/>
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.IndexCrawlerDomain">
             <summary>
@@ -2234,25 +2310,34 @@
             Time of last Rebuild of index.
             </summary>
         </member>
-        <member name="P:CMS.Search.SearchIndexInfo.IndexFileSize">
+        <member name="P:CMS.Search.SearchIndexInfo.IndexSize">
             <summary>
-            Gets or sets index file size.
+            Gets the index size in bytes. Returns null if size information is not available.
             </summary>
+            <see cref="M:CMS.Search.SearchIndexInfo.InvalidateIndexStatistics"/>
         </member>
-        <member name="P:CMS.Search.SearchIndexInfo.NumberOfIndexedItems">
+        <member name="P:CMS.Search.SearchIndexInfo.IndexDocumentCount">
             <summary>
-            Gets or sets number of indexed documents.
+            Gets the number of indexed documents. Returns null if document count information is not available.
             </summary>
+            <seealso cref="M:CMS.Search.SearchIndexInfo.InvalidateIndexStatistics"/>
         </member>
-        <member name="P:CMS.Search.SearchIndexInfo.IndexFilesStatus">
+        <member name="P:CMS.Search.SearchIndexInfo.IndexStatusLocal">
             <summary>
-            Index files status.
+            Gets or sets local index status.
             </summary>
+            <remarks>
+            This property is in-memory only. Use it for indexes whose storage belongs to current application process (e.g. local storage file based index on a web farm server, where each server
+            maintains their own local index status).
+            </remarks>
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.IndexStatus">
             <summary>
             Gets or sets index status.
             </summary>
+            <remarks>
+            This property is backed by a database column. Use it for indexes whose storage is shared by all web farm servers (e.g. index on shared file system storage or external index - Azure).
+            </remarks>
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.CustomAnalyzerAssemblyName">
             <summary>
@@ -2267,6 +2352,47 @@
         <member name="P:CMS.Search.SearchIndexInfo.StopWordsFile">
             <summary>
             Gets or sets the filename which should be used for stop words definition.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Clones metafile and inserts it to DB as new object.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">New value</param>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.GetValue(System.String)">
+            <summary>
+            Gets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SearchIndexInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SearchIndexInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Search.SearchIndexInfo.IndexPathPrefix">
@@ -2284,6 +2410,26 @@
             Search index provider
             </summary>
         </member>
+        <member name="M:CMS.Search.SearchIndexInfo.InvalidateIndexStatistics">
+            <summary>
+            Invalidates cached values of index size and document count.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.GetStatistics">
+            <summary>
+            Gets index statistics, or null if statistics are not available.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.InitializeAndGetStatistics">
+            <summary>
+            Initializes, publishes and gets new statistics.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfo.IsOptimized">
+            <summary>
+            Returns true if the index is optimized
+            </summary>
+        </member>
         <member name="T:CMS.Search.SearchIndexInfoProvider">
             <summary>
             Class providing SearchIndexInfo management. 
@@ -2292,6 +2438,36 @@
         <member name="M:CMS.Search.SearchIndexInfoProvider.#ctor">
             <summary>
             Constructor.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfoProvider.IndexedClasses">
+            <summary>
+            List of class names which have a general search index set.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfoProvider.GeneralIndexTypeList">
+            <summary>
+            Collection of index types which are handled using general indexer.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfoProvider.CachedIndexCulture">
+            <summary>
+            Cache containing information whether search index belongs to culture, key is indexid_culturecode. [indexId + "_" + cultureCode] -> [Bool]
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfoProvider.SiteIndexes">
+            <summary>
+            Cache containing information about indexes assigned to sites. Key - siteId, Value - List(indexIds). [siteId -> List[int]]
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfoProvider.FlatIndexes">
+            <summary>
+            Returns hashtable of flat indexes.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexInfoProvider.SearchEnabled">
+            <summary>
+            Gets or sets a property which indicates if Smart search is enabled.
             </summary>
         </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.InvalidateIndexIDs(System.String)">
@@ -2307,11 +2483,15 @@
             <param name="type">Object type name</param>
             <param name="logtask">Indicates whether web farm task should be logged</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.GetIndexIDs(System.Collections.Generic.List{System.String})">
+        <member name="M:CMS.Search.SearchIndexInfoProvider.GetIndexIDs(System.Collections.Generic.List{System.String},System.String)">
             <summary>
-            Returns list of index ids for specified object type(s).
+            Returns list of index ids for specified object type(s) and <paramref name="searchProvider"/>.
             </summary>
             <param name="typeCodes">Object type names (separated with semicolon)</param>
+            <param name="searchProvider">
+            Defines search provider e.g. from <see cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/> for which to return relevant indexes.
+            If not defined ids for all search providers are returned.
+            </param>     
         </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.SearchTypeEnabled(System.String)">
             <summary>
@@ -2360,21 +2540,6 @@
             <param name="topN">Number of records to return</param>
             <param name="columns">Selected columns</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.GetSearchIndexes(System.String,System.String,System.Int32)">
-            <summary>
-            Returns all the searchIndexes filtered by where condition and sorted by orderBy expression.
-            </summary>
-            <param name="where">The WHERE condition to use</param>
-            <param name="orderBy">The ORDER BY expression to use to sort the result</param>
-            <param name="topN">Number of records to return</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.GetSearchIndexes(System.String,System.String)">
-            <summary>
-            Returns all the searchIndexes filtered by where condition and sorted by orderBy expression.
-            </summary>
-            <param name="where">The WHERE condition to use</param>
-            <param name="orderBy">The ORDER BY expression to use to sort the result</param>        
-        </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.SetSearchIndexInfo(CMS.Search.SearchIndexInfo)">
             <summary>
             Sets (updates or inserts) specified searchIndex.
@@ -2413,30 +2578,21 @@
             <param name="indexInfo">Search index to update</param>
             <param name="updateTime">Time when index was updated</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.SetIndexFilesStatus(CMS.Search.SearchIndexInfo,CMS.Search.IndexStatusEnum)">
+        <member name="M:CMS.Search.SearchIndexInfoProvider.SetIndexStatus(CMS.Search.SearchIndexInfo,CMS.Search.IndexStatusEnum)">
             <summary>
-            Sets status of search index files that belongs to current application process.
+            Sets status of <paramref name="indexInfo"/> to <paramref name="status"/>. The method sets <see cref="P:CMS.Search.SearchIndexInfo.IndexStatus"/> or <see cref="P:CMS.Search.SearchIndexInfo.IndexStatusLocal"/>
+            based on the following criteria. For shared storage file system based indexes or Azure indexes, the first property is set. For local storage file system based indexes, the latter one is set.
             </summary>
-            <param name="indexInfo">Search index to update</param>
-            <param name="status">Index status</param>
+            <param name="indexInfo">Search index info whose status is to be set.</param>
+            <param name="status">Status to be set.</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.GetSearchIndexesInternal">
+        <member name="M:CMS.Search.SearchIndexInfoProvider.GetIndexStatus(CMS.Search.SearchIndexInfo)">
             <summary>
-            Returns all search indexes
+            Gets status of <paramref name="indexInfo"/>. The method gets <see cref="P:CMS.Search.SearchIndexInfo.IndexStatus"/> or <see cref="P:CMS.Search.SearchIndexInfo.IndexStatusLocal"/>
+            based on the following criteria. For shared storage file system based indexes or Azure indexes, the first property is gotten. For local storage file system based indexes, the latter one is gotten.
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.GetSearchIndexInfoInternal(System.Int32)">
-            <summary>
-            Returns the SearchIndexInfo structure for the specified searchIndex.
-            </summary>
-            <param name="searchIndexId">SearchIndex id</param>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.GetSearchIndexInfoByNameInternal(System.String)">
-            <summary>
-            Returns the SearchIndexInfo structure for the specified searchIndex.
-            </summary>
-            <param name="searchIndexName">SearchIndex id</param>
+            <param name="indexInfo">Search index info whose status to get.</param>
+            <returns>Gets status of given search index info.</returns>
         </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.GetSearchIndexesInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -2459,12 +2615,18 @@
             </summary>
             <param name="infoObj">SearchIndex object</param>
         </member>
+        <member name="M:CMS.Search.SearchIndexInfoProvider.RemoveIndexFiles(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Deletes directory with index files.
+            </summary>
+            <param name="infoObj">SearchIndex object.</param>
+        </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.RebuildSiteIndexesInternal(CMS.DataEngine.SiteInfoIdentifier,System.Nullable{System.Boolean})">
             <summary>
             Rebuilds all indexes which belongs to the specified site.
             </summary>
             <param name="site">ID or name of the site the indexes of which should be rebuilt</param>
-            <param name="runIndexer">Indicates whether the indexer starts immediately. If not specified this behaviour depends on current settings.</param>
+            <param name="runIndexer">Indicates whether the indexer starts immediately. If not specified this behavior depends on current settings.</param>
         </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.SetIndexFilesLastUpdateTimeInternal(CMS.Search.SearchIndexInfo,System.DateTime)">
             <summary>
@@ -2473,12 +2635,21 @@
             <param name="indexInfo">Search index to update</param>
             <param name="updateTime">Time when index was updated</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.SetIndexFilesStatusInternal(CMS.Search.SearchIndexInfo,CMS.Search.IndexStatusEnum)">
+        <member name="M:CMS.Search.SearchIndexInfoProvider.SetIndexStatusInternal(CMS.Search.SearchIndexInfo,CMS.Search.IndexStatusEnum)">
             <summary>
-            Sets status of search index files that belongs to current application process.
+            Sets status of <paramref name="indexInfo"/> to <paramref name="status"/>. The method sets <see cref="P:CMS.Search.SearchIndexInfo.IndexStatus"/> or <see cref="P:CMS.Search.SearchIndexInfo.IndexStatusLocal"/>
+            based on the following criteria. For shared storage file system based indexes or Azure indexes, the first property is set. For local storage file system based indexes, the latter one is set.
             </summary>
-            <param name="indexInfo">Search index to update</param>
-            <param name="status">Index status</param>
+            <param name="indexInfo">Search index info whose status is to be set.</param>
+            <param name="status">Status to be set.</param>
+        </member>
+        <member name="M:CMS.Search.SearchIndexInfoProvider.GetIndexStatusInternal(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Gets status of <paramref name="indexInfo"/>. The method gets <see cref="P:CMS.Search.SearchIndexInfo.IndexStatus"/> or <see cref="P:CMS.Search.SearchIndexInfo.IndexStatusLocal"/>
+            based on the following criteria. For shared storage file system based indexes or Azure indexes, the first property is gotten. For local storage file system based indexes, the latter one is gotten.
+            </summary>
+            <param name="indexInfo">Search index info whose status to get.</param>
+            <returns>Gets status of given search index info.</returns>
         </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.RemoveFromIndexSiteCacheInternal(System.String,System.Boolean)">
             <summary>
@@ -2538,23 +2709,17 @@
             <param name="sii">SearchIndexInfo</param>
             <param name="cultureCode">Culture code</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.GetRelevantIndexes(CMS.DataEngine.ISearchable)">
+        <member name="M:CMS.Search.SearchIndexInfoProvider.GetRelevantIndexes(CMS.DataEngine.ISearchable,System.String)">
             <summary>
-            Returns all indexes which are relevant to the specified ISearchable object. 
-            Check ISearchable object type and with dependence on this type check index settings
+            Returns all indexes which are relevant to the specified ISearchable object and given <paramref name="searchProvider"/>.
+            Check ISearchable object type and with dependence on this type check index settings.
             </summary>
-            <param name="searchObject">Object implementing ISearchable interface</param>        
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.Clear">
-            <summary>
-            Clears hash tables.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hash tables.
-            </summary>
-            <param name="logWebFarm">Enables or disables webfarm task logging, if false no task is logged</param>
+            <param name="searchObject">Object implementing ISearchable interface.</param>
+            <param name="searchProvider">
+            Defines search provider for which to return relevant indexes.
+            If not defined then indexes for all search providers are returned.
+            </param>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/>       
         </member>
         <member name="M:CMS.Search.SearchIndexInfoProvider.ClearIndexedClassesList">
             <summary>
@@ -2589,36 +2754,6 @@
             <param name="oldCodeName">Old code name</param>
             <param name="newCodeName">New code name</param>
         </member>
-        <member name="P:CMS.Search.SearchIndexInfoProvider.IndexedClasses">
-            <summary>
-            List of class names which have a general search index set.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexInfoProvider.GeneralIndexTypeList">
-            <summary>
-            Collection of index types which are handled using general indexer.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexInfoProvider.CachedIndexCulture">
-            <summary>
-            Cache containing information whether search index belongs to culture, key is indexid_culturecode. [indexId + "_" + cultureCode] -> [Bool]
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexInfoProvider.SiteIndexes">
-            <summary>
-            Cache containing information about indexes assigned to sites. Key - siteId, Value - List(indexIds). [siteId -> List[int]]
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexInfoProvider.FlatIndexes">
-            <summary>
-            Returns hashtable of flat indexes.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexInfoProvider.SearchEnabled">
-            <summary>
-            Gets or sets a property which indicates if Smart search is enabled.
-            </summary>
-        </member>
         <member name="T:CMS.Search.SearchIndexSiteInfo">
             <summary>
             Search index site.
@@ -2632,6 +2767,16 @@
         <member name="F:CMS.Search.SearchIndexSiteInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexSiteInfo.IndexID">
+            <summary>
+            Index ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexSiteInfo.IndexSiteID">
+            <summary>
+            Site ID of index.
             </summary>
         </member>
         <member name="M:CMS.Search.SearchIndexSiteInfo.DeleteObject">
@@ -2652,23 +2797,6 @@
         <member name="M:CMS.Search.SearchIndexSiteInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new SearchIndexSiteInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchIndexSiteInfo.#ctor(CMS.Search.SearchIndexSiteInfo,System.Boolean)">
-            <summary>
-            Constructor - Creates a new SearchIndexSiteInfo object from the given DataClass.
-            </summary>
-            <param name="si">Source SearchIndexSiteInfo info</param>
-            <param name="keepSourceData">If true, source data are kept in the object</param>
-        </member>
-        <member name="P:CMS.Search.SearchIndexSiteInfo.IndexID">
-            <summary>
-            Index ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexSiteInfo.IndexSiteID">
-            <summary>
-            Site ID of index.
             </summary>
         </member>
         <member name="T:CMS.Search.SearchIndexSiteInfoProvider">
@@ -2738,10 +2866,11 @@
             <param name="indexId">Search index ID</param>
             <param name="siteId">Site ID</param>   
         </member>
-        <member name="M:CMS.Search.SearchIndexSiteInfoProvider.GetSearchIndexSitesInternal">
+        <member name="M:CMS.Search.SearchIndexSiteInfoProvider.SearchIndexHasAnySite(System.Int32)">
             <summary>
-            Returns all search index sites bindings.
+            Returns <c>>true</c> if given search index has any site assigned, <c>false</c> otherwise.
             </summary>
+            <param name="indexId">Smart search index id</param>
         </member>
         <member name="M:CMS.Search.SearchIndexSiteInfoProvider.GetIndexSitesInternal(System.Int32[])">
             <summary>
@@ -2783,11 +2912,11 @@
             </summary>
             <param name="searchIndexSite">SearchIndexSiteInfo object</param>
         </member>
-        <member name="M:CMS.Search.SearchIndexSiteInfoProvider.DeleteSearchIndexSiteInfoInternal(CMS.Search.SearchIndexSiteInfo)">
+        <member name="M:CMS.Search.SearchIndexSiteInfoProvider.DeleteInfo(CMS.Search.SearchIndexSiteInfo)">
             <summary>
-            Deletes specified SearchIndexSiteInfo.
+            Deletes the object to the database.
             </summary>
-            <param name="infoObj">SearchIndexSiteInfo object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Search.SearchIndexSiteInfoProvider.AddSearchIndexToSiteInternal(System.Int32,System.Int32)">
             <summary>
@@ -2858,8 +2987,18 @@
         </member>
         <member name="P:CMS.Search.SearchParameters.ClassNames">
             <summary>
-            Class names
+            Class names separated by semicolon.
             </summary>
+            <remarks>
+            <para>
+            Constrains the search to given class names only. Application of this parameter by search method is optional.
+            See the search method documentation.
+            </para>
+            <para>
+            Another option for constraining search by class names is <see cref="T:CMS.Search.DocumentSearchCondition"/>.
+            </para>
+            </remarks>
+            <seealso cref="T:CMS.Search.DocumentSearchCondition"/>
         </member>
         <member name="P:CMS.Search.SearchParameters.CurrentCulture">
             <summary>
@@ -2984,6 +3123,26 @@
             Exact phrase regular expression.
             </summary>
         </member>
+        <member name="P:CMS.Search.SearchQueryClauses.ExactRegex">
+            <summary>
+            Gets the regular expression for exact phrase.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchQueryClauses.NonAlphaNumericRegex">
+            <summary>
+            Gets the non-alpha numeric characters regex.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchQueryClauses.HighlightedWords">
+            <summary>
+            Gets the list of words which should be highlighted.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchQueryClauses.Parent">
+            <summary>
+            Gets or sets the parent of the current object.
+            </summary>
+        </member>
         <member name="M:CMS.Search.SearchQueryClauses.AddClause(System.Object,CMS.Search.ClauseTypeEnum)">
             <summary>
             Add clause to current object.
@@ -3024,78 +3183,17 @@
             <param name="obj">Input object</param>]
             <param name="collection">Collection of highlighted words</param>
         </member>
-        <member name="P:CMS.Search.SearchQueryClauses.ExactRegex">
-            <summary>
-            Gets the regular expression for exact phrase.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchQueryClauses.NonAlphaNumericRegex">
-            <summary>
-            Gets the non-alpha numeric characters regex.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchQueryClauses.HighlightedWords">
-            <summary>
-            Gets the list of words which should be highlighted.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchQueryClauses.Parent">
-            <summary>
-            Gets or sets the parent of the current object.
-            </summary>
-        </member>
         <member name="T:CMS.Search.SearchCrawler">
             <summary>
             Search HTML crawler for indexing content from the output of the web site
             </summary>
         </member>
-        <member name="M:CMS.Search.SearchCrawler.ExtractUserDomain(System.String)">
+        <member name="T:CMS.Search.SearchCrawler.HtmlToPlainTextHandler">
             <summary>
-            Extracts the user domain from given username
+            Html to plain text version delegate.
             </summary>
-            <param name="username"></param>
-            <returns></returns>
-        </member>
-        <member name="M:CMS.Search.SearchCrawler.HtmlToPlainText(System.String)">
-            <summary>
-            Converts html to the plain text (body part).
-            </summary>
-            <param name="htmlCode">HTML code</param>
-        </member>
-        <member name="M:CMS.Search.SearchCrawler.GetCrawlerCookieContainer(System.String,System.String)">
-            <summary>
-            Returns authentication cookie for specific user and url (domain) which is used for crawling.
-            </summary>
-            <param name="user">Username</param>
-            <param name="url">Full url to get domain</param>
-        </member>
-        <member name="M:CMS.Search.SearchCrawler.GetCrawlerCredentials">
-            <summary>
-            Returns network credential for crawler.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchCrawler.CreateRequest(System.String)">
-            <summary>
-            Creates HttpWebRequest for specific URL.
-            </summary>
-            <param name="url">Target URL</param>
-        </member>
-        <member name="M:CMS.Search.SearchCrawler.DownloadHtmlContent(System.String)">
-            <summary>
-            Downloads the HTML code for the specified URL.
-            </summary>
-            <param name="url">Page URL</param>
-        </member>
-        <member name="M:CMS.Search.SearchCrawler.AddCrawlerIdToUrl(System.String)">
-            <summary>
-            Adds "crawlerid" parameter to given URL along with the signature of such extended URL.
-            </summary>
-            <param name="url">URL to add crawlerid to</param>
-        </member>
-        <member name="M:CMS.Search.SearchCrawler.IsCrawlerRequest">
-            <summary>
-            Returns true if current request was initialized by smart search crawler.
-            </summary>
+            <param name="plainText">Plain text version</param>
+            <param name="originalHtml">Original HTML version</param>
         </member>
         <member name="E:CMS.Search.SearchCrawler.OnHtmlToPlainText">
             <summary>
@@ -3148,12 +3246,53 @@
             Default is false because allowing it implicitly may represent security vulnerability.
             </summary>
         </member>
-        <member name="T:CMS.Search.SearchCrawler.HtmlToPlainTextHandler">
+        <member name="M:CMS.Search.SearchCrawler.ExtractUserDomain(System.String)">
             <summary>
-            Html to plain text version delegate.
+            Extracts the user domain from given username
             </summary>
-            <param name="plainText">Plain text version</param>
-            <param name="originalHtml">Original HTML version</param>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CMS.Search.SearchCrawler.HtmlToPlainText(System.String)">
+            <summary>
+            Converts html to the plain text (body part).
+            </summary>
+            <param name="htmlCode">HTML code</param>
+        </member>
+        <member name="M:CMS.Search.SearchCrawler.GetCrawlerCookieContainer(System.String,System.String)">
+            <summary>
+            Returns authentication cookie for specific user and url (domain) which is used for crawling.
+            </summary>
+            <param name="user">Username</param>
+            <param name="url">Full url to get domain</param>
+        </member>
+        <member name="M:CMS.Search.SearchCrawler.GetCrawlerCredentials">
+            <summary>
+            Returns network credential for crawler.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchCrawler.CreateRequest(System.String)">
+            <summary>
+            Creates HttpWebRequest for specific URL.
+            </summary>
+            <param name="url">Target URL</param>
+        </member>
+        <member name="M:CMS.Search.SearchCrawler.DownloadHtmlContent(System.String)">
+            <summary>
+            Downloads the HTML code for the specified URL.
+            </summary>
+            <param name="url">Page URL</param>
+        </member>
+        <member name="M:CMS.Search.SearchCrawler.AddCrawlerIdToUrl(System.String)">
+            <summary>
+            Adds "crawlerid" parameter to given URL along with the signature of such extended URL.
+            </summary>
+            <param name="url">URL to add crawlerid to</param>
+        </member>
+        <member name="M:CMS.Search.SearchCrawler.IsCrawlerRequest">
+            <summary>
+            Returns true if current request was initialized by smart search crawler.
+            </summary>
         </member>
         <member name="T:CMS.Search.SearchHelper">
             <summary>
@@ -3168,6 +3307,16 @@
         <member name="F:CMS.Search.SearchHelper.ONLINEFORMINDEX">
             <summary>
             On-line forms search index constant.
+            </summary>
+        </member>
+        <member name="F:CMS.Search.SearchHelper.SIMPLE_ITEM_ID">
+            <summary>
+            Guid value of the simple search setting item.
+            </summary>
+        </member>
+        <member name="F:CMS.Search.SearchHelper.CUSTOM_INDEX_DATA">
+            <summary>
+            Constant for custom index data.
             </summary>
         </member>
         <member name="F:CMS.Search.SearchHelper.INVARIANT_FIELD_VALUE">
@@ -3214,16 +3363,6 @@
         <member name="F:CMS.Search.SearchHelper.DEFAULT_SEARCH_CREATION_DATE_COLUMN">
             <summary>
             Constant for default class search creation date column.
-            </summary>
-        </member>
-        <member name="F:CMS.Search.SearchHelper.SIMPLE_ITEM_ID">
-            <summary>
-            Guid value of the simple search setting item.
-            </summary>
-        </member>
-        <member name="F:CMS.Search.SearchHelper.CUSTOM_INDEX_DATA">
-            <summary>
-            Constant for custom index data.
             </summary>
         </member>
         <member name="F:CMS.Search.SearchHelper.mBasicEscaperRegEx">
@@ -3302,364 +3441,11 @@
             Indicates if the search indexes are stored on external storage.
             </summary>
         </member>
-        <member name="M:CMS.Search.SearchHelper.CreateEmptyDocument">
+        <member name="F:CMS.Search.SearchHelper.CreatingDefaultSearchSettings">
             <summary>
-            Creates empty search document.
+            An event raised upon <see cref="F:CMS.Search.SearchHelper.CreatingDefaultSearchSettings"/> execution. Custom search field flags can be added to <see cref="P:CMS.Search.CreateDefaultSearchSettingsEventArgs.SearchSettings"/>
+            being created.
             </summary>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.CreateDocument(CMS.Search.SearchDocumentParameters)">
-            <summary>
-            Creates search document based on given parameters
-            </summary>
-            <param name="parameters">Document initialization parameters</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.InitDocument(CMS.DataEngine.ISearchDocument,CMS.Search.SearchDocumentParameters)">
-            <summary>
-            Initializes search document.
-            </summary>
-            <param name="doc">Document to init</param>
-            <param name="parameters">Document initialization parameters</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.AddGeneralField(CMS.DataEngine.ISearchDocument,System.String,System.Object,System.Boolean,System.Boolean,System.Boolean)">
-            <summary>
-            Adds a general field do the search document.
-            </summary>
-            <param name="document">Document to which should be field added</param>
-            <param name="name">Name of new field</param>
-            <param name="value">Value of field</param>
-            <param name="store">Should be value stored</param>
-            <param name="tokenize">Should be value tokenized</param>
-            <param name="valueToLower">If true, the value of the field is converted to lower case before adding to the index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.PrepareContentValue(System.Object,System.Boolean)">
-            <summary>
-            Prepares value to add to content field.
-            </summary>
-            <param name="value">Value to add</param> 
-            <param name="stripTags">Indicates whether tags should be stripped</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.AddObjectDataToDocument(CMS.DataEngine.ISearchDocument,System.String,System.Data.DataSet)">
-            <summary>
-             Adds object data to iDocument, data for content field prepares and returns.
-            </summary>
-            <param name="doc">Search document</param>
-            <param name="classname">Class name</param>
-            <param name="ds">Dataset with data</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.CreateRebuildTask(System.Int32)">
-            <summary>
-            Creates rebuild task if search settings are not empty, for user index is task created always.
-            </summary>
-            <param name="indexID">Index ID</param>
-            <returns>True if search task was created, false if not</returns>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.IsClassSearchEnabled(System.String)">
-            <summary>
-            Returns true if given class allows search.
-            </summary>
-            <param name="className">Code name of the class</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.Optimize(CMS.Search.SearchIndexInfo)">
-            <summary>
-            Optimize specified index.
-            </summary>
-            <remarks>This method needs to be run in a thread safe way such as smart search task queue.</remarks>
-            <param name="indexInfo">Search index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.PartialRebuild(CMS.Search.SearchTaskInfo)">
-            <summary>
-            Rebuild part of the index with dependence on type and values.
-            </summary>
-            <param name="taskInfo">Search task</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.Rebuild(CMS.Search.SearchIndexInfo)">
-            <summary>
-            Rebuild specified index.
-            </summary>
-            <param name="indexInfo">Search index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.FinishRebuild(CMS.Search.SearchIndexInfo)">
-            <summary>
-            Finishes the rebuild of the given index by marking it as updated
-            </summary>
-            <param name="srchInfo">Search index info</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.Update(CMS.DataEngine.ISearchDocument,CMS.Search.SearchIndexInfo)">
-            <summary>
-            Insert or update document for specified index.
-            </summary>
-            <remarks>This method needs to be run in a thread safe way such as smart search task queue.</remarks>
-            <param name="iDoc">Document</param>
-            <param name="indexInfo">Search index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.Delete(System.String,System.Collections.ICollection,CMS.Search.SearchIndexInfo)">
-            <summary>
-            Remove document(s) with dependence on field name and field value collection for specified index.
-            </summary>
-            <param name="fieldName">Field name</param>
-            <param name="values">Collection of field values</param>
-            <param name="indexInfo">Search index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.Delete(System.String,System.String,CMS.Search.SearchIndexInfo)">
-            <summary>
-            Remove document(s) with dependence on field name and field value for specified index.
-            </summary>
-            <param name="fieldName">Field name</param>
-            <param name="value">Field value</param>
-            <param name="indexInfo">Search index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.HighlightMatch(System.Text.RegularExpressions.Match)">
-            <summary>
-            Highlighting match evaluator.
-            </summary>
-            <param name="m">Represents the results from a single regular expression match</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.Highlight(System.String,System.String,System.String)">
-            <summary>
-            Highlight input text with dependence on current search key words.
-            </summary>
-            <param name="text">Input text</param>
-            <param name="startTag">Starting HTML tag</param>
-            <param name="endTag">Ending HTML tag</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetCustomSearchIndex(CMS.Search.SearchIndexInfo)">
-            <summary>
-            Returns ICusromSearchIndex for specified index info.
-            </summary>
-            <param name="indexInfo">Search index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.Search(CMS.Search.SearchParameters)">
-            <summary>
-            Returns dataset with search results, if search is used for non-document index, path and class name values are ignored (can be null).
-            </summary>
-            <param name="parameters">Search parameters</param>
-            <returns>DataSet with search results</returns>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.SearchInternal(CMS.Search.SearchParameters)">
-            <summary>
-            Returns list with search results, if search is used for non-document index, path and class name values are ignored (can be null).
-            </summary>
-            <param name="parameters">Search parameters</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.PrepareSearchResults(CMS.Search.SearchParameters)">
-            <summary>
-            Adds the attachment results to the search results
-            </summary>
-            <param name="parameters">Search parameters</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.CollectSites(CMS.Search.SearchParameters,System.Collections.Generic.List{System.Int32})">
-            <summary>
-            Collects the list of sites to search
-            </summary>
-            <param name="parameters">Search parameters</param>
-            <param name="indexIDs">List of index IDs</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetResultRange(CMS.Search.SearchParameters,System.Collections.Generic.List{CMS.DataEngine.ISearchDocument},System.Int32@,System.Int32@)">
-            <summary>
-            Gets the result range indexes
-            </summary>
-            <param name="parameters">Search parameters</param>
-            <param name="filteredResults">Filtered results</param>
-            <param name="fromIndex">Returns starting index</param>
-            <param name="toIndex">Returns ending index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.LoadResultData(System.Collections.Generic.List{CMS.DataEngine.ISearchDocument},System.Int32,System.Int32)">
-            <summary>
-            Loads the result data for the search results
-            </summary>
-            <param name="filteredResults">Filtered search results</param>
-            <param name="fromIndex">Starting index</param>
-            <param name="toIndex">Ending index</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.CreateResultDataSet(System.Collections.Generic.List{CMS.DataEngine.ISearchDocument},System.Int32,System.Int32,CMS.Base.SafeDictionary{System.String,System.Data.DataRow},CMS.Base.SafeDictionary{System.String,CMS.DataEngine.ISearchDocument},System.Single)">
-            <summary>
-            Creates the result DataSet from the search results
-            </summary>
-            <param name="filteredResults">List of filtered results</param>
-            <param name="fromIndex">Starting index for the results</param>
-            <param name="toIndex">End index for the results</param>
-            <param name="resultData">Result data</param>
-            <param name="docs">Search documents for particular items</param>
-            <param name="maxScore">Maximum score value encountered within the search hits</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetCustomSearchIndexResult(System.Data.DataRow,CMS.DataEngine.ISearchDocument)">
-            <summary>
-            Fills custom search index search result, returns data row that replaces the reference to search result in result data
-            </summary>
-            <param name="resultDr">Result data row</param>
-            <param name="doc">Results search document</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.NewResultsTable">
-            <summary>
-            Creates new search results data table
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.FilterResults(CMS.Search.ISearchHits,CMS.Search.SearchResults,CMS.Search.SearchParameters)">
-            <summary>
-            Filters the search results, returns number of resulting items
-            </summary>
-            <param name="hits">Hits collection with search results</param>
-            <param name="parameters">Search result parameters</param>
-            <param name="searchParams">Search parameters</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetResultTypes(System.Collections.Generic.IList{CMS.DataEngine.ISearchDocument},System.Int32,System.Int32)">
-            <summary>
-            Gets the list of all types present in the given results
-            </summary>
-            <param name="results">List of the results</param>
-            <param name="from">Index from which process the results</param>
-            <param name="to">Index to process the results</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetResultsToProcess(System.Collections.Generic.IList{CMS.DataEngine.ISearchDocument},System.Int32,System.Int32,System.Func{System.String,System.Boolean})">
-            <summary>
-            Processes the results from the given range matching the required type
-            </summary>
-            <param name="results">List of the results</param>
-            <param name="from">Index from which process the results</param>
-            <param name="to">Index to process the results</param>
-            <param name="typeLambda">Function that checks the type of the results to process</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.InvalidateSearcher(System.Guid)">
-            <summary>
-            Invalidates searcher for the given index.
-            </summary>
-            <param name="id">Searcher id</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetStopWordsFileInfo(System.String)">
-            <summary>
-            Returns FileInfo object of stop words file for the given path
-            </summary>
-            <param name="path">Path to the stop words file</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.LoadCustomAnalyzer``1(System.String,System.String)">
-            <summary>
-            Returns analyzer object for specified analyzer name.
-            </summary>
-            <param name="assemblyName">Assembly name</param>
-            <param name="className">Class name</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.SearchFieldChanged(CMS.DataEngine.BaseInfo,System.Collections.Generic.List{System.String},System.Boolean)">
-            <summary>
-            Returns true if any field included in the search changed (checks fields defined in Class Search Settings).
-            </summary>
-            <param name="info">Info object</param>
-            <param name="changedColumns">List of changed columns, if not provided, retrieves the list from the object</param>
-            <param name="checkSpecialFields">If true, the special fields like (ClassSearchTitleColumn, etc.) are checked for changes</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.IsSearchTaskCreationAllowed(System.String)">
-            <summary>
-            Returns true if the search task for given node should be created.
-            Returns true if 
-             - search is allowed on general level AND 
-             - search is allowed for class of the object
-            </summary>
-            <param name="className">Class to check</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.SearchEnabledForClass(System.String)">
-            <summary>
-            Returns true if search is enabled for a given class (document type). Returns false if class not found.
-            </summary>
-            <param name="className">Name of the class</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetSearchFieldDefaultValue(System.String,System.Type)">
-            <summary>
-            Gets value which should be preselected for given column.
-            </summary>
-            <param name="column">Column name</param>
-            <param name="formFieldDataTypeEnum">Type of field</param>
-            <returns>Returns true or false.</returns>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.CreateSearchSettings(System.String,System.Boolean,System.Boolean,System.Boolean,System.String)">
-            <summary>
-            Creates new SearchSettingsInfo with given parameters.
-            </summary>
-            <param name="name">Name of the search field</param>
-            <param name="content">Content flag value</param>
-            <param name="searchable">Searchable flag value</param>
-            <param name="tokenized">Tokenized flag value</param>
-            <param name="fieldname">Field name value</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.CreateSearchSettings(System.String,System.Boolean,System.Boolean,System.Boolean,System.String,CMS.DataEngine.SearchSettingsInfo,System.Boolean@)">
-            <summary>
-            Creates new SearchSettingsInfo with given parameters. Returns whether the parameters changed from the original search settings.
-            </summary>
-            <param name="name">Name of the search field</param>
-            <param name="content">Content flag value</param>
-            <param name="searchable">Searchable flag value</param>
-            <param name="tokenized">Tokenized flag value</param>
-            <param name="fieldname">Field name value</param>
-            <param name="ssiOld">Original search settings to detect changes</param>
-            <param name="fieldChanged">Will be true if any of the values changed from the original search settings</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetClassSearchFields(System.String)">
-            <summary>
-            Returns list of all fields of the given class (along with their types) which should be included in the search.
-            </summary>
-            <param name="className">Name of the class to get the search fields from</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetClassSearchFields(System.Int32)">
-            <summary>
-            Returns list of all fields of the given class (along with their types) which should be included in the search.
-            </summary>
-            <param name="classId">ID of the class to get the search fields from</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetClassSearchFields(CMS.DataEngine.DataClassInfo)">
-            <summary>
-            Returns list of all fields of the given class (along with their types) which should be included in the search.
-            </summary>
-            <param name="classInfo">Class to get the search fields from</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetClassFields(System.String)">
-            <summary>
-            Returns the fields of the class along with their data type.
-            </summary>
-            <param name="className">Name of the class where to get the fields from</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetClassFields(CMS.DataEngine.DataClassInfo)">
-            <summary>
-            Returns the fields of the class along with their data type.
-            </summary>
-            <param name="classInfo">Class where to get the fields from</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetDefaultSearchSettings(System.String)">
-            <summary>
-            Returns the default search settings of the class.
-            </summary>
-            <param name="className">Name of the class</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetDefaultSearchSettings(CMS.DataEngine.DataClassInfo)">
-            <summary>
-            Returns the default search settings of the class.
-            </summary>
-            <param name="dci">Class to process</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.CleanSearchSettings(CMS.DataEngine.DataClassInfo)">
-            <summary>
-            Cleans the search settings from settings which does not correspond to any fields in the class and returns the filtered definition.
-            </summary>
-            <param name="dci">DataClass to process</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.SetDefaultClassSearchColumns(CMS.DataEngine.DataClassInfo)">
-            <summary>
-            Sets default class search columns.
-            </summary>
-            <param name="dci">DataClass to process</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.GetBinaryDataSearchContent(CMS.DataEngine.BaseInfo,CMS.Search.ExtractionContext,System.Boolean@)">
-            <summary>
-            Extracts the search information from the info. Returns null by default. Should be overridden by specific info.
-            </summary>
-            <param name="info">Object to extract search content from</param>
-            <param name="context">Extraction context passed to the extractor in case the value is not cached</param>
-            <param name="cachedValueUsed">Indicates whether the cached value was used or the extractor has to be called</param>
-        </member>
-        <member name="M:CMS.Search.SearchHelper.IsSearchAllowedExtension(System.String,System.Int32)">
-            <summary>
-            Check if file extension is allowed for indexing such attachment in search index.
-            </summary>
-            <param name="ext">Attachment extension</param>
-            <param name="siteId">ID of the node site</param>
-            <returns>True if extension is allowed otherwise false</returns>
         </member>
         <member name="P:CMS.Search.SearchHelper.Searchers">
             <summary>
@@ -3747,6 +3533,344 @@
             Maximal field length.
             </summary>
         </member>
+        <member name="M:CMS.Search.SearchHelper.CreateEmptyDocument">
+            <summary>
+            Creates empty search document.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.CreateDocument(CMS.DataEngine.SearchDocumentParameters)">
+            <summary>
+            Creates search document based on given parameters
+            </summary>
+            <param name="parameters">Document initialization parameters</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.AddGeneralField(CMS.Search.ILuceneSearchDocument,System.String,System.Object,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a general field do the search document.
+            </summary>
+            <param name="document">Document to which should be field added</param>
+            <param name="name">Name of new field</param>
+            <param name="value">Value of field</param>
+            <param name="store">Should be value stored</param>
+            <param name="tokenize">Should be value tokenized</param>
+            <param name="valueToLower">If true, the value of the field is converted to lower case before adding to the index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.PrepareContentValue(System.Object,System.Boolean)">
+            <summary>
+            Prepares value to add to content field.
+            </summary>
+            <param name="value">Value to add</param> 
+            <param name="stripTags">Indicates whether tags should be stripped</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.AddObjectDataToDocument(CMS.DataEngine.ISearchIndexInfo,CMS.DataEngine.SearchDocument,System.String,System.Data.DataSet)">
+            <summary>
+             Adds object data to iDocument, data for content field prepares and returns.
+            </summary>
+            <param name="index">Index for which the content is to be collected.</param>
+            <param name="doc">Search document</param>
+            <param name="classname">Class name</param>
+            <param name="ds">Dataset with data</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.CreateRebuildTask(System.Int32)">
+            <summary>
+            Creates rebuild task if search settings are not empty, for user index is task created always.
+            </summary>
+            <param name="indexID">Index ID</param>
+            <returns>True if search task was created, false if not</returns>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.IsClassSearchEnabled(System.String)">
+            <summary>
+            Returns true if given class allows search.
+            </summary>
+            <param name="className">Code name of the class</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.Optimize(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Optimize specified index.
+            </summary>
+            <remarks>This method needs to be run in a thread safe way such as smart search task queue.</remarks>
+            <param name="indexInfo">Search index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.PartialRebuild(CMS.Search.SearchTaskInfo)">
+            <summary>
+            Rebuild part of the index with dependence on type and values.
+            </summary>
+            <param name="taskInfo">Search task</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.Rebuild(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Rebuild specified index.
+            </summary>
+            <param name="indexInfo">Search index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.FinishRebuild(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Finishes the rebuild of the given index by marking it as updated
+            </summary>
+            <param name="srchInfo">Search index info</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.Update(CMS.Search.ILuceneSearchDocument,CMS.Search.SearchIndexInfo)">
+            <summary>
+            Insert or update document for specified index.
+            </summary>
+            <remarks>This method needs to be run in a thread safe way such as smart search task queue.</remarks>
+            <param name="iDoc">Document</param>
+            <param name="indexInfo">Search index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.Delete(System.String,System.Collections.ICollection,CMS.Search.SearchIndexInfo)">
+            <summary>
+            Remove document(s) with dependence on field name and field value collection for specified index.
+            </summary>
+            <param name="fieldName">Field name</param>
+            <param name="values">Collection of field values</param>
+            <param name="indexInfo">Search index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.Delete(System.String,System.String,CMS.Search.SearchIndexInfo)">
+            <summary>
+            Remove document(s) with dependence on field name and field value for specified index.
+            </summary>
+            <param name="fieldName">Field name</param>
+            <param name="value">Field value</param>
+            <param name="indexInfo">Search index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.HighlightMatch(System.Text.RegularExpressions.Match)">
+            <summary>
+            Highlighting match evaluator.
+            </summary>
+            <param name="m">Represents the results from a single regular expression match</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.Highlight(System.String,System.String,System.String)">
+            <summary>
+            Highlight input text with dependence on current search key words.
+            </summary>
+            <param name="text">Input text</param>
+            <param name="startTag">Starting HTML tag</param>
+            <param name="endTag">Ending HTML tag</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetCustomSearchIndex(CMS.Search.SearchIndexInfo)">
+            <summary>
+            Returns ICusromSearchIndex for specified index info.
+            </summary>
+            <param name="indexInfo">Search index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.Search(CMS.Search.SearchParameters)">
+            <summary>
+            Returns dataset with search results, if search is used for non-document index, path and class name values are ignored (can be null).
+            </summary>
+            <param name="parameters">Search parameters</param>
+            <returns>DataSet with search results</returns>
+            <remarks>
+            This method does not constrain the search by <see cref="P:CMS.Search.SearchParameters.ClassNames"/>.
+            To constrain the search by class names, set <see cref="P:CMS.Search.SearchCondition.DocumentCondition"/> of a <see cref="T:CMS.Search.SearchCondition"/>.
+            Use <see cref="M:CMS.Search.SearchSyntaxHelper.CombineSearchCondition(System.String,CMS.Search.SearchCondition)"/> to obtain the resulting <see cref="P:CMS.Search.SearchParameters.SearchFor"/> expression.
+            </remarks>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.SearchInternal(CMS.Search.SearchParameters)">
+            <summary>
+            Returns list with search results, if search is used for non-document index, path and class name values are ignored (can be null).
+            </summary>
+            <param name="parameters">Search parameters</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.PrepareSearchResults(CMS.Search.SearchParameters)">
+            <summary>
+            Adds the attachment results to the search results
+            </summary>
+            <param name="parameters">Search parameters</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.CollectSites(CMS.Search.SearchParameters,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Collects the list of sites to search
+            </summary>
+            <param name="parameters">Search parameters</param>
+            <param name="indexIDs">List of index IDs</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetResultRange(CMS.Search.SearchParameters,System.Collections.Generic.List{CMS.Search.ILuceneSearchDocument},System.Int32@,System.Int32@)">
+            <summary>
+            Gets the result range indexes
+            </summary>
+            <param name="parameters">Search parameters</param>
+            <param name="filteredResults">Filtered results</param>
+            <param name="fromIndex">Returns starting index</param>
+            <param name="toIndex">Returns ending index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.LoadResultData(System.Collections.Generic.List{CMS.Search.ILuceneSearchDocument},System.Int32,System.Int32)">
+            <summary>
+            Loads the result data for the search results
+            </summary>
+            <param name="filteredResults">Filtered search results</param>
+            <param name="fromIndex">Starting index</param>
+            <param name="toIndex">Ending index</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.CreateResultDataSet(System.Collections.Generic.List{CMS.Search.ILuceneSearchDocument},System.Int32,System.Int32,CMS.Base.SafeDictionary{System.String,System.Data.DataRow},CMS.Base.SafeDictionary{System.String,CMS.Search.ILuceneSearchDocument},System.Single)">
+            <summary>
+            Creates the result DataSet from the search results
+            </summary>
+            <param name="filteredResults">List of filtered results</param>
+            <param name="fromIndex">Starting index for the results</param>
+            <param name="toIndex">End index for the results</param>
+            <param name="resultData">Result data</param>
+            <param name="docs">Search documents for particular items</param>
+            <param name="maxScore">Maximum score value encountered within the search hits</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetCustomSearchIndexResult(System.Data.DataRow,CMS.Search.ILuceneSearchDocument)">
+            <summary>
+            Fills custom search index search result, returns data row that replaces the reference to search result in result data
+            </summary>
+            <param name="resultDr">Result data row</param>
+            <param name="doc">Results search document</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.NewResultsTable">
+            <summary>
+            Creates new search results data table
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.FilterResults(CMS.Search.ISearchHits,CMS.Search.SearchResults,CMS.Search.SearchParameters)">
+            <summary>
+            Filters the search results, returns number of resulting items
+            </summary>
+            <param name="hits">Hits collection with search results</param>
+            <param name="parameters">Search result parameters</param>
+            <param name="searchParams">Search parameters</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetResultTypes(System.Collections.Generic.IList{CMS.Search.ILuceneSearchDocument},System.Int32,System.Int32)">
+            <summary>
+            Gets the list of all types present in the given results
+            </summary>
+            <param name="results">List of the results</param>
+            <param name="from">Index from which process the results</param>
+            <param name="to">Index to process the results</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetResultsToProcess(System.Collections.Generic.IList{CMS.Search.ILuceneSearchDocument},System.Int32,System.Int32,System.Func{System.String,System.Boolean})">
+            <summary>
+            Processes the results from the given range matching the required type
+            </summary>
+            <param name="results">List of the results</param>
+            <param name="from">Index from which process the results</param>
+            <param name="to">Index to process the results</param>
+            <param name="typeLambda">Function that checks the type of the results to process</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.InvalidateSearcher(System.Guid)">
+            <summary>
+            Invalidates searcher for the given index.
+            </summary>
+            <param name="id">Searcher id</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetStopWordsFileInfo(System.String)">
+            <summary>
+            Returns FileInfo object of stop words file for the given path
+            </summary>
+            <param name="path">Path to the stop words file</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.LoadCustomAnalyzer``1(System.String,System.String)">
+            <summary>
+            Returns analyzer object for specified analyzer name.
+            </summary>
+            <param name="assemblyName">Assembly name</param>
+            <param name="className">Class name</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.SearchFieldChanged(CMS.DataEngine.BaseInfo,System.Collections.Generic.List{System.String},System.Boolean)">
+            <summary>
+            Returns true if any field included in the search changed (checks fields defined in Class Search Settings).
+            </summary>
+            <param name="info">Info object</param>
+            <param name="changedColumns">List of changed columns, if not provided, retrieves the list from the object</param>
+            <param name="checkSpecialFields">If true, the special fields like (ClassSearchTitleColumn, etc.) are checked for changes</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.IsSearchTaskCreationAllowed(System.String)">
+            <summary>
+            Returns true if the search task for given node should be created.
+            Returns true if 
+             - search is allowed on general level AND 
+             - search is allowed for class of the object
+            </summary>
+            <param name="className">Class to check</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.SearchEnabledForClass(System.String)">
+            <summary>
+            Returns true if search is enabled for a given class (document type). Returns false if class not found.
+            </summary>
+            <param name="className">Name of the class</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetSearchFieldDefaultValue(System.String,System.Type)">
+            <summary>
+            Gets flag value which should be preselected for a column based on its data type. Handles local index flags only.
+            </summary>
+            <param name="flagName">Name of flag for which to get the default.</param>
+            <param name="formFieldDataTypeEnum">Type of field</param>
+            <returns>Returns default flag value.</returns>
+            <remarks>
+            When determining default search field flags values, <see cref="M:CMS.Search.SearchHelper.CreateDefaultSearchSettings(System.String,System.Type)"/> should be used
+            as it collects information for flags of all search index providers.
+            </remarks>
+            <seealso cref="M:CMS.Search.SearchHelper.CreateDefaultSearchSettings(System.String,System.Type)"/>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.CreateSearchSettings(System.String,System.Collections.Generic.IDictionary{System.String,System.Boolean},System.String)">
+            <summary>
+            Creates new <see cref="T:CMS.DataEngine.SearchSettingsInfo"/> for a field from given parameters.
+            </summary>
+            <param name="name">Name of the search field.</param>
+            <param name="flags">A dictionary of flag names and their values.</param>
+            <param name="fieldname">Custom field name.</param>
+            <returns><see cref="T:CMS.DataEngine.SearchSettingsInfo"/> initialized from given parameters.</returns>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.CreateSearchSettings(System.String,System.Collections.Generic.IDictionary{System.String,System.Boolean},System.String,CMS.DataEngine.SearchSettingsInfo,System.Boolean@)">
+            <summary>
+            Creates new <see cref="T:CMS.DataEngine.SearchSettingsInfo"/> for a field from given parameters. The out parameter <paramref name="fieldChanged"/> indicates, whether the field's definition has changed
+            when compared to <paramref name="ssiOld"/>.
+            </summary>
+            <param name="name">Name of the search field.</param>
+            <param name="flags">A dictionary of flag names and their values.</param>
+            <param name="fieldname">Custom field name.</param>
+            <param name="ssiOld">Original search settings to detect changes against. Changes are not detected if null is passed.</param>
+            <param name="fieldChanged">After the method returns, indicates whether the field's definition has changed when compared to <paramref name="ssiOld"/>. Set to false if <paramref name="ssiOld"/> is null.</param>
+            <returns><see cref="T:CMS.DataEngine.SearchSettingsInfo"/> initialized from given parameters.</returns>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetDefaultSearchSettings(System.String)">
+            <summary>
+            Returns the default search settings of the class.
+            </summary>
+            <param name="className">Name of the class</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetDefaultSearchSettings(CMS.DataEngine.DataClassInfo)">
+            <summary>
+            Returns the default search settings of the class.
+            </summary>
+            <param name="dci">Class to process</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.CreateDefaultSearchSettings(System.String,System.Type)">
+            <summary>
+            Creates the default search settings for given column name and its data type.
+            </summary>
+            <param name="name">Name of column the <see cref="T:CMS.DataEngine.SearchSettings"/> is being created for.</param>
+            <param name="dataType">Data type of the column.</param>
+            <returns>Search settings for given column.</returns>
+            <remarks>
+            The process of default search settings creation can be customized via <see cref="F:CMS.Search.SearchHelper.CreatingDefaultSearchSettings"/> event.
+            </remarks>
+            <seealso cref="F:CMS.Search.SearchHelper.CreatingDefaultSearchSettings"/>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.SetDefaultClassSearchColumns(CMS.DataEngine.DataClassInfo)">
+            <summary>
+            Sets default class search columns.
+            </summary>
+            <param name="dci">DataClass to process</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.GetBinaryDataSearchContent(CMS.DataEngine.BaseInfo,CMS.Search.ExtractionContext,System.Boolean@)">
+            <summary>
+            Extracts the search information from the info. Returns null by default. Should be overridden by specific info.
+            </summary>
+            <param name="info">Object to extract search content from</param>
+            <param name="context">Extraction context passed to the extractor in case the value is not cached</param>
+            <param name="cachedValueUsed">Indicates whether the cached value was used or the extractor has to be called</param>
+        </member>
+        <member name="M:CMS.Search.SearchHelper.IsSearchAllowedExtension(System.String,System.Int32)">
+            <summary>
+            Check if file extension is allowed for indexing such attachment in search index.
+            </summary>
+            <param name="ext">Attachment extension</param>
+            <param name="siteId">ID of the node site</param>
+            <returns>True if extension is allowed otherwise false</returns>
+        </member>
         <member name="T:CMS.Search.SearchIndexers">
             <summary>
             Manages the search indexers used for specific object type
@@ -3755,6 +3879,16 @@
         <member name="F:CMS.Search.SearchIndexers.mIndexers">
             <summary>
             Registered search indexer tasks by their type
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexers.DefaultIndexer">
+            <summary>
+            Default search indexer
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchIndexers.IndexerTypes">
+            <summary>
+            Returns the collection of the indexers
             </summary>
         </member>
         <member name="M:CMS.Search.SearchIndexers.Init">
@@ -3778,16 +3912,6 @@
             Gets the indexer by its object type
             </summary>
             <param name="objectType">Object type</param>
-        </member>
-        <member name="P:CMS.Search.SearchIndexers.DefaultIndexer">
-            <summary>
-            Default search indexer
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchIndexers.IndexerTypes">
-            <summary>
-            Returns the collection of the indexers
-            </summary>
         </member>
         <member name="T:CMS.Search.SearchTaskCreationParameters">
             <summary>
@@ -3832,26 +3956,6 @@
         <member name="F:CMS.Search.SearchTaskInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SearchTaskInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SearchTaskInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Search.SearchTaskInfo.SearchTaskCreated">
@@ -3914,6 +4018,26 @@
             Returns object type of the task related object. 
             </summary>
         </member>
+        <member name="M:CMS.Search.SearchTaskInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchTaskInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchTaskInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SearchTaskInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Search.SearchTaskInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SearchTaskInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Search.SearchTaskInfoProvider">
             <summary>
             Class providing SearchTaskInfo management.
@@ -3922,6 +4046,32 @@
         <member name="F:CMS.Search.SearchTaskInfoProvider.EXTERNAL_REBUILD_LOCK_NAME">
             <summary>
             File name for the external lock
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchTaskInfoProvider.EnableIndexer">
+            <summary>
+            Indicates if the smart search indexer should start.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchTaskInfoProvider.EnableTasks">
+            <summary>
+            Indicates whether task creation is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchTaskInfoProvider.ProcessSearchTasksByScheduler">
+            <summary>
+            If true, smart search tasks which supports various task processing are processed by scheduler.
+            </summary>
+            <remarks>Applies only on local search tasks.</remarks>
+        </member>
+        <member name="P:CMS.Search.SearchTaskInfoProvider.IndexerThreadGuid">
+            <summary>
+            Contains GUID of indexer thread when indexer is running.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.SearchTaskInfoProvider.IsIndexThreadRunning">
+            <summary>
+            Indicates whether indexer thread is running.
             </summary>
         </member>
         <member name="M:CMS.Search.SearchTaskInfoProvider.GetSearchTasks">
@@ -3934,22 +4084,6 @@
             Returns the SearchTaskInfo structure for the specified searchTask.
             </summary>
             <param name="searchTaskId">SearchTask id</param>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfoProvider.GetSearchTasks(System.String,System.String,System.String,System.Int32)">
-            <summary>
-            Returns all the search tasks filtered by where condition and sorted by orderBy expression.
-            </summary>
-            <param name="columns">Selects only specified columns</param>
-            <param name="where">The WHERE condition to use</param>
-            <param name="orderBy">The ORDER BY expression to use to sort the result</param>        
-            <param name="topN">Selects only TOP N rows</param>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfoProvider.GetSearchTasks(System.String,System.String)">
-            <summary>
-            Returns all the search tasks filtered by where condition and sorted by orderBy expression.
-            </summary>
-            <param name="where">The WHERE condition to use</param>
-            <param name="orderBy">The ORDER BY expression to use to sort the result</param>        
         </member>
         <member name="M:CMS.Search.SearchTaskInfoProvider.SetSearchTaskInfo(CMS.Search.SearchTaskInfo)">
             <summary>
@@ -3993,6 +4127,11 @@
             </summary>
             <param name="parameters">Search task creation parameters</param>
             <param name="runIndexer">Whether indexer starts after creation. If not specified this behavior depends on current settings.</param>
+        </member>
+        <member name="M:CMS.Search.SearchTaskInfoProvider.IsLuceneRelatedTask(CMS.Search.SearchTaskCreationParameters)">
+            <summary>
+            Filters Rebuild and Optimize tasks based on their index provider.
+            </summary>
         </member>
         <member name="M:CMS.Search.SearchTaskInfoProvider.ProcessTasks">
             <summary>
@@ -4041,37 +4180,17 @@
             Provides delete query.
             </summary>
         </member>
-        <member name="M:CMS.Search.SearchTaskInfoProvider.GetSearchTasksInternal">
-            <summary>
-            Returns all search tasks.
-            </summary>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfoProvider.GetSearchTaskInfoInternal(System.Int32)">
-            <summary>
-            Returns the SearchTaskInfo structure for the specified task.
-            </summary>
-            <param name="searchTaskId">Country id</param>
-        </member>
-        <member name="M:CMS.Search.SearchTaskInfoProvider.GetSearchTasksInternal(System.String,System.String,System.String,System.Int32)">
-            <summary>
-            Returns all the search tasks filtered by where condition and sorted by orderBy expression.
-            </summary>
-            <param name="columns">Specifies selected columns, null for all columns</param>
-            <param name="where">The WHERE condition to use</param>
-            <param name="orderBy">The ORDER BY expression to use to sort the result</param>
-            <param name="topN">Number of records to return, 0 for all rows</param>
-        </member>
         <member name="M:CMS.Search.SearchTaskInfoProvider.SetSearchTaskInfoInternal(CMS.Search.SearchTaskInfo)">
             <summary>
             Sets (updates or inserts) specified search task.
             </summary>
             <param name="searchTask">Search task to set</param>
         </member>
-        <member name="M:CMS.Search.SearchTaskInfoProvider.DeleteSearchTaskInfoInternal(CMS.Search.SearchTaskInfo)">
+        <member name="M:CMS.Search.SearchTaskInfoProvider.DeleteInfo(CMS.Search.SearchTaskInfo)">
             <summary>
-            Deletes specified search task.
+            Deletes the object to the database.
             </summary>
-            <param name="searchTaskObj">Search task object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Search.SearchTaskInfoProvider.CreateTaskInternal(System.Collections.Generic.ICollection{CMS.Search.SearchTaskCreationParameters})">
             <summary>
@@ -4091,36 +4210,6 @@
         <member name="M:CMS.Search.SearchTaskInfoProvider.RunInternal">
             <summary>
             Represents indexer thread.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchTaskInfoProvider.EnableIndexer">
-            <summary>
-            Indicates if the smart search indexer should start.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchTaskInfoProvider.EnableTasks">
-            <summary>
-            Indicates whether task creation is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchTaskInfoProvider.ProcessSearchTasksByScheduler">
-            <summary>
-            If true, smart search tasks are processed by scheduler.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchTaskInfoProvider.IndexerThreadGuid">
-            <summary>
-            Contains GUID of indexer thread when indexer is running.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchTaskInfoProvider.IsIndexThreadRunning">
-            <summary>
-            Indicates whether indexer thread is running.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.SearchTaskInfoProvider.TaskIndexerRetrieveRowsCount">
-            <summary>
-            Task indexer will retrieve search tasks from database by count of 10.
             </summary>
         </member>
         <member name="T:CMS.Search.SearchTaskStatusEnum">
@@ -4172,6 +4261,112 @@
             <summary>
             Universal process task.
             </summary>
+        </member>
+        <member name="T:CMS.Search.ISearchSyntaxHelper">
+            <summary>
+            Helper methods for search condition syntax
+            </summary>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.IsEmptyCondition(System.String)">
+            <summary>
+            Returns true if the given search condition is empty
+            </summary>
+            <param name="condition">Search condition to check</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.AddSearchCondition(System.String,System.String)">
+            <summary>
+            Adds the given search condition to the existing condition
+            </summary>
+            <param name="original">Original condition</param>
+            <param name="add">Condition to add</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetRange(System.Object,System.Object)">
+            <summary>
+            Gets the range expression
+            </summary>
+            <param name="from">From value</param>
+            <param name="to">To value. If not specified, the range covers only the from value.</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetFieldCondition(System.String,System.Object,System.Nullable{System.Boolean})">
+            <summary>
+            Gets the search condition for the given field
+            </summary>
+            <param name="fieldName">Field name</param>
+            <param name="val">Field value</param>
+            <param name="valueMatch">Defines if the condition is required. True means required, false means all except, null means default operator (typically optional)</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetFilterCondition(System.String,System.String)">
+            <summary>
+            Returns condition for search filter row
+            </summary>
+            <param name="row">Filter row</param>
+            <param name="value">Filter row value</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetExactPhraseCondition(System.String)">
+            <summary>
+            Gets the exact phrase condition from the given phrase
+            </summary>
+            <param name="phrase">Phrase to convert</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetRequiredCondition(System.String)">
+            <summary>
+            Gets a required condition from the given condition
+            </summary>
+            <param name="condition">Condition to convert to required</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetNotCondition(System.String)">
+            <summary>
+            Gets a not (except) condition from the given condition
+            </summary>
+            <param name="condition">Condition to convert to required</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetGroup(System.String[])">
+            <summary>
+            Groups the expressions
+            </summary>
+            <param name="expressions">Inner group expressions</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.ExpandWithSynonyms(System.String,System.String)">
+            <summary>
+            Expands given search expression with synonyms. If the data base of synonyms for given language is not found, searchExpression is returned without any modifications.
+            </summary>
+            <param name="searchExpression">Search expression which should be expanded with synonyms</param>
+            <param name="culture">Language code of the search expression (if null, en-us is used)</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.TransformToFuzzySearch(System.String)">
+            <summary>
+            Adds ~ signs to each term to force fuzzy search.
+            </summary>
+            <param name="searchExpression">Search expression to transform</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.EscapeKeyWords(System.String)">
+            <summary>
+            Escapes the key words to be searched
+            </summary>
+            <param name="keywords">Keywords</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.GetFieldCondition(System.String,System.Object,System.Object,System.Nullable{System.Boolean})">
+            <summary>
+            Gets the field condition for a range of values
+            </summary>
+            <param name="fieldName">Field name</param>
+            <param name="from">From value</param>
+            <param name="to">To value</param>
+            <param name="valueMatch">Defines if the condition is required. True means required, false means all except, null means default operator (typically optional)</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.CombineSearchCondition(System.String,CMS.Search.SearchCondition)">
+            <summary>
+            Returns string with combined search index conditions.
+            </summary>
+            <param name="keyWords">Search keywords, separated by space</param>
+            <param name="searchCondition">Search condition</param>
+        </member>
+        <member name="M:CMS.Search.ISearchSyntaxHelper.ProcessSearchKeywords(System.String,CMS.Search.SearchOptionsEnum)">
+            <summary>
+            Returns modified keywords string based on searchOptions.
+            </summary>
+            <param name="keywords">String with keyword</param>
+            <param name="searchOptions">Search options specifies encoding</param>
         </member>
         <member name="T:CMS.Search.SearchSyntaxHelper">
             <summary>
@@ -4278,6 +4473,71 @@
             </summary>
             <param name="keywords">String with keyword</param>
             <param name="searchOptions">Search options specifies encoding</param>
+        </member>
+        <member name="T:CMS.Search.ISearchValueConverter">
+            <summary>
+            Base class for search value converter
+            </summary>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.ConvertToString(System.Object)">
+            <summary>
+            Converts the 
+            </summary>
+            <param name="value">Value to convert</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.ReplaceNumbers(System.String)">
+            <summary>
+            Replaces the number expressions within the given condition
+            </summary>
+            <param name="condition">Condition to process</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.IntToString(System.Int32)">
+            <summary>
+            Returns string representation of the integer value. Returned value has always uniform format.
+            </summary>
+            <param name="value">Integer value</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.StringToInt(System.String)">
+            <summary>
+            Converts search string to the integer value.
+            </summary>
+            <param name="value">String representation of integer</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.DoubleToString(System.Double)">
+            <summary>
+            Returns string representation of the double value. Returned value has always uniform format.
+            </summary>
+            <param name="value">Double value</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.StringToDouble(System.String)">
+            <summary>
+            Converts search string to the integer value.
+            </summary>
+            <param name="value">String representation of double</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.DecimalToString(System.Decimal)">
+            <summary>
+            Returns string representation of the decimal value.
+            </summary>
+            <param name="value">Decimal value</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.StringToDecimal(System.String)">
+            <summary>
+            Converts search string to the decimal value.
+            </summary>
+            <param name="value">String representation of decimal</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.StringToDate(System.String)">
+            <summary>
+            Converts the string representation of the date time from searched document to a date time
+            </summary>
+            <param name="input">Input string</param>
+        </member>
+        <member name="M:CMS.Search.ISearchValueConverter.DateToString(System.DateTime)">
+            <summary>
+            Converts the date time from to its string representation
+            </summary>
+            <param name="input">Input date</param>
         </member>
         <member name="T:CMS.Search.SearchValueConverter">
             <summary>

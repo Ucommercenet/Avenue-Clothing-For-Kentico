@@ -108,7 +108,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Web_WebContentSelector 
             if (Config.SelectableContent != SelectableContentEnum.OnlyImages)
             {
                 drpMediaType.Items.Add(new ListItem(GetString("dialogs.web.av"), "av"));
-                drpMediaType.Items.Add(new ListItem(GetString("dialogs.web.flash"), "flash"));
             }
         }
     }
@@ -201,7 +200,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Web_WebContentSelector 
                                         txt.value = hdnAlt.value;
                                     }
                                 }";
-            ScriptHelper.RegisterStartupScript(Page, typeof (Page), "DialogAltImageScript", ScriptHelper.GetScript(scriptAlt));
+            ScriptHelper.RegisterStartupScript(Page, typeof(Page), "DialogAltImageScript", ScriptHelper.GetScript(scriptAlt));
         }
 
         base.OnPreRender(e);
@@ -266,9 +265,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Web_WebContentSelector 
                         drpMediaType.SelectedValue = "av";
                         break;
 
-                    case MediaTypeEnum.Flash:
-                        drpMediaType.SelectedValue = "flash";
-                        break;
                     default:
                         drpMediaType.SelectedValue = "";
                         plcInfo.Visible = true;
@@ -330,10 +326,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Web_WebContentSelector 
             case "av":
                 type = MediaTypeEnum.AudioVideo;
                 break;
-
-            case "flash":
-                type = MediaTypeEnum.Flash;
-                break;
         }
 
         SetLastType(type);
@@ -370,12 +362,11 @@ public partial class CMSModules_Content_Controls_Dialogs_Web_WebContentSelector 
                 case "image":
                     script = CMSDialogHelper.GetImageItem(properties);
                     break;
+
                 case "av":
                     script = CMSDialogHelper.GetAVItem(properties);
                     break;
-                case "flash":
-                    script = CMSDialogHelper.GetFlashItem(properties);
-                    break;
+
                 default:
                     script = CMSDialogHelper.GetUrlItem(properties);
                     break;
@@ -441,10 +432,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Web_WebContentSelector 
                     mi.Extension = String.IsNullOrEmpty(ext) ? "avi" : ext;
                     break;
 
-                case "flash":
-                    propMedia.ViewMode = MediaTypeEnum.Flash;
-                    mi.Extension = String.IsNullOrEmpty(ext) ? "swf" : ext;
-                    break;
                 default:
                     plcHTMLMediaProp.Visible = false;
                     break;
@@ -571,11 +558,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Web_WebContentSelector 
             {
                 drpMediaType.SelectedValue = "av";
                 txtUrl.Text = properties[DialogParameters.AV_URL].ToString();
-            }
-            else if ((properties[DialogParameters.FLASH_URL] != null) && ((properties[DialogParameters.LAST_TYPE] == null) || ((MediaTypeEnum)properties[DialogParameters.LAST_TYPE] == MediaTypeEnum.Flash)))
-            {
-                drpMediaType.SelectedValue = "flash";
-                txtUrl.Text = properties[DialogParameters.FLASH_URL].ToString();
             }
             else if ((properties[DialogParameters.IMG_URL] != null) && ((properties[DialogParameters.LAST_TYPE] == null) || ((MediaTypeEnum)properties[DialogParameters.LAST_TYPE] == MediaTypeEnum.Image)))
             {

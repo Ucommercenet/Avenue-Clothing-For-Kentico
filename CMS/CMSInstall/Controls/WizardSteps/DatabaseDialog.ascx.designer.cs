@@ -120,42 +120,6 @@ public partial class CMSInstall_Controls_WizardSteps_DatabaseDialog {
     protected global::CMS.Base.Web.UI.CMSCheckBox chkCreateDatabaseObjects;
     
     /// <summary>
-    /// plcAdvanced control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.PlaceHolder plcAdvanced;
-    
-    /// <summary>
-    /// lblAdvanced control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.HyperLink lblAdvanced;
-    
-    /// <summary>
-    /// lblSchema control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblSchema;
-    
-    /// <summary>
-    /// txtSchema control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.CMSTextBox txtSchema;
-    
-    /// <summary>
     /// plcRunningTasks control.
     /// </summary>
     /// <remarks>

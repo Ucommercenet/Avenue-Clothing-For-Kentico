@@ -103,7 +103,7 @@ public partial class CMSModules_Membership_Controls_ResetPassword : CMSUserContr
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        if (!RequestHelper.IsPostBack())
+        if (!RequestHelper.IsPostBack() && !IsCancellationRequest())
         {
             // Clear session value
             ClearResetRequestID();
@@ -135,12 +135,12 @@ public partial class CMSModules_Membership_Controls_ResetPassword : CMSUserContr
 
         // Get interval from settings
         interval = SettingsKeyInfoProvider.GetDoubleValue("CMSResetPasswordInterval", siteName);
-        
+
         // Prepare failed message
         string invalidRequestMessage = DataHelper.GetNotEmpty(InvalidRequestText, String.Format(ResHelper.GetString("membership.passwresetfailed"), URLHelper.AddParameterToUrl(securedAreasLogonUrl, "forgottenpassword", "1")));
 
-        // Reset password cancelation
-        if (QueryHelper.GetBoolean("cancel", false))
+        // Reset password cancellation
+        if (IsCancellationRequest())
         {
             // Get user info
             UserInfo ui = UserInfoProvider.GetUsersDataWithSettings()
@@ -178,12 +178,9 @@ public partial class CMSModules_Membership_Controls_ResetPassword : CMSUserContr
             int userId = GetResetRequestID();
             if (userId > 0)
             {
+                // Invalidation forces user info to load user settings from DB and not use cached values.
                 ui = UserInfoProvider.GetUserInfo(userId);
-                if (ui != null)
-                {
-                    // Invalidation forces user info to load user settings from DB and not use cached values.
-                    ui.Generalized.Invalidate(false);
-                }
+                ui?.Generalized.Invalidate(false);
             }
             else
             {
@@ -312,6 +309,12 @@ public partial class CMSModules_Membership_Controls_ResetPassword : CMSUserContr
 
 
     #region "Helper methods"
+
+    private static bool IsCancellationRequest()
+    {
+        return QueryHelper.GetBoolean("cancel", false);
+    }
+
 
     /// <summary>
     /// Gets reset password request identifier from session

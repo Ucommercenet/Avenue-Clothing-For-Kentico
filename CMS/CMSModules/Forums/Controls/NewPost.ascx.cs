@@ -1088,7 +1088,7 @@ public partial class CMSModules_Forums_Controls_NewPost : ForumViewer
         }
 
         mForumActivityLogger.LogForumSubscriptionActivity(forumInfo, forumSubscriptionInfo, DocumentContext.CurrentDocument);
-        Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(forumSubscriptionInfo.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+        Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(forumSubscriptionInfo.SubscriptionEmail, MembershipContext.AuthenticatedUser);
     }
 
 
@@ -1105,6 +1105,6 @@ public partial class CMSModules_Forums_Controls_NewPost : ForumViewer
         }
 
         mForumActivityLogger.LogForumPostActivity(forumInfo, forumPostInfo, DocumentContext.CurrentDocument);
-        Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(forumPostInfo.PostUserMail, MembershipContext.AuthenticatedUser);
+        Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(forumPostInfo.PostUserMail, MembershipContext.AuthenticatedUser);
     }
 }

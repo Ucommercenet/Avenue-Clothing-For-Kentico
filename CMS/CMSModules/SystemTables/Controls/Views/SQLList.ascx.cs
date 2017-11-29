@@ -104,42 +104,42 @@ public partial class CMSModules_SystemTables_Controls_Views_SQLList : CMSUserCon
     /// </summary>
     public void ReloadData()
     {
-        string where = null;
+        WhereCondition where = new WhereCondition();
 
         if (!String.IsNullOrEmpty(drpCustom.SelectedValue))
         {
+            string columnName = Views ? "TABLE_NAME" : "ROUTINE_NAME";
+            string prefix = Views ? "View_Custom_" : "Proc_Custom_";
+
             switch (drpCustom.SelectedValue)
             {
                 case "1":
-                    where = "{0} LIKE '{1}%'";
+                    where.WhereStartsWith(columnName, prefix);
                     break;
                 case "0":
-                    where = "{0} NOT LIKE '{1}%'";
+                    where.WhereNotStartsWith(columnName, prefix);
                     break;
-            }
-
-            if (Views)
-            {
-                where = String.Format(where, "TABLE_NAME", "View_Custom_");
-            }
-            else
-            {
-                where = String.Format(where, "ROUTINE_NAME", "Proc_Custom_");
             }
         }
 
-        where = SqlHelper.AddWhereCondition(where, fltViews.GetCondition());
+        // Filter system views
+        if (Views)
+        {
+            where.WhereNotEquals("TABLE_SCHEMA", "sys");
+        }
+
+        where.Where(fltViews.GetCondition());
 
         TableManager tm = new TableManager(null);
 
         if (Views)
         {
-            gridViews.DataSource = tm.GetList(where, "TABLE_NAME, TABLE_SCHEMA, IsCustom=CASE SUBSTRING(TABLE_NAME,0,13) WHEN 'View_Custom_' THEN 1 ELSE 0 END", true);
+            gridViews.DataSource = tm.GetList(where.ToString(true), "TABLE_NAME, TABLE_SCHEMA, IsCustom=CASE SUBSTRING(TABLE_NAME,0,13) WHEN 'View_Custom_' THEN 1 ELSE 0 END", true);
         }
         else
         {
-            where = SqlHelper.AddWhereCondition(where, "ROUTINE_TYPE LIKE 'PROCEDURE'");
-            gridViews.DataSource = tm.GetList(where, "ROUTINE_NAME, ROUTINE_SCHEMA, IsCustom=CASE SUBSTRING(ROUTINE_NAME,0,13) WHEN 'Proc_Custom_' THEN 1 ELSE 0 END", false);
+            where.WhereEquals("ROUTINE_TYPE", "PROCEDURE");
+            gridViews.DataSource = tm.GetList(where.ToString(true), "ROUTINE_NAME, ROUTINE_SCHEMA, IsCustom=CASE SUBSTRING(ROUTINE_NAME,0,13) WHEN 'Proc_Custom_' THEN 1 ELSE 0 END", false);
         }
     }
 
@@ -248,7 +248,7 @@ public partial class CMSModules_SystemTables_Controls_Views_SQLList : CMSUserCon
     /// <summary>
     /// Refresh all views.
     /// </summary>
-    public void RefresViews()
+    public void RefreshAllViews()
     {
         if (Views)
         {

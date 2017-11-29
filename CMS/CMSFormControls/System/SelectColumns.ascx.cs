@@ -6,10 +6,8 @@ using CMS.Base.Web.UI;
 using CMS.DataEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
+using CMS.IO;
 using CMS.SiteProvider;
-
-using SystemIO = System.IO;
-
 
 public partial class CMSFormControls_System_SelectColumns : FormEngineUserControl
 {
@@ -253,7 +251,7 @@ function GetSelectedColumns(hdnSelColId) {
 
     private static void LoadXmlDocument(XmlDocument document, string xml)
     {
-        using (var stringReader = new SystemIO.StringReader(xml))
+        using (var stringReader = new StringReader(xml))
         using (var xmlReader = XmlReader.Create(stringReader, new XmlReaderSettings()))
         {
             document.Load(xmlReader);

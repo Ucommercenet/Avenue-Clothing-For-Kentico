@@ -5,9 +5,7 @@ using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Helpers;
 using CMS.Localization;
-using CMS.Membership;
 using CMS.UIControls;
-
 
 [Title("localizable.localizefield")]
 public partial class CMSFormControls_Selectors_LocalizableTextBox_LocalizeField : CMSModalPage
@@ -71,7 +69,7 @@ public partial class CMSFormControls_Selectors_LocalizableTextBox_LocalizeField 
             if (!RequestHelper.IsPostBack())
             {
                 var newResKey = LocalizationHelper.GetUniqueResStringKey(plainText, resourceKeyPrefix);
-                if (!SystemContext.DevelopmentMode && newResKey.StartsWithCSafe(resourceKeyPrefix, true))
+                if (!SystemContext.DevelopmentMode && newResKey.StartsWith(resourceKeyPrefix, StringComparison.InvariantCultureIgnoreCase))
                 {
                     newResKey = newResKey.Substring(resourceKeyPrefix.Length);
                 }
@@ -93,7 +91,7 @@ public partial class CMSFormControls_Selectors_LocalizableTextBox_LocalizeField 
     {
         // Check if current user's culture exists
         string cultureCode = CultureHelper.PreferredUICultureCode;
-        if (String.IsNullOrEmpty(cultureCode))
+        if (string.IsNullOrEmpty(cultureCode))
         {
             cultureCode = CultureHelper.DefaultUICultureCode;
         }
@@ -126,7 +124,7 @@ public partial class CMSFormControls_Selectors_LocalizableTextBox_LocalizeField 
                 }
             }
 
-            string script = ScriptHelper.GetScript("wopener.SetResourceAndOpen('" + hdnValue + "', '" + ScriptHelper.GetString(key, false) + "', '" + textbox + "', " + ScriptHelper.GetString(plainText) + ", '" + btnLocalizeField + "', '" + btnLocalizeString + "', '" + btnRemoveLocalization + "', '" + localizedInputContainer + "'); CloseDialog();");
+            string script = ScriptHelper.GetScript("CloseDialog(); wopener.SetResourceAndOpen('" + hdnValue + "', '" + ScriptHelper.GetString(key, false) + "', '" + textbox + "', " + ScriptHelper.GetString(plainText) + ", '" + btnLocalizeField + "', '" + btnLocalizeString + "', '" + btnRemoveLocalization + "', '" + localizedInputContainer + "');");
             ScriptHelper.RegisterStartupScript(this, typeof(string), "localizeField", script);
         }
         // Using existing resource string
@@ -138,21 +136,27 @@ public partial class CMSFormControls_Selectors_LocalizableTextBox_LocalizeField 
             // Key not found in DB
             if (ri == null)
             {
-                // Try to find it in .resx file and save it in DB
+                // Try to find it in .resx file
                 FileResourceManager resourceManager = LocalizationHelper.GetFileManager(cultureCode);
                 if (resourceManager != null)
                 {
                     string translation = resourceManager.GetString(key);
-                    if (!String.IsNullOrEmpty(translation))
+                    if (!string.IsNullOrEmpty(translation))
                     {
-                        ri = new ResourceStringInfo();
-                        ri.StringKey = key;
-                        ri.StringIsCustom = !SystemContext.DevelopmentMode;
-                        ri.CultureCode = cultureCode;
-                        ri.TranslationText = translation;
-                        ResourceStringInfoProvider.SetResourceStringInfo(ri);
+                        if (!SystemContext.DevelopmentMode)
+                        {
+                            // Save the key in DB
+                            ri = new ResourceStringInfo
+                            {
+                                StringKey = key,
+                                StringIsCustom = true,
+                                CultureCode = cultureCode,
+                                TranslationText = translation
+                            };
+                            ResourceStringInfoProvider.SetResourceStringInfo(ri);
+                        }
 
-                        string script = ScriptHelper.GetScript("wopener.SetResource('" + hdnValue + "', '" + key + "', '" + textbox + "', " + ScriptHelper.GetString(translation) + ", '" + btnLocalizeField + "', '" + btnLocalizeString + "', '" + btnRemoveLocalization + "', '" + localizedInputContainer + "'); CloseDialog();");
+                        string script = ScriptHelper.GetScript("CloseDialog(); wopener.SetResource('" + hdnValue + "', '" + key + "', '" + textbox + "', " + ScriptHelper.GetString(translation) + ", '" + btnLocalizeField + "', '" + btnLocalizeString + "', '" + btnRemoveLocalization + "', '" + localizedInputContainer + "');");
                         ScriptHelper.RegisterStartupScript(this, typeof(string), "localizeField", script);
                     }
                     else
@@ -171,7 +175,8 @@ public partial class CMSFormControls_Selectors_LocalizableTextBox_LocalizeField 
                 using (LocalizationActionContext context = new LocalizationActionContext())
                 {
                     context.ResolveSubstitutionMacros = false;
-                    string script = ScriptHelper.GetScript("wopener.SetResource('" + hdnValue + "', '" + key + "', '" + textbox + "', " + ScriptHelper.GetLocalizedString(key) + ", '" + btnLocalizeField + "', '" + btnLocalizeString + "', '" + btnRemoveLocalization + "', '" + localizedInputContainer + "'); CloseDialog();");
+                    var localizedText = ScriptHelper.GetString(GetString(key), true, true);
+                    string script = ScriptHelper.GetScript($"wopener.SetResource('{hdnValue}', '{key}', '{textbox}', {localizedText}, '{btnLocalizeField}', '{btnLocalizeString}', '{btnRemoveLocalization}', '{localizedInputContainer}'); CloseDialog();");
                     ScriptHelper.RegisterStartupScript(this, typeof(string), "localizeField", script);
                 }
                 

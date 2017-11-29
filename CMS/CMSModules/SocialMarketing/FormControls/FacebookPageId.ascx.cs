@@ -80,6 +80,22 @@ public partial class CMSModules_SocialMarketing_FormControls_FacebookPageId : Fo
 
 
     /// <summary>
+    /// Gets or sets the id of the <see cref="FacebookApplicationInfo"/> required for acquiring Facebook access token.
+    /// </summary>
+    public int FacebookApplicationId
+    {
+        get
+        {
+            return ValidationHelper.GetInteger(GetValue("FacebookApplicationId"), 0);
+        }
+        set
+        {
+            SetValue("FacebookApplicationId", value);
+        }
+    }
+
+
+    /// <summary>
     /// Gets or sets the id of the page.
     /// </summary>
     public override object Value
@@ -93,11 +109,17 @@ public partial class CMSModules_SocialMarketing_FormControls_FacebookPageId : Fo
             }
             else if (String.IsNullOrEmpty(PageId) || (txtPageUrl.Text != PageUrl))
             {
+                FacebookApplicationInfo appInfo = FacebookApplicationInfoProvider.GetFacebookApplicationInfo(FacebookApplicationId);
+                if (appInfo == null)
+                {
+                    ShowError(GetString("sm.facebook.account.msg.appnotset"));
+                }
+                
                 PageId = String.Empty;
                 try
                 {
                     string identifier = null;
-                    PageId = FacebookHelper.TryGetFacebookPageId(txtPageUrl.Text, out identifier) ? identifier : String.Empty;
+                    PageId = FacebookHelper.TryGetFacebookPageId(txtPageUrl.Text, appInfo, out identifier) ? identifier : String.Empty;
                     PageUrl = txtPageUrl.Text;
                 }
                 catch (Exception ex)

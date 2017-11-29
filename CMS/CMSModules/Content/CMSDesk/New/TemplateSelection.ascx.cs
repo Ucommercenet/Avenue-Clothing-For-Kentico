@@ -153,17 +153,17 @@ public partial class CMSModules_Content_CMSDesk_New_TemplateSelection : CMSUserC
 
 
     /// <summary>
-    /// Root path
+    /// Root category ID. 
     /// </summary>
-    public int RootCategory
+    public int RootCategoryID
     {
         get
         {
-            return templateSelector.RootCategory;
+            return templateSelector.RootCategoryID;
         }
         set
         {
-            templateSelector.RootCategory = value;
+            templateSelector.RootCategoryID = value;
         }
     }
 
@@ -183,12 +183,12 @@ public partial class CMSModules_Content_CMSDesk_New_TemplateSelection : CMSUserC
     protected void Page_Load(object sender, EventArgs e)
     {
         // Select root category, don't show UI templates
-        if (RootCategory == 0)
+        if (RootCategoryID == 0)
         {
             PageTemplateCategoryInfo ptci = PageTemplateCategoryInfoProvider.GetPageTemplateCategoryInfo("/");
             if (ptci != null)
             {
-                templateSelector.RootCategory = ptci.CategoryId;
+                templateSelector.RootCategoryID = ptci.CategoryId;
             }
         }
 

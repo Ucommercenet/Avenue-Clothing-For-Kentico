@@ -217,7 +217,7 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardEdit : CMSAdm
 
         chkInheritBaseUrl.Attributes.Add("onclick", "check('" + txtBaseUrl.ClientID + "', this,'" + ValidationHelper.GetString(SettingsKeyInfoProvider.GetValue(SiteContext.CurrentSiteName + ".CMSBoardBaseUrl"), "") + "')");
         chkInheritUnsubUrl.Attributes.Add("onclick", "check('" + txtUnsubscriptionUrl.ClientID + "', this,'" + ValidationHelper.GetString(SettingsKeyInfoProvider.GetValue(SiteContext.CurrentSiteName + ".CMSBoardUnsubsriptionURL"), "") + "')");
-        chkInheritOptInURL.Attributes.Add("onclick", "check('" + txtOptInURL.PathTextBox.ClientID + "', this,'" + ValidationHelper.GetString(SettingsKeyInfoProvider.GetValue(SiteContext.CurrentSiteName + ".CMSBoardSubsriptionApprovalURL"), "") + "');ChangeState_" + txtOptInURL.ClientID + "(!this.checked);");
+        chkInheritOptInURL.Attributes.Add("onclick", "check('" + txtOptInURL.PathTextBox.ClientID + "', this,'" + ValidationHelper.GetString(SettingsKeyInfoProvider.GetValue(SiteContext.CurrentSiteName + ".CMSBoardOptInApprovalPath"), "") + "');ChangeState_" + txtOptInURL.ClientID + "(!this.checked);");
 
         chkEnableOptIn.NotSetChoice.Text = chkSendOptInConfirmation.NotSetChoice.Text = GetString("general.sitesettings") + " (##DEFAULT##)";
         chkEnableOptIn.SetDefaultValue(BoardInfoProvider.EnableDoubleOptIn(SiteContext.CurrentSiteName));

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true"
+﻿<%@ Control Language="C#" AutoEventWireup="false"
     Inherits="CMSAdminControls_UI_UniSelector_Controls_SelectionDialog"  Codebehind="SelectionDialog.ascx.cs" %>
 
 <%@ Register Src="~/CMSAdminControls/UI/UniGrid/UniGrid.ascx" TagName="UniGrid" TagPrefix="cms" %>
@@ -22,17 +22,14 @@
                     </div>
                     <div class="form-group form-group-buttons">
                         <div class="filter-form-buttons-cell">
-                            <cms:LocalizedButton ID="btnSearch" runat="server" ButtonStyle="Primary" EnableViewState="False" OnClick="btnSearch_Click" ResourceString="general.search" />
+                            <cms:LocalizedButton ID="btnSearch" runat="server" ButtonStyle="Primary" EnableViewState="False" ResourceString="general.search" />
                         </div>
                     </div>
                 </div>
             </asp:Panel>
-            <asp:Panel ID="pnlAll" runat="server" CssClass="header-panel btn-actions" Visible="false" EnableViewState="false">
-                <cms:LocalizedButton runat="server" ID="lnkSelectAll" OnClick="lnkSelectAll_Click" ButtonStyle="Default" ResourceString="UniSelector.SelectAll" />
-                <cms:LocalizedButton runat="server" ID="lnkDeselectAll" OnClick="lnkDeselectAll_Click" ButtonStyle="Default" ResourceString="UniSelector.DeselectAll" />
-            </asp:Panel>
+            <asp:Panel ID="pnlAll" runat="server" CssClass="header-panel btn-actions" Visible="false" EnableViewState="false" />
             <asp:Panel runat="server" ID="pnlContent" CssClass="dialog-content">
-                <cms:UniGrid ID="uniGrid" runat="server" PageSize="10,25,50,100" RememberState="false" OnOnExternalDataBound="uniGrid_OnExternalDataBound" OnOnPageChanged="uniGrid_OnPageChanged" />
+                <cms:UniGrid ID="uniGrid" runat="server" PageSize="10,25,50,100" RememberState="false" />
                 <div class="ClearBoth"></div>
             </asp:Panel>
         </ContentTemplate>
@@ -40,9 +37,6 @@
     <cms:CMSUpdatePanel runat="server" ID="pnlHidden" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:HiddenField ID="hidItem" runat="server" EnableViewState="false" />
-            <asp:HiddenField ID="hidName" runat="server" EnableViewState="false" />
-            <asp:HiddenField ID="hidHash" runat="server" EnableViewState="false" />
         </ContentTemplate>
     </cms:CMSUpdatePanel>
 </asp:Panel>
-<asp:Literal runat="server" ID="ltlScript" EnableViewState="false" />

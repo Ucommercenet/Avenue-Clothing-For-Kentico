@@ -1,8 +1,5 @@
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="CMSMasterPages_UI_UIPage"
      Codebehind="UIPage.master.cs" %>
-
-<%@ Register Src="~/CMSAdminControls/UI/Development/DevTools.ascx" TagName="DevTools"
-    TagPrefix="cms" %>
 <!DOCTYPE html>
 <html>
 <head runat="server" enableviewstate="false">
@@ -27,7 +24,6 @@
         <asp:PlaceHolder runat="server" ID="plcLabels" />
         <asp:ContentPlaceHolder ID="plcContent" runat="server" />
     </asp:Panel>
-    <cms:DevTools ID="devElem" runat="server" />
     </form>
 </body>
 </html>

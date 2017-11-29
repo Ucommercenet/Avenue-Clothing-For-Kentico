@@ -18,7 +18,7 @@ public partial class CMSAdminControls_Debug_MacroLog : MacroLog
             Visible = true;
 
             // Setup header texts
-            gridMacros.SetHeaders("", "MacroLog.Expression", "MacroLog.Result", "General.User", "General.Context", "MacroLog.Duration");
+            gridMacros.SetHeaders("", "MacroLog.Expression", "MacroLog.Result", "MacroLog.IdentityAndUser", "General.Context", "MacroLog.Duration");
 
             HeaderText = GetString("MacroLog.Info");
 

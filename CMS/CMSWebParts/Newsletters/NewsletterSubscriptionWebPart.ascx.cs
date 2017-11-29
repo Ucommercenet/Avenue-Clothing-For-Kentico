@@ -3,17 +3,17 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
+using CMS.ContactManagement;
 using CMS.Core;
 using CMS.Helpers;
 using CMS.Localization;
+using CMS.Membership;
 using CMS.Newsletters;
 using CMS.PortalEngine.Web.UI;
-using CMS.Base;
-using CMS.ContactManagement;
-using CMS.SiteProvider;
-using CMS.Membership;
-using CMS.WebAnalytics;
 using CMS.Protection;
+using CMS.SiteProvider;
+using CMS.WebAnalytics;
 
 public partial class CMSWebParts_Newsletters_NewsletterSubscriptionWebPart : CMSAbstractWebPart
 {
@@ -23,8 +23,8 @@ public partial class CMSWebParts_Newsletters_NewsletterSubscriptionWebPart : CMS
     private bool visibleFirstName = true;
     private bool visibleLastName = true;
     private bool visibleEmail = true;
-    private readonly ISubscriptionService mSubscriptionService = Service<ISubscriptionService>.Entry();
-    private readonly IContactProvider mContactProvider = Service<IContactProvider>.Entry();
+    private readonly ISubscriptionService mSubscriptionService = Service.Resolve<ISubscriptionService>();
+    private readonly IContactProvider mContactProvider = Service.Resolve<IContactProvider>();
 
     #endregion
 
@@ -732,7 +732,7 @@ public partial class CMSWebParts_Newsletters_NewsletterSubscriptionWebPart : CMS
                     {
                         string siteName = SiteContext.CurrentSiteName;
 
-                        if (AnalyticsHelper.AnalyticsEnabled(siteName) && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
+                        if (AnalyticsHelper.AnalyticsEnabled(siteName) && Service.Resolve<IAnalyticsConsentProvider>().HasConsentForLogging() && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
                         {
                             // Log conversion
                             HitLogProvider.LogConversions(siteName, LocalizationContext.PreferredCultureCode, TrackConversionName, 0, ConversionValue);

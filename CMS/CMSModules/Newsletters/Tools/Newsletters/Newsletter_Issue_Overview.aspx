@@ -38,10 +38,10 @@
                 <ug:Column Source="sent" Name="sent" Caption="$unigrid.newsletter_issue.columns.issuesentemails$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="delivered" Name="delivered" Caption="$newsletter.issue.delivered$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="deliveryrate" Name="deliveryrate" ExternalSourceName="deliveryrate" Caption="$newsletters.issuedeliveryrate$" AllowSorting="False" CssClass="TableCell" />
-                <ug:Column Source="opens" Name="opens" Caption="$newsletter.issue.uniqueopens$" AllowSorting="False" CssClass="TableCell" />
+                <ug:Column Source="opens" Name="opens" ExternalSourceName="opens" Caption="$newsletter.issue.uniqueopens$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="openrate" Name="openrate" ExternalSourceName="openrate" Caption="$newsletter.issue.uniqueopenrate$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="totalclicks" Name="totalclicks" Caption="$unigrid.newsletter_issue_trackedlinks.columns.totalclicks$" AllowSorting="False" CssClass="TableCell" />
-                <ug:Column Source="clicks" Name="clicks" Caption="$unigrid.newsletter_issue_trackedlinks.columns.uniqueclicks$" AllowSorting="False" CssClass="TableCell" />
+                <ug:Column Source="clicks" Name="clicks" ExternalSourceName="clicks" Caption="$unigrid.newsletter_issue_trackedlinks.columns.uniqueclicks$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="clickrate" Name="clickrate" ExternalSourceName="clickrate" Caption="$newsletter.issue.uniqueclickrate$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column CssClass="filling-column" />
             </GridColumns>
@@ -53,7 +53,7 @@
                 <ug:Column Source="sent" Name="sent" Caption="$unigrid.newsletter_issue.columns.issuesentemails$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="delivered" Name="delivered" Caption="$newsletter.issue.delivered$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="deliveryrate" Name="deliveryrate" ExternalSourceName="deliveryrate" Caption="$newsletters.issuedeliveryrate$" AllowSorting="False" CssClass="TableCell" />
-                <ug:Column Source="unsubscriptions" Name="unsubscriptions" Caption="$newsletter.issue.unsubscriptions$" AllowSorting="False" CssClass="TableCell" />
+                <ug:Column Source="unsubscriptions" Name="unsubscriptions" ExternalSourceName="unsubscriptions" Caption="$newsletter.issue.unsubscriptions$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column Source="unsubscriptionrate" Name="unsubscriptionrate" ExternalSourceName="unsubscriptionrate" Caption="$newsletters.issueunsubscriberate$" AllowSorting="False" CssClass="TableCell" />
                 <ug:Column CssClass="filling-column" />
             </GridColumns>

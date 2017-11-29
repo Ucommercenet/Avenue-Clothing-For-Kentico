@@ -832,8 +832,6 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
             }
         }
 
-        CreateHeaderActions();
-
         // Set method delegates
         fieldAppearance.GetControls = GetControls;
     }
@@ -859,6 +857,8 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
         {
             return;
         }
+
+        CreateHeaderActions();
 
         fieldAdvancedSettings.ResolverName = controlSettings.ResolverName = cssSettings.ResolverName = htmlEnvelope.ResolverName = ResolverName;
         validationSettings.ResolverName = fieldAppearance.ResolverName = databaseConfiguration.ResolverName = categoryEdit.ResolverName = ResolverName;
@@ -1258,7 +1258,6 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
         }
 
         HeaderActions.ActionPerformed += HeaderActions_ActionPerformed;
-        HeaderActions.PerformFullPostBack = false;
 
         if (reload)
         {
@@ -1538,6 +1537,10 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                         FormCategoryInfo formCategory = ((FormCategoryInfo)(item));
 
                         itemDisplayName = ResHelper.LocalizeString(formCategory.GetPropertyValue(FormCategoryPropertyEnum.Caption, resolver));
+                        if (String.IsNullOrEmpty(itemDisplayName))
+                        {
+                            itemDisplayName = formCategory.CategoryName;
+                        }
                         itemCodeName = categPreffix + formCategory.CategoryName;
                     }
 
@@ -1717,12 +1720,12 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                 btnDeleteItem.Visible = false;
                 disableSaveAction = true;
 
-                ShowInformation(String.Format(GetString("DocumentType.FieldIsInherited"), ResHelper.LocalizeString(parentCi.ClassDisplayName)));
+                ShowInformation(String.Format(GetString("DocumentType.FieldIsInherited"), HTMLHelper.HTMLEncode(ResHelper.LocalizeString(parentCi.ClassDisplayName))));
             }
         }
         else if (!isPrimaryKey && databaseConfiguration.HasDependentChildren)
         {
-            ShowInformation(String.Format(ResHelper.GetString("documenttype.datatypechangeerror"), databaseConfiguration.DependentClassDisplayName));
+            ShowInformation(String.Format(GetString("documenttype.datatypechangeerror"), HTMLHelper.HTMLEncode(ResHelper.LocalizeString(databaseConfiguration.DependentClassDisplayName))));
         }
     }
 
@@ -2487,10 +2490,12 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                     case FieldEditorModeEnum.SystemTable:
                     case FieldEditorModeEnum.CustomTable:
                         {
-                            // Fill ClassInfo structure with data from database
+                            // Fill ClassInfo structure with data from database 
                             dci = DataClassInfoProvider.GetDataClassInfo(ClassName);
                             if (dci != null)
                             {
+                                // We are using clone because of potential rollback, so we don't want to change cached instance
+                                dci = dci.Clone();
                                 tm = new TableManager(dci.ClassConnectionString);
                                 tr.BeginTransaction();
                             }
@@ -2594,11 +2599,6 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                 if (!String.IsNullOrEmpty(error))
                 {
                     ShowError("[FieldEditor.SaveSelectedField()]: " + error);
-                    if (dci != null)
-                    {
-                        // Transaction will be rolled back, remove the modified data class info from cache
-                        dci.DeleteFromHashtables();
-                    }
                     return false;
                 }
             }
@@ -2982,7 +2982,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                                                 if (dci != null)
                                                 {
                                                     dci.ClassFormDefinition = FormDefinition;
-                                                    
+
                                                     // Deleted field is used as ClassNodeNameSource -> remove node name source
                                                     if (dci.ClassNodeNameSource == SelectedItemName)
                                                     {
@@ -2999,7 +2999,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                                                             {
                                                                 context.DisableLogging();
                                                             }
-                                                            
+
                                                             // Save the data class
                                                             DataClassInfoProvider.SetDataClassInfo(dci);
 
@@ -3025,16 +3025,10 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                                                         BizFormInfoProvider.DeleteBizFormFiles(ClassName, ffiSelected.Name, SiteContext.CurrentSiteID);
                                                     }
 
-                                                    // Refresh views and queries only if changes to DB were made
+                                                    // Refresh queries only if changes to DB were made
                                                     if (!ffiSelected.External)
                                                     {
                                                         QueryInfoProvider.ClearDefaultQueries(dci, true, true);
-
-                                                        // Updates custom views
-                                                        if ((mMode == FieldEditorModeEnum.SystemTable) || (mMode == FieldEditorModeEnum.ClassFormDefinition))
-                                                        {
-                                                            errorMessage = RefreshViews(tm, dci);
-                                                        }
                                                     }
                                                 }
 
@@ -3265,12 +3259,9 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
         }
 
         // Check attribute name for invalid characters
-        for (int i = 0; i <= INVALIDCHARACTERS.Length - 1; i++)
+        if (attributeName.IndexOfAny(INVALIDCHARACTERS.ToCharArray()) > 0)
         {
-            if (attributeName.Contains(INVALIDCHARACTERS[i]))
-            {
-                return GetString("TemplateDesigner.ErrorInvalidCharacter") + INVALIDCHARACTERS + ". ";
-            }
+            return GetString("TemplateDesigner.ErrorInvalidCharacter") + INVALIDCHARACTERS + ". ";
         }
 
         if (chkDisplayInForm.Checked)
@@ -3286,18 +3277,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
         databaseConfiguration.ClassName = ClassName;
         databaseConfiguration.IsDocumentType = IsDocumentType;
 
-        string errorMsg = databaseConfiguration.Validate(ffi);
-        if (!String.IsNullOrEmpty(errorMsg))
-        {
-            return errorMsg;
-        }
-
-        if (!String.IsNullOrEmpty(errorMsg))
-        {
-            return errorMsg;
-        }
-
-        return null;
+        return databaseConfiguration.Validate(ffi);
     }
 
 
@@ -3535,12 +3515,12 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
     private void ClearHashtables()
     {
         // Clear the classes hashtable
-        ProviderStringDictionary.ReloadDictionaries("cms.class", true);
+        AbstractProviderDictionary.ReloadDictionaries("cms.class", true);
 
         if (!String.IsNullOrEmpty(ClassName))
         {
             // Clear the object type hashtable
-            ProviderStringDictionary.ReloadDictionaries(ClassName, true);
+            AbstractProviderDictionary.ReloadDictionaries(ClassName, true);
 
             // Clear class structures
             ClassStructureInfo.Remove(ClassName, true);
@@ -3572,12 +3552,29 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
         categoryEdit.CategoryInfo = updatedCategoryInfo;
         categoryEdit.Save();
 
-        if (String.IsNullOrEmpty(updatedCategoryInfo.GetPropertyValue(FormCategoryPropertyEnum.Caption)))
+        bool captionIsMacro;
+        var caption = updatedCategoryInfo.GetPropertyValue(FormCategoryPropertyEnum.Caption, out captionIsMacro);
+
+        if (String.IsNullOrEmpty(caption))
         {
             return GetString("TemplateDesigner.ErrorCategoryNameEmpty");
         }
 
-        updatedCategoryInfo.CategoryName = IsNewItemEdited ? ValidationHelper.GetCodeName(updatedCategoryInfo.GetPropertyValue(FormCategoryPropertyEnum.Caption)) : fci.CategoryName;
+        if (IsNewItemEdited)
+        {
+            if(captionIsMacro && !MacroProcessor.IsLocalizationMacro(caption))
+            {
+                updatedCategoryInfo.CategoryName = GenerateCategoryName();
+            }
+            else
+            {
+                updatedCategoryInfo.CategoryName = ValidationHelper.GetCodeName(caption);
+            }
+        }
+        else
+        {
+            updatedCategoryInfo.CategoryName = fci.CategoryName;
+        }
 
         if ((IsNewItemEdited || updatedCategoryInfo.CategoryName != fci.CategoryName) && FormInfo.GetCategoryNames().Exists(x => x == updatedCategoryInfo.CategoryName))
         {
@@ -3609,6 +3606,12 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
             return errorMessage;
         }
 
+        errorMessage = ValidatePrimaryKey(updatedFieldInfo);
+        if (!String.IsNullOrEmpty(errorMessage))
+        {
+            return errorMessage;
+        }
+
         if (IsNewItemEdited)
         {
             // Insert new field
@@ -3624,21 +3627,11 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
         else
         {
             // Update the DB column
-            errorMessage = ValidatePrimaryKey(updatedFieldInfo);
-            if (!String.IsNullOrEmpty(errorMessage))
-            {
-                return errorMessage;
-            }
-
             if (IsHandledFieldChange(ffi, updatedFieldInfo))
             {
                 RaiseOnFieldNameChanged(ffi.Name, updatedFieldInfo.Name);
             }
 
-            if (!String.IsNullOrEmpty(errorMessage))
-            {
-                return errorMessage;
-            }
 
             // Update current field
             FormInfo.UpdateFormField(ffi.Name, updatedFieldInfo);
@@ -3709,8 +3702,6 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
                 dci.ClassNodeNameSource = updatedFieldInfo.IsNodeNameSourceCandidate() ? updatedFieldInfo.Name : String.Empty;
             }
 
-            bool isNotDummyOrField = (SelectedItemType != FieldEditorSelectedItemEnum.Field) || !updatedFieldInfo.IsDummyField;
-
             // Update changes in DB
             try
             {
@@ -3733,12 +3724,6 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
             if ((SelectedItemType == FieldEditorSelectedItemEnum.Field) && !updatedFieldInfo.IsDummyField)
             {
                 QueryInfoProvider.ClearDefaultQueries(dci, true, true);
-            }
-
-            // Updates custom views
-            if (isNotDummyOrField && ((mMode == FieldEditorModeEnum.SystemTable) || (mMode == FieldEditorModeEnum.ClassFormDefinition)) && IsDatabaseChangeRequired(ffi, updatedFieldInfo))
-            {
-                error = RefreshViews(tm, dci);
             }
         }
         else
@@ -3782,8 +3767,10 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
     {
         string errorMessage = null;
 
+        bool isPrimaryKey = ffi?.PrimaryKey ?? updatedFieldInfo.PrimaryKey;
+
         // If attribute is a primary key
-        if (ffi.PrimaryKey)
+        if (isPrimaryKey)
         {
             // Check if the attribute type is integer number
             if (updatedFieldInfo.DataType != FieldDataType.Integer)
@@ -3828,24 +3815,6 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldEd
             default:
                 return false;
         }
-    }
-
-
-    private string RefreshViews(TableManager tm, DataClassInfo dci)
-    {
-        string errorMessage = null;
-
-        try
-        {
-            tm.RefreshCustomViews(dci.ClassTableName);
-        }
-        catch (Exception ex)
-        {
-            EventLogProvider.LogException("FieldEditor", "REFRESHVIEWS", ex);
-            errorMessage = ResHelper.GetString("fieldeditor.refreshingviewsfailed");
-        }
-
-        return errorMessage;
     }
 
 

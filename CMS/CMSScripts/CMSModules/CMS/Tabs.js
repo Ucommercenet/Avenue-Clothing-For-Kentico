@@ -1,145 +1,84 @@
-﻿cmsdefine(['CMS/EventHub', 'CMS/NavigationBlocker', 'jQuery', 'CMS/UrlHelper'], function (EventHub, NavigationBlocker, $, UrlHelper) {
-    'use strict';
+﻿/**
+ * Module for tabs.
+ */
+cmsdefine([], function () {
 
-    var history = [],
-        $tabItems,
-        navigationBlocker = new NavigationBlocker(),
+    var tabNavigationLinks, tabContentContainers;
+    var activeIndex = null;
+    var initCalled = false;
 
-        getHistory = function (steps) {
-            var h = history;
-            if (h.length > steps) {
-                return h[h.length - steps - 1];
+    /**
+     * Handles click event listeners on each of the links in the tab navigation.
+     *
+     * @param {HTMLElement} link The link to listen for events on
+     * @param {Number} index The index of that link
+     */
+    function handleClick(link, index) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            goToTab(index);
+        });
+    };
+
+    /**
+     * Goes to a specific tab based on index.
+     *
+     * @param {Number} index The index of the tab to go to
+     */
+    function goToTab(index) {
+        if (index !== activeIndex && index >= 0 && index <= tabNavigationLinks.length) {
+
+            if (activeIndex != null)
+            {
+                tabContentContainers[activeIndex].classList.remove('active');
+                tabNavigationLinks[activeIndex].classList.remove('active');
             }
 
-            return null;
-        },
-        back = function (steps) {
-            var h = history;
-            if (h.length > steps) {
-                var p = h[h.length - steps - 1];
-                redir(p.url, p.target, p.useIFrame, true);
+            tabNavigationLinks[index].classList.add('active');
+            tabContentContainers[index].classList.add('active');
 
-                return p.url;
+            activeIndex = index;
+        }
+    };
+
+    /**
+     * Gets the selected tab index.
+     *
+     * @returns {Number} Tab index
+     */
+    function getSelectedTabIndex() {
+        return activeIndex;
+    }
+
+    /**
+     * Initializes the component by attaching event listener
+     *  to each tab item which handles tab switching.
+     *
+     * @param {Object} options The options hash
+     */
+    function init(options) {
+        if (!initCalled) {
+            var el = document.querySelector(options.el);
+            tabNavigationLinks = el.querySelectorAll(options.tabNavigationLinks);
+            tabContentContainers = el.querySelectorAll(options.tabContentContainers);
+            initCalled = true;
+      
+            for (var i = 0; i < tabNavigationLinks.length; i++) {
+                var link = tabNavigationLinks[i];
+                handleClick(link, i);
             }
 
-            return null;
-        },
-        redir = function (url, target, useIFrame, noRefresh) {
-            if (navigationBlocker.canNavigate()) {
-                if (url != '') {
-                    if ((target == '_blank') || (target == '_new')) {
-                        window.open(url);
-                    } else if (target == '_self') {
-                        window.location.href = url;
-                    } else if (target != '') {
-                        var frame;
-
-                        if (useIFrame) {
-                            frame = frames[target];
-                        } else {
-                            if (parent && parent.frames) {
-                                frame = parent.frames[target];
-                            }
-                        }
-
-                        try {
-                            if (!frame || (frame.CheckChanges && !frame.CheckChanges())) {
-                                return false;
-                            }
-                        } catch (ex) {
-                            // When not a web page
-                        }
-
-                        var oldUrl = frame.location.href;
-
-                        if (url.substr(0, 1) == '/') {
-                            oldUrl = "/" + oldUrl.replace(/^(?:\/\/|[^\/]+)*\//, "");
-                        }
-
-                        if (!noRefresh || (oldUrl != url)) {
-                            if (useIFrame && window.Loader) {
-                                var fr = $('iframe[name="' + target + '"]');
-                                if (window.Loader) {
-                                    window.Loader.show(fr);
-                                }
-                            }
-                            frame.location.href = url;
-                        }
-
-                        if (typeof (frame.focus) == 'function') {
-                            frame.focus();
-                        }
-                    } else {
-                        parent.location.href = url;
-                    }
-
-                    history.push({
-                        url: url,
-                        target: target,
-                        useIFrame: useIFrame
-                    });
-
-                    return true;
-                }
-
-                return true;
-            } else {
-                return false;
+            // Go to preselected tab or go to first one
+            if (options.selectedTabIndex != null) {
+                goToTab(options.selectedTabIndex);
+                return;
             }
-        },
-        selTab = function (i, clientId, p, text) {
-            var tabItems = $('#' + clientId).find('li');
-            tabItems.removeClass('active');
+            goToTab(0);
+        }
+    };
 
-            var disabledGroupd = tabItems.find("a[data-toggle='collapse-disabled']");
-            disabledGroupd.attr('data-toggle', 'collapse');
-
-            var name = p + 'TabItem_' + i;
-
-            var tab = $('#' + name);
-            if (tab != null) {
-                tab.addClass('active');
-
-                var group = tab.parents('li').find("a[data-toggle='collapse']");
-                group.attr('data-toggle', 'collapse-disabled');
-            }
-
-            var tabTitle = $('#' + name + ' > a > .tab-title');
-            if (tabTitle != null) {
-                tabTitle.text(text);
-            }
-        },
-        ensureQueryParamForTabs = function (element, queryParam, queryParamValue) {
-            element.find("li[data-href], li[data-href] > a").each(function () {
-                var $this = $(this),
-                attributeName = $this.is("a") ? "href" : "data-href",
-
-                url = $this.attr(attributeName),
-                queryString = UrlHelper.getQueryString(url);
-
-                queryString = UrlHelper.setParameter(queryString, queryParam, queryParamValue);
-                $this.attr(attributeName, UrlHelper.removeQueryString(url) + queryString);
-            });
-        },
-        tabs = function (initScript) {
-            this.selTab = selTab;
-            this.redir = redir;
-            this.back = back;
-            this.getHistory = getHistory;
-            this.ensureQueryParamForTabs = ensureQueryParamForTabs;
-
-            window.Tabs = this;
-
-            if (initScript != null) {
-                new Function(initScript)();
-            }
-
-            $tabItems = $('.nav-tabs-container-horizontal li');
-
-            EventHub.subscribe("GlobalClick", function () {
-                $tabItems.removeClass('open');
-            });
-        };
-
-    return tabs;
+    return {
+        init: init,
+        getSelectedTabIndex: getSelectedTabIndex
+    };
 });

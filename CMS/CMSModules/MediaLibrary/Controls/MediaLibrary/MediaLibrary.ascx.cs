@@ -634,7 +634,7 @@ public partial class CMSModules_MediaLibrary_Controls_MediaLibrary_MediaLibrary 
                 IsFullListingMode = (rootHasMore || IsFullListingMode);
 
                 string closeLink = String.Format("<span class=\"ListingClose\" style=\"cursor: pointer;\" onclick=\"SetAction('closelisting', ''); RaiseHiddenPostBack(); return false;\">{0}</span>", GetString("general.close"));
-                string docNamePath = String.Format("<span class=\"ListingPath\">{0}</span>", Path.EnsureSlashes(GetFullFilePath(LastFolderPath)));
+                string docNamePath = String.Format("<span class=\"ListingPath\">{0}</span>", GetFullFilePath(LastFolderPath));
 
                 string listingMsg = string.Format(GetString("media.libraryui.listingInfo"), docNamePath, closeLink);
                 mediaView.DisplayListingInfo(listingMsg);
@@ -841,7 +841,7 @@ public partial class CMSModules_MediaLibrary_Controls_MediaLibrary_MediaLibrary 
             fileSystemDataSource.WhereCondition = where;
         }
 
-        string orderBy = GetOrderBy();
+        string orderBy = GetFileSystemOrderBy();
         if (!string.IsNullOrEmpty(orderBy))
         {
             fileSystemDataSource.OrderBy = orderBy;
@@ -855,6 +855,18 @@ public partial class CMSModules_MediaLibrary_Controls_MediaLibrary_MediaLibrary 
         fileSystemDataSource.Path = path;
 
         return (DataSet)fileSystemDataSource.LoadData(true);
+    }
+
+
+    private string GetFileSystemOrderBy()
+    {
+        var generalSizeColumn = "[FileSize]";
+        var fileSystemSizeColumn = "[Size]";
+        var orderBy = GetOrderBy();
+        var isSizeOrderBy = orderBy.IndexOf(generalSizeColumn, StringComparison.OrdinalIgnoreCase) >= 0;
+
+        // File system data source has different field name for file size
+        return isSizeOrderBy ? orderBy.Replace(generalSizeColumn, fileSystemSizeColumn) : orderBy;
     }
 
 
@@ -2754,10 +2766,9 @@ public partial class CMSModules_MediaLibrary_Controls_MediaLibrary_MediaLibrary 
     /// <param name="path">File path to get full path for</param>
     private string GetFullFilePath(string path)
     {
-        if ((LibraryInfo != null) && (path != null))
+        if (LibraryInfo != null && path != null)
         {
-            string filepath = LibraryInfo.LibraryFolder + '/' + Path.EnsureSlashes(path, true);
-            return filepath.TrimEnd('/');
+            return Path.EnsureSlashes(String.Format("{0}/{1}", LibraryInfo.LibraryFolder, path), true);
         }
 
         return string.Empty;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Web.UI.WebControls;
 using System.Xml;
 
@@ -562,11 +560,9 @@ function disableLast(disable) {
         {
             GenerateInfoText();
 
-            CultureInfo currentCulture = CultureHelper.GetCultureInfo(Thread.CurrentThread.CurrentUICulture.IetfLanguageTag);
-
             // Get report parameters
             string parameters = QueryHelper.GetString("parameters", String.Empty);
-            mParameters = ReportHelper.GetReportParameters(Report, parameters, AnalyticsHelper.PARAM_SEMICOLON, CultureHelper.EnglishCulture, currentCulture);
+            mParameters = ReportHelper.GetReportParameters(Report, parameters, AnalyticsHelper.PARAM_SEMICOLON, CultureHelper.EnglishCulture);
 
             if (!RequestHelper.IsPostBack())
             {
@@ -738,7 +734,7 @@ function disableLast(disable) {
         drpItems.Items.Add(new ListItem(GetString("reportsubscription.wholereport"), "all"));
 
         // Fill graphs
-        DataSet ds = ReportGraphInfoProvider.GetGraphs("GraphReportID=" + Report.ReportID, String.Empty);
+        DataSet ds = ReportGraphInfoProvider.GetReportGraphs().WhereEquals("GraphReportID", Report.ReportID);
         if (!DataHelper.DataSourceIsEmpty(ds))
         {
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -750,7 +746,7 @@ function disableLast(disable) {
         }
 
         // Fill tables
-        ds = ReportTableInfoProvider.GetTables("TableReportID=" + Report.ReportID, String.Empty);
+        ds = ReportTableInfoProvider.GetReportTables().WhereEquals("TableReportID", Report.ReportID);
         if (!DataHelper.DataSourceIsEmpty(ds))
         {
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -762,7 +758,7 @@ function disableLast(disable) {
         }
 
         // Fill values
-        ds = ReportValueInfoProvider.GetValues("ValueReportID=" + Report.ReportID, String.Empty);
+        ds = ReportValueInfoProvider.GetReportValues().WhereEquals("ValueReportID", Report.ReportID);
         if (!DataHelper.DataSourceIsEmpty(ds))
         {
             foreach (DataRow dr in ds.Tables[0].Rows)

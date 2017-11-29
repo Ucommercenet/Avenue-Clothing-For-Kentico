@@ -105,8 +105,7 @@ public partial class CMSModules_SMTPServers_Pages_Administration_Tab_Sites : CMS
     /// </summary>
     private void GetCurrentSites()
     {
-        string where = string.Format("ServerID = {0}", smtpServer.ServerID);
-        DataSet serverSites = SMTPServerSiteInfoProvider.GetSMTPServerSites(where, "SiteID");
+        DataSet serverSites = SMTPServerSiteInfoProvider.GetSMTPServerSites().WhereEquals("ServerID", smtpServer.ServerID).OrderBy("SiteID");
 
         if (!DataHelper.DataSourceIsEmpty(serverSites))
         {

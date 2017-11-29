@@ -5,7 +5,6 @@ using System.Web.UI.WebControls;
 using CMS.Base.Web.UI;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
-using CMS.MacroEngine;
 
 
 public partial class CMSFormControls_Macros_MacroEditor : FormEngineUserControl
@@ -157,19 +156,6 @@ public partial class CMSFormControls_Macros_MacroEditor : FormEngineUserControl
         {
             SetValue("Language", (int)value);
             Editor.Language = value;
-        }
-    }
-
-
-    public bool ShowMacroSelector
-    {
-        get
-        {
-            return ValidationHelper.GetBoolean(GetValue("ShowMacroSelector"), false);
-        }
-        set
-        {
-            SetValue("ShowMacroSelector", value);
         }
     }
 
@@ -365,16 +351,6 @@ public partial class CMSFormControls_Macros_MacroEditor : FormEngineUserControl
             plcInsertMacro.Visible = true;
         }
 
-        if (ShowMacroSelector)
-        {
-            plcMacroSelector.Visible = true;
-
-            ucMacroSelector.Resolver = MacroResolverStorage.GetRegisteredResolver(ResolverName);
-            ucMacroSelector.ExtendedTextAreaElem = Editor.EditorID;
-            ucMacroSelector.TextAreaID = Editor.ClientID;
-            ucMacroSelector.ShowMacroTreeAbove = true;
-        }
-
         if (SupportPasteImages)
         {
             RegisterPasteScript();
@@ -403,17 +379,17 @@ function PasteImage(imageurl) {{
         }}
     }}", Editor.EditorID, Editor.ClientID);
 
-        ScriptHelper.RegisterScriptFile(this.Page, "Macros/MacroSelector.js");
+        ScriptHelper.RegisterScriptFile(Page, "Macros/MacroSelector.js");
         ScriptHelper.RegisterClientScriptBlock(Page, typeof(string), "PasteImage_" + ClientID, script, true);
     }
 
 
     /// <summary>
-    /// Add "resolver" suffix if text not end with "resolver". 
+    /// Add "resolver" suffix if text does not end with "resolver". 
     /// </summary>
     protected string AddResolverSuffix(string text)
     {
-        if (!text.EndsWith("resolver", StringComparison.Ordinal))
+        if (!text.EndsWith("resolver", StringComparison.OrdinalIgnoreCase))
         {
             return text + "resolver";
         }

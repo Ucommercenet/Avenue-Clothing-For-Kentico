@@ -38,7 +38,7 @@ public partial class CMSModules_DocumentTypes_FormControls_DocumentTypeIconSelec
         }
         set
         {
-            txtCssClass.Text = ValidationHelper.GetString(value, null);
+            fontIconSelector.Value = ValidationHelper.GetString(value, null);
         }
     }
 
@@ -55,11 +55,11 @@ public partial class CMSModules_DocumentTypes_FormControls_DocumentTypeIconSelec
                 return null;
             }
 
-            if (string.IsNullOrEmpty(txtCssClass.Text))
+            if (string.IsNullOrEmpty(fontIconSelector.Value))
             {
                 return DocumentType.ClassIsCoupledClass ? "icon-doc-o" : "icon-folder-o";
             }
-            return HTMLHelper.EncodeForHtmlAttribute(txtCssClass.Text);
+            return HTMLHelper.EncodeForHtmlAttribute(fontIconSelector.Value);
         }
     }
 
@@ -215,12 +215,9 @@ public partial class CMSModules_DocumentTypes_FormControls_DocumentTypeIconSelec
         // First load initialization
         if (!RequestHelper.IsPostBack())
         {
-            // Icon CSS class
-            txtCssClass.ToolTip = GetString("fontIconCss.tooltip");
-
             // Identify the currently selected icon type
             iconType = IconTypeEnum.Files;
-            if (!string.IsNullOrEmpty(txtCssClass.Text))
+            if (!string.IsNullOrEmpty(fontIconSelector.Value))
             {
                 iconType = IconTypeEnum.CssClass;
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 
-using CMS.Base;
 using CMS.FormEngine;
 using CMS.Helpers;
 using CMS.UIControls;
@@ -9,8 +8,6 @@ using CMS.UIControls;
 
 public partial class CMSModules_Objects_FormControls_Cloning_CMS_FormUserControlSettings : CloneSettingsControl
 {
-    #region "Properties"
-
     /// <summary>
     /// Gets properties hashtable.
     /// </summary>
@@ -22,22 +19,15 @@ public partial class CMSModules_Objects_FormControls_Cloning_CMS_FormUserControl
         }
     }
 
-    #endregion
-
-
-    #region "Methods"
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!RequestHelper.IsPostBack())
         {
-            FormUserControlInfo control = InfoToClone as FormUserControlInfo;
+            var control = InfoToClone as FormUserControlInfo;
             if (control != null)
             {
-                if (!String.IsNullOrEmpty(control.UserControlFileName) && !control.UserControlFileName.EqualsCSafe("inherited", true))
-                {
-                    txtFileName.Text = FileHelper.GetUniqueFileName(control.UserControlFileName);
-                }
+                txtFileName.Text = FileHelper.GetUniqueFileName(control.UserControlFileName);
             }
         }
     }
@@ -54,5 +44,17 @@ public partial class CMSModules_Objects_FormControls_Cloning_CMS_FormUserControl
         return result;
     }
 
-    #endregion
+
+    /// <summary>
+    /// Indicates whether advanced clone options should be displayed.
+    /// </summary>
+    public override bool DisplayControl
+    {
+        get
+        {
+            // Show control only for ASCX based form controls
+            var control = InfoToClone as FormUserControlInfo;
+            return (control != null && !String.IsNullOrEmpty(control.UserControlFileName) && !"inherited".Equals(control.UserControlFileName, StringComparison.OrdinalIgnoreCase));
+        }
+    }
 }

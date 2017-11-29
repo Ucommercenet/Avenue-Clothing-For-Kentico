@@ -254,7 +254,9 @@ public partial class CMSModules_Content_Controls_SearchDialog : CMSUserControl
         }
 
         // Get site indexes
-        var indexes = SearchIndexSiteInfoProvider.GetSiteIndexes(SiteContext.CurrentSiteID).Where("IndexType", QueryOperator.Equals, TreeNode.OBJECT_TYPE);
+        var indexes = SearchIndexSiteInfoProvider.GetSiteIndexes(SiteContext.CurrentSiteID)
+            .Where("IndexType", QueryOperator.Equals, TreeNode.OBJECT_TYPE)
+            .Where("IndexProvider", QueryOperator.Equals, SearchIndexInfo.LUCENE_SEARCH_PROVIDER);
 
         foreach (SearchIndexInfo index in indexes)
         {

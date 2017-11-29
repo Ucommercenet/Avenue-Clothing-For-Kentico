@@ -1267,6 +1267,8 @@ function afterResize() {
             lblCropError.ResourceString = "img.errors.cropsize";
             lblCropError.Visible = true;
         }
+
+        ReInitScriptForCropping();
     }
 
 
@@ -1379,6 +1381,12 @@ function afterResize() {
             txtFileName.Enabled = enable;
             metaDataEditor.Enabled = enable;
         }
+    }
+
+
+    private void ReInitScriptForCropping()
+    {
+        ScriptHelper.RegisterClientScriptBlock(Page, typeof(string), "InitCrop", ScriptHelper.GetScript("InitCrop();"));
     }
 
     #endregion

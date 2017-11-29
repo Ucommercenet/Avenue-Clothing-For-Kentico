@@ -31,6 +31,36 @@
             Role name format SAM
             </summary>
         </member>
+        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.AttributeMapUsername">
+            <summary>
+            Attribute to map username.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.ApplicationName">
+            <summary>
+            Application name.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.Description">
+            <summary>
+            Description.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.Name">
+            <summary>
+            Name.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.RoleImportFormat">
+            <summary>
+            Format of imported roles. This applies for both display name and code name.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.RoleNameImporter">
+            <summary>
+            Import user Ad role according to CMSRoleImportFormat.
+            </summary>
+        </member>
         <member name="M:CMS.MembershipProvider.CMSADRoleProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
             <summary>
             Initializes the provider.
@@ -129,36 +159,6 @@
             </summary>
             <param name="method">Method name</param>
         </member>
-        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.AttributeMapUsername">
-            <summary>
-            Attribute to map username.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.ApplicationName">
-            <summary>
-            Application name.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.Description">
-            <summary>
-            Description.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.Name">
-            <summary>
-            Name.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.RoleImportFormat">
-            <summary>
-            Format of imported roles. This applies for both display name and code name.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSADRoleProvider.RoleNameImporter">
-            <summary>
-            Import user Ad role according to CMSRoleImportFormat.
-            </summary>
-        </member>
         <member name="T:CMS.MembershipProvider.CMSMembershipHelper">
             <summary>
             Membership helper.
@@ -176,6 +176,71 @@
         <member name="T:CMS.MembershipProvider.CMSMembershipProvider">
             <summary>
             Class providing membership management.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.ApplicationName">
+            <summary>
+            Applicaton name.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.Description">
+            <summary>
+            Description.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.EnablePasswordReset">
+            <summary>
+            Enable password reset.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.EnablePasswordRetrieval">
+            <summary>
+            Enable password retrieval.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.MaxInvalidPasswordAttempts">
+            <summary>
+            Maximum invalid password attempts.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.MinRequiredNonAlphanumericCharacters">
+            <summary>
+            Minimum required nonalphanumeric characters.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.MinRequiredPasswordLength">
+            <summary>
+            Minimum required password length.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.Name">
+            <summary>
+            Name.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.PasswordAttemptWindow">
+            <summary>
+            Password attempt window.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.PasswordFormat">
+            <summary>
+            Password format.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.PasswordStrengthRegularExpression">
+            <summary>
+            Password strength regular expression.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.RequiresQuestionAndAnswer">
+            <summary>
+            Required question and aswer.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.RequiresUniqueEmail">
+            <summary>
+            Requires unique email.
             </summary>
         </member>
         <member name="M:CMS.MembershipProvider.CMSMembershipProvider.ChangePassword(System.String,System.String,System.String)">
@@ -338,81 +403,10 @@
             <param name="strName">Name used to refer to the provider</param>
             <param name="config">Ignored</param>
         </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.ApplicationName">
-            <summary>
-            Applicaton name.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.Description">
-            <summary>
-            Description.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.EnablePasswordReset">
-            <summary>
-            Enable password reset.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.EnablePasswordRetrieval">
-            <summary>
-            Enable password retrieval.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.MaxInvalidPasswordAttempts">
-            <summary>
-            Maximum invalid password attempts.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.MinRequiredNonAlphanumericCharacters">
-            <summary>
-            Minimum required nonalphanumeric characters.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.MinRequiredPasswordLength">
-            <summary>
-            Minimum required password length.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.Name">
-            <summary>
-            Name.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.PasswordAttemptWindow">
-            <summary>
-            Password attempt window.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.PasswordFormat">
-            <summary>
-            Password format.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.PasswordStrengthRegularExpression">
-            <summary>
-            Password strength regular expression.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.RequiresQuestionAndAnswer">
-            <summary>
-            Required question and aswer.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSMembershipProvider.RequiresUniqueEmail">
-            <summary>
-            Requires unique email.
-            </summary>
-        </member>
         <member name="T:CMS.MembershipProvider.CMSMembershipUser">
             <summary>
             User membership.
             </summary>
-        </member>
-        <member name="M:CMS.MembershipProvider.CMSMembershipUser.#ctor(CMS.Membership.UserInfo)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="userInfoObj">UserInfo object</param>
         </member>
         <member name="P:CMS.MembershipProvider.CMSMembershipUser.UserInfoMembership">
             <summary>
@@ -449,9 +443,30 @@
             Last activity date (reflects the LastLogon field).
             </summary>
         </member>
+        <member name="M:CMS.MembershipProvider.CMSMembershipUser.#ctor(CMS.Membership.UserInfo)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="userInfoObj">UserInfo object</param>
+        </member>
         <member name="T:CMS.MembershipProvider.CMSRoleProvider">
             <summary>
             Class providing role management.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSRoleProvider.ApplicationName">
+            <summary>
+            Application name.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSRoleProvider.Description">
+            <summary>
+            Description.
+            </summary>
+        </member>
+        <member name="P:CMS.MembershipProvider.CMSRoleProvider.Name">
+            <summary>
+            Name.
             </summary>
         </member>
         <member name="M:CMS.MembershipProvider.CMSRoleProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
@@ -526,21 +541,6 @@
             Determines whether specified role exists.
             </summary>
             <param name="roleName">Role name</param>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSRoleProvider.ApplicationName">
-            <summary>
-            Application name.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSRoleProvider.Description">
-            <summary>
-            Description.
-            </summary>
-        </member>
-        <member name="P:CMS.MembershipProvider.CMSRoleProvider.Name">
-            <summary>
-            Name.
-            </summary>
         </member>
     </members>
 </doc>

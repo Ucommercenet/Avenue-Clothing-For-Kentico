@@ -795,9 +795,9 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_LinkMediaSelector 
     /// <param name="path">File path to get full path for</param>
     private string GetFullFilePath(string path)
     {
-        if (path != null)
+        if (LibraryInfo != null && path != null)
         {
-            return (String.Format("{0}/{1}", LibraryInfo.LibraryFolder, path)).TrimEnd('/');
+            return Path.EnsureSlashes(String.Format("{0}/{1}", LibraryInfo.LibraryFolder, path), true);
         }
 
         return string.Empty;
@@ -1198,7 +1198,7 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_LinkMediaSelector 
             }
 
             string closeLink = String.Format("<span class=\"ListingClose\" style=\"cursor: pointer;\" onclick=\"SetAction('closelisting', ''); RaiseHiddenPostBack(); return false;\">{0}</span>", GetString("general.close"));
-            string docNamePath = String.Format("<span class=\"ListingPath\">{0}</span>", Path.EnsureSlashes(GetFullFilePath(folderPath)));
+            string docNamePath = String.Format("<span class=\"ListingPath\">{0}</span>", GetFullFilePath(folderPath));
 
             string listingMsg = string.Format(GetString("media.libraryui.listingInfo"), docNamePath, closeLink);
             mediaView.DisplayListingInfo(listingMsg);

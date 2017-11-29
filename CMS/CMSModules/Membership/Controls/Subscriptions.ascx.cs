@@ -178,18 +178,10 @@ public partial class CMSModules_Membership_Controls_Subscriptions : CMSAdminCont
     #endregion
 
 
-    protected override void OnInit(EventArgs e)
+    protected override void CreateChildControls()
     {
-        base.OnInit(e);
-        if (!StopProcessing)
-        {
-            SetupControl();
-        }
-    }
+        base.CreateChildControls();
 
-
-    protected void SetupControl()
-    {
         // Get current user if UserID is not defined
         if (UserID <= 0)
         {
@@ -416,14 +408,4 @@ public partial class CMSModules_Membership_Controls_Subscriptions : CMSAdminCont
 
         return true;
     }
-
-
-    /// <summary>
-    /// Reloads the data.
-    /// </summary>
-    public override void ReloadData()
-    {
-        base.ReloadData();
-        SetupControl();
-    }
-}
+} 

@@ -199,11 +199,6 @@ public partial class CMSModules_Reporting_Controls_ReportGraph : AbstractReportC
         {
             // Fix the position to page with slider
             ComputedWidth = width - 17;
-
-            if (BrowserHelper.IsIE7())
-            {
-                ComputedWidth -= 7;
-            }
         }
 
         base.OnLoad(e);

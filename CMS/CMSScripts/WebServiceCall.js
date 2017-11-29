@@ -1,5 +1,4 @@
 ﻿var WebServiceCall = (function () {
-    "use strict";
 
     function GetXmlHTTPRequest() {
         try { return new XMLHttpRequest(); } catch (e) { }

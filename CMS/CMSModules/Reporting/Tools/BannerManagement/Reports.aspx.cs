@@ -75,7 +75,7 @@ public partial class CMSModules_Reporting_Tools_BannerManagement_Reports : CMSBa
         // Get the ID
         int id = QueryHelper.GetInteger("parameterValue", 0);
 
-        SetEditedObject(BaseAbstractInfoProvider.GetInfoById(objectType, id), string.Empty);
+        SetEditedObject(ProviderHelper.GetInfoById(objectType, id), string.Empty);
     }
 
 

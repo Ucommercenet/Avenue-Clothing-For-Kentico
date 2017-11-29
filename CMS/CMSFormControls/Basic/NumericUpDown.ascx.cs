@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using CMS.Helpers;
-
-using System.Linq;
-using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-
-using AjaxControlToolkit;
 
 using CMS.Base.Web.UI;
 using CMS.FormEngine.Web.UI;
-using CMS.PortalEngine.Web.UI;
+using CMS.Helpers;
+
 
 
 public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
@@ -58,7 +53,6 @@ public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
                 {
                     return mValues[key];
                 }
-                return mValues.First().Value;
             }
 
             return textbox.Text;
@@ -104,11 +98,11 @@ public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
     /// <summary>
     /// Step used for simple numeric incrementing and decrementing. The default value is 1.
     /// </summary>
-    public int Step
+    public double Step
     {
         get
         {
-            return ValidationHelper.GetInteger(GetValue("Step"), 1);
+            return ValidationHelper.GetDouble(GetValue("Step"), 1);
         }
         set
         {
@@ -198,86 +192,6 @@ public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
 
 
     /// <summary>
-    /// Web service method that returns the data used to get the previous value, or the name of a method declared on the Page which is decorated with the WebMethodAttribute.
-    /// </summary>
-    public string ServiceDownMethod
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("ServiceDownMethod"), null);
-        }
-        set
-        {
-            SetValue("ServiceDownMethod", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Path to a web service that returns the data used to get the previous value. This property should be left null if ServiceUpMethod or ServiceDownMethod refers to a page method. The web service should be decorated with the System.Web.Script.Services.ScriptService attribute.
-    /// </summary>
-    public string ServiceDownPath
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("ServiceDownPath"), null);
-        }
-        set
-        {
-            SetValue("ServiceDownPath", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Web service method that returns the data used to get the next value, or the name of a method declared on the Page which is decorated with the WebMethodAttribute.
-    /// </summary>
-    public string ServiceUpMethod
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("ServiceUpMethod"), null);
-        }
-        set
-        {
-            SetValue("ServiceUpMethod", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Path to a web service that returns the data used to get the next value. This property should be left null if ServiceUpMethod or ServiceDownMethod refers to a page method. The web service should be decorated with the System.Web.Script.Services.ScriptService attribute.
-    /// </summary>
-    public string ServiceUpPath
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("ServiceUpPath"), null);
-        }
-        set
-        {
-            SetValue("ServiceUpPath", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Specifies a custom parameter to pass to the Web Service.
-    /// </summary>
-    public string Tag
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("Tag"), null);
-        }
-        set
-        {
-            SetValue("Tag", value);
-        }
-    }
-
-
-    /// <summary>
     /// The alt text to show when the mouse is over the  Up button.
     /// </summary>
     public string UpButtonImageAlternateText
@@ -350,45 +264,16 @@ public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
     }
 
 
-    protected override void OnInit(EventArgs e)
-    {
-        base.OnInit(e);
-
-        // Initialize properties
-        PortalHelper.EnsureScriptManager(Page);
-        btnDown.ScreenReaderDescription = GetString("spinner.decrement");
-        btnUp.ScreenReaderDescription = GetString("spinner.increment");
-    }
-
-
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Create extender
-        NumericUpDownExtender exNumeric = new NumericUpDownExtender();
-        exNumeric.ID = "exNum";
-        exNumeric.TargetControlID = textbox.ID;
-        exNumeric.EnableViewState = false;
-        Controls.Add(exNumeric);
+        ScriptHelper.RegisterJQueryUI(Page);
 
-        // Initialize extender
-        exNumeric.Minimum = Minimum;
-        exNumeric.Maximum = Maximum;
-        exNumeric.Step = Step;
-        exNumeric.Width = Width;
-
-        // Disable checking changes before complete initialization
-        textbox.Attributes.Add("data-ignorechanges", "true");
+        btnDown.ScreenReaderDescription = GetString("spinner.decrement");
+        btnUp.ScreenReaderDescription = GetString("spinner.increment");
 
         textbox.Width = Width;
 
-        exNumeric.TargetButtonUpID = btnUp.ID;
-        exNumeric.TargetButtonDownID = btnDown.ID;
-
         LoadValues();
-        if ((mValues != null) && (mValues.Count > 0))
-        {
-            exNumeric.RefValues = String.Join(";", mValues.Keys);
-        }
 
         // Initialize up button
         if (!string.IsNullOrEmpty(UpButtonImageUrl))
@@ -398,7 +283,6 @@ public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
             btnImgUp.ImageUrl = UpButtonImageUrl;
             btnImgUp.AlternateText = ContextResolver.ResolveMacros(UpButtonImageAlternateText);
             btnImgUp.ImageAlign = ImageAlign.Middle;
-            exNumeric.TargetButtonUpID = btnImgUp.ID;
         }
 
         // Initialize down button
@@ -409,14 +293,7 @@ public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
             btnImgDown.ImageUrl = DownButtonImageUrl;
             btnImgDown.AlternateText = ContextResolver.ResolveMacros(DownButtonImageAlternateText);
             btnImgDown.ImageAlign = ImageAlign.Middle;
-            exNumeric.TargetButtonDownID = btnImgDown.ID;
         }
-
-        exNumeric.ServiceDownMethod = ServiceDownMethod;
-        exNumeric.ServiceDownPath = ServiceDownPath;
-        exNumeric.ServiceUpMethod = ServiceUpMethod;
-        exNumeric.ServiceUpPath = ServiceUpPath;
-        exNumeric.Tag = ContextResolver.ResolveMacros(Tag);
 
         // Apply CSS styles
         if (!String.IsNullOrEmpty(CssClass))
@@ -439,93 +316,24 @@ public partial class CMSFormControls_Basic_NumericUpDown : FormEngineUserControl
     {
         base.OnPreRender(e);
 
-        ScriptHelper.RegisterJQuery(Page);
-
-        if (Enabled)
+        if (Enabled && Visible)
         {
-            FixMinimumScript();
-            EnableCheckingChanges();
+            string upElementId = btnImgUp.Visible ? btnImgUp.ClientID : btnUp.ClientID;
+            string downElementId = btnImgDown.Visible ? btnImgDown.ClientID : btnDown.ClientID;
+
+            ScriptHelper.RegisterModule(this, "CMS/NumericUpDown", new
+            {
+                controlId = pnlContainer.ClientID,
+                textBoxId = textbox.ClientID,
+                textBoxUniqueId = textbox.UniqueID,
+                upElementId = upElementId,
+                downElementId = downElementId,
+                minimum = Minimum,
+                maximum = Maximum,
+                step = Step,
+                raisePostBackOnChange = HasDependingFields,
+            });
         }
-        else
-        {
-            DisableUpDown();
-        }
-    }
-
-
-    /// <summary>
-    /// Makes NumericUpDown extender read-only by removing javascript event handlers from buttons.
-    /// </summary>
-    private void DisableUpDown()
-    {
-        // Remove all javascript handlers from up and down buttons to make control read-only
-        StringBuilder script = new StringBuilder();
-
-        // Bind function to AJAX life cycle event
-        // NumericUpDown extender elements are not created earlier
-        script.Append(@"
-Sys.Application.add_load(function (){
-    $clearHandlers($cmsj('#", textbox.ClientID, @"_bUp')[0]);
-    $clearHandlers($cmsj('#", textbox.ClientID, @"_bDown')[0]);
-});");
-
-        ScriptHelper.RegisterStartupScript(this, typeof(string), ClientID + "_disableUpDown", ScriptHelper.GetScript(script.ToString()));
-    }
-
-
-    /// <summary>
-    /// Replaces flawed implementation of NumericUpDown's function _compitePrecision with a correct one.
-    /// </summary>
-    /// <remarks>
-    /// Pull request with the same change has been issued to the AjaxControlToolkit repository.
-    /// If it's accepted, future update of the toolkit will make this piece of code redundant.
-    /// </remarks>
-    private void FixMinimumScript()
-    {
-        // <summary>
-        // Compute the precision of the value by counting the number
-        // of digits in the fractional part of its string representation
-        // </summary>
-        // <param name=""value"" type=""Number"">Value</param>
-        // <returns type=""Number"" integer=""true"">
-        // Fractional precision of the number
-        // </returns>
-        const string scriptFix = @"Sys.Extended.UI.NumericUpDownBehavior.prototype._computePrecision = function(value) {
-        if (value == Number.Nan) {
-            return 0;
-        }
-        // Call toString which does not localize, according to ECMA 262
-        var str = value.toString();
-        if (str) {
-            var fractionalPart = /\.(\d*)$/;
-            var matches = str.match(fractionalPart);
-            if (matches && matches.length == 2 && matches[1]) {
-                return matches[1].length;
-            }
-        }
-        return 0;
-    };";
-
-        // Fix should be applied only once no matter how many numeric up/down controls are on the page.
-        ScriptHelper.RegisterStartupScript(this, typeof(string), "NumericUpDownMinimumFix", ScriptHelper.GetScript(scriptFix));
-    }
-
-
-    /// <summary>
-    /// Overrides initialize function of NumericUpDown extender to enable checking changes.
-    /// After control initialization the data-ignorechanges attribute is set to false.
-    /// </summary>
-    private void EnableCheckingChanges()
-    {
-        const string script = @"
-if(!Sys.Extended.UI.NumericUpDownBehavior.prototype.initializeOrig) {
-    Sys.Extended.UI.NumericUpDownBehavior.prototype.initializeOrig = Sys.Extended.UI.NumericUpDownBehavior.prototype.initialize;
-}
-Sys.Extended.UI.NumericUpDownBehavior.prototype.initialize = function() {
-    this.initializeOrig();
-    $cmsj(this._elementTextBox).data('ignorechanges', false);
-};";
-        ScriptHelper.RegisterStartupScript(this, typeof(string), "NumericUpDownInit", ScriptHelper.GetScript(script));
     }
 
     #endregion

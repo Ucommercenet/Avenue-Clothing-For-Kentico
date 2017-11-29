@@ -29,8 +29,8 @@
 </head>
 <body class="<%=mBodyClass%>">
     <form id="form1" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="scriptManager" runat="server">
-    </ajaxToolkit:ToolkitScriptManager>
+    <asp:ScriptManager ID="scriptManager" runat="server">
+    </asp:ScriptManager>
     <cms:CMSUpdatePanel ID="pnlUpdateSelectMedia" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
             <cms:LinkMedia ID="linkMedia" runat="server" IsLiveSite="false" />

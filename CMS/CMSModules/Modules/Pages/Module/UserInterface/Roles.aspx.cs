@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Data;
-
-using CMS.Base;
-
-using System.Text;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.ActionsConfig;
 using CMS.Core;
@@ -278,7 +275,7 @@ public partial class CMSModules_Modules_Pages_Module_UserInterface_Roles : Globa
         CurrentUser = null;
 
         // Clear hashtables with users
-        AbstractProvider.ClearHashtables(UserInfo.OBJECT_TYPE, true);
+        ProviderHelper.ClearHashtables(UserInfo.OBJECT_TYPE, true);
 
         // Update content before rows
         GenerateBeforeRowsContent();
@@ -350,7 +347,7 @@ public partial class CMSModules_Modules_Pages_Module_UserInterface_Roles : Globa
             if (element != null)
             {
                 // Delete existing bindings
-                DataSet elemRoles = RoleUIElementInfoProvider.GetRoleUIElements("ElementID = " + element.ElementID, null);
+                DataSet elemRoles = RoleUIElementInfoProvider.GetRoleUIElements().WhereEquals("ElementID", element.ElementID);
                 if (!DataHelper.DataSourceIsEmpty(elemRoles))
                 {
                     foreach (DataRow dr in elemRoles.Tables[0].Rows)
@@ -365,7 +362,7 @@ public partial class CMSModules_Modules_Pages_Module_UserInterface_Roles : Globa
                 // Add same bindings as parent has
                 int parentElemId = element.ElementParentID;
 
-                DataSet parentRoles = RoleUIElementInfoProvider.GetRoleUIElements("ElementID = " + parentElemId, null);
+                DataSet parentRoles = RoleUIElementInfoProvider.GetRoleUIElements().WhereEquals("ElementID", parentElemId);
                 if (!DataHelper.DataSourceIsEmpty(parentRoles))
                 {
                     foreach (DataRow dr in parentRoles.Tables[0].Rows)
@@ -386,7 +383,7 @@ public partial class CMSModules_Modules_Pages_Module_UserInterface_Roles : Globa
         UserInfo.TYPEINFO.InvalidateAllObjects();
 
         // Clear hashtables with users
-        AbstractProvider.ClearHashtables(UserInfo.OBJECT_TYPE, true);
+        ProviderHelper.ClearHashtables(UserInfo.OBJECT_TYPE, true);
     }
 
 

@@ -16,7 +16,7 @@ using CMS.UIControls;
 public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_OpenedBy : CMSDeskPage
 {
     #region "Variables"
-    
+
     // Default page size 15
     private const int PAGESIZE = 15;
     private bool isMainABTestIssue;
@@ -49,7 +49,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_O
         {
             RedirectToResourceNotAvailableOnSite("Issue with ID " + issueID);
         }
-        
+
         // Issue is the main A/B test issue
         isMainABTestIssue = issue.IssueIsABTest && !issue.IssueIsVariant;
         if (isMainABTestIssue)
@@ -130,13 +130,13 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_O
                         if (winnerIssue != null)
                         {
                             // Get variant name
-                            variantName = winnerIssue.IssueVariantName;
+                            variantName = winnerIssue.GetVariantName();
                         }
                     }
                     else
                     {
                         // Get variant name
-                        variantName = issue.IssueVariantName;
+                        variantName = issue.GetVariantName();
                     }
                 }
 

@@ -84,24 +84,6 @@ public partial class CMSAdminControls_UI_UniSelector_Controls_SelectionDialog {
     protected global::System.Web.UI.WebControls.Panel pnlAll;
     
     /// <summary>
-    /// lnkSelectAll control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedButton lnkSelectAll;
-    
-    /// <summary>
-    /// lnkDeselectAll control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedButton lnkDeselectAll;
-    
-    /// <summary>
     /// pnlContent control.
     /// </summary>
     /// <remarks>
@@ -136,31 +118,4 @@ public partial class CMSAdminControls_UI_UniSelector_Controls_SelectionDialog {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.HiddenField hidItem;
-    
-    /// <summary>
-    /// hidName control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.HiddenField hidName;
-    
-    /// <summary>
-    /// hidHash control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.HiddenField hidHash;
-    
-    /// <summary>
-    /// ltlScript control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal ltlScript;
 }

@@ -75,6 +75,15 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_Add_Item_Dialog
     protected global::System.Web.UI.WebControls.Panel pnlSendNotification;
     
     /// <summary>
+    /// lblSendNotification control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblSendNotification;
+    
+    /// <summary>
     /// chkSendNotification control.
     /// </summary>
     /// <remarks>

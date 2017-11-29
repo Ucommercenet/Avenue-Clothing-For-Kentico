@@ -602,7 +602,7 @@ public partial class CMSWebParts_Chat_ChatWebpart : CMSAbstractWebPart
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Service.Entry<ILicenseService>().IsFeatureAvailable(FeatureEnum.Chat))
+        if (!ObjectFactory<ILicenseService>.StaticSingleton().IsFeatureAvailable(FeatureEnum.Chat))
         {
             ShowError();
             return;

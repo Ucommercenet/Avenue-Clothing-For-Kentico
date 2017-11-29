@@ -164,7 +164,7 @@ public partial class CMSModules_DocumentTypes_Pages_Development_DocumentType_Edi
     /// </summary>
     private void LoadChildData(bool forceReload = false)
     {
-        DataSet ds = AllowedChildClassInfoProvider.GetAllowedChildClasses("ParentClassID = " + classId, null);
+        DataSet ds = AllowedChildClassInfoProvider.GetAllowedChildClasses().WhereEquals("ParentClassID", classId);
         if (!DataHelper.DataSourceIsEmpty(ds))
         {
             currentValues = TextHelper.Join(";", DataHelper.GetStringValues(ds.Tables[0], "ChildClassID"));
@@ -189,7 +189,7 @@ public partial class CMSModules_DocumentTypes_Pages_Development_DocumentType_Edi
     private void LoadParentData(bool forceReload = false)
     {
         // Get the active child classes
-        DataSet ds = AllowedChildClassInfoProvider.GetAllowedChildClasses("ChildClassID = " + classId, null);
+        DataSet ds = AllowedChildClassInfoProvider.GetAllowedChildClasses().WhereEquals("ChildClassID", classId);
         if (!DataHelper.DataSourceIsEmpty(ds))
         {
             parentValues = TextHelper.Join(";", DataHelper.GetStringValues(ds.Tables[0], "ParentClassID"));

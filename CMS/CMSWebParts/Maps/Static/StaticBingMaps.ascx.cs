@@ -14,22 +14,6 @@ public partial class CMSWebParts_Maps_Static_StaticBingMaps : CMSAbstractWebPart
     #region "Map properties"
 
     /// <summary>
-    /// Gets or sets the value that indicates whether the keyboard shortcuts are enabled.
-    /// </summary>
-    public bool EnableKeyboardShortcuts
-    {
-        get
-        {
-            return ValidationHelper.GetBoolean(GetValue("EnableKeyboardShortcuts"), true);
-        }
-        set
-        {
-            SetValue("EnableKeyboardShortcuts", value);
-        }
-    }
-
-
-    /// <summary>
     /// Gets or sets the value that indicates whether the user can drag the map with the mouse. 
     /// </summary>
     public bool EnableMapDragging
@@ -433,7 +417,6 @@ public partial class CMSWebParts_Maps_Static_StaticBingMaps : CMSAbstractWebPart
         mp.EnableMapDragging = EnableMapDragging;
         mp.ShowScaleControl = ShowScaleControl;
         mp.EnableServerProcessing = EnableServerProcessing;
-        mp.EnableKeyboardShortcuts = EnableKeyboardShortcuts;
         mp.ShowNavigationControl = ShowNavigationControl;
         mp.IconURL = IconURL;
         mp.MapKey = MapKey;

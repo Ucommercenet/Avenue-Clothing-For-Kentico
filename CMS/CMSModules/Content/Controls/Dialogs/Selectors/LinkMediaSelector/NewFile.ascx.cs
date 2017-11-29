@@ -336,7 +336,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
                     fileUploader.ObjectType = MetaFileObjectType;
                     fileUploader.Category = MetaFileCategory;
 
-                    BaseInfo info = BaseAbstractInfoProvider.GetInfoById(MetaFileObjectType, MetaFileObjectID);
+                    BaseInfo info = ProviderHelper.GetInfoById(MetaFileObjectType, MetaFileObjectID);
 
                     fileUploader.SiteID = info != null ? info.Generalized.ObjectSiteID : SiteContext.CurrentSiteID;
                 }

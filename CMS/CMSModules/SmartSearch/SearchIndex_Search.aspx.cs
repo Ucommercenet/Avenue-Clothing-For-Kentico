@@ -23,17 +23,25 @@ public partial class CMSModules_SmartSearch_SearchIndex_Search : GlobalAdminPage
     {
         base.OnLoad(e);
 
-        // Show information about limited features of smart search preview
-        ShowInformation(GetString("smartsearch.searchpreview.limitedfeatures"));
-
         // Get current index id
         int indexId = QueryHelper.GetInteger("indexId", 0);
 
         // Get current index info object
         SearchIndexInfo sii = SearchIndexInfoProvider.GetSearchIndexInfo(indexId);
 
+        if (sii?.IndexProvider.Equals(SearchIndexInfo.AZURE_SEARCH_PROVIDER, StringComparison.OrdinalIgnoreCase) ?? false)
+        {
+            ShowInformation(GetString("smartsearch.searchpreview.azure.unavailable"));
+            searchPnl.Visible = false;
+
+            return;
+        }
+
+        // Show information about limited features of smart search preview
+        ShowInformation(GetString("smartsearch.searchpreview.limitedfeatures"));
+
         // Show warning if indes isn't ready yet
-        if ((sii != null) && (sii.IndexFilesStatus == IndexStatusEnum.NEW))
+        if ((sii != null) && (SearchIndexInfoProvider.GetIndexStatus(sii) == IndexStatusEnum.NEW))
         {
             ShowWarning(GetString("srch.index.needrebuild"));
         }

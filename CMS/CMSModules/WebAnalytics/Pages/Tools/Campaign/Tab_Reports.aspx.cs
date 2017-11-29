@@ -2,11 +2,13 @@
 
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.Internal;
+using CMS.ContactManagement.Web.UI.Internal;
 using CMS.Core;
 using CMS.Helpers;
 using CMS.SiteProvider;
 using CMS.UIControls;
 using CMS.WebAnalytics;
+using CMS.WebAnalytics.Internal;
 using CMS.WebAnalytics.Web.UI;
 
 
@@ -24,12 +26,15 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_Tab_Reports : 
             if ((campaign != null) && (campaign.CampaignSiteID == SiteContext.CurrentSiteID))
             {
                 var moduleId = "CMS.WebAnalytics/CampaignReport/build";
-                var angularLocalizationProvider = Service.Entry<IAngularLocalizationProvider>();
-                var reportViewModelService = Service<ICampaignReportViewModelService>.Entry();
+                var localizationProvider = Service.Resolve<IClientLocalizationProvider>();
+                var reportViewModelService = Service.Resolve<ICampaignReportViewModelService>();
+                var demographicsLinkBuilder = Service.Resolve<IContactDemographicsLinkBuilder>();
 
                 ScriptHelper.RegisterAngularModule(moduleId, new {
-                    Resources = angularLocalizationProvider.GetAngularLocalization(moduleId),
-                    Report = reportViewModelService.GetViewModel(campaign)
+                    Resources = localizationProvider.GetClientLocalization(moduleId),
+                    Report = reportViewModelService.GetViewModel(campaign),
+                    DemographicsLink = URLHelper.GetAbsoluteUrl(demographicsLinkBuilder.GetDemographicsLink("campaign")),
+                    DefaultUTMSourceName = CampaignProcessorConstants.DEFAULT_UTM_SOURCE
                 });
             }
             else

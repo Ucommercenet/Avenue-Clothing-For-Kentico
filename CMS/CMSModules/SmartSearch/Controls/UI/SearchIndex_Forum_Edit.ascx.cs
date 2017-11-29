@@ -78,8 +78,8 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_Forum_Edit :
     {
         base.OnLoad(e);
 
-        // Module forums is not available
-        if (!(ModuleManager.IsModuleLoaded(ModuleName.FORUMS)))
+        // Module forums is not available or control is stopped
+        if (StopProcessing || !(ModuleManager.IsModuleLoaded(ModuleName.FORUMS)))
         {
             return;
         }

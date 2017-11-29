@@ -266,10 +266,6 @@ window.onload = function() { ResizeWorkingArea(); };");
         }
 
         ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "resizeScript", ScriptHelper.GetScript(resizeScript.ToString()));
-        if (BrowserHelper.IsIE7())
-        {
-            ScriptHelper.RegisterStartupScript(this, typeof(string), "ie7ResizeFix", ScriptHelper.GetScript("document.getElementById('divContent').style.height = '0px';"));
-        }
     }
 
 

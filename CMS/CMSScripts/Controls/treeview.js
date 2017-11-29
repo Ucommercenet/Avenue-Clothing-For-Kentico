@@ -1,11 +1,9 @@
-﻿<!--
-
-var selectedObjectsID = new Array();
+﻿var selectedObjectsID = new Array();
 var selectedObjects = new Array();
 
 function CMSTreeView_ItemSelect(obj, treeId)
 {
-	if ((obj != null)&&(treeId != ''))
+	if ((obj != null) && (treeId != ''))
 	{
 		if (selectedObjects[treeId] == null)
 		{
@@ -41,5 +39,3 @@ function CMSTreeView_ItemSelect(obj, treeId)
 		    selectedObjects[treeId] = obj;
 	    }
 }
-
--->

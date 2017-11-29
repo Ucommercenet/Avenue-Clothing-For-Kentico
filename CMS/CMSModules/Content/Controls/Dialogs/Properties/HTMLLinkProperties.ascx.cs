@@ -62,10 +62,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLLinkProp
 
     private void SetupControls()
     {
-        // Check AjaxToolkitVersion version
-        bool isLatestFramework = (AJAXHelper.AjaxToolkitVersion >= 3);
-
-        if (IsWeb && !ShowGeneralTab && isLatestFramework)
+        if (IsWeb && !ShowGeneralTab)
         {
             pnlTabs.SelectedTabIndex = 1;
         }
@@ -202,11 +199,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLLinkProp
 
             urlSelectElem.LinkURL = item.Url;
             urlSelectElem.LinkText = item.Name;
-
-            if (item.MediaType == MediaTypeEnum.Flash)
-            {
-                urlSelectElem.LinkURL = URLHelper.UpdateParameterInUrl(item.Url, "ext", "." + item.Extension.TrimStart('.'));
-            }
         }
         SaveSession();
     }

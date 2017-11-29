@@ -16,7 +16,6 @@
                     SpacingClosed="0" PaneClass="main-header" />
                 <cms:UILayoutPane ID="cmsdesktop" runat="server" Direction="Center" RenderAs="Iframe"
                     ModuleAvailabilityForSiteRequired="true" Src="about:blank" />
-                <cms:UILayoutPane ID="paneFooter" runat="server" ControlPath="~/CMSModules/SystemDevelopment/DevMenu.ascx" CheckPhysicalFile="true" Direction="South" RenderAs="Div" InitClosed="true" UseUpdatePanel="false" />
             </Panes>
         </cms:UILayout>
     </div>

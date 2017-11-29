@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="CMSModules_MessageBoards_Controls_Messages_MessageEdit"  Codebehind="MessageEdit.ascx.cs" %>
 
-<%@ Register Src="~/CMSFormControls/Captcha/SecurityCode.ascx" TagName="SecurityCode" TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/Inputs/EmailInput.ascx" TagName="EmailInput"
     TagPrefix="cms" %>
 

@@ -578,7 +578,7 @@ function DisplayPreview(typeFieldId, chkClientId) {
             }
 
             // Update file paths set and store updated version in the ViewState
-            int indexOfDel = ImportFilePaths.IndexOf("|");
+            int indexOfDel = ImportFilePaths.IndexOf('|');
             ImportFilePaths = (indexOfDel > 0 ? ImportFilePaths.Remove(0, indexOfDel + 1) : String.Empty);
 
             bool wasLast = String.IsNullOrEmpty(ImportFilePaths);
@@ -628,7 +628,7 @@ function DisplayPreview(typeFieldId, chkClientId) {
     private string GetNextFileName()
     {
         string nextFileName;
-        int indexOfDel = ImportFilePaths.IndexOf("|");
+        int indexOfDel = ImportFilePaths.IndexOf('|');
         if (indexOfDel >= 0)
         {
             nextFileName = ImportFilePaths.Substring(0, indexOfDel);
@@ -734,7 +734,7 @@ function DisplayPreview(typeFieldId, chkClientId) {
                 lnkOpenImage.NavigateUrl = url;
             }
         }
-        else if (MediaHelper.IsAudioVideo(ext) || MediaHelper.IsFlash(ext))
+        else if (MediaHelper.IsAudioVideo(ext))
         {
             hdnPreviewType.Value = "media";
 

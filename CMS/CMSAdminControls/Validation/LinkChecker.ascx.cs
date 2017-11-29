@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
-using CMS.Base;
-
 using System.Linq;
 using System.Net;
 using System.Security.Authentication;
@@ -14,13 +11,14 @@ using System.Threading;
 using System.Web;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.ActionsConfig;
 using CMS.DataEngine;
-using CMS.DocumentEngine;
 using CMS.EventLog;
 using CMS.Helpers;
 using CMS.IO;
+using CMS.PortalEngine.Web.UI;
 using CMS.UIControls;
 
 
@@ -37,7 +35,7 @@ public partial class CMSAdminControls_Validation_LinkChecker : DocumentValidator
 
     private Regex mMatchUrlRegex;
     private string currentCulture = CultureHelper.DefaultUICultureCode;
-    
+
     private string mUrlRequestExceptions = ";webresource;";
     private const string mSkipUrlsStartingWith = ";javascript;mail;ftp;";
     private int mValidationDelay;
@@ -485,7 +483,7 @@ public partial class CMSAdminControls_Validation_LinkChecker : DocumentValidator
         {
             Dictionary<int, string> urls = new Dictionary<int, string>();
             int counter = 0;
-            string[] skippedUrlsStartingWith = mSkipUrlsStartingWith.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] skippedUrlsStartingWith = mSkipUrlsStartingWith.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             // Process URLs found in document
             foreach (Match m in MatchUrlRegex.Matches(html))
@@ -667,7 +665,7 @@ public partial class CMSAdminControls_Validation_LinkChecker : DocumentValidator
                     }
 
                     string newLocation = response.Headers["Location"];
-                    string redirectUrl = URLHelper.ContainsProtocol(newLocation) ? newLocation : reqUri.AbsoluteUri.Substring(0, reqUri.AbsoluteUri.IndexOfCSafe(host) + host.Length) + newLocation;
+                    string redirectUrl = URLHelper.ContainsProtocol(newLocation) ? newLocation : URLHelper.GetAbsoluteUrl(newLocation, urlParams[0], urlParams[1], urlParams[2]);
                     urls.Insert(index + indexOffset, redirectUrl);
                     break;
 
@@ -848,10 +846,10 @@ public partial class CMSAdminControls_Validation_LinkChecker : DocumentValidator
         mInfoText = CurrentError;
         pnlLog.Visible = false;
         pnlGrid.Visible = true;
-        
+
         PostProcessData();
     }
-    
+
 
     /// <summary>
     /// On error event

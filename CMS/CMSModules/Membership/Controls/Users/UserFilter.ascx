@@ -22,7 +22,7 @@
         </div>
         <div class="form-group form-group-buttons">
             <div class="filter-form-label-cell">
-                <asp:LinkButton ID="lnkShowAdvancedFilter" runat="server" OnClick="lnkShowAdvancedFilter_Click" CssClass="simple-advanced-link" />
+                <cms:LocalizedLinkButton ID="lnkShowAdvancedFilter" runat="server" ResourceString="general.displayadvancedfilter" OnClick="lnkShowAdvancedFilter_Click" CssClass="simple-advanced-link" />
             </div>
             <div class="filter-form-buttons-cell-wide-with-link">
                 <cms:LocalizedButton ID="btnReset" runat="server" ButtonStyle="Default" ResourceString="general.reset" EnableViewState="False" />
@@ -203,7 +203,7 @@
         </asp:PlaceHolder>
         <div class="form-group form-group-buttons">
             <div class="filter-form-label-cell">
-                <asp:LinkButton ID="lnkShowSimpleFilter" runat="server" OnClick="lnkShowSimpleFilter_Click" CssClass="simple-advanced-link" />
+                <cms:LocalizedLinkButton ID="lnkShowSimpleFilter" runat="server" ResourceString="general.displaysimplefilter" OnClick="lnkShowSimpleFilter_Click" CssClass="simple-advanced-link" />
             </div>
             <div class="filter-form-buttons-cell-wide-with-link">
                 <cms:LocalizedButton ID="btnAdvancedReset" runat="server" ButtonStyle="Default" ResourceString="general.reset" EnableViewState="False" />

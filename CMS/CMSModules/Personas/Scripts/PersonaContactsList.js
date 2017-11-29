@@ -6,7 +6,6 @@ CMS.Personas = CMS.Personas || {};
 * Personas module with logic used in PersonaContactListExtender class.
 */
 CMS.Personas.PersonaContactsList = (function () {
-    "use strict";
 
     var module = {},
         contactDetailDialogBaseUrl = null; // actual dialog url is set from the server side code, so proper url including hash is generated using UIContextHelper

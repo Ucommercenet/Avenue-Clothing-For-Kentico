@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Data;
-
-using CMS.Base;
-using CMS.DocumentEngine;
-using CMS.Helpers;
-
 using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
+using CMS.DocumentEngine;
 using CMS.DocumentEngine.Web.UI;
 using CMS.EventLog;
 using CMS.FormEngine;
 using CMS.Globalization;
+using CMS.Helpers;
 using CMS.Localization;
 using CMS.MacroEngine;
 using CMS.Membership;
@@ -308,7 +305,7 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                     }
                 }
             }
-            
+
             // Add unsorted attachments to the table
             AddField(Node, CompareNode, UNSORTED);
         }
@@ -456,14 +453,14 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
             ffi = fi.GetFormField(columnName);
         }
 
-        TableCell valueCell = new TableCell();
-        valueCell.EnableViewState = false;
-        TableCell valueCompare = new TableCell();
-        valueCompare.EnableViewState = false;
+        TableCell leftValueCell = new TableCell();
+        leftValueCell.EnableViewState = false;
+        TableCell rightValueCell = new TableCell();
+        rightValueCell.EnableViewState = false;
         TableCell labelCell = new TableCell();
         labelCell.EnableViewState = false;
-        TextComparison comparefirst;
-        TextComparison comparesecond;
+        TextComparison compareLeft;
+        TextComparison compareRight;
         bool loadValue = true;
         bool empty = true;
         bool allowLabel = true;
@@ -555,7 +552,7 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                             string itemValue = ValidationHelper.GetString(item.Value, null);
                             if (!String.IsNullOrEmpty(itemValue))
                             {
-                                valueCell = new TableCell();
+                                leftValueCell = new TableCell();
                                 labelCell = new TableCell();
 
                                 if (first)
@@ -563,9 +560,9 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                                     labelCell.Text = "<strong>" + String.Format(title, item.Key) + "</strong>";
                                     first = false;
                                 }
-                                valueCell.Text = itemValue;
+                                leftValueCell.Text = itemValue;
 
-                                AddRow(labelCell, valueCell);
+                                AddRow(labelCell, leftValueCell);
                             }
                         }
                     }
@@ -598,47 +595,47 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                         textcompare = CreateAttachmentHtml(aiCompare, versionCompare);
                     }
 
-                    comparefirst = new TextComparison();
-                    comparefirst.SynchronizedScrolling = false;
-                    comparefirst.IgnoreHTMLTags = true;
-                    comparefirst.ConsiderHTMLTagsEqual = true;
-                    comparefirst.BalanceContent = false;
+                    compareLeft = new TextComparison();
+                    compareLeft.SynchronizedScrolling = false;
+                    compareLeft.IgnoreHTMLTags = true;
+                    compareLeft.ConsiderHTMLTagsEqual = true;
+                    compareLeft.BalanceContent = false;
 
-                    comparesecond = new TextComparison();
-                    comparesecond.SynchronizedScrolling = false;
-                    comparesecond.IgnoreHTMLTags = true;
+                    compareRight = new TextComparison();
+                    compareRight.SynchronizedScrolling = false;
+                    compareRight.IgnoreHTMLTags = true;
 
-                    // Source text must be older version
+                    // Older version must be in the left column
                     if (versionHistoryId < versionCompare)
                     {
-                        comparefirst.SourceText = textorig;
-                        comparefirst.DestinationText = textcompare;
+                        compareLeft.SourceText = textorig;
+                        compareLeft.DestinationText = textcompare;
                     }
                     else
                     {
-                        comparefirst.SourceText = textcompare;
-                        comparefirst.DestinationText = textorig;
+                        compareLeft.SourceText = textcompare;
+                        compareLeft.DestinationText = textorig;
                     }
 
-                    comparefirst.PairedControl = comparesecond;
-                    comparesecond.RenderingMode = TextComparisonTypeEnum.DestinationText;
+                    compareLeft.PairedControl = compareRight;
+                    compareRight.RenderingMode = TextComparisonTypeEnum.DestinationText;
 
-                    valueCell.Controls.Add(comparefirst);
-                    valueCompare.Controls.Add(comparesecond);
+                    leftValueCell.Controls.Add(compareLeft);
+                    rightValueCell.Controls.Add(compareRight);
 
                     // Add both cells
                     if (compareNode != null)
                     {
-                        AddRow(labelCell, valueCell, valueCompare);
+                        AddRow(labelCell, leftValueCell, rightValueCell);
                     }
                     // Add one cell only
                     else
                     {
-                        valueCell.Controls.Clear();
+                        leftValueCell.Controls.Clear();
                         Literal ltl = new Literal();
                         ltl.Text = textorig;
-                        valueCell.Controls.Add(ltl);
-                        AddRow(labelCell, valueCell);
+                        leftValueCell.Controls.Add(ltl);
+                        AddRow(labelCell, leftValueCell);
                     }
                 }
             }
@@ -670,7 +667,7 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                         Hashtable hashtable;
                         Hashtable hashtableCompare;
 
-                        // Source text must be older version
+                        // Older version must be in the left column
                         if (versionHistoryId < versionCompare)
                         {
                             hashtable = ei.EditableRegions;
@@ -686,7 +683,7 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                         AddTableComparison(hashtable, hashtableCompare, "<strong>" + columnName + " ({0}):</strong>", false, false);
 
                         // Create editable webparts comparison
-                        // Source text must be older version
+                        // Older version must be in the left column
                         if (versionHistoryId < versionCompare)
                         {
                             hashtable = ei.EditableWebParts;
@@ -715,13 +712,13 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                                 {
                                     string regionKey = ValidationHelper.GetString(region.Key, null);
 
-                                    valueCell = new TableCell();
+                                    leftValueCell = new TableCell();
                                     labelCell = new TableCell();
 
                                     labelCell.Text = "<strong>" + columnName + " (" + EditableItems.GetFirstKey(regionKey) + "):</strong>";
-                                    valueCell.Text = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(regionValue, false));
+                                    leftValueCell.Text = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(regionValue, false));
 
-                                    AddRow(labelCell, valueCell);
+                                    AddRow(labelCell, leftValueCell);
                                 }
                             }
                         }
@@ -736,13 +733,13 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                                 if (!String.IsNullOrEmpty(partValue))
                                 {
                                     string partKey = ValidationHelper.GetString(part.Key, null);
-                                    valueCell = new TableCell();
+                                    leftValueCell = new TableCell();
                                     labelCell = new TableCell();
 
                                     labelCell.Text = "<strong>" + columnName + " (" + EditableItems.GetFirstKey(partKey) + "):</strong>";
-                                    valueCell.Text = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(partValue, false));
+                                    leftValueCell.Text = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(partValue, false));
 
-                                    AddRow(labelCell, valueCell);
+                                    AddRow(labelCell, leftValueCell);
                                 }
                             }
                         }
@@ -753,7 +750,7 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                 case "documentwebparts":
                     StringBuilder sbOriginal = new StringBuilder();
                     StringBuilder sbCompared = new StringBuilder();
-                    
+
                     // Set original web parts
                     string originalWebParts = Convert.ToString(node.GetValue(columnName));
                     GenerateWebPartsMarkup(ref sbOriginal, originalWebParts, true);
@@ -767,11 +764,29 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
 
                     // Set empty flag
                     empty = ((sbOriginal.Length == 0) && (sbCompared.Length == 0));
-                    
+
                     if (!empty)
                     {
-                        valueCell.Text += sbOriginal.ToString();
-                        valueCompare.Text = sbCompared.ToString();
+                        // No compare mode
+                        if (compareNode == null)
+                        {
+                            leftValueCell.Text += sbOriginal.ToString();
+                        }
+                        // Comparison mode
+                        else
+                        {
+                            // Older version must be in the left column
+                            if (versionHistoryId < versionCompare)
+                            {
+                                leftValueCell.Text += sbOriginal.ToString();
+                                rightValueCell.Text = sbCompared.ToString();
+                            }
+                            else
+                            {
+                                leftValueCell.Text += sbCompared.ToString();
+                                rightValueCell.Text = sbOriginal.ToString();
+                            }
+                        }
                     }
                     break;
 
@@ -803,38 +818,38 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
                             textcompare = ValidationHelper.GetString(compareobject, String.Empty);
                         }
 
-                        comparefirst = new TextComparison();
-                        comparefirst.SynchronizedScrolling = false;
+                        compareLeft = new TextComparison();
+                        compareLeft.SynchronizedScrolling = false;
 
-                        comparesecond = new TextComparison();
-                        comparesecond.SynchronizedScrolling = false;
-                        comparesecond.RenderingMode = TextComparisonTypeEnum.DestinationText;
+                        compareRight = new TextComparison();
+                        compareRight.SynchronizedScrolling = false;
+                        compareRight.RenderingMode = TextComparisonTypeEnum.DestinationText;
 
-                        // Source text must be older version
+                        // Older version must be in the left column
                         if (versionHistoryId < versionCompare)
                         {
-                            comparefirst.SourceText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textorig, false));
-                            comparefirst.DestinationText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textcompare, false));
+                            compareLeft.SourceText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textorig, false));
+                            compareLeft.DestinationText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textcompare, false));
                         }
                         else
                         {
-                            comparefirst.SourceText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textcompare, false));
-                            comparefirst.DestinationText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textorig, false));
+                            compareLeft.SourceText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textcompare, false));
+                            compareLeft.DestinationText = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textorig, false));
                         }
 
-                        comparefirst.PairedControl = comparesecond;
+                        compareLeft.PairedControl = compareRight;
 
-                        if (Math.Max(comparefirst.SourceText.Length, comparefirst.DestinationText.Length) < 100)
+                        if (Math.Max(compareLeft.SourceText.Length, compareLeft.DestinationText.Length) < 100)
                         {
-                            comparefirst.BalanceContent = false;
+                            compareLeft.BalanceContent = false;
                         }
 
-                        valueCell.Controls.Add(comparefirst);
-                        valueCompare.Controls.Add(comparesecond);
+                        leftValueCell.Controls.Add(compareLeft);
+                        rightValueCell.Controls.Add(compareRight);
                     }
                     else
                     {
-                        valueCell.Text = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textorig, false));
+                        leftValueCell.Text = HTMLHelper.HTMLEncode(HTMLHelper.StripTags(textorig, false));
                     }
 
                     empty = (String.IsNullOrEmpty(textorig)) && (String.IsNullOrEmpty(textcompare));
@@ -846,11 +861,11 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
         {
             if (compareNode != null)
             {
-                AddRow(labelCell, valueCell, valueCompare);
+                AddRow(labelCell, leftValueCell, rightValueCell);
             }
             else
             {
-                AddRow(labelCell, valueCell);
+                AddRow(labelCell, leftValueCell);
             }
         }
     }
@@ -868,8 +883,8 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
             PageTemplateInstance inst = new PageTemplateInstance(xml);
             if (inst.WebPartZones.Count > 0)
             {
-                sb.Append(@"<a href=""#"" onclick=""versionExpandWebParts()"" id=""", isLeft ? "vWpLeftLink" : "vWpRightLink" , "\">"+ GetString("General.Expand") +"</a>");
-                sb.Append("<div style=\"display:none\" id=\"", isLeft ? "vWpLeft" : "vWpRight" , "\">");
+                sb.Append(@"<a href=""#"" onclick=""versionExpandWebParts()"" id=""", isLeft ? "vWpLeftLink" : "vWpRightLink", "\">" + GetString("General.Expand") + "</a>");
+                sb.Append("<div style=\"display:none\" id=\"", isLeft ? "vWpLeft" : "vWpRight", "\">");
                 foreach (WebPartZoneInstance zone in inst.WebPartZones)
                 {
                     sb.Append("<b>Zone</b>: ", HTMLHelper.HTMLEncode(zone.ZoneID));
@@ -1100,7 +1115,7 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
     private void AddRow(TableCell labelCell, TableCell valueCell, string cssClass = null, bool isHeader = false)
     {
         TableRow newRow = CreateRow(cssClass, isHeader);
-        
+
         newRow.Cells.Add(labelCell);
         valueCell.Width = new Unit(100, UnitType.Percentage);
         newRow.Cells.Add(valueCell);
@@ -1213,7 +1228,7 @@ public partial class CMSModules_Content_Controls_ViewVersion : VersionHistoryCon
         sb.Append(" ", HTMLHelper.HTMLEncode(attachmentName), " (", HTMLHelper.HTMLEncode(attachmentSize), ")<br />");
         sb.Append("<table class=\"table-blank\"><tr><td><strong>", GetString("general.title"), ":</strong></td><td>", HTMLHelper.HTMLEncode(title), "</td></tr>");
         sb.Append("<tr><td><strong>", GetString("general.description"), ":</strong></td><td>", HTMLHelper.HTMLEncode(description), "</td></tr></table>");
-        
+
         return sb.ToString();
     }
 

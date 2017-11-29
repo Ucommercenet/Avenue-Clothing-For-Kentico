@@ -135,6 +135,22 @@ public partial class CMSModules_SmartSearch_SearchIndex_Sites : GlobalAdminPage,
                 RedirectToAccessDenied("cms.searchindex", CMSAdminControl.PERMISSION_MODIFY);
             }
 
+            SearchIndexInfo sii = SearchIndexInfoProvider.GetSearchIndexInfo(indexId);
+            if (sii.IndexType.Equals(CMS.DocumentEngine.TreeNode.OBJECT_TYPE, StringComparison.OrdinalIgnoreCase) || (sii.IndexType == SearchHelper.DOCUMENTS_CRAWLER_INDEX))
+            {
+                if (!SearchIndexCultureInfoProvider.SearchIndexHasAnyCulture(sii.IndexID))
+                {
+                    ShowError(GetString("index.noculture"));
+                    return;
+                }
+
+                if (!SearchIndexSiteInfoProvider.SearchIndexHasAnySite(sii.IndexID))
+                {
+                    ShowError(GetString("index.nosite"));
+                    return;
+                }
+            }
+
             if (SearchHelper.CreateRebuildTask(indexId))
             {
                 ShowInformation(GetString("srch.index.rebuildstarted"));

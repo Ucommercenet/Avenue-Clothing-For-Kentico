@@ -194,7 +194,7 @@ public class SiteEditPageExtender : ControlExtender<UIForm>
         if (newSiteCodeName.ToLowerCSafe() != siteInfo.SiteName.ToLowerCSafe())
         {
             // Clear settings if sitename changes
-            SettingsKeyInfoProvider.ClearCachedValues(true);
+            ProviderHelper.ClearHashtables(SettingsKeyInfo.OBJECT_TYPE, true);
 
             // Reindex hashtable with sessions if SiteName changes and change info message                
             SessionManager.ReindexSessionsInfosHashtable(formerCodeName, siteInfo.SiteName);

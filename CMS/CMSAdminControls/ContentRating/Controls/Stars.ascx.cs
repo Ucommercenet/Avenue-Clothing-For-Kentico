@@ -1,113 +1,154 @@
 ﻿using System;
-
-using AjaxControlToolkit;
+using System.Web.UI;
 
 using CMS.Base.Web.UI;
 using CMS.Helpers;
 
-
-public partial class CMSAdminControls_ContentRating_Controls_Stars : AbstractRatingControl
+public partial class CMSAdminControls_ContentRating_Controls_Stars : AbstractRatingControl, IPostBackEventHandler
 {
+    private string starCssClass = "rating-star cms-icon-80";
+    private string emptyStarCssClass  = "icon-star-empty";
+    private string filledStarCssClass  = "icon-star-full";
+    private string waitingStarCssClass = "saved-rating-star";
+    private int ratingValue;
+
+    private string RatingClienId => $"{ClientID}_A";
+
+    private bool RtlDirection { get; set; }
+
     /// <summary>
     /// Enables/disables rating scale.
     /// </summary>
-    public override bool Enabled
-    {
-        get
-        {
-            return !elemRating.ReadOnly;
-        }
-        set
-        {
-            elemRating.ReadOnly = !value;
-            if (value)
-            {
-                elemRating.RemoveCssClass("disabled");
-            }
-            else
-            {
-                elemRating.AddCssClass("disabled");
-            }
-        }
-    }
-
+    public override bool Enabled { get; set; }
+    
 
     /// <summary>
     /// Returns current rating.
     /// </summary>
     public override double GetCurrentRating()
     {
-        if (elemRating.MaxRating <= 0)
+        if (MaxRating <= 0)
         {
             CurrentRating = 0;
         }
         else
         {
-            CurrentRating = ValidationHelper.GetDouble(elemRating.CurrentRating, 0) / elemRating.MaxRating;
+            CurrentRating = (double)ratingValue / MaxRating;
         }
         return CurrentRating;
     }
 
 
-    /// <summary>
-    /// Page load.
-    /// </summary>
     protected void Page_Load(object sender, EventArgs e)
     {
+        RtlDirection = CultureHelper.IsPreferredCultureRTL();
         ReloadData();
     }
 
 
     public override void ReloadData()
     {
-        // Avoid exception if max value is less or equal to zero
         if (MaxRating <= 0)
         {
-            elemRating.Visible = false;
+            Visible = false;
             return;
         }
 
-        elemRating.MaxRating = MaxRating;
-        // Clear stars to enable further rating
         if (Enabled && !ExternalManagement)
         {
-            elemRating.CurrentRating = 0;
+            ratingValue = 0;
         }
         else
         {
-            // Display rating result if in readonly mode
-            elemRating.CurrentRating = Convert.ToInt32(Math.Round(CurrentRating * MaxRating, MidpointRounding.AwayFromZero));
+            ratingValue = Convert.ToInt32(Math.Round(CurrentRating * MaxRating, MidpointRounding.AwayFromZero));
+        }
+    }
+       
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        if (Enabled && Visible)
+        {
+            if (ControlsHelper.IsInUpdatePanel(this))
+            {
+                ScriptManager.GetCurrent(Page)?.RegisterAsyncPostBackControl(this);
+            }
+
+            ScriptHelper.RegisterModule(this, "AdminControls/StarsRating", new
+            {
+                Id = RatingClienId,
+                StarCssClass = starCssClass,
+                EmptyStarCssClass = emptyStarCssClass,
+                FilledStarCssClass = filledStarCssClass,
+                WaitingStarCssClass = waitingStarCssClass,
+                UniqueID = UniqueID,
+                RatingValue = ratingValue,
+                RtlDirection = RtlDirection
+            });
         }
 
-        if (Enabled)
-        {
-            elemRating.Changed += new RatingEventHandler(elemRating_Changed);
-            elemRating.AutoPostBack = true;
-        }
-        else
-        {
-            elemRating.Changed -= new RatingEventHandler(elemRating_Changed);
-            elemRating.AutoPostBack = false;
-        }
-
-        // Switch RTL or LTR layout
-        if (CultureHelper.IsPreferredCultureRTL())
-        {
-            elemRating.RatingDirection = RatingDirection.RightToLeftBottomToTop;
-        }
-        else
-        {
-            elemRating.RatingDirection = RatingDirection.LeftToRightTopToBottom;
-        }
+        base.OnPreRender(e);
     }
 
 
-    protected void elemRating_Changed(object sender, RatingEventArgs e)
+    protected override void Render(HtmlTextWriter writer)
     {
-        // Actualize CurrentRating properties
-        elemRating.CurrentRating = ValidationHelper.GetInteger(e.Value, 0);
-        GetCurrentRating();
-        // Throw the rating event
-        OnRating();
+        if (!Enabled)
+        {
+            writer.AddAttribute("class", "disabled");
+        }
+        
+        writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
+        writer.AddAttribute("id", RatingClienId);
+        writer.AddAttribute("style", "text-decoration:none");
+        writer.AddAttribute("href", "javascript:void(0)");
+        writer.AddAttribute("title", ratingValue.ToString());
+
+        writer.RenderBeginTag(HtmlTextWriterTag.A);
+
+        for (var i = 1; i < MaxRating + 1; i++)
+        {
+            writer.AddAttribute("id", $"{ClientID}_Star_{i.ToString()}");
+            writer.AddStyleAttribute("float", "left");
+
+            var cssClass = ((i <= ratingValue) && !RtlDirection) || ((i > MaxRating - ratingValue) && RtlDirection) ? 
+                $"{starCssClass} {filledStarCssClass}" : $"{starCssClass} {emptyStarCssClass}";
+
+            writer.AddAttribute("class", cssClass);
+
+            writer.RenderBeginTag(HtmlTextWriterTag.Span);
+            writer.Write("&nbsp;");
+
+            // SPAN
+            writer.RenderEndTag();
+        }
+
+        // A
+        writer.RenderEndTag();
+        // Div
+        writer.RenderEndTag();
+
+        base.Render(writer);
+    }
+
+
+    public void RaisePostBackEvent(string eventArgument)
+    {
+        if (!Enabled && !Visible)
+        {
+            return;
+        }
+
+        int argumentValue;
+        if (Int32.TryParse(eventArgument, out argumentValue) && (argumentValue > 0) &&(argumentValue <= MaxRating))
+        {
+            ControlsHelper.UpdateCurrentPanel(this);
+
+            ratingValue = argumentValue;
+            GetCurrentRating();
+            
+            OnRating();
+        }
     }
 }

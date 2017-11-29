@@ -170,7 +170,7 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
 
     protected object gridElem_OnExternalDataBound(object sender, string sourceName, object parameter)
     {
-        if (sourceName.ToLowerCSafe() == "tagname")
+        if (sourceName.Equals("tagname", StringComparison.OrdinalIgnoreCase))
         {
             DataRowView drv = (DataRowView)parameter;
             string tagName = ValidationHelper.GetString(drv["TagName"], "");
@@ -178,10 +178,10 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
             if ((tagName != "") && (tagName != tagId))
             {
                 string tagCount = ValidationHelper.GetString(drv["TagCount"], "");
-                string tagText = HTMLHelper.HTMLEncode(tagName) + " (" + tagCount + ")";
+                string tagText = $"{HTMLHelper.HTMLEncode(tagName)} ({tagCount})";
 
                 // Create link with onclick event which call onclick event of checkbox in the same row
-                return "<a href=\"#\" onclick=\"var c=$cmsj(this).parents('tr:first').find('input:checkbox'); c.attr('checked', !c.attr('checked')).get(0).onclick(); return false;\">" + tagText + "</a>";
+                return $"<a href=\"#\" onclick=\"var c=$cmsj(this).parents('tr:first').find('input:checkbox'); c.prop('checked', !c.prop('checked')).get(0).onclick(); return false;\">{tagText}</a>";
             }
         }
         return "";

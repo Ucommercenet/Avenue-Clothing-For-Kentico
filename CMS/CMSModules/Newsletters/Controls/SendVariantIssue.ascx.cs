@@ -13,32 +13,11 @@ using CMS.UIControls;
 public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdminControl
 {
     #region "Constants"
-
-    private const int STATE_WAITING_TO_SEND_WIZARD = 1;
-    private const int STATE_WAITING_TO_SEND_PAGE = 2;
-    private const int STATE_TEST_WAITING_TO_SEL_WINNER = 3;
-    private const int STATE_TEST_READY_FOR_SENDING = 4;
-    private const int STATE_TEST_FINISHED = 5;
+    
     private const int DEFAULT_TEST_GROUP_SIZE_PERCENTAGE = 10;
 
     #endregion
-
-    /// <summary>
-    /// Control mode
-    /// </summary>
-    public enum SendControlMode
-    {
-        /// <summary>
-        /// Control is used in wizard step
-        /// </summary>
-        Wizard = 0,
-
-        /// <summary>
-        /// Control is used on page
-        /// </summary>
-        Send = 1
-    }
-
+    
 
     #region "Private variables"
 
@@ -58,27 +37,7 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
         get;
         set;
     }
-
-
-    /// <summary>
-    /// Gets or sets mode. Value changes control behaviour (wizard - control is on new issue wizard;
-    /// send - control is on send page).
-    /// </summary>
-    public SendControlMode Mode
-    {
-        get;
-        set;
-    }
-
-
-    /// <summary>
-    /// Gets value that indicates whether sending issue is allowed or not.
-    /// </summary>
-    public bool SendingAllowed
-    {
-        get { return (CurrentState == STATE_WAITING_TO_SEND_PAGE) || (CurrentState == STATE_WAITING_TO_SEND_WIZARD); }
-    }
-
+    
 
     /// <summary>
     /// Flag - indicates if force reloaded is needed in the next reload.
@@ -93,7 +52,7 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
     /// <summary>
     /// Gets or sets current state of control ("waiting to send", "testing finished" etc.)
     /// </summary>
-    private int CurrentState
+    private VariantStatusEnum CurrentState
     {
         get;
         set;
@@ -146,19 +105,20 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
             ForceReloadNeeded = false;
         }
 
-        int parentIssueId = 0;
+        var parentIssueId = 0;
         mParentIssue = IssueInfoProvider.GetOriginalIssue(IssueID);
         if (mParentIssue != null)
         {
             parentIssueId = mParentIssue.IssueID;
         }
-
+        
         // Get A/B test configuration
         mABTest = ABTestInfoProvider.GetABTestInfoForIssue(parentIssueId);
         if (mABTest == null)
         {
             // Ensure A/B test object with default settings
-            mABTest = new ABTestInfo() { TestIssueID = parentIssueId, TestSizePercentage = 50, TestWinnerOption = ABTestWinnerSelectionEnum.OpenRate, TestSelectWinnerAfter = 60 };
+            mABTest = new ABTestInfo
+                { TestIssueID = parentIssueId, TestSizePercentage = 50, TestWinnerOption = ABTestWinnerSelectionEnum.OpenRate, TestSelectWinnerAfter = 60 };
             ABTestInfoProvider.SetABTestInfo(mABTest);
         }
 
@@ -168,30 +128,29 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
         ucMailout.ParentIssueID = parentIssueId;
         ucMailout.ReloadData(forceReload);
 
-        InfoMessage = GetInfoMessage(CurrentState, mParentIssue, (mABTest != null ? mABTest.TestWinnerOption : ABTestWinnerSelectionEnum.OpenRate), GetPlannedMailoutTime(ucMailout.HighestMailoutTime));
+        InfoMessage = GetInfoMessage(CurrentState, mParentIssue, mABTest?.TestWinnerOption ?? ABTestWinnerSelectionEnum.OpenRate);
 
         // Init test group slider
         InitTestGroupSlider(mParentIssue, mABTest, forceReload);
-        ucWO_OnChange(this, EventArgs.Empty);
     }
 
 
     private void InitTestGroupSlider(IssueInfo parentIssue, ABTestInfo abTest, bool forceReload)
     {
-        List<IssueABVariantItem> variants = IssueHelper.GetIssueVariants(parentIssue, null);
+        var variants = IssueHelper.GetIssueVariants(parentIssue, null);
         ucGroupSlider.Variants = variants;
 
         ucGroupSlider.NumberOfSubscribers = GetNumberOfSubscribers(parentIssue, variants);
 
         if (forceReload || !ucGroupSlider.Enabled)
         {
-            ucGroupSlider.CurrentSize = abTest != null ? abTest.TestSizePercentage : DEFAULT_TEST_GROUP_SIZE_PERCENTAGE;
+            ucGroupSlider.CurrentSize = abTest?.TestSizePercentage ?? DEFAULT_TEST_GROUP_SIZE_PERCENTAGE;
         }
         ucGroupSlider.ReloadData(forceReload);
     }
 
 
-    private int GetNumberOfSubscribers(IssueInfo parentIssue, List<IssueABVariantItem> variants)
+    private static int GetNumberOfSubscribers(IssueInfo parentIssue, IReadOnlyCollection<IssueABVariantItem> variants)
     {
         if (parentIssue.IssueStatus != IssueStatusEnum.Finished && !AreAllVariantsSent(variants))
         {
@@ -209,9 +168,16 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
     }
 
 
-    private static bool AreAllVariantsSent(List<IssueABVariantItem> variants)
+    private static bool AreAllVariantsSent(IssueInfo parentIssue)
     {
-        bool allVariantsSent = true;
+        var variants = IssueHelper.GetIssueVariants(parentIssue, null);
+        return AreAllVariantsSent(variants);
+    }
+    
+
+    private static bool AreAllVariantsSent(IReadOnlyCollection<IssueABVariantItem> variants)
+    {
+        var allVariantsSent = true;
         if (variants != null)
         {
             allVariantsSent = variants.All(item => item.IssueStatus == IssueStatusEnum.Finished);
@@ -231,19 +197,14 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
             return false;
         }
 
-        bool result = (abi.TestWinnerOption != ucWO.WinnerSelection) || (abi.TestSelectWinnerAfter != ucWO.TimeInterval)
+        var selectionChanged = (abi.TestWinnerOption != ucWO.WinnerSelection) || (abi.TestSelectWinnerAfter != ucWO.TimeInterval)
             || (abi.TestSizePercentage != ucGroupSlider.CurrentSize);
-        switch (Mode)
-        {
-            case SendControlMode.Wizard:
-            case SendControlMode.Send:
-                abi.TestWinnerOption = ucWO.WinnerSelection;
-                abi.TestSelectWinnerAfter = ucWO.TimeInterval;
-                break;
-        }
-
+        
+        abi.TestWinnerOption = ucWO.WinnerSelection;
+        abi.TestSelectWinnerAfter = ucWO.TimeInterval;
         abi.TestSizePercentage = ucGroupSlider.CurrentSize;
-        return result;
+
+        return selectionChanged;
     }
 
 
@@ -252,13 +213,16 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
     /// </summary>
     /// <param name="currState">Current state of the control (controls are initializes according this value)</param>
     /// <param name="forceReload">Indicates if force data reload should be performed</param>
-    protected void InitControls(int currState, bool forceReload)
+    private void InitControls(VariantStatusEnum currState, bool forceReload)
     {
         switch (currState)
         {
-            case STATE_TEST_FINISHED:
+            case VariantStatusEnum.Finished:
+            case VariantStatusEnum.ReadyForSending:
                 ucGroupSlider.Enabled = false;
                 ucMailout.ShowSelectWinnerAction = false;
+                ucMailout.ShowSentEmails = true;
+                ucMailout.ShowDeliveredEmails = true;
                 ucMailout.ShowOpenedEmails = true;
                 ucMailout.ShowUniqueClicks = true;
                 ucMailout.ShowIssueStatus = true;
@@ -268,50 +232,45 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
                 lblAdditionalInfo.Visible = true;
                 lblAdditionalInfo.Text = GetString("newsletterissue_send.variantsendingfinished");
                 break;
-            case STATE_TEST_READY_FOR_SENDING:
+            case VariantStatusEnum.ReadyForTesting:
                 ucGroupSlider.Enabled = true;
                 ucMailout.ShowSelectWinnerAction = false;
+                ucMailout.ShowSentEmails = true;
+                ucMailout.ShowDeliveredEmails = true;
                 ucMailout.ShowOpenedEmails = true;
                 ucMailout.ShowUniqueClicks = true;
                 ucMailout.ShowIssueStatus = true;
                 ucMailout.ShowSelectionColumn = true;
                 ucMailout.EnableMailoutTimeSetting = true;
-                ucMailout.OnChanged -= new EventHandler(ucMailout_OnChanged);
-                ucMailout.OnChanged += new EventHandler(ucMailout_OnChanged);
+                ucMailout.OnChanged -= ucMailout_OnChanged;
+                ucMailout.OnChanged += ucMailout_OnChanged;
                 InitWinnerOption(true, mABTest, forceReload);
                 lblAdditionalInfo.Visible = true;
                 lblAdditionalInfo.Text = GetString("newsletterissue_send.infovariantsending");
 
                 break;
-            case STATE_TEST_WAITING_TO_SEL_WINNER:
+            case VariantStatusEnum.WaitingToSelectWinner:
                 ucGroupSlider.Enabled = false;
                 ucMailout.ShowSelectWinnerAction = true;
+                ucMailout.ShowSentEmails = true;
+                ucMailout.ShowDeliveredEmails = true;
                 ucMailout.ShowOpenedEmails = true;
                 ucMailout.ShowUniqueClicks = true;
                 ucMailout.ShowIssueStatus = true;
                 ucMailout.ShowSelectionColumn = false;
                 ucMailout.EnableMailoutTimeSetting = true;
-                ucMailout.OnChanged -= new EventHandler(ucMailout_OnChanged);
-                ucMailout.OnChanged += new EventHandler(ucMailout_OnChanged);
+                ucMailout.OnChanged -= ucMailout_OnChanged;
+                ucMailout.OnChanged += ucMailout_OnChanged;
                 InitWinnerOption(true, mABTest, forceReload);
                 lblAdditionalInfo.Visible = true;
                 lblAdditionalInfo.Text = GetString("newsletterissue_send.infowaitingtoselwinner");
                 break;
 
-            case STATE_WAITING_TO_SEND_PAGE:
+            case VariantStatusEnum.WaitingToSend:
                 ucMailout.UseGroupingText = true;
                 ucGroupSlider.Enabled = true;
-                ucMailout.OnChanged -= new EventHandler(ucMailout_OnChanged);
-                ucMailout.OnChanged += new EventHandler(ucMailout_OnChanged);
-                InitWinnerOption(true, mABTest, forceReload);
-                lblAdditionalInfo.Visible = false;
-                break;
-
-            case STATE_WAITING_TO_SEND_WIZARD:
-                ucMailout.UseGroupingText = true;
-                ucGroupSlider.Enabled = true;
-                ucMailout.OnChanged -= new EventHandler(ucMailout_OnChanged);
-                ucMailout.OnChanged += new EventHandler(ucMailout_OnChanged);
+                ucMailout.OnChanged -= ucMailout_OnChanged;
+                ucMailout.OnChanged += ucMailout_OnChanged;
                 InitWinnerOption(true, mABTest, forceReload);
                 lblAdditionalInfo.Visible = false;
                 break;
@@ -321,12 +280,9 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
 
     protected void ucMailout_OnChanged(object sender, EventArgs e)
     {
-        InfoMessage = GetInfoMessage(CurrentState, mParentIssue, mABTest.TestWinnerOption, GetPlannedMailoutTime(ucMailout.HighestMailoutTime));
-        ucWO_OnChange(this, EventArgs.Empty);
-        if (OnChanged != null)
-        {
-            OnChanged(this, EventArgs.Empty);
-        }
+        InfoMessage = GetInfoMessage(CurrentState, mParentIssue, mABTest.TestWinnerOption);
+
+        OnChanged?.Invoke(this, EventArgs.Empty);
     }
 
 
@@ -336,8 +292,7 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
     /// <param name="currState">Current state</param>
     /// <param name="issue">Issue</param>
     /// <param name="winnerOption">Winner option</param>
-    /// <param name="plannedMailoutTime">Planned mailout time</param>
-    private string GetInfoMessage(int currState, IssueInfo issue, ABTestWinnerSelectionEnum winnerOption, DateTime plannedMailoutTime)
+    private string GetInfoMessage(VariantStatusEnum currState, IssueInfo issue, ABTestWinnerSelectionEnum winnerOption)
     {
         if (issue == null)
         {
@@ -346,47 +301,73 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
 
         switch (currState)
         {
-            case STATE_WAITING_TO_SEND_WIZARD:
-                return null;
-            case STATE_WAITING_TO_SEND_PAGE:
+            case VariantStatusEnum.WaitingToSend:
                 return GetString("Newsletter_Issue_Header.NotSentYet");
-            case STATE_TEST_WAITING_TO_SEL_WINNER:
-
-                // Get current planned winner selection task 
-                var taskToSelectWinner = TaskInfoProvider.GetTaskInfo(mABTest.TestWinnerScheduledTaskID);
-                var plannedWinnerSelectionTime = (taskToSelectWinner == null) ? DateTimeHelper.ZERO_TIME : taskToSelectWinner.TaskNextRunTime;
-
-                switch (winnerOption)
-                {
-                    case ABTestWinnerSelectionEnum.Manual:
-                        if (issue.IssueMailoutTime > DateTime.Now)
-                        {
-                            return String.Format(GetString("newsletterinfo.issuesentwaitingtosentwinner"), GetTimeOrNA(issue.IssueMailoutTime), GetWinnerSelectionTime());
-                        }
-                        return String.Format(GetString("newsletterinfo.issuesentwaitingtoselwinnermanually"), GetTimeOrNA(issue.IssueMailoutTime));
-                    case ABTestWinnerSelectionEnum.OpenRate:
-                        return String.Format(GetString("newsletterinfo.issuesentwaitingtoselwinneropen"), GetTimeOrNA(issue.IssueMailoutTime), GetTimeOrNA(plannedWinnerSelectionTime));
-                    case ABTestWinnerSelectionEnum.TotalUniqueClicks:
-                        return String.Format(GetString("newsletterinfo.issuesentwaitingtoselwinnerclicks"), GetTimeOrNA(issue.IssueMailoutTime), GetTimeOrNA(plannedWinnerSelectionTime));
-                }
-                break;
-            case STATE_TEST_READY_FOR_SENDING:
-                return String.Format(GetString("newsletter_issue_header.issuesending"), GetTimeOrNA(plannedMailoutTime));
-            case STATE_TEST_FINISHED:
-                switch (winnerOption)
-                {
-                    case ABTestWinnerSelectionEnum.Manual:
-                        return String.Format(GetString("newsletterinfo.issuesentwinnerselmanually"), GetTimeOrNA(issue.IssueMailoutTime), GetWinnerSelectionTime());
-                    case ABTestWinnerSelectionEnum.OpenRate:
-                        return String.Format(GetString("newsletterinfo.issuesentwinnerselopen"), GetWinnerSelectionTime());
-                    case ABTestWinnerSelectionEnum.TotalUniqueClicks:
-                        return String.Format(GetString("newsletterinfo.issuesentwinnerselclicks"), GetWinnerSelectionTime());
-                }
-                break;
+            case VariantStatusEnum.WaitingToSelectWinner:
+                return GetWaitingToSelectWinnerInfoMessage(issue, winnerOption);
+            case VariantStatusEnum.ReadyForSending:
+                return String.Format(GetString("newsletterinfo.issuescheduledwinnerselmanually"), GetTimeOrNA(issue.IssueMailoutTime), GetWinnerSelectionTime());
+            case VariantStatusEnum.ReadyForTesting:
+                return GetReadyForTestingInfoMessage(winnerOption);
+            case VariantStatusEnum.Finished:
+                return GetFinishedInfoMessage(issue, winnerOption);
+            default:
+                return null;
         }
-        return null;
     }
 
+
+    private string GetWaitingToSelectWinnerInfoMessage(IssueInfo issue, ABTestWinnerSelectionEnum winnerOption)
+    {
+        // Get current planned winner selection task 
+        var taskToSelectWinner = TaskInfoProvider.GetTaskInfo(mABTest.TestWinnerScheduledTaskID);
+        var plannedWinnerSelectionTime = taskToSelectWinner?.TaskNextRunTime ?? DateTimeHelper.ZERO_TIME;
+
+        switch (winnerOption)
+        {
+            case ABTestWinnerSelectionEnum.Manual:
+                if (issue.IssueMailoutTime > DateTime.Now)
+                {
+                    return String.Format(GetString("newsletterinfo.issuesentwaitingtosentwinner"), GetTimeOrNA(issue.IssueMailoutTime), GetWinnerSelectionTime());
+                }
+                return String.Format(GetString("newsletterinfo.issuesentwaitingtoselwinnermanually"), GetTimeOrNA(issue.IssueMailoutTime));
+            case ABTestWinnerSelectionEnum.OpenRate:
+                return String.Format(GetString("newsletterinfo.issuesentwaitingtoselwinneropen"), GetTimeOrNA(issue.IssueMailoutTime), GetTimeOrNA(plannedWinnerSelectionTime));
+            case ABTestWinnerSelectionEnum.TotalUniqueClicks:
+                return String.Format(GetString("newsletterinfo.issuesentwaitingtoselwinnerclicks"), GetTimeOrNA(issue.IssueMailoutTime), GetTimeOrNA(plannedWinnerSelectionTime));
+            default:
+                return null;
+        }
+    }
+
+
+    private string GetReadyForTestingInfoMessage(ABTestWinnerSelectionEnum winnerOption)
+    {
+        if (winnerOption.Equals(ABTestWinnerSelectionEnum.Manual))
+        {
+            return GetString("newsletter_issue_header.issuesending.manualwinner");
+        }
+
+        var plannedMailoutTime = GetPlannedMailoutTime(ucMailout.HighestMailoutTime);
+        return String.Format(GetString("newsletter_issue_header.issuesending"), GetTimeOrNA(plannedMailoutTime));
+    }
+
+
+    private string GetFinishedInfoMessage(IssueInfo issue, ABTestWinnerSelectionEnum winnerOption)
+    {
+        switch (winnerOption)
+        {
+            case ABTestWinnerSelectionEnum.Manual:
+                return String.Format(GetString("newsletterinfo.issuesentwinnerselmanually"), GetTimeOrNA(issue.IssueMailoutTime), GetWinnerSelectionTime());
+            case ABTestWinnerSelectionEnum.OpenRate:
+                return String.Format(GetString("newsletterinfo.issuesentwinnerselopen"), GetWinnerSelectionTime());
+            case ABTestWinnerSelectionEnum.TotalUniqueClicks:
+                return String.Format(GetString("newsletterinfo.issuesentwinnerselclicks"), GetWinnerSelectionTime());
+            default:
+                return null;
+        }
+    }
+    
 
     /// <summary>
     /// Get time of winner selection converted to string.
@@ -420,10 +401,6 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
     /// <param name="forceReload">TRUE if force load should be performed</param>
     private void InitWinnerOption(bool enable, ABTestInfo abi, bool forceReload)
     {
-        // Register handlers
-        ucWO.OnChange -= new EventHandler(ucWO_OnChange);
-        ucWO.OnChange += new EventHandler(ucWO_OnChange);
-
         if (abi == null)
         {
             return;
@@ -439,28 +416,6 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
     }
 
 
-    protected void ucWO_OnChange(object sender, EventArgs e)
-    {
-        bool visible = (Mode == SendControlMode.Wizard) && ucWO.Enabled;
-        lblWillBeSent.Visible = visible;
-
-        if (visible)
-        {
-            bool manualWinner = false;
-            manualWinner = (ucWO.WinnerSelection == ABTestWinnerSelectionEnum.Manual);
-
-            if (manualWinner)
-            {
-                lblWillBeSent.Text = GetString("newsletterissue_send.winnerwillbesentmanually");
-            }
-            else
-            {
-                lblWillBeSent.Text = String.Format(GetString("newsletterissue_send.winnerwillbesenton"), GetPlannedMailoutTime(ucMailout.HighestMailoutTime));
-            }
-        }
-    }
-
-
     /// <summary>
     /// Calculates planned mail out time.
     /// </summary>
@@ -470,20 +425,12 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
         {
             highestMailoutTime = DateTime.Now;
         }
-        if (Mode == SendControlMode.Send)
+        
+        if ((mABTest != null) && (mABTest.TestWinnerOption != ABTestWinnerSelectionEnum.Manual))
         {
-            if ((mABTest != null) && (mABTest.TestWinnerOption != ABTestWinnerSelectionEnum.Manual))
-            {
-                return highestMailoutTime.AddMinutes(mABTest.TestSelectWinnerAfter);
-            }
+            return highestMailoutTime.AddMinutes(mABTest.TestSelectWinnerAfter);
         }
-        else
-        {
-            if (ucWO.WinnerSelection != ABTestWinnerSelectionEnum.Manual)
-            {
-                return highestMailoutTime.AddMinutes(ucWO.TimeInterval);
-            }
-        }
+        
         return highestMailoutTime;
     }
 
@@ -496,11 +443,11 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
         // Check current state before sending
         switch (CurrentState)
         {
-            case STATE_TEST_READY_FOR_SENDING:
+            case VariantStatusEnum.ReadyForTesting:
                 ErrorMessage = GetString("newsletterissue_send.sendissuereadytobesent");
                 return false;
-            case STATE_TEST_WAITING_TO_SEL_WINNER:
-            case STATE_TEST_FINISHED:
+            case VariantStatusEnum.WaitingToSelectWinner:
+            case VariantStatusEnum.Finished:
                 ErrorMessage = GetString("newsletterissue_send.sendissuehasbeensent");
                 return false;
         }
@@ -511,8 +458,8 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
         }
 
         // Enable scheduled tasks and set 'Ready for sending' status to all variants
-        var now = Service<IDateTimeNowService>.Entry().GetDateTimeNow();
-        Service<IIssueSender>.Entry().Send(mParentIssue, now);
+        var now = Service.Resolve<IDateTimeNowService>().GetDateTimeNow();
+        Service.Resolve<IIssueScheduler>().ScheduleIssue(mParentIssue, now);
 
         return true;
     }
@@ -527,17 +474,17 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
         {
             switch (CurrentState)
             {
-                case STATE_WAITING_TO_SEND_PAGE:
-                case STATE_WAITING_TO_SEND_WIZARD:
-                case STATE_TEST_READY_FOR_SENDING:
-                case STATE_TEST_WAITING_TO_SEL_WINNER:
+                case VariantStatusEnum.WaitingToSend:
+                case VariantStatusEnum.ReadyForSending:
+                case VariantStatusEnum.ReadyForTesting:
+                case VariantStatusEnum.WaitingToSelectWinner:
                     if (mABTest == null)
                     {
                         mABTest = ABTestInfoProvider.GetABTestInfoForIssue(mParentIssue.IssueID);
                     }
 
                     // Get A/B test settings from controls
-                    bool abTestChanged = SaveABTestInfo(mABTest);
+                    var abTestChanged = SaveABTestInfo(mABTest);
 
                     if (mABTest == null)
                     {
@@ -571,16 +518,16 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
 
                     ABTestInfoProvider.SetABTestInfo(mABTest);
 
-                    if (CurrentState == STATE_TEST_WAITING_TO_SEL_WINNER)
+                    if (CurrentState == VariantStatusEnum.WaitingToSelectWinner)
                     {
                         NewsletterTasksManager.EnsureWinnerSelectionTask(mABTest, mParentIssue, true, ucMailout.HighestMailoutTime);
                     }
 
                     // Update info message for parent control
-                    int currentState = GetCurrentState(mParentIssue);
-                    InfoMessage = GetInfoMessage(currentState, mParentIssue, mABTest.TestWinnerOption, GetPlannedMailoutTime(ucMailout.HighestMailoutTime));
+                    var currentState = GetCurrentState(mParentIssue);
+                    InfoMessage = GetInfoMessage(currentState, mParentIssue, mABTest.TestWinnerOption);
                     return true;
-                case STATE_TEST_FINISHED:
+                case VariantStatusEnum.Finished:
                     ErrorMessage = GetString("newsletterissue_send.saveissuehasbeensent");
                     break;
             }
@@ -598,40 +545,40 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue : CMSAdmin
     /// Determines current state of newsletter A/B test.
     /// </summary>
     /// <param name="issue">Parent issue</param>
-    private int GetCurrentState(IssueInfo issue)
+    private static VariantStatusEnum GetCurrentState(IssueInfo issue)
     {
-        int currentState = 0;
         if (issue == null)
         {
-            return currentState;
+            return VariantStatusEnum.Unknown;
         }
 
         switch (issue.IssueStatus)
         {
             case IssueStatusEnum.Idle:
-                if (Mode == SendControlMode.Send)
-                {
-                    currentState = STATE_WAITING_TO_SEND_PAGE;
-                }
-                else
-                {
-                    currentState = STATE_WAITING_TO_SEND_WIZARD;
-                }
-                break;
+                return VariantStatusEnum.WaitingToSend;
             case IssueStatusEnum.ReadyForSending:
-                currentState = STATE_TEST_READY_FOR_SENDING;
-                break;
+                return AreAllVariantsSent(issue) ? VariantStatusEnum.ReadyForSending : VariantStatusEnum.ReadyForTesting;
             case IssueStatusEnum.TestPhase:
-                currentState = STATE_TEST_WAITING_TO_SEL_WINNER;
-                break;
+                return VariantStatusEnum.WaitingToSelectWinner;
             case IssueStatusEnum.PreparingData:
             case IssueStatusEnum.Sending:
             case IssueStatusEnum.Finished:
-                currentState = STATE_TEST_FINISHED;
-                break;
+                return VariantStatusEnum.Finished;
+            default:
+                return VariantStatusEnum.Unknown;
         }
-        return currentState;
     }
 
     #endregion
+
+
+    private enum VariantStatusEnum
+    {
+        Unknown,
+        WaitingToSend,
+        WaitingToSelectWinner,
+        ReadyForTesting,
+        ReadyForSending,
+        Finished
+    }
 }

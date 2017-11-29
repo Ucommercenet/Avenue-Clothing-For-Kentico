@@ -70,12 +70,6 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_List : CMS
     protected const string CONTACT_GROUP_DIALOG = "~/CMSModules/ContactManagement/FormControls/ContactGroupDialog.aspx";
 
 
-    /// <summary>
-    /// URL of modal dialog for contact selection.
-    /// </summary>
-    protected const string CONTACT_SELECT_DIALOG = "~/CMSModules/ContactManagement/FormControls/ContactSelectorDialog.aspx";
-
-
     #endregion
 
 

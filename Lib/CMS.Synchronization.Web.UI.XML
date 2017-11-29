@@ -55,6 +55,71 @@
             Message storage for async control
             </summary>
         </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.SelectedServerID">
+            <summary>
+            Selected server ID to synchronize
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.EventCode">
+            <summary>
+            Event log event code
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.EventType">
+            <summary>
+            Event log event type
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CurrentSiteID">
+            <summary>
+            Currently synchronized site ID
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.EventCodeSuffix">
+            <summary>
+            Event code suffix for task event names
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.GridTasks">
+            <summary>
+            Grid with the task listing
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.AsyncControl">
+            <summary>
+            Async control
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.StagingTaskRunner">
+            <summary>
+            Staging task runner instance
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CurrentError">
+            <summary>
+            Current Error.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CurrentInfo">
+            <summary>
+            Current Info.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CanceledString">
+            <summary>
+            Gets or sets the cancel string.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.TaskTypeCategories">
+            <summary>
+            Staging task types to be shown. Should be set with semicolon.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.TaskGroupSelectorEnabled">
+            <summary>
+            Decides whether to show task group selector.
+            </summary>
+        </member>
         <member name="M:CMS.Synchronization.Web.UI.CMSStagingTasksPage.OnLoad(System.EventArgs)">
             <summary>
             Load event handler
@@ -123,81 +188,10 @@
             </summary>
             <param name="logMessage">Message to log</param>
         </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.SelectedServerID">
-            <summary>
-            Selected server ID to synchronize
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.EventCode">
-            <summary>
-            Event log event code
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.EventType">
-            <summary>
-            Event log event type
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CurrentSiteID">
-            <summary>
-            Currently synchronized site ID
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.EventCodeSuffix">
-            <summary>
-            Event code suffix for task event names
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.GridTasks">
-            <summary>
-            Grid with the task listing
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.AsyncControl">
-            <summary>
-            Async control
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.StagingTaskRunner">
-            <summary>
-            Staging task runner instance
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CurrentError">
-            <summary>
-            Current Error.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CurrentInfo">
-            <summary>
-            Current Info.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.CanceledString">
-            <summary>
-            Gets or sets the cancel string.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.TaskTypeCategories">
-            <summary>
-            Staging task types to be shown. Should be set with semicolon.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.Web.UI.CMSStagingTasksPage.TaskGroupSelectorEnabled">
-            <summary>
-            Decides whether to show task group selector.
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.Web.UI.StagingTasksFilterBase">
             <summary>
             Abstract base class for staging tasks filters.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.Web.UI.StagingTasksFilterBase.OnInit(System.EventArgs)">
-            <summary>
-            Decides whether to hide filter or not.
-            </summary>
-            <param name="e">Event arguments</param>
         </member>
         <member name="P:CMS.Synchronization.Web.UI.StagingTasksFilterBase.TaskTypeCategories">
             <summary>
@@ -215,6 +209,12 @@
             <summary>
             Filtered Grid.
             </summary>
+        </member>
+        <member name="M:CMS.Synchronization.Web.UI.StagingTasksFilterBase.OnInit(System.EventArgs)">
+            <summary>
+            Decides whether to hide filter or not.
+            </summary>
+            <param name="e">Event arguments</param>
         </member>
     </members>
 </doc>

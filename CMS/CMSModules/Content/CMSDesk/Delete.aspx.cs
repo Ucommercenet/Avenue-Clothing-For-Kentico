@@ -895,8 +895,8 @@ public partial class CMSModules_Content_CMSDesk_Delete : CMSContentPage
 
     private void SetSeoPanelVisibility(TreeNode node)
     {
-        // It doesn't make sense to display this panel for root or content only documents
-        if (node.IsRoot() || node.NodeIsContentOnly)
+        // It doesn't make sense to display this panel for root, content only documents or links
+        if (node.IsRoot() || node.NodeIsContentOnly || node.IsLink)
         {
             pnlSeo.Enabled = pnlSeo.Visible = false;
         }
@@ -972,7 +972,7 @@ public partial class CMSModules_Content_CMSDesk_Delete : CMSContentPage
 
         if ((node != null) && (node.HasSKU))
         {
-            var product = BaseAbstractInfoProvider.GetInfoById(PredefinedObjectType.SKU, node.NodeSKUID);
+            var product = ProviderHelper.GetInfoById(PredefinedObjectType.SKU, node.NodeSKUID);
             if (product != null)
             {
                 authorized = product.CheckPermissions(PermissionsEnum.Delete, node.NodeSiteName, currentUser);

@@ -165,6 +165,24 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_General {
     protected global::CMSFormControls_System_EnumSelector drpPrivilege;
     
     /// <summary>
+    /// lblMacroIdentity control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblMacroIdentity;
+    
+    /// <summary>
+    /// drpMacroIdentity control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMSAdminControls_UI_UniSelector_UniSelector drpMacroIdentity;
+    
+    /// <summary>
     /// lblIsExternal control.
     /// </summary>
     /// <remarks>

@@ -411,7 +411,7 @@ public partial class CMSModules_AdminControls_Controls_Class_QueryEdit : CMSUser
             txtQueryName.Focus();
         }
 
-        plcLoadGeneration.Visible = SystemContext.DevelopmentMode;
+        plcConnectionString.Visible = SystemContext.DevelopmentMode;
 
         // Ensure generate button and custom checkbox for default queries
         if (SqlGenerator.IsSystemQuery(QueryName))
@@ -540,7 +540,6 @@ public partial class CMSModules_AdminControls_Controls_Class_QueryEdit : CMSUser
         rblQueryType.SelectedValue = Query.QueryType.ToString();
         chbTransaction.Checked = Query.QueryRequiresTransaction;
         txtQueryText.Text = Query.QueryText;
-        drpGeneration.Value = Query.QueryLoadGeneration;
         ucSelectString.Value = Query.QueryConnectionString;
     }
 
@@ -589,7 +588,6 @@ public partial class CMSModules_AdminControls_Controls_Class_QueryEdit : CMSUser
         }
 
         newQuery.QueryText = txtQueryText.Text.TrimEnd('\r', '\n');
-        newQuery.QueryLoadGeneration = drpGeneration.Value;
         newQuery.QueryConnectionString = ValidationHelper.GetString(ucSelectString.Value, String.Empty);
 
         // Insert new / update existing query

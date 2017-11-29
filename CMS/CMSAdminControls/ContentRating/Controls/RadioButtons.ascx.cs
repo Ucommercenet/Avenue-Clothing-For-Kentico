@@ -7,8 +7,6 @@ using CMS.Helpers;
 
 public partial class CMSAdminControls_ContentRating_Controls_RadioButtons : AbstractRatingControl
 {
-    #region "Public properties"
-
     /// <summary>
     /// Enables/disables rating scale
     /// </summary>
@@ -24,13 +22,9 @@ public partial class CMSAdminControls_ContentRating_Controls_RadioButtons : Abst
         }
     }
 
-    #endregion
-
-
-    #region "Public methods"
 
     /// <summary>
-    /// Rerturns current rating.
+    /// Returns current rating.
     /// </summary>
     public override double GetCurrentRating()
     {
@@ -57,10 +51,6 @@ public partial class CMSAdminControls_ContentRating_Controls_RadioButtons : Abst
         return CurrentRating;
     }
 
-    #endregion
-
-
-    #region "Methods"
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -126,6 +116,4 @@ public partial class CMSAdminControls_ContentRating_Controls_RadioButtons : Abst
         // Throw the rating event
         OnRating();
     }
-
-    #endregion
 }
