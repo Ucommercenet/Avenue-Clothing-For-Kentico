@@ -1,0 +1,6 @@
+Version 1.1.0
+
+New: [EMS] Personalization variant for the homepage banner.
+New: [EMS] A/B test for homepage with a different selection of promoted products.
+New: [EMS] Abandoned basket flow.
+Fix: Promoted products now observes the catalog context instead of using static APIs.
