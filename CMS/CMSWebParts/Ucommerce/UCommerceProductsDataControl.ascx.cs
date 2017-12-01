@@ -78,9 +78,11 @@ namespace CMSApp.CMSWebParts.Ucommerce
 			{
 				foreach (var product in filterProducts)
 				{
-					listOfProducts.Add(
-						_products.First(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku));
-				}
+				    var filterProduct = _products.FirstOrDefault(x => x.Sku == product.Sku && x.VariantSku == product.VariantSku);
+                    if(filterProduct != null) { 
+				        listOfProducts.Add(filterProduct);
+                    }
+                }
 
 				data = convertToUcommerceProduct(listOfProducts);
 			}
