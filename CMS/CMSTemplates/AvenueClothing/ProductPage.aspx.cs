@@ -29,7 +29,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
             SetupProduct(currentProduct);
-
             SetupReviews(currentProduct);
 
             rptVariant.DataSource = GetUniqueVariants(currentProduct);
@@ -69,14 +68,23 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             litDescription.Text = product.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
 
             var price = CatalogLibrary.CalculatePrice(product);
-            litPrice.Text = price.YourPrice.Amount.ToString();
-            litTax.Text = price.YourTax.ToString();
-
+            if (price.YourPrice != null)
+            {
+                litPrice.Text = price.YourPrice.Amount.ToString();
+                litTax.Text = price.YourTax.ToString();
+            }
+            else
+            {
+                btnAddToBasket.Enabled = false;
+                btnAddToBasket.Text = "This product has not been assigned a price.";
+                litPrice.Text = "-";
+                litTax.Text = "-";
+            }
+        
             if (string.IsNullOrWhiteSpace(product.PrimaryImageMediaId)) return;
 
             var imageService = ObjectFactory.Instance.Resolve<IImageService>();
-            var image = imageService.GetImage(product.PrimaryImageMediaId);
-            imgTop.ImageUrl = image.Url;
+            imgTop.ImageUrl = imageService.GetImage(product.PrimaryImageMediaId).Url;
         }
 
         private bool SetupIsNeeded()
