@@ -1,6 +1,9 @@
 Version 1.1.0
 
-New: [EMS] Personalization variant for the homepage banner.
-New: [EMS] A/B test for homepage with a different selection of promoted products.
-New: [EMS] Abandoned basket flow.
-Fix: Promoted products now observes the catalog context instead of using static APIs.
+NEW: [EMS] Personalization variant for the homepage banner.
+NEW: [EMS] A/B test for homepage with a different selection of promoted products.
+NEW: [EMS] Abandoned basket flow.
+FIX: Promoted products now observes the catalog context instead of using static APIs.
+FIX: Empty category would throw an exception.
+FIX: Promoted product data source would throw an error in the event log.
+FIX: Promoted products, category and product pages would throw a YSOD if a product had no price.
