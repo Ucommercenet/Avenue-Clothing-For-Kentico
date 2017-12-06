@@ -72,7 +72,7 @@ namespace CMSApp.CMSWebParts.Ucommerce
 
 			if (filterProducts.Count == 0)
 			{
-				data = convertToUcommerceProduct(_products);
+				data = ConvertToUcommerceProduct(_products);
 			}
 			else
 			{
@@ -84,7 +84,7 @@ namespace CMSApp.CMSWebParts.Ucommerce
                     }
                 }
 
-				data = convertToUcommerceProduct(listOfProducts);
+				data = ConvertToUcommerceProduct(listOfProducts);
 			}
 
 			// Checks whether the data should be cached (based on the CacheSettings)
@@ -104,28 +104,37 @@ namespace CMSApp.CMSWebParts.Ucommerce
 			set { }
 		}
 
-		public List<UCommerceProduct> convertToUcommerceProduct(ICollection<Product> _products)
+		public List<UCommerceProduct> ConvertToUcommerceProduct(ICollection<Product> _products)
 		{
 			var data = new List<UCommerceProduct>();
-
-			foreach (Product product in _products)
+		    var imageService = ObjectFactory.Instance.Resolve<IImageService>();
+            foreach (Product product in _products)
 			{
 				var url = CatalogLibrary.GetNiceUrlForProduct(product, SiteContext.Current.CatalogContext.CurrentCategory, SiteContext.Current.CatalogContext.CurrentCatalog);
 				var price = CatalogLibrary.CalculatePrice(product);
 
-				if (!string.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
+				var ucommerceProduct = new UCommerceProduct
 				{
+				    ProductName = product.Name,
+				    ProductSKU = product.Sku,
+				    ProductUrl = url,
+				    Price = "-",
+				    Tax = "-"
+				};
 
-					var image = ObjectFactory.Instance.Resolve<IImageService>().GetImage(product.PrimaryImageMediaId);
-					var imageUrl = image.Url;
-
-					data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl, Tax = price.YourTax.ToString() });
-				}
-				else
+				if (price.YourPrice != null)
 				{
-					data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, Tax = price.YourTax.ToString() });
+				    ucommerceProduct.Price = price.YourPrice.Amount.ToString();
+				    ucommerceProduct.Tax = price.YourTax.ToString();
 				}
-			}
+
+                data.Add(ucommerceProduct);
+				
+		        if (string.IsNullOrWhiteSpace(product.PrimaryImageMediaId) == false)
+		        {
+		            ucommerceProduct.ImageUrl = imageService.GetImage(product.PrimaryImageMediaId).Url;
+		        }
+            }
 
 			return data;
 		}

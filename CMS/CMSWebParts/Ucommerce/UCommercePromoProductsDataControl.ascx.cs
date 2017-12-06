@@ -100,10 +100,16 @@ namespace CMSApp.CMSWebParts.Custom
             {
                 ProductName = product.Name,
                 ProductSKU = product.Sku,
-                Price = price.YourPrice.Amount.ToString(),
                 ProductUrl = url,
-                Tax = price.YourTax.ToString()
+                Price = "-",
+                Tax = "-"
             };
+
+            if (price.YourPrice != null)
+            {
+                ucommerceProduct.Price = price.YourPrice.Amount.ToString();
+                ucommerceProduct.Tax = price.YourTax.ToString();
+            }
 
             if (string.IsNullOrWhiteSpace(product.PrimaryImageMediaId) == false)
             {
