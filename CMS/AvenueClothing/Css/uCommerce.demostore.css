@@ -677,4 +677,26 @@ input[type=text], input[type=email] {
         width: 100%;
         margin-left: 0;
     }
+
+    a.brand.span3 {
+        display: none;
+    }
+
+    .banner-image p, .banner-image h2 {
+        width: 50%;
+    }
+}
+
+@media (max-width: 642px) {
+    .banner-image h2 {
+        top: 0;
+    }
+
+    .banner-image p {
+        top: 45px;
+    }
+
+    .banner-image img {
+        min-height: 185px;
+    }
 }
