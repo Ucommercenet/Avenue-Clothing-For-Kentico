@@ -669,3 +669,12 @@ input[type=text], input[type=email] {
 
 
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
+
+/* Responsive fixes */
+
+@media (max-width: 768px) {
+    .product.span4 {
+        width: 100%;
+        margin-left: 0;
+    }
+}
