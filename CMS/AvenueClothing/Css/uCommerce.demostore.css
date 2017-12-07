@@ -717,6 +717,10 @@ td.money {
         padding-right: 0;
         margin-left: 20%;
     }
+
+    .container-fluid .row-fluid .span3 .sidebar-nav:not(.main-nav) {
+        display: none;
+    }
    
 }
 
