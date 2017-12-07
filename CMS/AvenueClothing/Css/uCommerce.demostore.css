@@ -671,6 +671,21 @@ input[type=text], input[type=email] {
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
 
 /* Responsive fixes */
+.table.table-striped.table-basket {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.table-basket th{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+}
+
+td.money {
+    padding-left: 0px;
+    overflow-x: hidden; 
+}
 
 @media (max-width: 768px) {
     .product.span4 {
@@ -685,6 +700,24 @@ input[type=text], input[type=email] {
     .banner-image p, .banner-image h2 {
         width: 50%;
     }
+
+    .icon-refresh.update-cart-button {
+        display: block;
+        margin-left: 25%;
+    }
+
+    .table-basket tr td:first-child:not(.order-value-label), 
+    .table-basket thead tr th:first-child {
+        display: none;
+    }
+
+    #cart .qty.update-cart {
+        width: 25px;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 20%;
+    }
+   
 }
 
 @media (max-width: 642px) {
@@ -695,8 +728,12 @@ input[type=text], input[type=email] {
     .banner-image p {
         top: 45px;
     }
-
+    
     .banner-image img {
         min-height: 185px;
+    }
+    .table-basket tr td {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
