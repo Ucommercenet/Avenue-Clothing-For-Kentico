@@ -1,13 +1,13 @@
 ﻿using System;
-using CMS.MediaLibrary;
-using CMS.SiteProvider;
-using System.Web;
-using CMS.Helpers;
-using UCommerce.EntitiesV2;
+using System.IO;
 using System.Linq;
 using System.Text;
-using CMS.FileSystemStorage;
-
+using System.Web;
+using CMS.DataEngine;
+using CMS.Helpers;
+using CMS.MediaLibrary;
+using CMS.SiteProvider;
+using UCommerce.EntitiesV2;
 
 namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 {
@@ -21,7 +21,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 		{
 			if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) == null)
 			{
-				CMS.DataEngine.CMSApplication.Init();
+				CMSApplication.Init();
 				var libraryId = CreateMediaLibrary();
 
                 CreateMediaLibraryFolders(libraryId);
@@ -90,42 +90,42 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
             string filePath = HttpContext.Current.Server.MapPath(pathWithSiteName);
 
-            var directoryInfo = new CMS.FileSystemStorage.DirectoryInfo(filePath + folderPath);
+            var directoryInfo = new DirectoryInfo(filePath + folderPath);
 	        UploadImages(directoryInfo);
 	        CreateFilesAsMediaInfos(libraryId, directoryInfo, folderPath);
 	    }
 
-	    private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
+	    private void UploadImages(DirectoryInfo imagesDirectory)
 		{
-			System.IO.DirectoryInfo fromDirectory;
+			DirectoryInfo fromDirectory;
 			//for subapplication
 			if (HttpRuntime.AppDomainAppVirtualPath != "/")
 			{
 
-				var fromParentDirectory = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("/"));
-				var fromPath = System.IO.Path.Combine(fromParentDirectory.FullName,
+				var fromParentDirectory = new DirectoryInfo(HttpContext.Current.Server.MapPath("/"));
+				var fromPath = Path.Combine(fromParentDirectory.FullName,
 					"AvenueClothing.Installer/uCommerce/Install/Files/", imagesDirectory.Name);
-				fromDirectory = new System.IO.DirectoryInfo(fromPath);
+				fromDirectory = new DirectoryInfo(fromPath);
 			}
 			else
 			{
 				//no subapplication. Site points to CMS folder
 				var physicalApplicationPath = HttpContext.Current.Request.PhysicalApplicationPath;
-				var fullPathToImages = System.IO.Path.Combine(physicalApplicationPath, "..", "AvenueClothing.Installer/uCommerce/Install/Files/", imagesDirectory.Name);
-				fromDirectory = new System.IO.DirectoryInfo(fullPathToImages);
+				var fullPathToImages = Path.Combine(physicalApplicationPath, "..", "AvenueClothing.Installer/uCommerce/Install/Files/", imagesDirectory.Name);
+				fromDirectory = new DirectoryInfo(fullPathToImages);
 			}
 
 			UploadImagesToFileSystem(imagesDirectory, fromDirectory);
 
 		}
 
-		private void UploadImagesToFileSystem(DirectoryInfo imagesDirectory, System.IO.DirectoryInfo fromDirectory)
+		private void UploadImagesToFileSystem(DirectoryInfo imagesDirectory, DirectoryInfo fromDirectory)
 		{
 			foreach (var file in fromDirectory.GetFiles())
 			{
-				var path = System.IO.Path.Combine(imagesDirectory.FullName, file.Name);
+				var path = Path.Combine(imagesDirectory.FullName, file.Name);
 
-				if (System.IO.File.Exists(path) == false)
+				if (File.Exists(path) == false)
 				{
 					file.CopyTo(path);
 				}
@@ -133,7 +133,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 		}
 
 
-		private static void CreateFilesAsMediaInfos(int libraryId, CMS.FileSystemStorage.DirectoryInfo productImagesDirectory,
+		private static void CreateFilesAsMediaInfos(int libraryId, DirectoryInfo productImagesDirectory,
 			string folderName)
 		{
 			foreach (var file in productImagesDirectory.GetFiles())
