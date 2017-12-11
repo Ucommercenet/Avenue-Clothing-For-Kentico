@@ -12,22 +12,6 @@ public partial class CMSModules_EventManager_Controls_EventManagement : CMSAdmin
     #region "Properties"
 
     /// <summary>
-    /// Site name filter.
-    /// </summary>
-    public string SiteName
-    {
-        get
-        {
-            return eventList.SiteName;
-        }
-        set
-        {
-            eventList.SiteName = value;
-        }
-    }
-
-
-    /// <summary>
     /// Gets or sets the order by condition.
     /// </summary>
     public string OrderBy
@@ -55,22 +39,6 @@ public partial class CMSModules_EventManager_Controls_EventManagement : CMSAdmin
         set
         {
             eventList.ItemsPerPage = value;
-        }
-    }
-
-
-    /// <summary>
-    /// Event date filter.
-    /// </summary>
-    public string EventScope
-    {
-        get
-        {
-            return eventList.EventScope;
-        }
-        set
-        {
-            eventList.EventScope = value;
         }
     }
 

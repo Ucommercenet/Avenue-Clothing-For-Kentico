@@ -299,7 +299,7 @@ public partial class CMSModules_OnlineMarketing_Pages_Content_ABTesting_ABTest_O
     {
         get
         {
-            return "ABSelectorState" + ABTest.ABTestName;
+            return CookieName.ABSelectorStatePrefix + ABTest.ABTestName;
         }
     }
 

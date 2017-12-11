@@ -26,7 +26,7 @@ public partial class CMSModules_Widgets_InlineControl_InlineWidget : InlineUserC
                 str = param.Value.ToString().Replace("%25", "%");
             }
 
-            decodedProperties[param.Key] = HttpUtility.UrlDecode(str);
+            decodedProperties[(string)param.Key] = HttpUtility.UrlDecode(str);
         }
         Properties = decodedProperties;
 

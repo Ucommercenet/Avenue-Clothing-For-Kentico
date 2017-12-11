@@ -183,7 +183,7 @@ function ResetCropValues(){
     chkCropLock.checked = false;
 }
 
-function InitializeEditor() {
+function InitializeEditor() { 
     window.keyPressed = false;
     window.initializeCrop = false;
     window.txtCropX = $cmsj('input[id$=txtCropX]');
@@ -202,11 +202,6 @@ function InitializeEditor() {
     }
     else {
         window.onbeforeunload = UnloadTrigger;
-    }
-
-    // Initialize crop after postback.
-    if ($cmsj('.menu-header-item-selected').find('.js-trim-init').length && $cmsj('.js-btn-crop:enabled').length) {
-        window.initializeCrop = true;
     }
 
     $cmsj('.header-inner').click(function () {

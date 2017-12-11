@@ -9,7 +9,7 @@
     <cms:CMSPanel CssClass="CMSNewsletter NewsletterNew" runat="server">
         <cms:UIForm runat="server" ObjectType="newsletter.newsletter" ID="NewForm" Mode="Insert"
             OnOnAfterSave="AfterSave" OnOnBeforeSave="BeforeSave" OnOnBeforeValidate="ValidateValues"
-            RedirectUrlAfterCreate="">
+            RedirectUrlAfterCreate="">          
             <SecurityCheck Permission="configure" Resource="cms.newsletter" DisableForm="true" />
         </cms:UIForm>
         <asp:PlaceHolder ID="plcSchedule" runat="server">

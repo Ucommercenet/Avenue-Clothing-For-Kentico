@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="CMSModules_ImportExport_Controls_Import___objects__"
      Codebehind="__objects__.ascx.cs" %>
+<%@ Register Src="~/CMSModules/Membership/FormControls/Users/SelectUser.ascx" TagName="SelectUser"
+    TagPrefix="cms" %>
 
 <script type="text/javascript">
     //<![CDATA[
@@ -51,6 +53,24 @@
         <cms:CMSButton ID="lnkSelectAll" runat="server" OnClick="lnkSelectAll_Click" ButtonStyle="Default" />
         <cms:CMSButton ID="lnkSelectNew" runat="server" OnClick="lnkSelectNew_Click" ButtonStyle="Default" />
         <cms:CMSButton ID="lnkSelectNone" runat="server" OnClick="lnkSelectNone_Click" ButtonStyle="Default" />
+    </div>
+</asp:Panel>
+<asp:Panel runat="server" ID="pnlMacroResigning" CssClass="wizard-section content-block-25">
+    <cms:LocalizedHeading ID="headMacroResigning" Level="4" runat="server" EnableViewState="false" CssClass="listing-title" ResourceString="ImportObjects.MacroResigning" />
+    <p>
+        <cms:LocalizedLabel ID="lblMacroResigning" runat="server" EnableViewState="false" ResourceString="ImportObjects.MacroResigningInfo" />
+    </p>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="editing-form-label-cell">
+                <cms:LocalizedLabel CssClass="control-label" ID="lblMacroResigningUser" runat="server" ResourceString="general.user" ToolTipResourceString="ImportObjects.MacroResigning.User.Tooltip"
+                    DisplayColon="true" EnableViewState="false" AssociatedControlID="userSelectorMacroResigningUser" />
+            </div>
+            <div class="editing-form-value-cell ">
+                <cms:SelectUser ID="userSelectorMacroResigningUser" runat="server" IsLiveSite="false" AllowAll="false" AllowEmpty="true" ShowSiteFilter="true"
+                    DisplayUsersFromAllSites="true" SelectionMode="SingleTextBox" WhereCondition="UserName != N'public'" />
+            </div>
+        </div>
     </div>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlCheck" CssClass="wizard-section content-block-50">

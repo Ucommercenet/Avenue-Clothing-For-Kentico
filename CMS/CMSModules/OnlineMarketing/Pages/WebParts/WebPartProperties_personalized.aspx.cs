@@ -21,12 +21,12 @@ public partial class CMSModules_OnlineMarketing_Pages_WebParts_WebPartProperties
         // Set the EditedObject attribute for the UIForm
         if (variantMode == VariantModeEnum.MVT)
         {
-            mvtEditElem.UIFormControl.EditedObject = BaseAbstractInfoProvider.GetInfoById(MVTVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
+            mvtEditElem.UIFormControl.EditedObject = ProviderHelper.GetInfoById(MVTVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
             mvtEditElem.UIFormControl.ReloadData();
         }
         else if (variantMode == VariantModeEnum.ContentPersonalization)
         {
-            cpEditElem.UIFormControl.EditedObject = BaseAbstractInfoProvider.GetInfoById(ContentPersonalizationVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
+            cpEditElem.UIFormControl.EditedObject = ProviderHelper.GetInfoById(ContentPersonalizationVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
             cpEditElem.UIFormControl.ReloadData();
         }
 

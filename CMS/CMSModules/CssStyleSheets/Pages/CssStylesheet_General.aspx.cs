@@ -14,10 +14,10 @@ public partial class CMSModules_CssStylesheets_Pages_CssStylesheet_General : CMS
 {
     #region "Variables"
 
-    protected int cssStylesheetId = 0;
-    private CssStylesheetInfo si = null;
-    private SiteInfo mSite = null;
-    private bool isDialog = false;
+    protected int cssStylesheetId;
+    private CssStylesheetInfo si;
+    private SiteInfo mSite;
+    private bool isDialog;
 
     #endregion
 
@@ -58,14 +58,22 @@ public partial class CMSModules_CssStylesheets_Pages_CssStylesheet_General : CMS
 
         CurrentUserInfo currentUser = MembershipContext.AuthenticatedUser;
 
-        // Check for UI permissions
-        if (!currentUser.IsAuthorizedPerUIElement("CMS.Content", new string[] { "Properties", "Properties.General", "General.Design", "Design.EditCSSStylesheets" }, SiteContext.CurrentSiteName))
+        if (!currentUser.IsAuthorizedPerResource("CMS.Design", "ReadCMSCSSStylesheet"))
         {
-            RedirectToUIElementAccessDenied("CMS.Content", "Properties;Properties.General;General.Design;Design.EditCSSStylesheets");
+            RedirectToAccessDenied("CMS.Design", "ReadCMSCSSStylesheet");
         }
 
         // Page has been opened in CMSDesk and only stylesheet style editing is allowed
         isDialog = (QueryHelper.GetBoolean("dialog", false) || QueryHelper.GetBoolean("isindialog", false));
+
+        // Check for UI permissions
+        bool isUserAuthorizedPagesApp = currentUser.IsAuthorizedPerUIElement("CMS.Content", new string[] { "Properties", "Properties.General", "General.Design", "Design.EditCSSStylesheets" }, SiteContext.CurrentSiteName);
+        bool isUserAuthorizedCssStylesheetsApp = currentUser.IsAuthorizedPerUIElement("CMS.Design", new string[] { "EditStylesheet", "StylesheetGeneral" }, SiteContext.CurrentSiteName);
+        if (!isUserAuthorizedPagesApp && !isUserAuthorizedCssStylesheetsApp)
+        {
+            var uiElement = isDialog ? "EditStylesheet;StylesheetGeneral" : "Properties;Properties.General;General.Design;Design.EditCSSStylesheets";
+            RedirectToUIElementAccessDenied("CMS.Content", uiElement);
+        }
 
         // Prevent replacing of the master page with dialog master page
         RequiresDialog = false;
@@ -78,15 +86,11 @@ public partial class CMSModules_CssStylesheets_Pages_CssStylesheet_General : CMS
                 URLHelper.Redirect(AdministrationUrlHelper.GetErrorPageUrl("dialogs.badhashtitle", "dialogs.badhashtext"));
             }
 
-            // Check 'Design Web site' permission 
-            if (!currentUser.IsAuthorizedPerResource("CMS.Design", "Design"))
+            // Check 'Modify CSS stylesheets' permission 
+            if (!currentUser.IsAuthorizedPerResource("CMS.Design", "ModifyCMSCSSStylesheet"))
             {
-                RedirectToAccessDenied("CMS.Design", "Design");
+                RedirectToAccessDenied("CMS.Design", "ModifyCMSCSSStylesheet");
             }
-        }
-        else
-        {
-            CheckGlobalAdministrator();
         }
 
         string stylesheet = QueryHelper.GetString("objectid", "0");

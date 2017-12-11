@@ -45,7 +45,7 @@ public partial class CMSModules_Scoring_Pages_ScoreDetail : CMSModalPage
         EditedObject = contact;
 
 		// Initialize unigrid
-		var dateTimeService = Service<IDateTimeNowService>.Entry();
+		var dateTimeService = Service.Resolve<IDateTimeNowService>();
 	    var whereCondition = new WhereCondition().WhereEquals("ContactID", contactId)
 	                                             .WhereEquals("ScoreID", QueryHelper.GetInteger("scoreid", 0))
 	                                             .WhereNotExpired(dateTimeService.GetDateTimeNow());

@@ -16,10 +16,10 @@ public partial class CMSModules_MessageBoards_Controls_SubscriptionApproval : CM
 {
     #region "Private variables"
 
-    private string mSubscriptionHash = null;
-    private string mRequestTime = null;
-    private BoardSubscriptionInfo mSubscriptionObject = null;
-    private BoardInfo mSubscriptionSubject = null;
+    private string mSubscriptionHash;
+    private string mRequestTime;
+    private BoardSubscriptionInfo mSubscriptionObject;
+    private BoardInfo mSubscriptionSubject;
 
     #endregion
 
@@ -93,12 +93,7 @@ public partial class CMSModules_MessageBoards_Controls_SubscriptionApproval : CM
     {
         get
         {
-            if (mSubscriptionObject == null)
-            {
-                mSubscriptionObject = BoardSubscriptionInfoProvider.GetBoardSubscriptionInfo(mSubscriptionHash);
-            }
-
-            return mSubscriptionObject;
+            return mSubscriptionObject ?? (mSubscriptionObject = BoardSubscriptionInfoProvider.GetBoardSubscriptionInfo(mSubscriptionHash));
         }
     }
 
@@ -211,7 +206,7 @@ public partial class CMSModules_MessageBoards_Controls_SubscriptionApproval : CM
         {
             try
             {
-                datetime = DateTime.ParseExact(requestTime, SecurityHelper.EMAIL_CONFIRMATION_DATETIME_FORMAT, null);
+                datetime = DateTimeUrlFormatter.Parse(requestTime);
             }
             catch
             {
@@ -250,7 +245,7 @@ public partial class CMSModules_MessageBoards_Controls_SubscriptionApproval : CM
                 if (!checkOnly)
                 {
                     ShowInfo(DataHelper.GetNotEmpty(SuccessfulConfirmationText, GetString("general.subscription_approval")));
-                    Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(SubscriptionObject.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                    Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(SubscriptionObject.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                     BoardSubscriptionInfoProvider.LogSubscriptionActivity(SubscriptionObject, null, QueryHelper.GetInteger("cid", 0), QueryHelper.GetInteger("siteid", 0), QueryHelper.GetText("url", ""), QueryHelper.GetInteger("docid", 0), QueryHelper.GetText("camp", ""), PredefinedActivityType.SUBSCRIPTION_MESSAGE_BOARD, true);
                 }
                 break;
@@ -267,7 +262,6 @@ public partial class CMSModules_MessageBoards_Controls_SubscriptionApproval : CM
 
             // Subscription not found
             default:
-            case OptInApprovalResultEnum.NotFound:
                 DisplayError(DataHelper.GetNotEmpty(UnsuccessfulConfirmationText, GetString("general.subscription_invalid")));
                 break;
         }

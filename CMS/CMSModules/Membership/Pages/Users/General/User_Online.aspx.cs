@@ -100,7 +100,28 @@ public partial class CMSModules_Membership_Pages_Users_General_User_Online : CMS
         {
             gridElem.GridName = "User_OnlineDB.xml";
             gridElem.OrderBy = "SessionFullName";
-            gridElem.Columns = "SessionUserID, SessionFullName, SessionEmail, SessionUserName, SessionNickName, SessionUserCreated, SessionLocation, SessionContactID, SessionSiteID, SessionLastActive";
+
+            var columns = "SessionUserID, SessionFullName, SessionEmail, SessionUserName, SessionNickName, SessionUserCreated, SessionLocation, SessionContactID, SessionLastActive";
+
+            // If on-line users are displayed in contact management UI and site selector is used
+            if (IsContactManagmentApplication() && SiteID > 0)
+            {
+                gridElem.WhereCondition = new WhereCondition().WhereEquals("SessionSiteID", SiteID).ToString(true);
+            }
+            // If on-line users are displayed elsewhere e.g. in Users application
+            else
+            {
+                // If user is not global admin then display only current site
+                if (CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin))
+                {
+                    columns += ",SessionSiteID";
+                }
+                else
+                {
+                    gridElem.WhereCondition = new WhereCondition().WhereEquals("SessionSiteID", SiteID).ToString(true);
+                }
+            }
+            gridElem.Columns = columns;
         }
 
         // Hide unigrid default filter button
@@ -185,13 +206,6 @@ public partial class CMSModules_Membership_Pages_Users_General_User_Online : CMS
     /// </summary>
     protected void gridElem_OnBeforeDataReload()
     {
-
-        if (gridElem.QueryParameters == null)
-        {
-            gridElem.QueryParameters = new QueryDataParameters();
-        }
-        gridElem.QueryParameters.Add("@Now", DateTime.Now);
-
         bool guestByDefault = QueryHelper.GetBoolean("guest", false);
 
         if (DisplayContacts)
@@ -584,6 +598,15 @@ public partial class CMSModules_Membership_Pages_Users_General_User_Online : CMS
         }
 
         return false;
+    }
+
+
+    /// <summary>
+    /// Returns true, if this page is displayed inside contact management application.
+    /// </summary>
+    private bool IsContactManagmentApplication()
+    {
+        return QueryHelper.GetBoolean("isonlinemarketing", false);
     }
 
     #endregion

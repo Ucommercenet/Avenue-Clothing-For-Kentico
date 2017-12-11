@@ -58,10 +58,9 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
             {
                 switch (ViewMode)
                 {
-                    case MediaTypeEnum.Flash:
-                        return txtFlashUrl.Text;
                     case MediaTypeEnum.AudioVideo:
                         return txtVidUrl.Text;
+
                     default:
                         return txtUrl.Text;
                 }
@@ -77,17 +76,10 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
             {
                 switch (ViewMode)
                 {
-                    case MediaTypeEnum.Flash:
-                        string ext = URLHelper.GetUrlParameter(txtFlashUrl.Text, "ext");
-                        if (!string.IsNullOrEmpty(ext))
-                        {
-                            value = URLHelper.UpdateParameterInUrl(value, "ext", ext);
-                        }
-                        txtFlashUrl.Text = value;
-                        break;
                     case MediaTypeEnum.AudioVideo:
                         txtVidUrl.Text = value;
                         break;
+
                     default:
                         txtUrl.Text = value;
                         break;
@@ -221,21 +213,17 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
 
             imgRefresh.ScreenReaderDescription = imgRefresh.ToolTip = refreshTooltip;
             imgVidRefresh.ToolTip = imgVidRefresh.ScreenReaderDescription = refreshTooltip;
-            imgFlashRefresh.ToolTip = imgFlashRefresh.ScreenReaderDescription = refreshTooltip;
 
             btnVideoPreview.Click += (s, ea) => LoadVideoPreview();
-            btnFlashPreview.Click += (s, ea) => LoadFlashPreview();
             btnImagePreview.Click += btnImagePreview_Click;
             btnImageTxtPreview.Click += (s, ea) => UpdateFromUrl();
             imgRefresh.Click += (s, ea) => UpdateFromUrl();
-            imgFlashRefresh.Click += (s, ea) => LoadFlashPreview();
             imgVidRefresh.Click += (s, ea) => LoadVideoPreview();
 
             btnSizeRefreshHidden.Click += btnSizeRefreshHidden_Click;
 
             // Display URL txt box if required
             plcUrlTxt.Visible = DisplayUrlTextbox;
-            plcFlashUrl.Visible = DisplayUrlTextbox;
             plcVidUrl.Visible = DisplayUrlTextbox;
             colorElem.IsLiveSite = IsLiveSite;
 
@@ -283,12 +271,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
             drpLinkTarget.Items.Add(new ListItem(GetString("dialogs.target.self"), "_self"));
             drpLinkTarget.Items.Add(new ListItem(GetString("dialogs.target.parent"), "_parent"));
             drpLinkTarget.Items.Add(new ListItem(GetString("dialogs.target.top"), "_top"));
-
-            // Load target dropdown with values
-            drpFlashScale.Items.Add(new ListItem(GetString("general.selectnone"), ""));
-            drpFlashScale.Items.Add(new ListItem(GetString("dialogs.flash.scale.showall"), "showall"));
-            drpFlashScale.Items.Add(new ListItem(GetString("dialogs.flash.scale.noborder"), "noborder"));
-            drpFlashScale.Items.Add(new ListItem(GetString("dialogs.flash.scale.exactfit"), "exactfit"));
         }
     }
 
@@ -305,13 +287,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
                 vidWidthHeightElem.Width = DefaultWidth;
                 vidWidthHeightElem.Height = DefaultHeight;
                 LoadVideoPreview();
-
-                break;
-            case MediaTypeEnum.Flash:
-                flashWidthHeightElem.Width = DefaultWidth;
-                flashWidthHeightElem.Height = DefaultHeight;
-                LoadFlashPreview();
-
                 break;
 
             default:
@@ -337,13 +312,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
         switch (ViewMode)
         {
             case MediaTypeEnum.AudioVideo:
-
-                tabFlashAdvanced.Visible = false;
-                tabFlashAdvanced.HeaderText = "";
-
-                tabFlashGeneral.Visible = false;
-                tabFlashGeneral.HeaderText = "";
-
                 tabImageAdvanced.Visible = false;
                 tabImageAdvanced.HeaderText = "";
 
@@ -361,44 +329,9 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
 
                 InitAVMode();
                 LoadVideoPreview(false);
-
-                break;
-            case MediaTypeEnum.Flash:
-
-                tabFlashAdvanced.Visible = true;
-                tabFlashAdvanced.HeaderText = GetString("dialogs.tab.advanced");
-
-                tabFlashGeneral.Visible = true;
-                tabFlashGeneral.HeaderText = GetString("general.general");
-
-                tabImageAdvanced.Visible = false;
-                tabImageAdvanced.HeaderText = "";
-
-                tabImageBehavior.Visible = false;
-                tabImageBehavior.HeaderText = "";
-
-                tabImageGeneral.Visible = false;
-                tabImageGeneral.HeaderText = "";
-
-                tabImageLink.Visible = false;
-                tabImageLink.HeaderText = "";
-
-                tabVideoGeneral.Visible = false;
-                tabVideoGeneral.HeaderText = "";
-
-                InitFlashMode();
-                LoadFlashPreview(false);
-
                 break;
 
             default:
-
-                tabFlashAdvanced.Visible = false;
-                tabFlashAdvanced.HeaderText = "";
-
-                tabFlashGeneral.Visible = false;
-                tabFlashGeneral.HeaderText = "";
-
                 tabImageAdvanced.Visible = true;
                 tabImageAdvanced.HeaderText = GetString("dialogs.tab.advanced");
 
@@ -416,7 +349,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
 
                 InitImageMode();
                 LoadImagePreview(false);
-
                 break;
         }
     }
@@ -451,12 +383,12 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
         widthHeightElem.ScriptAfterChange = postBackRef;
         colorElem.ColorTextBox.Attributes["onchange"] = postBackRef;
         colorElem.ColorTextBox.Attributes["onkeydown"] = postBackKeyDownRef;
-        
+
         // Link tab
         txtLinkUrl.Attributes["onchange"] = postBackRef + "; ensureBehaviorTab(false);";
         txtLinkUrl.Attributes["onkeydown"] = postBackKeyDownRef;
         drpLinkTarget.Attributes["onchange"] = postBackRef;
-        
+
         // Advanced tab
         txtImageAdvId.Attributes["onchange"] = postBackRef;
         txtImageAdvId.Attributes["onkeydown"] = postBackKeyDownRef;
@@ -465,7 +397,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
         txtImageAdvClass.Attributes["onchange"] = postBackRef;
         txtImageAdvClass.Attributes["onkeydown"] = postBackKeyDownRef;
         txtImageAdvStyle.Attributes["onchange"] = postBackRef;
-        
+
         // Behavior
         radImageNone.InputAttributes["onchange"] = postBackRef + "; ensureBehaviorTab(false);";
         radImageSame.InputAttributes["onchange"] = postBackRef + "; ensureBehaviorTab(false);";
@@ -816,111 +748,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
     #endregion
 
 
-    #region "Private methods for Flash mode"
-
-    private void InitFlashMode()
-    {
-        string postBackRef = ControlsHelper.GetPostBackEventReference(btnFlashPreview, "");
-        string postBackKeyDownRef = "var keynum;if(window.event){keynum = event.keyCode;}else if(event.which){keynum = event.which;}if(keynum == 13){" + postBackRef + "; return false;}";
-
-        // Assign javascript change event to all fields (to refresh the preview)
-        // General tab
-        flashWidthHeightElem.HeightTextBox.Attributes["onkeydown"] = postBackKeyDownRef;
-        flashWidthHeightElem.WidthTextBox.Attributes["onkeydown"] = postBackKeyDownRef;
-        flashWidthHeightElem.ScriptAfterChange = postBackRef;
-        chkFlashAutoplay.InputAttributes["onclick"] = postBackRef;
-        chkFlashLoop.InputAttributes["onclick"] = postBackRef;
-        chkFlashEnableMenu.InputAttributes["onclick"] = postBackRef;
-        txtFlashUrl.Attributes["onchange"] = postBackRef;
-        txtFlashUrl.Attributes["onkeydown"] = postBackKeyDownRef;
-        // Advanced tab
-        drpFlashScale.Attributes["onchange"] = postBackRef;
-        txtFlashId.Attributes["onchange"] = postBackRef;
-        txtFlashId.Attributes["onkeydown"] = postBackKeyDownRef;
-        txtFlashTitle.Attributes["onchange"] = postBackRef;
-        txtFlashTitle.Attributes["onkeydown"] = postBackKeyDownRef;
-        txtFlashClass.Attributes["onchange"] = postBackRef;
-        txtFlashClass.Attributes["onkeydown"] = postBackKeyDownRef;
-        txtFlashStyle.Attributes["onchange"] = postBackRef;
-        txtFlashStyle.Attributes["onkeydown"] = postBackKeyDownRef;
-
-        flashWidthHeightElem.CustomRefreshCode = ControlsHelper.GetPostBackEventReference(btnSizeRefreshHidden, "") + ";return false;";
-    }
-
-
-    /// <summary>
-    /// Loads the flash preview.
-    /// </summary>
-    /// <param name="saveSession">Determines whether to save data to session or not</param>
-    private void LoadFlashPreview(bool saveSession = true)
-    {
-        if (saveSession)
-        {
-            SaveFlashSession();
-        }
-
-        string url = CurrentUrl;
-        if (!string.IsNullOrEmpty(url) && !ItemNotSystem)
-        {
-            // Add latest version requirement for live site
-            int versionHistoryId = HistoryID;
-            if (IsLiveSite && (versionHistoryId > 0))
-            {
-                // Add requirement for latest version of files for current document
-                string newparams = "latestforhistoryid=" + versionHistoryId;
-                newparams += "&hash=" + ValidationHelper.GetHashString("h" + versionHistoryId);
-
-                url = URLHelper.AddParameterToUrl(URLHelper.AppendQuery(url, newparams), "ext", ".swf");
-            }
-        }
-
-        flashPreview.Url = url;
-        flashPreview.Type = ValidationHelper.GetString(ViewState[DialogParameters.FLASH_EXT], "");
-        flashPreview.Height = flashWidthHeightElem.Height;
-        flashPreview.Width = flashWidthHeightElem.Width;
-        flashPreview.Menu = chkFlashEnableMenu.Checked;
-        flashPreview.AutoPlay = chkFlashAutoplay.Checked;
-        flashPreview.Loop = chkFlashLoop.Checked;
-        flashPreview.Id = txtFlashId.Text.Trim();
-        flashPreview.Title = txtFlashTitle.Text.Trim();
-        flashPreview.Class = txtFlashClass.Text.Trim();
-        flashPreview.Style = txtFlashStyle.Text.Trim().TrimEnd(';') + ";";
-        flashPreview.FlashVars = txtFlashVars.Text;
-    }
-
-
-    /// <summary>
-    /// Save current flash settings into session.
-    /// </summary>
-    private void SaveFlashSession()
-    {
-        // Get hashtable from session
-        Hashtable props = SessionHelper.GetValue("DialogSelectedParameters") as Hashtable ?? new Hashtable();
-
-        props[DialogParameters.FLASH_WIDTH] = flashWidthHeightElem.Width;
-        props[DialogParameters.FLASH_HEIGHT] = flashWidthHeightElem.Height;
-        props[DialogParameters.FLASH_AUTOPLAY] = chkFlashAutoplay.Checked;
-        props[DialogParameters.FLASH_LOOP] = chkFlashLoop.Checked;
-        props[DialogParameters.FLASH_MENU] = chkFlashEnableMenu.Checked;
-        props[DialogParameters.FLASH_EXT] = ViewState[DialogParameters.FLASH_EXT];
-        props[DialogParameters.FLASH_URL] = UrlResolver.ResolveUrl(CurrentUrl);
-        props[DialogParameters.FLASH_ID] = HTMLHelper.HTMLEncode(txtFlashId.Text.Trim());
-        props[DialogParameters.FLASH_TITLE] = HTMLHelper.HTMLEncode(txtFlashTitle.Text.Trim());
-        props[DialogParameters.FLASH_CLASS] = HTMLHelper.HTMLEncode(txtFlashClass.Text.Trim());
-        props[DialogParameters.FLASH_FLASHVARS] = HTMLHelper.HTMLEncode(txtFlashVars.Text.Trim());
-        props[DialogParameters.FLASH_SCALE] = (drpFlashScale.SelectedIndex > 0) ? drpFlashScale.SelectedValue : "";
-        props[DialogParameters.LAST_TYPE] = MediaTypeEnum.Flash;
-
-        string style = txtFlashStyle.Text.Trim().TrimEnd(';') + ";";
-        props[DialogParameters.FLASH_STYLE] = (style != ";" ? HTMLHelper.HTMLEncode(style) : "");
-        
-        // Save image properties into session
-        SessionHelper.SetValue("DialogSelectedParameters", props);
-    }
-
-    #endregion
-
-
     #region "Overridden methods"
 
     /// <summary>
@@ -945,7 +772,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
         PermanentUrl = item.PermanentUrl;
         OriginalWidth = DefaultWidth = item.Width;
         OriginalHeight = DefaultHeight = item.Height;
-            
+
         HistoryID = item.HistoryID;
 
         // Ensure default dimensions
@@ -956,11 +783,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
 
             properties[DialogParameters.AV_WIDTH] = 300;
             properties[DialogParameters.AV_HEIGHT] = vidDefaultHeight;
-        }
-        else if (ViewMode == MediaTypeEnum.Flash)
-        {
-            properties[DialogParameters.FLASH_WIDTH] = 300;
-            properties[DialogParameters.FLASH_HEIGHT] = 200;
         }
 
         if (properties == null)
@@ -988,13 +810,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
                 properties[DialogParameters.AV_EXT] = item.Extension;
                 properties[DialogParameters.AV_CONTROLS] = true;
                 ViewState[DialogParameters.AV_EXT] = item.Extension;
-                break;
-
-            case MediaTypeEnum.Flash:
-                // Flash
-                properties[DialogParameters.FLASH_URL] = item.Url;
-                properties[DialogParameters.FLASH_EXT] = item.Extension;
-                ViewState[DialogParameters.FLASH_EXT] = item.Extension;
                 break;
         }
 
@@ -1050,18 +865,9 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
                     url = ValidationHelper.GetString(properties[DialogParameters.AV_URL], "");
                     if (url == "")
                     {
-                        url = ValidationHelper.GetString(properties[DialogParameters.FLASH_URL], "");
-                        if (url == "")
-                        {
-                            url = ValidationHelper.GetString(properties[DialogParameters.URL_URL], "");
-                            width = ValidationHelper.GetInteger(properties[DialogParameters.URL_WIDTH], 0);
-                            height = ValidationHelper.GetInteger(properties[DialogParameters.URL_HEIGHT], 0);
-                        }
-                        else
-                        {
-                            width = ValidationHelper.GetInteger(properties[DialogParameters.FLASH_WIDTH], 0);
-                            height = ValidationHelper.GetInteger(properties[DialogParameters.FLASH_HEIGHT], 0);
-                        }
+                        url = ValidationHelper.GetString(properties[DialogParameters.URL_URL], "");
+                        width = ValidationHelper.GetInteger(properties[DialogParameters.URL_WIDTH], 0);
+                        height = ValidationHelper.GetInteger(properties[DialogParameters.URL_HEIGHT], 0);
                     }
                     else
                     {
@@ -1265,82 +1071,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
                 #endregion
             }
 
-            if ((properties[DialogParameters.LAST_TYPE] == null) || ((MediaTypeEnum)properties[DialogParameters.LAST_TYPE] == MediaTypeEnum.Flash))
-            {
-                #region "Flash general tab"
-
-                if (tabFlashGeneral.Visible)
-                {
-                    int flashWidth = ValidationHelper.GetInteger(properties[DialogParameters.FLASH_WIDTH], 300);
-                    int flashHeight = ValidationHelper.GetInteger(properties[DialogParameters.FLASH_HEIGHT], 200);
-                    bool flashAutoplay = ValidationHelper.GetBoolean(properties[DialogParameters.FLASH_AUTOPLAY], false);
-                    bool flashLoop = ValidationHelper.GetBoolean(properties[DialogParameters.FLASH_LOOP], false);
-                    bool flashEnableMenu = ValidationHelper.GetBoolean(properties[DialogParameters.FLASH_MENU], false);
-                    string flashExt = ValidationHelper.GetString(properties[DialogParameters.FLASH_EXT], "");
-                    if (String.IsNullOrEmpty(flashExt))
-                    {
-                        // Try to get flash extension from url if not found
-                        flashExt = ValidationHelper.GetString(properties[DialogParameters.URL_EXT], "");
-                    }
-                    string flashUrl = ValidationHelper.GetString(properties[DialogParameters.FLASH_URL], "");
-
-                    // Update extension in URL
-                    flashUrl = URLHelper.UpdateParameterInUrl(flashUrl, "ext", "." + flashExt.TrimStart('.'));
-
-                    DefaultWidth = flashWidth;
-                    DefaultHeight = flashHeight;
-
-                    flashWidthHeightElem.Width = flashWidth;
-                    flashWidthHeightElem.Height = flashHeight;
-                    chkFlashAutoplay.Checked = flashAutoplay;
-                    chkFlashLoop.Checked = flashLoop;
-                    chkFlashEnableMenu.Checked = flashEnableMenu;
-
-                    CurrentUrl = UrlResolver.ResolveUrl(flashUrl);
-
-                    // Initialize media file URLs
-                    if (SourceType == MediaSourceEnum.MediaLibraries)
-                    {
-                        OriginalUrl = (string.IsNullOrEmpty(OriginalUrl) ? ValidationHelper.GetString(properties[DialogParameters.URL_DIRECT], "") : OriginalUrl);
-                        PermanentUrl = (string.IsNullOrEmpty(PermanentUrl) ? ValidationHelper.GetString(properties[DialogParameters.URL_PERMANENT], "") : PermanentUrl);
-                    }
-
-                    ViewState[DialogParameters.FLASH_EXT] = flashExt;
-                }
-
-                #endregion
-
-
-                #region "Flash advanced tab"
-
-                if (tabFlashAdvanced.Visible)
-                {
-                    string flashId = ValidationHelper.GetString(properties[DialogParameters.FLASH_ID], "");
-                    string flashTitle = ValidationHelper.GetString(properties[DialogParameters.FLASH_TITLE], "");
-                    string flashClass = ValidationHelper.GetString(properties[DialogParameters.FLASH_CLASS], "");
-                    string flashStyle = ValidationHelper.GetString(properties[DialogParameters.FLASH_STYLE], "");
-                    string flashScale = ValidationHelper.GetString(properties[DialogParameters.FLASH_SCALE], "");
-                    string flashVars = ValidationHelper.GetString(properties[DialogParameters.FLASH_FLASHVARS], "");
-
-                    txtFlashId.Text = HttpUtility.HtmlDecode(flashId);
-                    txtFlashTitle.Text = HttpUtility.HtmlDecode(flashTitle);
-                    txtFlashClass.Text = HttpUtility.HtmlDecode(flashClass);
-                    txtFlashStyle.Text = HttpUtility.HtmlDecode(flashStyle);
-                    txtFlashVars.Text = HttpUtility.HtmlDecode(flashVars);
-
-                    ListItem liFlashScale = drpFlashScale.Items.FindByValue(flashScale);
-                    if (liFlashScale != null)
-                    {
-                        drpFlashScale.ClearSelection();
-                        liFlashScale.Selected = true;
-                    }
-                    LoadFlashPreview();
-                }
-
-                #endregion
-            }
-
-
             #region "General items"
 
             EditorClientID = ValidationHelper.GetString(properties[DialogParameters.EDITOR_CLIENTID], "");
@@ -1483,46 +1213,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
         #endregion
 
 
-        #region "Flash general tab"
-
-        if (tabFlashGeneral.Visible)
-        {
-            retval[DialogParameters.FLASH_WIDTH] = flashWidthHeightElem.Width;
-            retval[DialogParameters.FLASH_HEIGHT] = flashWidthHeightElem.Height;
-            retval[DialogParameters.FLASH_AUTOPLAY] = chkFlashAutoplay.Checked;
-            retval[DialogParameters.FLASH_LOOP] = chkFlashLoop.Checked;
-            retval[DialogParameters.FLASH_MENU] = chkFlashEnableMenu.Checked;
-            retval[DialogParameters.FLASH_EXT] = ViewState[DialogParameters.FLASH_EXT];
-            retval[DialogParameters.FLASH_URL] = UrlResolver.ResolveUrl(CurrentUrl);
-            retval[DialogParameters.OBJECT_TYPE] = "flash";
-        }
-
-        #endregion
-
-
-        #region "Flash advanced tab"
-
-        if (tabFlashAdvanced.Visible)
-        {
-            string style = txtFlashStyle.Text.Trim().TrimEnd(';').Replace("%", "%25") + ";";
-            retval[DialogParameters.FLASH_ID] = HTMLHelper.HTMLEncode(txtFlashId.Text.Trim().Replace("%", "%25"));
-            retval[DialogParameters.FLASH_TITLE] = HTMLHelper.HTMLEncode(txtFlashTitle.Text.Trim().Replace("%", "%25"));
-            retval[DialogParameters.FLASH_STYLE] = (style != ";" ? HTMLHelper.HTMLEncode(style) : "");
-            retval[DialogParameters.FLASH_CLASS] = HTMLHelper.HTMLEncode(txtFlashClass.Text.Trim().Replace("%", "%25"));
-            retval[DialogParameters.FLASH_FLASHVARS] = HTMLHelper.HTMLEncode(txtFlashVars.Text.Trim().Replace("%", "%25"));
-            if (drpFlashScale.SelectedIndex > 0)
-            {
-                retval[DialogParameters.FLASH_SCALE] = drpFlashScale.SelectedValue;
-            }
-            else
-            {
-                retval[DialogParameters.FLASH_SCALE] = "";
-            }
-        }
-
-        #endregion
-
-
         #region "General items"
 
         retval[DialogParameters.EDITOR_CLIENTID] = (String.IsNullOrEmpty(EditorClientID) ? "" : EditorClientID.Replace("%", "%25"));
@@ -1533,20 +1223,11 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
         #region "Unresolve URL for in-line controls"
 
         bool isAudioVideo = (ValidationHelper.GetString(retval[DialogParameters.AV_URL], "") != "");
-        bool isFlash = (ValidationHelper.GetString(retval[DialogParameters.FLASH_URL], "") != "");
 
-        if (isAudioVideo || isFlash)
+        if (isAudioVideo)
         {
             CurrentUrl = URLHelper.UnResolveUrl(CurrentUrl, SystemContext.ApplicationPath);
-
-            if (isAudioVideo)
-            {
-                retval[DialogParameters.AV_URL] = CurrentUrl;
-            }
-            else if (isFlash)
-            {
-                retval[DialogParameters.FLASH_URL] = CurrentUrl;
-            }
+            retval[DialogParameters.AV_URL] = CurrentUrl;
         }
 
         #endregion
@@ -1572,15 +1253,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
                     errorMessage += " " + GetString("dialogs.image.invalidsize");
                 }
 
-                errorMessage = errorMessage.Trim();
-                break;
-
-            case MediaTypeEnum.Flash:
-
-                if (!flashWidthHeightElem.Validate())
-                {
-                    errorMessage += " " + GetString("dialogs.image.invalidsize");
-                }
                 errorMessage = errorMessage.Trim();
                 break;
 
@@ -1612,10 +1284,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
 
                 case MediaTypeEnum.AudioVideo:
                     LoadVideoPreview();
-                    break;
-
-                case MediaTypeEnum.Flash:
-                    LoadFlashPreview();
                     break;
             }
 
@@ -1653,8 +1321,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
 
         pnlTabs.SelectedTabIndex = 0;
 
-        flashWidthHeightElem.Height = 0;
-        flashWidthHeightElem.Width = 0;
         vidWidthHeightElem.Height = 0;
         vidWidthHeightElem.Width = 0;
         widthHeightElem.Height = 0;
@@ -1662,14 +1328,9 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
 
         videoPreview.Url = "";
         imagePreview.URL = "";
-        flashPreview.Url = "";
 
         txtAlt.Text = "";
         txtBorderWidth.Text = "";
-        txtFlashClass.Text = "";
-        txtFlashId.Text = "";
-        txtFlashStyle.Text = "";
-        txtFlashTitle.Text = "";
         txtHSpace.Text = "";
         txtImageAdvClass.Text = "";
         txtImageAdvId.Text = "";
@@ -1678,11 +1339,9 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLMediaPro
         txtLinkUrl.Text = "";
         txtVSpace.Text = "";
         txtUrl.Text = "";
-        txtFlashUrl.Text = "";
         txtVidUrl.Text = "";
 
         drpAlign.SelectedIndex = 0;
-        drpFlashScale.SelectedIndex = 0;
         drpLinkTarget.SelectedIndex = 0;
     }
 

@@ -34,13 +34,13 @@
                 </div>
                 <cms:TextSimpleFilter ID="fltSubject" runat="server" Column="EmailSubject" />
             </div>
-            <div class="form-group">
+            <asp:Panel ID="pnlBodyFilter" runat="server" class="form-group">
                 <div class="filter-form-label-cell">
                     <cms:LocalizedLabel CssClass="control-label" ID="lblBody" runat="server" EnableViewState="false" DisplayColon="true"
                         ResourceString="general.body" />
                 </div>
                 <cms:TextSimpleFilter ID="fltBody" runat="server" Column="EmailBody" />
-            </div>
+            </asp:Panel>
             <div class="form-group">
                 <div class="filter-form-label-cell">
                     <cms:LocalizedLabel CssClass="control-label" ID="lblPriority" runat="server" EnableViewState="false" DisplayColon="true"
@@ -63,8 +63,8 @@
         OrderBy="EmailLastSendAttempt DESC"
         Columns="EmailID, EmailSubject, EmailTo, EmailPriority, EmailLastSendAttempt, EmailIsMass">
         <GridActions Parameters="EmailID">
-            <ug:Action Name="resend" Caption="$general.resend$" FontIconClass="icon-message" />
-            <ug:Action Name="delete" Caption="$General.Delete$" FontIconClass="icon-bin" FontIconStyle="Critical" Confirmation="$General.ConfirmDelete$" />
+            <ug:Action ExternalSourceName="resend" Name="resend" Caption="$general.resend$" FontIconClass="icon-message" />
+            <ug:Action ExternalSourceName="delete" Name="delete" Caption="$General.Delete$" FontIconClass="icon-bin" FontIconStyle="Critical" Confirmation="$General.ConfirmDelete$" />
             <ug:Action ExternalSourceName="edit" Name="display" Caption="$general.view$" FontIconClass="icon-eye" FontIconStyle="Allow" />
         </GridActions>
         <GridColumns>

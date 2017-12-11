@@ -29,7 +29,7 @@ public partial class CMSModules_Modules_Pages_Module_Sites : GlobalAdminPage
             }
 
             // Get the active sites
-            DataSet ds = ResourceSiteInfoProvider.GetResourceSites("ResourceID = " + moduleId, null, 0, "SiteID");
+            DataSet ds = ResourceSiteInfoProvider.GetResourceSites().WhereEquals("ResourceID", moduleId).Column("SiteID");
             if (!DataHelper.DataSourceIsEmpty(ds))
             {
                 currentValues = TextHelper.Join(";", DataHelper.GetStringValues(ds.Tables[0], "SiteID"));

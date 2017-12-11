@@ -85,7 +85,7 @@ public partial class CMSFormControls_System_CodeName : FormEngineUserControl
         set
         {
             string stringValue = ValidationHelper.GetString(value, "");
-            
+
             textbox.Text = stringValue;
         }
     }
@@ -104,7 +104,7 @@ public partial class CMSFormControls_System_CodeName : FormEngineUserControl
 
 
     /// <summary>
-    /// Publicly visible textbox 
+    /// Publicly visible textbox
     /// </summary>
     public CMSTextBox TextBox
     {
@@ -163,16 +163,6 @@ public partial class CMSFormControls_System_CodeName : FormEngineUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string toolTip = GetString("codename.tooltip");
-
-        if (Enabled)
-        {
-            toolTip += " " + GetString("codename.tooltipedit");
-        }
-
-        spanScreenReader.Text = toolTip;
-        iconHelp.ToolTip = toolTip;
-
         // Apply CSS style
         if (!String.IsNullOrEmpty(CssClass))
         {
@@ -188,6 +178,16 @@ public partial class CMSFormControls_System_CodeName : FormEngineUserControl
     protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
+
+        string toolTip = GetString("codename.tooltip");
+
+        if (Enabled)
+        {
+            toolTip += " " + GetString("codename.tooltipedit");
+        }
+
+        spanScreenReader.Text = toolTip;
+        iconHelp.ToolTip = toolTip;
 
         textbox.TabIndex = -1;
 

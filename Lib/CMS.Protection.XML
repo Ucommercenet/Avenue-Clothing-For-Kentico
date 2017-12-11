@@ -54,6 +54,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Protection.BadWordCultureInfo.WordID">
+            <summary>
+            Word ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BadWordCultureInfo.CultureID">
+            <summary>
+            Culture ID.
+            </summary>
+        </member>
         <member name="M:CMS.Protection.BadWordCultureInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -81,16 +91,6 @@
         <member name="M:CMS.Protection.BadWordCultureInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new BadWordCultureInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.BadWordCultureInfo.WordID">
-            <summary>
-            Word ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.BadWordCultureInfo.CultureID">
-            <summary>
-            Culture ID.
             </summary>
         </member>
         <member name="T:CMS.Protection.BadWordCultureInfoProvider">
@@ -149,7 +149,7 @@
             Gets all cultures records.
             </summary>
             <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>        
+            <param name="orderBy">Order by statement</param>
         </member>
         <member name="M:CMS.Protection.BadWordCultureInfoProvider.GetBadWordCultureInfoInternal(System.Int32,System.Int32)">
             <summary>
@@ -164,24 +164,17 @@
             </summary>
             <param name="badWordCulture">BadWordCulture to set</param>
         </member>
-        <member name="M:CMS.Protection.BadWordCultureInfoProvider.DeleteBadWordCultureInfoInternal(CMS.Protection.BadWordCultureInfo)">
+        <member name="M:CMS.Protection.BadWordCultureInfoProvider.DeleteInfo(CMS.Protection.BadWordCultureInfo)">
             <summary>
-            Deletes specified BadWordCulture object.
+            Deletes the object to the database.
             </summary>
-            <param name="infoObj">BadWordCulture object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Protection.BadWordCultureInfoProvider.GetWordCulturesInternal(System.Int32)">
             <summary>
             Gets cultures of specified bad word.
             </summary>
             <param name="wordId">ID of bad word</param>
-        </member>
-        <member name="M:CMS.Protection.BadWordCultureInfoProvider.GetBadWordCulturesInternal(System.String,System.String)">
-            <summary>
-            Gets all cultures records.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>        
         </member>
         <member name="M:CMS.Protection.BadWordCultureInfoProvider.ClearBadWordProviderHashtables">
             <summary>
@@ -201,35 +194,6 @@
         <member name="F:CMS.Protection.BadWordInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BadWordInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BadWordInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BadWordInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.Protection.BadWordInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty BadWordInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BadWordInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new BadWordInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Protection.BadWordInfo.WordExpression">
@@ -277,6 +241,35 @@
             Indicates if word should match whole word.
             </summary>
         </member>
+        <member name="M:CMS.Protection.BadWordInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.BadWordInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.BadWordInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.Protection.BadWordInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty BadWordInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.BadWordInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new BadWordInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Protection.BadWordInfoProvider">
             <summary>
             Class providing BadWordInfo management.
@@ -317,6 +310,16 @@
             Global bad words list.
             </summary>
         </member>
+        <member name="P:CMS.Protection.BadWordInfoProvider.CultureBadWords">
+            <summary>
+            Culture specified bad words provider dictionary.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BadWordInfoProvider.GlobalBadWords">
+            <summary>
+            Global bad words list.
+            </summary>
+        </member>
         <member name="M:CMS.Protection.BadWordInfoProvider.CanUseBadWords(CMS.Base.IUserInfo,System.String)">
             <summary>
             Determines whether user can use bad words.
@@ -331,6 +334,11 @@
             </summary>
             <param name="badWord">Bad word</param>
             <returns>True if bad word exists.</returns>
+        </member>
+        <member name="M:CMS.Protection.BadWordInfoProvider.GetBadWords">
+            <summary>
+            Returns all bad words.
+            </summary>
         </member>
         <member name="M:CMS.Protection.BadWordInfoProvider.GetBadWordInfo(System.Int32)">
             <summary>
@@ -413,22 +421,6 @@
             </summary>
             <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
-        <member name="M:CMS.Protection.BadWordInfoProvider.Clear">
-            <summary>
-            Clears bad words hash tables.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BadWordInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears bad words hash tables.
-            </summary>
-            <param name="logWebFarm">Enables or disables webfarm task logging, if false no task is logged</param>
-        </member>
-        <member name="M:CMS.Protection.BadWordInfoProvider.Clear(System.String)">
-            <summary>
-            Clears bad words culture dictionary.
-            </summary>
-        </member>
         <member name="M:CMS.Protection.BadWordInfoProvider.GetBadWords(System.Int32)">
             <summary>
             Returns all bad words for given culture.
@@ -440,7 +432,7 @@
             Returns all bad words for given culture.
             </summary>
             <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>        
+            <param name="orderBy">Order by statement</param>
         </member>
         <member name="M:CMS.Protection.BadWordInfoProvider.GetBadWords(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -548,11 +540,11 @@
             </summary>
             <param name="badWord">BadWord object to set</param>
         </member>
-        <member name="M:CMS.Protection.BadWordInfoProvider.DeleteBadWordInfoInternal(CMS.Protection.BadWordInfo)">
+        <member name="M:CMS.Protection.BadWordInfoProvider.DeleteInfo(CMS.Protection.BadWordInfo)">
             <summary>
-            Deletes specified BadWord object.
+            Deletes the object to the database.
             </summary>
-            <param name="infoObj">BadWord object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Protection.BadWordInfoProvider.ProcessWebFarmTask(System.String,System.String,System.Byte[])">
             <summary>
@@ -562,19 +554,14 @@
             <param name="data">Custom data</param>
             <param name="binary">Binary data</param>
         </member>
-        <member name="P:CMS.Protection.BadWordInfoProvider.CultureBadWords">
-            <summary>
-            Culture specified bad words provider dictionary.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.BadWordInfoProvider.GlobalBadWords">
-            <summary>
-            Global bad words list.
-            </summary>
-        </member>
         <member name="T:CMS.Protection.BadWordsHelper">
             <summary>
             Helper class for bad words.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BadWordsHelper.DefaultReplacement">
+            <summary>
+            Default replacement for 'replace' action. It is used when replaced string has greater size than maximum limit.
             </summary>
         </member>
         <member name="M:CMS.Protection.BadWordsHelper.BadWordsAction(System.String)">
@@ -662,11 +649,6 @@
             <param name="action">Performed action</param>
             <returns>Comma-separated list of found words</returns>
         </member>
-        <member name="P:CMS.Protection.BadWordsHelper.DefaultReplacement">
-            <summary>
-            Default replacement for 'replace' action. It is used when replaced string has greater size than maximum limit.
-            </summary>
-        </member>
         <member name="T:CMS.Protection.BanControlEnum">
             <summary>
             Banned IP control enumeration
@@ -706,26 +688,6 @@
         <member name="F:CMS.Protection.BannedIPInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BannedIPInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BannedIPInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BannedIPInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty BannedIPInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.BannedIPInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new BannedIPInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Protection.BannedIPInfo.IPAddressID">
@@ -783,9 +745,55 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Protection.BannedIPInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.BannedIPInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.BannedIPInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty BannedIPInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.BannedIPInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new BannedIPInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Protection.BannedIPInfoProvider">
             <summary>
             Class providing BannedIPInfo management.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BannedIPInfoProvider.GlobalBannedIPs">
+            <summary>
+            Stores global banned IPs and if it is allowed.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BannedIPInfoProvider.SitesBannedIPs">
+            <summary>
+            Stores site related banned IPs and if it is allowed.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BannedIPInfoProvider.CachedBannedIPs">
+            <summary>
+            Contains denied IP address which accessed site from last change in banned IP info objects.
+            Increases performance when attacker is spamming.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BannedIPInfoProvider.LastChange">
+            <summary>
+            Returns time of the last change in banned IP settings.
+            </summary>
+        </member>
+        <member name="P:CMS.Protection.BannedIPInfoProvider.LastChangeInternal">
+            <summary>
+            Returns time of the last change in banned IP settings.
             </summary>
         </member>
         <member name="F:CMS.Protection.BannedIPInfoProvider.ALLOWED">
@@ -890,23 +898,17 @@
             <param name="id">ID of the object</param>
             <param name="useHashtable">If true, the get operation uses hashtable</param>
         </member>
-        <member name="M:CMS.Protection.BannedIPInfoProvider.GetBannedIPInfoInternal(System.Int32)">
+        <member name="M:CMS.Protection.BannedIPInfoProvider.SetInfo(CMS.Protection.BannedIPInfo)">
             <summary>
-            Returns the BannedIPInfo structure for the specified bannedIP.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="bannedIPId">BannedIP id</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Protection.BannedIPInfoProvider.SetBannedIPInfoInternal(CMS.Protection.BannedIPInfo)">
+        <member name="M:CMS.Protection.BannedIPInfoProvider.DeleteInfo(CMS.Protection.BannedIPInfo)">
             <summary>
-            Sets (updates or inserts) specified bannedIP.
+            Deletes the object to the database.
             </summary>
-            <param name="bannedIP">BannedIP to set</param>
-        </member>
-        <member name="M:CMS.Protection.BannedIPInfoProvider.DeleteBannedIPInfoInternal(CMS.Protection.BannedIPInfo)">
-            <summary>
-            Deletes specified bannedIP.
-            </summary>
-            <param name="infoObj">BannedIP object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Protection.BannedIPInfoProvider.IsBannedIPEnabledInternal(System.String)">
             <summary>
@@ -942,191 +944,6 @@
             Returns positive value if the first info is more specific than the second. Negative value means the second info is more specific. Zero means equal specificity.
             </summary>
         </member>
-        <member name="P:CMS.Protection.BannedIPInfoProvider.GlobalBannedIPs">
-            <summary>
-            Stores global banned IPs and if it is allowed.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.BannedIPInfoProvider.SitesBannedIPs">
-            <summary>
-            Stores site related banned IPs and if it is allowed.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.BannedIPInfoProvider.CachedBannedIPs">
-            <summary>
-            Contains denied IP address which accessed site from last change in banned IP info objects.
-            Increases performance when attacker is spamming.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.BannedIPInfoProvider.LastChange">
-            <summary>
-            Returns time of the last change in banned IP settings.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.BannedIPInfoProvider.LastChangeInternal">
-            <summary>
-            Returns time of the last change in banned IP settings.
-            </summary>
-        </member>
-        <member name="T:CMS.Membership.FloodProtectionHelper">
-            <summary>
-            Flood protection class.
-            </summary>
-        </member>
-        <member name="M:CMS.Membership.FloodProtectionHelper.CheckFlooding(System.String,CMS.Base.IUserInfo)">
-            <summary>
-            Returns true if the current IP address or user floods the system.
-            </summary>
-            <param name="sitename">Site name</param> 
-            <param name="ui">User info object</param>
-        </member>
-        <member name="P:CMS.Membership.FloodProtectionHelper.MaxPoolCapacity">
-            <summary>
-            Maximum pool capacity
-            </summary>
-        </member>
-        <member name="P:CMS.Membership.FloodProtectionHelper.UserBasedProtection">
-            <summary>
-            Gets or sets the value that indictaes whether for authenticated user is action's
-            flood interval checked with dependence on current user or IP address
-            </summary>
-        </member>
-        <member name="T:CMS.Protection.CheckParameters">
-            <summary>
-            Summary description for CheckParameters.
-            </summary>
-        </member>
-        <member name="F:CMS.Protection.CheckParameters.DENIED">
-            <summary>
-            Denied value.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.EnsureTable(CMS.Base.SafeDictionary{System.String,CMS.Base.SafeDictionary{System.String,System.String}},System.String)">
-            <summary>
-            Ensures that ParentDictionary item is present in a given table.
-            </summary>
-            <param name="table">Table where to ensure the value</param>
-            <param name="key">Item key</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.Load">
-            <summary>
-            Loads the settings if not yet loaded.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.LoadSettings(System.String)">
-            <summary>
-            Loads the parameters settings from specified file.
-            </summary>
-            <param name="filepath">File path to load</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.CheckPath(System.String)">
-            <summary>
-            Checks the current request for allowed parameters.
-            </summary>
-            <param name="path">Path to check</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.CheckPath(System.String,System.Boolean)">
-            <summary>
-            Checks the current request for allowed parameters.
-            </summary>
-            <param name="path">Path to check</param>
-            <param name="redirect">If true, when parameters do not match, the request is redirected either to 404 or throws an exception (depending on current settings)</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.CheckPath(System.String,System.Collections.Generic.List{System.String}@,System.Collections.Generic.List{System.String}@)">
-            <summary>
-            Checks the current request for allowed parameters.
-            </summary>
-            <param name="path">Path to check</param>
-            <param name="invalidFormParams">List where invalid form params will be placed</param>
-            <param name="invalidQueryParams">List where invalid query params will be placed</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.CheckPage(System.String)">
-            <summary>
-            Checks the current request for allowed parameters.
-            </summary>
-            <param name="url">Page to check</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.CheckPage(System.String,System.Boolean)">
-            <summary>
-            Checks the current request for allowed parameters.
-            </summary>
-            <param name="url">Page to check</param>
-            <param name="redirect">If true, when parameters do not match, the request is redirected either to 404 or throws an exception (depending on current settings)</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.CheckPage(System.String,System.Collections.Generic.List{System.String}@,System.Collections.Generic.List{System.String}@)">
-            <summary>
-            Checks the current request URL for allowed parameters.
-            </summary>
-            <param name="url">Page URL to check</param>
-            <param name="invalidFormParams">List where invalid form params will be placed</param>
-            <param name="invalidQueryParams">List where invalid query params will be placed</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.CheckKey(System.String,CMS.Base.SafeDictionary{System.String,System.String},System.Collections.Generic.List{System.String}@)">
-            <summary>
-            Checks the key.
-            </summary>
-            <param name="key">Key</param>
-            <param name="allowedKeys">Table of allowed keys</param>
-            <param name="invalidList">Invalid key list</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.DenyAll(CMS.Base.SafeDictionary{System.String,System.String})">
-            <summary>
-            Returns true if deny all is present in the deny table.
-            </summary>
-            <param name="denied">Denied table</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.AddAllowed(CMS.Base.SafeDictionary{System.String,System.String},CMS.Base.SafeDictionary{System.String,System.String})">
-            <summary>
-            Adds the allowed records to the result table.
-            </summary>
-            <param name="result">Result table</param>
-            <param name="allowed">Allowed table to add</param>
-        </member>
-        <member name="M:CMS.Protection.CheckParameters.AddDenied(CMS.Base.SafeDictionary{System.String,System.String},CMS.Base.SafeDictionary{System.String,System.String})">
-            <summary>
-            Adds the denied records to the result table.
-            </summary>
-            <param name="result">Result table</param>
-            <param name="denied">Denied table to add</param>
-        </member>
-        <member name="P:CMS.Protection.CheckParameters.DefaultQueryParameters">
-            <summary>
-            Default query parameters that are allowed
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.CheckParameters.AllowCheck">
-            <summary>
-            If checking is allowed, returns true.
-            </summary>
-        </member>
-        <member name="P:CMS.Protection.CheckParameters.ReportParameters">
-            <summary>
-            If true, exception reporting the parameters is thrown when the parameters do not match.
-            </summary>
-        </member>
-        <member name="T:CMS.Protection.InvalidParametersException">
-            <summary>
-            Invalid parameters exception.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.InvalidParametersException.#ctor(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="invalidFormParams">List of invalid form parameters</param>
-            <param name="invalidQueryParams">List of invalid query string parameters</param>
-            <param name="path">Current path</param>
-            <param name="url">Current url</param>
-        </member>
-        <member name="M:CMS.Protection.InvalidParametersException.CreateMessage(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
-            <summary>
-            Created the exception message.
-            </summary>
-            <param name="invalidFormParams">List of invalid form parameters</param>
-            <param name="invalidQueryParams">List of invalid query string parameters</param>
-            <param name="path">Current path</param>
-            <param name="url">Current url</param>
-        </member>
         <member name="T:CMS.Protection.ProtectionModuleMetadata">
             <summary>
             Represents the Protection module metadata.
@@ -1150,35 +967,6 @@
         <member name="F:CMS.Protection.AbuseReportInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.AbuseReportInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.AbuseReportInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.AbuseReportInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.Protection.AbuseReportInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty AbuseReportInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Protection.AbuseReportInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new AbuseReportInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Protection.AbuseReportInfo.ReportUserID">
@@ -1241,6 +1029,35 @@
             Report Object ID.
             </summary>
         </member>
+        <member name="M:CMS.Protection.AbuseReportInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.AbuseReportInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.AbuseReportInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.Protection.AbuseReportInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty AbuseReportInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Protection.AbuseReportInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new AbuseReportInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Protection.AbuseReportInfoProvider">
             <summary>
             Class providing AbuseReportInfo management.
@@ -1284,13 +1101,6 @@
             <param name="topN">Restricts maximum number of rows, for all rows use 0</param>
             <param name="columns">Select only specified columns</param>
         </member>
-        <member name="M:CMS.Protection.AbuseReportInfoProvider.GetAbuseReports(System.String,System.String)">
-            <summary>
-            Returns Dataset with AbuseReportInfo.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-        </member>
         <member name="M:CMS.Protection.AbuseReportInfoProvider.IsObjectTypeSupported(System.String)">
             <summary>
             Indicates if given obejct type is supproted to show details.
@@ -1326,6 +1136,29 @@
             <summary>
             Default constructor
             </summary>
+        </member>
+        <member name="T:CMS.Membership.FloodProtectionHelper">
+            <summary>
+            Flood protection class.
+            </summary>
+        </member>
+        <member name="P:CMS.Membership.FloodProtectionHelper.MaxPoolCapacity">
+            <summary>
+            Maximum pool capacity
+            </summary>
+        </member>
+        <member name="P:CMS.Membership.FloodProtectionHelper.UserBasedProtection">
+            <summary>
+            Gets or sets the value that indictaes whether for authenticated user is action's
+            flood interval checked with dependence on current user or IP address
+            </summary>
+        </member>
+        <member name="M:CMS.Membership.FloodProtectionHelper.CheckFlooding(System.String,CMS.Base.IUserInfo)">
+            <summary>
+            Returns true if the current IP address or user floods the system.
+            </summary>
+            <param name="sitename">Site name</param> 
+            <param name="ui">User info object</param>
         </member>
     </members>
 </doc>

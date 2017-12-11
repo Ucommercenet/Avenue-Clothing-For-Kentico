@@ -11,8 +11,11 @@ using CMS.EmailEngine;
 using CMS.Helpers;
 using CMS.SiteProvider;
 using CMS.UIControls;
+using CMS.Base;
+using CMS.Membership;
+using CMS.Core;
 
-public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalGlobalAdminPage
+public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalPage
 {
     #region "Protected variables"
 
@@ -23,6 +26,8 @@ public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalGlobalAd
     protected int mNextId;
 
     protected Hashtable mParameters;
+
+    private bool? mUserIsAdmin;
 
     #endregion
 
@@ -45,6 +50,23 @@ public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalGlobalAd
         }
     }
 
+
+    /// <summary>
+    /// Indicates whether user is admin.
+    /// </summary>
+    private bool UserIsAdmin
+    {
+        get
+        {
+            if (!mUserIsAdmin.HasValue)
+            {
+                mUserIsAdmin = MembershipContext.AuthenticatedUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin);
+            }
+
+            return mUserIsAdmin.Value;
+        }
+    }
+
     #endregion
 
 
@@ -55,6 +77,11 @@ public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalGlobalAd
         if (!QueryHelper.ValidateHash("hash", "emailid") || Parameters == null)
         {
             return;
+        }
+
+        if (!CMSActionContext.CurrentUser.IsAuthorizedPerResource(ModuleName.EMAILENGINE, EmailQueuePage.READ_PERMISSION, SiteContext.CurrentSiteName, false))
+        {
+            RedirectToAccessDenied(ModuleName.EMAILENGINE, EmailQueuePage.READ_PERMISSION);
         }
 
         PageTitle.TitleText = GetString("emailqueue.details.title");
@@ -74,7 +101,7 @@ public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalGlobalAd
             LoadData();
             HandleFieldsVisibility();
         }
-
+        
         // Initialize next/previous buttons
         int[] prevNext = EmailInfoProvider.GetPreviousNext(mEmailId, whereCondition, orderBy);
         if (prevNext != null)
@@ -142,16 +169,19 @@ public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalGlobalAd
         lblSubjectValue.Text = HTMLHelper.HTMLEncode(ei.EmailSubject);
         lblErrorMessageValue.Text = HTMLHelper.HTMLEncodeLineBreaks(ei.EmailLastSendResult);
 
-        if (string.IsNullOrEmpty(ei.EmailPlainTextBody))
+        if (UserIsAdmin)
         {
-            LoadHTMLBody(ei);
-        }
-        else
-        {
-            LoadPlainTextBody(ei);
-        }
+            if (string.IsNullOrEmpty(ei.EmailPlainTextBody))
+            {
+                LoadHTMLBody(ei);
+            }
+            else
+            {
+                LoadPlainTextBody(ei);
+            }
 
-        GetAttachments();
+            GetAttachments();
+        }
     }
 
 
@@ -275,6 +305,11 @@ public partial class CMSModules_EmailQueue_EmailQueue_Details : CMSModalGlobalAd
         if (!plcDetails.Visible || EditedObject == null)
         {
             return;
+        }
+
+        if (!UserIsAdmin)
+        {
+            pnlBody.Visible = false;
         }
 
         var emailInfo = (EmailInfo)EditedObject;

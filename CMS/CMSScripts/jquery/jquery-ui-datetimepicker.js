@@ -69,11 +69,11 @@
             var scrollParent;
             if (($.browser.msie && (/(static|relative)/).test(this.css('position'))) || (/absolute/).test(this.css('position'))) {
                 scrollParent = this.parents().filter(function() {
-                    return (/(relative|absolute|fixed)/).test($.curCSS(this, 'position', 1)) && (/(auto|scroll)/).test($.curCSS(this, 'overflow', 1) + $.curCSS(this, 'overflow-y', 1) + $.curCSS(this, 'overflow-x', 1));
+                    return (/(relative|absolute|fixed)/).test($(this).css('position', 1)) && (/(auto|scroll)/).test($(this).css('overflow', 1) + $(this).css('overflow-y', 1) + this.css('overflow-x', 1));
                 }).eq(0);
             } else {
                 scrollParent = this.parents().filter(function() {
-                    return (/(auto|scroll)/).test($.curCSS(this, 'overflow', 1) + $.curCSS(this, 'overflow-y', 1) + $.curCSS(this, 'overflow-x', 1));
+                    return (/(auto|scroll)/).test($(this).css('overflow', 1) + $(this).css('overflow-y', 1) + $(this).css('overflow-x', 1));
                 }).eq(0);
             }
 
@@ -133,12 +133,12 @@
 
         function reduce(elem, size, border, margin) {
             $.each(side, function() {
-                size -= parseFloat($.curCSS(elem, "padding" + this, true)) || 0;
+                size -= parseFloat($(elem).css("padding" + this, true)) || 0;
                 if (border) {
-                    size -= parseFloat($.curCSS(elem, "border" + this + "Width", true)) || 0;
+                    size -= parseFloat($(elem).css("border" + this + "Width", true)) || 0;
                 }
                 if (margin) {
-                    size -= parseFloat($.curCSS(elem, "margin" + this, true)) || 0;
+                    size -= parseFloat($(elem).css("margin" + this, true)) || 0;
                 }
             });
             return size;
@@ -154,7 +154,11 @@
             });
         };
 
-        $.fn["outer" + name] = function(size, margin) {
+        $.fn["outer" + name] = function (size, margin) {
+            if (size === undefined) {
+                return orig["outer" + name].call(this);
+            }
+
             if (typeof size !== "number") {
                 return orig["outer" + name].call(this, size);
             }
@@ -167,8 +171,8 @@
 
     // selectors
     function visible(element) {
-        return !$(element).parents().andSelf().filter(function() {
-            return $.curCSS(this, "visibility") === "hidden" ||
+        return !$(element).parents().addBack().filter(function() {
+            return $(this).css("visibility") === "hidden" ||
 			$.expr.filters.hidden(this);
         }).length;
     }

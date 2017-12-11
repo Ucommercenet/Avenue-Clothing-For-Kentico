@@ -162,7 +162,7 @@ public partial class CMSWebParts_Newsletters_NewsletterSubscriptionWebPart {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSFormControls_Captcha_SecurityCode scCaptcha;
+    protected global::CMS.FormEngine.Web.UI.SecurityCode scCaptcha;
     
     /// <summary>
     /// pnlButtonSubmit control.

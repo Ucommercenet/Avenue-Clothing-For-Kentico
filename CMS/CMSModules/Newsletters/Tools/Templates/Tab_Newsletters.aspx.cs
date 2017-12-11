@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 using CMS.DataEngine;
+using CMS.DataEngine.Query;
 using CMS.Helpers;
 using CMS.Membership;
 using CMS.Newsletters;
@@ -17,12 +20,13 @@ using CMS.UIControls;
 public partial class CMSModules_Newsletters_Tools_Templates_Tab_Newsletters : CMSNewsletterPage
 {
     private EmailTemplateInfo emailTemplateInfo;
-    private DataSet templateNewsletters;
     private string currentValues;
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        lblErrorMessage.Visible = false;
+
         emailTemplateInfo = EditedObject as EmailTemplateInfo;
 
         if (emailTemplateInfo == null)
@@ -34,32 +38,31 @@ public partial class CMSModules_Newsletters_Tools_Templates_Tab_Newsletters : CM
         // Initialize newsletter selector
         var where = new WhereCondition()
             .WhereEquals("NewsletterSource", NewsletterSource.TemplateBased)
-            .WhereEquals("NewsletterSiteID", SiteContext.CurrentSiteID)
-            .WhereNotEquals("NewsletterTemplateID", emailTemplateInfo.TemplateID);
-        usNewsletters.WhereCondition = where.ToString(expand: true);
+            .WhereEquals("NewsletterSiteID", SiteContext.CurrentSiteID);
+        usNewsletters.WhereCondition = where.ToString(true);
 
         if (!RequestHelper.IsPostBack())
         {
-            LoadSiteBindings();
+            LoadNewsletterTemplateBindings();
         }
 
-        usNewsletters.OnSelectionChanged += usSites_OnSelectionChanged;
+        usNewsletters.OnSelectionChanged += usNewsletters_OnSelectionChanged;
     }
 
 
     /// <summary>
     /// Uniselector event handler.
     /// </summary>
-    protected void usSites_OnSelectionChanged(object sender, EventArgs e)
+    protected void usNewsletters_OnSelectionChanged(object sender, EventArgs e)
     {
-        SaveSiteBindings();
+        SaveNewsletterTemplateBindings();
     }
 
 
     /// <summary>
     /// Load control.
     /// </summary>
-    private void LoadSiteBindings()
+    private void LoadNewsletterTemplateBindings()
     {
         GetCurrentNewsletters();
         usNewsletters.Value = currentValues;
@@ -72,26 +75,20 @@ public partial class CMSModules_Newsletters_Tools_Templates_Tab_Newsletters : CM
     /// </summary>
     private void GetCurrentNewsletters()
     {
-        templateNewsletters = EmailTemplateNewsletterInfoProvider
-                                    .GetEmailTemplateNewsletters()
-                                    .WhereEquals("TemplateID", emailTemplateInfo.TemplateID)
-                                    .Column("NewsletterID");
+        var templateNewsletters = EmailTemplateNewsletterInfoProvider
+            .GetEmailTemplateNewsletters()
+            .WhereEquals("TemplateID", emailTemplateInfo.TemplateID)
+            .Column("NewsletterID")
+            .GetListResult<int>();
 
-        if (!DataHelper.DataSourceIsEmpty(templateNewsletters))
-        {
-            currentValues = TextHelper.Join(";", DataHelper.GetStringValues(templateNewsletters.Tables[0], "NewsletterID"));
-        }
-        else
-        {
-            currentValues = string.Empty;
-        }
+        currentValues = TextHelper.Join(";", templateNewsletters);
     }
 
 
     /// <summary>
     /// Save changes.
     /// </summary>
-    private void SaveSiteBindings()
+    private void SaveNewsletterTemplateBindings()
     {
         // Check 'Manage templates' permission
         if (!MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("cms.newsletter", "managetemplates"))
@@ -104,10 +101,11 @@ public partial class CMSModules_Newsletters_Tools_Templates_Tab_Newsletters : CM
             GetCurrentNewsletters();
         }
 
-        string newValues = ValidationHelper.GetString(usNewsletters.Value, null);
+        var newValues = ValidationHelper.GetString(usNewsletters.Value, null);
         RemoveOldRecords(newValues, currentValues);
         AddNewRecords(newValues, currentValues);
-        currentValues = newValues;
+
+        LoadNewsletterTemplateBindings();
     }
 
 
@@ -116,31 +114,87 @@ public partial class CMSModules_Newsletters_Tools_Templates_Tab_Newsletters : CM
     /// </summary>
     private void RemoveOldRecords(string newValues, string currentNewsletters)
     {
-        string items = DataHelper.GetNewItemsInList(newValues, currentNewsletters);
-        if (!String.IsNullOrEmpty(items))
+        var items = DataHelper.GetNewItemsInList(newValues, currentNewsletters);
+
+        if (String.IsNullOrEmpty(items))
         {
-            var modifiedItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string item in modifiedItems)
-            {
-                EmailTemplateNewsletterInfoProvider.RemoveNewsletterFromTemplate(emailTemplateInfo.TemplateID, ValidationHelper.GetInteger(item, 0));
-            }
+            return;
+        }
+
+        var newsletterIds = GetNewsletterIds(items).ToList();
+
+        var newsletterIdsToRemove = newsletterIds.Where(IsSafeToRemove).ToList();
+        var irremovableNewsletterIds = newsletterIds.Except(newsletterIdsToRemove).ToList();
+        
+        if (irremovableNewsletterIds.Any())
+        {
+            AddErrorMessage(irremovableNewsletterIds);
+        }
+        
+        RemoveTemplateBindings(newsletterIdsToRemove);
+    }
+
+
+    private void AddErrorMessage(ICollection<int> irremovableNewsletterIds)
+    {
+        var newsletters = NewsletterInfoProvider.GetNewsletters()
+            .WhereIn("NewsletterID", irremovableNewsletterIds)
+            .Columns("NewsletterDisplayName")
+            .GetListResult<string>();
+
+        lblErrorMessage.Text = string.Format(GetString("newsletter.templatenewsletter.lastbindingerror"), string.Join(", ", newsletters));
+        lblErrorMessage.Visible = true;
+    }
+
+
+    private void RemoveTemplateBindings(IEnumerable<int> newsletterIds)
+    {
+        foreach (var newsletterId in newsletterIds)
+        {
+            EmailTemplateNewsletterInfoProvider.RemoveNewsletterFromTemplate(emailTemplateInfo.TemplateID, newsletterId);
         }
     }
 
 
+    private static bool IsSafeToRemove(int newsletterId)
+    {
+        var assignedTemplatesCount = EmailTemplateNewsletterInfoProvider.GetEmailTemplateNewsletters()
+                                                                        .WhereEquals("NewsletterID", newsletterId)
+                                                                        .GetCount();
+
+        return assignedTemplatesCount > 1;
+    }
+
+    
     /// <summary>
     /// Add newsletters to template.
     /// </summary>
     private void AddNewRecords(string newValues, string currentNewsletters)
     {
-        string items = DataHelper.GetNewItemsInList(currentNewsletters, newValues);
-        if (!String.IsNullOrEmpty(items))
+        var items = DataHelper.GetNewItemsInList(currentNewsletters, newValues);
+
+        if (String.IsNullOrEmpty(items))
         {
-            var modifiedItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string item in modifiedItems)
-            {
-                EmailTemplateNewsletterInfoProvider.AddNewsletterToTemplate(emailTemplateInfo.TemplateID, ValidationHelper.GetInteger(item, 0));
-            }
+            return;
         }
+
+        var newsletterIds = GetNewsletterIds(items);
+        AddTemplateBindings(newsletterIds);
+    }
+
+
+    private void AddTemplateBindings(IEnumerable<int> newsletterIds)
+    {
+        foreach (var newsletterId in newsletterIds)
+        {
+            EmailTemplateNewsletterInfoProvider.AddNewsletterToTemplate(emailTemplateInfo.TemplateID, newsletterId);
+        }
+    }
+
+
+    private static IEnumerable<int> GetNewsletterIds(string items)
+    {
+        var modifiedItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+        return modifiedItems.Select(item => ValidationHelper.GetInteger(item, 0));
     }
 }

@@ -58,15 +58,15 @@
             User list <see cref="T:CMS.UIControls.UniGrid"/> extender.
             </summary>
         </member>
+        <member name="P:CMS.Membership.Web.UI.UserListExtender.CurrentUserObj">
+            <summary>
+            Gets the current user info.
+            </summary>
+        </member>
         <member name="M:CMS.Membership.Web.UI.UserListExtender.OnInit">
             <summary>
             OnInit event.
             </summary>
-        </member>
-        <member name="M:CMS.Membership.Web.UI.UserListExtender.OnBeforeDataReload">
-            <summary>
-            Handles setting the grid where condition before data binding.
-            </summary>    
         </member>
         <member name="M:CMS.Membership.Web.UI.UserListExtender.OnExternalDataBound(System.Object,System.String,System.Object)">
             <summary>
@@ -95,11 +95,6 @@
         <member name="M:CMS.Membership.Web.UI.UserListExtender.GetUser(System.Data.DataRowView)">
             <summary>
             Returns (eventually incomplete) <see cref="T:CMS.Membership.UserInfo"/> based on given <see cref="T:System.Data.DataRowView"/>.
-            </summary>
-        </member>
-        <member name="P:CMS.Membership.Web.UI.UserListExtender.CurrentUserObj">
-            <summary>
-            Gets the current user info.
             </summary>
         </member>
         <member name="T:CMS.Membership.Web.UI.SignOutScriptHelper">

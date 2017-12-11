@@ -1150,7 +1150,7 @@ function RefreshGrid()
                         sb.Append("<a href=\"javascript: ", selectFunction, "\"");
 
                         // Ensure onclick action on mobile devices. This is necessary due to Tip/UnTip functions. They block default click behavior on mobile devices.
-                        if (DeviceContext.CurrentDevice.IsMobile)
+                        if (DeviceContext.CurrentDevice.IsMobile())
                         {
                             sb.Append(" ontouchend=\"", selectFunction, "\"");
                         }

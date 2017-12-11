@@ -143,7 +143,9 @@ public partial class CMSModules_Messaging_Controls_SearchUser : CMSUserControl
             }
         }
 
+#pragma warning disable BH2501 // Do not use ExecuteQuery in UI.
         return ConnectionHelper.ExecuteQuery("cms.user.finduserinsite", parameters, where, "UserName ASC", currentTopN, "View_CMS_User.UserID,UserName,UserNickName,FullName", currentOffset, currentPageSize, ref totalRecords);
+#pragma warning restore BH2501 // Do not use ExecuteQuery in UI.
     }
 
 

@@ -80,7 +80,7 @@ function SelectPageTemplate(value)
 		int rootCategoryId = QueryHelper.GetInteger("rootcategoryid", 0);
 		if (rootCategoryId > 0)
 		{
-			selectElem.RootCategory = rootCategoryId;
+			selectElem.RootCategoryID = rootCategoryId;
 		}
 
 		// Preset item

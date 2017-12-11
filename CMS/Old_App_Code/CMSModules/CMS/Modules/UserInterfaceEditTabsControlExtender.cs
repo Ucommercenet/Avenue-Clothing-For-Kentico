@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI.WebControls;
 
 using CMS;
@@ -36,16 +35,13 @@ public class UserInterfaceEditTabsControlExtender : UITabsExtender
     /// </summary>
     private void HandleContentCheckBox(List<UITabItem> items)
     {
-        var script = String.Format(
-@"
+        var script = $@"
 var IsCMSDesk = true;
 
 function ShowContent(show) {{
-    document.getElementById('{0}').style.display = show ? 'block' : 'none';
+    document.getElementById('{pnlContent.ClientID}').style.display = show ? 'block' : 'none';
 }}
-",
-            pnlContent.ClientID
-        );
+";
 
         ScriptHelper.RegisterClientScriptBlock(Control.Page, typeof(string), "UserInterfaceEditTabsControlExtender", ScriptHelper.GetScript(script));
 
@@ -58,16 +54,20 @@ function ShowContent(show) {{
     /// </summary>
     private void AppendDesignContentCheckBox()
     {
-        pnlContent = new Panel();
-        pnlContent.ID = "pc";
-        pnlContent.CssClass = "design-showcontent";
+        pnlContent = new Panel
+        {
+            ID = "pc",
+            CssClass = "design-showcontent"
+        };
 
-        chkContent = new CMSCheckBox();
-        chkContent.Text = Control.GetString("EditTabs.DisplayContent");
-        chkContent.ID = "chk";
-        chkContent.AutoPostBack = true;
-        chkContent.EnableViewState = false;
-        chkContent.Checked = PortalHelper.DisplayContentInUIElementDesignMode;
+        chkContent = new CMSCheckBox
+        {
+            Text = Control.GetString("EditTabs.DisplayContent"),
+            ID = "chk",
+            AutoPostBack = true,
+            EnableViewState = false,
+            Checked = PortalHelper.DisplayContentInUIElementDesignMode
+        };
         chkContent.CheckedChanged += ContentCheckBoxCheckedChanged;
 
         pnlContent.Controls.Add(chkContent);
@@ -86,7 +86,7 @@ function ShowContent(show) {{
         foreach (var tab in items)
         {
             var isDesign = tab.TabName == "Modules.UserInterface.Design";
-            var script = String.Format("ShowContent({0})", isDesign.ToString().ToLower());
+            var script = $"ShowContent({isDesign.ToString().ToLowerInvariant()})";
 
             if (isDesign)
             {

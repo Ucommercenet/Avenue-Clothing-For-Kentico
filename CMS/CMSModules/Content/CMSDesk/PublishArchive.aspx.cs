@@ -662,6 +662,11 @@ public partial class CMSModules_Content_CMSDesk_PublishArchive : CMSContentPage
         bool alreadyPublished = (currentStep == null) || currentStep.StepIsPublished;
         if (!alreadyPublished)
         {
+            var workflow = node.WorkflowManager.GetNodeWorkflow(node);
+            if (workflow != null && workflow.IsApproval && currentStep.StepIsArchived)
+            {
+                node.CreateNewVersion();
+            }
             // Publish document
             currentStep = node.WorkflowManager.PublishDocument(node);
         }

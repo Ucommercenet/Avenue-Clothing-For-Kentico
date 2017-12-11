@@ -74,7 +74,7 @@ public partial class CMSModules_SmartSearch_SearchTask_Report : GlobalAdminPage
     {
         if (SearchTaskInfo != null)
         {
-            GeneralizedInfo relatedObjectInfo = BaseAbstractInfoProvider.GetInfoById(SearchTaskInfo.SearchTaskRelatedObjectType, SearchTaskInfo.SearchTaskRelatedObjectID);
+            GeneralizedInfo relatedObjectInfo = ProviderHelper.GetInfoById(SearchTaskInfo.SearchTaskRelatedObjectType, SearchTaskInfo.SearchTaskRelatedObjectID);
             string relatedObjectStr = String.Empty;
 
             if (relatedObjectInfo == null)

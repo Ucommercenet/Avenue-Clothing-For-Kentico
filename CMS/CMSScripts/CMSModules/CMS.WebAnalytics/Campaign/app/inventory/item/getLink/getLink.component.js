@@ -4,7 +4,8 @@
     angular.module('cms.webanalytics/campaign/inventory/item/getLink.component', [
         'cms.webanalytics/campaign/dialogHeader.component',
         'cms.webanalytics/campaign/dialogFooter.component',
-        'cms.webanalytics/campaign/cms.urlHelper.service'
+        'cms.webanalytics/campaign/cms.urlHelper.service',
+        'cms.webanalytics/campaign/inventory/item/getLink.service'
     ])
         .component('cmsGetLink', getLink());
 
@@ -41,9 +42,8 @@
     }
 
     /*@ngInject*/
-    function modalController($uibModalInstance, assetLink, utmCampaign, resolveFilter, urlHelperService) {
-        var ctrl = this,
-            urlHelper = urlHelperService.urlHelper;
+    function modalController($uibModalInstance, assetLink, utmCampaign, resolveFilter, getLinkService) {
+        var ctrl = this;
 
         ctrl.emptyUtmSourceText = resolveFilter("campaign.getcontentlink.dialog.emptyutmsource");
         ctrl.link = ctrl.emptyUtmSourceText;
@@ -53,32 +53,11 @@
         };
 
         ctrl.onChange = function () {
-            ctrl.link = buildLink(assetLink, utmCampaign, ctrl.utmSource, ctrl.utmMedium);
+            ctrl.link = getLinkService.buildLink(assetLink, utmCampaign, ctrl.utmSource, ctrl.utmMedium, ctrl.utmContent, ctrl.emptyUtmSourceText);
         };
 
         ctrl.textAreaClick = function (event) {
             event.target.select();
         };
-
-        function buildLink(originalLink, utmCampaign, utmSource, utmMedium) {
-            if (!utmSource) {
-                return ctrl.emptyUtmSourceText;
-            }
-
-            var originalLinkWithoutQueryString = urlHelper.removeQueryString(originalLink),
-                queryParams = urlHelper.getParameters(originalLink);
-
-            if (utmCampaign) {
-                queryParams.utm_campaign = utmCampaign;
-            }
-
-            queryParams.utm_source = utmSource;
-
-            if (utmMedium) {
-                queryParams.utm_medium = utmMedium;
-            }
-
-            return originalLinkWithoutQueryString + urlHelper.buildQueryString(queryParams);
-        }
     }
 }(angular));

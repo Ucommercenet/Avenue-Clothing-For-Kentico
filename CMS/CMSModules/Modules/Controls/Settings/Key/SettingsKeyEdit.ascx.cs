@@ -168,7 +168,7 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit : 
         InitControls();
 
         // Load the form data
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             LoadData();
         }
@@ -215,9 +215,6 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit : 
 
         // Show category selection
         trCategory.Visible = true;
-
-        // Select 'Keep current settings' option for load generation property
-        drpGeneration.Value = -1;
     }
 
 
@@ -248,9 +245,6 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit : 
         rfvKeyDisplayName.ErrorMessage = ResHelper.GetString("general.requiresdisplayname");
         rfvKeyName.ErrorMessage = ResHelper.GetString("general.requirescodename");
 
-        // Display of LoadGeneration table row
-        trLoadGeneration.Visible = SystemContext.DevelopmentMode;
-
         // Set the root category
         if (RootCategoryID > 0)
         {
@@ -275,13 +269,13 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit : 
         else
         {
             // Set category selector value
-            if (!URLHelper.IsPostback() && (SettingsKeyObj != null) && (SettingsKeyObj.KeyCategoryID > 0))
+            if (!RequestHelper.IsPostBack() && (SettingsKeyObj != null) && (SettingsKeyObj.KeyCategoryID > 0))
             {
                 drpCategory.SelectedCategory = SettingsKeyObj.KeyCategoryID;
             }
         }
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             LoadKeyTypes();
         }
@@ -307,7 +301,7 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit : 
         drpKeyType.Items.Clear();
         drpKeyType.Items.Add(new ListItem(ResHelper.GetString("TemplateDesigner.FieldTypes.Boolean"), "boolean"));
         drpKeyType.Items.Add(new ListItem(ResHelper.GetString("TemplateDesigner.FieldTypes.Integer"), "int"));
-        drpKeyType.Items.Add(new ListItem(ResHelper.GetString("TemplateDesigner.FieldTypes.Double"), "double"));
+        drpKeyType.Items.Add(new ListItem(ResHelper.GetString("TemplateDesigner.FieldTypes.Float"), "double"));
         drpKeyType.Items.Add(new ListItem(ResHelper.GetString("TemplateDesigner.FieldTypes.Text"), "string"));
         drpKeyType.Items.Add(new ListItem(ResHelper.GetString("TemplateDesigner.FieldTypes.LongText"), "longtext"));
 
@@ -335,7 +329,7 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit : 
         DefaultValue = SettingsKeyObj.KeyDefaultValue;
         txtKeyValidation.Text = SettingsKeyObj.KeyValidation;
         ucSettingsKeyControlSelector.SetSelectorProperties(SettingsKeyObj.KeyType, SettingsKeyObj.KeyEditingControlPath);
-        drpGeneration.Value = -1;
+
         chkKeyIsGlobal.Checked = SettingsKeyObj.KeyIsGlobal;
         chkKeyIsHidden.Checked = SettingsKeyObj.KeyIsHidden;
     }
@@ -434,11 +428,6 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit : 
         else
         {
             keyObj.KeyFormControlSettings = null;
-        }
-
-        if (drpGeneration.Value >= 0)
-        {
-            keyObj.KeyLoadGeneration = drpGeneration.Value;
         }
 
         if (keyObj.KeyID == 0)

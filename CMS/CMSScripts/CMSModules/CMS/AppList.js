@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/Filter', 'CMS/EventHub', 'CMS/NavigationBlocker', 'jQuery', 'Underscore', 'CMS/UrlHelper', 'jQueryJScrollPane', 'CMS/Loader'], function (Filter, EventHub, NavigationBlocker, $, _, UrlHelper) {
-    'use strict';
 
     var AppList,
 
@@ -150,7 +149,8 @@
                 $appListOverLayer.animate({ opacity: data.opacity }, { duration: data.duration, queue: false });
             }
 
-            $documentBody.animate({ left: $appListPanel.width() }, {
+            var appListWidth = $appListPanel.width();
+            $documentBody.animate({ left: appListWidth, right: -appListWidth }, {
                 duration: data.duration,
                 queue: false,
                 complete: function () {
@@ -180,7 +180,7 @@
             }, {
                 duration: data.duration, queue: false
             });
-            $documentBody.animate({ left: '0px' }, data.duration, function () {
+            $documentBody.animate({ left: '0px', right: '0px' }, data.duration, function () {
                 $appListOverLayer.hide();
                 runOnAppHideCallbacks();
             });
@@ -319,7 +319,13 @@
                 // Notify onLaunchApplication listeners
                 notifyLaunchAppListeners(currentAppId, appName);
 
-                window.location.hash = currentAppId;
+                if (!additionalQueryObject.persistent) {
+                    window.location.hash = currentAppId;
+                }
+                else {
+                    // Since the link is persistent, there is no need to ignore the hash, locationHashChanged() won't be called at all
+                    ignoreHash = false;
+                }
 
                 // Call event so breadcrumbs could receive required data
                 if (redirectToSingleObject) {
@@ -565,7 +571,7 @@
                 var appId = location.hash.substring(1);
                 openApplication(appId);
             }
-
+            
             ignoreHash = false;
         },
 

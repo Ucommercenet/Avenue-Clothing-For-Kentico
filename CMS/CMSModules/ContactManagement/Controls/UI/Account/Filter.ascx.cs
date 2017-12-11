@@ -60,7 +60,7 @@ public partial class CMSModules_ContactManagement_Controls_UI_Account_Filter : C
     {
         get
         {
-            return IsAdvancedMode ? lnkShowSimpleFilter : lnkShowAdvancedFilter;
+            return lnkToggleFilter;
         }
     }
 
@@ -99,6 +99,7 @@ public partial class CMSModules_ContactManagement_Controls_UI_Account_Filter : C
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
+
         fltPhone.Columns = new[] { 
             "AccountPhone", 
             "AccountFax" 
@@ -107,9 +108,22 @@ public partial class CMSModules_ContactManagement_Controls_UI_Account_Filter : C
             "PrimaryContactFullName",
             "SecondaryContactFullName"
         };
-        btnReset.Text = GetString("general.reset");
-        btnReset.Click += btnReset_Click;
-        btnSearch.Click += btnSearch_Click;
+    }
+
+
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+
+        InitializeForm();
+    }
+
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        base.OnPreRender(e);
+
+        EnsureCorrectToggleFilterText();
     }
 
 
@@ -140,10 +154,12 @@ public partial class CMSModules_ContactManagement_Controls_UI_Account_Filter : C
     }
 
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected override void ToggleAdvancedModeButton_Click(object sender, EventArgs e)
     {
-        InitializeForm();
-        plcAdvancedSearch.Visible = IsAdvancedMode;
+        IsAdvancedMode = !IsAdvancedMode;
+        ShowFilterElements();
+
+        base.ToggleAdvancedModeButton_Click(sender, e);
     }
 
     #endregion
@@ -154,11 +170,9 @@ public partial class CMSModules_ContactManagement_Controls_UI_Account_Filter : C
     /// <summary>
     /// Shows/hides all elements for advanced or simple mode.
     /// </summary>
-    private void ShowFilterElements(bool showAdvanced)
+    private void ShowFilterElements()
     {
-        plcAdvancedSearch.Visible = showAdvanced;
-        pnlAdvanced.Visible = showAdvanced;
-        pnlSimple.Visible = !showAdvanced;
+        plcAdvancedSearch.Visible = IsAdvancedMode;
     }
 
 
@@ -169,31 +183,14 @@ public partial class CMSModules_ContactManagement_Controls_UI_Account_Filter : C
     {
         // General UI
         fltAccountStatus.AdditionalDropDownCSSClass = "DropDownFieldFilter";
-        lnkShowAdvancedFilter.Text = GetString("general.displayadvancedfilter");
-        lnkShowSimpleFilter.Text = GetString("general.displaysimplefilter");
-        plcAdvancedSearch.Visible = IsAdvancedMode;
-        pnlAdvanced.Visible = IsAdvancedMode;
-        pnlSimple.Visible = !IsAdvancedMode;
+        
+        ShowFilterElements();
     }
 
 
-    /// <summary>
-    /// Sets the advanced mode.
-    /// </summary>
-    protected void lnkShowAdvancedFilter_Click(object sender, EventArgs e)
+    private void EnsureCorrectToggleFilterText()
     {
-        IsAdvancedMode = true;
-        ShowFilterElements(true);
-    }
-
-
-    /// <summary>
-    /// Sets the simple mode.
-    /// </summary>
-    protected void lnkShowSimpleFilter_Click(object sender, EventArgs e)
-    {
-        IsAdvancedMode = false;
-        ShowFilterElements(false);
+        lnkToggleFilter.Text = IsAdvancedMode ? GetString("general.displaysimplefilter") : GetString("general.displayadvancedfilter");
     }
 
     #endregion

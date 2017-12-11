@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Web.UI.WebControls;
 
 using CMS.Base;
 using CMS.Base.Web.UI;
+using CMS.ContactManagement.Web.UI.Internal;
 using CMS.Core;
 using CMS.DataEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.LicenseProvider;
+using CMS.Modules;
 using CMS.Newsletters;
 using CMS.PortalEngine;
 using CMS.PortalEngine.Internal;
@@ -258,9 +261,9 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_O
         };
 
         // Create rate labels with tooltips 
-        ugEngagement.OnExternalDataBound += GetRate;
-        ugDelivery.OnExternalDataBound += GetRate;
-        ugContactLoss.OnExternalDataBound += GetRate;
+        ugEngagement.OnExternalDataBound += ExternalDataBound;
+        ugDelivery.OnExternalDataBound += ExternalDataBound;
+        ugContactLoss.OnExternalDataBound += ExternalDataBound;
 
         issueLinks.UniGrid.OnAfterRetrieveData += (dsLinks) =>
         {
@@ -269,39 +272,73 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_O
         };
     }
 
-
-    private string GetRate(object sender ,string rateName, object rateValue)
+    private string ExternalDataBound(object sender, string rateName, object parameter)
     {
-        string rateTooltip = String.Empty;
-
-        switch (rateName.ToLowerCSafe())
+        switch (rateName.ToLowerInvariant())
         {
             case "clickrate":
-                rateTooltip = GetString(mMonitorBouncedEmails ? "newsletter.clickratetooltip.delivered" : "newsletter.clickratetooltip.sent");
-                break;
+                return GetRate(sender, mMonitorBouncedEmails ? "newsletter.clickratetooltip.delivered" : "newsletter.clickratetooltip.sent", parameter);
             case "deliveryrate":
-                rateTooltip = GetString("newsletter.deliveryratetooltip");
-                break;
+                return GetRate(sender, "newsletter.deliveryratetooltip", parameter);
             case "openrate":
-                rateTooltip = GetString(mMonitorBouncedEmails ? "newsletter.openratetooltip.delivered" : "newsletter.openratetooltip.sent");
-                break;
+                return GetRate(sender, mMonitorBouncedEmails ? "newsletter.openratetooltip.delivered" : "newsletter.openratetooltip.sent", parameter);
             case "bouncerate":
-                rateTooltip = GetString("newsletter.bounceratetooltip");
-                break;
+                return GetRate(sender, "newsletter.bounceratetooltip", parameter);
             case "unsubscriptionrate":
-                rateTooltip = GetString(mMonitorBouncedEmails ? "newsletter.unsubscriptionratetooltip.delivered" : "newsletter.unsubscriptionratetooltip.sent");
-                break;
+                return GetRate(sender, mMonitorBouncedEmails ? "newsletter.unsubscriptionratetooltip.delivered" : "newsletter.unsubscriptionratetooltip.sent", parameter);
+            case "opens":
+                return GetHyperLinkOrOriginalStringIfInsufficientLicense("openedEmail", Convert.ToString(parameter, CultureHelper.PreferredUICultureInfo));
+            case "clicks":
+                return GetHyperLinkOrOriginalStringIfInsufficientLicense("clickedLink", Convert.ToString(parameter, CultureHelper.PreferredUICultureInfo));
+            case "unsubscriptions":
+                return GetHyperLinkOrOriginalStringIfInsufficientLicense("unsubscription", Convert.ToString(parameter, CultureHelper.PreferredUICultureInfo));
         }
 
+        return parameter.ToString();
+    }
+
+
+    private string GetHyperLinkOrOriginalStringIfInsufficientLicense(string uiElementName, string text)
+    {
+        return (ObjectFactory<ILicenseService>.StaticSingleton().IsFeatureAvailable(FeatureEnum.FullContactManagement) && text.ToInteger(0) > 0) ? 
+            GetHyperLink(uiElementName, text) : 
+            text;
+    }
+
+
+    private string GetRate(object sender, string rateResourceString, object parameter)
+    {
         WebControl control = sender as WebControl;
         if (control != null)
         {
-            ScriptHelper.AppendTooltip(control, rateTooltip, null);
+            ScriptHelper.AppendTooltip(control, GetString(rateResourceString), null);
         }
 
-        return String.Format(PERCENT_FORMAT, ValidationHelper.GetDouble(rateValue, 0));
+        return String.Format(PERCENT_FORMAT, ValidationHelper.GetDouble(parameter, 0));
     }
 
+
+    private string GetHyperLink(string retrieverIdentifier, string text)
+    {
+        var anchor = new HyperLink
+        {
+            NavigateUrl = GetDemographicsUrl(retrieverIdentifier),
+            Target = "_blank",
+            Text = text
+        };
+
+        return anchor.GetRenderedHTML();
+    }
+
+
+    private string GetDemographicsUrl(string retrieverIdentifier)
+    {
+        var parameters = new NameValueCollection();
+        parameters.Add("issueid", mIssue.IssueID.ToString());
+
+        return URLHelper.GetAbsoluteUrl(Service.Resolve<IContactDemographicsLinkBuilder>().GetDemographicsLink(retrieverIdentifier, parameters));
+    }
+    
 
     private void CreateAndSetColumn(DataTable dt, string colName, object value)
     {
@@ -325,7 +362,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_O
         // Is issue linked to an existing campaign
         if (campaign != null)
         {
-            var campaignDetailUrl = Service.Entry<IUILinkProvider>().GetSingleObjectLink(CampaignInfo.TYPEINFO.ModuleName, CAMPAIGN_ELEMENT_CODENAME, 
+            var campaignDetailUrl = Service.Resolve<IUILinkProvider>().GetSingleObjectLink(CampaignInfo.TYPEINFO.ModuleName, CAMPAIGN_ELEMENT_CODENAME, 
                                                                         new ObjectDetailLinkParameters
                                                                         {
                                                                             ObjectIdentifier = campaign.CampaignID,

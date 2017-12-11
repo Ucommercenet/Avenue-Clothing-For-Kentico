@@ -1,33 +1,19 @@
 ﻿using System;
-using System.Data;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
-using CMS.PortalEngine.Web.UI;
+using CMS.ContactManagement;
+using CMS.Core;
+using CMS.DataProtection;
 using CMS.Helpers;
+using CMS.Localization;
 using CMS.PortalEngine;
+using CMS.PortalEngine.Web.UI;
 
 public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
 {
+    private readonly ICurrentCookieLevelProvider cookieLevelProvider = Service.Resolve<ICurrentCookieLevelProvider>();
+
+
     #region "Properties"
-
-    /// <summary>
-    /// Default user cookie level
-    /// </summary>
-    public string DefaultLevel
-    {
-        get
-        {
-            return ValidationHelper.GetString(this.GetValue("DefaultLevel"), "");
-        }
-        set
-        {
-            this.SetValue("DefaultLevel", value);
-        }
-    }
-
 
     /// <summary>
     /// Compare current cookie level to
@@ -36,27 +22,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("MatchLevel"), "Essential");
+            return ValidationHelper.GetString(GetValue("MatchLevel"), "Essential");
         }
         set
         {
-            this.SetValue("MatchLevel", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Level simulated in preview mode
-    /// </summary>
-    public string PreviewLevel
-    {
-        get
-        {
-            return ValidationHelper.GetString(this.GetValue("PreviewLevel"), "Essential");
-        }
-        set
-        {
-            this.SetValue("PreviewLevel", value);
+            SetValue("MatchLevel", value);
         }
     }
 
@@ -68,11 +38,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("BelowLevelVisible"), true);
+            return ValidationHelper.GetBoolean(GetValue("BelowLevelVisible"), true);
         }
         set
         {
-            this.SetValue("BelowLevelVisible", value);
+            SetValue("BelowLevelVisible", value);
         }
     }
 
@@ -84,11 +54,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("BelowLevelText"), "");
+            return ValidationHelper.GetString(GetValue("BelowLevelText"), "");
         }
         set
         {
-            this.SetValue("BelowLevelText", value);
+            SetValue("BelowLevelText", value);
         }
     }
 
@@ -100,11 +70,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("BelowShowDeny"), false);
+            return ValidationHelper.GetBoolean(GetValue("BelowShowDeny"), false);
         }
         set
         {
-            this.SetValue("BelowShowDeny", value);
+            SetValue("BelowShowDeny", value);
         }
     }
 
@@ -116,11 +86,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("BelowShowSpecific"), true);
+            return ValidationHelper.GetBoolean(GetValue("BelowShowSpecific"), true);
         }
         set
         {
-            this.SetValue("BelowShowSpecific", value);
+            SetValue("BelowShowSpecific", value);
         }
     }
 
@@ -132,11 +102,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("BelowShowAll"), true);
+            return ValidationHelper.GetBoolean(GetValue("BelowShowAll"), true);
         }
         set
         {
-            this.SetValue("BelowShowAll", value);
+            SetValue("BelowShowAll", value);
         }
     }
 
@@ -148,11 +118,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("ExactLevelVisible"), true);
+            return ValidationHelper.GetBoolean(GetValue("ExactLevelVisible"), true);
         }
         set
         {
-            this.SetValue("ExactLevelVisible", value);
+            SetValue("ExactLevelVisible", value);
         }
     }
 
@@ -164,11 +134,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("ExactLevelText"), "");
+            return ValidationHelper.GetString(GetValue("ExactLevelText"), "");
         }
         set
         {
-            this.SetValue("ExactLevelText", value);
+            SetValue("ExactLevelText", value);
         }
     }
 
@@ -180,11 +150,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("ExactShowDeny"), true);
+            return ValidationHelper.GetBoolean(GetValue("ExactShowDeny"), true);
         }
         set
         {
-            this.SetValue("ExactShowDeny", value);
+            SetValue("ExactShowDeny", value);
         }
     }
 
@@ -196,11 +166,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("ExactShowSpecific"), false);
+            return ValidationHelper.GetBoolean(GetValue("ExactShowSpecific"), false);
         }
         set
         {
-            this.SetValue("ExactShowSpecific", value);
+            SetValue("ExactShowSpecific", value);
         }
     }
 
@@ -212,11 +182,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("ExactShowAll"), true);
+            return ValidationHelper.GetBoolean(GetValue("ExactShowAll"), true);
         }
         set
         {
-            this.SetValue("ExactShowAll", value);
+            SetValue("ExactShowAll", value);
         }
     }
 
@@ -228,11 +198,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("AboveLevelVisible"), true);
+            return ValidationHelper.GetBoolean(GetValue("AboveLevelVisible"), true);
         }
         set
         {
-            this.SetValue("AboveLevelVisible", value);
+            SetValue("AboveLevelVisible", value);
         }
     }
 
@@ -244,11 +214,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("AboveLevelText"), "");
+            return ValidationHelper.GetString(GetValue("AboveLevelText"), "");
         }
         set
         {
-            this.SetValue("AboveLevelText", value);
+            SetValue("AboveLevelText", value);
         }
     }
 
@@ -260,11 +230,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("AboveShowDeny"), true);
+            return ValidationHelper.GetBoolean(GetValue("AboveShowDeny"), true);
         }
         set
         {
-            this.SetValue("AboveShowDeny", value);
+            SetValue("AboveShowDeny", value);
         }
     }
 
@@ -276,11 +246,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("AboveShowSpecific"), true);
+            return ValidationHelper.GetBoolean(GetValue("AboveShowSpecific"), true);
         }
         set
         {
-            this.SetValue("AboveShowSpecific", value);
+            SetValue("AboveShowSpecific", value);
         }
     }
 
@@ -292,11 +262,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("AboveShowAll"), false);
+            return ValidationHelper.GetBoolean(GetValue("AboveShowAll"), false);
         }
         set
         {
-            this.SetValue("AboveShowAll", value);
+            SetValue("AboveShowAll", value);
         }
     }
 
@@ -308,11 +278,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("DenyAllText"), "Deny all cookies");
+            return ValidationHelper.GetString(GetValue("DenyAllText"), "Deny all cookies");
         }
         set
         {
-            this.SetValue("DenyAllText", value);
+            SetValue("DenyAllText", value);
         }
     }
 
@@ -324,11 +294,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("AllowSpecificText"), "Allow only essential cookies");
+            return ValidationHelper.GetString(GetValue("AllowSpecificText"), "Allow only essential cookies");
         }
         set
         {
-            this.SetValue("AllowSpecificText", value);
+            SetValue("AllowSpecificText", value);
         }
     }
 
@@ -340,11 +310,11 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("AllowSpecificSetLevel"), "Essential");
+            return ValidationHelper.GetString(GetValue("AllowSpecificSetLevel"), "Essential");
         }
         set
         {
-            this.SetValue("AllowSpecificSetLevel", value);
+            SetValue("AllowSpecificSetLevel", value);
         }
     }
 
@@ -356,11 +326,43 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("AllowAllText"), "Allow all cookies");
+            return ValidationHelper.GetString(GetValue("AllowAllText"), "Allow all cookies");
         }
         set
         {
-            this.SetValue("AllowAllText", value);
+            SetValue("AllowAllText", value);
+        }
+    }
+
+
+    /// <summary>
+    /// Tracking consent code name
+    /// </summary>
+    public string TrackingConsent
+    {
+        get
+        {
+            return ValidationHelper.GetString(GetValue("TrackingConsent"), null);
+        }
+        set
+        {
+            SetValue("TrackingConsent", value);
+        }
+    }
+
+
+    /// <summary>
+    /// HTML placed after tracking consent
+    /// </summary>
+    public string ConsentReferenceMarkup
+    {
+        get
+        {
+            return ValidationHelper.GetString(GetValue("ConsentReferenceMarkup"), "");
+        }
+        set
+        {
+            SetValue("ConsentReferenceMarkup", value);
         }
     }
 
@@ -384,7 +386,7 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     /// </summary>
     protected void SetupControl()
     {
-        if (this.StopProcessing)
+        if (StopProcessing)
         {
             // Do not process
         }
@@ -393,6 +395,7 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
             btnAllowAll.Text = AllowAllText;
             btnDenyAll.Text = DenyAllText;
             btnAllowSpecific.Text = AllowSpecificText;
+            ltlConsentReferenceMarkup.Text = ConsentReferenceMarkup;
         }
     }
 
@@ -412,41 +415,36 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         base.OnPreRender(e);
 
-        if (this.StopProcessing)
+        if (StopProcessing)
         {
             // Do not process
         }
         else
         {
-            int level = CookieLevel.Unknown;
-
-            bool liveSite = PortalContext.ViewMode.IsLiveSite();
-            if (!liveSite)
+            if (!string.IsNullOrEmpty(TrackingConsent))
             {
-                // Use simulated cookie level
-                level = CookieHelper.GetCookieLevel(PreviewLevel, CookieLevel.Unknown);
+                UseDefaultCookieLevelWhenConsentIsNotAgreed();
             }
 
-            if (level == CookieLevel.Unknown)
-            {
-                // Ensure default level
-                int defaultLevel = CookieHelper.GetCookieLevel(DefaultLevel, CookieLevel.Unknown);
-                if (!liveSite)
-                {
-                    defaultLevel = CookieLevel.Unknown;
-                }
+            int currentCookieLevel = GetCurrentCookieLevel();
 
-                level = CookieHelper.GetCurrentCookieLevel(defaultLevel);
+            if (!string.IsNullOrEmpty(TrackingConsent) && currentCookieLevel < CookieLevel.Visitor)
+            {
+                DisplayTrackingConsent();
+            }
+            else
+            {
+                pnlTrackingConsent.Visible = false;
             }
 
-            int matchLevel = CookieHelper.GetCookieLevel(MatchLevel, level);
+            int matchLevel = CookieHelper.ConvertCookieLevelToIntegerValue(MatchLevel, currentCookieLevel);
 
-            if (level < matchLevel)
+            if (currentCookieLevel < matchLevel)
             {
                 // Set the components to the Above level
                 SetComponents(BelowLevelVisible, BelowLevelText, BelowShowAll, BelowShowSpecific, BelowShowDeny);
             }
-            else if (level == matchLevel)
+            else if (currentCookieLevel == matchLevel)
             {
                 // Set the components to the Above level
                 SetComponents(ExactLevelVisible, ExactLevelText, ExactShowAll, ExactShowSpecific, ExactShowDeny);
@@ -455,7 +453,34 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
             {
                 // Set the components to the Above level
                 SetComponents(AboveLevelVisible, AboveLevelText, AboveShowAll, AboveShowSpecific, AboveShowDeny);
-            } 
+            }
+        }
+    }
+
+
+    private void UseDefaultCookieLevelWhenConsentIsNotAgreed()
+    {
+        var consent = ConsentInfoProvider.GetConsentInfo(TrackingConsent);
+        var contact = ContactManagementContext.CurrentContact;
+
+        if (consent != null && contact != null)
+        {
+            if (!Service.Resolve<IConsentAgreementService>().IsAgreed(contact, consent))
+            {
+                cookieLevelProvider.SetCurrentCookieLevel(cookieLevelProvider.GetDefaultCookieLevel());
+            }
+        }
+    }
+
+
+    private void DisplayTrackingConsent()
+    {
+        var consent = ConsentInfoProvider.GetConsentInfo(TrackingConsent);
+        if (consent != null)
+        {
+            var cultureCode = LocalizationContext.CurrentCulture.CultureCode;
+            ltlTrackingConsentShortText.Text = consent.GetConsentText(cultureCode).ShortText;
+            pnlTrackingConsent.Visible = true;
         }
     }
 
@@ -472,7 +497,7 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     {
         if (!visible)
         {
-            this.Visible = false;
+            Visible = false;
             return;
         }
 
@@ -485,7 +510,7 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
         // Hide the web part in case no content or button is displayed
         if (String.IsNullOrEmpty(text) && !btnAllowAll.Visible && !btnAllowSpecific.Visible && !btnDenyAll.Visible)
         {
-            this.Visible = false;
+            Visible = false;
         }
     }
 
@@ -504,11 +529,10 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     /// </summary>
     protected void btnAllowSpecific_Click(object sender, EventArgs e)
     {
-        int specificLevel = CookieHelper.GetCookieLevel(AllowSpecificSetLevel, CookieLevel.Essential);
-
+        int specificLevel = CookieHelper.ConvertCookieLevelToIntegerValue(AllowSpecificSetLevel, CookieLevel.Essential);
         ChangeLevel(specificLevel);
     }
-    
+
 
     /// <summary>
     /// Allow all click
@@ -523,16 +547,55 @@ public partial class CMSWebParts_General_CookieLaw : CMSAbstractWebPart
     /// Changes the cookie level
     /// </summary>
     /// <param name="newLevel">New cookie level to set</param>
-    private static void ChangeLevel(int newLevel)
+    private void ChangeLevel(int newLevel)
     {
         if (PortalContext.ViewMode.IsLiveSite())
         {
-            CookieHelper.ChangeCookieLevel(newLevel);
+            // Keep the current contact as this value will be lost once the cookie level gets lower than the "Visitor" level
+            var originalContact = ContactManagementContext.CurrentContact;
+            var originalCookieLevel = cookieLevelProvider.GetCurrentCookieLevel();
+
+            cookieLevelProvider.SetCurrentCookieLevel(newLevel);
+
+            if (!String.IsNullOrEmpty(TrackingConsent))
+            {
+                if ((newLevel >= CookieLevel.Visitor) && (originalCookieLevel < CookieLevel.Visitor))
+                {
+                    AgreeConsent();
+                }
+                else if ((originalCookieLevel >= CookieLevel.Visitor) && (newLevel < CookieLevel.Visitor))
+                {
+                    RevokeConsent(originalContact);
+                }
+            }
         }
     }
-    
+
+
+    private void AgreeConsent()
+    {
+        var consent = ConsentInfoProvider.GetConsentInfo(TrackingConsent);
+        if ((consent != null) && (ContactManagementContext.CurrentContact != null))
+        {
+            Service.Resolve<IConsentAgreementService>().Agree(ContactManagementContext.CurrentContact, consent);
+        }
+    }
+
+
+    private void RevokeConsent(ContactInfo contact)
+    {
+        var consent = ConsentInfoProvider.GetConsentInfo(TrackingConsent);
+        if ((consent != null) && contact != null)
+        {
+            Service.Resolve<IConsentAgreementService>().Revoke(contact, consent);
+        }
+    }
+
+
+    private int GetCurrentCookieLevel()
+    {
+        return cookieLevelProvider.GetCurrentCookieLevel();
+    }
+
     #endregion
 }
-
-
-

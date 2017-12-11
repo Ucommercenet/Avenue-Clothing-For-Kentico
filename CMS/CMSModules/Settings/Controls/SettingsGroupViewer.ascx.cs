@@ -1,255 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using CMS;
-using CMS.Base;
-using CMS.Base.Web.UI;
-using CMS.Helpers;
-
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using CMS.Core;
+using CMS.Base.Web.UI;
 using CMS.DataEngine;
-using CMS.EventLog;
-using CMS.FormEngine;
 using CMS.FormEngine.Web.UI;
+using CMS.Helpers;
 using CMS.SiteProvider;
 using CMS.UIControls;
 
-
 public partial class CMSModules_Settings_Controls_SettingsGroupViewer : SettingsGroupViewerControl
 {
-    #region "Private variables"
-
-    // Settings
-    private int mCategoryId;
-    private string mCategoryName;
-    private SettingsCategoryInfo mSettingsCategoryInfo;
-    private readonly List<SettingsKeyItem> mKeyItems = new List<SettingsKeyItem>();
-
-    // Site
-    private int mSiteId;
-    private string mSiteName = string.Empty;
-    private SiteInfo mSiteInfo;
-
-    private bool mAllowGlobalInfoMessage = true;
-
-    // Search
-    private string mSearchText = "";
-    private bool mSearchDescription = true;
-    private const int mSearchLimit = 2;
-
-    #endregion
-
-
-    #region "Properties"
-
-    /// <summary>
-    /// Gets or sets the settings category ID.
-    /// </summary>
-    public int CategoryID
-    {
-        get
-        {
-            if ((mCategoryId == 0) && (SettingsCategoryInfo != null))
-            {
-                mCategoryId = SettingsCategoryInfo.CategoryID;
-            }
-            return mCategoryId;
-        }
-        set
-        {
-            mCategoryId = value;
-            mCategoryName = null;
-            mSettingsCategoryInfo = null;
-        }
-    }
-
-
-    /// <summary>
-    /// Gets or sets the settings category name.
-    /// </summary>
-    public string CategoryName
-    {
-        get
-        {
-            if ((mCategoryName == null) && (SettingsCategoryInfo != null))
-            {
-                mCategoryName = SettingsCategoryInfo.CategoryName;
-            }
-            return mCategoryName;
-        }
-        set
-        {
-            mCategoryName = value;
-            mCategoryId = 0;
-            mSettingsCategoryInfo = null;
-        }
-    }
-
-
-    /// <summary>
-    /// Gets the SettingsCategoryInfo object for the specified CategoryID or CategoryName respectively.
-    /// </summary>
-    public SettingsCategoryInfo SettingsCategoryInfo
-    {
-        get
-        {
-            if (mSettingsCategoryInfo == null)
-            {
-                if (mCategoryId > 0)
-                {
-                    mSettingsCategoryInfo = SettingsCategoryInfoProvider.GetSettingsCategoryInfo(mCategoryId);
-                }
-                else
-                {
-                    if (mCategoryName != null)
-                    {
-                        mSettingsCategoryInfo = SettingsCategoryInfoProvider.GetSettingsCategoryInfoByName(mCategoryName);
-                    }
-                }
-            }
-            return mSettingsCategoryInfo;
-        }
-    }
-
-
-    /// <summary>
-    /// Gets the settings keys list for the current category.
-    /// </summary>
-    public List<SettingsKeyItem> KeyItems
-    {
-        get
-        {
-            return mKeyItems;
-        }
-    }
-
-
-    /// <summary>
-    /// ID of the site.
-    /// </summary>
-    public int SiteID
-    {
-        get
-        {
-            if ((mSiteId == 0) && SiteInfo != null)
-            {
-                mSiteId = SiteInfo.SiteID;
-            }
-            return mSiteId;
-        }
-        set
-        {
-            mSiteId = value;
-            mSiteName = string.Empty;
-            mSiteInfo = null;
-        }
-    }
-
-
-    /// <summary>
-    /// Code name of the site.
-    /// </summary>
-    public string SiteName
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(mSiteName) && SiteInfo != null)
-            {
-                mSiteName = SiteInfo.SiteName;
-            }
-            return mSiteName;
-        }
-        set
-        {
-            mSiteName = value;
-            mSiteId = 0;
-            mSiteInfo = null;
-        }
-    }
-
-
-    /// <summary>
-    /// Gets the site info object for the configured site.
-    /// </summary>
-    public SiteInfo SiteInfo
-    {
-        get
-        {
-            if (mSiteInfo == null)
-            {
-                if (mSiteId != 0)
-                {
-                    mSiteInfo = SiteInfoProvider.GetSiteInfo(mSiteId);
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(mSiteName))
-                    {
-                        mSiteInfo = SiteInfoProvider.GetSiteInfo(mSiteName);
-                    }
-                }
-            }
-
-            return mSiteInfo;
-        }
-    }
-
-
-    /// <summary>
-    /// Gets or sets the where condition used to filter settings groups.
-    /// All groups will be selected if not set.
-    /// </summary>
-    public string Where
-    {
-        get;
-        set;
-    }
-
-
-    /// <summary>
-    /// Gets or sets the value that indicates if "these settings are global ..." message can shown.
-    /// Is true by default.
-    /// </summary>
-    public bool AllowGlobalInfoMessage
-    {
-        get
-        {
-            return mAllowGlobalInfoMessage;
-        }
-        set
-        {
-            mAllowGlobalInfoMessage = value;
-        }
-    }
-
-
-    /// <summary>
-    /// Gets a value that indicates if a valid search text is specified.
-    /// </summary>
-    public bool IsSearchTextValid
-    {
-        get
-        {
-            return !string.IsNullOrEmpty(mSearchText) && (mSearchText.Length >= mSearchLimit);
-        }
-    }
-
-    #endregion
-
-
-    #region "Lifecycle"
-
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
 
         // Get search parameters
-        mSearchText = QueryHelper.GetString("search", "").Trim();
-        mSearchDescription = QueryHelper.GetBoolean("description", false);
+        SearchText = QueryHelper.GetString("search", "").Trim();
+        SearchDescription = QueryHelper.GetBoolean("description", false);
     }
 
 
@@ -270,7 +39,7 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
         // Loop through all the groups in the category
         int groupCount = 0;
         bool hasOnlyGlobalKeys = true;
-        var groups = GetGroups(SettingsCategoryInfo);
+        var groups = GetGroups(SettingsCategoryInfo.CategoryName);
 
         foreach (var group in groups)
         {
@@ -349,17 +118,17 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
                 // Don't show help icon when not provided. (Help icon will be shown if macro resolution results in an empty string.)
                 if (!String.IsNullOrWhiteSpace(keyInfo.KeyDescription))
                 {
-                    Label helpIcon = GetIcon("icon-question-circle", ResHelper.LocalizeString(keyInfo.KeyDescription));
+                    Label helpIcon = UIHelper.GetIcon("icon-question-circle", ResHelper.LocalizeString(keyInfo.KeyDescription));
                     pnlIcons.Controls.Add(helpIcon);
                 }
 
                 CMSCheckBox chkInherit = null;
-                if (mSiteId > 0)
+                if (SiteID > 0)
                 {
                     // Wrap in update panel for inherit checkbox postback
                     var pnlValueUpdate = new UpdatePanel
                     {
-                        ID = string.Format("pnlValueUpdate{0}{1}", groupCount, keyCount),
+                        ID = $"pnlValueUpdate{groupCount}_{keyCount}",
                         UpdateMode = UpdatePanelUpdateMode.Conditional,
                     };
                     pnlRow.Controls.Add(pnlValueUpdate);
@@ -383,7 +152,7 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
                         if (!isCurrentSiteValueInherited)
                         {
                             string inheritWarningText = String.Format(GetString("settings.currentsitedoesnotinherit"), ResHelper.LocalizeString(SiteContext.CurrentSite.DisplayName));
-                            Label inheritWarningImage = GetIcon("icon-exclamation-triangle warning-icon", HTMLHelper.HTMLEncode(inheritWarningText));
+                            Label inheritWarningImage = UIHelper.GetIcon("icon-exclamation-triangle warning-icon", HTMLHelper.HTMLEncode(inheritWarningText));
 
                             pnlIcons.Controls.Add(inheritWarningImage);
                         }
@@ -405,11 +174,11 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
                     pnlRow.Controls.Add(pnlExplanationText);
                 }
 
-                pnlRow.Controls.Add(new LiteralControl(@"</div>"));
+                pnlRow.Controls.Add(new LiteralControl("</div>"));
 
                 // Get current values
-                keyItem.KeyIsInherited = SettingsKeyInfoProvider.IsValueInherited(keyInfo.KeyName, SiteName);
-                keyItem.KeyValue = SettingsKeyInfoProvider.GetValue(keyInfo.KeyName, SiteName);
+                keyItem.KeyIsInherited = SettingsKeyInfoProvider.IsValueInherited(keyInfo.KeyName, SiteID);
+                keyItem.KeyValue = SettingsKeyInfoProvider.GetValue(keyInfo.KeyName, SiteID);
 
                 // Get value
                 string keyValue;
@@ -417,7 +186,7 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
                 if (RequestHelper.IsPostBack() && (chkInherit != null))
                 {
                     isInherited = Request.Form[chkInherit.UniqueID] != null;
-                    keyValue = isInherited ? SettingsKeyInfoProvider.GetValue(keyInfo.KeyName) : SettingsKeyInfoProvider.GetValue(keyInfo.KeyName, SiteName);
+                    keyValue = isInherited ? SettingsKeyInfoProvider.GetValue(keyInfo.KeyName) : SettingsKeyInfoProvider.GetValue(keyInfo.KeyName, SiteID);
                 }
                 else
                 {
@@ -456,7 +225,7 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
                 else
                 {
                     // Add simple value editing control
-                    switch (keyInfo.KeyType.ToLowerCSafe())
+                    switch (keyInfo.KeyType.ToLowerInvariant())
                     {
                         case "boolean":
                             // Add checkbox value editing control
@@ -533,12 +302,12 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
                     keyItem.ErrorLabel = lblError;
                 }
 
-                mKeyItems.Add(keyItem);
+                KeyItems.Add(keyItem);
             }
         }
 
         // Show info message when other than global-only global keys are displayed
-        if ((mSiteId <= 0) && (CategoryID > 0) && !hasOnlyGlobalKeys && AllowGlobalInfoMessage)
+        if ((SiteID <= 0) && (CategoryID > 0) && !hasOnlyGlobalKeys && AllowGlobalInfoMessage)
         {
             ShowInformation(GetString("settings.keys.globalsettingsnote"));
         }
@@ -555,540 +324,12 @@ public partial class CMSModules_Settings_Controls_SettingsGroupViewer : Settings
         else
         {
             // Hide "These settings are global ..." message if no setting found in this group
-            if (!string.IsNullOrEmpty(mSearchText))
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                var ltrScript = new Literal
-                {
-                    Text = ScriptHelper.GetScript("DisableHeaderActions();")
-                };
-                plcContent.Append(ltrScript);
+                ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "SettingsGroupViewer_DisableHeaderActions", ScriptHelper.GetScript("DisableHeaderActions();"));
+
                 lblNoData.Visible = true;
             }
         }
     }
-
-    #endregion
-
-
-    #region "Save methods"
-
-    /// <summary>
-    /// Validates the settings values and returns true if all are valid.
-    /// </summary>
-    private bool IsValid()
-    {
-        // Loop through all settings items
-        for (int i = 0; i < mKeyItems.Count; i++)
-        {
-            SettingsKeyItem item = mKeyItems[i];
-
-            var keyChanged = false;
-
-            if (item.ValueControl is CMSTextBox)
-            {
-                var textBox = (CMSTextBox)item.ValueControl;
-                textBox.Text = textBox.Text.Trim();
-                keyChanged = (textBox.Text != item.KeyValue);
-                item.KeyValue = textBox.Text;
-            }
-            else if (item.ValueControl is CMSCheckBox)
-            {
-                var checkBox = (CMSCheckBox)item.ValueControl;
-                keyChanged = (checkBox.Checked.ToString() != item.KeyValue);
-                item.KeyValue = checkBox.Checked.ToString();
-            }
-            else if (item.ValueControl is FormEngineUserControl)
-            {
-                var control = (FormEngineUserControl)item.ValueControl;
-                if (control.IsValid())
-                {
-                    keyChanged = Convert.ToString(control.Value) != item.KeyValue;
-                    item.KeyValue = Convert.ToString(control.Value);
-                }
-                else
-                {
-                    item.ErrorLabel.Text = String.IsNullOrEmpty(control.ErrorMessage) ? GetString("Settings.ValidationError") : control.ErrorMessage;
-                    item.ErrorLabel.Visible = !String.IsNullOrEmpty(item.ErrorLabel.Text);
-                    ShowError(GetString("general.saveerror"));
-                    return false;
-                }
-            }
-
-            if (item.InheritCheckBox != null)
-            {
-                var inheritanceChanged = item.InheritCheckBox.Checked != item.KeyIsInherited;
-                keyChanged = inheritanceChanged || !item.KeyIsInherited && keyChanged;
-                item.KeyIsInherited = item.InheritCheckBox.Checked;
-            }
-
-            item.KeyChanged = keyChanged;
-            if (!keyChanged)
-            {
-                continue;
-            }
-
-            // Validation result
-            string result = string.Empty;
-
-            // Validation using regular expression if there is any
-            if (!string.IsNullOrEmpty(item.ValidationRegexPattern) && (item.ValidationRegexPattern.Trim() != string.Empty))
-            {
-                result = new Validator().IsRegularExp(item.KeyValue, item.ValidationRegexPattern, GetString("Settings.ValidationRegExError")).Result;
-            }
-
-            // Validation according to the value type (validate only nonempty values)
-            if (string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(item.KeyValue))
-            {
-                switch (item.KeyType.ToLowerCSafe())
-                {
-                    case "int":
-                        result = new Validator().IsInteger(item.KeyValue, GetString("Settings.ValidationIntError")).Result;
-                        break;
-
-                    case "double":
-                        result = new Validator().IsDouble(item.KeyValue, GetString("Settings.ValidationDoubleError")).Result;
-                        break;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(result))
-            {
-                item.ErrorLabel.Text = result;
-                item.ErrorLabel.Visible = !String.IsNullOrEmpty(result);
-                return false;
-            }
-            else
-            {
-                // Update changes
-                mKeyItems[i] = item;
-            }
-        }
-
-        return true;
-    }
-
-
-    /// <summary>
-    /// Saves changes made to settings keys into the database.
-    /// </summary>
-    public void SaveChanges()
-    {
-        // Validate values
-        var isValid = IsValid();
-        if (!isValid)
-        {
-            ShowError(GetString("general.saveerror"));
-            return;
-        }
-
-        bool logSynchronization = (mSettingsCategoryInfo.CategoryName.ToLowerCSafe() != "cms.staging");
-
-        using (var h = SettingsSave.StartEvent())
-        {
-            if (h.CanContinue())
-            {
-                // Update changes in database and hashtables
-                foreach (SettingsKeyItem tmpItem in mKeyItems)
-                {
-                    // Save only changed settings
-                    if (!tmpItem.KeyChanged)
-                    {
-                        continue;
-                    }
-
-                    string keyName = tmpItem.KeyName;
-
-                    object keyValue = tmpItem.KeyValue;
-                    if (tmpItem.KeyIsInherited)
-                    {
-                        keyValue = DBNull.Value;
-                    }
-
-                    if (keyName.EqualsCSafe("CMSDBObjectOwner", true))
-                    {
-                        logSynchronization = false;
-                    }
-
-                    SettingsKeyInfoProvider.SetValue(keyName, SiteName, keyValue, logSynchronization);
-                }
-
-                // Show message
-                ShowChangesSaved();
-            }
-
-            h.FinishEvent();
-        }
-    }
-
-
-    /// <summary>
-    /// Resets all keys in the current category to the default value.
-    /// </summary>
-    public void ResetToDefault()
-    {
-        if (SettingsCategoryInfo == null)
-        {
-            return;
-        }
-
-        // Get keys
-        IEnumerable<SettingsKeyInfo> keys = GetGroups(SettingsCategoryInfo).SelectMany(g => GetKeys(g.CategoryID));
-
-        // Set default values
-        foreach (var key in keys)
-        {
-            SettingsKeyInfoProvider.SetValue(key.KeyName, SiteName, key.KeyDefaultValue);
-        }
-    }
-
-    #endregion
-
-
-    #region "Controls methods"
-
-    /// <summary>
-    /// Gets FormEngineUserControl instance for the input SettingsKeyInfo object.
-    /// </summary>
-    /// <param name="key">SettingsKeyInfo</param>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    /// <param name="keyNo">Number representing index of the processing SettingsKeyInfo</param>
-    private FormEngineUserControl GetFormEngineUserControl(SettingsKeyInfo key, int groupNo, int keyNo)
-    {
-        string controlNameOrPath = key.KeyEditingControlPath;
-        if (string.IsNullOrEmpty(controlNameOrPath))
-        {
-            return null;
-        }
-
-        // Try to get form control by its name
-        FormEngineUserControl control = null;
-        var formUserControl = FormUserControlInfoProvider.GetFormUserControlInfo(controlNameOrPath);
-        if (formUserControl != null)
-        {
-            var formProperties = formUserControl.UserControlMergedParameters;
-
-            if (formUserControl.UserControlParentID > 0)
-            {
-                // Get parent user control
-                var parentFormUserControl = FormUserControlInfoProvider.GetFormUserControlInfo(formUserControl.UserControlParentID);
-                if (parentFormUserControl != null)
-                {
-                    formUserControl = parentFormUserControl;
-                }
-            }
-
-            // Create FormInfo and load control
-            control = Page.LoadUserControl(FormUserControlInfoProvider.GetFormUserControlUrl(formUserControl)) as FormEngineUserControl;
-            if (control != null)
-            {
-                FormInfo fi = FormHelper.GetFormControlParameters(controlNameOrPath, formProperties, false);
-                control.LoadDefaultProperties(fi);
-
-                if (!string.IsNullOrEmpty(key.KeyFormControlSettings))
-                {
-                    control.FieldInfo = FormHelper.GetFormControlSettingsFromXML(key.KeyFormControlSettings);
-                    control.LoadControlFromFFI();
-                }
-            }
-        }
-        else
-        {
-            // Try to load the control
-            try
-            {
-                control = Page.LoadUserControl(controlNameOrPath) as FormEngineUserControl;
-            }
-            catch (Exception ex)
-            {
-                EventLogProvider.LogException("Settings", "LoadControl", ex);
-            }
-        }
-
-        if (control == null)
-        {
-            return null;
-        }
-
-        control.ID = string.Format(@"key{0}{1}", groupNo, keyNo);
-        control.IsLiveSite = false;
-
-        return control;
-    }
-
-
-    /// <summary>
-    /// Gets <c>CategoryPanel</c> instance for the input settings group.
-    /// </summary>
-    /// <param name="group"><c>SettingsCategoryInfo</c> instance representing settings group</param>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    private CategoryPanel GetCategoryPanel(SettingsCategoryInfo group, int groupNo)
-    {
-        string title;
-        if (IsSearchTextValid)
-        {
-            var categories = SettingsCategoryInfoProvider.GetCategoriesOnPath(group.CategoryIDPath);
-            var categoryNames = categories.Select(c =>
-            {
-                var displayName = HTMLHelper.HTMLEncode(ResHelper.LocalizeString(c.CategoryDisplayName));
-                if (c.CategoryIsGroup)
-                {
-                    return displayName;
-                }
-
-                var url = string.Format("~/CMSModules/Settings/Pages/Categories.aspx?selectedCategoryId={0}&selectedSiteId={1}", c.CategoryID, SiteID);
-                url = ResolveUrl(url);
-
-                var name = string.Format("<a href=\"\" onclick=\"selectCategory('{0}');\">{1}</a>", url, displayName);
-                return name;
-            });
-            title = categoryNames.Join(" > ");
-        }
-        else
-        {
-            title = HTMLHelper.HTMLEncode(ResHelper.LocalizeString(group.CategoryDisplayName));
-        }
-
-        var panel = new CategoryPanel
-        {
-            ID = string.Format(@"CategoryPanel{0}", groupNo),
-            DisplayRightPanel = false,
-            AllowCollapsing = false,
-            Text = title,
-            RenderAs = HtmlTextWriterTag.Div
-        };
-
-        return panel;
-    }
-
-
-    /// <summary>
-    /// Gets <c>CheckBox</c> control used for key value editing.
-    /// </summary>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    /// <param name="keyNo">Number representing index of the processing SettingsKeyInfo</param>
-    /// <param name="checked">Checked</param>
-    /// <param name="enabled">Enabled</param>
-    private CMSCheckBox GetValueCheckBox(int groupNo, int keyNo, bool @checked, bool enabled)
-    {
-        var chkValue = new CMSCheckBox
-        {
-            ID = string.Format("chkKey{0}{1}", groupNo, keyNo),
-            EnableViewState = false,
-            Checked = @checked,
-            Enabled = enabled,
-            CssClass = "checkbox-no-label"
-        };
-
-        return chkValue;
-    }
-
-
-    /// <summary>
-    /// Gets <c>TextBox</c> control used for key value editing.
-    /// </summary>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    /// <param name="keyNo">Number representing index of the processing SettingsKeyInfo</param>
-    /// <param name="text">Text</param>
-    /// <param name="enabled">Enabled</param>
-    private TextBox GetValueTextBox(int groupNo, int keyNo, string text, bool enabled)
-    {
-        var txtValue = new CMSTextBox
-        {
-            ID = string.Format("txtKey{0}{1}", groupNo, keyNo),
-            EnableViewState = false,
-            Text = text,
-            Enabled = enabled,
-        };
-
-        return txtValue;
-    }
-
-
-    /// <summary>
-    /// Gets the text area form engine user control used for key value editing.
-    /// </summary>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    /// <param name="keyNo">Number representing index of the processing SettingsKeyInfo</param>
-    /// <param name="text">Text</param>
-    /// <param name="enabled">Enabled</param>
-    private FormEngineUserControl GetValueTextArea(int groupNo, int keyNo, string text, bool enabled)
-    {
-        try
-        {
-            var txtValue = (FormEngineUserControl)LoadControl("~/CMSFormControls/Inputs/LargeTextArea.ascx");
-            txtValue.ID = string.Format("txtKey{0}{1}", groupNo, keyNo);
-            txtValue.EnableViewState = false;
-            txtValue.Enabled = enabled;
-            txtValue.Value = text;
-            return txtValue;
-        }
-        catch (Exception ex)
-        {
-            CoreServices.EventLog.LogException("Settings", "LOADCONTROL", ex);
-            return null;
-        }
-    }
-
-
-    /// <summary>
-    /// Gets inherit <c>CheckBox</c> instance for the input <c>SettingsKeyInfo</c> object.
-    /// </summary>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    /// <param name="keyNo">Number representing index of the processing SettingsKeyInfo</param>
-    private CMSCheckBox GetInheritCheckBox(int groupNo, int keyNo)
-    {
-        var chkInherit = new CMSCheckBox
-        {
-            ID = string.Format(@"chkInherit{0}{1}", groupNo, keyNo),
-            Text = GetString("settings.keys.checkboxinheritglobal"),
-            EnableViewState = true,
-            AutoPostBack = true,
-            CssClass = "field-value-override-checkbox"
-        };
-
-        return chkInherit;
-    }
-
-
-    /// <summary>
-    /// Gets <c>Label</c> instance for the input <c>SettingsKeyInfo</c> object.
-    /// </summary>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    /// <param name="keyNo">Number representing index of the processing SettingsKeyInfo</param>
-    private Label GetLabelError(int groupNo, int keyNo)
-    {
-        var label = new Label
-        {
-            ID = string.Format(@"lblError{0}{1}", groupNo, keyNo),
-            EnableViewState = false,
-            CssClass = "form-control-error",
-            Visible = false
-        };
-
-        return label;
-    }
-
-
-    /// <summary>
-    /// Gets <c>Label</c> instance for the input <c>SettingsKeyInfo</c> object.
-    /// </summary>
-    /// <param name="settingsKey"><c>SettingsKeyInfo</c> instance</param>
-    /// <param name="inputControl">Input control associated to the label</param>
-    /// <param name="groupNo">Number representing index of the processing settings group</param>
-    /// <param name="keyNo">Number representing index of the processing SettingsKeyInfo</param>
-    private Label GetLabel(SettingsKeyInfo settingsKey, Control inputControl, int groupNo, int keyNo)
-    {
-        LocalizedLabel label = new LocalizedLabel
-        {
-            EnableViewState = false,
-            ID = string.Format(@"lblDispName{0}{1}", groupNo, keyNo),
-            CssClass = "control-label editing-form-label",
-            Text = HTMLHelper.HTMLEncode(settingsKey.KeyDisplayName),
-            DisplayColon = true
-        };
-        if (inputControl != null)
-        {
-            label.AssociatedControlID = inputControl.ID;
-        }
-
-        ScriptHelper.AppendTooltip(label, ResHelper.LocalizeString(settingsKey.KeyDescription), null);
-
-        return label;
-    }
-
-
-    /// <summary>
-    /// Returns Label control that displays font icon specified by ccs class
-    /// </summary>
-    /// <param name="cssClass">Font icon css class</param>
-    /// <param name="toolTip">Icon tooltip</param>
-    private Label GetIcon(string cssClass, string toolTip)
-    {
-        Label iconWrapper = new Label
-        {
-            CssClass = "info-icon"
-        };
-
-        toolTip = ScriptHelper.FormatTooltipString(toolTip, false, false);
-
-        CMSIcon helpIcon = new CMSIcon
-        {
-            CssClass = cssClass,
-            ToolTip = toolTip
-        };
-
-        // Enable HTML formating in tooltip
-        helpIcon.Attributes.Add("data-html", "true");
-
-        iconWrapper.Controls.Add(helpIcon);
-
-        return iconWrapper;
-    }
-
-    #endregion
-
-
-    #region "Settings methods"
-
-    private IEnumerable<SettingsCategoryInfo> GetGroups(SettingsCategoryInfo category)
-    {
-        if (IsSearchTextValid)
-        {
-            var groups = SettingsCategoryInfoProvider.GetSettingsCategories("CategoryIsGroup = 1", "CategoryName");
-            return groups;
-        }
-        else
-        {
-            var groups = SettingsCategoryInfoProvider.GetChildSettingsCategories(category.CategoryName, Where);
-            return groups.Where(c => c.CategoryIsGroup);
-        }
-    }
-
-
-    private IEnumerable<SettingsKeyInfo> GetKeys(int groupId)
-    {
-        var query = SettingsKeyInfoProvider.GetSettingsKeys(groupId)
-            .WhereEqualsOrNull("KeyIsHidden", false);
-
-        if (SiteID > 0)
-        {
-            query.WhereEqualsOrNull("KeyIsGlobal", false);
-        }
-
-        IEnumerable<SettingsKeyInfo> keys = query.OrderBy("KeyOrder", "KeyDisplayName");
-
-        if (IsSearchTextValid)
-        {
-            keys = keys.Where(k => SettingsKeyInfoProvider.SearchSettingsKey(k, mSearchText, mSearchDescription));
-        }
-
-        return keys;
-    }
-
-    #endregion
-
-
-    #region "Types"
-
-    public struct SettingsKeyItem
-    {
-        // Settings key
-        public string KeyName;
-        public string KeyType;
-        public string KeyValue;
-        public bool KeyIsInherited;
-        public bool KeyChanged;
-        public string CategoryName;
-        public string ExplanationText;
-
-        public string ValidationRegexPattern;
-
-        // Related controls
-        public Control ValueControl;
-        public CMSCheckBox InheritCheckBox;
-        public Label ErrorLabel;
-        public CategoryPanel ParentCategoryPanel;
-    }
-
-    #endregion
 }

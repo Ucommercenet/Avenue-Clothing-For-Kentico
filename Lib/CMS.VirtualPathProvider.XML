@@ -9,6 +9,26 @@
             Virtual path provider dynamically loads content from virtual paths.
             </summary>
         </member>
+        <member name="E:CMS.VirtualPathProvider.DbPathProvider.OnGetVirtualFile">
+            <summary>
+            Handler to provide custom virtual files.
+            </summary>
+        </member>
+        <member name="E:CMS.VirtualPathProvider.DbPathProvider.OnGetVirtualDirectory">
+            <summary>
+            Handler to provide custom virtual directories.
+            </summary>
+        </member>
+        <member name="P:CMS.VirtualPathProvider.DbPathProvider.VirtualFiles">
+            <summary>
+            Virtual files [path] -> [VirtualFile]
+            </summary>
+        </member>
+        <member name="P:CMS.VirtualPathProvider.DbPathProvider.VirtualDirectories">
+            <summary>
+            Virtual directories. [path] -> [VirtualDirectory]
+            </summary>
+        </member>
         <member name="M:CMS.VirtualPathProvider.DbPathProvider.FileExists(System.String)">
             <summary>
             Finds whether the file, which is part of given virtual path, exists on the virtual file system or on the normal file system.
@@ -63,39 +83,9 @@
             </summary>
             <param name="virtualPath">Virtual file path</param>
         </member>
-        <member name="E:CMS.VirtualPathProvider.DbPathProvider.OnGetVirtualFile">
-            <summary>
-            Handler to provide custom virtual files.
-            </summary>
-        </member>
-        <member name="E:CMS.VirtualPathProvider.DbPathProvider.OnGetVirtualDirectory">
-            <summary>
-            Handler to provide custom virtual directories.
-            </summary>
-        </member>
-        <member name="P:CMS.VirtualPathProvider.DbPathProvider.VirtualFiles">
-            <summary>
-            Virtual files [path] -> [VirtualFile]
-            </summary>
-        </member>
-        <member name="P:CMS.VirtualPathProvider.DbPathProvider.VirtualDirectories">
-            <summary>
-            Virtual directories. [path] -> [VirtualDirectory]
-            </summary>
-        </member>
         <member name="T:CMS.VirtualPathProvider.DbVirtualDirectory">
             <summary>
             Virtual directory handler.
-            </summary>
-        </member>
-        <member name="M:CMS.VirtualPathProvider.DbVirtualDirectory.#ctor(System.String,CMS.VirtualPathProvider.DbPathProvider)">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
-        <member name="M:CMS.VirtualPathProvider.DbVirtualDirectory.#ctor(System.String,CMS.VirtualPathProvider.DbPathProvider,System.Boolean)">
-            <summary>
-            Constructor.
             </summary>
         </member>
         <member name="P:CMS.VirtualPathProvider.DbVirtualDirectory.Children">
@@ -123,9 +113,24 @@
             Indicates whether current directory provide folder content due to compile optimization
             </summary>
         </member>
+        <member name="M:CMS.VirtualPathProvider.DbVirtualDirectory.#ctor(System.String,CMS.VirtualPathProvider.DbPathProvider)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:CMS.VirtualPathProvider.DbVirtualDirectory.#ctor(System.String,CMS.VirtualPathProvider.DbPathProvider,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
         <member name="T:CMS.VirtualPathProvider.DbVirtualFile">
             <summary>
             Virtual file.
+            </summary>
+        </member>
+        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.VirtualFileObject">
+            <summary>
+            Representation of virtual file object (IVirtualFileObject)
             </summary>
         </member>
         <member name="M:CMS.VirtualPathProvider.DbVirtualFile.EnsureVirtualDependencies(System.String,System.Collections.IEnumerable)">
@@ -134,6 +139,21 @@
             </summary>
             <param name="virtualPath">Virtual path</param>
             <param name="virtualPathDependencies">Current virtual path dependencies</param>
+        </member>
+        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.PhysicalFilePath">
+            <summary>
+            Physical file path
+            </summary>
+        </member>
+        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.IsPhysicalFile">
+            <summary>
+            Indicates whether current virtual file is representation of physical file
+            </summary>
+        </member>
+        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.ObjectHash">
+            <summary>
+            Object hash used for compiling
+            </summary>
         </member>
         <member name="M:CMS.VirtualPathProvider.DbVirtualFile.#ctor(System.String,CMS.IO.IVirtualFileObject)">
             <summary>
@@ -158,26 +178,6 @@
             Overridden 'Open()' method for virtual file.
             </summary>
             <returns>Stream.</returns>
-        </member>
-        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.VirtualFileObject">
-            <summary>
-            Representation of virtual file object (IVirtualFileObject)
-            </summary>
-        </member>
-        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.PhysicalFilePath">
-            <summary>
-            Physical file path
-            </summary>
-        </member>
-        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.IsPhysicalFile">
-            <summary>
-            Indicates whether current virtual file is representation of physical file
-            </summary>
-        </member>
-        <member name="P:CMS.VirtualPathProvider.DbVirtualFile.ObjectHash">
-            <summary>
-            Object hash used for compiling
-            </summary>
         </member>
         <member name="T:CMS.VirtualPathProvider.VirtualDirectoryEventArgs">
             <summary>

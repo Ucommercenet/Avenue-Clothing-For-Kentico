@@ -1,15 +1,56 @@
 ﻿.campaign-report {
     .summary-row {
         font-weight: bold;
+        border-top: 1px solid @table-border-color;
+    }
+
+    .summary-row:last-child {        
+        border-bottom: 1px solid @table-border-color;
+    }
+
+    .summary-row td {
+        vertical-align: middle;
+        line-height: @btn-line-height;
+    }
+
+    .separator-row {
+        border-bottom: 1px solid @table-border-color;
+
+        td {
+            padding: 0;
+            line-height: @line-height-50;
+        }
+
+        td:hover {
+            background-color: transparent;
+            border-top-color: transparent;
+            border-bottom-color: @table-border-color;
+        }
+    }
+
+    .separator-row:hover{
+        background-color: transparent;
     }
 
     table {
         table-layout: fixed;
         word-wrap: break-word;
 
+        tr {
+            border-bottom: transparent;
+        }
+
         td, th > a {
             white-space: normal;
         }
+    }
+
+    .main-column-icon-size {
+        width: @icon-size-80;
+    }
+
+    .blue {
+        color: @color-blue-100;
     }
 
     .campaign-objective {

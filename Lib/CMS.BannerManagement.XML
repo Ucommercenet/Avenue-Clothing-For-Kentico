@@ -49,27 +49,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.BannerManagement.BannerInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty BannerInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new BannerInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.BannerManagement.BannerInfo.BannerName">
             <summary>
             Code name of the banner.
@@ -155,6 +134,27 @@
             Banner site ID.
             </summary>
         </member>
+        <member name="M:CMS.BannerManagement.BannerInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty BannerInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new BannerInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
         <member name="T:CMS.BannerManagement.BannerInfoProvider">
             <summary>
             Class providing BannerInfo management.
@@ -217,29 +217,6 @@
             </summary>
             <param name="categoryId">Category ID.</param>
             <param name="decrementHitsLeft">If true, hits left (after reaching 0, this banner won't be returned) of the returned banner will be decremented</param>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerInfoProvider.GetBannerInfoInternal(System.Int32)">
-            <summary>
-            Returns banner with specified ID.
-            </summary>
-            <param name="bannerId">Banner ID.</param>        
-        </member>
-        <member name="M:CMS.BannerManagement.BannerInfoProvider.SetBannerInfoInternal(CMS.BannerManagement.BannerInfo)">
-            <summary>
-            Sets (updates or inserts) specified banner.
-            </summary>
-            <param name="bannerObj">Banner to be set.</param>        
-        </member>
-        <member name="M:CMS.BannerManagement.BannerInfoProvider.DeleteBannerInfoInternal(CMS.BannerManagement.BannerInfo)">
-            <summary>
-            Deletes specified banner.
-            </summary>
-            <param name="bannerObj">Banner to be deleted.</param>        
-        </member>
-        <member name="M:CMS.BannerManagement.BannerInfoProvider.GetBannersInternal">
-            <summary>
-            Returns the query for all banners.
-            </summary> 
         </member>
         <member name="M:CMS.BannerManagement.BannerInfoProvider.DecrementClicksLeftInternal(System.Int32)">
             <summary>
@@ -326,37 +303,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty BannerCategoryInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new BannerCategoryInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts banners from the cloned category to the new one.
-            
-            Objects of type Category cannot have a child-parent relationship with its children, co cloning will not clone banners.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
         <member name="P:CMS.BannerManagement.BannerCategoryInfo.BannerCategoryDisplayName">
             <summary>
             Display name of the banner category.
@@ -391,6 +337,37 @@
             <summary>
             ID of the site where banner category is located (or null if this is a global category).
             </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerCategoryInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerCategoryInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerCategoryInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty BannerCategoryInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerCategoryInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new BannerCategoryInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerCategoryInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts banners from the cloned category to the new one.
+            
+            Objects of type Category cannot have a child-parent relationship with its children, co cloning will not clone banners.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
         </member>
         <member name="T:CMS.BannerManagement.BannerCategoryInfoProvider">
             <summary>
@@ -441,12 +418,6 @@
             </summary>
             <param name="categoryId">Banner category ID.</param>
         </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hash tables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged.</param>
-        </member>
         <member name="M:CMS.BannerManagement.BannerCategoryInfoProvider.GetBannerCategories">
             <summary>
             Returns the query for all banner categories.
@@ -468,30 +439,6 @@
             <param name="bannerCategoryCodeName">Code name.</param>
             <param name="siteId">Site to be searched.</param>
         </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfoProvider.GetBannerCategoryInfoInternal(System.Int32)">
-            <summary>
-            Returns banner category with specified ID.
-            </summary>
-            <param name="categoryId">Banner category ID.</param>        
-        </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfoProvider.GetBannerCategoryInfoInternal(System.String)">
-            <summary>
-            Returns banner category with specified code name.
-            </summary>
-            <param name="categoryCodeName">Banner category code name.</param>        
-        </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfoProvider.SetBannerCategoryInfoInternal(CMS.BannerManagement.BannerCategoryInfo)">
-            <summary>
-            Sets (updates or inserts) specified banner category.
-            </summary>
-            <param name="categoryObj">Banner category to be set.</param>        
-        </member>
-        <member name="M:CMS.BannerManagement.BannerCategoryInfoProvider.DeleteBannerCategoryInfoInternal(CMS.BannerManagement.BannerCategoryInfo)">
-            <summary>
-            Deletes specified banner category.
-            </summary>
-            <param name="categoryObj">Banner category to be deleted.</param>        
-        </member>
         <member name="M:CMS.BannerManagement.BannerCategoryInfoProvider.GetBannerCategoryInfoFromSiteOrGlobalInternal(System.String,System.Int32)">
             <summary>
             Gets banner category info with the specified name. First, banner categories assigned to the
@@ -507,14 +454,14 @@
             Redirects user to the banner's address and logs banner click for banner with specified ID.
             </summary>
         </member>
-        <member name="M:CMS.BannerManagement.BannerRedirect.ProcessRequest(System.Web.HttpContext)">
-            <summary>
-            Redirects user to the address of the banner specified by the query parameter "bannerID" and logs banner click.
-            </summary>
-        </member>
         <member name="P:CMS.BannerManagement.BannerRedirect.IsReusable">
             <summary>
             This handler can be reused.
+            </summary>
+        </member>
+        <member name="M:CMS.BannerManagement.BannerRedirect.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            Redirects user to the address of the banner specified by the query parameter "bannerID" and logs banner click.
             </summary>
         </member>
         <member name="T:CMS.BannerManagement.BannerHandlers">

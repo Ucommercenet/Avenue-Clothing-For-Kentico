@@ -1,7 +1,7 @@
 ﻿using System.Web.UI.WebControls;
 
 using CMS.FormEngine;
-using CMS.UIControls;
+using CMS.FormEngine.Web.UI;
 
 
 public partial class CMSFormControls_Basic_ListBoxControl : ListFormControl

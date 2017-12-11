@@ -1,9 +1,5 @@
-﻿using System;
-
-using CMS.Activities;
+﻿using CMS.Activities;
 using CMS.Activities.Web.UI;
-using CMS.Helpers;
-using CMS.MacroEngine;
 using CMS.Newsletters;
 
 
@@ -23,8 +19,7 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_Newslette
         NewsletterInfo newsletterInfo = NewsletterInfoProvider.GetNewsletterInfo(newsletterId);
         if (newsletterInfo != null)
         {
-            string subject = ValidationHelper.GetString(newsletterInfo.NewsletterDisplayName, null);
-            ucDetails.AddRow("om.activitydetails.newsletter", subject);
+            ucDetails.AddRow("om.activitydetails.newsletter", newsletterInfo.NewsletterDisplayName);
         }
 
         // Get issue subject
@@ -32,8 +27,7 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_Newslette
         IssueInfo issueInfo = IssueInfoProvider.GetIssueInfo(issueId);
         if (issueInfo != null)
         {
-            string subject = ValidationHelper.GetString(issueInfo.IssueSubject, null);
-            ucDetails.AddRow("om.activitydetails.newsletterissue", MacroSecurityProcessor.RemoveSecurityParameters(subject, true, null));
+            ucDetails.AddRow("om.activitydetails.newsletterissue", issueInfo.IssueDisplayName);
         }
 
         string targetLink = ai.ActivityURL;

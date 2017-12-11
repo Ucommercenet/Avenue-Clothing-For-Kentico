@@ -20,7 +20,7 @@ public partial class CMSModules_EmailTemplates_Pages_SendDraft : CMSModalPage
     private string mNoReplyAddress;
 
 
-    private EmailTemplateInfo Template
+    private EmailTemplateInfo Template 
     {
         get
         {
@@ -92,7 +92,8 @@ public partial class CMSModules_EmailTemplates_Pages_SendDraft : CMSModalPage
         var message = new EmailMessage()
         {
             From = from,
-            Recipients = recipients
+            Recipients = recipients,
+            EmailFormat = EmailFormatEnum.Both
         };
 
         EmailSender.SendEmailWithTemplateText(CurrentSiteName, message, Template, resolver, true);

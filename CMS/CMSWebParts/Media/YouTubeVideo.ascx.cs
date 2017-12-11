@@ -2,6 +2,7 @@
 
 using CMS.Base;
 using CMS.Base.Web.UI;
+using CMS.Core;
 using CMS.Helpers;
 using CMS.PortalEngine.Web.UI;
 using CMS.EventLog;
@@ -176,7 +177,9 @@ public partial class CMSWebParts_Media_YouTubeVideo : CMSAbstractWebPart
 
     private void EnsureCookieLaw()
     {
-        if (CookieHelper.CurrentCookieLevel < SocialMediaCookieLevel)
+        var cookieLevelProvider = Service.Resolve<ICurrentCookieLevelProvider>();
+
+        if (cookieLevelProvider.GetCurrentCookieLevel() < SocialMediaCookieLevel)
         {
             HideContent = true;
             StopProcessing = true;

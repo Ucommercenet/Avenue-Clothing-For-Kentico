@@ -154,6 +154,30 @@
         padding: @base-unit * 0.25 @base-unit * 0.25 @base-unit * 0.25 @base-unit;
         font-size: @font-size-base;
         height: auto;
+        }
+}
+
+// "Feature exceeded" error message
+.alert-error {
+    &.message-panel {
+        padding: @base-unit @base-unit * 0.25 @base-unit @base-unit;
+        font-size: @font-size-base;
+        height: auto;
+
+        // Main icon
+        .alert-icon {
+            top: @base-unit * 0.5;
+            left: @base-unit;
+
+            i {
+                float: left;
+                font-size: @base-unit * 2;
+            }
+        }
+        // Text
+        .alert-label {
+            padding: @base-unit * 0.375 @base-unit * 0.5 @base-unit * 0.375 @base-unit * 4;
+        }
     }
 }
 

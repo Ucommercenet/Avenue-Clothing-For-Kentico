@@ -417,7 +417,7 @@ public partial class CMSModules_Categories_Controls_Categories : CMSAdminEditCon
         // Init site selector
         SelectSite.DropDownSingleSelect.AutoPostBack = true;
         SelectSite.UniSelector.OnSelectionChanged += Selector_SelectedIndexChanged;
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             SelectSite.SiteID = SiteContext.CurrentSiteID;
         }
@@ -487,7 +487,7 @@ public partial class CMSModules_Categories_Controls_Categories : CMSAdminEditCon
 
         if (!StopProcessing)
         {
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 // Start in mode of creating new category when requested
                 if (StartInCreatingMode)

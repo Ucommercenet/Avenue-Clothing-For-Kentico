@@ -142,29 +142,45 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_FileList : CMSU
 
 
     /// <summary>
-    /// Allow edit flag.
+    /// Indicates whether virtual path should be used when pasting file URLs into editable areas.
     /// </summary>
-    public bool AllowEdit
+    public bool UseVirtualPathOnPaste
     {
         get
         {
-            return ValidationHelper.GetBoolean(ViewState["AllowEdit"], true);
+            return ValidationHelper.GetBoolean(ViewState["UseVirtualPathOnPaste"], false);
         }
         set
         {
-            ViewState["AllowEdit"] = value;
+            ViewState["UseVirtualPathOnPaste"] = value;
         }
     }
 
 
     /// <summary>
-    /// Allow modify flag.
+    /// Indicates whether the object menu should be hidden.
     /// </summary>
-    protected bool AllowModify
+    public bool HideObjectMenu
     {
         get
         {
-            return Enabled && AllowEdit && (!CheckObjectPermissions || UserInfoProvider.IsAuthorizedPerObject(ObjectType, ObjectID, PermissionsEnum.Modify, SiteContext.CurrentSiteName, MembershipContext.AuthenticatedUser));
+            return ValidationHelper.GetBoolean(ViewState["HideObjectMenu"], false);
+        }
+        set
+        {
+            ViewState["HideObjectMenu"] = value;
+        }
+    }
+
+
+    /// <summary>
+    /// Indicates whether the file list allows file upload and files manipulation (edit/delete).
+    /// </summary>
+    private bool AllowModify
+    {
+        get
+        {
+            return Enabled && (!CheckObjectPermissions || UserInfoProvider.IsAuthorizedPerObject(ObjectType, ObjectID, PermissionsEnum.Modify, SiteContext.CurrentSiteName, MembershipContext.AuthenticatedUser));
         }
     }
 
@@ -212,7 +228,7 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_FileList : CMSU
 
 
     /// <summary>
-    /// Indicates if uploader is enabled.
+    /// Indicates whether the control is enabled and allows uploading/editing/removing files).
     /// </summary>
     public bool Enabled
     {
@@ -225,6 +241,7 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_FileList : CMSU
             uploader.Enabled = value;
             plcUploader.Visible = value;
             plcUploaderDisabled.Visible = !value;
+            gridFiles.ShowObjectMenu = value;
         }
     }
 
@@ -301,6 +318,22 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_FileList : CMSU
         set
         {
             ViewState["AllowedExtensions"] = value;
+        }
+    }
+
+
+    /// <summary>
+    /// Gets or sets the value that defines whether to show object menu (menu containing relationships, export/backup, destroy object, clone ... functionality) .
+    /// </summary>
+    public bool ShowObjectMenu
+    {
+        get
+        {
+            return gridFiles.ShowObjectMenu;
+        }
+        set
+        {
+            gridFiles.ShowObjectMenu = value;
         }
     }
 
@@ -656,7 +689,7 @@ function ConfirmDelete() {{
                         {
                             appPath = String.Empty;
                         }
-                        btnPaste.OnClientClick = String.Format("PasteImage('{0}/CMSPages/GetMetaFile.aspx?fileguid={1}'); return false", appPath, fileGuid);
+                        btnPaste.OnClientClick = String.Format("PasteImage('{0}/CMSPages/GetMetaFile.aspx?fileguid={1}'); return false", UseVirtualPathOnPaste ? "~" : appPath, fileGuid);
                     }
                     else
                     {
@@ -677,6 +710,13 @@ function ConfirmDelete() {{
                     btnDelete.Enabled = false;
                 }
 
+                break;
+
+            case "#objectmenu":
+                if (HideObjectMenu)
+                {
+                    ((CMSGridActionButton)sender).Visible = false;
+                }
                 break;
 
             case "name":

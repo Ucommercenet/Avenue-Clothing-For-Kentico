@@ -3,14 +3,12 @@ using System.Collections;
 using System.Globalization;
 
 using CMS.Base.Web.UI;
-using CMS.Core;
 using CMS.FormEngine.Web.UI;
 using CMS.Globalization;
 using CMS.Helpers;
 using CMS.Membership;
 using CMS.SiteProvider;
 using CMS.SocialMarketing;
-using CMS.SocialMarketing.Internal;
 
 
 public partial class CMSModules_SocialMarketing_FormControls_FacebookPageAccessToken : FormEngineUserControl
@@ -113,9 +111,6 @@ public partial class CMSModules_SocialMarketing_FormControls_FacebookPageAccessT
                 ShowError(GetString("sm.facebook.account.msg.appnotset"));
                 return;
             }
-
-            var facebookAccessTokenService = Service<IFacebookAccessTokenService>.Entry();
-            FacebookContext.FacebookAccessToken = facebookAccessTokenService.GetAccessToken(appInfo.FacebookApplicationConsumerKey, appInfo.FacebookApplicationConsumerSecret);
 
             string pageId = Form.GetFieldValue("FacebookAccountPageID").ToString();
             if (String.IsNullOrEmpty(pageId))

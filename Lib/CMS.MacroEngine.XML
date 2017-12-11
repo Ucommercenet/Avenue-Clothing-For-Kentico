@@ -14,6 +14,17 @@
             Column names.
             </summary>
         </member>
+        <member name="P:CMS.MacroEngine.DataContainerCollection.Item(System.String)">
+            <summary>
+            Gets or sets the value of the column.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="P:CMS.MacroEngine.DataContainerCollection.ColumnNames">
+            <summary>
+            Column names.
+            </summary>
+        </member>
         <member name="M:CMS.MacroEngine.DataContainerCollection.GetValue(System.String)">
             <summary>
             Returns value of column.
@@ -41,20 +52,19 @@
             </summary>
             <param name="columnName">Column name</param>
         </member>
-        <member name="P:CMS.MacroEngine.DataContainerCollection.Item(System.String)">
-            <summary>
-            Gets or sets the value of the column.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="P:CMS.MacroEngine.DataContainerCollection.ColumnNames">
-            <summary>
-            Column names.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.DateTimeContainer">
             <summary>
             Object encapsulating DateTime objects to be accessible via macro engine.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.DateTimeContainer.DateTime">
+            <summary>
+            Gets the encapsulated DateTime.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.DateTimeContainer.Culture">
+            <summary>
+            Gets or sets the culture of the date time (for ToString formatting purposes).
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.DateTimeContainer.#ctor(System.DateTime)">
@@ -62,6 +72,12 @@
             Creates new instance of DateTimeContainer.
             </summary>
             <param name="dt">DateTime object to be encapsulated</param>
+        </member>
+        <member name="P:CMS.MacroEngine.DateTimeContainer.Item(System.String)">
+            <summary>
+            Gets the value of the column, setter is not implemented.
+            </summary>
+            <param name="columnName">Column name</param>
         </member>
         <member name="M:CMS.MacroEngine.DateTimeContainer.GetValue(System.String)">
             <summary>
@@ -75,6 +91,11 @@
             </summary>
             <param name="columnName">Column name</param>
             <param name="value">New value</param>
+        </member>
+        <member name="P:CMS.MacroEngine.DateTimeContainer.ColumnNames">
+            <summary>
+            Column names.
+            </summary>
         </member>
         <member name="M:CMS.MacroEngine.DateTimeContainer.TryGetValue(System.String,System.Object@)">
             <summary>
@@ -201,27 +222,6 @@
             Converts the value of this instance to an Object of the specified Type that has an equivalent value, using the specified culture-specific formatting information.
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.DateTimeContainer.DateTime">
-            <summary>
-            Gets the encapsulated DateTime.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.DateTimeContainer.Culture">
-            <summary>
-            Gets or sets the culture of the date time (for ToString formatting purposes).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.DateTimeContainer.Item(System.String)">
-            <summary>
-            Gets the value of the column, setter is not implemented.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="P:CMS.MacroEngine.DateTimeContainer.ColumnNames">
-            <summary>
-            Column names.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.DictionaryContainer">
             <summary>
             Container to wrap the IDictionary[string, object] structure
@@ -238,6 +238,12 @@
             </summary>
             <param name="dict">Wrapped dictionary</param>
         </member>
+        <member name="P:CMS.MacroEngine.DictionaryContainer.Item(System.String)">
+            <summary>
+            Gets or sets the value of the column.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
         <member name="M:CMS.MacroEngine.DictionaryContainer.GetValue(System.String)">
             <summary>
             Gets the value from QueryString.
@@ -250,6 +256,11 @@
             </summary>
             <param name="key">QueryString key</param>
             <param name="value">New value</param>
+        </member>
+        <member name="P:CMS.MacroEngine.DictionaryContainer.ColumnNames">
+            <summary>
+            Column names.
+            </summary>
         </member>
         <member name="M:CMS.MacroEngine.DictionaryContainer.TryGetValue(System.String,System.Object@)">
             <summary>
@@ -264,17 +275,6 @@
             Returns true if the object contains specified column.
             </summary>
             <param name="columnName">Column name</param>
-        </member>
-        <member name="P:CMS.MacroEngine.DictionaryContainer.Item(System.String)">
-            <summary>
-            Gets or sets the value of the column.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="P:CMS.MacroEngine.DictionaryContainer.ColumnNames">
-            <summary>
-            Column names.
-            </summary>
         </member>
         <member name="T:CMS.MacroEngine.FlattenEnumerable">
             <summary>
@@ -313,6 +313,16 @@
             Column prefix.
             </summary>
         </member>
+        <member name="P:CMS.MacroEngine.NamedDataContainer.InnerContainer">
+            <summary>
+            Inner data container.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.NamedDataContainer.Prefix">
+            <summary>
+            Column prefix.
+            </summary>
+        </member>
         <member name="M:CMS.MacroEngine.NamedDataContainer.#ctor(CMS.Base.IDataContainer,System.String)">
             <summary>
             Constructor.
@@ -325,6 +335,17 @@
             Gets the original column name without the prefix.
             </summary>
             <param name="columnName">Column name with prefix</param>
+        </member>
+        <member name="P:CMS.MacroEngine.NamedDataContainer.Item(System.String)">
+            <summary>
+            Gets or sets the value of the column.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="P:CMS.MacroEngine.NamedDataContainer.ColumnNames">
+            <summary>
+            Column names.
+            </summary>
         </member>
         <member name="M:CMS.MacroEngine.NamedDataContainer.TryGetValue(System.String,System.Object@)">
             <summary>
@@ -353,30 +374,14 @@
             </summary>
             <param name="columnName">Column name</param>
         </member>
-        <member name="P:CMS.MacroEngine.NamedDataContainer.InnerContainer">
-            <summary>
-            Inner data container.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.NamedDataContainer.Prefix">
-            <summary>
-            Column prefix.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.NamedDataContainer.Item(System.String)">
-            <summary>
-            Gets or sets the value of the column.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="P:CMS.MacroEngine.NamedDataContainer.ColumnNames">
-            <summary>
-            Column names.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.TimeSpanContainer">
             <summary>
             Object encapsulating TimeSpan objects to be accessible via macro engine.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.TimeSpanContainer.TimeSpan">
+            <summary>
+            Gets the encapsulated TimeSpan.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.TimeSpanContainer.#ctor(System.TimeSpan)">
@@ -384,6 +389,12 @@
             Creates new instance of TimeSpanContainer.
             </summary>
             <param name="ts">TimeSpan object to be encapsulated</param>
+        </member>
+        <member name="P:CMS.MacroEngine.TimeSpanContainer.Item(System.String)">
+            <summary>
+            Gets the value of the column, setter is not implemented.
+            </summary>
+            <param name="columnName">Column name</param>
         </member>
         <member name="M:CMS.MacroEngine.TimeSpanContainer.GetValue(System.String)">
             <summary>
@@ -397,6 +408,11 @@
             </summary>
             <param name="columnName">Column name</param>
             <param name="value">New value</param>
+        </member>
+        <member name="P:CMS.MacroEngine.TimeSpanContainer.ColumnNames">
+            <summary>
+            Column names.
+            </summary>
         </member>
         <member name="M:CMS.MacroEngine.TimeSpanContainer.TryGetValue(System.String,System.Object@)">
             <summary>
@@ -438,25 +454,19 @@
             Returns hash code.
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.TimeSpanContainer.TimeSpan">
-            <summary>
-            Gets the encapsulated TimeSpan.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.TimeSpanContainer.Item(System.String)">
-            <summary>
-            Gets the value of the column, setter is not implemented.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="P:CMS.MacroEngine.TimeSpanContainer.ColumnNames">
-            <summary>
-            Column names.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.DebugContainer">
             <summary>
             Container for debugging object within macro engine. Reports all variables and properties
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.DebugContainer.Object">
+            <summary>
+            Debugged object
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.DebugContainer.OnlyPublicMembers">
+            <summary>
+            If true, only public members are exposed
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.DebugContainer.#ctor(System.Object)">
@@ -508,341 +518,9 @@
             Whenever the object implementing IMacroObject interface is used within macro engine this method is called its result is used instead.
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.DebugContainer.Object">
-            <summary>
-            Debugged object
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.DebugContainer.OnlyPublicMembers">
-            <summary>
-            If true, only public members are exposed
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.DebugMethods">
             <summary>
             Wrapper class to provide debug methods in the MacroEngine.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.MacroMethodContainer">
-            <summary>
-            Container for method extensions of an arbitrary object used by MacroEngine.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.MacroExtensionContainer`2">
-            <summary>
-            Wrapper class to provide extensions to an arbitrary object. 
-            It is a base class for ExtensionTypeContainer and MacroFieldContainer classes.
-            </summary>
-        </member>
-        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensions">
-            <summary>
-            Collection of the Extensions registered.
-            </summary>
-        </member>
-        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensionsInitialized">
-            <summary>
-            Indicates if extensions have been loaded / initialized
-            </summary>
-        </member>
-        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensionsByType">
-            <summary>
-            Extensions by the given type [Type => Extensions]
-            </summary>
-        </member>
-        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensionsByTypeAndName">
-            <summary>
-            Extensions by the given type and name [Type => Name => Extensions]
-            </summary>
-        </member>
-        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.NO_EXTENSION">
-            <summary>
-            Defines no extension in the dictionary of cached extensions
-            </summary>
-        </member>
-        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mLockObject">
-            <summary>
-            Object for locking the context
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtensionsForObject(System.Object)">
-            <summary>
-            Returns list of macro extension registered for specified object. Caches the result in the internal cache.
-            Returns null if there is no such extension for given object.
-            </summary>
-            <param name="obj">Object to check</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtensions(System.Type)">
-            <summary>
-            Gets the extensions for the given type. Does not cache the result.
-            </summary>
-            <param name="type">Type</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtensionForObject(System.Object,System.String)">
-            <summary>
-            Returns macro extension object of given name if registered for specified object. Caches the result in the internal cache.
-            It loops through all extensions of given object type.
-            Returns null if there is no such extension for given object.
-            </summary>
-            <param name="obj">Object to check</param>
-            <param name="name">Name of the method</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtension(System.Type,System.String)">
-            <summary>
-            Returns the extension by type and name. Does not cache the result. Does not cache the result.
-            </summary>
-            <param name="type">Type</param>
-            <param name="name">Member name</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.RegisterExtension(`1)">
-            <summary>
-            Registers a Extension to the container.
-            </summary>
-            <param name="Extension">Extension to be registered</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtension(System.String)">
-            <summary>
-            Returns a Extension of given name (return null if specified Extension does not exist).
-            </summary>
-            <param name="name">Extension name</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.EnsureExtensions">
-            <summary>
-            Ensures that the extensions for this type are loaded
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.RegisterExtensions">
-            <summary>
-            Registers extensions to the container. Override this to call RegisterExtension from within.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.#cctor">
-            <summary>
-            Static constructor
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.CheckGlobalAdmin(CMS.MacroEngine.EvaluationContext)">
-            <summary>
-            Checks if the current context user is global admin, returns true if so, otherwise returns false
-            </summary>
-            <param name="context">Evaluation context</param>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.Instance">
-            <summary>
-            Container instance
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.Extensions">
-            <summary>
-            Extensions dictionary
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.RegisteredExtensions">
-            <summary>
-            Returns enumerable of all Extensions.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.RegisteredExtensionNames">
-            <summary>
-            Returns enumerable of all registered Extension names.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.ExtensionsByType">
-            <summary>
-            Extensions by the given type [Type => Extensions]
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.ExtensionsByTypeAndName">
-            <summary>
-            Extensions by the given type and name [Type => Name => Extensions]
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMethodsForObject(System.Object)">
-            <summary>
-            Returns list of macro method extension registered for specified object.
-            Returns null if there is no such extension for given object.
-            </summary>
-            <param name="obj">Object to check</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMethodForObject(System.Object,System.String)">
-            <summary>
-            Returns macro method object of given name if registered for specified object.
-            It loops through all MacroMethodContainer extensions of given object type.
-            Returns null if there is no such Extension for given object.
-            </summary>
-            <param name="obj">Object to check</param>
-            <param name="name">Name of the method</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMethod(System.String)">
-            <summary>
-            Returns a method of given name (return null if specified method does not exist).
-            </summary>
-            <param name="name">Method name</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethod(CMS.MacroEngine.MacroMethod)">
-            <summary>
-            Registers the given method.
-            </summary>
-            <param name="method">Method to register</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethods(CMS.MacroEngine.MacroMethod[])">
-            <summary>
-            Registers the given methods.
-            </summary>
-            <param name="methods">Methods to register</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethods">
-            <summary>
-            Registers all the methods.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterExtensions">
-            <summary>
-            Registers all the methods.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMacroMethods(System.Reflection.MethodInfo)">
-            <summary>
-            Creates a macro method from the given method info. Returns null if the given method does not represent a macro method
-            </summary>
-            <param name="m">Method info</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetOptionalParam``1(System.Object[],System.Int32,``0)">
-            <summary>
-            Gets the optional param of the given type
-            </summary>
-            <param name="parameters">List of method parameters</param>
-            <param name="index">Parameter index</param>
-            <param name="defaultValue">Default value in case conversion fails or parameter is not available</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetParamValue``1(System.Object[],System.Int32,``0)">
-            <summary>
-            Returns the index-th parameter evaluated using given resolver.
-            </summary>
-            <param name="parameters">Method parameters</param>
-            <param name="index">Index of the parameter within the array</param>
-            <param name="defaultValue">Default value which will be used if the parameter is not present</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetLazyParamValue(System.Object,CMS.MacroEngine.EvaluationContext,System.Boolean@)">
-            <summary>
-            Gets the lazy parameter value by evaluating it
-            </summary>
-            <param name="parameter">Parameter to evaluate</param>
-            <param name="evalContext">Evaluation context</param>
-            <param name="securityPassed">Indicates whether the security check passed</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetBoolParam(System.Object)">
-            <summary>
-            Returns the parameter converted to boolean or false if parameter is not boolean.
-            </summary>
-            <param name="parameter">Parameter to convert</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetDoubleParam(System.Object,System.String)">
-            <summary>
-            Returns the parameter converted to double or zero if parameter is not double.
-            </summary>
-            <param name="parameter">Parameter to convert</param>
-            <param name="culture">Culture to use to convert object to double</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetIntParam(System.Object)">
-            <summary>
-            Returns the parameter converted to integer or zero if parameter is not integer.
-            </summary>
-            <param name="parameter">Parameter to convert</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetStringParam(System.Object,System.String)">
-            <summary>
-            Returns the parameter converted to string or empty string.
-            </summary>
-            <param name="parameter">Parameter to convert</param>
-            <param name="culture">Culture to use to convert object to string</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetGuidParam(System.Object)">
-            <summary>
-            Converts the parameter to GUID. Returns Guid.Empty if parameter is not GUID.
-            </summary>
-            <param name="parameter">Parameter to convert</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethodInternal(System.String,System.Func{CMS.MacroEngine.EvaluationContext,System.Object[],System.Object},System.Type,System.String,System.Int32,System.Object[0:,0:],System.String[])">
-            <summary>
-            Registers the given method within the method table.
-            </summary>
-            <param name="name">Method name</param>
-            <param name="method">Method delegate</param>
-            <param name="type">Return type of the method</param>
-            <param name="comment">Comment for the method</param>
-            <param name="minimumParameters">Minimal number of parameters needed to call the method</param>
-            <param name="parameterDefinition">Parameter definition in format {{name, type, comment}, {name, type, comment}}</param>
-            <param name="specialParameters">A list of special parameters needed to be supplied by resolver</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.AddParametersAndRegister(System.Object[0:,0:],CMS.MacroEngine.MacroMethod)">
-            <summary>
-            Adds the parameters from definition and registres the method to the system.
-            </summary>
-            <param name="parameterDefinition">Parameter definition</param>
-            <param name="methodToReg">Method to register</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethodInternal(System.String[],System.Func{CMS.MacroEngine.EvaluationContext,System.Object[],System.Object},System.Type,System.String,System.Int32,System.Object[0:,0:],System.String[])">
-            <summary>
-            Registers the given method within the method table.
-            </summary>
-            <param name="names">Method names to register</param>
-            <param name="method">Method delegate</param>
-            <param name="type">Return type of the method</param>
-            <param name="comment">Comment for the method</param>
-            <param name="minimumParameters">Minimal number of parameters needed to call the method</param>
-            <param name="parameterDefinition">Parameter definition in format {{name, type, comment}, {name, type, comment}}</param>
-            <param name="specialParameters">A list of special parameters needed to be supplied by resolver</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareValues(CMS.MacroEngine.EvaluationContext,System.String,System.Object[])">
-            <summary>
-            Returns true if first parameter is lower than or equal to second.
-            </summary>
-            <param name="context">Evaluation context with child resolver</param>
-            <param name="parametersToCompare">First two parameters are numbers to compare</param>
-            <param name="op">Operator</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.UnwrapContainer(System.Object[])">
-            <summary>
-            Unwraps all DateTime and TimeSpan containers to their original system value.
-            </summary>
-            <param name="parameters">Parameters to process</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareString(System.String,System.String,System.String,CMS.MacroEngine.EvaluationContext)">
-            <summary>
-            Compares strings (lexicographically).
-            </summary>
-            <param name="str1">String to compare</param>
-            <param name="str2">String to compare</param>
-            <param name="op">Comparison operator</param>
-            <param name="context">Evaluation context</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareDouble(System.Double,System.Double,System.String)">
-            <summary>
-            Compares double numbers.
-            </summary>
-            <param name="number1">Number to compare</param>
-            <param name="number2">Number to compare</param>
-            <param name="op">Comparison operator</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareDateTime(System.DateTime,System.DateTime,System.String)">
-            <summary>
-            Compares DateTime values.
-            </summary>
-            <param name="date1">DateTime to compare</param>
-            <param name="date2">DateTime to compare</param>
-            <param name="op">Comparison operator</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareTimeSpan(System.TimeSpan,System.TimeSpan,System.String)">
-            <summary>
-            Compares TimeSpan values.
-            </summary>
-            <param name="span1">TimeSpan to compare</param>
-            <param name="span2">TimeSpan to compare</param>
-            <param name="op">Comparison operator</param>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethodContainer.RegisteredMethods">
-            <summary>
-            Returns enumerable of all methods.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.DebugMethods.RegisterMethods">
@@ -883,32 +561,14 @@
             Contains values of macro parameters
             </summary>
         </member>
-        <member name="M:CMS.MacroEngine.EvaluationParameters.#ctor">
-            <summary>
-            Empty constructor
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationParameters.#ctor(CMS.MacroEngine.EvaluationContext)">
-            <summary>
-            Initializes parameters from <see cref="T:CMS.MacroEngine.EvaluationContext"/>. Copies inheritable macro parameters from another macro evaluation.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationParameters.#ctor(System.Collections.Generic.IEnumerable{CMS.MacroEngine.MacroExpression})">
-            <summary>
-            Initializes parameters from <see cref="P:CMS.MacroEngine.MacroExpression.Parameters"/>. Parses the parameters in expression.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationParameters.SetParameter(System.String,System.Object)">
-            <summary>
-            Parse given macro parameter and it's value and stores it inside this data container.
-            </summary>
-            <param name="name">Macro parameter name</param>
-            <param name="value">Macro parameter value</param>
-            <returns>True when parameter was recognized and it's value was stored.</returns>
-        </member>
         <member name="P:CMS.MacroEngine.EvaluationParameters.Hash">
             <summary>
             Gets or sets the hash against which the security is checked.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.EvaluationParameters.IdentityName">
+            <summary>
+            Gets or sets the identity name against which the security is checked.
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.EvaluationParameters.UserName">
@@ -962,10 +622,38 @@
             Default value of the evaluation. Used when result of the whole macro is empty string.
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.EvaluationParameters.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationParameters.#ctor(CMS.MacroEngine.EvaluationContext)">
+            <summary>
+            Initializes parameters from <see cref="T:CMS.MacroEngine.EvaluationContext"/>. Copies inheritable macro parameters from another macro evaluation.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationParameters.#ctor(System.Collections.Generic.IEnumerable{CMS.MacroEngine.MacroExpression})">
+            <summary>
+            Initializes parameters from <see cref="P:CMS.MacroEngine.MacroExpression.Parameters"/>. Parses the parameters in expression.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationParameters.SetParameter(System.String,System.Object)">
+            <summary>
+            Parse given macro parameter and it's value and stores it inside this data container.
+            </summary>
+            <param name="name">Macro parameter name</param>
+            <param name="value">Macro parameter value</param>
+            <returns>True when parameter was recognized and it's value was stored.</returns>
+        </member>
         <member name="T:CMS.MacroEngine.MacroParameterNameAttribute">
             <summary>
             Assigns macro parameter name to property representing that macro parameter. 
             Parameter name is string representation of macro parameter used in macro expressions.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroParameterNameAttribute.ParameterName">
+            <summary>
+            Name of macro parameter
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroParameterNameAttribute.#ctor(System.String)">
@@ -974,10 +662,199 @@
             </summary>
             <param name="name">Name of macro paramater</param>
         </member>
-        <member name="P:CMS.MacroEngine.MacroParameterNameAttribute.ParameterName">
+        <member name="T:CMS.MacroEngine.MacroIdentityOption">
             <summary>
-            Name of macro parameter
+            Encapsulates identity option for macros.
             </summary>
+            <remarks>
+            When both <see cref="P:CMS.MacroEngine.MacroIdentityOption.IdentityName"/> and <see cref="P:CMS.MacroEngine.MacroIdentityOption.UserName"/> are specified, the identity name has precedence.
+            </remarks>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroIdentityOption.IdentityName">
+            <summary>
+            Name of macro identity to be used when signing by macro identity is desired.
+            </summary>
+            <seealso cref="T:CMS.MacroEngine.MacroIdentityInfo"/>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroIdentityOption.UserName">
+            <summary>
+            Name of user to be used when signing by user is desired.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityOption.IsNullOrEmpty(CMS.MacroEngine.MacroIdentityOption)">
+            <summary>
+            Indicates whether <paramref name="identityOption"/> is null or both its <see cref="P:CMS.MacroEngine.MacroIdentityOption.IdentityName"/> and <see cref="P:CMS.MacroEngine.MacroIdentityOption.UserName"/> properties are null or empty.
+            </summary>
+            <param name="identityOption">Identity option to be checked for null or emptiness.</param>
+            <returns>Returns true when <paramref name="identityOption"/> is null or when both its identity name and user name are null or empty strings.</returns>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityOption.GetEffectiveUser">
+            <summary>
+            Gets effective user of macro identity identified by <see cref="P:CMS.MacroEngine.MacroIdentityOption.IdentityName"/> when its value is provided.
+            Otherwise gets user identified by <see cref="P:CMS.MacroEngine.MacroIdentityOption.UserName"/>.
+            </summary>
+            <returns>Returns user to be used when evaluating a macro, or null.</returns>
+            <remarks>
+            This method returns null when <see cref="P:CMS.MacroEngine.MacroIdentityOption.IdentityName"/> is provided, but the corresponding signature either does not exists or its <see cref="P:CMS.MacroEngine.MacroIdentityInfo.MacroIdentityEffectiveUserID"/>
+            is not set.
+            </remarks>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityOption.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>A string that represents the current object.</returns>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityOption.FromUserInfo(CMS.Base.IUserInfo)">
+            <summary>
+            Creates a new identity option from user info.
+            </summary>
+        </member>
+        <member name="T:CMS.MacroEngine.UserMacroIdentityHelper">
+            <summary>
+            Provides utility methods for <see cref="T:CMS.MacroEngine.UserMacroIdentityInfo"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityHelper.SetMacroIdentity(CMS.Base.IUserInfo,System.Int32)">
+            <summary>
+            Assigns <see cref="T:CMS.MacroEngine.MacroIdentityInfo"/> identified by <paramref name="macroIdentityId"/> to <paramref name="userInfo"/>.
+            Clears user's identity when <paramref name="macroIdentityId"/> is 0.
+            </summary>
+            <param name="userInfo">User whom to assign the macro identity.</param>
+            <param name="macroIdentityId">Macro identity identifier.</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityHelper.SetMacroIdentityInternal(CMS.Base.IUserInfo,System.Int32)">
+            <summary>
+            Assigns <see cref="T:CMS.MacroEngine.MacroIdentityInfo"/> identified by <paramref name="macroIdentityId"/> to <paramref name="userInfo"/>.
+            Clears user's identity when <paramref name="macroIdentityId"/> is 0.
+            </summary>
+            <param name="userInfo">User whom to assign the macro identity.</param>
+            <param name="macroIdentityId">Macro identity identifier.</param>
+        </member>
+        <member name="T:CMS.MacroEngine.UserMacroIdentityInfo">
+            <summary>
+            UserMacroIdentityInfo data container class.
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.UserMacroIdentityInfo.OBJECT_TYPE">
+            <summary>
+            Object type
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.UserMacroIdentityInfo.TYPEINFO">
+            <summary>
+            Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.UserMacroIdentityInfo.UserMacroIdentityID">
+            <summary>
+            User macro identity ID
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.UserMacroIdentityInfo.UserMacroIdentityUserID">
+            <summary>
+            User macro identity user ID
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.UserMacroIdentityInfo.UserMacroIdentityMacroIdentityID">
+            <summary>
+            User macro identity macro identity ID
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.UserMacroIdentityInfo.UserMacroIdentityUserGuid">
+            <summary>
+            User macro identity user guid
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.UserMacroIdentityInfo.UserMacroIdentityLastModified">
+            <summary>
+            User macro identity last modified
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty UserMacroIdentityInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new UserMacroIdentityInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="T:CMS.MacroEngine.UserMacroIdentityInfoProvider">
+            <summary>
+            Class providing UserMacroIdentityInfo management.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.GetUserMacroIdentities">
+            <summary>
+            Returns a query for all the UserMacroIdentityInfo objects.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.GetUserMacroIdentityInfo(System.Int32)">
+            <summary>
+            Returns UserMacroIdentityInfo with specified ID.
+            </summary>
+            <param name="id">UserMacroIdentityInfo ID</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.GetUserMacroIdentityInfo(CMS.Base.IUserInfo)">
+            <summary>
+            Returns UserMacroIdentityInfo for specified user.
+            </summary>
+            <param name="userInfo">User info</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.SetUserMacroIdentityInfo(CMS.MacroEngine.UserMacroIdentityInfo)">
+            <summary>
+            Sets (updates or inserts) specified UserMacroIdentityInfo.
+            </summary>
+            <param name="infoObj">UserMacroIdentityInfo to be set</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.DeleteUserMacroIdentityInfo(CMS.MacroEngine.UserMacroIdentityInfo)">
+            <summary>
+            Deletes specified UserMacroIdentityInfo.
+            </summary>
+            <param name="infoObj">UserMacroIdentityInfo to be deleted</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.DeleteUserMacroIdentityInfo(System.Int32)">
+            <summary>
+            Deletes UserMacroIdentityInfo with specified ID.
+            </summary>
+            <param name="id">UserMacroIdentityInfo ID</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.GetUserMacroIdentityInfoInternal(CMS.Base.IUserInfo)">
+            <summary>
+            Returns UserMacroIdentityInfo for specified user.
+            </summary>
+            <param name="userInfo">User info</param>
+        </member>
+        <member name="M:CMS.MacroEngine.UserMacroIdentityInfoProvider.SetInfo(CMS.MacroEngine.UserMacroIdentityInfo)">
+            <summary>
+            Inserts or Updates the object to the database.
+            </summary>
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="T:CMS.MacroEngine.IMacroNamespace">
             <summary>
@@ -989,6 +866,12 @@
             Global storage of static resolvers for all modules.
             Extend this to store your module's resolver to be globally available (in e-mail templates, macro components, etc.)
             </summary>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroResolverStorage.GetResolverHandler">
+            <summary>
+            Handler for receiving static resolver via its name.
+            </summary>
+            <param name="name">Name of the resolver</param>
         </member>
         <member name="F:CMS.MacroEngine.MacroResolverStorage.mOnGetResolver">
             <summary>
@@ -1016,12 +899,6 @@
         <member name="M:CMS.MacroEngine.MacroResolverStorage.GetRegisteredResolver(System.String)">
             <summary>
             Returns resolver of given name. Returns default resolver if the name was not found.
-            </summary>
-            <param name="name">Name of the resolver</param>
-        </member>
-        <member name="T:CMS.MacroEngine.MacroResolverStorage.GetResolverHandler">
-            <summary>
-            Handler for receiving static resolver via its name.
             </summary>
             <param name="name">Name of the resolver</param>
         </member>
@@ -1117,6 +994,13 @@
             <param name="context">Evaluation context with child resolver</param>
             <param name="parameters">Method parameters</param>
         </member>
+        <member name="M:CMS.MacroEngine.ConvertMethods.ToDecimal(CMS.MacroEngine.EvaluationContext,System.Object[])">
+            <summary>
+            Converts value to decimal, if it is not possible, returns default value.
+            </summary>
+            <param name="context">Evaluation context with child resolver</param>
+            <param name="parameters">Method parameters</param>
+        </member>
         <member name="M:CMS.MacroEngine.ConvertMethods.ToString(CMS.MacroEngine.EvaluationContext,System.Object[])">
             <summary>
             Converts value to string, if it is not possible, returns default value.
@@ -1162,49 +1046,6 @@
         <member name="T:CMS.MacroEngine.DebugSettingsFields">
             <summary>
             Wrapper class to provide fields from DenugHelper in the MacroEngine.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.MacroFieldContainer">
-            <summary>
-            Container for field extensions of an arbitrary object used by MacroEngine.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroFieldContainer.GetFieldsForObject(System.Object)">
-            <summary>
-            Returns list of macro field extension registered for specified object.
-            Returns null if there is no such extension for given object.
-            </summary>
-            <param name="obj">Object to check</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroFieldContainer.GetFieldForObject(System.Object,System.String)">
-            <summary>
-            Returns macro field object of given name if registered for specified object.
-            It loops through all MacroFieldContainer extensions of given object type.
-            Returns null if there is no such Extension for given object.
-            </summary>
-            <param name="obj">Object to check</param>
-            <param name="name">Name of the field</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroFieldContainer.GetField(System.String)">
-            <summary>
-            Returns a field of given name (return null if specified field does not exist).
-            </summary>
-            <param name="name">Field name</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroFieldContainer.RegisterField(CMS.MacroEngine.MacroField)">
-            <summary>
-            Registers the given field.
-            </summary>
-            <param name="field">Field to register</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroFieldContainer.RegisterFields">
-            <summary>
-            Registers all the fields.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroFieldContainer.RegisterExtensions">
-            <summary>
-            Registers all the fields.
             </summary>
         </member>
         <member name="T:CMS.MacroEngine.DebugSettingsMethods">
@@ -1923,33 +1764,381 @@
             <param name="context">Evaluation context with child resolver</param>
             <param name="parameters">Method parameters</param>
         </member>
+        <member name="T:CMS.MacroEngine.MacroExtensionContainer`2">
+            <summary>
+            Wrapper class to provide extensions to an arbitrary object. 
+            It is a base class for ExtensionTypeContainer and MacroFieldContainer classes.
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensions">
+            <summary>
+            Collection of the Extensions registered.
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensionsInitialized">
+            <summary>
+            Indicates if extensions have been loaded / initialized
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensionsByType">
+            <summary>
+            Extensions by the given type [Type => Extensions]
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mExtensionsByTypeAndName">
+            <summary>
+            Extensions by the given type and name [Type => Name => Extensions]
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.NO_EXTENSION">
+            <summary>
+            Defines no extension in the dictionary of cached extensions
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroExtensionContainer`2.mLockObject">
+            <summary>
+            Object for locking the context
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.Instance">
+            <summary>
+            Container instance
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.Extensions">
+            <summary>
+            Extensions dictionary
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.RegisteredExtensions">
+            <summary>
+            Returns enumerable of all Extensions.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.RegisteredExtensionNames">
+            <summary>
+            Returns enumerable of all registered Extension names.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.ExtensionsByType">
+            <summary>
+            Extensions by the given type [Type => Extensions]
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExtensionContainer`2.ExtensionsByTypeAndName">
+            <summary>
+            Extensions by the given type and name [Type => Name => Extensions]
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtensionsForObject(System.Object)">
+            <summary>
+            Returns list of macro extension registered for specified object. Caches the result in the internal cache.
+            Returns null if there is no such extension for given object.
+            </summary>
+            <param name="obj">Object to check</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtensions(System.Type)">
+            <summary>
+            Gets the extensions for the given type. Does not cache the result.
+            </summary>
+            <param name="type">Type</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtensionForObject(System.Object,System.String)">
+            <summary>
+            Returns macro extension object of given name if registered for specified object. Caches the result in the internal cache.
+            It loops through all extensions of given object type.
+            Returns null if there is no such extension for given object.
+            </summary>
+            <param name="obj">Object to check</param>
+            <param name="name">Name of the method</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtension(System.Type,System.String)">
+            <summary>
+            Returns the extension by type and name. Does not cache the result. Does not cache the result.
+            </summary>
+            <param name="type">Type</param>
+            <param name="name">Member name</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.RegisterExtension(`1)">
+            <summary>
+            Registers a Extension to the container.
+            </summary>
+            <param name="Extension">Extension to be registered</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.GetExtension(System.String)">
+            <summary>
+            Returns a Extension of given name (return null if specified Extension does not exist).
+            </summary>
+            <param name="name">Extension name</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.EnsureExtensions">
+            <summary>
+            Ensures that the extensions for this type are loaded
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.RegisterExtensions">
+            <summary>
+            Registers extensions to the container. Override this to call RegisterExtension from within.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.#cctor">
+            <summary>
+            Static constructor
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroExtensionContainer`2.CheckGlobalAdmin(CMS.MacroEngine.EvaluationContext)">
+            <summary>
+            Checks if the current context user is global admin, returns true if so, otherwise returns false
+            </summary>
+            <param name="context">Evaluation context</param>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroFieldContainer">
+            <summary>
+            Container for field extensions of an arbitrary object used by MacroEngine.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroFieldContainer.GetFieldsForObject(System.Object)">
+            <summary>
+            Returns list of macro field extension registered for specified object.
+            Returns null if there is no such extension for given object.
+            </summary>
+            <param name="obj">Object to check</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroFieldContainer.GetFieldForObject(System.Object,System.String)">
+            <summary>
+            Returns macro field object of given name if registered for specified object.
+            It loops through all MacroFieldContainer extensions of given object type.
+            Returns null if there is no such Extension for given object.
+            </summary>
+            <param name="obj">Object to check</param>
+            <param name="name">Name of the field</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroFieldContainer.GetField(System.String)">
+            <summary>
+            Returns a field of given name (return null if specified field does not exist).
+            </summary>
+            <param name="name">Field name</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroFieldContainer.RegisterField(CMS.MacroEngine.MacroField)">
+            <summary>
+            Registers the given field.
+            </summary>
+            <param name="field">Field to register</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroFieldContainer.RegisterFields">
+            <summary>
+            Registers all the fields.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroFieldContainer.RegisterExtensions">
+            <summary>
+            Registers all the fields.
+            </summary>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroMethodContainer">
+            <summary>
+            Container for method extensions of an arbitrary object used by MacroEngine.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethodContainer.RegisteredMethods">
+            <summary>
+            Returns enumerable of all methods.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMethodsForObject(System.Object)">
+            <summary>
+            Returns list of macro method extension registered for specified object.
+            Returns null if there is no such extension for given object.
+            </summary>
+            <param name="obj">Object to check</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMethodForObject(System.Object,System.String)">
+            <summary>
+            Returns macro method object of given name if registered for specified object.
+            It loops through all MacroMethodContainer extensions of given object type.
+            Returns null if there is no such Extension for given object.
+            </summary>
+            <param name="obj">Object to check</param>
+            <param name="name">Name of the method</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMethod(System.String)">
+            <summary>
+            Returns a method of given name (return null if specified method does not exist).
+            </summary>
+            <param name="name">Method name</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethod(CMS.MacroEngine.MacroMethod)">
+            <summary>
+            Registers the given method.
+            </summary>
+            <param name="method">Method to register</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethods(CMS.MacroEngine.MacroMethod[])">
+            <summary>
+            Registers the given methods.
+            </summary>
+            <param name="methods">Methods to register</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethods">
+            <summary>
+            Registers all the methods.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterExtensions">
+            <summary>
+            Registers all the methods.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetMacroMethods(System.Reflection.MethodInfo)">
+            <summary>
+            Creates a macro method from the given method info. Returns null if the given method does not represent a macro method
+            </summary>
+            <param name="m">Method info</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetOptionalParam``1(System.Object[],System.Int32,``0)">
+            <summary>
+            Gets the optional param of the given type
+            </summary>
+            <param name="parameters">List of method parameters</param>
+            <param name="index">Parameter index</param>
+            <param name="defaultValue">Default value in case conversion fails or parameter is not available</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetParamValue``1(System.Object[],System.Int32,``0)">
+            <summary>
+            Returns the index-th parameter evaluated using given resolver.
+            </summary>
+            <param name="parameters">Method parameters</param>
+            <param name="index">Index of the parameter within the array</param>
+            <param name="defaultValue">Default value which will be used if the parameter is not present</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetLazyParamValue(System.Object,CMS.MacroEngine.EvaluationContext,System.Boolean@)">
+            <summary>
+            Gets the lazy parameter value by evaluating it
+            </summary>
+            <param name="parameter">Parameter to evaluate</param>
+            <param name="evalContext">Evaluation context</param>
+            <param name="securityPassed">Indicates whether the security check passed</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetBoolParam(System.Object)">
+            <summary>
+            Returns the parameter converted to boolean or false if parameter is not boolean.
+            </summary>
+            <param name="parameter">Parameter to convert</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetDoubleParam(System.Object,System.String)">
+            <summary>
+            Returns the parameter converted to double or zero if parameter is not double.
+            </summary>
+            <param name="parameter">Parameter to convert</param>
+            <param name="culture">Culture to use to convert object to double</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetDecimalParam(System.Object,System.String)">
+            <summary>
+            Returns the parameter converted to decimal or zero if parameter is not decimal.
+            </summary>
+            <param name="parameter">Parameter to convert</param>
+            <param name="culture">Culture to use to convert object to double</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetIntParam(System.Object)">
+            <summary>
+            Returns the parameter converted to integer or zero if parameter is not integer.
+            </summary>
+            <param name="parameter">Parameter to convert</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetStringParam(System.Object,System.String)">
+            <summary>
+            Returns the parameter converted to string or empty string.
+            </summary>
+            <param name="parameter">Parameter to convert</param>
+            <param name="culture">Culture to use to convert object to string</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.GetGuidParam(System.Object)">
+            <summary>
+            Converts the parameter to GUID. Returns Guid.Empty if parameter is not GUID.
+            </summary>
+            <param name="parameter">Parameter to convert</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethodInternal(System.String,System.Func{CMS.MacroEngine.EvaluationContext,System.Object[],System.Object},System.Type,System.String,System.Int32,System.Object[0:,0:],System.String[])">
+            <summary>
+            Registers the given method within the method table.
+            </summary>
+            <param name="name">Method name</param>
+            <param name="method">Method delegate</param>
+            <param name="type">Return type of the method</param>
+            <param name="comment">Comment for the method</param>
+            <param name="minimumParameters">Minimal number of parameters needed to call the method</param>
+            <param name="parameterDefinition">Parameter definition in format {{name, type, comment}, {name, type, comment}}</param>
+            <param name="specialParameters">A list of special parameters needed to be supplied by resolver</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.AddParametersAndRegister(System.Object[0:,0:],CMS.MacroEngine.MacroMethod)">
+            <summary>
+            Adds the parameters from definition and registres the method to the system.
+            </summary>
+            <param name="parameterDefinition">Parameter definition</param>
+            <param name="methodToReg">Method to register</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.RegisterMethodInternal(System.String[],System.Func{CMS.MacroEngine.EvaluationContext,System.Object[],System.Object},System.Type,System.String,System.Int32,System.Object[0:,0:],System.String[])">
+            <summary>
+            Registers the given method within the method table.
+            </summary>
+            <param name="names">Method names to register</param>
+            <param name="method">Method delegate</param>
+            <param name="type">Return type of the method</param>
+            <param name="comment">Comment for the method</param>
+            <param name="minimumParameters">Minimal number of parameters needed to call the method</param>
+            <param name="parameterDefinition">Parameter definition in format {{name, type, comment}, {name, type, comment}}</param>
+            <param name="specialParameters">A list of special parameters needed to be supplied by resolver</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareValues(CMS.MacroEngine.EvaluationContext,System.String,System.Object[])">
+            <summary>
+            Returns true if first parameter is lower than or equal to second.
+            </summary>
+            <param name="context">Evaluation context with child resolver</param>
+            <param name="parametersToCompare">First two parameters are numbers to compare</param>
+            <param name="op">Operator</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.UnwrapContainer(System.Object[])">
+            <summary>
+            Unwraps all DateTime and TimeSpan containers to their original system value.
+            </summary>
+            <param name="parameters">Parameters to process</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareString(System.String,System.String,System.String,CMS.MacroEngine.EvaluationContext)">
+            <summary>
+            Compares strings (lexicographically).
+            </summary>
+            <param name="str1">String to compare</param>
+            <param name="str2">String to compare</param>
+            <param name="op">Comparison operator</param>
+            <param name="context">Evaluation context</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareDouble(System.Double,System.Double,System.String)">
+            <summary>
+            Compares double numbers.
+            </summary>
+            <param name="number1">Number to compare</param>
+            <param name="number2">Number to compare</param>
+            <param name="op">Comparison operator</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareDateTime(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            Compares DateTime values.
+            </summary>
+            <param name="date1">DateTime to compare</param>
+            <param name="date2">DateTime to compare</param>
+            <param name="op">Comparison operator</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodContainer.CompareTimeSpan(System.TimeSpan,System.TimeSpan,System.String)">
+            <summary>
+            Compares TimeSpan values.
+            </summary>
+            <param name="span1">TimeSpan to compare</param>
+            <param name="span2">TimeSpan to compare</param>
+            <param name="op">Comparison operator</param>
+        </member>
         <member name="T:CMS.MacroEngine.MacroMethodParamAttribute">
             <summary>
             Adds action to the page.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodParamAttribute.#ctor(System.Int32,System.String,System.Type,System.String)">
-            <summary>
-            Creates new instance of MacroMethodParam object.
-            </summary>
-            <param name="index">Index of the parameter</param>
-            <param name="name">Parameter name</param>
-            <param name="type">Parameter type</param>
-            <param name="comment">Parameter comment</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodParamAttribute.#ctor(System.Int32,System.String,System.Type,System.String,System.Boolean)">
-            <summary>
-            Creates new instance of MacroMethodParam object.
-            </summary>
-            <param name="index">Index of the parameter</param>
-            <param name="name">Parameter name</param>
-            <param name="type">Parameter type</param>
-            <param name="comment">Parameter comment</param>
-            <param name="asExpression">If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodParamAttribute.GetMacroParam">
-            <summary>
-            Creates new MacroMethodParam object from data of this attribute.
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.MacroMethodParamAttribute.Index">
@@ -1982,23 +2171,34 @@
             If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated.
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.MacroMethodParamAttribute.#ctor(System.Int32,System.String,System.Type,System.String)">
+            <summary>
+            Creates new instance of MacroMethodParam object.
+            </summary>
+            <param name="index">Index of the parameter</param>
+            <param name="name">Parameter name</param>
+            <param name="type">Parameter type</param>
+            <param name="comment">Parameter comment</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodParamAttribute.#ctor(System.Int32,System.String,System.Type,System.String,System.Boolean)">
+            <summary>
+            Creates new instance of MacroMethodParam object.
+            </summary>
+            <param name="index">Index of the parameter</param>
+            <param name="name">Parameter name</param>
+            <param name="type">Parameter type</param>
+            <param name="comment">Parameter comment</param>
+            <param name="asExpression">If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodParamAttribute.GetMacroParam">
+            <summary>
+            Creates new MacroMethodParam object from data of this attribute.
+            </summary>
+        </member>
         <member name="T:CMS.MacroEngine.MacroMethodAttribute">
             <summary>
             Adds action to the page.
             </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodAttribute.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodAttribute.#ctor(System.Type,System.String,System.Int32)">
-            <summary>
-            Creates new MacroMethodAttribute.
-            </summary>
-            <param name="type">Method return type</param>
-            <param name="comment">Comment of the method</param>
-            <param name="minimumParameters">minimal number of parameters needed by the method</param>
         </member>
         <member name="P:CMS.MacroEngine.MacroMethodAttribute.Type">
             <summary>
@@ -2035,6 +2235,19 @@
             Gets or sets the list of special parameters needed to be supplied by resolver.
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.MacroMethodAttribute.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodAttribute.#ctor(System.Type,System.String,System.Int32)">
+            <summary>
+            Creates new MacroMethodAttribute.
+            </summary>
+            <param name="type">Method return type</param>
+            <param name="comment">Comment of the method</param>
+            <param name="minimumParameters">minimal number of parameters needed by the method</param>
+        </member>
         <member name="T:CMS.MacroEngine.MacroContext">
             <summary>
             Macro resolving context
@@ -2050,11 +2263,6 @@
             Locker object
             </summary>
         </member>
-        <member name="M:CMS.MacroEngine.MacroContext.CreateGlobalResolver">
-            <summary>
-            Creates an instance of the global macro resolver
-            </summary>
-        </member>
         <member name="P:CMS.MacroEngine.MacroContext.CurrentResolver">
             <summary>
             Current macro resolver
@@ -2063,6 +2271,21 @@
         <member name="P:CMS.MacroEngine.MacroContext.GlobalResolver">
             <summary>
             Global static resolver - contains all the global objects. Context resolvers are children of this resolver.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroContext.CreateGlobalResolver">
+            <summary>
+            Creates an instance of the global macro resolver
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroHandlers.PreInit">
+            <summary>
+            Pre-initialization of the module.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroHandlers.EnsureValidMacrosWithinInstallation(System.Object,CMS.Base.QueryEventArgs)">
+            <summary>
+            Runs before query execution within installation.
             </summary>
         </member>
         <member name="T:CMS.MacroEngine.MacroModuleMetadata">
@@ -2080,16 +2303,6 @@
             Wrapper class to provide names of the object attachment categories to the MacroEngine.
             </summary>
         </member>
-        <member name="T:CMS.MacroEngine.MacroNamespace`1">
-            <summary>
-            Base class for macro namespaces.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroNamespace`1.Instance">
-            <summary>
-            Returns singleton instance of the namespace
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.ConvertNamespace">
             <summary>
             Wrapper class to provide basic conversion namespace in the MacroEngine.
@@ -2105,20 +2318,19 @@
             Wrapper class to provide enumerations namespace in the MacroEngine.
             </summary>
         </member>
+        <member name="T:CMS.MacroEngine.MacroNamespace`1">
+            <summary>
+            Base class for macro namespaces.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroNamespace`1.Instance">
+            <summary>
+            Returns singleton instance of the namespace
+            </summary>
+        </member>
         <member name="T:CMS.MacroEngine.RegisterMacroNamespaceAttribute">
             <summary>
             Registers a macro namespace within the macro engine
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.RegisterMacroNamespaceAttribute.#ctor(System.Type)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="type">Namespace class type</param>
-        </member>
-        <member name="M:CMS.MacroEngine.RegisterMacroNamespaceAttribute.PreInit">
-            <summary>
-            Initializes the attribute
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.RegisterMacroNamespaceAttribute.MarkedType">
@@ -2139,6 +2351,17 @@
         <member name="P:CMS.MacroEngine.RegisterMacroNamespaceAttribute.Hidden">
             <summary>
             If true, the namespace is hidden and doesn't show up in the Intellisense
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.RegisterMacroNamespaceAttribute.#ctor(System.Type)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="type">Namespace class type</param>
+        </member>
+        <member name="M:CMS.MacroEngine.RegisterMacroNamespaceAttribute.PreInit">
+            <summary>
+            Initializes the attribute
             </summary>
         </member>
         <member name="T:CMS.MacroEngine.UtilNamespace">
@@ -2400,7 +2623,7 @@
         </member>
         <member name="P:CMS.MacroEngine.IMacroProcessingParameters.Signatures">
             <summary>
-            Gets hash table containing user signatures
+            Gets dictionary containing identity options for macros
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.IMacroProcessingParameters.Decode">
@@ -2423,9 +2646,9 @@
             Gets builder appending all resolved macros
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.IMacroProcessingParameters.UserName">
+        <member name="P:CMS.MacroEngine.IMacroProcessingParameters.IdentityOption">
             <summary>
-            Gets userName to be signed with
+            Gets identity option to be signed with
             </summary>
         </member>
         <member name="T:CMS.MacroEngine.MacroProcessingParameters">
@@ -2463,7 +2686,7 @@
             Can be null
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.MacroProcessingParameters.UserName">
+        <member name="P:CMS.MacroEngine.MacroProcessingParameters.IdentityOption">
             <summary>
             Gets userName to be signed with
             Can be null
@@ -2486,12 +2709,6 @@
             <summary>
             Class containing settings for macro expression resolving process.
             </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.ResolveExpressionSettings.#ctor(System.String)">
-            <summary>
-            Creates new instance of resolve process settings for given expression.
-            </summary>
-            <param name="expression">Expression to be resolved</param>
         </member>
         <member name="P:CMS.MacroEngine.ResolveExpressionSettings.Expression">
             <summary>
@@ -2517,6 +2734,12 @@
             <summary>
             Type of the expression (? or $ or %).
             </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.ResolveExpressionSettings.#ctor(System.String)">
+            <summary>
+            Creates new instance of resolve process settings for given expression.
+            </summary>
+            <param name="expression">Expression to be resolved</param>
         </member>
         <member name="T:CMS.MacroEngine.MacroStaticSettings">
             <summary>
@@ -2608,11 +2831,22 @@
             Object encapsulating custom macro resolving as ISimpleDataContainer.
             </summary>
         </member>
+        <member name="P:CMS.MacroEngine.CustomMacroContainer.Resolver">
+            <summary>
+            Gets or sets resolver used to resolve Custom macros.
+            </summary>
+        </member>
         <member name="M:CMS.MacroEngine.CustomMacroContainer.#ctor(CMS.MacroEngine.MacroResolver)">
             <summary>
             Creates new instance of CustomMacroObject.
             </summary>
             <param name="resolver">ContextResolver object to use to resolve macros</param>
+        </member>
+        <member name="P:CMS.MacroEngine.CustomMacroContainer.Item(System.String)">
+            <summary>
+            Gets or sets the value of the column.
+            </summary>
+            <param name="columnName">Column name</param>
         </member>
         <member name="M:CMS.MacroEngine.CustomMacroContainer.GetValue(System.String)">
             <summary>
@@ -2627,17 +2861,6 @@
             <param name="customMacro">Custom macro</param>
             <param name="value">New value</param>
         </member>
-        <member name="P:CMS.MacroEngine.CustomMacroContainer.Resolver">
-            <summary>
-            Gets or sets resolver used to resolve Custom macros.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.CustomMacroContainer.Item(System.String)">
-            <summary>
-            Gets or sets the value of the column.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
         <member name="T:CMS.MacroEngine.MacroDebug">
             <summary>
             Class providing debug capabilities of macro engine.
@@ -2646,6 +2869,31 @@
         <member name="F:CMS.MacroEngine.MacroDebug.mDetailed">
             <summary>
             If true macros are debugged in the detailed mode.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroDebug.Settings">
+            <summary>
+            Debug settings
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroDebug.Detailed">
+            <summary>
+            Determines whether the debug provides detailed output.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroDebug.CurrentRequestLog">
+            <summary>
+            Current request log.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroDebug.DebugCurrentRequest">
+            <summary>
+            Debug current request Macros operations.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroDebug.CurrentLogIndent">
+            <summary>
+            Current indentation of the Macros log.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroDebug.Init">
@@ -2697,12 +2945,14 @@
             <param name="result">Result of the macro</param>
             <param name="indent">Indentation</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroDebug.LogSecurityCheckFailure(System.String,System.String)">
+        <member name="M:CMS.MacroEngine.MacroDebug.LogSecurityCheckFailure(System.String,System.String,System.String,System.String)">
             <summary>
-            Logs the failure information.
+            Logs information that <paramref name="expression"/> failed to evaluate for security reasons.
             </summary>
             <param name="expression">Expression the evaluation of which failed</param>
-            <param name="userName">User name</param>
+            <param name="userName">User name, or null.</param>
+            <param name="identityName">Macro identity name, or null.</param>
+            <param name="effectiveUserName">Effective user name when expression was evaluated under macro identity, or null.</param>
         </member>
         <member name="M:CMS.MacroEngine.MacroDebug.LogMacroFailure(System.String,System.String,System.String)">
             <summary>
@@ -2715,31 +2965,6 @@
         <member name="M:CMS.MacroEngine.MacroDebug.SettingsReset_Execute(System.Object,CMS.Base.DebugEventArgs)">
             <summary>
             Handles reset of debug settings.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroDebug.Settings">
-            <summary>
-            Debug settings
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroDebug.Detailed">
-            <summary>
-            Determines whether the debug provides detailed output.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroDebug.CurrentRequestLog">
-            <summary>
-            Current request log.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroDebug.DebugCurrentRequest">
-            <summary>
-            Debug current request Macros operations.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroDebug.CurrentLogIndent">
-            <summary>
-            Current indentation of the Macros log.
             </summary>
         </member>
         <member name="T:CMS.MacroEngine.MacroExtension">
@@ -2755,6 +2980,21 @@
         <member name="T:CMS.MacroEngine.MacroField">
             <summary>
             Wrapper for any macro data field (source).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroField.ContextValueEvaluator">
+            <summary>
+            Value evaluation function which needs context.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroField.SimpleValueEvaluator">
+            <summary>
+            Value evaluation function which does not need evaluation context.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroField.AvailabilityCondition">
+            <summary>
+            Availability condition.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroField.#ctor(System.String,System.Func{CMS.MacroEngine.EvaluationContext,System.Object},System.Func{CMS.MacroEngine.EvaluationContext,System.Boolean})">
@@ -2785,24 +3025,14 @@
             </summary>
             <param name="context">Evaluation context under which to evaluate the field value</param>
         </member>
-        <member name="P:CMS.MacroEngine.MacroField.ContextValueEvaluator">
-            <summary>
-            Value evaluation function which needs context.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroField.SimpleValueEvaluator">
-            <summary>
-            Value evaluation function which does not need evaluation context.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroField.AvailabilityCondition">
-            <summary>
-            Availability condition.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.MacroSecurityProcessor">
             <summary>
             Class providing general macro security parameters processing.
+            </summary>
+        </member>
+        <member name="E:CMS.MacroEngine.MacroSecurityProcessor.OnCheckObjectPermissions">
+            <summary>
+            Event which is called whenever the security check on object is requested. It's called after the standard check is processed and the result can be overriden with this handler.
             </summary>
         </member>
         <member name="F:CMS.MacroEngine.MacroSecurityProcessor.CheckIntegrity">
@@ -2815,13 +3045,13 @@
             Defines a regular expression that detects a complex macro (in case it is matched)
             </summary>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.AddSecurityParameters(System.String,System.String,System.Collections.Hashtable,System.Boolean,System.String)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.AddSecurityParameters(System.String,CMS.MacroEngine.MacroIdentityOption,System.Collections.Generic.IDictionary{System.String,CMS.MacroEngine.MacroIdentityOption},System.Boolean,System.String)">
             <summary>
             Adds security parameters to every macro.
             </summary>
             <param name="text">Text with macros</param>
-            <param name="userName">Username to sign with</param>
-            <param name="signatures">Hashtable with old signatures indexed by expression</param>
+            <param name="identityOption">Identity option to sign with</param>
+            <param name="signatures">Dictionary with old identity options indexed by expression</param>
             <param name="decodeBeforeSign">If true, expression is decoded before the security params are computed</param>
             <param name="saltToUse">Salt to use for hash function</param>
         </member>
@@ -2831,31 +3061,46 @@
             </summary>
             <param name="context">Macro processing context</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.AddMacroSecurityParams(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.AddMacroSecurityParams(System.String,CMS.MacroEngine.MacroIdentityOption,System.String,System.Boolean)">
             <summary>
             Adds |(hash) and |(user) security parameters to given expression.
             </summary>
             <param name="expression">Macro expression to add the parameters to</param>
-            <param name="userName">Name of the user</param>
+            <param name="identityOption">Identity option to sign with</param>
             <param name="saltToUse">Salt to use for hash function</param>
             <param name="decode">If true, decodes expression before computing signature</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveSecurityParameters(System.String,System.Boolean,System.Collections.Hashtable)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveSecurityParameters(System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,CMS.MacroEngine.MacroIdentityOption})">
             <summary>
             Removes security parameters from all macros.
             </summary>
             <param name="text">Text with macros</param>
             <param name="replaceWithHash">If true, macros which contained security information will be returned with hash at the end</param>
-            <param name="signatures">Hashtable of usernames indexed by expressions to be build while removing security parameters</param>
+            <param name="signatures">Dictionary of identity options indexed by expression to be built while removing security parameters</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveSecurityParameters(System.String,System.Boolean,System.Collections.Hashtable,System.Boolean)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveSecurityParameters(System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,CMS.MacroEngine.MacroIdentityOption},System.Boolean)">
             <summary>
             Removes security parameters from all macros.
             </summary>
             <param name="text">Text with macros</param>
             <param name="replaceWithHash">If true, macros which contained security information will be returned with hash at the end</param>
-            <param name="signatures">Hashtable of usernames indexed by expressions to be build while removing security parameters</param>
-            <param name="clearSignatures">If true, signatures hashtable is cleared before text processing</param>
+            <param name="signatures">Dictionary of identity options indexed by expression to be built while removing security parameters</param>
+            <param name="clearSignatures">If true, <paramref name="signatures"/> dictionary is cleared before text processing</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveSecurityParametersAndAnonymize(System.String,System.Collections.Generic.IDictionary{System.String,CMS.MacroEngine.MacroIdentityOption})">
+            <summary>
+            Marks all macros int the <paramref name="text"/> as anonymous.
+            </summary>
+            <param name="text">Text with macros.</param>
+            <param name="signatures">Dictionary of identity options indexed by expression to be built while removing security parameters</param>
+            <returns>Text with macros without signatures and marked as anonymous.</returns>
+            <remarks>This is for internal use only. Do not use it.</remarks>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveSecurityParametersAndAddReplacement(CMS.MacroEngine.MacroProcessingContext)">
+            <summary>
+            Callback for marking macros for replacement.
+            </summary>
+            <param name="context">Macro processing context.</param>
         </member>
         <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveSecurityParameter(CMS.MacroEngine.MacroProcessingContext)">
             <summary>
@@ -2863,37 +3108,28 @@
             </summary>
             <param name="context">Macro processing context</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveMacroSecurityParams(System.String,System.String@)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveMacroSecurityParams(System.String,CMS.MacroEngine.MacroIdentityOption@)">
             <summary>
-            Removes |(hash) and |(user) security parameters from given expression.
+            Removes |(hash) and |(user) or |(identity) security parameters from given expression.
             </summary>
             <param name="expression">Macro expression to remove the parameters from</param>
-            <param name="user">Value of the removed user parameter</param>
+            <param name="identityOption">Value of the removed identity option parameter (either macro identity name or user name)</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveMacroSecurityParams(System.String,System.String@,System.String@)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RemoveMacroSecurityParams(System.String,CMS.MacroEngine.MacroIdentityOption@,System.String@)">
             <summary>
-            Removes |(hash) and |(user) security parameters from given expression.
+            Removes |(hash) and |(user) or |(identity) security parameters from given expression.
             </summary>
             <param name="expression">Macro expression to remove the parameters from</param>
-            <param name="user">Value of the removed user parameter</param>
+            <param name="identityOption">Value of the removed identity option parameter (either macro identity name or user name)</param>
             <param name="hash">Value of the removed hash parameter</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RefreshSecurityParameters(System.Data.DataSet,System.String,System.String)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RefreshSecurityParameters(System.Data.DataSet,CMS.MacroEngine.MacroIdentityOption)">
             <summary>
             Recreates all the macros signatures according to new specified salt in all string columns of each row of the given DataSet (modifies the DataSet).
             Keeps the owners of the macros untouched (verifies the integrity against old salt).
             </summary>
             <param name="ds">DataSet containing macros</param>
-            <param name="oldSalt">Old salt used to generate old signatures (to verify integrity of old macros); if null, the integrity is not checked</param>
-            <param name="newSalt">New salt which should be used to generate new signatures</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RefreshSecurityParameters(System.Data.DataSet,System.String)">
-            <summary>
-            Recreates all the macros signatures according to new specified salt in all string columns of each row of the given DataSet (modifies the DataSet).
-            Keeps the owners of the macros untouched (verifies the integrity against old salt).
-            </summary>
-            <param name="ds">DataSet containing macros</param>
-            /// <param name="userName">Name of the user to sign the macro</param>
+            <param name="identityOption">Identity option to sign with</param>
         </member>
         <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RefreshSecurityParameters(System.String,System.String,System.String,System.Boolean)">
             <summary>
@@ -2905,12 +3141,12 @@
             <param name="newSalt">New salt which should be used to generate new signatures</param>
             <param name="decodeBeforeSign">If true, expression is decoded before the security params are computed</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RefreshSecurityParameters(CMS.DataEngine.BaseInfo,System.String,System.Boolean,System.String)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.RefreshSecurityParameters(CMS.DataEngine.BaseInfo,CMS.MacroEngine.MacroIdentityOption,System.Boolean,System.String)">
             <summary>
-            Loops through all text columns of given info and signs ALL macros (even already signed) with specififed user.
+            Loops through all text columns of given info and signs ALL macros (even already signed) with specified identity option.
             </summary>
             <param name="info">Info object to process</param>
-            <param name="userName">Name of the user to sign the macro</param>
+            <param name="identityOption">Identity option to sign with</param>
             <param name="saveObject">If set to true, than saves the object to DB if any macro signature has been changed.</param>
             <param name="saltToUse">Salt to use for hash function</param>
         </member>
@@ -2932,17 +3168,17 @@
         </member>
         <member name="M:CMS.MacroEngine.MacroSecurityProcessor.TransformAllMacroValues(System.Data.DataSet,System.Func{System.String,System.Boolean,System.String})">
             <summary>
-            Searches all string macro values in given <see cref="T:System.Data.DataSet"/> and transforms them using <paramref name="transformValue"/>.
+            Searches all string macro values in given <see cref="T:System.Data.DataSet"/> and transforms them using <paramref name="transformValue" />.
             </summary>
             <param name="ds"><see cref="T:System.Data.DataSet"/> containing macro values to be transformed.</param>
             <param name="transformValue">Function transforming old macro value into a new one.</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.CheckMacroIntegrity(System.String,System.String)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.CheckMacroIntegrity(System.String,CMS.MacroEngine.MacroIdentityOption)">
             <summary>
             Checks the integrity against given user.
             </summary>
             <param name="originalExpression">Expression to check</param>
-            <param name="userName">Name of the user to check</param>
+            <param name="expectedIdentityOption">Identity option to check</param>
         </member>
         <member name="M:CMS.MacroEngine.MacroSecurityProcessor.CheckSecurity(CMS.MacroEngine.EvaluationContext,System.Object,System.Boolean)">
             <summary>
@@ -2959,22 +3195,27 @@
             <param name="expression">Expression to check</param>
             <returns>Returns true if expression does not contain none of those characters: .[}</returns>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.VerifyMacroExpression(System.String,System.String,System.String,System.String)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.VerifyMacroExpression(System.String,CMS.MacroEngine.MacroIdentityOption,System.String,System.String)">
             <summary>
             Check macro expression integrity by comparing with <paramref name="hash"/>.
             </summary>
             <param name="macro">Macro expression.</param>
-            <param name="userName">User under which is the macro expression signed.</param>
+            <param name="identityOption">Identity option by which is the macro expression signed.</param>
             <param name="hash">The macro expression is valid only if the computed hash equals to this hash.</param>
             <param name="salt">Specify to use custom salt when computing hash of given macro expression.</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.GetMacroHash(System.String,System.String,System.String)">
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.GetMacroHash(System.String,CMS.MacroEngine.MacroIdentityOption,System.String)">
             <summary>
             Compute hash to ensure macro integrity.
             </summary>
             <param name="macro">Macro expression.</param>
-            <param name="userName">User under which is the macro expression signed.</param>
+            <param name="identityOption">Identity option by which is the macro expression signed.</param>
             <param name="salt">Specify to use custom salt when computing hash.</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSecurityProcessor.GetHashPhrase(System.String,CMS.MacroEngine.MacroIdentityOption)">
+            <summary>
+            Gets string containing <paramref name="macro"/> and <paramref name="identityOption"/> for hash computation.
+            </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroSecurityProcessor.FormatProcessedMacro(CMS.MacroEngine.MacroProcessingContext,System.String)">
             <summary>
@@ -2983,90 +3224,9 @@
             <param name="context">context having all required values</param>
             <param name="macroExpression">macro expression</param>
         </member>
-        <member name="E:CMS.MacroEngine.MacroSecurityProcessor.OnCheckObjectPermissions">
-            <summary>
-            Event which is called whenever the security check on object is requested. It's called after the standard check is processed and the result can be overriden with this handler.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.EvaluationContext">
             <summary>
             Context for macro expression evaluation. Reflects resolver settings and inline macro parameters.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.#ctor">
-            <summary>
-            Creates new empty instance of the context.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.#ctor(CMS.MacroEngine.MacroResolver,System.String,System.String)">
-            <summary>
-            Creates new EvaluationContext which takes the default values from resolver. Note that these can be modified during evaluation process via macro parameters.
-            </summary>
-            <param name="resolver">Resolver which is used for the evaluation</param>
-            <param name="originalExpression">Original expression which is being evaluated</param>
-            <param name="expressionType">Type of the expression being evaluated (% or $ or ?)</param>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.#ctor(CMS.MacroEngine.MacroResolver,CMS.MacroEngine.EvaluationParameters,System.String,System.String)">
-            <summary>
-            Creates new EvaluationContext which takes the values from resolver and parameters. Note that these can be modified during evaluation process via macro parameters.
-            </summary>
-            <param name="resolver">Resolver which is used for the evaluation</param>
-            <param name="evaluationParameters">Inherited macro parameters from another macro evaluation. Can be null.</param>
-            <param name="originalExpression">Original expression which is being evaluated</param>
-            <param name="expressionType">Type of the expression being evaluated (% or $ or ?)</param>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.CreateChildContext">
-            <summary>
-            Creates child context (clones the parent settings and creates child of the resolver).
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.CreateChildContext(System.Boolean)">
-            <summary>
-            Creates child context (clones the parent settings and creates child of the resolver).
-            </summary>
-            <param name="createChildResolver">If true, the resolver of the child context will be a child resolver of current resolver. If false, the same instance of the resolver will be used.</param>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.ClearInnerSources">
-            <summary>
-            Clears all inner sources (does not clear parent inner sources).
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.AddInnerSource(System.Object[])">
-            <summary>
-            Adds inner source(s) to this instance of the context.
-            </summary>
-            <param name="sources">Source(s) to add</param>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.GetInnerSources">
-            <summary>
-            Returns list of all aggregated inner sources (from the whole context hierarchy).
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.ClearPrioritizedInnerSources">
-            <summary>
-            Clears all prioritized inner sources (does not clear parent inner sources).
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.AddPrioritizedInnerSource(System.Object[])">
-            <summary>
-            Adds prioritized inner source(s) to this instance of the context.
-            </summary>
-            <param name="sources">Source(s) to add</param>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.GetPrioritizedInnerSources">
-            <summary>
-            Returns list of all aggregated prioritized inner sources (from the whole context hierarchy).
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.LoadParameters(CMS.MacroEngine.EvaluationParameters)">
-            <summary>
-            Loads values of evaluation parameters.
-            </summary>
-            <param name="evaluationParameters"></param>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationContext.CheckForTimeout">
-            <summary>
-            Verifies whether evaluation is timeouting. Returns true if timeout has occurred. False if everything is alright.
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.EvaluationContext.TimeoutOverTime">
@@ -3188,7 +3348,12 @@
         </member>
         <member name="P:CMS.MacroEngine.EvaluationContext.User">
             <summary>
-            Gets the user associated with this context (based on the UserName property)
+            Gets the user associated with this context (based on the <see cref="P:CMS.MacroEngine.EvaluationContext.IdentityName"/> and <see cref="P:CMS.MacroEngine.EvaluationContext.UserName"/>)
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.EvaluationContext.IdentityName">
+            <summary>
+            Gets or sets the macro identity name against which the security is checked.
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.EvaluationContext.UserName">
@@ -3206,14 +3371,85 @@
             Determines whether only simple macros (macros which do not require security check) are allowed.
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.#ctor">
+            <summary>
+            Creates new empty instance of the context.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.#ctor(CMS.MacroEngine.MacroResolver,System.String,System.String)">
+            <summary>
+            Creates new EvaluationContext which takes the default values from resolver. Note that these can be modified during evaluation process via macro parameters.
+            </summary>
+            <param name="resolver">Resolver which is used for the evaluation</param>
+            <param name="originalExpression">Original expression which is being evaluated</param>
+            <param name="expressionType">Type of the expression being evaluated (% or $ or ?)</param>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.#ctor(CMS.MacroEngine.MacroResolver,CMS.MacroEngine.EvaluationParameters,System.String,System.String)">
+            <summary>
+            Creates new EvaluationContext which takes the values from resolver and parameters. Note that these can be modified during evaluation process via macro parameters.
+            </summary>
+            <param name="resolver">Resolver which is used for the evaluation</param>
+            <param name="evaluationParameters">Inherited macro parameters from another macro evaluation. Can be null.</param>
+            <param name="originalExpression">Original expression which is being evaluated</param>
+            <param name="expressionType">Type of the expression being evaluated (% or $ or ?)</param>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.CreateChildContext">
+            <summary>
+            Creates child context (clones the parent settings and creates child of the resolver).
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.CreateChildContext(System.Boolean)">
+            <summary>
+            Creates child context (clones the parent settings and creates child of the resolver).
+            </summary>
+            <param name="createChildResolver">If true, the resolver of the child context will be a child resolver of current resolver. If false, the same instance of the resolver will be used.</param>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.ClearInnerSources">
+            <summary>
+            Clears all inner sources (does not clear parent inner sources).
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.AddInnerSource(System.Object[])">
+            <summary>
+            Adds inner source(s) to this instance of the context.
+            </summary>
+            <param name="sources">Source(s) to add</param>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.GetInnerSources">
+            <summary>
+            Returns list of all aggregated inner sources (from the whole context hierarchy).
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.ClearPrioritizedInnerSources">
+            <summary>
+            Clears all prioritized inner sources (does not clear parent inner sources).
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.AddPrioritizedInnerSource(System.Object[])">
+            <summary>
+            Adds prioritized inner source(s) to this instance of the context.
+            </summary>
+            <param name="sources">Source(s) to add</param>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.GetPrioritizedInnerSources">
+            <summary>
+            Returns list of all aggregated prioritized inner sources (from the whole context hierarchy).
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.LoadParameters(CMS.MacroEngine.EvaluationParameters)">
+            <summary>
+            Loads values of evaluation parameters.
+            </summary>
+            <param name="evaluationParameters"></param>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationContext.CheckForTimeout">
+            <summary>
+            Verifies whether evaluation is timeouting. Returns true if timeout has occurred. False if everything is alright.
+            </summary>
+        </member>
         <member name="T:CMS.MacroEngine.EvaluationResult">
             <summary>
             Context for macro expression evaluation.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationResult.ToString">
-            <summary>
-            Returns result to string (returns "null" if result is null).
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.EvaluationResult.Match">
@@ -3241,6 +3477,11 @@
             Evaluation context used to get this result.
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.EvaluationResult.ToString">
+            <summary>
+            Returns result to string (returns "null" if result is null).
+            </summary>
+        </member>
         <member name="T:CMS.MacroEngine.MacroCommand">
             <summary>
             Represents return value of special commands in macro engine (break, continue, etc.).
@@ -3252,6 +3493,16 @@
             </summary>
         </member>
         <member name="F:CMS.MacroEngine.MacroCommand.mValue">
+            <summary>
+            Value of the command (needed for return statement)
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroCommand.Name">
+            <summary>
+            Name of the command.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroCommand.Value">
             <summary>
             Value of the command (needed for return statement)
             </summary>
@@ -3268,19 +3519,44 @@
             If value is not null, returns value.ToString(), otherwise returns name of the command.
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.MacroCommand.Name">
-            <summary>
-            Name of the command.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroCommand.Value">
-            <summary>
-            Value of the command (needed for return statement)
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.ExpressionEvaluator">
             <summary>
             Class used for MacroExpression evaluation.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Expression">
+            <summary>
+            Expression to evaluate.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Context">
+            <summary>
+            Evaluation context.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Type">
+            <summary>
+            Returns the expression type.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Name">
+            <summary>
+            Name of the data member or method call.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Value">
+            <summary>
+            Value of the value expression (is null for expression types like method, property, etc.).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Parent">
+            <summary>
+            Parent expression of the expression.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Children">
+            <summary>
+            Child expressions of the expression.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.ExpressionEvaluator.#ctor(CMS.MacroEngine.MacroExpression,CMS.MacroEngine.EvaluationContext)">
@@ -3548,44 +3824,19 @@
             </summary>
             <param name="number">Number of children</param>
         </member>
-        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Expression">
-            <summary>
-            Expression to evaluate.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Context">
-            <summary>
-            Evaluation context.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Type">
-            <summary>
-            Returns the expression type.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Name">
-            <summary>
-            Name of the data member or method call.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Value">
-            <summary>
-            Value of the value expression (is null for expression types like method, property, etc.).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Parent">
-            <summary>
-            Parent expression of the expression.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.ExpressionEvaluator.Children">
-            <summary>
-            Child expressions of the expression.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.MacroLambdaExpression">
             <summary>
             Represents lambda expression in macro engine
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroLambdaExpression.Expression">
+            <summary>
+            Expression (right side of "=>" operator).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroLambdaExpression.Variables">
+            <summary>
+            List of parameters (left side of "=>" operator).
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroLambdaExpression.#ctor(System.Collections.Generic.List{System.String},CMS.MacroEngine.MacroExpression)">
@@ -3601,24 +3852,71 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:CMS.MacroEngine.MacroLambdaExpression.Expression">
-            <summary>
-            Expression (right side of "=>" operator).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroLambdaExpression.Variables">
-            <summary>
-            List of parameters (left side of "=>" operator).
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.EvaluationException">
             <summary>
             Exception used when evaluation could not proceed (wrong types, etc.).
             </summary>
         </member>
+        <member name="P:CMS.MacroEngine.EvaluationException.ExactMessage">
+            <summary>
+            Gets or sets the message describing where the evaluation threw the exception.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.EvaluationException.Message">
+            <summary>
+            Returns evaluation error message.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="originalExpression">The whole expression which was being processed when this error occurred.</param>
+            <param name="exactMessage">Message describing where the evaluation threw the exception</param>
+            <param name="innerException">Reference to the inner exception that is the cause of this exception.</param>
+        </member>
+        <member name="T:CMS.MacroEngine.EvaluationTimeoutException">
+            <summary>
+            Exception used when evaluation of the expression took to long (longer than the specified timeout threshold).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.EvaluationTimeoutException.Message">
+            <summary>
+            Returns evaluation timeout error message.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.EvaluationTimeoutException.#ctor(System.String,System.TimeSpan)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="originalExpression">The whole expression which was being processed when this error occurred.</param>
+            <param name="overTimeSpan">Indicates how much timeout exceeds</param>
+        </member>
+        <member name="T:CMS.MacroEngine.LexicalAnalysisException">
+            <summary>
+            Class for the exception during the lexical analysis of a K# macro expression.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.LexicalAnalysisException.AnalysisType">
+            <summary>
+            Gets or sets the prefix of the analysis type to generate correct message.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.LexicalAnalysisException.#ctor(System.String,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="originalExpression">The whole expression which was being parsed when this error occurred.</param>
+            <param name="errorIndex">Index within OriginalExpression where the parsing error occurred</param>
+        </member>
         <member name="T:CMS.MacroEngine.MacroException">
             <summary>
             Base for the exceptions thrown during the macro resolving process.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroException.OriginalExpression">
+            <summary>
+            Gets or sets the whole expression which was being processed when this error occurred.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroException.#ctor(System.String,System.Exception)">
@@ -3641,62 +3939,21 @@
             <param name="resourceKey">Resource key</param>
             <param name="defaultValue">Default value</param>
         </member>
-        <member name="P:CMS.MacroEngine.MacroException.OriginalExpression">
+        <member name="T:CMS.MacroEngine.MethodNotFoundException">
             <summary>
-            Gets or sets the whole expression which was being processed when this error occurred.
+            Base for the exceptions thrown when method which does not exist was tried to be executed.
             </summary>
         </member>
-        <member name="M:CMS.MacroEngine.EvaluationException.#ctor(System.String,System.String,System.Exception)">
+        <member name="M:CMS.MacroEngine.MethodNotFoundException.#ctor(System.String)">
             <summary>
             Constructor.
             </summary>
-            <param name="originalExpression">The whole expression which was being processed when this error occurred.</param>
-            <param name="exactMessage">Message describing where the evaluation threw the exception</param>
-            <param name="innerException">Reference to the inner exception that is the cause of this exception.</param>
-        </member>
-        <member name="P:CMS.MacroEngine.EvaluationException.ExactMessage">
-            <summary>
-            Gets or sets the message describing where the evaluation threw the exception.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.EvaluationException.Message">
-            <summary>
-            Returns evaluation error message.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.EvaluationTimeoutException">
-            <summary>
-            Exception used when evaluation of the expression took to long (longer than the specified timeout threshold).
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.EvaluationTimeoutException.#ctor(System.String,System.TimeSpan)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="originalExpression">The whole expression which was being processed when this error occurred.</param>
-            <param name="overTimeSpan">Indicates how much timeout exceeds</param>
-        </member>
-        <member name="P:CMS.MacroEngine.EvaluationTimeoutException.Message">
-            <summary>
-            Returns evaluation timeout error message.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.LexicalAnalysisException">
-            <summary>
-            Class for the exception during the lexical analysis of a K# macro expression.
-            </summary>
+            <param name="originalExpression">The whole expression which was being parsed when this error occured.</param>
         </member>
         <member name="T:CMS.MacroEngine.ParsingException">
             <summary>
             Base for the exceptions thrown during the macro resolving process.
             </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.ParsingException.#ctor(System.String,System.Int32)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="originalExpression">The whole expression which was being parsed when this error occurred.</param>
-            <param name="errorIndex">Index within OriginalExpression where the parsing error occurred</param>
         </member>
         <member name="P:CMS.MacroEngine.ParsingException.AnalysisType">
             <summary>
@@ -3713,47 +3970,17 @@
             Returns the formatted message of the parsing error.
             </summary>
         </member>
-        <member name="M:CMS.MacroEngine.LexicalAnalysisException.#ctor(System.String,System.Int32)">
+        <member name="M:CMS.MacroEngine.ParsingException.#ctor(System.String,System.Int32)">
             <summary>
             Constructor.
             </summary>
             <param name="originalExpression">The whole expression which was being parsed when this error occurred.</param>
             <param name="errorIndex">Index within OriginalExpression where the parsing error occurred</param>
-        </member>
-        <member name="P:CMS.MacroEngine.LexicalAnalysisException.AnalysisType">
-            <summary>
-            Gets or sets the prefix of the analysis type to generate correct message.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.MethodNotFoundException">
-            <summary>
-            Base for the exceptions thrown when method which does not exist was tried to be executed.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MethodNotFoundException.#ctor(System.String)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="originalExpression">The whole expression which was being parsed when this error occured.</param>
         </member>
         <member name="T:CMS.MacroEngine.SyntacticAnalysisException">
             <summary>
             Class for the exception during the syntactic analysis of a K# macro expression.
             </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.SyntacticAnalysisException.#ctor(System.String,System.Int32)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="originalExpression">The whole expression which was being parsed when this error occurred.</param>
-            <param name="errorIndex">Index within OriginalExpression where the parsing error occurred</param>
-        </member>
-        <member name="M:CMS.MacroEngine.SyntacticAnalysisException.#ctor(System.String,System.String)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="originalExpression">The whole expression which was being parsed when this error occurred.</param>
-            <param name="exactMessage">Message describing where the evaluation threw the exception</param>
         </member>
         <member name="P:CMS.MacroEngine.SyntacticAnalysisException.ExactMessage">
             <summary>
@@ -3769,6 +3996,20 @@
             <summary>
             Returns evaluation error message.
             </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.SyntacticAnalysisException.#ctor(System.String,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="originalExpression">The whole expression which was being parsed when this error occurred.</param>
+            <param name="errorIndex">Index within OriginalExpression where the parsing error occurred</param>
+        </member>
+        <member name="M:CMS.MacroEngine.SyntacticAnalysisException.#ctor(System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="originalExpression">The whole expression which was being parsed when this error occurred.</param>
+            <param name="exactMessage">Message describing where the evaluation threw the exception</param>
         </member>
         <member name="T:CMS.MacroEngine.ElementType">
             <summary>
@@ -3950,106 +4191,6 @@
             Set of all word operators
             </summary>
         </member>
-        <member name="M:CMS.MacroEngine.MacroElement.#ctor(CMS.MacroEngine.ElementType,System.String,System.Object,System.Int32)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="type">Element type</param>
-            <param name="expression">Expression</param>
-            <param name="value">Value</param>
-            <param name="startIndex">Start index in the source string</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.GetSpecialChars">
-            <summary>
-            Gets the replacements for special characters escapes [escaped -> unescaped]
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.GetWordOperators">
-            <summary>
-            Gets the set of all word operators
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.GetOperatorChars">
-            <summary>
-            Gets the set of all operator characters
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.GetOperators">
-            <summary>
-            Gets the set of all operators
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.ParseExpression(System.String)">
-            <summary>
-            Parses the expression.
-            </summary>
-            <param name="expression">Expression to parse</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.ParseExpression(System.String,System.Boolean)">
-            <summary>
-            Parses the expression.
-            </summary>
-            <param name="expression">Expression to parse</param>
-            <param name="supressError">If true no exceptions are thrown</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.ParseNext(System.String,System.Int32@,System.Boolean,System.Boolean)">
-            <summary>
-            Parses the next element in the given macro expression, starting at the given index. Adjusts the index to the beginning of the next element.
-            </summary>
-            <param name="expression">Macro expression</param>
-            <param name="index">Start index of where to find nex lexem</param>
-            <param name="supressError">If true no exceptions are thrown</param>
-            <param name="isParamValue">If true, the epxression is only read until next parameter</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.CreateElement(CMS.MacroEngine.ElementType,System.Text.StringBuilder,System.Int32)">
-            <summary>
-            Creates a macro element
-            </summary>
-            <param name="type">Element type</param>
-            <param name="lex">Source lexem</param>
-            <param name="startindex">Start index</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.UnescapeSpecialChars(System.String)">
-            <summary>
-            Unescapes special characters in the string constant.
-            </summary>
-            <param name="text">Text of the string constant</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.EscapeSpecialChars(System.String)">
-            <summary>
-            Escapes special characters in the string to create a string literal.
-            </summary>
-            <param name="text">String to create literal from</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.IsOperatorChar(System.Char)">
-            <summary>
-            Returns true if the character is operator character.
-            </summary>
-            <param name="ch">Character to check</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.IsWordOperator(System.String)">
-            <summary>
-            Returns true if the given string is a word operator.
-            </summary>
-            <param name="op">Operator to check</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.IsValidOperator(System.String)">
-            <summary>
-            Returns true if the operator is valid.
-            </summary>
-            <param name="op">Operator to check</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.IsBoolConst(System.String)">
-            <summary>
-            Returns true if the given string is a boolean constant "true" or "false".
-            </summary>
-            <param name="op">Operator to check</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroElement.ToString">
-            <summary>
-            Returns the expression of the element.
-            </summary>
-        </member>
         <member name="P:CMS.MacroEngine.MacroElement.Type">
             <summary>
             Element type.
@@ -4170,6 +4311,106 @@
             Multiline comment
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.MacroElement.#ctor(CMS.MacroEngine.ElementType,System.String,System.Object,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="type">Element type</param>
+            <param name="expression">Expression</param>
+            <param name="value">Value</param>
+            <param name="startIndex">Start index in the source string</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.GetSpecialChars">
+            <summary>
+            Gets the replacements for special characters escapes [escaped -> unescaped]
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.GetWordOperators">
+            <summary>
+            Gets the set of all word operators
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.GetOperatorChars">
+            <summary>
+            Gets the set of all operator characters
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.GetOperators">
+            <summary>
+            Gets the set of all operators
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.ParseExpression(System.String)">
+            <summary>
+            Parses the expression.
+            </summary>
+            <param name="expression">Expression to parse</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.ParseExpression(System.String,System.Boolean)">
+            <summary>
+            Parses the expression.
+            </summary>
+            <param name="expression">Expression to parse</param>
+            <param name="supressError">If true no exceptions are thrown</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.ParseNext(System.String,System.Int32@,System.Boolean,System.Boolean)">
+            <summary>
+            Parses the next element in the given macro expression, starting at the given index. Adjusts the index to the beginning of the next element.
+            </summary>
+            <param name="expression">Macro expression</param>
+            <param name="index">Start index of where to find nex lexem</param>
+            <param name="supressError">If true no exceptions are thrown</param>
+            <param name="isParamValue">If true, the expression is only read until next parameter</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.CreateElement(CMS.MacroEngine.ElementType,System.Text.StringBuilder,System.Int32)">
+            <summary>
+            Creates a macro element
+            </summary>
+            <param name="type">Element type</param>
+            <param name="lex">Source lexem</param>
+            <param name="startindex">Start index</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.UnescapeSpecialChars(System.String)">
+            <summary>
+            Unescapes special characters in the string constant.
+            </summary>
+            <param name="text">Text of the string constant</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.EscapeSpecialChars(System.String)">
+            <summary>
+            Escapes special characters in the string to create a string literal.
+            </summary>
+            <param name="text">String to create literal from</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.IsOperatorChar(System.Char)">
+            <summary>
+            Returns true if the character is operator character.
+            </summary>
+            <param name="ch">Character to check</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.IsWordOperator(System.String)">
+            <summary>
+            Returns true if the given string is a word operator.
+            </summary>
+            <param name="op">Operator to check</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.IsValidOperator(System.String)">
+            <summary>
+            Returns true if the operator is valid.
+            </summary>
+            <param name="op">Operator to check</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.IsBoolConst(System.String)">
+            <summary>
+            Returns true if the given string is a boolean constant "true" or "false".
+            </summary>
+            <param name="op">Operator to check</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroElement.ToString">
+            <summary>
+            Returns the expression of the element.
+            </summary>
+        </member>
         <member name="T:CMS.MacroEngine.MacroExpression">
             <summary>
             Macro expression - represents a syntactic tree of the macro expression.
@@ -4203,6 +4444,77 @@
         <member name="F:CMS.MacroEngine.MacroExpression.mLeftFoldedOperators">
             <summary>
             Set of left folding operators (e.g. arithmetic or bitwise operators)
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.SyntaxErrorDetected">
+            <summary>
+            Gets or sets the value that indicates whether syntax error was detected during a parsing
+            </summary>
+            <remarks>This property is used for checking within the parsing with suppressed errors</remarks>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Type">
+            <summary>
+            Returns the expression type.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Name">
+            <summary>
+            Name of the data member or method call.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Value">
+            <summary>
+            Value of the value expression (is null for expression types like method, property, etc.).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Parameters">
+            <summary>
+            Parameters for the given expression; i.e. |(paramname)value expressions.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Parent">
+            <summary>
+            Parent expression.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Children">
+            <summary>
+            Child expressions of the expression.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.SyntacticTreeTable">
+            <summary>
+            Hashtable with cached parsed expressions to speedup the macro evaluation.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Next">
+            <summary>
+            Next expression to evaluate.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Previous">
+            <summary>
+            Previous expression (the expression from which this expression is the next).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.SourceElements">
+            <summary>
+            Elements from the source expression.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.StartIndex">
+            <summary>
+            Starting index of the expression in the source.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.EndIndex">
+            <summary>
+            Ending index of the expression in the source.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroExpression.Priority">
+            <summary>
+            Gets the element priority.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroExpression.#ctor(System.Collections.Generic.List{CMS.MacroEngine.MacroElement})">
@@ -4310,8 +4622,8 @@
             </summary>
             <param name="expression">Expression string to parse</param>
             <param name="supressError">If true no exceptions are thrown</param>
-            <exception cref="T:CMS.MacroEngine.SyntacticAnalysisException">Syntax error if supressError is false</exception>
-            <exception cref="T:CMS.MacroEngine.LexicalAnalysisException">Lexical analysis error if supressError is false</exception>
+            <exception cref="T:CMS.MacroEngine.SyntacticAnalysisException">Syntax error if <paramref name="supressError"/> is false</exception>
+            <exception cref="T:CMS.MacroEngine.LexicalAnalysisException">Lexical analysis error if <paramref name="supressError"/> is false</exception>
         </member>
         <member name="M:CMS.MacroEngine.MacroExpression.ParseAll(System.Boolean)">
             <summary>
@@ -4342,7 +4654,7 @@
             </summary>
             <param name="lexemIndex">Position within the lexeme list</param>
             <param name="supressError">If true no exceptions are thrown</param>
-            <exception cref="T:CMS.MacroEngine.SyntacticAnalysisException">Syntax error if supressError is false</exception>
+            <exception cref="T:CMS.MacroEngine.SyntacticAnalysisException">Syntax error if <paramref name="supressError" /> is false</exception>
         </member>
         <member name="M:CMS.MacroEngine.MacroExpression.ToString">
             <summary>
@@ -4439,104 +4751,11 @@
             </summary>
             <param name="number">Number of children</param>
         </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.SyntaxErrorDetected">
-            <summary>
-            Gets or sets the value that indicates whether syntax error was detected during a parsing
-            </summary>
-            <remarks>This property is used for checking within the parsing with suppressed errors</remarks>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Type">
-            <summary>
-            Returns the expression type.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Name">
-            <summary>
-            Name of the data member or method call.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Value">
-            <summary>
-            Value of the value expression (is null for expression types like method, property, etc.).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Parameters">
-            <summary>
-            Parameters for the given expression; i.e. |(paramname)value expressions.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Parent">
-            <summary>
-            Parent expression.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Children">
-            <summary>
-            Child expressions of the expression.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.SyntacticTreeTable">
-            <summary>
-            Hashtable with cached parsed expressions to speedup the macro evaluation.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Next">
-            <summary>
-            Next expression to evaluate.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Previous">
-            <summary>
-            Previous expression (the expression from which this expression is the next).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.SourceElements">
-            <summary>
-            Elements from the source expression.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.StartIndex">
-            <summary>
-            Starting index of the expression in the source.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.EndIndex">
-            <summary>
-            Ending index of the expression in the source.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroExpression.Priority">
-            <summary>
-            Gets the element priority.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.MacroSettings">
             <summary>
             <see cref="T:CMS.MacroEngine.MacroSettings"/> class specifies basic features of a <see cref="T:CMS.MacroEngine.MacroResolver"/>.
             </summary>
             <threadsafety static="true" instance="false"/>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroSettings.#ctor">
-            <summary>
-            Initializes a new, empty instance of <see cref="T:CMS.MacroEngine.MacroSettings"/> class.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroSettings.AddFileCacheDependencies(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Adds the cache dependencies to the macro context.
-            </summary>
-            <param name="files">Files to add</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroSettings.AddCacheDependencies(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Adds the cache dependencies to the macro context.
-            </summary>
-            <param name="items">Items to add</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroSettings.Clone">
-            <summary>
-            Creates a shallow copy of the <see cref="T:CMS.MacroEngine.MacroSettings"/>.
-            </summary>
         </member>
         <member name="P:CMS.MacroEngine.MacroSettings.RelatedObject">
             <summary>
@@ -4568,9 +4787,9 @@
             If true, the integrity of security parameters is checked within macro evaluation.
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.MacroSettings.UserName">
+        <member name="P:CMS.MacroEngine.MacroSettings.IdentityOption">
             <summary>
-            Gets or sets the name of the user which will be used to verify security when CheckIntegrity is false.
+            Gets or sets the identity option to be used to verify security when CheckIntegrity is false.
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.MacroSettings.EvaluationTimeout">
@@ -4615,7 +4834,7 @@
         </member>
         <member name="P:CMS.MacroEngine.MacroSettings.AllowRecursion">
             <summary>
-            If true, the recursion is allowed within the macro resolving. Default value is true.
+            If true, the recursion is allowed within the macro resolving. Default value is false.
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.MacroSettings.MaxRecursionlevel">
@@ -4641,6 +4860,28 @@
         <member name="P:CMS.MacroEngine.MacroSettings.ExternalTimeoutChecker">
             <summary>
             Gets or sets the function used as timeout watchdog besides EvaluationTimeout setting. Returns true if timeout has occurred.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSettings.#ctor">
+            <summary>
+            Initializes a new, empty instance of <see cref="T:CMS.MacroEngine.MacroSettings"/> class.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSettings.AddFileCacheDependencies(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds the cache dependencies to the macro context.
+            </summary>
+            <param name="files">Files to add</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSettings.AddCacheDependencies(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds the cache dependencies to the macro context.
+            </summary>
+            <param name="items">Items to add</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSettings.Clone">
+            <summary>
+            Creates a shallow copy of the <see cref="T:CMS.MacroEngine.MacroSettings"/>.
             </summary>
         </member>
         <member name="T:CMS.MacroEngine.MacroEventArgs">
@@ -4678,15 +4919,21 @@
             Class providing general macro processing methods.
             </summary>
         </member>
+        <member name="F:CMS.MacroEngine.MacroProcessor.XMLColumns">
+            <summary>
+            List of XML columns needed for signing the macros.
+            </summary>
+        </member>
         <member name="F:CMS.MacroEngine.MacroProcessor.NOT_RESOLVE">
             <summary>
             Defines a replacement constant for macro processing to not resolve the macro at all
             </summary>
         </member>
-        <member name="F:CMS.MacroEngine.MacroProcessor.XMLColumns">
+        <member name="T:CMS.MacroEngine.MacroProcessor.OnProcessMacro">
             <summary>
-            List of XML columns needed for signing the macros.
+            Callback for data macro match.
             </summary>
+            <param name="context">Macro processing context</param>
         </member>
         <member name="M:CMS.MacroEngine.MacroProcessor.ProcessDataMacros(System.String,System.String,CMS.MacroEngine.MacroProcessor.OnProcessMacro)">
             <summary>
@@ -4788,6 +5035,13 @@
             <param name="name">Parameter name</param>
             <param name="value">Parameter value</param>
         </member>
+        <member name="M:CMS.MacroEngine.MacroProcessor.BuildMacroParameter(CMS.MacroEngine.MacroIdentityOption)">
+            <summary>
+            Builds macro parameter from identity option.
+            </summary>
+            <param name="identityOption">Identity option for which to build the parameter.</param>
+            <returns>Macro parameter string.</returns>
+        </member>
         <member name="M:CMS.MacroEngine.MacroProcessor.RemoveParameter(System.String,System.String)">
             <summary>
             Removes parameter with given name from macro expression (expression should be without brackets {%%}).
@@ -4867,12 +5121,6 @@
             </summary>
             <param name="columnName">Column name</param>
         </member>
-        <member name="T:CMS.MacroEngine.MacroProcessor.OnProcessMacro">
-            <summary>
-            Callback for data macro match.
-            </summary>
-            <param name="context">Macro processing context</param>
-        </member>
         <member name="T:CMS.MacroEngine.MathFields">
             <summary>
             Wrapper class to provide fields from System.Math namespace in the MacroEngine.
@@ -4913,6 +5161,21 @@
             Resolver used to resolve the paths.
             </summary>
         </member>
+        <member name="P:CMS.MacroEngine.PathMacroContainer.CurrentPath">
+            <summary>
+            Current path.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.PathMacroContainer.LevelRegExp">
+            <summary>
+            Regular expression to capture the path level macro.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.PathMacroContainer.PathSegments">
+            <summary>
+            Path segments array.
+            </summary>
+        </member>
         <member name="M:CMS.MacroEngine.PathMacroContainer.#ctor(CMS.MacroEngine.MacroResolver)">
             <summary>
             Creates new instance of PathMacroContainer.
@@ -4932,6 +5195,12 @@
             </summary>
             <param name="m">Regular expression match</param>
         </member>
+        <member name="P:CMS.MacroEngine.PathMacroContainer.Item(System.String)">
+            <summary>
+            Gets or sets the value of the column.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
         <member name="M:CMS.MacroEngine.PathMacroContainer.GetValue(System.String)">
             <summary>
             Resolves the path macro.
@@ -4945,32 +5214,36 @@
             <param name="pathMacro">Path macro</param>
             <param name="value">New value</param>
         </member>
-        <member name="P:CMS.MacroEngine.PathMacroContainer.CurrentPath">
-            <summary>
-            Current path.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.PathMacroContainer.LevelRegExp">
-            <summary>
-            Regular expression to capture the path level macro.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.PathMacroContainer.PathSegments">
-            <summary>
-            Path segments array.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.PathMacroContainer.Item(System.String)">
-            <summary>
-            Gets or sets the value of the column.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
         <member name="T:CMS.MacroEngine.MacroResolver">
             <summary>
             Class to resolve the macros, provides data to the resolving process.
             </summary>
             <threadsafety static="true" instance="false"/>
+        </member>
+        <member name="E:CMS.MacroEngine.MacroResolver.OnResolveCustomMacro">
+            <summary>
+            Custom macro event.
+            </summary>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroResolver.GetObjectValueByNameHandler">
+            <summary>
+            Handler to get the specific column value from specified object.
+            </summary>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroResolver.GetObjectValueByIndexHandler">
+            <summary>
+            Handler to get the value from the index-th property of specified object.
+            </summary>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroResolver.OnGetValueEventHandler">
+            <summary>
+            Handler to get the object value.
+            </summary>
+        </member>
+        <member name="E:CMS.MacroEngine.MacroResolver.OnGetValue">
+            <summary>
+            Gets value event.
+            </summary>
         </member>
         <member name="F:CMS.MacroEngine.MacroResolver.UNRESOLVED_RETURN_VALUE">
             <summary>
@@ -4994,12 +5267,82 @@
             </summary>
             <param name="parentResolver">Optional parent resolver instance.</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroResolver.CheckObjectPermissions(CMS.DataEngine.BaseInfo,System.String)">
+        <member name="P:CMS.MacroEngine.MacroResolver.Settings">
             <summary>
-            Checks whether given user has Read permissions for given object type.
+            Macro resolver settings.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.ResolverName">
+            <summary>
+            Resolver name used for context specific resolving.
+            </summary>
+            <example>
+            The macro with resolver parameter e.g. {% CurrentUser.UserName|(resolver)CustomResolverName %} will be resolved only with the same resolver name specified in this property.
+            <code>
+            var resolver = MacroResolver.CreateChild();
+            resolver.ResolverName = "CustomResolverName";
+            var result = resolver.ResolveMacros("{% CurrentUser.UserName|(resolver)CustomResolverName %}");
+            </code>
+            </example>
+            <seealso cref="P:CMS.MacroEngine.EvaluationContext.ResolverName"/>.
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.Culture">
+            <summary>
+            Culture for the resolving
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.SourceObject">
+            <summary>
+            Object with source data - To pass parameters to Custom macro function.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.ShowOnlyPrioritized">
+            <summary>
+            If true, only prioritized properties are shown in Macro components (IntelliSense, MacroSelector, ...).
+            Influences only visual part of the components, resolver will still be able to resolve all the others as well.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.ActiveMacros">
+            <summary>
+            Current stack of active macros (macros that are just being resolved)
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.NamedSourceDataPriority">
+            <summary>
+            Named source data priority. Determines whether the registered item is prioritized within the AutoCompletion and Object tree.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.NamedSourceDataKeys">
+            <summary>
+            Named source data key collection.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.HiddenSourceDataKeys">
+            <summary>
+            Hidden named source data key collection.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.DynamicParameters">
+            <summary>
+            Dynamic parameters [Name.ToLowerCSafe()] -> [Value], new for each resolver instance. The data is available with macro {%Name%}
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.Parameters">
+            <summary>
+            Macro parameters inherited from previous evaluation.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroResolver.LastError">
+            <summary>
+            Last error produced while evaluating macros
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroResolver.CheckObjectPermissions(CMS.DataEngine.BaseInfo,CMS.MacroEngine.MacroIdentityOption)">
+            <summary>
+            Checks whether given identity option has Read permissions for given object type.
             </summary>
             <param name="obj">Object to check</param>
-            <param name="userName">User name against which to check</param>
+            <param name="identityOption">Identity option against which to check</param>
         </member>
         <member name="M:CMS.MacroEngine.MacroResolver.ResolveCurrentPath(System.String,System.Boolean)">
             <summary>
@@ -5280,13 +5623,6 @@
             </summary>
             <param name="data">Data to register to the resolver</param>
         </member>
-        <member name="M:CMS.MacroEngine.MacroResolver.SetNamedSourceData(System.Object[0:,0:],System.Boolean)">
-            <summary>
-            Sets given name-value pairs to the resolver.
-            </summary>
-            <param name="data">Data to register to the resolver</param>
-            <param name="isPrioritized">If true, this item will appear at the top of AutoCompletion and ObjectTree</param>
-        </member>
         <member name="M:CMS.MacroEngine.MacroResolver.SetNamedSourceData(System.Collections.Generic.IDictionary{System.String,System.Object},System.Boolean)">
             <summary>
             Sets given name-value pairs to the resolver.
@@ -5383,120 +5719,9 @@
             <param name="obj">Object to be encapsulated</param>
             <param name="context">Evaluation context</param>
         </member>
-        <member name="E:CMS.MacroEngine.MacroResolver.OnResolveCustomMacro">
-            <summary>
-            Custom macro event.
-            </summary>
-        </member>
-        <member name="E:CMS.MacroEngine.MacroResolver.OnGetValue">
-            <summary>
-            Gets value event.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.Settings">
-            <summary>
-            Macro resolver settings.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.ResolverName">
-            <summary>
-            Resolver name used for context specific resolving.
-            </summary>
-            <example>
-            The macro with resolver parameter e.g. {% CurrentUser.UserName|(resolver)CustomResolverName %} will be resolved only with the same resolver name specified in this property.
-            <code>
-            var resolver = MacroResolver.CreateChild();
-            resolver.ResolverName = "CustomResolverName";
-            var result = resolver.ResolveMacros("{% CurrentUser.UserName|(resolver)CustomResolverName %}");
-            </code>
-            </example>
-            <seealso cref="P:CMS.MacroEngine.EvaluationContext.ResolverName"/>.
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.Culture">
-            <summary>
-            Culture for the resolving
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.SourceObject">
-            <summary>
-            Object with source data - To pass parameters to Custom macro function.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.ShowOnlyPrioritized">
-            <summary>
-            If true, only prioritized properties are shown in Macro components (IntelliSense, MacroSelector, ...).
-            Influences only visual part of the components, resolver will still be able to resolve all the others as well.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.ActiveMacros">
-            <summary>
-            Current stack of active macros (macros that are just being resolved)
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.NamedSourceDataPriority">
-            <summary>
-            Named source data priority. Determines whether the registered item is prioritized within the AutoCompletion and Object tree.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.NamedSourceDataKeys">
-            <summary>
-            Named source data key collection.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.HiddenSourceDataKeys">
-            <summary>
-            Hidden named source data key collection.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.DynamicParameters">
-            <summary>
-            Dynamic parameters [Name.ToLowerCSafe()] -> [Value], new for each resolver instance. The data is available with macro {%Name%}
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.Parameters">
-            <summary>
-            Macro parameters inherited from previous evaluation.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroResolver.LastError">
-            <summary>
-            Last error produced while evaluating macros
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.MacroResolver.GetObjectValueByNameHandler">
-            <summary>
-            Handler to get the specific column value from specified object.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.MacroResolver.GetObjectValueByIndexHandler">
-            <summary>
-            Handler to get the value from the index-th property of specified object.
-            </summary>
-        </member>
-        <member name="T:CMS.MacroEngine.MacroResolver.OnGetValueEventHandler">
-            <summary>
-            Handler to get the object value.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.MacroProcessingContext">
             <summary>
             Context for macro processing (context for parsing the text for macro expressions).
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroProcessingContext.#ctor">
-            <summary>
-            Creates a new MacroProcessingContext instance
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroProcessingContext.GetWholeMacroExpression">
-            <summary>
-            Returns the whole version of the expression created by concatenation of the parameters. The result is for example this: {(0)%test%(0)}.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroProcessingContext.GetOriginalExpression">
-            <summary>
-            Returns macro expression demarcated by macro start and macro end in entire source text
             </summary>
         </member>
         <member name="P:CMS.MacroEngine.MacroProcessingContext.Parameters">
@@ -5544,9 +5769,80 @@
             Type of the baracket - used for backward compatibility when macros could be nested '{(0)% %(0)}'
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.MacroProcessingContext.#ctor">
+            <summary>
+            Creates a new MacroProcessingContext instance
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroProcessingContext.GetWholeMacroExpression">
+            <summary>
+            Returns the whole version of the expression created by concatenation of the parameters. The result is for example this: {(0)%test%(0)}.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroProcessingContext.GetOriginalExpression">
+            <summary>
+            Returns macro expression demarcated by macro start and macro end in entire source text
+            </summary>
+        </member>
         <member name="T:CMS.MacroEngine.MacroMethod">
             <summary>
             Macro method object.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.Method">
+            <summary>
+            Gets or sets reference to a method.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.MethodResolver">
+            <summary>
+            Gets or sets reference to a method.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.MethodContext">
+            <summary>
+            Gets or sets reference to a method.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.Type">
+            <summary>
+            Gets or sets a return type of the method.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.AllowedTypes">
+            <summary>
+            Gets or sets a list of types for which the method is applicable (set to null for all types to be allowed).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.Comment">
+            <summary>
+            Gets or sets a comment for the method.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.Snippet">
+            <summary>
+            Gets or sets a code snippet which is used in AutoCompletion when TAB is pressed (for determining the cursor position use pipe).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.SpecialParameters">
+            <summary>
+            Gets or sets the list of special parameters needed to be supplied by resolver.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.Parameters">
+            <summary>
+            Gets or sets the parameters for the method.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.MinimumParameters">
+            <summary>
+            Gets or sets the minimal number of parameters needed by the method.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethod.IsHidden">
+            <summary>
+            If true, the method won't be visible in IntelliSense (but will be normally executed when called).
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroMethod.#ctor">
@@ -5622,82 +5918,10 @@
             <param name="context">Resolver object</param>
             <param name="parameters">Method parameters</param>
         </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.Method">
-            <summary>
-            Gets or sets reference to a method.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.MethodResolver">
-            <summary>
-            Gets or sets reference to a method.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.MethodContext">
-            <summary>
-            Gets or sets reference to a method.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.Type">
-            <summary>
-            Gets or sets a return type of the method.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.AllowedTypes">
-            <summary>
-            Gets or sets a list of types for which the method is applicable (set to null for all types to be allowed).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.Comment">
-            <summary>
-            Gets or sets a comment for the method.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.Snippet">
-            <summary>
-            Gets or sets a code snippet which is used in AutoCompletion when TAB is pressed (for determining the cursor position use pipe).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.SpecialParameters">
-            <summary>
-            Gets or sets the list of special parameters needed to be supplied by resolver.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.Parameters">
-            <summary>
-            Gets or sets the parameters for the method.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.MinimumParameters">
-            <summary>
-            Gets or sets the minimal number of parameters needed by the method.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethod.IsHidden">
-            <summary>
-            If true, the method won't be visible in IntelliSense (but will be normally executed when called).
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.MacroMethodParam">
             <summary>
             Macro method parameter object.
             </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodParam.#ctor(System.String,System.Type,System.String)">
-            <summary>
-            Creates new instance of MacroMethodParam object.
-            </summary>
-            <param name="name">Parameter name</param>
-            <param name="type">Parameter type</param>
-            <param name="comment">Parameter comment</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroMethodParam.#ctor(System.String,System.Type,System.String,System.Boolean)">
-            <summary>
-            Creates new instance of MacroMethodParam object.
-            </summary>
-            <param name="name">Parameter name</param>
-            <param name="type">Parameter type</param>
-            <param name="comment">Parameter comment</param>
-            <param name="asExpression">If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated</param>
         </member>
         <member name="P:CMS.MacroEngine.MacroMethodParam.Type">
             <summary>
@@ -5724,6 +5948,23 @@
             If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated.
             </summary>
         </member>
+        <member name="M:CMS.MacroEngine.MacroMethodParam.#ctor(System.String,System.Type,System.String)">
+            <summary>
+            Creates new instance of MacroMethodParam object.
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="type">Parameter type</param>
+            <param name="comment">Parameter comment</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroMethodParam.#ctor(System.String,System.Type,System.String,System.Boolean)">
+            <summary>
+            Creates new instance of MacroMethodParam object.
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="type">Parameter type</param>
+            <param name="comment">Parameter comment</param>
+            <param name="asExpression">If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated</param>
+        </member>
         <member name="T:CMS.MacroEngine.MacroMethods">
             <summary>
             Macro methods.
@@ -5742,6 +5983,11 @@
         <member name="F:CMS.MacroEngine.MacroMethods.mMethodsByType">
             <summary>
             Index of methods available for specified type.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroMethods.Methods">
+            <summary>
+            Gets the hashtable with all methods.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroMethods.GetMethod(System.String)">
@@ -5842,11 +6088,6 @@
             </summary>
             <param name="parameterDefinition">Parameter definition</param>
             <param name="methodToReg">Method to register</param>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroMethods.Methods">
-            <summary>
-            Gets the hashtable with all methods.
-            </summary>
         </member>
         <member name="T:CMS.MacroEngine.MathMethods">
             <summary>
@@ -6057,35 +6298,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.MacroEngine.MacroRuleInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroRuleInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroRuleInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroRuleInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty MacroRuleInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroRuleInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new MacroRuleInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.MacroEngine.MacroRuleInfo.MacroRuleID">
             <summary>
             ID of the Macro rule.
@@ -6150,6 +6362,35 @@
             <summary>
             Macor rule GUID.
             </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroRuleInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroRuleInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroRuleInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroRuleInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty MacroRuleInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroRuleInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new MacroRuleInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.MacroEngine.MacroRuleInfoProvider">
             <summary>
@@ -6223,15 +6464,6 @@
             <summary>
             Returns all macro rules.
             </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroRuleInfoProvider.GetMacroRulesInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all macro rules matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
         </member>
         <member name="M:CMS.MacroEngine.MacroRuleInfoProvider.GetMacroRuleInfoInternal(System.Int32)">
             <summary>
@@ -6330,9 +6562,74 @@
             </summary>
             Groups:                                                  (1:")(2:nam)(3:par )  (4:")
         </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.Children">
+            <summary>
+            Gets or sets the child rules.
+            </summary>
+        </member>
         <member name="M:CMS.MacroEngine.MacroRuleTree.Accept(System.Action{CMS.MacroEngine.MacroRuleTree})">
             <summary>
             Accepts an action that gets executed on the whole tree structure.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.Parent">
+            <summary>
+            Gets or sets the parent.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.Position">
+            <summary>
+            Gets or sets the relative position of the rule within the parent group.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.Operator">
+            <summary>
+            Gets or sets operator of the rule.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleText">
+            <summary>
+            Gets or sets the associated rule text.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleParameters">
+            <summary>
+            Gets or sets the associated rule parameters xml definition.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleName">
+            <summary>
+            Gets or sets the associated rule name.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleCondition">
+            <summary>
+            Gets or sets the associated rule K# condition.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.Parameters">
+            <summary>
+            Gets or sets the parameters of the rule (null for internal nodes).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.IDPath">
+            <summary>
+            Returns IDPath of the group.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.Level">
+            <summary>
+            Returns level of the group.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.IsLeaf">
+            <summary>
+            Returns true if group is a leaf (expression).
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroRuleTree.HasPreviousSibling">
+            <summary>
+            Returns true if group has a previous sibling node.
             </summary>
         </member>
         <member name="M:CMS.MacroEngine.MacroRuleTree.GetCondition">
@@ -6502,82 +6799,10 @@
             Sets correct positions according to current state.
             </summary>
         </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.Children">
-            <summary>
-            Gets or sets the child rules.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.Parent">
-            <summary>
-            Gets or sets the parent.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.Position">
-            <summary>
-            Gets or sets the relative position of the rule within the parent group.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.Operator">
-            <summary>
-            Gets or sets operator of the rule.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleText">
-            <summary>
-            Gets or sets the associated rule text.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleParameters">
-            <summary>
-            Gets or sets the associated rule parameters xml definition.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleName">
-            <summary>
-            Gets or sets the associated rule name.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.RuleCondition">
-            <summary>
-            Gets or sets the associated rule K# condition.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.Parameters">
-            <summary>
-            Gets or sets the parameters of the rule (null for internal nodes).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.IDPath">
-            <summary>
-            Returns IDPath of the group.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.Level">
-            <summary>
-            Returns level of the group.
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.IsLeaf">
-            <summary>
-            Returns true if group is a leaf (expression).
-            </summary>
-        </member>
-        <member name="P:CMS.MacroEngine.MacroRuleTree.HasPreviousSibling">
-            <summary>
-            Returns true if group has a previous sibling node.
-            </summary>
-        </member>
         <member name="T:CMS.MacroEngine.MacroSecurityEventArgs">
             <summary>
             OnCheckObjectPermissions event arguments.
             </summary>
-        </member>
-        <member name="M:CMS.MacroEngine.MacroSecurityEventArgs.#ctor(CMS.MacroEngine.EvaluationContext,System.Boolean)">
-            <summary>
-            Creates new instance of event args with given context and default result.
-            </summary>
-            <param name="context">Evaluation context under which the macro is being resolved</param>
-            <param name="defaultResult">Result of the security check. If true, the security check is allowed</param>
         </member>
         <member name="P:CMS.MacroEngine.MacroSecurityEventArgs.Result">
             <summary>
@@ -6598,6 +6823,136 @@
             <summary>
             If true, only collections should be checked within this permission check request.
             </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroSecurityEventArgs.#ctor(CMS.MacroEngine.EvaluationContext,System.Boolean)">
+            <summary>
+            Creates new instance of event args with given context and default result.
+            </summary>
+            <param name="context">Evaluation context under which the macro is being resolved</param>
+            <param name="defaultResult">Result of the security check. If true, the security check is allowed</param>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroIdentityInfo">
+            <summary>
+            MacroIdentityInfo data container class.
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroIdentityInfo.OBJECT_TYPE">
+            <summary>
+            Object type
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroIdentityInfo.TYPEINFO">
+            <summary>
+            Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroIdentityInfo.MacroIdentityID">
+            <summary>
+            Macro identity ID
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroIdentityInfo.MacroIdentityName">
+            <summary>
+            Macro identity name
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroIdentityInfo.MacroIdentityGuid">
+            <summary>
+            Macro identity guid
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroIdentityInfo.MacroIdentityEffectiveUserID">
+            <summary>
+            Macro identity effective user ID
+            </summary>
+        </member>
+        <member name="P:CMS.MacroEngine.MacroIdentityInfo.MacroIdentityLastModified">
+            <summary>
+            Macro identity last modified
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty MacroIdentityInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new MacroIdentityInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="T:CMS.MacroEngine.MacroIdentityInfoProvider">
+            <summary>
+            Class providing MacroIdentityInfo management.
+            </summary>
+        </member>
+        <member name="F:CMS.MacroEngine.MacroIdentityInfoProvider.DEFAULT_GLOBAL_ADMINISTRATOR_IDENTITY_NAME">
+            <summary>
+            <para>
+            Name of macro identity which has global administrator effective user and is present by default.
+            </para>
+            <para>
+            This API supports the framework infrastructure and is not intended to be used directly from your code.
+            </para>
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfoProvider.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfoProvider.GetMacroIdentities">
+            <summary>
+            Returns a query for all the MacroIdentityInfo objects.
+            </summary>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfoProvider.GetMacroIdentityInfo(System.Int32)">
+            <summary>
+            Returns MacroIdentityInfo with specified ID.
+            </summary>
+            <param name="id">MacroIdentityInfo ID</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfoProvider.GetMacroIdentityInfo(System.String)">
+            <summary>
+            Returns MacroIdentityInfo with specified name.
+            </summary>
+            <param name="name">MacroIdentityInfo name</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfoProvider.SetMacroIdentityInfo(CMS.MacroEngine.MacroIdentityInfo)">
+            <summary>
+            Sets (updates or inserts) specified MacroIdentityInfo.
+            </summary>
+            <param name="infoObj">MacroIdentityInfo to be set</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfoProvider.DeleteMacroIdentityInfo(CMS.MacroEngine.MacroIdentityInfo)">
+            <summary>
+            Deletes specified MacroIdentityInfo.
+            </summary>
+            <param name="infoObj">MacroIdentityInfo to be deleted</param>
+        </member>
+        <member name="M:CMS.MacroEngine.MacroIdentityInfoProvider.DeleteMacroIdentityInfo(System.Int32)">
+            <summary>
+            Deletes MacroIdentityInfo with specified ID.
+            </summary>
+            <param name="id">MacroIdentityInfo ID</param>
         </member>
         <member name="T:CMS.MacroEngine.ReadOnlyMacroObjectWrapper`1">
             <summary>

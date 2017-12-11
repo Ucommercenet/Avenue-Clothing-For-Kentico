@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Web;
 using System.Web.UI;
 
-using CMS.Helpers;
 using CMS.UIControls;
 
 
@@ -15,7 +15,7 @@ public partial class CMSModules_AdminControls_Pages_UIElementControlPage : CMSUI
             String controlPath = UIElement.ElementTargetURL;
             if (controlPath != String.Empty)
             {
-                Control ctrl = Page.LoadControl(URLHelper.URLDecode(ResolveUrl(controlPath)));
+                Control ctrl = Page.LoadControl(HttpUtility.UrlDecode(ResolveUrl(controlPath)));
                 pnlControl.Controls.Add(ctrl);
             }
         }

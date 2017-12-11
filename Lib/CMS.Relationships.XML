@@ -39,34 +39,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfo.#ctor">
-            <summary>
-            Constructor, creates an empty RelationshipNameInfo structure.
-            </summary>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor, creates an empty RelationshipNameInfo object from the given DataRow data.
-            </summary>
-            <param name="dr">Datarow with the class info data</param>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfo.IsOnSite(System.Int32)">
-            <summary>
-            Check whether relationship is in site given by id.
-            </summary>
-            <param name="siteId">ID of site to check</param>
-            <returns>Returns true if relationship name already exists</returns>
-        </member>
         <member name="P:CMS.Relationships.RelationshipNameInfo.RelationshipNameId">
             <summary>
             Gets or sets the relationship name ID.
@@ -116,6 +88,34 @@
             <summary>
             Indicates how should be handled the logging of synchronization tasks on the object update.
             </summary>
+        </member>
+        <member name="M:CMS.Relationships.RelationshipNameInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Relationships.RelationshipNameInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Relationships.RelationshipNameInfo.#ctor">
+            <summary>
+            Constructor, creates an empty RelationshipNameInfo structure.
+            </summary>
+        </member>
+        <member name="M:CMS.Relationships.RelationshipNameInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor, creates an empty RelationshipNameInfo object from the given DataRow data.
+            </summary>
+            <param name="dr">Datarow with the class info data</param>
+        </member>
+        <member name="M:CMS.Relationships.RelationshipNameInfo.IsOnSite(System.Int32)">
+            <summary>
+            Check whether relationship is in site given by id.
+            </summary>
+            <param name="siteId">ID of site to check</param>
+            <returns>Returns true if relationship name already exists</returns>
         </member>
         <member name="T:CMS.Relationships.RelationshipNameInfoProvider">
             <summary>
@@ -220,41 +220,6 @@
             <param name="classDisplayName">Class display name of the document</param>
             <param name="field">Field for ad-hoc relationship name</param>
         </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfoProvider.GetRelationshipNameInfoByGUIDInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfoProvider.SetRelationshipNameInfoInternal(CMS.Relationships.RelationshipNameInfo)">
-            <summary>
-            Sets the specified relationship name data from info object to DB.
-            </summary>
-            <param name="relationshipNameInfo">Relationship name data object</param>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfoProvider.GetRelationshipNameInfoInternal(System.Int32)">
-            <summary>
-            Returns the RelationshipNameInfo structure for the specified relationship name ID.
-            </summary>
-            <param name="relationshipNameId">Relationship name ID to use for retrieving the resource data</param>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfoProvider.GetRelationshipNameInfoInternal(System.String)">
-            <summary>
-            Returns the RelationshipNameInfo structure for the specified relationship name.
-            </summary>
-            <param name="relationshipName">Relationship name to use for retrieving the resource data</param>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfoProvider.DeleteRelationshipNameInternal(CMS.Relationships.RelationshipNameInfo)">
-            <summary>
-            Deletes relationship name specified by id.
-            </summary>
-            <param name="ri">RelationshipName object</param>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameInfoProvider.GetRelationshipNamesInternal">
-            <summary>
-            Returns the query for all relationship names.
-            </summary>        
-        </member>
         <member name="M:CMS.Relationships.RelationshipNameInfoProvider.RelationshipNameExistsInternal(System.String)">
             <summary>
             Check whether relationship with given name already exists.
@@ -276,6 +241,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Relationships.RelationshipNameSiteInfo.RelationshipNameID">
+            <summary>
+            Relationship name ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Relationships.RelationshipNameSiteInfo.SiteID">
+            <summary>
+            Site ID.
+            </summary>
+        </member>
         <member name="M:CMS.Relationships.RelationshipNameSiteInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -294,16 +269,6 @@
         <member name="M:CMS.Relationships.RelationshipNameSiteInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new RelationshipNameSiteInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.Relationships.RelationshipNameSiteInfo.RelationshipNameID">
-            <summary>
-            Relationship name ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Relationships.RelationshipNameSiteInfo.SiteID">
-            <summary>
-            Site ID.
             </summary>
         </member>
         <member name="T:CMS.Relationships.RelationshipNameSiteInfoProvider">
@@ -372,17 +337,11 @@
             <param name="relationshipNameId">RelationshipNameID</param>
             <param name="siteId">SiteID</param>
         </member>
-        <member name="M:CMS.Relationships.RelationshipNameSiteInfoProvider.SetRelationshipNameSiteInfoInternal(CMS.Relationships.RelationshipNameSiteInfo)">
+        <member name="M:CMS.Relationships.RelationshipNameSiteInfoProvider.SetInfo(CMS.Relationships.RelationshipNameSiteInfo)">
             <summary>
-            Sets (updates or inserts) specified relationshipNameSite.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="relationshipNameSite">RelationshipNameSite to set</param>
-        </member>
-        <member name="M:CMS.Relationships.RelationshipNameSiteInfoProvider.DeleteRelationshipNameSiteInfoInternal(CMS.Relationships.RelationshipNameSiteInfo)">
-            <summary>
-            Deletes specified relationshipNameSite.
-            </summary>
-            <param name="infoObj">RelationshipNameSite object</param>
+            <param name="info">Object to insert / update</param>
         </member>
     </members>
 </doc>

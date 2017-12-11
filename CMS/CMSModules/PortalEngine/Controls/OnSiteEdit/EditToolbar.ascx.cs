@@ -579,7 +579,7 @@ public partial class CMSModules_PortalEngine_Controls_OnSiteEdit_EditToolbar : C
             script.Append(@"
                 var OEIsRTL = ", (isRTL ? "true" : "false"), @";
                 var OECurrentNodeId = ", (DocumentContext.CurrentPageInfo != null) ? DocumentContext.CurrentPageInfo.NodeID : 0, @";
-                var OEIsMobile = ", (DeviceContext.CurrentDevice.IsMobile ? "true" : "false"), @";
+                var OEIsMobile = ", (DeviceContext.CurrentDevice.IsMobile() ? "true" : "false"), @";
                 var OEHdnPostbackValue = null;
 
                 function NewDocument(parentId, classId, targetWindow)

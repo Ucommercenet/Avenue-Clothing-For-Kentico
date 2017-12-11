@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Data;
 using System.Text;
 using System.Web.UI;
@@ -307,17 +308,11 @@ public partial class CMSModules_Friends_Controls_FriendsRejectedList : CMSAdminL
         if (gridElem.SelectedItems.Count > 0)
         {
             RaiseOnCheckPermissions(PERMISSION_MANAGE, this);
-            // Create where condition
-            string where = "FriendID IN (";
-
-            foreach (string friendId in gridElem.SelectedItems)
-            {
-                where += ValidationHelper.GetInteger(friendId, 0) + ",";
-            }
-            where = where.TrimEnd(',') + ")";
 
             // Get all needed friendships
-            DataSet friendships = FriendInfoProvider.GetFriends(where, null);
+            DataSet friendships = FriendInfoProvider.GetFriends()
+                .WhereIn("FriendID", gridElem.SelectedItems.Select(id => ValidationHelper.GetInteger(id, 0)).ToList());
+
             if (!DataHelper.DataSourceIsEmpty(friendships))
             {
                 // Delete all these friendships

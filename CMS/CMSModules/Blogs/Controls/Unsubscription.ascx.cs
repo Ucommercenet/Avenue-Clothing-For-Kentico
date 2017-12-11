@@ -93,12 +93,7 @@ public partial class CMSModules_Blogs_Controls_Unsubscription : CMSUserControl
         {
             if (mSubscriptionObject == null)
             {
-                mSubscriptionObject = BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptionInfo(mSubGuid);
-
-                if (mSubscriptionObject == null)
-                {
-                    mSubscriptionObject = BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptionInfo(mSubscriptionHash);
-                }
+                mSubscriptionObject = BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptionInfo(mSubGuid) ?? BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptionInfo(mSubscriptionHash);
             }
 
             return mSubscriptionObject;
@@ -217,7 +212,7 @@ public partial class CMSModules_Blogs_Controls_Unsubscription : CMSUserControl
         {
             try
             {
-                datetime = DateTime.ParseExact(requestTime, SecurityHelper.EMAIL_CONFIRMATION_DATETIME_FORMAT, null);
+                datetime = DateTimeUrlFormatter.Parse(requestTime);
             }
             catch
             {
@@ -244,16 +239,9 @@ public partial class CMSModules_Blogs_Controls_Unsubscription : CMSUserControl
             // Check if subscription approval hash is supplied
             else if (!string.IsNullOrEmpty(subscriptionHash))
             {
-                if (checkOnly)
-                {
-                    // Check if hash is valid
-                    result = BlogPostSubscriptionInfoProvider.ValidateHash(SubscriptionObject, subscriptionHash, SiteContext.CurrentSiteName, datetime);
-                }
-                else
-                {
-                    // Unsubscribe
-                    result = BlogPostSubscriptionInfoProvider.Unsubscribe(subscriptionHash, true, SiteContext.CurrentSiteName, datetime);
-                }
+                result = checkOnly 
+                    ? BlogPostSubscriptionInfoProvider.ValidateHash(SubscriptionObject, subscriptionHash, SiteContext.CurrentSiteName, datetime) 
+                    : BlogPostSubscriptionInfoProvider.Unsubscribe(subscriptionHash, true, SiteContext.CurrentSiteName, datetime);
             }
         }
 
@@ -278,7 +266,6 @@ public partial class CMSModules_Blogs_Controls_Unsubscription : CMSUserControl
 
             // Subscription not found
             default:
-            case OptInApprovalResultEnum.NotFound:
                 DisplayError(DataHelper.GetNotEmpty(UnsuccessfulUnsubscriptionText, GetString("general.unsubscription_NotSubscribed")));
                 break;
         }

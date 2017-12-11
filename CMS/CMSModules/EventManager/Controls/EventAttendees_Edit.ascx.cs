@@ -182,7 +182,7 @@ public partial class CMSModules_EventManager_Controls_EventAttendees_Edit : CMSA
                 ShowWarning(GetString("eventmanager.attendeeregisteredwarning"));
             }
 
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 if (Saved)
                 {

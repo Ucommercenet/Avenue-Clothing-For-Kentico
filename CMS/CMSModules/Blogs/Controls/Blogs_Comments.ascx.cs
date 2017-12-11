@@ -278,7 +278,7 @@ public partial class CMSModules_Blogs_Controls_Blogs_Comments : CMSAdminControl
         currentUser = MembershipContext.AuthenticatedUser;
 
         // Load action dropdown
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Actions dropdown
             drpAction.Items.Add(new ListItem(GetString("General.SelectAction"), string.Empty));

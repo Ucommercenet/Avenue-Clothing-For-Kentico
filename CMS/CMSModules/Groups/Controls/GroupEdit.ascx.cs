@@ -252,7 +252,7 @@ public partial class CMSModules_Groups_Controls_GroupEdit : CMSAdminEditControl
                 // Init theme selector
                 if (plcStyleSheetSelector.Visible)
                 {
-                    if (!URLHelper.IsPostback())
+                    if (!RequestHelper.IsPostBack())
                     {
                         TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
                         if (groupInfo.GroupNodeGUID != Guid.Empty)

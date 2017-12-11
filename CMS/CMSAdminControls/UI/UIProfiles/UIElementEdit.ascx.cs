@@ -141,6 +141,7 @@ public partial class CMSAdminControls_UI_UIProfiles_UIElementEdit : CMSUserContr
             if (!elementInfo.IsApplication && !elementInfo.ElementIsGlobalApplication)
             {
                 EditForm.FieldsToHide.Add("ElementIsGlobalApplication");
+                EditForm.FieldsToHide.Add(nameof(UIElementInfo.ElementRequiresGlobalAdminPriviligeLevel));
             }
 
             // Show info for customized elements
@@ -182,12 +183,8 @@ public partial class CMSAdminControls_UI_UIProfiles_UIElementEdit : CMSUserContr
             if ((parent == null) || (parent.ElementLevel != 2) || !parent.IsInAdministrationScope)
             {
                 EditForm.FieldsToHide.Add("ElementIsGlobalApplication");
+                EditForm.FieldsToHide.Add(nameof(UIElementInfo.ElementRequiresGlobalAdminPriviligeLevel));
             }
-        }
-
-        if (!SystemContext.DevelopmentMode)
-        {
-            EditForm.FieldsToHide.Add("ElementFromVersion");
         }
 
         // Allow only modules in development mode

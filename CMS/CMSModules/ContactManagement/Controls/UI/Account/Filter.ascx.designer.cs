@@ -210,40 +210,22 @@ public partial class CMSModules_ContactManagement_Controls_UI_Account_Filter {
     protected global::CMSAdminControls_UI_UniGrid_Filters_TimeSimpleFilter fltCreated;
     
     /// <summary>
-    /// pnlAdvanced control.
+    /// pnlToggleFilter control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Panel pnlAdvanced;
+    protected global::System.Web.UI.WebControls.Panel pnlToggleFilter;
     
     /// <summary>
-    /// lnkShowSimpleFilter control.
+    /// lnkToggleFilter control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.LinkButton lnkShowSimpleFilter;
-    
-    /// <summary>
-    /// pnlSimple control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Panel pnlSimple;
-    
-    /// <summary>
-    /// lnkShowAdvancedFilter control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.LinkButton lnkShowAdvancedFilter;
+    protected global::System.Web.UI.WebControls.LinkButton lnkToggleFilter;
     
     /// <summary>
     /// btnReset control.

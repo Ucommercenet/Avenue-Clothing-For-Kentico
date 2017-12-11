@@ -2,7 +2,6 @@
  * Class image selector opener module
  */
 cmsdefine(["CMS/EventHub", "CMS/UrlHelper", "jQuery", "CMS/StringFormatter"], function (hub, urlHelper, $, stringFormatter) {
-    "use strict";
 
     /**
      * Class image selector opener

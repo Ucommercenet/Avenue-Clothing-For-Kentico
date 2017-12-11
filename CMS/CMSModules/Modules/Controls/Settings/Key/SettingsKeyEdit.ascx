@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Codebehind="SettingsKeyEdit.ascx.cs"
     Inherits="CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit" %>
 
-<%@ Register Src="~/CMSAdminControls/UI/Selectors/LoadGenerationSelector.ascx" TagName="LoadGenerationSelector" TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/System/LocalizableTextBox.ascx" TagName="LocalizableTextBox" TagPrefix="cms" %>
 <%@ Register Src="~/CMSModules/Settings/FormControls/SettingsKeyControlSelector.ascx" TagName="SettingsKeyControlSelector" TagPrefix="cms" %>
 <%@ Register Src="~/CMSModules/AdminControls/Controls/UIControls/../Class/FieldEditor/ControlSettings.ascx" TagName="ControlSettings" TagPrefix="cms" %>
@@ -81,15 +80,6 @@
                         </div>
                         <div class="editing-form-value-cell">
                             <cms:CMSCheckBox ID="chkKeyIsHidden" runat="server" />
-                        </div>
-                    </div>
-                    <div class="form-group" id="trLoadGeneration" runat="server">
-                        <div class="editing-form-label-cell">
-                            <cms:LocalizedLabel CssClass="control-label" ID="lblLoadGeneration" runat="server" EnableViewState="false"
-                                ResourceString="settings.cacheobjecton" DisplayColon="true" AssociatedControlID="drpGeneration:drpGeneration" />
-                        </div>
-                        <div class="editing-form-value-cell">
-                            <cms:LoadGenerationSelector ID="drpGeneration" runat="server" NoChangeOption="true" />
                         </div>
                     </div>
                     <div class="form-group">

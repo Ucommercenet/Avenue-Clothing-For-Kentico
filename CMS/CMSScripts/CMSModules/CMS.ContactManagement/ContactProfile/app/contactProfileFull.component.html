@@ -12,6 +12,11 @@
     </div>
 </cms-category-heading>
 
+<cms-category-heading ng-if="$ctrl.activitiesExist" heading="{$ om.contact.journey.header $}">
+    <cms-contact-journey class="component cms-journey" contact-id="$ctrl.contact.ContactID"></cms-contact-journey>
+</cms-category-heading>
+
+
 <cms-category-heading ng-if="$ctrl.newsletterModuleAvailable" heading="{$ contactmanagement.contact.newslettersubscriptions $}">
     <cms-newsletter-subscriptions class="component" contact-id="$ctrl.contact.ContactID"></cms-newsletter-subscriptions>
 </cms-category-heading>

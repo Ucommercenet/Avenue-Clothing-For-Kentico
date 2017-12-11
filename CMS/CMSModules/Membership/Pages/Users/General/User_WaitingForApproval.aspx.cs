@@ -101,6 +101,7 @@ public partial class CMSModules_Membership_Pages_Users_General_User_WaitingForAp
 
     }
 
+
     void HeaderActions_ActionPerformed(object sender, CommandEventArgs e)
     {
         switch (e.CommandName)
@@ -120,15 +121,7 @@ public partial class CMSModules_Membership_Pages_Users_General_User_WaitingForAp
     /// </summary>
     protected void gridElem_OnBeforeDataReload()
     {
-        // Add now parameter
-        if (gridElem.QueryParameters == null)
-        {
-            gridElem.QueryParameters = new QueryDataParameters();
-        }
-        gridElem.QueryParameters.Add("@Now", DateTime.Now);
-
         gridElem.WhereCondition = GetWhereCondition();
-
     }
 
 

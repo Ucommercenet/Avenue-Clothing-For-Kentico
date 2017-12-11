@@ -200,7 +200,7 @@ public partial class CMSModules_Workflows_Controls_WorkflowDesignerToolbar : Uni
         // Workflow type
         condition = SqlHelper.AddWhereCondition(condition, Workflow.IsAutomation ? "ActionWorkflowType = " + (int)Workflow.WorkflowType : "ActionWorkflowType = " + (int)Workflow.WorkflowType + " OR ActionWorkflowType IS NULL");
 
-        InfoDataSet<WorkflowActionInfo> actions = WorkflowActionInfoProvider.GetWorkflowActions(condition, "ActionDisplayName", "ActionID, ActionThumbnailGUID, ActionThumbnailClass, ActionDisplayName, ActionDescription, ActionIconGUID, ActionIconClass");
+        InfoDataSet<WorkflowActionInfo> actions = WorkflowActionInfoProvider.GetWorkflowActions().Where(condition).OrderBy("ActionDisplayName").Columns("ActionID, ActionThumbnailGUID, ActionThumbnailClass, ActionDisplayName, ActionDescription, ActionIconGUID, ActionIconClass").TypedResult;
 
         List<Item> nodesMenuItems = Factory.GetSettingsObjectBy(actions);
 

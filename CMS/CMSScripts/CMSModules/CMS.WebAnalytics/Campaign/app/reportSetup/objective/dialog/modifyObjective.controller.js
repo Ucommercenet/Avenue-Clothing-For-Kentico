@@ -10,11 +10,15 @@
     function controller($uibModalInstance, objectiveConversions, objective, title) {
         var ctrl = this;
 
-        ctrl.objective = angular.copy(objective || { conversionID: 0 });
-        ctrl.objectiveConversions = prepareObjectiveConversions(objectiveConversions, ctrl.objective.conversionID);
+        ctrl.objective = angular.copy(objective);
+
+        if (ctrl.objective != null) {
+            ctrl.objective.conversionID = String(ctrl.objective.conversionID);
+        }
+
+        ctrl.objectiveConversions = prepareObjectiveConversions(objectiveConversions);
         ctrl.title = title;
-        ctrl.targetRegexPattern = '^[1-9][0-9]*$';
-        
+        ctrl.targetRegexPattern = '^0*[1-9][0-9]*$';
 
         ctrl.dismiss = function () {
             $uibModalInstance.dismiss();
@@ -38,7 +42,7 @@
                 || (objective.value !== ctrl.objective.value);
         }
 
-        function prepareObjectiveConversions(objectiveConversions, conversionID) {
+        function prepareObjectiveConversions(objectiveConversions) {
             var conversions = objectiveConversions.filter(function (conversion) {
                 return !conversion.isFunnelStep;
             }).map(function (conversion) {
@@ -48,16 +52,9 @@
                 }
 
                 return {
-                    id: conversion.id,
-                    name: conversionName,
-                    selected: conversion.id === conversionID
+                    id: String(conversion.id),
+                    name: conversionName
                 }
-            });
-
-            conversions.unshift({
-                id: 0,
-                name: 'Select',
-                selected: conversionID === 0
             });
 
             return conversions;

@@ -1,5 +1,4 @@
 ﻿cmsdefine(['amcharts.serial', 'amcharts.cmstheme'], function (chart) {
-    'use strict';
 
     var Module = function (config) {
         var fixedColumnsLimit = 3,

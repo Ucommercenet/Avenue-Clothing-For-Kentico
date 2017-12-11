@@ -49,7 +49,9 @@ public partial class CMSModules_SystemTables_Pages_Development_Views_ViewEdit_Pr
                 top = "TOP " + items;
             }
 
+#pragma warning disable BH2501 // Do not use ExecuteQuery in UI.
             DataSet ds = ConnectionHelper.ExecuteQuery("SELECT " + top + " * FROM " + objName, null, QueryTypeEnum.SQLQuery);
+#pragma warning restore BH2501 // Do not use ExecuteQuery in UI.
 
             if (DataHelper.DataSourceIsEmpty(ds))
             {

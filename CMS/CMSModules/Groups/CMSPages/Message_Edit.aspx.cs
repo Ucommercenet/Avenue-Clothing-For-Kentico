@@ -55,7 +55,7 @@ public partial class CMSModules_Groups_CMSPages_Message_Edit : CMSLiveModalPage
             PageTitle.TitleText = GetString("Board.MessageNew.title");
         }
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             messageEditElem.ReloadData();
         }

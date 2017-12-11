@@ -339,13 +339,13 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_AdvancedMediaLibra
 
         HandleGroupEmpty();
 
-        if (librarySelector.MediaLibraryID == 0)
+        if (librarySelector.MediaLibraryID != 0 || GroupedLibrariesPrepared())
         {
-            SetLibrariesEmpty();
+            SetLibraries();
         }
         else
         {
-            SetLibraries();
+            SetLibrariesEmpty();
         }
 
         base.OnPreRender(e);
@@ -407,6 +407,12 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_AdvancedMediaLibra
 
 
     #region "Private methods"
+
+    private bool GroupedLibrariesPrepared()
+    {
+        return librarySelector.GroupID != 0 && librarySelector.CurrentSelector.HasData;
+    }
+
 
     /// <summary>
     /// Initializes all the inner controls.
@@ -767,7 +773,7 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_AdvancedMediaLibra
     /// </summary>
     protected void groupSelector_Changed(object sender, EventArgs e)
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Pre-select group
             PreselectGroup();
@@ -804,7 +810,7 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_AdvancedMediaLibra
         {
             LibraryChanged(this, null);
         }
-    }
+    }   
 
     #endregion
 }

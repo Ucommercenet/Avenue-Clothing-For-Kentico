@@ -19,7 +19,7 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <ItemTemplate>
-                <%# Eval("User", true) %>
+                <%#: Eval("Identity").ToString().Length > 0 ? "(identity) " + Eval("Identity") : "" %> <%#: Eval("User").ToString().Length > 0 ? "(user) " + Eval("User") : "" %>
             </ItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField>

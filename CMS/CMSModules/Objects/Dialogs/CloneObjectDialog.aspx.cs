@@ -22,7 +22,7 @@ public partial class CMSModules_Objects_Dialogs_CloneObjectDialog : CMSModalPage
         int objectId = QueryHelper.GetInteger("objectid", 0);
 
         // Get the object
-        BaseInfo info = BaseAbstractInfoProvider.GetInfoById(objectType, objectId);
+        BaseInfo info = ProviderHelper.GetInfoById(objectType, objectId);
 
         string objTypeName = "";
         if (info != null)
@@ -98,12 +98,12 @@ function RefreshContent() {
             {
                 if (result.Errors.Count > 0)
                 {
-                    ShowError(ResHelper.LocalizeString(string.Join("\n", result.Errors.ToArray())));
+                    ShowError(ResHelper.LocalizeString(string.Join("\n", result.Errors)));
                     SwitchToErrorMode();
                 }
                 else if (result.Warnings.Count > 0)
                 {
-                    ShowWarning(GetString("cloning.savedwithwarnings"), ResHelper.LocalizeString(string.Join("<br/>", result.Warnings.ToArray())));
+                    ShowWarning(GetString("cloning.savedwithwarnings"), ResHelper.LocalizeString(string.Join("<br/>", result.Warnings)));
                     SwitchToErrorMode();
                 }
                 else

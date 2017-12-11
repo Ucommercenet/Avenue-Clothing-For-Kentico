@@ -9,99 +9,6 @@
             Provides an Web Control for the CKEditor.
             </summary>
         </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.#ctor">
-            <summary>
-            Initializes a new instance of the CKEditorControl.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.OnPreRender(System.EventArgs)">
-            <summary>
-            Controls OnPreRender event.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Renders the control at design-time.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.SetDefaultToolbarFromWebConfig">
-            <summary>
-            Set default toolbar from web config key if it's set
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.InitializeDialogs">
-            <summary>
-            Initialize dialogs configuration.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.InitializeScripts">
-            <summary>
-            Initialize additional scripts.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.UpdateConfigExtraPlugins">
-            <summary>
-            Updates the ExtraPlugins config from its List equivalent.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.UpdateConfigRemovePlugins">
-            <summary>
-            Updates the RemovePlugins config from its List equivalent.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.UpdateConfigRemoveButtons">
-            <summary>
-            Updates the RemoveButtons config from its List equivalent.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.GetControlClientID(System.String)">
-            <summary>
-            Gets controls ClientID.
-            </summary>
-            <param name="name">Controls name</param>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.ConfigPreRender">
-            <summary>
-            Do stuff that is required to prepare certain config entries,
-            just before rendering
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.GetUIElementsForWysiwygEditor">
-            <summary>
-            Get all WYSIWYG editor UI elements (results are cached).
-            </summary>
-            <returns>InfoDataSet with all UI elements that are associated with WYSIWYG editor</returns>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.RemoveButtonsOfUnavailableModules(System.Collections.Generic.IEnumerable{CMS.Modules.UIElementInfo})">
-            <summary>
-            Removes buttons from WYSIWYG editor based on registered UI elements.
-            </summary>
-            <param name="UIElements">All UI elements available in WYSIWYG editor</param>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.PersonalizeToolbar(System.Collections.Generic.IEnumerable{CMS.Modules.UIElementInfo})">
-            <summary>
-            Personalize editors toolbar.
-            </summary>
-            <param name="uiElements">All UI elements available in WYSIWYG editor</param>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.ActualizeUrl(System.String,System.String,System.String)">
-            <summary>
-            Actualize specified selector url path with specified parameters.
-            </summary>
-            <param name="selectorUrl">Selector url</param>
-            <param name="parameterName">Parameter name</param>
-            <param name="parameterValue">Parameter value</param>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Processes postback data for an ASP.NET server control.
-            </summary>
-        </member>
-        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.RaisePostDataChangedEvent">
-            <summary>
-            Signals the server control to notify the ASP.NET application that the state of the control has changed.
-            </summary>
-        </member>
         <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.ObjectRegExp">
             <summary>
             Object tag regular expression.
@@ -232,6 +139,11 @@
             <summary>
             Gets or sets the value that indicates whether dirty bit should be used for value property
             If this bit is true, value is not forcibly loaded after postback if value was set
+            </summary>
+        </member>
+        <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.Node">
+            <summary>
+            Gets or sets the current node.
             </summary>
         </member>
         <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.AutoGrowMaxHeight">
@@ -587,71 +499,13 @@
             <summary>
             The location of an external file browser that should be launched when the 
             Browse Server button is pressed. If configured, the Browse Server button 
-            will appear in the Link, Image, and Flash dialog windows.
+            will appear in the Link and Image dialog windows.
             
             Default value: empty string = disabled
             
             Set to null for default value
             </summary>
             <returns>null if the default value is set</returns>
-        </member>
-        <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.FileBrowserFlashBrowseUrl">
-             <summary>
-             The location of an external file browser, that should be launched when "Browse Server" button is pressed in the Flash dialog. 
-             If not set, CKEditor will use FilebrowserBrowseUrl
-            
-             Default value: empty string = disabled
-             
-             Set to null for default value
-             </summary>
-             <returns>null if the default value is set</returns>
-        </member>
-        <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.FileBrowserFlashUploadUrl">
-             <summary>
-             The location of the script that handles file uploads in the Flash dialog window.
-             If not set, CKEditor will use FilebrowserUploadUrl.
-            
-             Default value: undefined
-             
-             Set to null for default value
-             </summary>
-             <returns>null if the default value is set</returns>
-        </member>
-        <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.FileBrowserFlashWindowHeight">
-             <summary>
-             The default height of file browser window in CKEditor is set 
-             to 70% of screen height. 
-             If for some reasons, the default values are not suitable for you, 
-             you can change it to any other value.
-            
-             To set the size of the window in pixels, 
-             just set the number value (e.g. "800"). 
-             If you prefer to set height and width of the window 
-             in percentage of the screen, remember to add percent 
-             sign at the end (e.g. "60%").
-            
-             Default value: undefined (Unit.Empty)
-            
-             Set to Unit.Empty to reset to default value
-             </summary>
-        </member>
-        <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.FileBrowserFlashWindowWidth">
-             <summary>
-             The default width of file browser window in CKEditor is set 
-             to 80% of screen width.
-             If for some reasons, the default values are not suitable for you, 
-             you can change it to any other value.
-            
-             To set the size of the window in pixels, 
-             just set the number value (e.g. "800"). 
-             If you prefer to set height and width of the window 
-             in percentage of the screen, remember to add percent 
-             sign at the end (e.g. "60%").
-            
-             Default value: undefined (Unit.Empty)
-            
-             Set to Unit.Empty to reset to default value
-             </summary>
         </member>
         <member name="P:CMS.CKEditor.Web.UI.CKEditorControl.FileBrowserImageBrowseLinkUrl">
              <summary>
@@ -1895,9 +1749,107 @@
              Set to Unit.Empty to reset to default value
              </summary>
         </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.#ctor">
+            <summary>
+            Initializes a new instance of the CKEditorControl.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.OnPreRender(System.EventArgs)">
+            <summary>
+            Controls OnPreRender event.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the control at design-time.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.SetDefaultToolbarFromWebConfig">
+            <summary>
+            Set default toolbar from web config key if it's set
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.InitializeDialogs">
+            <summary>
+            Initialize dialogs configuration.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.InitializeScripts">
+            <summary>
+            Initialize additional scripts.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.UpdateConfigExtraPlugins">
+            <summary>
+            Updates the ExtraPlugins config from its List equivalent.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.UpdateConfigRemovePlugins">
+            <summary>
+            Updates the RemovePlugins config from its List equivalent.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.UpdateConfigRemoveButtons">
+            <summary>
+            Updates the RemoveButtons config from its List equivalent.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.GetControlClientID(System.String)">
+            <summary>
+            Gets controls ClientID.
+            </summary>
+            <param name="name">Controls name</param>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.ConfigPreRender">
+            <summary>
+            Do stuff that is required to prepare certain config entries,
+            just before rendering
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.GetUIElementsForWysiwygEditor">
+            <summary>
+            Get all WYSIWYG editor UI elements (results are cached).
+            </summary>
+            <returns>InfoDataSet with all UI elements that are associated with WYSIWYG editor</returns>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.RemoveButtonsOfUnavailableModules(System.Collections.Generic.IEnumerable{CMS.Modules.UIElementInfo})">
+            <summary>
+            Removes buttons from WYSIWYG editor based on registered UI elements.
+            </summary>
+            <param name="UIElements">All UI elements available in WYSIWYG editor</param>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.PersonalizeToolbar(System.Collections.Generic.IEnumerable{CMS.Modules.UIElementInfo})">
+            <summary>
+            Personalize editors toolbar.
+            </summary>
+            <param name="uiElements">All UI elements available in WYSIWYG editor</param>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.ActualizeUrl(System.String,System.String,System.String)">
+            <summary>
+            Actualize specified selector url path with specified parameters.
+            </summary>
+            <param name="selectorUrl">Selector url</param>
+            <param name="parameterName">Parameter name</param>
+            <param name="parameterValue">Parameter value</param>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Processes postback data for an ASP.NET server control.
+            </summary>
+        </member>
+        <member name="M:CMS.CKEditor.Web.UI.CKEditorControl.RaisePostDataChangedEvent">
+            <summary>
+            Signals the server control to notify the ASP.NET application that the state of the control has changed.
+            </summary>
+        </member>
         <member name="T:CMS.CKEditor.Web.UI.CKEditorConfiguration">
             <summary>
             CKEditor configuration class.
+            </summary>
+        </member>
+        <member name="P:CMS.CKEditor.Web.UI.CKEditorConfiguration.Item(System.String)">
+            <summary>
+            Configuration indexer.
             </summary>
         </member>
         <member name="M:CMS.CKEditor.Web.UI.CKEditorConfiguration.#ctor">
@@ -1924,11 +1876,6 @@
         <member name="M:CMS.CKEditor.Web.UI.CKEditorConfiguration.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
             Populates a SerializationInfo with the data needed to serialize the target object.
-            </summary>
-        </member>
-        <member name="P:CMS.CKEditor.Web.UI.CKEditorConfiguration.Item(System.String)">
-            <summary>
-            Configuration indexer.
             </summary>
         </member>
         <member name="T:CMS.CKEditor.Web.UI.CKEditorDesigner">

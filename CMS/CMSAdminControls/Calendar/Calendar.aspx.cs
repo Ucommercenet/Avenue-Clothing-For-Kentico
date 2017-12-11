@@ -54,7 +54,7 @@ public partial class CMSAdminControls_Calendar_Calendar : CMSPage
             else
             {
                 // Or system UI culture
-                mCulture = CultureInfo.CurrentUICulture.IetfLanguageTag;
+                mCulture = CultureInfo.CurrentUICulture.Name;
             }
         }
 

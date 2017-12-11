@@ -11,6 +11,7 @@ using CMS.DataEngine;
 using CMS.EventLog;
 using CMS.Helpers;
 using CMS.Localization;
+using CMS.MacroEngine;
 using CMS.Membership;
 using CMS.SiteProvider;
 using CMS.UIControls;
@@ -223,11 +224,6 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_General : CMSUs
         }
 
         String userName = ValidationHelper.GetString(ucUserName.Value, String.Empty);
-        if (result == String.Empty)
-        {
-            // Finds whether required fields are not empty
-            result = new Validator().NotEmpty(txtFullName.Text, GetString("Administration-User_New.RequiresFullName")).Result;
-        }
 
         // Store the old display name
         var oldDisplayName = ui.Generalized.ObjectDisplayName;
@@ -349,8 +345,9 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_General : CMSUs
                 ui.UserMFRequired = chkIsMFRequired.Checked;
 
 
+                var isCurrentUserGlobalAdmin = CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin);
                 // Global admin can set anything
-                if (CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin)
+                if (isCurrentUserGlobalAdmin
                     // Other users can set only editor and non privileges
                     || ((privilegeLevel != UserPrivilegeLevelEnum.Admin) && (privilegeLevel != UserPrivilegeLevelEnum.GlobalAdmin))
                     // Admin can manage his own privilege
@@ -358,7 +355,7 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_General : CMSUs
                 {
                     ui.SiteIndependentPrivilegeLevel = privilegeLevel;
                 }
-
+                
                 LoadUserLogon(ui);
 
                 // Set values of cultures.
@@ -393,8 +390,18 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_General : CMSUs
 
                     try
                     {
-                        // Update the user
-                        UserInfoProvider.SetUserInfo(ui);
+                        using (var transaction = new CMSLateBoundTransaction())
+                        {
+                            // Update the user
+                            UserInfoProvider.SetUserInfo(ui);
+
+                            if (isCurrentUserGlobalAdmin)
+                            {
+                                UserMacroIdentityHelper.SetMacroIdentity(ui, drpMacroIdentity.Value.ToInteger(0));
+                            }
+
+                            transaction.Commit();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -500,11 +507,14 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_General : CMSUs
             chkIsExternal.Checked = ui.IsExternal;
             chkIsDomain.Checked = ui.UserIsDomain;
             chkIsHidden.Checked = ui.UserIsHidden;
+            drpMacroIdentity.Value = UserMacroIdentityInfoProvider.GetUserMacroIdentityInfo(ui)?.UserMacroIdentityMacroIdentityID;
             chkIsMFRequired.Checked = ui.UserMFRequired;
 
-            // Privilege drop down check
+            // Privilege and macro signature identity drop down check
             if (!CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin))
             {
+                drpMacroIdentity.Enabled = false;
+
                 // Disable for global admins
                 if (ui.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin))
                 {
@@ -791,7 +801,7 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_General : CMSUs
             RedirectToAccessDenied("CMS.Users", "Modify");
         }
 
-        MFAuthenticationHelper.ResetTokenAndIterationForUser(ui);
+        MFAuthenticationHelper.ResetSecretForUser(ui);
         LoadData();
         ShowConfirmation(GetString("administration-user.token.reset"));
     }

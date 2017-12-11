@@ -29,23 +29,28 @@ public partial class CMSAdminControls_UI_UniSelector_LiveSelectionDialog : CMSLi
 
                 // Cancel button
                 btnCancel.ResourceString = "general.cancel";
-                btnCancel.Attributes.Add("onclick", "return US_Cancel();");
-
-                // Ok button
-                btnOk.ResourceString = "general.ok";
-                btnOk.Attributes.Add("onclick", "return US_Submit();");
 
                 SelectionModeEnum selectionMode = (SelectionModeEnum)parameters["SelectionMode"];
 
-                // Show the OK button if needed
+                // Show and set up the OK and the Cancel button if needed
                 switch (selectionMode)
                 {
                     case SelectionModeEnum.Multiple:
                     case SelectionModeEnum.MultipleTextBox:
                     case SelectionModeEnum.MultipleButton:
-                        {
-                            btnOk.Visible = true;
-                        }
+                        // Ok button
+                        btnOk.Visible = true;
+                        btnOk.ResourceString = "general.ok";
+                        btnOk.Attributes.Add("onclick", "return US_Submit();");
+                        // Cancel button
+                        btnCancel.Attributes.Add("onclick", "return US_Cancel();");
+                        break;
+
+                    default:
+                        // Ok button
+                        btnOk.Visible = false;
+                        // Cancel button
+                        btnCancel.Attributes.Add("onclick", "return CloseDialog();");
                         break;
                 }
             }

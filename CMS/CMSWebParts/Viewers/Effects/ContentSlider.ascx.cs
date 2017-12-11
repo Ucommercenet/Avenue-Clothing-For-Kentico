@@ -4,7 +4,6 @@ using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
 using CMS.Helpers;
-using CMS.PortalEngine;
 using CMS.PortalEngine.Web.UI;
 
 
@@ -12,7 +11,7 @@ public partial class CMSWebParts_Viewers_Effects_ContentSlider : CMSAbstractWebP
 {
     #region "Variables"
 
-    private string mStyleOptions = null;
+    private string mStyleOptions;
     private int index = 0;
 
     #endregion
@@ -738,90 +737,70 @@ public partial class CMSWebParts_Viewers_Effects_ContentSlider : CMSAbstractWebP
     {
         base.OnPreRender(e);
 
-        bool checkCollision = false;
-        if (ParentZone != null)
+        if (!StopProcessing)
         {
-            checkCollision = ParentZone.WebPartManagementRequired;
-        }
-        else
-        {
-            checkCollision = PortalContext.IsDesignMode(ViewMode, false);
-        }
-        if (ScriptHelper.IsPrototypeBoxRegistered() && checkCollision)
-        {
-            Label lblError = new Label();
-            lblError.EnableViewState = false;
-            lblError.CssClass = "ErrorLabel";
-            lblError.Text = GetString("javascript.mootoolsprototype");
-            Controls.Add(lblError);
-        }
-        else
-        {
-            if (!StopProcessing)
+            ltlBefore.Text = "<div class=\"Slider\"><div class=\"Content\" id=\"" + ClientID + "\" style=\"" + StyleOptions + "\">";
+
+            // Register Slider javascript
+            ScriptHelper.RegisterScriptFile(Page, "~/CMSWebParts/Viewers/Effects/ContentSlider_files/ContentSlider.js");
+
+            // Build Javascript
+            string jScript =
+                "var CurrentPage_" + ClientID + " = null; var Slider_" + ClientID + " = null; window.addEvent('domready',function(){ \n" +
+                "try { \n" +
+                "Slider_" + ClientID + " = new ContentSlider(\"" + ClientID + "\"," + JsFadeIn + "," + JsFadeOut + "," + JsBreak + "); \n";
+
+            if ((index != 0) && (JsAutoStart))
             {
-                ltlBefore.Text = "<div class=\"Slider\"><div class=\"Content\" id=\"" + ClientID + "\" style=\"" + StyleOptions + "\">";
-
-                // Register Slider javascript
-                ScriptHelper.RegisterScriptFile(Page, "~/CMSWebParts/Viewers/Effects/ContentSlider_files/ContentSlider.js");
-
-                // Build Javascript
-                string jScript =
-                    "var CurrentPage_" + ClientID + " = null; var Slider_" + ClientID + " = null; window.addEvent('domready',function(){ \n" +
-                    "try { \n" +
-                    "Slider_" + ClientID + " = new ContentSlider(\"" + ClientID + "\"," + JsFadeIn + "," + JsFadeOut + "," + JsBreak + "); \n";
-
-                if ((index != 0) && (JsAutoStart))
-                {
-                    jScript += "autoTurnPage(Slider_" + ClientID + ",0," + (JsFadeIn + JsFadeOut + JsBreak) + ", false); \n";
-                }
-
-                // Set back and width of bottom div
-                jScript +=
-                    "var tmp = $('" + ClientID + "'); \n" +
-                    "tmp.style.backgroundColor = $('" + ClientID + "_page_0').style.borderTopColor; \n" +
-                    // Get element width
-                    "var elWidth = 0; if(!isNaN(parseInt(tmp.style.width.substring(0,tmp.style.width.length - 2), 10))){elWidth=parseInt(tmp.style.width.substring(0,tmp.style.width.length - 2), 10); }" +
-                    // Get border width
-                    "var borderWidth = 0; if(!isNaN(parseInt($('" + ClientID + "_page_0').style.borderLeftWidth.substring(0, $('" + ClientID + "_page_0').style.borderLeftWidth.length - 2), 10))){borderWidth=parseInt($('" + ClientID + "_page_0').style.borderLeftWidth.substring(0, $('" + ClientID + "_page_0').style.borderLeftWidth.length - 2), 10);}" +
-                    // Set total width
-                    "tmp.style.width = (elWidth+(2*borderWidth))+\"px\"; \n";
-
-                for (int i = 0; i < index; i++)
-                {
-                    jScript += "$('" + ClientID + "_page_" + i + "').addEvent('click',function(){Slider_" + ClientID + ".turnPage(" + i + ",false);});\n";
-                }
-
-                jScript += "} catch (ex) {}});\n";
-
-                ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "sliderScript" + ClientID, ScriptHelper.GetScript(jScript));
-
-                string bottomDiv = "</div>";
-                if (DisplayPageNumbers && (index > 0))
-                {
-                    // DIV with links to pages
-                    bottomDiv += "<div id=\"" + ClientID + "_pager\" class=\"Pager\" style=\"width:" + DivWidth + "px;\">";
-                    // Page numbers
-                    for (int p = 0; p < index; p++)
-                    {
-                        bottomDiv += "<div class=\"PagerPage\" style=\"width:10px;\"><a id=\"" + ClientID + "_page_" + p + "\" href=\"#\" onclick=\"CurrentPage_" + ClientID + "=" + p + ";document.getElementById('" + ClientID + "_runSlider').style.display='inline';return false;\">" + (p + 1) + "</a></div>";
-                    }
-                    // Add start link
-                    bottomDiv += "<div style=\"display:none;\" id=\"" + ClientID + "_runSlider\" class=\"Control\"><a href=\"#\" onclick=\"document.getElementById('" + ClientID + "_runSlider').style.display='none';autoTurnPage(Slider_" + ClientID + ",CurrentPage_" + ClientID + "," + (JsFadeIn + JsFadeOut + JsBreak) + ", false); return false;\" >" + GetString("ContentSlider.Start") + "</a></div>";
-                    bottomDiv += "<div style=\"clear:both;height:0;line-height:0;\"></div></div>";
-                }
-
-                ltlAfter.Text = bottomDiv + "</div>";
-
-                Visible = repItems.Visible;
-                if (!repItems.HasData() && HideControlForZeroRows)
-                {
-                    Visible = false;
-                }
+                jScript += "autoTurnPage(Slider_" + ClientID + ",0," + (JsFadeIn + JsFadeOut + JsBreak) + ", false); \n";
             }
-            else
+
+            // Set back and width of bottom div
+            jScript +=
+                "var tmp = $('" + ClientID + "'); \n" +
+                "tmp.style.backgroundColor = $('" + ClientID + "_page_0').style.borderTopColor; \n" +
+                // Get element width
+                "var elWidth = 0; if(!isNaN(parseInt(tmp.style.width.substring(0,tmp.style.width.length - 2), 10))){elWidth=parseInt(tmp.style.width.substring(0,tmp.style.width.length - 2), 10); }" +
+                // Get border width
+                "var borderWidth = 0; if(!isNaN(parseInt($('" + ClientID + "_page_0').style.borderLeftWidth.substring(0, $('" + ClientID + "_page_0').style.borderLeftWidth.length - 2), 10))){borderWidth=parseInt($('" + ClientID + "_page_0').style.borderLeftWidth.substring(0, $('" + ClientID + "_page_0').style.borderLeftWidth.length - 2), 10);}" +
+                // Set total width
+                "tmp.style.width = (elWidth+(2*borderWidth))+\"px\"; \n";
+
+            for (int i = 0; i < index; i++)
+            {
+                jScript += "$('" + ClientID + "_page_" + i + "').addEvent('click',function(){Slider_" + ClientID + ".turnPage(" + i + ",false);});\n";
+            }
+
+            jScript += "} catch (ex) {}});\n";
+
+            ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "sliderScript" + ClientID, ScriptHelper.GetScript(jScript));
+
+            string bottomDiv = "</div>";
+            if (DisplayPageNumbers && (index > 0))
+            {
+                // DIV with links to pages
+                bottomDiv += "<div id=\"" + ClientID + "_pager\" class=\"Pager\" style=\"width:" + DivWidth + "px;\">";
+                // Page numbers
+                for (int p = 0; p < index; p++)
+                {
+                    bottomDiv += "<div class=\"PagerPage\" style=\"width:10px;\"><a id=\"" + ClientID + "_page_" + p + "\" href=\"#\" onclick=\"CurrentPage_" + ClientID + "=" + p + ";document.getElementById('" + ClientID + "_runSlider').style.display='inline';return false;\">" + (p + 1) + "</a></div>";
+                }
+                // Add start link
+                bottomDiv += "<div style=\"display:none;\" id=\"" + ClientID + "_runSlider\" class=\"Control\"><a href=\"#\" onclick=\"document.getElementById('" + ClientID + "_runSlider').style.display='none';autoTurnPage(Slider_" + ClientID + ",CurrentPage_" + ClientID + "," + (JsFadeIn + JsFadeOut + JsBreak) + ", false); return false;\" >" + GetString("ContentSlider.Start") + "</a></div>";
+                bottomDiv += "<div style=\"clear:both;height:0;line-height:0;\"></div></div>";
+            }
+
+            ltlAfter.Text = bottomDiv + "</div>";
+
+            Visible = repItems.Visible;
+            if (!repItems.HasData() && HideControlForZeroRows)
             {
                 Visible = false;
             }
+        }
+        else
+        {
+            Visible = false;
         }
     }
 

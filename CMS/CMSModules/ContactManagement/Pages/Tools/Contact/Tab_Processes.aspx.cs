@@ -81,7 +81,7 @@ public partial class CMSModules_ContactManagement_Pages_Tools_Contact_Tab_Proces
         {
             int processId = ValidationHelper.GetInteger(ucSelector.Value, 0);
             AutomationManager manager = AutomationManager.GetInstance(CurrentUser);
-            var infoObj = BaseAbstractInfoProvider.GetInfoById(listElem.ObjectType, listElem.ObjectID);
+            var infoObj = ProviderHelper.GetInfoById(listElem.ObjectType, listElem.ObjectID);
             using (CMSActionContext context = new CMSActionContext())
             {
                 context.AllowAsyncActions = false;

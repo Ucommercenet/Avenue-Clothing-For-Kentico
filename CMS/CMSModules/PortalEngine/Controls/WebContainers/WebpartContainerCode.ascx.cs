@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 using CMS.Base.Web.UI;
 using CMS.FormEngine.Web.UI;
@@ -69,7 +68,7 @@ public partial class CMSModules_PortalEngine_Controls_WebContainers_WebpartConta
         string text = txtContainerText.Text;
         string after = "";
 
-        int wpIndex = text.IndexOf(WP_CHAR);
+        int wpIndex = text.IndexOf(WP_CHAR, StringComparison.Ordinal);
         if (wpIndex >= 0)
         {
             after = text.Substring(wpIndex + 1);

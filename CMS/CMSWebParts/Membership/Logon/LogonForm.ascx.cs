@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 using System.Web;
 using System.Web.Security;
@@ -212,7 +213,7 @@ public partial class CMSWebParts_Membership_Logon_LogonForm : CMSAbstractWebPart
             }
 
             CMSCheckBox chkItem = (CMSCheckBox)Login1.FindControl("chkRememberMe");
-            if ((MFAuthenticationHelper.IsMultiFactorAutEnabled) && (chkItem != null))
+            if ((MFAuthenticationHelper.IsMultiFactorAuthEnabled) && (chkItem != null))
             {
                 chkItem.Visible = false;
             }
@@ -274,7 +275,7 @@ function UpdateLabel_", ClientID, @"(content, context) {
         }
         else if (MembershipContext.UserIsPartiallyAuthenticated && !MembershipContext.UserAuthenticationFailedDueToInvalidPasscode)
         {
-            if (MembershipContext.MFAuthenticationTokenNotInitialized && MFAuthenticationHelper.DisplayTokenID)
+            if (MembershipContext.MFAuthenticationTokenNotInitialized && MFAuthenticationHelper.DisplaySetupCode)
             {
                 var lblTokenInfo = Login1.FindControl("lblTokenInfo") as LocalizedLabel;
                 var lblTokenID = Login1.FindControl("lblTokenID") as LocalizedLabel;
@@ -288,7 +289,7 @@ function UpdateLabel_", ClientID, @"(content, context) {
 
                 if (lblTokenID != null)
                 {
-                    lblTokenID.Text = MFAuthenticationHelper.GetTokenIDForUser(Login1.UserName);
+                    lblTokenID.Text = MFAuthenticationHelper.GetSetupCodeForUser(Login1.UserName);
                 }
 
                 if (plcTokenInfo != null)
@@ -611,7 +612,16 @@ function UpdateLabel_", ClientID, @"(content, context) {
         }
         else
         {
-            e.Authenticated = Membership.Provider.ValidateUser(Login1.UserName, Login1.Password);
+            try
+            {
+                e.Authenticated = Membership.Provider.ValidateUser(Login1.UserName, Login1.Password);
+            }
+            catch (ConfigurationException ex)
+            {
+                EventLogProvider.LogException("LogonForm", "VALIDATEUSER", ex);
+                var provider = new CMSMembershipProvider();
+                e.Authenticated = provider.ValidateUser(Login1.UserName, Login1.Password);
+            }
         }
     }
 

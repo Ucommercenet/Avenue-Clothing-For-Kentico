@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/Core', 'CMS/EventHub', 'jQuery'], function (Core, hub, $) {
-    'use strict';
 
     var Module = function (opt) {
         var core = new Core(opt, null),

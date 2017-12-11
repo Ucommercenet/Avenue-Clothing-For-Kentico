@@ -3,6 +3,7 @@
 using CMS.Base.Web.UI;
 using CMS.CMSImportExport;
 using CMS.Helpers;
+using CMS.PortalEngine.Web.UI;
 using CMS.UIControls;
 
 
@@ -76,10 +77,10 @@ public partial class CMSModules_ImportExport_Controls_Global_ObjectAttachmentSel
     /// <summary>
     /// Column containing the thumbnail metafile GUID
     /// </summary>
-    public string ThumbnailGUIDColumn 
-    { 
-        get; 
-        set; 
+    public string ThumbnailGUIDColumn
+    {
+        get;
+        set;
     }
 
 
@@ -159,6 +160,12 @@ public partial class CMSModules_ImportExport_Controls_Global_ObjectAttachmentSel
             mObjectType = value;
         }
     }
+
+
+    /// <summary>
+    /// Default icon class.
+    /// </summary>
+    public string DefaulIconClass { get; set; } = PortalHelper.DefaultPageTemplateIconClass;
 
 
     protected void Page_Load(object sender, EventArgs e)

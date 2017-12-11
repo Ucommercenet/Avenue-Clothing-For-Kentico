@@ -105,7 +105,7 @@ public partial class CMSModules_ContactManagement_Controls_UI_Automation_Pending
     {
         mCanRemoveAutomationProcesses = WorkflowStepInfoProvider.CanUserRemoveAutomationProcess(CurrentUser, SiteContext.CurrentSiteName);
 
-        if (!URLHelper.IsPostback() && (PageSize > 0))
+        if (!RequestHelper.IsPostBack() && (PageSize > 0))
         {
             listElem.Pager.DefaultPageSize = PageSize;
         }

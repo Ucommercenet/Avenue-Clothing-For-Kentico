@@ -14,53 +14,6 @@
             Default sleep interval in seconds. Default value is 30 seconds.
             </summary>
         </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.#ctor(System.String,System.String)">
-            <summary>
-            Base constructor.
-            </summary>
-            <param name="webAppPath">Web application path</param>
-            <param name="baseServiceName">Service base name.</param>
-        </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.OnStart(System.String[])">
-            <summary>
-            Starts service.
-            </summary>
-            <param name="args">Start arguments</param>
-        </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.OnStop">
-            <summary>
-            Stops service.
-            </summary>
-        </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.Execute">
-            <summary>
-            Method which is executed by the service.
-            </summary>
-        </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.ExecuteInternal">
-            <summary>
-            Executes service logging.
-            </summary>
-        </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.CheckServiceSettings">
-            <summary>
-            Checks service settings
-            </summary>
-        </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.Watcher_Event(System.Object,System.IO.FileSystemEventArgs)">
-            <summary>
-            Handles changed event of file system watcher.
-            </summary>
-            <param name="sender">File system watcher</param>
-            <param name="e">File system event argument</param>
-        </member>
-        <member name="M:CMS.WinServiceEngine.BaseService.EnsureDiskPath(System.String,System.String)">
-            <summary>
-            Checks if all folders of the given path exist and if not, it creates them.
-            </summary>
-            <param name="path">Full disk path of the file including file name</param>
-            <param name="startingPath">Starting path where folders can be checked and created</param>
-        </member>
         <member name="P:CMS.WinServiceEngine.BaseService.Watcher">
             <summary>
             File watcher to indicate to clear the cache.
@@ -131,6 +84,53 @@
             Event log source name for current service.
             </summary>
         </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.#ctor(System.String,System.String)">
+            <summary>
+            Base constructor.
+            </summary>
+            <param name="webAppPath">Web application path</param>
+            <param name="baseServiceName">Service base name.</param>
+        </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.OnStart(System.String[])">
+            <summary>
+            Starts service.
+            </summary>
+            <param name="args">Start arguments</param>
+        </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.OnStop">
+            <summary>
+            Stops service.
+            </summary>
+        </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.Execute">
+            <summary>
+            Method which is executed by the service.
+            </summary>
+        </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.ExecuteInternal">
+            <summary>
+            Executes service logging.
+            </summary>
+        </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.CheckServiceSettings">
+            <summary>
+            Checks service settings
+            </summary>
+        </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.Watcher_Event(System.Object,System.IO.FileSystemEventArgs)">
+            <summary>
+            Handles changed event of file system watcher.
+            </summary>
+            <param name="sender">File system watcher</param>
+            <param name="e">File system event argument</param>
+        </member>
+        <member name="M:CMS.WinServiceEngine.BaseService.EnsureDiskPath(System.String,System.String)">
+            <summary>
+            Checks if all folders of the given path exist and if not, it creates them.
+            </summary>
+            <param name="path">Full disk path of the file including file name</param>
+            <param name="startingPath">Starting path where folders can be checked and created</param>
+        </member>
         <member name="T:CMS.WinServiceEngine.ApplicationSettings">
             <summary>
             Provides application settings from arbitrary configuration file.
@@ -146,6 +146,18 @@
             The configuration file representation.
             </summary>
         </member>
+        <member name="P:CMS.WinServiceEngine.ApplicationSettings.ApplicationConfiguration">
+            <summary>
+            Gets the configuration file representation.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.ApplicationSettings.Item(System.String)">
+            <summary>
+            Gets the application setting with the specified name.
+            </summary>
+            <param name="name">The name of the application setting to locate.</param>
+            <returns>A string that contains the value associated with the specified name, if found; otherwise, null.</returns>
+        </member>
         <member name="M:CMS.WinServiceEngine.ApplicationSettings.#ctor(System.String)">
             <summary>
             Initializes a new instance of the ApplicationSettings class.
@@ -159,21 +171,39 @@
             <param name="configurationFilePath">The configuration file path.</param>
             <returns>The representation of the configuration file with the specified path.</returns>
         </member>
-        <member name="P:CMS.WinServiceEngine.ApplicationSettings.ApplicationConfiguration">
-            <summary>
-            Gets the configuration file representation.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.ApplicationSettings.Item(System.String)">
-            <summary>
-            Gets the application setting with the specified name.
-            </summary>
-            <param name="name">The name of the application setting to locate.</param>
-            <returns>A string that contains the value associated with the specified name, if found; otherwise, null.</returns>
-        </member>
         <member name="T:CMS.WinServiceEngine.BaseServiceInstaller">
             <summary>
             Base class for windows service installer.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceInstaller">
+            <summary>
+            Service installer.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceProcessInstaller">
+            <summary>
+            Service process installer.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceDefinition">
+            <summary>
+            Service definition.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceAssemblyPath">
+            <summary>
+            Service assembly path.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.WebApplicationPath">
+            <summary>
+            Full path of the web application.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.BaseName">
+            <summary>
+            Service base name.
             </summary>
         </member>
         <member name="M:CMS.WinServiceEngine.BaseServiceInstaller.#ctor(System.String)">
@@ -223,36 +253,6 @@
         <member name="M:CMS.WinServiceEngine.BaseServiceInstaller.SetServiceNameParameters">
             <summary>
             Initializes properties related to the service name.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceInstaller">
-            <summary>
-            Service installer.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceProcessInstaller">
-            <summary>
-            Service process installer.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceDefinition">
-            <summary>
-            Service definition.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.ServiceAssemblyPath">
-            <summary>
-            Service assembly path.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.WebApplicationPath">
-            <summary>
-            Full path of the web application.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.BaseServiceInstaller.BaseName">
-            <summary>
-            Service base name.
             </summary>
         </member>
         <member name="T:CMS.WinServiceEngine.ServiceHelper">
@@ -491,6 +491,21 @@
             Health Monitoring service base name.
             </summary>
         </member>
+        <member name="P:CMS.WinServiceEngine.WinServiceHelper.ServicesDataPath">
+            <summary>
+            Physical path to the win services data folder
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.WinServiceHelper.ServicesFilePath">
+            <summary>
+            Physical path to the file that contains available services.
+            </summary>
+        </member>
+        <member name="P:CMS.WinServiceEngine.WinServiceHelper.ServicesDefinition">
+            <summary>
+            List of services definition.
+            </summary>
+        </member>
         <member name="M:CMS.WinServiceEngine.WinServiceHelper.GetServiceWatcherFileName(System.String)">
             <summary>
             Gets file name of the watcher file for given windows service.
@@ -548,40 +563,9 @@
             </summary>
             <param name="baseName">Base name of service</param>
         </member>
-        <member name="P:CMS.WinServiceEngine.WinServiceHelper.ServicesDataPath">
-            <summary>
-            Physical path to the win services data folder
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.WinServiceHelper.ServicesFilePath">
-            <summary>
-            Physical path to the file that contains available services.
-            </summary>
-        </member>
-        <member name="P:CMS.WinServiceEngine.WinServiceHelper.ServicesDefinition">
-            <summary>
-            List of services definition.
-            </summary>
-        </member>
         <member name="T:CMS.WinServiceEngine.WinServiceItem">
             <summary>
             Class representing windows service definition item.
-            </summary>
-        </member>
-        <member name="M:CMS.WinServiceEngine.WinServiceItem.#ctor(System.Xml.XmlNode)">
-            <summary>
-            Creates instance and initializes properties from xml node.
-            </summary>
-            <param name="node">Node</param>
-        </member>
-        <member name="M:CMS.WinServiceEngine.WinServiceItem.GetServiceName">
-            <summary>
-            Gets service name.
-            </summary>
-        </member>
-        <member name="M:CMS.WinServiceEngine.WinServiceItem.GetServiceDisplayName">
-            <summary>
-            Gets service display name.
             </summary>
         </member>
         <member name="P:CMS.WinServiceEngine.WinServiceItem.BaseName">
@@ -607,6 +591,22 @@
         <member name="P:CMS.WinServiceEngine.WinServiceItem.AssemblyName">
             <summary>
             Assembly name of service.
+            </summary>
+        </member>
+        <member name="M:CMS.WinServiceEngine.WinServiceItem.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Creates instance and initializes properties from xml node.
+            </summary>
+            <param name="node">Node</param>
+        </member>
+        <member name="M:CMS.WinServiceEngine.WinServiceItem.GetServiceName">
+            <summary>
+            Gets service name.
+            </summary>
+        </member>
+        <member name="M:CMS.WinServiceEngine.WinServiceItem.GetServiceDisplayName">
+            <summary>
+            Gets service display name.
             </summary>
         </member>
     </members>

@@ -91,16 +91,16 @@
             </summary>
             <param name="pos">Position</param>
         </member>
+        <member name="P:CMS.Search.Lucene3.SearchIndexOutput.Length">
+            <summary>
+            Returns the stream length
+            </summary>
+        </member>
         <member name="M:CMS.Search.Lucene3.SearchIndexOutput.SetLength(System.Int64)">
             <summary>
             Sets the stream length
             </summary>
             <param name="length">Length to set</param>
-        </member>
-        <member name="P:CMS.Search.Lucene3.SearchIndexOutput.Length">
-            <summary>
-            Returns the stream length
-            </summary>
         </member>
         <member name="T:CMS.Search.Lucene3.StreamDescriptor">
             <summary>
@@ -237,6 +237,21 @@
             Maximal value of double value.
             </summary>
         </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchValueConverter.IntReplacerRegex">
+            <summary>
+            Gets the integer replacer regular expression. Replaces integer values in following format (int)123.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchValueConverter.DoubleReplacerRegex">
+            <summary>
+            Gets the double replacer regular expression. Replaces double values in following format (double)123.456.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchValueConverter.DecimalReplacerRegex">
+            <summary>
+            Gets the double replacer regular expression.
+            </summary>
+        </member>
         <member name="M:CMS.Search.Lucene3.LuceneSearchValueConverter.IntToString(System.Int32)">
             <summary>
             Returns string representation of the integer value. Returned value has always uniform format.
@@ -291,21 +306,6 @@
             </summary>
             <param name="builder">String builder with representation of decimal (without sign value)</param>
         </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchValueConverter.IntReplacerRegex">
-            <summary>
-            Gets the integer replacer regular expression. Replaces integer values in following format (int)123.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchValueConverter.DoubleReplacerRegex">
-            <summary>
-            Gets the double replacer regular expression. Replaces double values in following format (double)123.456.
-            </summary>
-        </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchValueConverter.DecimalReplacerRegex">
-            <summary>
-            Gets the double replacer regular expression.
-            </summary>
-        </member>
         <member name="T:CMS.Search.Lucene3.LuceneSearchManager">
             <summary>
             Helper classes to provide search indexes
@@ -314,6 +314,12 @@
         <member name="F:CMS.Search.Lucene3.LuceneSearchManager.mSortPrefixRegex">
             <summary>
             Sort prefix regular expression.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchManager.SortPrefixRegex">
+            <summary>
+            Gets the sort field type syntax regular expression. 
+            Result contains type, name and order groups.
             </summary>
         </member>
         <member name="M:CMS.Search.Lucene3.LuceneSearchManager.CreateDocument">
@@ -397,12 +403,6 @@
             </summary>
             <param name="luceneQuery">Lucene query</param>
             <param name="field">Field name</param>
-        </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchManager.SortPrefixRegex">
-            <summary>
-            Gets the sort field type syntax regular expression. 
-            Result contains type, name and order groups.
-            </summary>
         </member>
         <member name="T:CMS.Search.Lucene3.LuceneSearchSyntaxHelper">
             <summary>
@@ -524,20 +524,20 @@
             <param name="a">Analyzer</param>
             <param name="create">Create index</param>
         </member>
-        <member name="M:CMS.Search.Lucene3.LuceneIndexWriter.UpdateDocument(CMS.DataEngine.ISearchDocument,System.String)">
+        <member name="M:CMS.Search.Lucene3.LuceneIndexWriter.UpdateDocument(CMS.Search.ILuceneSearchDocument,System.String)">
             <summary>
             Updates the document within the index
             </summary>
             <param name="doc">Document to update</param>
             <param name="docId">Document ID</param>
         </member>
-        <member name="M:CMS.Search.Lucene3.LuceneIndexWriter.AddDocument(CMS.DataEngine.ISearchDocument)">
+        <member name="M:CMS.Search.Lucene3.LuceneIndexWriter.AddDocument(CMS.Search.ILuceneSearchDocument)">
             <summary>
             Adds the specific document to the writer
             </summary>
             <param name="doc">Document to add</param>
         </member>
-        <member name="M:CMS.Search.Lucene3.LuceneIndexWriter.GetLuceneDocument(CMS.DataEngine.ISearchDocument)">
+        <member name="M:CMS.Search.Lucene3.LuceneIndexWriter.GetLuceneDocument(CMS.Search.ILuceneSearchDocument)">
             <summary>
             Gets the Lucene search document from the given document
             </summary>
@@ -552,20 +552,6 @@
             <summary>
             Search alias path filter.
             </summary>
-        </member>
-        <member name="M:CMS.Search.Lucene3.LuceneSearchFilter.#ctor(System.String,System.String,System.Func{System.String,System.String,System.Boolean})">
-            <summary>
-            Alias path filter constructor.
-            </summary>
-            <param name="fieldName">Name of the field</param>
-            <param name="match">Match value</param>
-            <param name="condition">Filter condition</param>
-        </member>
-        <member name="M:CMS.Search.Lucene3.LuceneSearchFilter.GetDocIdSet(Lucene.Net.Index.IndexReader)">
-            <summary>
-            Returns BitArray of filtered results.
-            </summary>
-            <param name="reader">Index reader</param>
         </member>
         <member name="P:CMS.Search.Lucene3.LuceneSearchFilter.FieldName">
             <summary>
@@ -582,9 +568,28 @@
             Filter condition
             </summary>
         </member>
+        <member name="M:CMS.Search.Lucene3.LuceneSearchFilter.#ctor(System.String,System.String,System.Func{System.String,System.String,System.Boolean})">
+            <summary>
+            Alias path filter constructor.
+            </summary>
+            <param name="fieldName">Name of the field</param>
+            <param name="match">Match value</param>
+            <param name="condition">Filter condition</param>
+        </member>
+        <member name="M:CMS.Search.Lucene3.LuceneSearchFilter.GetDocIdSet(Lucene.Net.Index.IndexReader)">
+            <summary>
+            Returns BitArray of filtered results.
+            </summary>
+            <param name="reader">Index reader</param>
+        </member>
         <member name="T:CMS.Search.Lucene3.LuceneSearchAnalyzer">
             <summary>
             Represent a search analyzer for the Lucene.Net search index
+            </summary>
+        </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchAnalyzer.Analyzer">
+            <summary>
+            Search analyzer
             </summary>
         </member>
         <member name="M:CMS.Search.Lucene3.LuceneSearchAnalyzer.#ctor(CMS.Search.SearchIndexInfo,System.Boolean)">
@@ -668,16 +673,16 @@
             Clears analyzers table and 
             </summary>
         </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchAnalyzer.Analyzer">
-            <summary>
-            Search analyzer
-            </summary>
-        </member>
         <member name="T:CMS.Search.Lucene3.LuceneSearchDocument">
             <summary>
             Represents Lucene search document
             </summary>
             <remarks>This class is strongly tied with the current Lucene.Net library (version 3.0.3). We do not recommend using the class except for special cases.</remarks>
+        </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchDocument.Document">
+            <summary>
+            Underlying document
+            </summary>
         </member>
         <member name="M:CMS.Search.Lucene3.LuceneSearchDocument.#ctor">
             <summary>
@@ -689,22 +694,6 @@
             Constructor
             </summary>
             <param name="doc">Base document</param>
-        </member>
-        <member name="M:CMS.Search.Lucene3.LuceneSearchDocument.Init(CMS.DataEngine.ISearchIndexInfo,System.String,System.String,System.DateTime)">
-            <summary>
-            Creates search document.
-            </summary>
-            <param name="index">Index the document belongs to</param>
-            <param name="type">Type of document</param>   
-            <param name="id">ID value</param>
-            <param name="created">Document created</param>
-        </member>
-        <member name="M:CMS.Search.Lucene3.LuceneSearchDocument.PrepareContentValue(System.Object,System.Boolean)">
-            <summary>
-            Prepares value to add to content field.
-            </summary>
-            <param name="value">Value to add</param> 
-            <param name="stripTags">Indicates whether tags should be stripped</param>
         </member>
         <member name="M:CMS.Search.Lucene3.LuceneSearchDocument.AddGeneralField(System.String,System.Object,System.Boolean,System.Boolean)">
             <summary>
@@ -736,14 +725,19 @@
             </summary>
             <param name="name">Field name</param>
         </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchDocument.Document">
-            <summary>
-            Underlying document
-            </summary>
-        </member>
         <member name="T:CMS.Search.Lucene3.LuceneSearchHits">
             <summary>
             Represents the search hits collection
+            </summary>
+        </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchHits.Hits">
+            <summary>
+            Underlying search hits
+            </summary>
+        </member>
+        <member name="P:CMS.Search.Lucene3.LuceneSearchHits.Searcher">
+            <summary>
+            Underlying search hits
             </summary>
         </member>
         <member name="M:CMS.Search.Lucene3.LuceneSearchHits.#ctor(Lucene.Net.Search.Searcher,Lucene.Net.Search.TopDocs)">
@@ -775,19 +769,14 @@
             </summary>
             <param name="i">Index</param>
         </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchHits.Hits">
-            <summary>
-            Underlying search hits
-            </summary>
-        </member>
-        <member name="P:CMS.Search.Lucene3.LuceneSearchHits.Searcher">
-            <summary>
-            Underlying search hits
-            </summary>
-        </member>
         <member name="T:CMS.Search.Lucene3.SubSetAnalyzer">
             <summary>
             SubSet smart search analyzer.
+            </summary>
+        </member>
+        <member name="P:CMS.Search.Lucene3.SubSetAnalyzer.MinimalLength">
+            <summary>
+            Gets or sets the minimal length of set which should be indexed.
             </summary>
         </member>
         <member name="M:CMS.Search.Lucene3.SubSetAnalyzer.#ctor(System.Boolean,System.Boolean,System.Int32)">
@@ -825,11 +814,6 @@
             <param name="word">Word</param>
             <param name="round">Recursive round</param>
             <param name="length">Required subset length</param>
-        </member>
-        <member name="P:CMS.Search.Lucene3.SubSetAnalyzer.MinimalLength">
-            <summary>
-            Gets or sets the minimal length of set which should be indexed.
-            </summary>
         </member>
     </members>
 </doc>

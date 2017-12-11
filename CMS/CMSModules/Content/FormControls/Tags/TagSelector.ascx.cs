@@ -6,11 +6,10 @@ using CMS.Base.Web.UI;
 using CMS.DocumentEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
-using CMS.PortalEngine.Web.UI;
 using CMS.Taxonomy;
 
 
-public partial class CMSModules_Content_FormControls_Tags_TagSelector : FormEngineUserControl
+public partial class CMSModules_Content_FormControls_Tags_TagSelector : FormEngineUserControl, ICallbackEventHandler
 {
     #region "Variables"
 
@@ -166,15 +165,17 @@ public partial class CMSModules_Content_FormControls_Tags_TagSelector : FormEngi
     protected override void OnInit(EventArgs e)
     {
         // Ensure the script manager
-        PortalHelper.EnsureScriptManager(Page);
+        ControlsHelper.EnsureScriptManager(Page);
+
+        base.OnInit(e);
     }
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
         RegisterScripts();
-        
-        btnSelect.Click += btnSelect_Click;
+
+        btnSelect.Attributes.Add("onclick", Page.ClientScript.GetCallbackEventReference(this, "document.getElementById('" + txtTags.ClientID + "').value", "TS_SelectionDialogReady_" + ClientID, string.Empty) + "; return false;");
         btnSelect.Text = GetString("general.select");
     }
 
@@ -197,33 +198,10 @@ public partial class CMSModules_Content_FormControls_Tags_TagSelector : FormEngi
         }  
     }
 
-
-    protected void btnSelect_Click(object sender, EventArgs e)
-    {
-        SetDialogParameters();
-
-        ScriptHelper.RegisterStartupScript(Page, typeof(string), "tagSelect", ScriptHelper.GetScript(String.Format("tagSelect('{0}');", DialogIdentifier)));
-    }
-
     #endregion
 
 
     #region "Methods"
-
-    /// <summary>
-    /// Sets the dialog parameters to the context.
-    /// </summary>
-    private void SetDialogParameters()
-    {
-        var p = new Hashtable();
-
-        p["textbox"] = txtTags.ClientID;
-        p["group"] = GroupId;
-        p["tags"] = txtTags.Text;
-
-        WindowHelper.Add(DialogIdentifier, p);
-    }
-
 
     /// <summary>
     /// Registers required scripts
@@ -233,27 +211,11 @@ public partial class CMSModules_Content_FormControls_Tags_TagSelector : FormEngi
         // Ensure Script Manager is the first control on the page
         using (ScriptManager sMgr = ScriptManager.GetCurrent(Page))
         {
-            if (sMgr != null)
-            {
-                sMgr.Services.Add(new ServiceReference("~/CMSModules/Content/FormControls/Tags/TagSelectorService.asmx"));
-            }
+            sMgr?.Services.Add(new ServiceReference("~/CMSModules/Content/FormControls/Tags/TagSelectorService.asmx"));
         }
 
-        // Register the dialog script
         ScriptHelper.RegisterDialogScript(Page);
-
-        // Register tag script 
-        ScriptHelper.RegisterStartupScript(this, typeof(string), "tagScript", ScriptHelper.GetScript(GetTagScript()));
-
-        // Create script for valid inserting into textbox
-        ScriptHelper.RegisterStartupScript(this, typeof(string), "tagSelectScript", @"
-function itemSelected(source, eventArgs) {
-    var txtBox = source.get_element();
-    if (txtBox) {
-        txtBox.value = eventArgs.get_text().replace(/\'""/,'""').replace(/""\'/,'""');
-    }
-}
-", true);
+        ScriptHelper.RegisterStartupScript(this, typeof(string), "TagSelector_" + ClientID, ScriptHelper.GetScript(GetTagScript()));
     }
 
 
@@ -262,15 +224,12 @@ function itemSelected(source, eventArgs) {
     /// </summary>
     private string GetTagScript()
     {
-        string baseUrl = IsLiveSite ? "~/CMSFormControls/LiveSelectors/TagSelector.aspx" : "~/CMSFormControls/Selectors/TagSelector.aspx";
-
-        // Build script with modal dialog opener and set textbox functions
-        return String.Format(@"
-function tagSelect(id) {{
-    modalDialog('{0}?params='+ id, 'TagSelector', 790, 670);
+        return $@"
+function TS_SelectionDialogReady_{ClientID}(url, context) {{
+    modalDialog(url, 'TagSelector', 790, 670)
 }}
 
-function setTagsToTextBox(textBoxId, tagString) {{
+function TS_SetTagsToTextBox(textBoxId, tagString) {{
     if (textBoxId != '') {{
         var textbox = document.getElementById(textBoxId);
         if (textbox != null){{
@@ -280,8 +239,51 @@ function setTagsToTextBox(textBoxId, tagString) {{
             }}
         }}
     }}
-}}", ResolveUrl(baseUrl));
+}}
+
+function itemSelected(source, eventArgs) {{
+    var txtBox = source.get_element();
+    if (txtBox) {{
+        txtBox.value = eventArgs.get_text().replace(/\'""/,'""').replace(/""\'/,'""');
+    }}
+}}";
     }
 
     #endregion
+
+
+    #region "Callback handling"
+
+    private string callbackResult;
+
+    /// <summary>
+    /// Raises the callback event.
+    /// </summary>
+    public void RaiseCallbackEvent(string eventArgument)
+    {
+        var p = new Hashtable();
+
+        p["textbox"] = txtTags.ClientID;
+        p["group"] = GroupId;
+        p["tags"] = eventArgument;
+
+        WindowHelper.Add(DialogIdentifier, p);
+
+        var url = IsLiveSite ? "~/CMSFormControls/LiveSelectors/TagSelector.aspx" : "~/CMSFormControls/Selectors/TagSelector.aspx";
+        url = URLHelper.AddParameterToUrl(url, "params", DialogIdentifier);
+
+        callbackResult = ResolveUrl(url);
+    }
+
+
+    /// <summary>
+    /// Prepares the callback result.
+    /// </summary>
+    public string GetCallbackResult()
+    {
+        return callbackResult;
+    }
+
+    #endregion
+
 }

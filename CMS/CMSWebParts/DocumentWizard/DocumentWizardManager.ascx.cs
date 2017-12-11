@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Data;
 
 using CMS.Base.Web.UI;
-using CMS.PortalEngine.Web.UI;
-using CMS.Helpers;
 using CMS.DocumentEngine;
-using CMS.SiteProvider;
-using CMS.PortalEngine;
-using CMS.Base;
 using CMS.DocumentEngine.Web.UI;
+using CMS.Helpers;
+using CMS.PortalEngine;
+using CMS.PortalEngine.Web.UI;
 
 public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstractWebPart, IDocumentWizardManager
 {
     #region "Variables"
 
-    List<DocumentWizardStep> steps = null;
-    StepEventArgs mStepEventArgs = null;
-    int? mLastConfirmedStepIndex = null;
-    int? mLastVisitedStepIndex = null;
+    private List<DocumentWizardStep> steps;
+    private StepEventArgs mStepEventArgs;
+    private int? mLastConfirmedStepIndex;
+    private int? mLastVisitedStepIndex;
     public CMSDataProperties dataProperties = new CMSDataProperties();
 
     #endregion
@@ -45,11 +43,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return DataHelper.GetNotEmpty(this.GetValue("ClassNames"), dataProperties.ClassNames);
+            return DataHelper.GetNotEmpty(GetValue("ClassNames"), dataProperties.ClassNames);
         }
         set
         {
-            this.SetValue("ClassNames", value);
+            SetValue("ClassNames", value);
             dataProperties.ClassNames = value;
         }
     }
@@ -62,11 +60,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return DataHelper.GetNotEmpty(this.GetValue("OrderBy"), "NodeLevel, NodeOrder, NodeName");
+            return DataHelper.GetNotEmpty(GetValue("OrderBy"), "NodeLevel, NodeOrder, NodeName");
         }
         set
         {
-            this.SetValue("OrderBy", value);
+            SetValue("OrderBy", value);
             dataProperties.OrderBy = value;
         }
     }
@@ -80,11 +78,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("WhereCondition"), dataProperties.WhereCondition);
+            return ValidationHelper.GetString(GetValue("WhereCondition"), dataProperties.WhereCondition);
         }
         set
         {
-            this.SetValue("WhereCondition", value);
+            SetValue("WhereCondition", value);
             dataProperties.WhereCondition = value;
         }
     }
@@ -114,11 +112,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return DataHelper.GetNotEmpty(this.GetValue("Path"), PagePlaceholder.PageInfo.NodeAliasPath + "/%");
+            return DataHelper.GetNotEmpty(GetValue("Path"), PagePlaceholder.PageInfo.NodeAliasPath + "/%");
         }
         set
         {
-            this.SetValue("Path", value);
+            SetValue("Path", value);
             dataProperties.Path = Path;
         }
     }
@@ -131,11 +129,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("CombineWithDefaultCulture"), dataProperties.CombineWithDefaultCulture);
+            return ValidationHelper.GetBoolean(GetValue("CombineWithDefaultCulture"), dataProperties.CombineWithDefaultCulture);
         }
         set
         {
-            this.SetValue("CombineWithDefaultCulture", value);
+            SetValue("CombineWithDefaultCulture", value);
             dataProperties.CombineWithDefaultCulture = value;
         }
     }
@@ -148,11 +146,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return DataHelper.GetNotEmpty(this.GetValue("CultureCode"), dataProperties.CultureCode);
+            return DataHelper.GetNotEmpty(GetValue("CultureCode"), dataProperties.CultureCode);
         }
         set
         {
-            this.SetValue("CultureCode", value);
+            SetValue("CultureCode", value);
             dataProperties.CultureCode = value;
         }
     }
@@ -165,11 +163,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("SelectOnlyPublished"), dataProperties.SelectOnlyPublished);
+            return ValidationHelper.GetBoolean(GetValue("SelectOnlyPublished"), dataProperties.SelectOnlyPublished);
         }
         set
         {
-            this.SetValue("SelectOnlyPublished", value);
+            SetValue("SelectOnlyPublished", value);
             dataProperties.SelectOnlyPublished = value;
         }
     }
@@ -182,11 +180,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("Columns"), dataProperties.SelectedColumns);
+            return ValidationHelper.GetString(GetValue("Columns"), dataProperties.SelectedColumns);
         }
         set
         {
-            this.SetValue("Columns", value);
+            SetValue("Columns", value);
             dataProperties.SelectedColumns = value;
         }
     }
@@ -199,11 +197,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("FilterOutDuplicates"), dataProperties.FilterOutDuplicates);
+            return ValidationHelper.GetBoolean(GetValue("FilterOutDuplicates"), dataProperties.FilterOutDuplicates);
         }
         set
         {
-            this.SetValue("FilterOutDuplicates", value);
+            SetValue("FilterOutDuplicates", value);
             dataProperties.FilterOutDuplicates = value;
         }
     }
@@ -216,11 +214,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("CheckPermissions"), dataProperties.CheckPermissions);
+            return ValidationHelper.GetBoolean(GetValue("CheckPermissions"), dataProperties.CheckPermissions);
         }
         set
         {
-            this.SetValue("CheckPermissions", value);
+            SetValue("CheckPermissions", value);
             dataProperties.CheckPermissions = value;
         }
     }
@@ -298,11 +296,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetBoolean(this.GetValue("RestrictStepOrder"), true);
+            return ValidationHelper.GetBoolean(GetValue("RestrictStepOrder"), true);
         }
         set
         {
-            this.SetValue("RestrictStepOrder", value);
+            SetValue("RestrictStepOrder", value);
         }
     }
 
@@ -314,11 +312,11 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
     {
         get
         {
-            return ValidationHelper.GetString(this.GetValue("FinalStepNextUrl"), "");
+            return ValidationHelper.GetString(GetValue("FinalStepNextUrl"), "");
         }
         set
         {
-            this.SetValue("FinalStepNextUrl", value);
+            SetValue("FinalStepNextUrl", value);
         }
     }
 
@@ -506,7 +504,7 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
                 {
                     bool raiseEvents = ValidationHelper.GetBoolean(StepEventArgs["RaiseEvents"], false);
                     // Next
-                    ProcessNextStep(this, StepEventArgs, raiseEvents);
+                    ProcessNextStep(StepEventArgs, raiseEvents);
                 }
             }
 
@@ -561,14 +559,14 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
             sea = StepEventArgs;
         }
 
-        ProcessNextStep(sender, sea, true);
+        ProcessNextStep(sea, true);
     }
 
 
     /// <summary>
     /// Next step
     /// </summary>
-    private void ProcessNextStep(object sender, StepEventArgs e, bool raiseEvents)
+    private void ProcessNextStep(StepEventArgs e, bool raiseEvents)
     {
         if (raiseEvents)
         {
@@ -676,10 +674,6 @@ public partial class CMSWebParts_DocumentWizard_DocumentWizardManager : CMSAbstr
             return false;
         }
 
-        // Keep site name for better performance
-        string siteName = SiteContext.CurrentSiteName;
-
-        TreeProvider tp = new TreeProvider();
         object data = null;
 
         // Load data

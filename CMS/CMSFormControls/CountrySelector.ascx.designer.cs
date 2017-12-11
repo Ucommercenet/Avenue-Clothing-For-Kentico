@@ -12,15 +12,6 @@
 public partial class CMSFormControls_CountrySelector {
     
     /// <summary>
-    /// pnlUpdate control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.CMSUpdatePanel pnlUpdate;
-    
-    /// <summary>
     /// uniSelectorCountry control.
     /// </summary>
     /// <remarks>
@@ -28,6 +19,15 @@ public partial class CMSFormControls_CountrySelector {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMSAdminControls_UI_UniSelector_UniSelector uniSelectorCountry;
+    
+    /// <summary>
+    /// pnlUpdate control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.CMSUpdatePanel pnlUpdate;
     
     /// <summary>
     /// plcStates control.

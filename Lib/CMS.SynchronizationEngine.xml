@@ -10,6 +10,33 @@
             Several members have to be implemented in order to achieve desired functionality.
             </summary>
         </member>
+        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.LogIntegrationForExternalTasks">
+            <summary>
+            Determines whether to log integration tasks when processing external tasks.
+            False by default.
+            </summary>
+        </member>
+        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.FetchedInternalTasks">
+            <summary>
+            Fetches internal integration tasks for processing.
+            </summary>
+        </member>
+        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.FetchedExternalTasks">
+            <summary>
+            Fetches external integration tasks for processing.
+            </summary>
+        </member>
+        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.SyncManager">
+            <summary>
+            SyncManager instance.
+            </summary>
+        </member>
+        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.ClearTranslationsAfterProcessing">
+            <summary>
+            Says whether to clear cached translation information (true by default). Applies both to internal and external tasks.
+            If switched to false, translations can still be cleared by calling ClearInternalTranslations() or ClearExternalTranslations().
+            </summary>
+        </member>
         <member name="M:CMS.SynchronizationEngine.BaseIntegrationConnector.ProcessExternalTask(System.Object,CMS.Synchronization.IntegrationProcessTypeEnum,CMS.DataEngine.TaskTypeEnum,CMS.Synchronization.TaskDataTypeEnum,System.String)">
             <summary>
             Processes incoming task.
@@ -414,33 +441,6 @@
             <param name="dataType">Type of input data</param>
             <param name="siteName">Name of site</param>
         </member>
-        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.LogIntegrationForExternalTasks">
-            <summary>
-            Determines whether to log integration tasks when processing external tasks.
-            False by default.
-            </summary>
-        </member>
-        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.FetchedInternalTasks">
-            <summary>
-            Fetches internal integration tasks for processing.
-            </summary>
-        </member>
-        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.FetchedExternalTasks">
-            <summary>
-            Fetches external integration tasks for processing.
-            </summary>
-        </member>
-        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.SyncManager">
-            <summary>
-            SyncManager instance.
-            </summary>
-        </member>
-        <member name="P:CMS.SynchronizationEngine.BaseIntegrationConnector.ClearTranslationsAfterProcessing">
-            <summary>
-            Says whether to clear cached translation information (true by default). Applies both to internal and external tasks.
-            If switched to false, translations can still be cleared by calling ClearInternalTranslations() or ClearExternalTranslations().
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.IntegrationExternalTasksProcessor">
             <summary>
             Provides an ITask interface for external integration task synchronization.
@@ -456,6 +456,27 @@
         <member name="T:CMS.Synchronization.BaseIntegrationSubscription">
             <summary>
             Class representing subscription to documents or objects
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.TaskProcessType">
+            <summary>
+            Type of task processing (sync/async etc.)
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.TaskType">
+            <summary>
+            Task type of document or object to match.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.SiteName">
+            <summary>
+            Site name of document or object to match.
+            Use AbstractIntegrationSubscription.GLOBAL_OBJECTS to match only global objects.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.ConnectorName">
+            <summary>
+            Name of connector the subscription is attached to.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.BaseIntegrationSubscription.#ctor(System.String,CMS.Synchronization.TaskProcessTypeEnum,CMS.DataEngine.TaskTypeEnum,System.String)">
@@ -517,30 +538,24 @@
             <param name="expression">User-friendly expression to transformate to regular expression</param>
             <returns>Regular expression object</returns>
         </member>
-        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.TaskProcessType">
-            <summary>
-            Type of task processing (sync/async etc.)
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.TaskType">
-            <summary>
-            Task type of document or object to match.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.SiteName">
-            <summary>
-            Site name of document or object to match.
-            Use AbstractIntegrationSubscription.GLOBAL_OBJECTS to match only global objects.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.BaseIntegrationSubscription.ConnectorName">
-            <summary>
-            Name of connector the subscription is attached to.
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.DocumentIntegrationSubscription">
             <summary>
             Class representing subscription to documents
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.DocumentIntegrationSubscription.DocumentNodeAliasPath">
+            <summary>
+            Alias path of document to match
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.DocumentIntegrationSubscription.DocumentCultureCode">
+            <summary>
+            Culture code of document to match
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.DocumentIntegrationSubscription.DocumentClassName">
+            <summary>
+            Class name of document to match
             </summary>
         </member>
         <member name="M:CMS.Synchronization.DocumentIntegrationSubscription.#ctor(System.String,CMS.Synchronization.TaskProcessTypeEnum,CMS.DataEngine.TaskTypeEnum,System.String,System.String,System.String,System.String)">
@@ -564,24 +579,19 @@
             <param name="taskProcessType">Returns type of task processing</param>
             <returns>TRUE if the node and task correspond with subscription settings</returns>
         </member>
-        <member name="P:CMS.Synchronization.DocumentIntegrationSubscription.DocumentNodeAliasPath">
-            <summary>
-            Alias path of document to match
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.DocumentIntegrationSubscription.DocumentCultureCode">
-            <summary>
-            Culture code of document to match
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.DocumentIntegrationSubscription.DocumentClassName">
-            <summary>
-            Class name of document to match
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.ObjectIntegrationSubscription">
             <summary>
             Class representing subscription to objects
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ObjectIntegrationSubscription.ObjectType">
+            <summary>
+            Type of object to match
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ObjectIntegrationSubscription.ObjectCodeName">
+            <summary>
+            Code name of object to match
             </summary>
         </member>
         <member name="M:CMS.Synchronization.ObjectIntegrationSubscription.#ctor(System.String,CMS.Synchronization.TaskProcessTypeEnum,CMS.DataEngine.TaskTypeEnum,System.String,System.String,System.String)">
@@ -604,16 +614,6 @@
             <param name="taskProcessType">Returns type of task processing</param>
             <returns>TRUE if the info object and task correspond with subscription settings</returns>
         </member>
-        <member name="P:CMS.Synchronization.ObjectIntegrationSubscription.ObjectType">
-            <summary>
-            Type of object to match
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.ObjectIntegrationSubscription.ObjectCodeName">
-            <summary>
-            Code name of object to match
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.SynchronizationEngineModuleMetadata">
             <summary>
             Represents the Synchronization Engine module metadata.
@@ -632,6 +632,11 @@
         <member name="F:CMS.Synchronization.StagingTaskRunner.AUTHENTICATION_PROCESSED">
             <summary>
             Authentication of the token was processed.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.StagingTaskRunner.TreatServerNamesAsInstances">
+            <summary>
+             Indicates whether to delete instance global tasks (tasks belonging to servers with same ServerName) after synchronization
             </summary>
         </member>
         <member name="M:CMS.Synchronization.StagingTaskRunner.IsServerEnabled(System.String)">
@@ -736,11 +741,6 @@
             <param name="taskSync">Task synchronization info</param>
             <param name="result">Result</param>
         </member>
-        <member name="P:CMS.Synchronization.StagingTaskRunner.TreatServerNamesAsInstances">
-            <summary>
-             Indicates whether to delete instance global tasks (tasks belonging to servers with same ServerName) after synchronization
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.StagingWorker">
             <summary>
             Automatic staging worker task.
@@ -755,6 +755,66 @@
         <member name="T:CMS.Synchronization.SyncManager">
             <summary>
             Helper class for synchronization methods.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.AdministratorId">
+            <summary>
+            Administrator user ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.TreeProvider">
+            <summary>
+            TreeProvider object to use.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.WorkflowManager">
+            <summary>
+            Workflow manager instance.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.VersionManager">
+            <summary>
+            Version manager instance.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.LogTasks">
+            <summary>
+            Indicates if logging staging tasks is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.UseTreeCustomHandlers">
+            <summary>
+            Indicates if custom handlers should be used for document operations.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.UseAutomaticOrdering">
+            <summary>
+            Indicates if automatic ordering for documents should be used on target server.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.OperationType">
+            <summary>
+            Defines the operation type.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.SiteName">
+            <summary>
+            Gets or sets current site name.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.SiteID">
+            <summary>
+            Gets site ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.TranslationSiteID">
+            <summary>
+            Gets site ID for translation.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SyncManager.AdministratorUser">
+            <summary>
+            Gets the default administrator use based on <see cref="P:CMS.Synchronization.SyncManager.AdministratorId"/>
             </summary>
         </member>
         <member name="M:CMS.Synchronization.SyncManager.ProcessTask(CMS.DataEngine.TaskTypeEnum,System.String,System.String,System.String)">
@@ -1162,66 +1222,6 @@
             <param name="sentTaskGroups">Task groups sent from source environment</param>
             <param name="existingTaskGroups">Task groups from current environment which has the same code name or guid as the sent task groups</param>
         </member>
-        <member name="P:CMS.Synchronization.SyncManager.AdministratorId">
-            <summary>
-            Administrator user ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.TreeProvider">
-            <summary>
-            TreeProvider object to use.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.WorkflowManager">
-            <summary>
-            Workflow manager instance.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.VersionManager">
-            <summary>
-            Version manager instance.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.LogTasks">
-            <summary>
-            Indicates if logging staging tasks is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.UseTreeCustomHandlers">
-            <summary>
-            Indicates if custom handlers should be used for document operations.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.UseAutomaticOrdering">
-            <summary>
-            Indicates if automatic ordering for documents should be used on target server.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.OperationType">
-            <summary>
-            Defines the operation type.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.SiteName">
-            <summary>
-            Gets or sets current site name.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.SiteID">
-            <summary>
-            Gets site ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.TranslationSiteID">
-            <summary>
-            Gets site ID for translation.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SyncManager.AdministratorUser">
-            <summary>
-            Gets the default administrator use based on <see cref="P:CMS.Synchronization.SyncManager.AdministratorId"/>
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.SynchronizationEngineModule">
             <summary>
             Represents the Synchronization Engine module.
@@ -1272,11 +1272,6 @@
             Class for document synchronization action
             </summary>
         </member>
-        <member name="M:CMS.Synchronization.SynchronizeDocumentAction.Execute">
-            <summary>
-            Executes action
-            </summary>
-        </member>
         <member name="P:CMS.Synchronization.SynchronizeDocumentAction.IncludeChildren">
             <summary>
             Indicates if child documents should be included.
@@ -1285,6 +1280,11 @@
         <member name="P:CMS.Synchronization.SynchronizeDocumentAction.LogTasks">
             <summary>
             Indicates if document tasks should be explicitly logged.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.SynchronizeDocumentAction.Execute">
+            <summary>
+            Executes action
             </summary>
         </member>
     </members>

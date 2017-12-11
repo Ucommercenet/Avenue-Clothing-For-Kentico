@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/Core'], function (Core) {
-    'use strict';
 
     var Module = function (opt) {
         this.setData = function(parameters) {
@@ -73,7 +72,7 @@
 
 
         getStoredCompanies = function() {
-            return $cmsj.parseJSON(decodeURI($companies.val()));
+            return JSON.parse(decodeURI($companies.val()) || null);
         },
 
         companyChanged = function() {

@@ -100,7 +100,7 @@ public partial class CMSModules_AdminControls_Controls_Documents_OutdatedDocumen
     private void SetupControl()
     {
         // Initialize controls
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Fill the dropdown list
             drpFilter.Items.Add(GetString("MyDesk.OutdatedDocuments.Days"));

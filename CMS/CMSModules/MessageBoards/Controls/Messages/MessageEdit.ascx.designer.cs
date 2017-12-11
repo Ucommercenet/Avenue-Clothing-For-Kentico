@@ -315,7 +315,7 @@ public partial class CMSModules_MessageBoards_Controls_Messages_MessageEdit {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSFormControls_Captcha_SecurityCode captchaElem;
+    protected global::CMS.FormEngine.Web.UI.SecurityCode captchaElem;
     
     /// <summary>
     /// pnlOkButton control.

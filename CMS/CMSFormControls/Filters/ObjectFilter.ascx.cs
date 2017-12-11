@@ -70,7 +70,7 @@ public partial class CMSFormControls_Filters_ObjectFilter : CMSAbstractBaseFilte
             }
             else
             {
-                if (!URLHelper.IsPostback())
+                if (!RequestHelper.IsPostBack())
                 {
                     siteSelector.Value = SiteContext.CurrentSiteID;
                 }

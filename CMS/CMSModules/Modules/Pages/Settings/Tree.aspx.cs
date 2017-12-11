@@ -11,7 +11,7 @@ public partial class CMSModules_Modules_Pages_Settings_Tree : GlobalAdminPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             treeSettings.SelectPath = "/";
 

@@ -125,7 +125,7 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardModerators : 
         base.OnPreRender(e);
 
         // Reload data if necessary
-        if (ShouldReloadData || (!URLHelper.IsPostback() && !IsLiveSite))
+        if (ShouldReloadData || (!RequestHelper.IsPostBack() && !IsLiveSite))
         {
             currentValues = "";
             userSelector.CurrentValues = GetModerators();

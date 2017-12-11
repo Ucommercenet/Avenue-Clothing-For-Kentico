@@ -22,7 +22,7 @@ public partial class CMSModules_EventManager_Tools_Events_SendEmail : CMSEventMa
         }
 
         emailSender.EventID = eventId;
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             emailSender.ReloadData(true);
         }

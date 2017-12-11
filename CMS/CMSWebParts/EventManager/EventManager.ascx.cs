@@ -360,7 +360,7 @@ public partial class CMSWebParts_EventManager_EventManager : CMSAbstractWebPart
     {
         if (EventNode != null && EventNode.GetBooleanValue("EventLogActivity", false))
         {
-            var activityLogService = Service.Entry<IActivityLogService>();
+            var activityLogService = Service.Resolve<IActivityLogService>();
             var activityInitializer = new EventBookingActivityInitializer(attendeeInfo.AttendeeID, EventNode);
             activityLogService.Log(activityInitializer, CMSHttpContext.Current.Request);
         }

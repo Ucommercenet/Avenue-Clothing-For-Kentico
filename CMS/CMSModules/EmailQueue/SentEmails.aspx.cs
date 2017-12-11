@@ -11,9 +11,10 @@ using CMS.DataEngine;
 using CMS.EmailEngine;
 using CMS.Helpers;
 using CMS.UIControls;
+using CMS.Core;
 
-
-public partial class CMSModules_EmailQueue_SentEmails : GlobalAdminPage, ICallbackEventHandler
+[UIElement(ModuleName.CMS, "SentE-mails")]
+public partial class CMSModules_EmailQueue_SentEmails : EmailQueuePage, ICallbackEventHandler
 {
     #region "ICallbackEventHandler Members"
 
@@ -54,9 +55,6 @@ public partial class CMSModules_EmailQueue_SentEmails : GlobalAdminPage, ICallba
 
     #region "Variables"
 
-    protected int siteId;
-
-
     private Hashtable mParameters;
 
     #endregion
@@ -81,11 +79,11 @@ public partial class CMSModules_EmailQueue_SentEmails : GlobalAdminPage, ICallba
     protected void Page_Load(object sender, EventArgs e)
     {
         Title = GetString("emailqueue.archive.title");
-        siteId = QueryHelper.GetInteger("siteid", -1);
-
+        
         // Load drop-down lists
         if (!RequestHelper.IsPostBack())
         {
+            pnlBodyFilter.Visible = UserIsAdmin;
             if (drpPriority.Items.Count <= 0)
             {
                 drpPriority.Items.Add(new ListItem(GetString("general.selectall"), "-1"));
@@ -182,10 +180,17 @@ function OpenEmailDetail(queryParameters) {{
             case "edit":
                 CMSGridActionButton viewBtn = (CMSGridActionButton)sender;
                 viewBtn.OnClientClick = string.Format("emailDialogParams_{0} = '{1}';{2};return false;",
-                                                      ClientID,
-                                                      viewBtn.CommandArgument,
-                                                      Page.ClientScript.GetCallbackEventReference(this, "emailDialogParams_" + ClientID, "OpenEmailDetail", null));
-
+                    ClientID,
+                    viewBtn.CommandArgument,
+                    Page.ClientScript.GetCallbackEventReference(this, "emailDialogParams_" + ClientID, "OpenEmailDetail", null));
+                break;
+            case "delete":
+                CMSGridActionButton deleteBtn = (CMSGridActionButton)sender;
+                deleteBtn.Enabled = UserHasModify;
+                break;
+            case "resend":
+                CMSGridActionButton resendBtn = (CMSGridActionButton)sender;
+                resendBtn.Enabled = UserHasModify;
                 break;
         }
 
@@ -200,6 +205,11 @@ function OpenEmailDetail(queryParameters) {{
     /// <param name="actionArgument">ID (value of Primary key) of corresponding data row</param>
     protected void gridElem_OnAction(string actionName, object actionArgument)
     {
+        if (!UserHasModify)
+        {
+            RedirectToAccessDenied(ModuleName.EMAILENGINE, MODIFY_PERMISSION);
+        }
+
         switch (actionName.ToLowerCSafe())
         {
             case "delete":
@@ -268,13 +278,24 @@ function OpenEmailDetail(queryParameters) {{
     protected void HeaderActions_ActionPerformed(object sender, CommandEventArgs e)
     {
         bool reloaded = false;
+        var commandName = e.CommandName.ToLowerInvariant();
 
-        switch (e.CommandName.ToLowerCSafe())
+        if (commandName == "refresh")
+        {
+            gridElem.ReloadData();
+        }
+
+        if (!UserHasModify)
+        {
+            RedirectToAccessDenied(ModuleName.EMAILENGINE, MODIFY_PERMISSION);
+        }
+
+        switch (commandName)
         {
             case "deleteall":
                 // Delete all archived e-mails
-                EmailHelper.Queue.DeleteArchived(siteId);
-
+                EmailHelper.Queue.DeleteArchived(SiteId);
+                
                 gridElem.ReloadData();
                 reloaded = true;
                 break;
@@ -289,11 +310,6 @@ function OpenEmailDetail(queryParameters) {{
                 gridElem.ResetSelection();
                 gridElem.ReloadData();
                 reloaded = true;
-                break;
-
-            case "refresh":
-                // Refresh grid data
-                gridElem.ReloadData();
                 break;
         }
         // Reload on first page if no data found after perfoming action
@@ -310,7 +326,7 @@ function OpenEmailDetail(queryParameters) {{
         base.OnPreRender(e);
 
         string confirmScript = "if (!confirm({0})) return false;";
-        bool enabled = !DataHelper.DataSourceIsEmpty(gridElem.GridView.DataSource);
+        bool enabled = !DataHelper.DataSourceIsEmpty(gridElem.GridView.DataSource) && UserHasModify;
 
         HeaderActions actions = CurrentMaster.HeaderActions;
         actions.ActionsList.Clear();
@@ -354,9 +370,13 @@ function OpenEmailDetail(queryParameters) {{
     {
         string where = string.Empty;
 
+        if (UserIsAdmin)
+        {
+            where = SqlHelper.AddWhereCondition(where, fltBody.GetCondition());
+        }
+
         where = SqlHelper.AddWhereCondition(where, fltFrom.GetCondition());
         where = SqlHelper.AddWhereCondition(where, fltSubject.GetCondition());
-        where = SqlHelper.AddWhereCondition(where, fltBody.GetCondition());
 
         // EmailTo condition
         string emailTo = fltTo.FilterText.Trim();
@@ -403,13 +423,13 @@ function OpenEmailDetail(queryParameters) {{
 
         where += string.Format("(EmailStatus = {0:D})", EmailStatusEnum.Archived);
 
-        if (siteId == UniSelector.US_GLOBAL_RECORD)
+        if (SiteId == UniSelector.US_GLOBAL_RECORD)
         {
             where += " AND (EmailSiteID IS NULL OR  EmailSiteID = 0)";
         }
-        else if (siteId > 0)
+        else if (SiteId > 0)
         {
-            where += string.Format(" AND (EmailSiteID = {0})", siteId);
+            where += string.Format(" AND (EmailSiteID = {0})", SiteId);
         }
 
         return where;

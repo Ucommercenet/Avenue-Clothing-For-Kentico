@@ -4,7 +4,6 @@
 */
 
 cmsdefine(['jQuery', 'jQueryJScrollPane'], function ($) {
-    'use strict';
 
     var AnchorDropup = function(data) {
         this.scrollOffset = 8;

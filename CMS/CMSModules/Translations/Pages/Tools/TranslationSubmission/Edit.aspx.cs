@@ -359,7 +359,7 @@ public partial class CMSModules_Translations_Pages_Tools_TranslationSubmission_E
                     text = GetString("translationservice.updatingstatuses");
                 }
 
-                label.Value = ScriptHelper.GetLoaderInlineHtml(Page, text);
+                label.Value = ScriptHelper.GetLoaderInlineHtml(text);
                 HeaderActions.AdditionalControls.Add(label);
                 HeaderActions.AdditionalControlsCssClass = "header-actions-label control-group-inline";
                 HeaderActions.ReloadAdditionalControls();

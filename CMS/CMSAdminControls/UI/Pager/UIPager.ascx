@@ -3,8 +3,16 @@
 
 <div class="pagination">
     <cms:UniPager ID="pagerElem" ShortID="p" runat="server">
+        <FirstPageTemplate>
+            <li class="pagination-list-navigation">
+                <a href="<%#EvalHtmlAttribute("FirstURL")%>" title="<%=FirstPageText %>">
+                    <i class="icon-chevron-double-left" aria-hidden="true"></i>
+                    <span class="sr-only"><%=FirstPageText %></span>
+                </a>
+            </li>
+        </FirstPageTemplate>
         <PreviousPageTemplate>
-            <li>
+            <li class="pagination-list-navigation">
                 <a href="<%#EvalHtmlAttribute("PreviousURL")%>" title="<%=PreviousPageText %>">
                     <i class="icon-chevron-left" aria-hidden="true"></i>
                     <span class="sr-only"><%=PreviousPageText %></span>
@@ -34,13 +42,21 @@
             </li>
         </NextGroupTemplate>
         <NextPageTemplate>
-            <li>
+            <li class="pagination-list-navigation">
                 <a href="<%#EvalHtmlAttribute("NextURL")%>" title="<%=NextPageText%>">
                     <i class="icon-chevron-right" aria-hidden="true"></i>
                     <span class="sr-only"><%=NextPageText%></span>
                 </a>
             </li>
         </NextPageTemplate>
+        <LastPageTemplate>
+            <li class="pagination-list-navigation">
+                <a href="<%#EvalHtmlAttribute("LastURL")%>" title="<%=LastPageText %>">
+                    <i class="icon-chevron-double-right" aria-hidden="true"></i>
+                    <span class="sr-only"><%=LastPageText %></span>
+                </a>
+            </li>
+        </LastPageTemplate>
         <DirectPageTemplate>
             <div class="pagination-pages">
                 <cms:LocalizedLabel ID="lblPage" runat="server" ResourceString="UniGrid.Page" />
@@ -51,11 +67,13 @@
         </DirectPageTemplate>
         <LayoutTemplate>
             <ul class="pagination-list">
+                <asp:PlaceHolder runat="server" ID="plcFirstPage"></asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="plcPreviousPage"></asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="plcPreviousGroup"></asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="plcPageNumbers"></asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="plcNextGroup"></asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="plcNextPage"></asp:PlaceHolder>
+                <asp:PlaceHolder runat="server" ID="plcLastPage"></asp:PlaceHolder>
             </ul>
             <asp:PlaceHolder runat="server" ID="plcDirectPage"></asp:PlaceHolder>
         </LayoutTemplate>

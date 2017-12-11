@@ -21,7 +21,8 @@ public partial class CMSModules_Newsletters_Controls_SendIssueTemplateBased : Is
         // If issue is being send or was already sent, disable the date time picker
         if (issue.IssueStatus == IssueStatusEnum.Finished || 
             issue.IssueStatus == IssueStatusEnum.PreparingData || 
-            issue.IssueStatus == IssueStatusEnum.Sending)
+            issue.IssueStatus == IssueStatusEnum.Sending ||
+            issue.HasWidgetWithUnfilledRequiredProperty())
         {
             calendarControl.Enabled = false;
         }

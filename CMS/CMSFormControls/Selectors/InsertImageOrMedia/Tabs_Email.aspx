@@ -18,8 +18,8 @@
 </head>
 <body class="<%=mBodyClass%>">
     <form id="form1" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="scrManager" runat="server">
-    </ajaxToolkit:ToolkitScriptManager>
+    <asp:ScriptManager ID="scrManager" runat="server">
+    </asp:ScriptManager>
     <cms:HTMLEmailProperties ID="emailProperties" runat="server" IsLiveSite="false" />
     <asp:Literal ID="ltlScript" runat="server" EnableViewState="false" />
     </form>

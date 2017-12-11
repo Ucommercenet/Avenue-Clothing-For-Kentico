@@ -9,123 +9,6 @@
             Abstract report control.
             </summary>
         </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.#ctor">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.LoadDefaultParameters(System.String,System.String)">
-            <summary>
-            Loads default parameters from dataset definition.
-            </summary>
-            <param name="datasetXml">Dataset XML</param>
-            <param name="datasetXmlSchema">Dataset XML Schema</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ApplyTimeParameters">
-            <summary>
-            Sets FromDate and ToDate by given values (computed from actual datetime).
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.RegisterSubscriptionScript(System.Int32,System.String,System.Int32,CMS.Base.Web.UI.ContextMenuContainer)">
-            <summary>
-            Register JS function for opening subscription dialog.
-            </summary>
-            <param name="reportID">Report ID</param>
-            <param name="itemIDType">Type of item IO parameter (reportid,tableid,valueid)</param>
-            <param name="itemID">Item ID (report,table,value)</param>
-            <param name="menuCont">Control for menu container</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.LoadData">
-            <summary>
-            Gets the data from the database.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ProcessExport(System.String)">
-            <summary>
-            Export the selected dataset
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.RegisterContextMenu(CMS.Base.Web.UI.ContextMenuContainer)">
-            <summary>
-            Registers context menu container for control
-            </summary>
-            <param name="menuCont">Container menu object</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.SetDefaultDynamicMacros(System.Int32)">
-            <summary>
-            Sets the default dynamic macros for general charts (used in reports collecting all intervals in one report (weeks,years,days,...))
-            </summary>
-            <param name="interval">Selected interval (days,weeks...)</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.SetDefaultDynamicMacros(System.String)">
-            <summary>
-            Sets the default dynamic macros for general charts (used in reports collecting all intervals in one report (weeks,years,days,...))
-            </summary>
-            <param name="interval">Selected interval (days,weeks...)</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.SetDefaultDynamicMacros(CMS.WebAnalytics.HitsIntervalEnum)">
-            <summary>
-            Sets the default dynamic macros for general charts (used in reports collecting all intervals in one report (weeks,years,days,...))
-            </summary>
-            <param name="interval">Selected interval (days,weeks...)</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ReloadData(System.Boolean)">
-            <summary>
-            Reload data ready to override.
-            </summary>
-            <param name="forceLoad">Force reload data</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.IsValid(CMS.Reporting.ReportInfo)">
-            <summary>
-            Check if control is part of givven report.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ResolveMacros(System.String)">
-            <summary>
-            Resolves the string macros.
-            </summary>
-            <param name="inputText">Input text</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ClearResolver">
-            <summary>
-            Clear context resolver.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.CheckReportAccess(CMS.Reporting.ReportInfo)">
-            <summary>
-            Checks if current user may see report output based on report access settings.
-            </summary>
-            <param name="reportInfo">ReportInfo object</param>
-            <returns>True if report is sent via email, report access is allowed for all or the access is for authenticated and current user is authenticated.</returns>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.CheckEmailModeSubscription(CMS.Reporting.ReportInfo,System.Boolean)">
-            <summary>
-            Check if subscribed user has valid permission for the subscription and subscription is allowed on all levels (report/report part/control).
-            </summary>
-            <param name="reportInfo">ReportInfo object</param>
-            <param name="controlSubscriptionEnabled">Indicates if report control allows subscription</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.InitParameters(System.String)">
-            <summary>
-            Initializes report control parameters (<see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.ReportParameters"/> and <see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.AllParameters"/> properties).
-            </summary>
-            <param name="reportParams">Parameters from report info object</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.InitResolver">
-            <summary>
-            Initializes macro resolver (data from <see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.AllParameters"/> and <see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.DynamicMacros"/> properties).
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ComputeDate">
-            <summary>
-            Computes date for given time interval (from actual date).
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.LoadDataInternal">
-            <summary>
-            Load data from DB.
-            </summary>
-        </member>
         <member name="P:CMS.Reporting.Web.UI.AbstractReportControl.SavedReportGuid">
             <summary>
             Saved report guid.
@@ -301,6 +184,129 @@
             Report subscription information - used for sending reports by email.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.LoadDefaultParameters(System.String,System.String)">
+            <summary>
+            Loads default parameters from dataset definition.
+            </summary>
+            <param name="datasetXml">Dataset XML</param>
+            <param name="datasetXmlSchema">Dataset XML Schema</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ApplyTimeParameters">
+            <summary>
+            Sets FromDate and ToDate by given values (computed from actual datetime).
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.RegisterSubscriptionScript(System.Int32,System.String,System.Int32,CMS.Base.Web.UI.ContextMenuContainer)">
+            <summary>
+            Register JS function for opening subscription dialog.
+            </summary>
+            <param name="reportID">Report ID</param>
+            <param name="itemIDType">Type of item IO parameter (reportid,tableid,valueid)</param>
+            <param name="itemID">Item ID (report,table,value)</param>
+            <param name="menuCont">Control for menu container</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.LoadData">
+            <summary>
+            Gets the data from the database.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ProcessExport(System.String)">
+            <summary>
+            Export the selected dataset
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.RegisterContextMenu(CMS.Base.Web.UI.ContextMenuContainer)">
+            <summary>
+            Registers context menu container for control
+            </summary>
+            <param name="menuCont">Container menu object</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.SetDefaultDynamicMacros(System.Int32)">
+            <summary>
+            Sets the default dynamic macros for general charts (used in reports collecting all intervals in one report (weeks,years,days,...))
+            </summary>
+            <param name="interval">Selected interval (days,weeks...)</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.SetDefaultDynamicMacros(System.String)">
+            <summary>
+            Sets the default dynamic macros for general charts (used in reports collecting all intervals in one report (weeks,years,days,...))
+            </summary>
+            <param name="interval">Selected interval (days,weeks...)</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.SetDefaultDynamicMacros(CMS.WebAnalytics.HitsIntervalEnum)">
+            <summary>
+            Sets the default dynamic macros for general charts (used in reports collecting all intervals in one report (weeks,years,days,...))
+            </summary>
+            <param name="interval">Selected interval (days,weeks...)</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ReloadData(System.Boolean)">
+            <summary>
+            Reload data ready to override.
+            </summary>
+            <param name="forceLoad">Force reload data</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.IsValid(CMS.Reporting.ReportInfo)">
+            <summary>
+            Check if control is part of givven report.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ResolveMacros(System.String)">
+            <summary>
+            Resolves the string macros.
+            </summary>
+            <param name="inputText">Input text</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ClearResolver">
+            <summary>
+            Clear context resolver.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.CheckReportAccess(CMS.Reporting.ReportInfo)">
+            <summary>
+            Checks if current user may see report output based on report access settings.
+            </summary>
+            <param name="reportInfo">ReportInfo object</param>
+            <returns>True if report is sent via email, report access is allowed for all or the access is for authenticated and current user is authenticated.</returns>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.CheckEmailModeSubscription(CMS.Reporting.ReportInfo,System.Boolean)">
+            <summary>
+            Check if subscribed user has valid permission for the subscription and subscription is allowed on all levels (report/report part/control).
+            </summary>
+            <param name="reportInfo">ReportInfo object</param>
+            <param name="controlSubscriptionEnabled">Indicates if report control allows subscription</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.InitParameters(System.String)">
+            <summary>
+            Initializes report control parameters (<see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.ReportParameters"/> and <see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.AllParameters"/> properties).
+            </summary>
+            <param name="reportParams">Parameters from report info object</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.InitResolver">
+            <summary>
+            Initializes macro resolver (data from <see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.AllParameters"/> and <see cref="P:CMS.Reporting.Web.UI.AbstractReportControl.DynamicMacros"/> properties).
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ComputeDate">
+            <summary>
+            Computes date for given time interval (from actual date).
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.LoadDataInternal">
+            <summary>
+            Load data from DB.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.AbstractReportControl.ConvertDataRowsToParams(System.Data.DataRow[])">
+            <summary>
+            Converts source parameters to query data parameters with type convert (e.g.: "true" as boolean type etc.).
+            </summary>
+            <param name="sourceDataRows">Source array of DataRows</param>
+        </member>
         <member name="T:CMS.Reporting.Web.UI.ReportGraphSelector">
             <summary>
             Form control for the report graph selection.
@@ -355,39 +361,6 @@
             <summary>
             Interface for DisplayReport
             </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.ReloadData(System.Boolean)">
-            <summary>
-            Sets the RTL culture to the body class if RTL language.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.SaveReport">
-            <summary>
-            Saves the report
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.SetDefaultDynamicMacros(System.Int32)">
-            <summary>
-            Sets all default macros needed for graphs
-            </summary>
-            <param name="interval">Interval type</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.SetDefaultDynamicMacros(System.String)">
-            <summary>
-            Sets all default macros needed for graphs
-            </summary>
-            <param name="interval">Interval type</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.IsReportLoaded">
-            <summary>
-            Returns true if report is loaded
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.RenderToString(System.Int32)">
-            <summary>
-            Renders control to String representation
-            </summary>
-            <param name="SiteID">This SiteID is used in report query instead of default CMSContext one</param>
         </member>
         <member name="P:CMS.Reporting.Web.UI.IDisplayReport.Colors">
             <summary>
@@ -514,6 +487,39 @@
             If true, only reports with non empty datasource is sent (used in subscriptions)
             </summary>
         </member>
+        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.ReloadData(System.Boolean)">
+            <summary>
+            Sets the RTL culture to the body class if RTL language.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.SaveReport">
+            <summary>
+            Saves the report
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.SetDefaultDynamicMacros(System.Int32)">
+            <summary>
+            Sets all default macros needed for graphs
+            </summary>
+            <param name="interval">Interval type</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.SetDefaultDynamicMacros(System.String)">
+            <summary>
+            Sets all default macros needed for graphs
+            </summary>
+            <param name="interval">Interval type</param>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.IsReportLoaded">
+            <summary>
+            Returns true if report is loaded
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.Web.UI.IDisplayReport.RenderToString(System.Int32)">
+            <summary>
+            Renders control to String representation
+            </summary>
+            <param name="SiteID">This SiteID is used in report query instead of default CMSContext one</param>
+        </member>
         <member name="T:CMS.Reporting.Web.UI.MacroRulesListExtender">
             <summary>
             Macro rules list extender
@@ -566,6 +572,11 @@
             Base page for the E-commerce reports pages.
             </summary>
         </member>
+        <member name="P:CMS.Reporting.Web.UI.CMSEcommerceReportsPage.IsEcommerceReport">
+            <summary>
+            Gets or sets a value that indicates if the displayed report is an e-commerce report.
+            </summary>
+        </member>
         <member name="M:CMS.Reporting.Web.UI.CMSEcommerceReportsPage.OnInit(System.EventArgs)">
             <summary>
             OnInit event
@@ -575,16 +586,6 @@
         <member name="M:CMS.Reporting.Web.UI.CMSEcommerceReportsPage.CheckPermissions(System.Boolean)">
             <summary>
             Checks permissions according to the report type.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.CMSEcommerceReportsPage.CheckEcommercePermissions">
-            <summary>
-            Checks e-commerce permissions.
-            </summary>
-        </member>
-        <member name="P:CMS.Reporting.Web.UI.CMSEcommerceReportsPage.IsEcommerceReport">
-            <summary>
-            Gets or sets a value that indicates if the displayed report is an e-commerce report.
             </summary>
         </member>
         <member name="T:CMS.Reporting.Web.UI.ReportGraph">
@@ -625,6 +626,21 @@
         <member name="F:CMS.Reporting.Web.UI.ReportGraph.mShowValueAsPercent">
             <summary>
             If true values of one point are show as percent (all get total 100 %).
+            </summary>
+        </member>
+        <member name="P:CMS.Reporting.Web.UI.ReportGraph.ChartControl">
+            <summary>
+            Chart property.
+            </summary>
+        </member>
+        <member name="P:CMS.Reporting.Web.UI.ReportGraph.CorrectWidth">
+            <summary>
+            Correct graph width (if percent width is required).
+            </summary>
+        </member>
+        <member name="P:CMS.Reporting.Web.UI.ReportGraph.Colors">
+            <summary>
+            Colors assigned to series.
             </summary>
         </member>
         <member name="M:CMS.Reporting.Web.UI.ReportGraph.CreateChart(CMS.Reporting.ReportGraphInfo,System.Data.DataSet,CMS.MacroEngine.MacroResolver,System.Boolean)">
@@ -723,21 +739,6 @@
         <member name="M:CMS.Reporting.Web.UI.ReportGraph.mChart_Customize(System.Object,System.EventArgs)">
             <summary>
             Event for label macro customization.
-            </summary>
-        </member>
-        <member name="P:CMS.Reporting.Web.UI.ReportGraph.ChartControl">
-            <summary>
-            Chart property.
-            </summary>
-        </member>
-        <member name="P:CMS.Reporting.Web.UI.ReportGraph.CorrectWidth">
-            <summary>
-            Correct graph width (if percent width is required).
-            </summary>
-        </member>
-        <member name="P:CMS.Reporting.Web.UI.ReportGraph.Colors">
-            <summary>
-            Colors assigned to series.
             </summary>
         </member>
         <member name="T:CMS.Reporting.Web.UI.ReportGraphDefaults">
@@ -855,6 +856,16 @@
             The title color
             </summary>
         </member>
+        <member name="F:CMS.Reporting.Web.UI.ReportGraphDefaults.ChartWidth">
+            <summary>
+            The chart width
+            </summary>
+        </member>
+        <member name="F:CMS.Reporting.Web.UI.ReportGraphDefaults.ChartHeight">
+            <summary>
+            The chart height
+            </summary>
+        </member>
         <member name="F:CMS.Reporting.Web.UI.ReportGraphDefaults.ShowGrid">
             <summary>
             Show the main grid
@@ -940,16 +951,6 @@
             The major grid line dash style
             </summary>
         </member>
-        <member name="F:CMS.Reporting.Web.UI.ReportGraphDefaults.ChartWidth">
-            <summary>
-            The chart width
-            </summary>
-        </member>
-        <member name="F:CMS.Reporting.Web.UI.ReportGraphDefaults.ChartHeight">
-            <summary>
-            The chart height
-            </summary>
-        </member>
         <member name="T:CMS.Reporting.Web.UI.ReportGraphSeriesPalette">
             <summary>
             Class containing the default color palette for report graphs
@@ -981,6 +982,21 @@
             Indicates for how long will be subscription email css file cached (one week)
             </summary>
         </member>
+        <member name="P:CMS.Reporting.Web.UI.ReportSubscriptionSender.InlineImageRegex">
+            <summary>
+            Regex object for search inline images in report.
+            </summary>
+        </member>
+        <member name="P:CMS.Reporting.Web.UI.ReportSubscriptionSender.ReportPage">
+            <summary>
+            Page object used for render without HTTP context
+            </summary>
+        </member>
+        <member name="P:CMS.Reporting.Web.UI.ReportSubscriptionSender.Path">
+            <summary>
+            Path for default CSS styles document
+            </summary>
+        </member>
         <member name="M:CMS.Reporting.Web.UI.ReportSubscriptionSender.Execute(CMS.Scheduler.TaskInfo)">
             <summary>
             Executes the logprocessor action.
@@ -1005,15 +1021,6 @@
             <param name="itemName">Repor item name</param>
             <param name="data">Datarow with report parameters</param>
             <param name="rsi">Subscription object</param>
-        </member>
-        <member name="M:CMS.Reporting.Web.UI.ReportSubscriptionSender.CreateSubscriptionMacroResolver(CMS.Reporting.ReportInfo,CMS.Reporting.ReportSubscriptionInfo,CMS.SiteProvider.SiteInfo,System.String)">
-            <summary>
-            Creates macro resolver for report subscription
-            </summary>
-            <param name="ri">Report info</param>
-            <param name="rsi">Report subscription info</param>
-            <param name="si">Site info</param>
-            <param name="rec">Recipient email</param>
         </member>
         <member name="M:CMS.Reporting.Web.UI.ReportSubscriptionSender.CreateSubscriptionMacroResolver(CMS.Reporting.ReportInfo,CMS.Reporting.ReportSubscriptionInfo,CMS.SiteProvider.SiteInfo,System.String,System.String,System.String)">
             <summary>
@@ -1046,21 +1053,6 @@
             </summary>
             <param name="reportName">Report name</param>
             <param name="html">Report HTML</param>
-        </member>
-        <member name="P:CMS.Reporting.Web.UI.ReportSubscriptionSender.InlineImageRegex">
-            <summary>
-            Regex object for search inline images in report.
-            </summary>
-        </member>
-        <member name="P:CMS.Reporting.Web.UI.ReportSubscriptionSender.ReportPage">
-            <summary>
-            Page object used for render without HTTP context
-            </summary>
-        </member>
-        <member name="P:CMS.Reporting.Web.UI.ReportSubscriptionSender.Path">
-            <summary>
-            Path for default CSS styles document
-            </summary>
         </member>
     </members>
 </doc>

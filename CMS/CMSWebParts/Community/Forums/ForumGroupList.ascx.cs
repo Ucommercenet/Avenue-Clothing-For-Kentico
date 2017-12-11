@@ -4,6 +4,7 @@ using System.Web.UI;
 
 using CMS.Base.Web.UI;
 using CMS.Community;
+using CMS.DataEngine;
 using CMS.Forums;
 using CMS.Forums.Web.UI;
 using CMS.Helpers;
@@ -15,7 +16,7 @@ public partial class CMSWebParts_Community_Forums_ForumGroupList : CMSAbstractWe
     #region "Variables"
 
     private ForumViewer ForumDivider1 = new ForumViewer();
-    private DataSet forumGroups = null;
+    private DataSet forumGroups;
 
     #endregion
 
@@ -747,7 +748,12 @@ public partial class CMSWebParts_Community_Forums_ForumGroupList : CMSAbstractWe
             GroupInfo gi = GroupInfoProvider.GetGroupInfo(GroupName, SiteContext.CurrentSiteName);
             if (gi != null)
             {
-                forumGroups = ForumGroupInfoProvider.GetGroups("GroupGroupID = " + gi.GroupID + "AND ((SELECT Count(ForumID) FROM Forums_Forum WHERE (ForumOpen = 1) AND ForumGroupID = GroupID ) > 0)", "GroupOrder");
+                var innerQuery = new ObjectQuery<ForumInfo>().WhereEquals("ForumOpen", 1).WhereEquals("ForumGroupID", new QueryColumn("GroupID")).Column(new CountColumn("ForumID"));
+
+                forumGroups = ForumGroupInfoProvider.GetForumGroups()
+                                                    .WhereEquals("GroupGroupID", gi.GroupID)
+                                                    .WhereGreaterThan(innerQuery, 0)
+                                                    .OrderBy("GroupOrder");
                 if (!DataHelper.DataSourceIsEmpty(forumGroups))
                 {
                     int ctrlId = 0;
@@ -756,7 +762,7 @@ public partial class CMSWebParts_Community_Forums_ForumGroupList : CMSAbstractWe
                     // Load all the groups
                     foreach (DataRow dr in forumGroups.Tables[0].Rows)
                     {
-                        Control ctrl = this.LoadUserControl(path);
+                        Control ctrl = LoadUserControl(path);
                         if (ctrl != null)
                         {
                             ctrl.ID = "groupElem" + ctrlId;

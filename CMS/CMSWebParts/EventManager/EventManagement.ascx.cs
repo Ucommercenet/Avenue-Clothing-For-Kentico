@@ -11,22 +11,6 @@ public partial class CMSWebParts_EventManager_EventManagement : CMSAbstractWebPa
     #region "Properties"
 
     /// <summary>
-    /// Gets or sets the site name. 
-    /// </summary>
-    public string SiteName
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("SiteName"), String.Empty).Replace("##currentsite##", SiteContext.CurrentSiteName);
-        }
-        set
-        {
-            SetValue("SiteName", value);
-        }
-    }
-
-
-    /// <summary>
     /// Gets or sets the order by condition.
     /// </summary>
     public string OrderBy
@@ -54,22 +38,6 @@ public partial class CMSWebParts_EventManager_EventManagement : CMSAbstractWebPa
         set
         {
             SetValue("Sorting", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Gets or sets date filter for events.
-    /// </summary>
-    public string EventScope
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("EventScope"), "all");
-        }
-        set
-        {
-            SetValue("EventScope", value);
         }
     }
 
@@ -125,10 +93,8 @@ public partial class CMSWebParts_EventManager_EventManagement : CMSAbstractWebPa
         }
         else
         {
-            EventManager.SiteName = SiteName;
             EventManager.OrderBy = OrderBy + " " + Sorting;
             EventManager.ItemsPerPage = ItemsPerPage;
-            EventManager.EventScope = EventScope;
             EventManager.OnCheckPermissions += EventManager_OnCheckPermissions;
         }
     }

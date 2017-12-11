@@ -64,7 +64,7 @@
         // may be called EITHER from layout-pane.onresize OR tabs.show
         var $P = ui.jquery ? ui : $cmsj(ui.panel);
         // find all VISIBLE layouts inside this pane/panel and resize them
-        $P.filter(":visible").find(".ui-layout-container:visible").andSelf().each(function () {
+        $P.filter(":visible").find(".ui-layout-container:visible").addBack().each(function () {
             var layout = $cmsj(this).data("layout");
             if (layout) layout.resizeAll();
         });

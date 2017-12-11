@@ -46,15 +46,6 @@
                 <cms:TextSimpleFilter ID="fltContact" runat="server" Column="ContactFullNameJoined" />
             </div>
         </asp:PlaceHolder>
-        <asp:PlaceHolder runat="server" ID="plcIp">
-            <div class="form-group">
-                <div class="filter-form-label-cell">
-                    <cms:LocalizedLabel CssClass="control-label" ID="lblIP" runat="server" EnableViewState="false" ResourceString="om.activity.ipaddress"
-                        DisplayColon="true" />
-                </div>
-                <cms:TextSimpleFilter ID="fltIP" runat="server" Column="ActivityIPAddress" />
-            </div>
-        </asp:PlaceHolder>
         <div class="form-group">
             <div class="filter-form-label-cell">
                 <cms:LocalizedLabel CssClass="control-label" ID="lblTimeBetween" runat="server" EnableViewState="false" ResourceString="eventlog.timebetween"

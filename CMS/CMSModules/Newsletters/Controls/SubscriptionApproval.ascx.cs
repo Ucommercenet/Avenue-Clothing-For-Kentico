@@ -1,7 +1,6 @@
 ﻿using System;
 
 using CMS.Core;
-using CMS.DataEngine;
 using CMS.Helpers;
 using CMS.Newsletters;
 using CMS.SiteProvider;
@@ -53,7 +52,7 @@ public partial class CMSModules_Newsletters_Controls_SubscriptionApproval : CMSU
         {
             try
             {
-                datetime = DateTime.ParseExact(requestTime, SecurityHelper.EMAIL_CONFIRMATION_DATETIME_FORMAT, null);
+                datetime = DateTimeUrlFormatter.Parse(requestTime);
             }
             catch
             {
@@ -68,7 +67,7 @@ public partial class CMSModules_Newsletters_Controls_SubscriptionApproval : CMSU
             return;
         }
 
-        var approvalService = Service<ISubscriptionApprovalService>.Entry();
+        var approvalService = Service.Resolve<ISubscriptionApprovalService>();
         var result = approvalService.ApproveSubscription(subscriptionHash, false, SiteContext.CurrentSiteName, datetime);
 
         switch (result)

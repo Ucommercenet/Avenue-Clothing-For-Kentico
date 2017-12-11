@@ -43,7 +43,7 @@ public partial class CMSModules_Forums_Controls_Layouts_Flat_Forums : ForumViewe
         if (ForumContext.CurrentGroup != null)
         {
             listForums.OuterData = ForumContext.CurrentGroup;
-            listForums.DataSource = ForumInfoProvider.GetForums(where, "ForumOrder ASC, ForumName ASC", 0, null);
+            listForums.DataSource = ForumInfoProvider.GetForums().Where(where).OrderBy("ForumOrder ASC, ForumName ASC");
 
             // Hide control for no forums found
             if (DataHelper.DataSourceIsEmpty(listForums.DataSource))

@@ -29,24 +29,8 @@ public partial class CMSFormControls_Filters_NumberFilter : FormEngineUserContro
             // Load default value on insert
             if ((value != null) && (FieldInfo != null))
             {
-                switch (FieldInfo.DataType)
-                {
-                    case FieldDataType.Double:
-                    case FieldDataType.Decimal:
-                        {
-                            // Convert double and decimal to proper values
-                            Double dblVal = ValidationHelper.GetDoubleSystem(value, Double.NaN);
-                            txtText.Text = !Double.IsNaN(dblVal) ? dblVal.ToString() : String.Empty;
-                        }
-                        return;
-                    case FieldDataType.TimeSpan:
-                        {
-                            // Convert timespan to proper value
-                            TimeSpan spanVal = ValidationHelper.GetTimeSpanSystem(value, TimeSpan.MinValue);
-                            txtText.Text = (spanVal != TimeSpan.MinValue) ? spanVal.ToString() : String.Empty;
-                        }
-                        return;
-                }
+                // Convert the value to a proper type
+                value = ConvertInputValue(value);
             }
 
             txtText.Text = ValidationHelper.GetString(value, null);
