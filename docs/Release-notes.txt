@@ -7,3 +7,4 @@ FIX: Promoted products now observes the catalog context instead of using static 
 FIX: Empty category would throw an exception.
 FIX: Promoted product data source would throw an error in the event log.
 FIX: Promoted products, category and product pages would throw a YSOD if a product had no price.
+FIX: Improved rendering of the basket page on mobile devices.
