@@ -272,7 +272,7 @@ public partial class CMSModules_Content_Controls_Attachments_DocumentAttachments
         }
         set
         {
-            hdnAttachGuid.Value = (value == null) ? null : value.ToString();
+            hdnAttachGuid.Value = value?.ToString();
         }
     }
 
@@ -361,6 +361,7 @@ public partial class CMSModules_Content_Controls_Attachments_DocumentAttachments
             {
                 case "delete":
                     RaiseDeleteFile(this, e);
+                    Value = null;
                     break;
 
                 case "update":
@@ -427,22 +428,15 @@ public partial class CMSModules_Content_Controls_Attachments_DocumentAttachments
 
         if ((Node != null) && (Node.DocumentID > 0))
         {
-            refreshScript = String.Format(
-@"
+            refreshScript = $@"
 if (window.RefreshTree && (fullRefresh || refreshTree)) {{
-    RefreshTree({0}, {1}); 
+    RefreshTree({NodeParentNodeID}, {NodeID}); 
 }}
-RefreshUpdatePanel_{2}(fullRefresh ? '{3}' : '{4}', action + '|' + guid);",
-                NodeParentNodeID,
-                NodeID,
-                ClientID,
-                hdnFullPostback.ClientID,
-                hdnPostback.ClientID
-            );
+RefreshUpdatePanel_{ClientID}(fullRefresh ? '{hdnFullPostback.ClientID}' : '{hdnPostback.ClientID}', action + '|' + guid);";
         }
         else
         {
-            refreshScript = String.Format("RefreshUpdatePanel_{0}('{1}', action + '|' + guid);", ClientID, hdnPostback.ClientID);
+            refreshScript = $"RefreshUpdatePanel_{ClientID}('{hdnPostback.ClientID}', action + '|' + guid);";
         }
 
         // Refresh script
@@ -698,7 +692,7 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
     /// <summary>
     /// UniGrid action buttons event handler.
     /// </summary>
-    protected void GridAttachmentsOnAction(string actionName, object actionArgument)
+    private void GridAttachmentsOnAction(string actionName, object actionArgument)
     {
         if (!Enabled || HideActions)
         {
@@ -765,10 +759,7 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
                     // Check in the document
                     if (AutoCheck)
                     {
-                        if (vm != null)
-                        {
-                            vm.CheckIn(Node, null);
-                        }
+                        vm?.CheckIn(Node, null);
                     }
 
                     // Log synchronization task if not under workflow
@@ -785,7 +776,7 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
         }
 
         LastAction = "delete";
-        Value = Guid.Empty;
+        Value = null;
     }
 
 
@@ -838,15 +829,18 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
     /// <summary>
     /// UniGrid external data bound.
     /// </summary>
-    protected object GridDocsOnExternalDataBound(object sender, string sourceName, object parameter)
+    private object GridDocsOnExternalDataBound(object sender, string sourceName, object parameter)
     {
-        DataRowView drv;
+        if (String.IsNullOrEmpty(sourceName))
+        {
+            return parameter;
+        }
 
-        switch (sourceName.ToLowerCSafe())
+        switch (sourceName.ToLowerInvariant())
         {
             case "update":
                 {
-                    drv = parameter as DataRowView;
+                    var drv = parameter as DataRowView;
 
                     var plcUpd = new PlaceHolder { ID = "plcUdateAction" };
                     var pnlBlock = new Panel { ID = "pnlBlock" };
@@ -861,14 +855,18 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
 
             case "edit":
                 {
+                    var row = ((DataRowView)((GridViewRow)parameter).DataItem).Row;
+
                     // Get file extension
-                    string extension = ValidationHelper.GetString(((DataRowView)((GridViewRow)parameter).DataItem).Row["AttachmentExtension"], string.Empty).ToLowerCSafe();
+                    string extension = ValidationHelper.GetString(row["AttachmentExtension"], string.Empty)
+                                                       .ToLowerInvariant();
 
                     // Get attachment GUID
-                    attachmentGuid = ValidationHelper.GetGuid(((DataRowView)((GridViewRow)parameter).DataItem).Row["AttachmentGUID"], Guid.Empty);
-                    if (sender is CMSGridActionButton)
+                    attachmentGuid = ValidationHelper.GetGuid(row["AttachmentGUID"], Guid.Empty);
+
+                    var img = sender as CMSGridActionButton;
+                    if (img != null)
                     {
-                        CMSGridActionButton img = (CMSGridActionButton)sender;
                         if (createTempAttachment)
                         {
                             img.Visible = false;
@@ -880,8 +878,9 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
                             img.PreRender += img_PreRender;
                         }
                     }
+                    return parameter;
                 }
-                break;
+
 
             case "delete":
                 CMSGridActionButton imgDelete = sender as CMSGridActionButton;
@@ -891,7 +890,7 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
                     imgDelete.CausesValidation = false;
                     imgDelete.PreRender += imgDelete_PreRender;
                 }
-                break;
+                return parameter;
 
             case "attachment":
             case "attachmentsize":
@@ -899,17 +898,17 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
                     var id = ValidationHelper.GetInteger(parameter, 0);
                     var fileName = (sourceName == "attachment") ? "Attachment.ascx" : "AttachmentSize.ascx";
 
-                    return
-                        new ObjectTransformation(AttachmentInfo.OBJECT_TYPE, id)
-                        {
-                            DataProvider = VariantsProvider,
-                            TransformationName = "~/CMSModules/Content/Controls/Attachments/DocumentAttachments/Transformations/" + fileName,
-                            NoDataTransformation = ResHelper.GetString("Attachment.NotAvailable")
-                        };
+                    return new ObjectTransformation(AttachmentInfo.OBJECT_TYPE, id)
+                    {
+                        DataProvider = VariantsProvider,
+                        TransformationName = "~/CMSModules/Content/Controls/Attachments/DocumentAttachments/Transformations/" + fileName,
+                        NoDataTransformation = ResHelper.GetString("Attachment.NotAvailable")
+                    };
                 }
-        }
 
-        return parameter;
+            default:
+                return parameter;
+        }
     }
 
 
@@ -935,7 +934,7 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
                 ctrl.ID = "extEdit" + DocumentID;
 
                 // Ensure form identification
-                if ((Form != null) && (Form.Parent != null))
+                if (Form?.Parent != null)
                 {
                     ctrl.FormID = Form.Parent.ClientID;
                 }
@@ -1063,18 +1062,18 @@ function Edit_{0}(attachmentGUID, formGUID, versionHistoryID, parentId, hash, im
                 string form = null;
                 if (!String.IsNullOrEmpty(strForm))
                 {
-                    form = "&formguid=" + strForm + "&parentid=" + NodeParentNodeID;
+                    form = $"&formguid={strForm}&parentid={NodeParentNodeID}";
                 }
                 else if ((Node != null) && (Node.DocumentID > 0))
                 {
                     form += "&siteid=" + Node.NodeSiteID;
                 }
                 string isImage = ImageHelper.IsSupportedByImageEditor(img.ScreenReaderDescription) ? "true" : "false";
-                string parameters = "?attachmentGUID=" + img.ToolTip + "&refresh=1&versionHistoryID=" + VersionHistoryID + form + "&clientid=" + ClientID;
+                string parameters = $"?attachmentGUID={img.ToolTip}&refresh=1&versionHistoryID={VersionHistoryID}{form}&clientid={ClientID}";
                 string validationHash = QueryHelper.GetHash(parameters);
 
 
-                img.OnClientClick = "Edit_" + ClientID + "('" + img.ToolTip + "', '" + strForm + "', '" + VersionHistoryID + "', " + NodeParentNodeID + ", '" + validationHash + "', " + isImage + ");return false;";
+                img.OnClientClick = $"Edit_{ClientID}('{img.ToolTip}', '{strForm}', '{VersionHistoryID}', {NodeParentNodeID}, '{validationHash}', {isImage});return false;";
             }
 
             img.ToolTip = GetString("general.edit");

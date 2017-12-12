@@ -5,8 +5,6 @@
     TagName="HeaderActions" %>
 <%@ Register Src="~/CMSAdminControls/UI/PageElements/PageTitle.ascx" TagPrefix="cms"
     TagName="PageTitle" %>
-<%@ Register Src="~/CMSAdminControls/UI/Development/DevTools.ascx" TagName="DevTools"
-    TagPrefix="cms" %>
 <!DOCTYPE html>
 <html>
 <head runat="server" enableviewstate="false">
@@ -53,7 +51,6 @@
             <asp:ContentPlaceHolder ID="plcContent" runat="server" />
         </asp:Panel>
     </asp:Panel>
-    <cms:DevTools ID="devElem" runat="server" />
     </form>
     <asp:PlaceHolder runat="server" ID="plcAfterForm"></asp:PlaceHolder>
 </body>

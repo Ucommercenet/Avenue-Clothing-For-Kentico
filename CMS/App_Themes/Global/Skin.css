@@ -1,4 +1,3 @@
-@import "Skin/icons-core-ie7.css";
 .tooltip {
   position: absolute;
   z-index: 100001;
@@ -1327,9 +1326,6 @@
   content: "\e64f";
 }
 .ContentBody .icon-app-form-controls:before {
-  content: "\e689";
-}
-.ContentBody .icon-app-inline-controls:before {
   content: "\e689";
 }
 .ContentBody .icon-app-javascript-files:before {
@@ -3082,6 +3078,9 @@
   content: "\e6a8";
 }
 .ContentBody .icon-me-double:before {
+  content: "\e752";
+}
+.ContentBody .icon-me-decimal:before {
   content: "\e752";
 }
 .ContentBody .icon-me-false:before {

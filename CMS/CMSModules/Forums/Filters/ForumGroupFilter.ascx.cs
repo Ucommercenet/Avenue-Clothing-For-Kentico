@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data;
+using System.Linq;
 
 using CMS.DocumentEngine.Web.UI;
 using CMS.Forums;
@@ -74,17 +74,24 @@ public partial class CMSModules_Forums_Filters_ForumGroupFilter : CMSAbstractBas
         {
             if (siteId > 0)
             {
-                DataSet defaultGroup = ForumGroupInfoProvider.GetGroups("GroupGroupID IS NULL AND GroupName NOT LIKE 'AdHoc%' AND  GroupSiteID=" + siteId, "GroupDisplayName", 1, "GroupID");
-                if (!DataHelper.DataSourceIsEmpty(defaultGroup))
+                var groupIds = ForumGroupInfoProvider.GetForumGroups()
+                                                     .WhereNull("GroupGroupID")
+                                                     .WhereNotStartsWith("GroupName", "AdHoc")
+                                                     .WhereEquals("GroupSiteID", siteId)
+                                                     .OrderBy("GroupDisplayName")
+                                                     .TopN(1)
+                                                     .Column("GroupID")
+                                                     .GetListResult<int>();
+
+                if (groupIds.Any())
                 {
-                    int defaultGroupId = ValidationHelper.GetInteger(defaultGroup.Tables[0].Rows[0]["GroupID"], 0);
+                    int defaultGroupId = ValidationHelper.GetInteger(groupIds.First(), 0);
                     if (defaultGroupId > 0)
                     {
                         forumGroupSelector.UniSelector.Value = defaultGroupId;
                         WhereCondition = GenerateWhereCondition(defaultGroupId);
                     }
                 }
-                ;
             }
         }
     }

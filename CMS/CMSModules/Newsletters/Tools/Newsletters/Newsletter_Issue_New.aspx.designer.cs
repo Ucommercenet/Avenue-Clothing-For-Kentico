@@ -12,15 +12,6 @@
 public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_New {
     
     /// <summary>
-    /// up control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.CMSUpdateProgress up;
-    
-    /// <summary>
     /// plcMessages control.
     /// </summary>
     /// <remarks>
@@ -30,11 +21,38 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_N
     protected global::CMS.Base.Web.UI.MessagesPlaceHolder plcMessages;
     
     /// <summary>
-    /// editElem control.
+    /// pnlIssueDisplayName control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSModules_Newsletters_Controls_EditIssue editElem;
+    protected global::System.Web.UI.WebControls.Panel pnlIssueDisplayName;
+    
+    /// <summary>
+    /// lblDisplayName control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblDisplayName;
+    
+    /// <summary>
+    /// txtDisplayName control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.CMSTextBox txtDisplayName;
+    
+    /// <summary>
+    /// ucTemplateSelector control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMSModules_ImportExport_Controls_Global_ObjectAttachmentSelector ucTemplateSelector;
 }

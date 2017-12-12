@@ -101,7 +101,7 @@ public partial class CMSModules_AdminControls_Controls_Class_ClassSites : CMSUse
     /// </summary>    
     private string GetClassSites()
     {
-        DataSet ds = ClassSiteInfoProvider.GetClassSites("ClassID = " + ClassId, null, 0, "SiteID");
+        DataSet ds = ClassSiteInfoProvider.GetClassSites().WhereEquals("ClassID", ClassId).Column("SiteID");
         if (!DataHelper.DataSourceIsEmpty(ds))
         {
             return TextHelper.Join(";", DataHelper.GetStringValues(ds.Tables[0], "SiteID"));

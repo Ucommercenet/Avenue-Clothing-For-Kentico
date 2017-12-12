@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using CMS.Base;
 
-using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Web.UI.WebControls;
@@ -101,6 +100,8 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
         };
         HeaderActions.AddAction(mSerializeAction);
         HeaderActions.ActionPerformed += ActionPerformed;
+
+        ScriptHelper.RegisterBootstrapTooltip(Page, ".info-icon > i");
 
         ShowInformation(GetString("ci.performancemessage"));
     }
@@ -216,9 +217,13 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
         };
 
         ffi.SetPropertyValue(FormFieldPropertyEnum.FieldCaption, setting.KeyDisplayName);
-        ffi.SetPropertyValue(FormFieldPropertyEnum.FieldDescription, setting.KeyDescription);
         ffi.SetPropertyValue(FormFieldPropertyEnum.ExplanationText, setting.KeyExplanationText);
         ffi.SetPropertyValue(FormFieldPropertyEnum.DefaultValue, setting.KeyDefaultValue);
+        if (!string.IsNullOrEmpty(setting.KeyDescription))
+        {
+            ffi.SetPropertyValue(FormFieldPropertyEnum.FieldCssClass, "form-group settings-group-inline");
+            ffi.SetPropertyValue(FormFieldPropertyEnum.ContentAfter, UIHelper.GetIcon("icon-question-circle", GetString(setting.KeyDescription)).GetRenderedHTML());
+        }
 
         return ffi;
     }
@@ -314,7 +319,7 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
 
         if (!string.IsNullOrEmpty(ctlAsyncLog.Log))
         {
-            errors.Add(ctlAsyncLog.Log);
+            errors.Add(GetRawLogMessage());
         }
 
         return string.Join(Environment.NewLine, errors);
@@ -329,6 +334,15 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
         pnlLog.Visible = false;
     }
 
+
+    /// <summary>
+    /// Gets the log message in raw format.
+    /// </summary>
+    private string GetRawLogMessage()
+    {
+        return HTMLHelper.HTMLDecode(ctlAsyncLog.Log);
+    }
+
     #endregion
 
 
@@ -337,7 +351,7 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
     private void OnCancel(object sender, EventArgs e)
     {
         ShowError(GetMessageCombinedWithEventLogInfo("ci.serialization.canceled"));
-        SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_CANCELLED_EVENT_CODE, ctlAsyncLog.Log);
+        SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_CANCELLED_EVENT_CODE, GetRawLogMessage());
         HideDialog();
     }
 
@@ -345,7 +359,7 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
     private void OnError(object sender, EventArgs e)
     {
         AddError(GetMessageCombinedWithEventLogInfo("ci.serialization.failed"));
-        SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_FAILED_EVENT_CODE, ctlAsyncLog.Log);
+        SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_FAILED_EVENT_CODE, GetRawLogMessage());
         HideDialog();
     }
 
@@ -358,12 +372,12 @@ public partial class CMSModules_ContinuousIntegration_Pages_Settings : GlobalAdm
         if (result != null && result.Success)
         {
             ShowConfirmation(GetMessageCombinedWithEventLogInfo("ci.msg.serializationsuccessful"), true);
-            SaveIntegrationLogToEventLog(EventType.INFORMATION, SERIALIZATION_SUCCESSFUL_EVENT_CODE, ctlAsyncLog.Log);
+            SaveIntegrationLogToEventLog(EventType.INFORMATION, SERIALIZATION_SUCCESSFUL_EVENT_CODE, GetRawLogMessage());
         }
         else
         {
             ShowError(GetMessageCombinedWithEventLogInfo("ci.serialization.failed"));
-            SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_FAILED_EVENT_CODE, 
+            SaveIntegrationLogToEventLog(EventType.ERROR, SERIALIZATION_FAILED_EVENT_CODE,
                 GetCombinedErrorDescription(result));
         }
 

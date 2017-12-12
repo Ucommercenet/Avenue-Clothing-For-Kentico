@@ -133,7 +133,7 @@ public partial class CMSModules_ImportExport_Controls_ImportGridTasks : ImportEx
                 foreach (string item in available)
                 {
                     int taskId = ValidationHelper.GetInteger(item, 0);
-                    string name = Request.Form.AllKeys.FirstOrDefault(x => x.EndsWith(GetCheckBoxName(taskId), StringComparison.Ordinal)) ?? string.Empty;
+                    string name = Request.Form.AllKeys.FirstOrDefault(x => x?.EndsWith(GetCheckBoxName(taskId), StringComparison.Ordinal) ?? false) ?? string.Empty;
 
                     if (Request.Form[name] == null)
                     {

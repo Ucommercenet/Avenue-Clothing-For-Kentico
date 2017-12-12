@@ -120,6 +120,24 @@ public partial class CMSAdminControls_UI_Header {
     protected global::System.Web.UI.WebControls.Literal ltlText;
     
     /// <summary>
+    /// pnlLicenseLimitations control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Panel pnlLicenseLimitations;
+    
+    /// <summary>
+    /// ltlLicenseLimitations control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal ltlLicenseLimitations;
+    
+    /// <summary>
     /// pnlPwdExp control.
     /// </summary>
     /// <remarks>

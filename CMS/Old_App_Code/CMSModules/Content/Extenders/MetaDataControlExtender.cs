@@ -309,7 +309,7 @@ public class MetaDataControlExtender : ControlExtender<CMSForm>
         checkBox.CheckedChanged += checkBox_CheckedChanged;
 
         // Check if node has saved some value
-        if ((Node.GetValue(fieldName) == null) && (!URLHelper.IsPostback()))
+        if ((Node.GetValue(fieldName) == null) && (!RequestHelper.IsPostBack()))
         {
             checkBox.Checked = true;
 

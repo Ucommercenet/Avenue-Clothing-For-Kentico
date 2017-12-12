@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Data;
 
 using CMS.DataEngine;
 using CMS.Helpers;
 using CMS.UIControls;
-
 
 public partial class CMSModules_System_Debug_System_DebugObjects : CMSDebugPage
 {
@@ -91,25 +89,17 @@ public partial class CMSModules_System_Debug_System_DebugObjects : CMSDebugPage
         dt.Columns.Add(new DataColumn("TableName", typeof(string)));
         dt.Columns.Add(new DataColumn("ObjectCount", typeof(int)));
 
-        lock (AbstractProviderDictionary.Dictionaries.SyncRoot)
+        foreach (var dict in AbstractProviderDictionary.Dictionaries)
         {
-            // Hashtables
-            foreach (DictionaryEntry item in AbstractProviderDictionary.Dictionaries)
+            var count = dict.Count;
+            if (count > 0)
             {
-                var dict = item.Value as IProviderDictionary;
-                if (dict != null)
-                {
-                    var count = dict.Count;
-                    if (count > 0)
-                    {
-                        DataRow dr = dt.NewRow();
+                DataRow dr = dt.NewRow();
 
-                        dr["TableName"] = AbstractProviderDictionary.GetDictionaryDisplayName(dict);
-                        dr["ObjectCount"] = count;
+                dr["TableName"] = AbstractProviderDictionary.GetDictionaryDisplayName(dict);
+                dr["ObjectCount"] = count;
 
-                        dt.Rows.Add(dr);
-                    }
-                }
+                dt.Rows.Add(dr);
             }
         }
 

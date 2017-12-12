@@ -183,7 +183,7 @@ public partial class CMSModules_MessageBoards_Controls_NewSubscription : CMSUser
             if (bsi.SubscriptionApproved)
             {
                 ShowConfirmation(GetString("board.subscription.beensubscribed"));
-                Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                 LogActivity(bsi, boardInfo);
             }
             else

@@ -1,6 +1,5 @@
 ﻿using System;
 
-using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
@@ -94,7 +93,7 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_SelectPa
             // Get the page template code name
             var ti = PageTemplateInfo;
 
-            return (ti == null) ? 0 : ti.PageTemplateId;
+            return ti?.PageTemplateId ?? 0;
         }
         set
         {
@@ -137,9 +136,9 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_SelectPa
                 return null;
             }
 
-            if (ReturnColumnName.ToLowerCSafe() == "pagetemplateid")
+            if (ReturnColumnName.Equals("pagetemplateid", StringComparison.OrdinalIgnoreCase))
             {
-                return PageTemplateID;
+                return ti.PageTemplateId;
             }
 
             return ti.CodeName;
@@ -149,7 +148,7 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_SelectPa
             if (!RequestHelper.IsPostBack() || (Form == null))
             {
                 // Get the page template
-                if (ReturnColumnName.EqualsCSafe("pagetemplateid", true) && (value is int))
+                if (ReturnColumnName.Equals("pagetemplateid", StringComparison.OrdinalIgnoreCase) && (value is int))
                 {
                     pti = PageTemplateInfoProvider.GetPageTemplateInfo((int)value);
                 }
@@ -170,7 +169,7 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_SelectPa
     /// </summary>
     private void UpdateSelectedID()
     {
-        hdnSelected.Value = (pti != null) ? pti.PageTemplateId.ToString() : "";
+        hdnSelected.Value = pti?.PageTemplateId.ToString() ?? "";
     }
 
 
@@ -349,7 +348,7 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_SelectPa
             int templateId = template.PageTemplateId;
 
             // Hide Clone as AdHoc button for page templates when is used for UIElement edit page and UIElement does not exists
-            var uiElement = Form.EditedObject as UIElementInfo;
+            var uiElement = Form?.EditedObject as UIElementInfo;
             plcUIClone.Visible = uiElement != null ? (template.IsReusable && UIElementInfoProvider.GetUIElementInfo(uiElement.ElementID) != null) : template.IsReusable;
 
             if (Enabled)
@@ -465,8 +464,7 @@ function PTS_{0}() {{
     public void LoadData()
     {
         var ti = PageTemplateInfo;
-
-        txtTemplate.Text = (ti != null) ? ResHelper.LocalizeString(ti.DisplayName) : "";
+        txtTemplate.Text = ti != null ? ResHelper.LocalizeString(ti.DisplayName) : "";
     }
 
 
@@ -529,10 +527,9 @@ function PTS_{0}() {{
 
     public override object GetValue(string propertyName)
     {
-        switch (propertyName.ToLowerCSafe())
+        if (string.Equals(propertyName, "templatechanged", StringComparison.OrdinalIgnoreCase))
         {
-            case "templatechanged":
-                return ValidationHelper.GetBoolean(hdnTemplateChanged.Value, false);
+            return ValidationHelper.GetBoolean(hdnTemplateChanged.Value, false);
         }
 
         return base.GetValue(propertyName);

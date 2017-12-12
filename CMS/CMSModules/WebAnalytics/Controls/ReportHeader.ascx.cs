@@ -142,7 +142,7 @@ public partial class CMSModules_WebAnalytics_Controls_ReportHeader : CMSAdminCon
         var cui = MembershipContext.AuthenticatedUser;
 
         // Report subscription enabled test
-        var ri = BaseAbstractInfoProvider.GetInfoByName(PredefinedObjectType.REPORT, ReportName);
+        var ri = ProviderHelper.GetInfoByName(PredefinedObjectType.REPORT, ReportName);
         if (ri != null)
         {
             var enableSubscription = ValidationHelper.GetBoolean(ri.GetValue("ReportEnableSubscription"), true);
@@ -184,7 +184,7 @@ public partial class CMSModules_WebAnalytics_Controls_ReportHeader : CMSAdminCon
 
         var printScript = String.Format("myModalDialog('{0}&UILang={1}&hash={2}','PrintReport {3}',800,700);return false",
             printDialogUrl,
-            CultureInfo.CurrentUICulture.IetfLanguageTag,
+            CultureInfo.CurrentUICulture.Name,
             QueryHelper.GetHash(printDialogUrl),
             ReportName);
 

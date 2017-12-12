@@ -49,13 +49,6 @@
             Object holding information on current blog properties.
             </summary>
         </member>
-        <member name="M:CMS.Blogs.Web.UI.BlogCommentDetail.FireOnCommentAction(System.String,System.Object)">
-            <summary>
-            Fires event when some blog comment action occurs.
-            </summary>
-            <param name="actionName">Name of the action that takes place</param>
-            <param name="actionArgument">Argument of the action</param>
-        </member>
         <member name="E:CMS.Blogs.Web.UI.BlogCommentDetail.OnCommentAction">
             <summary>
             Event fired when some kind of action related to the blog comment occurs.
@@ -101,6 +94,13 @@
             Gets or sets the owner ID (in combination with SecurityAccess.Owner).
             </summary>
         </member>
+        <member name="M:CMS.Blogs.Web.UI.BlogCommentDetail.FireOnCommentAction(System.String,System.Object)">
+            <summary>
+            Fires event when some blog comment action occurs.
+            </summary>
+            <param name="actionName">Name of the action that takes place</param>
+            <param name="actionArgument">Argument of the action</param>
+        </member>
         <member name="T:CMS.Blogs.Web.UI.OnCommentActionEventHandler">
             <summary>
             Fired when comment action (edit, delete, reject, approve, ..) is performed.
@@ -132,33 +132,6 @@
         <member name="T:CMS.Blogs.Web.UI.BlogCommentDataSource">
             <summary>
             Blog comments data source server control.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.#ctor">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.PropagateProperties(CMS.DocumentEngine.Web.UI.ICMSDataProperties)">
-            <summary>
-            Propagates given settings
-            </summary>
-            <param name="properties">Settings</param>
-        </member>
-        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.GetDataSourceFromDB">
-            <summary>
-            Gets datasource from DB.
-            </summary>
-            <returns>Dataset as object</returns>
-        </member>
-        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.GetDefaultCacheDependencies">
-            <summary>
-            Gets the default cache dependencies for the data source.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.GetDefaultCacheKey">
-            <summary>
-            Gets cache key.
             </summary>
         </member>
         <member name="P:CMS.Blogs.Web.UI.BlogCommentDataSource.SelectOnlyApproved">
@@ -204,6 +177,33 @@
         <member name="P:CMS.Blogs.Web.UI.BlogCommentDataSource.DocumentsWhereCondition">
             <summary>
             Gets or sets the where condition for blog posts.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.PropagateProperties(CMS.DocumentEngine.Web.UI.ICMSDataProperties)">
+            <summary>
+            Propagates given settings
+            </summary>
+            <param name="properties">Settings</param>
+        </member>
+        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.GetDataSourceFromDB">
+            <summary>
+            Gets datasource from DB.
+            </summary>
+            <returns>Dataset as object</returns>
+        </member>
+        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.GetDefaultCacheDependencies">
+            <summary>
+            Gets the default cache dependencies for the data source.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.Web.UI.BlogCommentDataSource.GetDefaultCacheKey">
+            <summary>
+            Gets cache key.
             </summary>
         </member>
         <member name="T:CMS.Blogs.Web.UI.BlogsLiveModelProvider">

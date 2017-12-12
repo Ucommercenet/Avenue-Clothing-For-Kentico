@@ -301,7 +301,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
             ColorizeRow(ItemToColorize.ToString());
         }
 
-        if (!URLHelper.IsPostback() && (siteSelector.DropDownSingleSelect.SelectedItem == null))
+        if (!RequestHelper.IsPostBack() && (siteSelector.DropDownSingleSelect.SelectedItem == null))
         {
             EnsureLoadedSite();
         }
@@ -452,7 +452,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
     /// </summary>
     private void InitializeDialogs()
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             LoadDialogConfiguration();
 
@@ -737,7 +737,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
                       (Config.OutputFormat == OutputFormatEnum.URL && SelectableContent == SelectableContentEnum.AllContent);
 
         // If all content is selectable do not select root by default - leave selection empty
-        if ((SelectableContent == SelectableContentEnum.AllContent) && !isLink && !IsCopyMoveLinkDialog && !URLHelper.IsPostback())
+        if ((SelectableContent == SelectableContentEnum.AllContent) && !isLink && !IsCopyMoveLinkDialog && !RequestHelper.IsPostBack())
         {
             // Even no file is selected by default load source for the Attachment tab
             processLoad = (SourceType == MediaSourceEnum.DocumentAttachments);
@@ -748,7 +748,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
         }
 
         // Clear properties if link dialog is opened and no link is edited
-        if (!URLHelper.IsPostback() && isLink && !IsItemLoaded)
+        if (!RequestHelper.IsPostBack() && isLink && !IsItemLoaded)
         {
             ItemProperties.ClearProperties(true);
         }
@@ -757,13 +757,13 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
         if ((CurrentAction == "") ||
             !(isLink && CurrentAction.Contains("edit")))
         {
-            if (processLoad && URLHelper.IsPostback())
+            if (processLoad && RequestHelper.IsPostBack())
             {
                 LoadDataSource();
             }
 
             // Select folder coming from user/selected item configuration
-            if (!URLHelper.IsPostback() && processLoad)
+            if (!RequestHelper.IsPostBack() && processLoad)
             {
                 HandleFolderAction(NodeID.ToString(), false, false);
 
@@ -897,7 +897,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
             // Initialize scripts
             InitializeControlScripts();
 
-            if (URLHelper.IsPostback() && (SourceType != MediaSourceEnum.DocumentAttachments))
+            if (RequestHelper.IsPostBack() && (SourceType != MediaSourceEnum.DocumentAttachments))
             {
                 siteSelector_OnSelectionChanged(this, null);
             }
@@ -1167,14 +1167,9 @@ function RaiseHiddenPostBack(){{
                 return;
             }
 
-            if ((SelectableContent == SelectableContentEnum.OnlyFlash) && !MediaHelper.IsFlash(ext))
-            {
-                return;
-            }
-
             if (SelectableContent == SelectableContentEnum.OnlyMedia)
             {
-                var isMedia = ImageHelper.IsImage(ext) || MediaHelper.IsAudio(ext) || MediaHelper.IsAudioVideo(ext) || MediaHelper.IsVideo(ext) || MediaHelper.IsFlash(ext);
+                var isMedia = ImageHelper.IsImage(ext) || MediaHelper.IsAudioVideo(ext);
                 if (!isMedia)
                 {
                     return;
@@ -1753,7 +1748,7 @@ function RaiseHiddenPostBack(){{
             (SelectableContent == SelectableContentEnum.AllContent) &&
             mediaView.InnerMediaControl.IsPageTypeSelectable(node);
 
-        if (isSelectable && !IsFullListingMode && (IsAction || !URLHelper.IsPostback()))
+        if (isSelectable && !IsFullListingMode && (IsAction || !RequestHelper.IsPostBack()))
         {
             if ((ItemToColorize == Guid.Empty) || (ItemToColorize == node.NodeGUID))
             {

@@ -42,7 +42,7 @@ public partial class CMSModules_Modules_Pages_Class_Code : GlobalAdminPage
             // Load code generation settings from data class
             var settings = dataClass.ClassCodeGenerationSettingsInfo;
 
-            txtNamespace.Text = String.IsNullOrEmpty(settings.NameSpace) ? BaseAbstractInfoProvider.GetCodeName(PredefinedObjectType.RESOURCE, dataClass.ClassResourceID) : settings.NameSpace;
+            txtNamespace.Text = String.IsNullOrEmpty(settings.NameSpace) ? ProviderHelper.GetCodeName(PredefinedObjectType.RESOURCE, dataClass.ClassResourceID) : settings.NameSpace;
 
             if (string.IsNullOrEmpty(settings.ObjectType))
             {
@@ -63,7 +63,7 @@ public partial class CMSModules_Modules_Pages_Class_Code : GlobalAdminPage
             chkUseNameHashtable.Checked = settings.UseNameHashtable;
             chkUseGuidHashtable.Checked = settings.UseGuidHashtable;
 
-            var moduleCodeName = BaseAbstractInfoProvider.GetCodeName(PredefinedObjectType.RESOURCE, dataClass.ClassResourceID);
+            var moduleCodeName = ProviderHelper.GetCodeName(PredefinedObjectType.RESOURCE, dataClass.ClassResourceID);
             var savePath = "~/" + (SystemContext.IsWebApplicationProject ? "Old_App_Code" : "App_Code") + "/CMSModules/" + TrimCmsPrefix(moduleCodeName) + "";
             ucSaveFsSelector.Value = savePath;
             if (Directory.Exists(savePath))
@@ -80,8 +80,19 @@ public partial class CMSModules_Modules_Pages_Class_Code : GlobalAdminPage
             GenerateCode(dataClass);
         };
 
-        btnSaveCode.Click += (sender, args) => SaveCode();
-        btnSaveCode.OnClientClick = "if (!confirm('" + GetString("codegenerators.saveconfirmation") + "')) { return false }";
+        if (SystemContext.IsPrecompiledWebsite)
+        {
+            var message = GetString("classes.code.codesaveerror");
+            ShowInformation(message);
+
+            ucSaveFsSelector.Enabled = false;
+            btnSaveCode.Enabled = false;
+        }
+        else
+        {
+            btnSaveCode.Click += (sender, args) => SaveCode();
+            btnSaveCode.OnClientClick = "if (!confirm('" + GetString("codegenerators.saveconfirmation") + "')) { return false }";
+        }
     }
 
 
@@ -145,6 +156,11 @@ public partial class CMSModules_Modules_Pages_Class_Code : GlobalAdminPage
     private void SaveCode()
     {
         var savePath = ValidationHelper.GetString(ucSaveFsSelector.Value, "~") + "/";
+
+        if (SystemContext.IsPrecompiledWebsite)
+        {
+            return;
+        }
 
         try
         {

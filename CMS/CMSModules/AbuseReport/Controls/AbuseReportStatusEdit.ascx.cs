@@ -198,7 +198,7 @@ public partial class CMSModules_AbuseReport_Controls_AbuseReportStatusEdit : CMS
 
                 if ((objectId > 0) && !string.IsNullOrEmpty(objectType) && !DocumentHelper.IsDocumentObjectType(objectType))
                 {
-                    GeneralizedInfo obj = BaseAbstractInfoProvider.GetInfoById(objectType, objectId);
+                    GeneralizedInfo obj = ProviderHelper.GetInfoById(objectType, objectId);
                     if ((obj != null) && !string.IsNullOrEmpty(obj.ObjectDisplayName))
                     {
                         lblObjectNameValue.Text = HTMLHelper.HTMLEncode(obj.ObjectDisplayName);

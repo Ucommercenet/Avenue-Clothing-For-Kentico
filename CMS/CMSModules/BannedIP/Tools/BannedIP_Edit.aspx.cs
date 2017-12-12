@@ -81,7 +81,7 @@ public partial class CMSModules_BannedIP_Tools_BannedIP_Edit : CMSBannedIPsPage
                     LoadData(bannedIPObj);
 
                     // Show that the bannedIP was created or updated successfully
-                    if ((QueryHelper.GetInteger("saved", 0) == 1) && !URLHelper.IsPostback())
+                    if ((QueryHelper.GetInteger("saved", 0) == 1) && !RequestHelper.IsPostBack())
                     {
                         ShowChangesSaved();
                     }

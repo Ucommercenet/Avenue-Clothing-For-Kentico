@@ -15,7 +15,6 @@
  */
 
 cmsdefine(["Underscore", "CMS/Eventhub", "jQuery"], function (_, EventHub, $) {
-    'use strict';
 
         // Default options
     var options = {

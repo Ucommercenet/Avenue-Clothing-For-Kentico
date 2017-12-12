@@ -12,32 +12,75 @@ using CMS.DataEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.UIControls;
-
+using CMS.SiteProvider;
 
 [UIElement(ModuleName.CMS, "Settings")]
-public partial class CMSModules_Settings_Pages_Keys : GlobalAdminPage, IPostBackEventHandler
+public partial class CMSModules_Settings_Pages_Keys : CMSDeskPage, IPostBackEventHandler
 {
     #region "Private variables"
 
     private bool mSearchDescription = true;
     private string mSearchText = "";
     private int mCategoryId;
-    private int mSiteId;
+    private int? mSiteId;
+    private bool? mUserIsGlobalAdmin;
 
     #endregion
 
+    /// <summary>
+    /// Indicates whether user is global admin.
+    /// </summary>
+    private bool UserIsGlobalAdmin
+    {
+        get
+        {
+            if (mUserIsGlobalAdmin == null)
+            {
+                mUserIsGlobalAdmin = CMSActionContext.CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin);
+            }
+
+            return mUserIsGlobalAdmin.Value;
+        }
+    }
+
+
+    /// <summary>
+    /// Indicates the site in context of which settings are displayed.
+    /// </summary>
+    private int SiteID
+    {
+        get
+        {
+            if (mSiteId == null)
+            {
+                mSiteId = UserIsGlobalAdmin ? QueryHelper.GetInteger("siteid", 0) : SiteContext.CurrentSiteID;
+            }
+
+            return mSiteId.Value;
+        }
+    }
+
 
     #region "Page Events"
+
+    /// <summary>
+    /// OnPreLoad event. 
+    /// </summary>
+    protected override void OnPreLoad(EventArgs e)
+    {
+        base.OnPreLoad(e);
+        RequireSite = false;
+    }
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
         // Get query strings
         mCategoryId = QueryHelper.GetInteger("categoryid", 0);
-        mSiteId = QueryHelper.GetInteger("siteid", 0);
 
         // Assign category id, site id
         SettingsGroupViewer.CategoryID = mCategoryId;
-        SettingsGroupViewer.SiteID = mSiteId;
+        SettingsGroupViewer.SiteID = SiteID;
 
         if (SettingsGroupViewer.SettingsCategoryInfo == null)
         {
@@ -59,7 +102,7 @@ public partial class CMSModules_Settings_Pages_Keys : GlobalAdminPage, IPostBack
             if (!string.IsNullOrEmpty(mSearchText))
             {
                 // Set searched values
-                if (!URLHelper.IsPostback())
+                if (!RequestHelper.IsPostBack())
                 {
                     txtSearch.Text = mSearchText;
                     chkDescription.Checked = QueryHelper.GetBoolean("description", true);
@@ -144,7 +187,7 @@ public partial class CMSModules_Settings_Pages_Keys : GlobalAdminPage, IPostBack
         });
 
         // Add reset action only for global settings
-        if (mSiteId == 0)
+        if (SiteID == 0)
         {
             actions.Add(new HeaderAction
             {
@@ -156,20 +199,22 @@ public partial class CMSModules_Settings_Pages_Keys : GlobalAdminPage, IPostBack
             });
         }
 
-        // Add export link if required
-        var exportUrl = "GetSettings.aspx";
-        exportUrl = URLHelper.AddParameterToUrl(exportUrl, "siteId", mSiteId.ToString());
-        exportUrl = URLHelper.AddParameterToUrl(exportUrl, "categoryId", SettingsGroupViewer.CategoryID.ToString());
-        exportUrl = URLHelper.AddParameterToUrl(exportUrl, "search", mSearchText);
-        exportUrl = URLHelper.AddParameterToUrl(exportUrl, "description", mSearchDescription.ToString());
-
-        actions.Add(new HeaderAction
+        if (UserIsGlobalAdmin)
         {
-            Text = GetString("settings.keys.exportsettings"),
-            OnClientClick = "window.open(" + ScriptHelper.GetString(exportUrl) + ");",
-            ButtonStyle = ButtonStyle.Default
-        });
+            // Add export link if required
+            var exportUrl = "GetSettings.aspx";
+            exportUrl = URLHelper.AddParameterToUrl(exportUrl, "siteId", SiteID.ToString());
+            exportUrl = URLHelper.AddParameterToUrl(exportUrl, "categoryId", SettingsGroupViewer.CategoryID.ToString());
+            exportUrl = URLHelper.AddParameterToUrl(exportUrl, "search", mSearchText);
+            exportUrl = URLHelper.AddParameterToUrl(exportUrl, "description", mSearchDescription.ToString());
 
+            actions.Add(new HeaderAction
+            {
+                Text = GetString("settings.keys.exportsettings"),
+                OnClientClick = "window.open(" + ScriptHelper.GetString(exportUrl) + ");",
+                ButtonStyle = ButtonStyle.Default
+            });
+        }
         return actions;
     }
 
@@ -229,7 +274,7 @@ public partial class CMSModules_Settings_Pages_Keys : GlobalAdminPage, IPostBack
                 break;
 
             case "lnkresettodefault_click":
-                if ((mSiteId >= 0) && (mCategoryId > 0))
+                if ((SiteID >= 0) && (mCategoryId > 0) && UserIsGlobalAdmin)
                 {
                     SettingsGroupViewer.ResetToDefault();
                     URLHelper.Redirect(GetRefreshUrl(true));
@@ -256,7 +301,7 @@ public partial class CMSModules_Settings_Pages_Keys : GlobalAdminPage, IPostBack
         string queryString = string.Format(
             "categoryid={0}&siteid={1}&search={2}&description={3}&resettodefault={4}",
             mCategoryId,
-            mSiteId,
+            SiteID,
             txtSearch.Text,
             chkDescription.Checked,
             reserToDefault ? "1" : "0"

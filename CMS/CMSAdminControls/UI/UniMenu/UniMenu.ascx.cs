@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-
-using CMS.Base;
-using CMS.Base.Web.UI;
-
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
+using CMS.Base.Web.UI;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.MacroEngine;
@@ -17,7 +15,6 @@ using CMS.Membership;
 using CMS.Modules;
 using CMS.UIControls;
 using CMS.UIControls.UniMenuConfig;
-
 
 public partial class CMSAdminControls_UI_UniMenu_UniMenu : CMSUserControl
 {
@@ -36,6 +33,7 @@ public partial class CMSAdminControls_UI_UniMenu_UniMenu : CMSUserControl
     private List<Group> mGroups = null;
     private bool mHorizontalLayout = true;
     private bool mUseIFrame = false;
+    private string mLocalizationCulture;
 
     #endregion
 
@@ -295,6 +293,27 @@ public partial class CMSAdminControls_UI_UniMenu_UniMenu : CMSUserControl
         set;
     }
 
+
+    /// <summary>
+    /// Gets or sets the culture (culture code) which is used for localizing resource strings.
+    /// </summary>
+    public string ResourceCulture
+    {
+        get
+        {
+            if (String.IsNullOrEmpty(mLocalizationCulture))
+            {
+                mLocalizationCulture = Thread.CurrentThread.CurrentUICulture.ToString();
+            }
+
+            return mLocalizationCulture;
+        }
+        set
+        {
+            mLocalizationCulture = value;
+        }
+    }
+
     #endregion
 
 
@@ -338,7 +357,6 @@ public partial class CMSAdminControls_UI_UniMenu_UniMenu : CMSUserControl
     {
         if (Groups.Count > 0)
         {
-
             pnlScrollControls.IsRTL = IsRTL;
             pnlScrollControls.InnerItemClass = "MiddleBigButton";
 
@@ -461,7 +479,7 @@ public partial class CMSAdminControls_UI_UniMenu_UniMenu : CMSUserControl
         }
         catch
         {
-            Controls.Add(GetError(GetString("unimenu.errorloadingcontrol")));
+            Controls.Add(GetError(GetString("unimenu.errorloadingcontrol", ResourceCulture)));
             return null;
         }
     }
@@ -553,15 +571,15 @@ function SelectButton(elem) {{
     /// Generates div with left border.
     /// </summary>
     /// <returns>Panel with left border</returns>
-    protected Panel GetLeftBorder()
+    private Panel GetLeftBorder()
     {
         // Create panel and set up
         return new CMSPanel()
-                   {
-                       ID = "lb" + identifier,
-                       EnableViewState = false,
-                       CssClass = "UniMenuLeftBorder"
-                   };
+        {
+            ID = "lb" + identifier,
+            EnableViewState = false,
+            CssClass = "UniMenuLeftBorder"
+        };
     }
 
 
@@ -569,16 +587,16 @@ function SelectButton(elem) {{
     /// Generates div with right border.
     /// </summary>
     /// <returns>Panel with right border</returns>
-    protected Panel GetRightBorder()
+    private Panel GetRightBorder()
     {
         // Create panel and set up
         return new CMSPanel()
-                   {
-                       ID = "pnlRightBorder" + identifier,
-                       ShortID = "rb" + identifier,
-                       EnableViewState = false,
-                       CssClass = "UniMenuRightBorder"
-                   };
+        {
+            ID = "pnlRightBorder" + identifier,
+            ShortID = "rb" + identifier,
+            EnableViewState = false,
+            CssClass = "UniMenuRightBorder"
+        };
     }
 
 
@@ -587,17 +605,17 @@ function SelectButton(elem) {{
     /// </summary>
     /// <param name="group">Group object</param>
     /// <returns>Panel separating groups</returns>
-    protected Panel GetGroupSeparator(Group group)
+    private Panel GetGroupSeparator(Group group)
     {
         string css = String.IsNullOrEmpty(group.SeparatorCssClass) ? "UniMenuSeparator" : "UniMenuSeparator " + group.SeparatorCssClass;
         // Create panel and set up
         return new CMSPanel()
-                   {
-                       ID = "pnlGroupSeparator" + identifier,
-                       ShortID = "gs" + identifier,
-                       EnableViewState = false,
-                       CssClass = css
-                   };
+        {
+            ID = "pnlGroupSeparator" + identifier,
+            ShortID = "gs" + identifier,
+            EnableViewState = false,
+            CssClass = css
+        };
     }
 
 
@@ -606,24 +624,24 @@ function SelectButton(elem) {{
     /// </summary>
     /// <param name="captionText">Caption of group</param>
     /// <returns>Panel with right border</returns>
-    protected Panel GetCaption(string captionText)
+    private Panel GetCaption(string captionText)
     {
         // Create literal with caption
         Literal caption = new Literal()
-                              {
-                                  ID = "ltlCaption" + identifier,
-                                  EnableViewState = false,
-                                  Text = captionText
-                              };
+        {
+            ID = "ltlCaption" + identifier,
+            EnableViewState = false,
+            Text = captionText
+        };
 
         // Create panel and add caption literal
         CMSPanel captionPanel = new CMSPanel()
-                                    {
-                                        ID = "pnlCaption" + identifier,
-                                        ShortID = "cp" + identifier,
-                                        EnableViewState = false,
-                                        CssClass = "UniMenuDescription"
-                                    };
+        {
+            ID = "pnlCaption" + identifier,
+            ShortID = "cp" + identifier,
+            EnableViewState = false,
+            CssClass = "UniMenuDescription"
+        };
         captionPanel.Controls.Add(caption);
 
         return captionPanel;
@@ -634,386 +652,372 @@ function SelectButton(elem) {{
     /// Generates panel with buttons loaded from given UI Element.
     /// </summary>
     /// <param name="uiElementId">ID of the UI Element</param>
-    protected Panel GetButtons(int uiElementId)
+    private Panel GetButtons(int uiElementId)
     {
         const int bigButtonMinimalWidth = 40;
         const int smallButtonMinimalWidth = 66;
 
-        Panel pnlButtons = null;
-
         // Load the buttons manually from UI Element
-        DataSet ds = UIElementInfoProvider.GetChildUIElements(uiElementId);
+        IEnumerable<UIElementInfo> elements = UIElementInfoProvider.GetChildUIElements(uiElementId);
 
         // When no child found
-        if (DataHelper.DataSourceIsEmpty(ds))
+        if (!elements.Any())
         {
             // Try to use group element as button
-            ds = UIElementInfoProvider.GetUIElements("ElementID = " + uiElementId, null);
+            elements = UIElementInfoProvider.GetUIElements()
+                .WhereEquals("ElementID", uiElementId);
 
-            if (!DataHelper.DataSourceIsEmpty(ds))
+            var groupElement = elements.FirstOrDefault();
+            if (groupElement != null)
             {
-                DataRow dr = ds.Tables[0].Rows[0];
-                string url = ValidationHelper.GetString(dr["ElementTargetURL"], "");
-
                 // Use group element as button only if it has URL specified
-                if (string.IsNullOrEmpty(url))
+                if (String.IsNullOrEmpty(groupElement.ElementTargetURL))
                 {
-                    ds = null;
+                    elements = Enumerable.Empty<UIElementInfo>();
                 }
             }
         }
 
-        if (!DataHelper.DataSourceIsEmpty(ds))
+        // Filter the dataset according to UI Profile
+        var filteredElements = FilterElements(elements).ToList();
+
+        int small = 0;
+        int count = filteredElements.Count;
+
+        // No buttons, render nothing
+        if (count == 0)
         {
-            // Filter the dataset according to UI Profile
-            FilterElements(ds);
+            return null;
+        }
 
-            int small = 0;
-            int count = ds.Tables[0].Rows.Count;
+        // Prepare the panel
+        var pnlButtons = new Panel();
+        pnlButtons.CssClass = "ActionButtons";
 
-            // No buttons, render nothing
-            if (count == 0)
+        // Prepare the table
+        Table tabGroup = new Table();
+        TableRow tabGroupRow = new TableRow();
+
+        tabGroup.CellPadding = 0;
+        tabGroup.CellSpacing = 0;
+        tabGroup.EnableViewState = false;
+        tabGroupRow.EnableViewState = false;
+        tabGroup.Rows.Add(tabGroupRow);
+
+        List<Panel> panels = new List<Panel>();
+
+        for (int i = 0; i < count; i++)
+        {
+            // Get current and next button
+            UIElementInfo uiElement = filteredElements[i];
+
+            UIElementInfo sel = UIContextHelper.CheckSelectedElement(uiElement, UIContext);
+            if (sel != null)
             {
-                return null;
+                String selectionSuffix = ValidationHelper.GetString(UIContext["selectionSuffix"], String.Empty);
+                StartingPage = UIContextHelper.GetElementUrl(sel, UIContext) + selectionSuffix;
+                HighlightItem = uiElement.ElementName;
             }
 
-            // Prepare the panel
-            pnlButtons = new Panel();
-            pnlButtons.CssClass = "ActionButtons";
+            // Raise button creating event
+            OnButtonCreating?.Invoke(this, new UniMenuArgs { UIElement = uiElement });
 
-            // Prepare the table
-            Table tabGroup = new Table();
-            TableRow tabGroupRow = new TableRow();
-
-            tabGroup.CellPadding = 0;
-            tabGroup.CellSpacing = 0;
-            tabGroup.EnableViewState = false;
-            tabGroupRow.EnableViewState = false;
-            tabGroup.Rows.Add(tabGroupRow);
-
-            List<Panel> panels = new List<Panel>();
-
-            for (int i = 0; i < count; i++)
+            UIElementInfo uiElementNext = null;
+            if (i < count - 1)
             {
-                // Get current and next button
-                UIElementInfo uiElement = new UIElementInfo(ds.Tables[0].Rows[i]);
+                uiElementNext = filteredElements[i + 1];
+            }
 
-                UIElementInfo sel = UIContextHelper.CheckSelectedElement(uiElement, UIContext);
-                if (sel != null)
+            // Set the first button
+            if (mFirstUIElement == null)
+            {
+                mFirstUIElement = uiElement;
+            }
+
+            // Get the sizes of current and next button. Button is large when it is the only in the group
+            bool isSmall = (uiElement.ElementSize == UIElementSizeEnum.Regular) && (count > 1);
+            bool isResized = (uiElement.ElementSize == UIElementSizeEnum.Regular) && (!isSmall);
+            bool isNextSmall = (uiElementNext != null) && (uiElementNext.ElementSize == UIElementSizeEnum.Regular);
+
+            // Set the CSS class according to the button size
+            string cssClass = (isSmall ? "SmallButton" : "BigButton");
+            string elementName = uiElement.ElementName;
+
+            // Display only caption - do not substitute with Display name when empty
+            string elementCaption = ResHelper.LocalizeString(uiElement.ElementCaption, ResourceCulture);
+
+            // Create main button panel
+            CMSPanel pnlButton = new CMSPanel
+            {
+                ID = "pnlButton" + elementName,
+                ShortID = "b" + elementName
+            };
+
+            pnlButton.Attributes.Add("name", elementName);
+            pnlButton.CssClass = cssClass;
+
+            // Remember the first button
+            if (firstPanel == null)
+            {
+                firstPanel = pnlButton;
+            }
+
+            // Remember the selected button
+            if ((preselectedPanel == null) && elementName.EqualsCSafe(HighlightItem, true))
+            {
+                preselectedPanel = pnlButton;
+
+                // Set the selected button
+                if (mHighlightedUIElement == null)
                 {
-                    String selectionSuffix = ValidationHelper.GetString(UIContext["selectionSuffix"], String.Empty);
-                    StartingPage = UIContextHelper.GetElementUrl(sel, UIContext) + selectionSuffix;
-                    HighlightItem = uiElement.ElementName;
+                    mHighlightedUIElement = uiElement;
                 }
+            }
 
-                // Raise button creating event
-                if (OnButtonCreating != null)
+            // URL or behavior
+            string url = uiElement.ElementTargetURL;
+
+            if (!string.IsNullOrEmpty(url) && url.StartsWithCSafe("javascript:", true))
+            {
+                pnlButton.Attributes["onclick"] = url.Substring("javascript:".Length);
+            }
+            else
+            {
+                url = UIContextHelper.GetElementUrl(uiElement, UIContext);
+
+                if (url != String.Empty)
                 {
-                    OnButtonCreating(this, new UniMenuArgs { UIElement = uiElement });
-                }
+                    string buttonSelection = (RememberSelectedItem ? "SelectButton(this);" : "");
 
-                UIElementInfo uiElementNext = null;
-                if (i < count - 1)
-                {
-                    uiElementNext = new UIElementInfo(ds.Tables[0].Rows[i + 1]);
-                }
+                    // Ensure hash code if required
+                    url = MacroResolver.Resolve(URLHelper.EnsureHashToQueryParameters(url));
 
-                // Set the first button
-                if (mFirstUIElement == null)
-                {
-                    mFirstUIElement = uiElement;
-                }
-
-                // Get the sizes of current and next button. Button is large when it is the only in the group
-                bool isSmall = (uiElement.ElementSize == UIElementSizeEnum.Regular) && (count > 1);
-                bool isResized = (uiElement.ElementSize == UIElementSizeEnum.Regular) && (!isSmall);
-                bool isNextSmall = (uiElementNext != null) && (uiElementNext.ElementSize == UIElementSizeEnum.Regular);
-
-                // Set the CSS class according to the button size
-                string cssClass = (isSmall ? "SmallButton" : "BigButton");
-                string elementName = uiElement.ElementName;
-
-                // Display only caption - do not substitute with Display name when empty
-                string elementCaption = ResHelper.LocalizeString(uiElement.ElementCaption);
-
-                // Create main button panel
-                CMSPanel pnlButton = new CMSPanel()
-                                         {
-                                             ID = "pnlButton" + elementName,
-                                             ShortID = "b" + elementName
-                                         };
-
-                pnlButton.Attributes.Add("name", elementName);
-                pnlButton.CssClass = cssClass;
-
-                // Remember the first button
-                if (firstPanel == null)
-                {
-                    firstPanel = pnlButton;
-                }
-
-                // Remember the selected button
-                if ((preselectedPanel == null) && elementName.EqualsCSafe(HighlightItem, true))
-                {
-                    preselectedPanel = pnlButton;
-
-                    // Set the selected button
-                    if (mHighlightedUIElement == null)
+                    if (!String.IsNullOrEmpty(TargetFrameset))
                     {
-                        mHighlightedUIElement = uiElement;
-                    }
-                }
-
-                // URL or behavior
-                string url = uiElement.ElementTargetURL;
-
-                if (!string.IsNullOrEmpty(url) && url.StartsWithCSafe("javascript:", true))
-                {
-                    pnlButton.Attributes["onclick"] = url.Substring("javascript:".Length);
-                }
-                else
-                {
-                    url = UIContextHelper.GetElementUrl(uiElement, UIContext);
-
-                    if (url != String.Empty)
-                    {
-                        string buttonSelection = (RememberSelectedItem ? "SelectButton(this);" : "");
-
-                        // Ensure hash code if required
-                        url = MacroResolver.Resolve(URLHelper.EnsureHashToQueryParameters(url));
-
-                        if (!String.IsNullOrEmpty(TargetFrameset))
+                        if (uiElement.ElementType == UIElementTypeEnum.PageTemplate)
                         {
-                            if (uiElement.ElementType == UIElementTypeEnum.PageTemplate)
-                            {
-                                url = URLHelper.UpdateParameterInUrl(url, "displaytitle", "false");
-                            }
-
-                            String target = UseIFrame ? String.Format("frames['{0}']", TargetFrameset) : String.Format("parent.frames['{0}']", TargetFrameset);
-                            pnlButton.Attributes["onclick"] = String.Format("{0}{1}.location.href = '{2}';", buttonSelection, target, UrlResolver.ResolveUrl(url));
+                            url = URLHelper.UpdateParameterInUrl(url, "displaytitle", "false");
                         }
-                        else
-                        {
-                            pnlButton.Attributes["onclick"] = String.Format("{0}self.location.href = '{1}';", buttonSelection, UrlResolver.ResolveUrl(url));
-                        }
-                    }
-                }
 
-                // Tooltip
-                if (!string.IsNullOrEmpty(uiElement.ElementDescription))
-                {
-                    pnlButton.ToolTip = ResHelper.LocalizeString(uiElement.ElementDescription);
-                }
-                else
-                {
-                    pnlButton.ToolTip = elementCaption;
-                }
-                pnlButton.EnableViewState = false;
-
-                // Ensure correct grouping of small buttons
-                if (isSmall && (small == 0))
-                {
-                    small++;
-
-                    Panel pnlSmallGroup = new Panel()
-                                              {
-                                                  ID = "pnlGroupSmall" + uiElement.ElementName
-                                              };
-                    if (IsRTL)
-                    {
-                        pnlSmallGroup.Style.Add("float", "right");
-                        pnlSmallGroup.Style.Add("text-align", "right");
+                        String target = UseIFrame ? String.Format("frames['{0}']", TargetFrameset) : String.Format("parent.frames['{0}']", TargetFrameset);
+                        pnlButton.Attributes["onclick"] = String.Format("{0}{1}.location.href = '{2}';", buttonSelection, target, UrlResolver.ResolveUrl(url));
                     }
                     else
                     {
-                        pnlSmallGroup.Style.Add("float", "left");
-                        pnlSmallGroup.Style.Add("text-align", "left");
+                        pnlButton.Attributes["onclick"] = String.Format("{0}self.location.href = '{1}';", buttonSelection, UrlResolver.ResolveUrl(url));
                     }
-
-                    pnlSmallGroup.EnableViewState = false;
-                    pnlSmallGroup.Controls.Add(pnlButton);
-                    panels.Add(pnlSmallGroup);
-                }
-
-                // Generate button link
-                HyperLink buttonLink = new HyperLink()
-                {
-                    ID = "lnkButton" + uiElement.ElementName,
-                    EnableViewState = false
-                };
-
-                // Generate button image
-                Image buttonImage = new Image()
-                                        {
-                                            ID = "imgButton" + uiElement.ElementName,
-                                            ImageAlign = (isSmall ? ImageAlign.AbsMiddle : ImageAlign.Top),
-                                            AlternateText = elementCaption,
-                                            EnableViewState = false
-                                        };
-
-                // Use icon path
-                if (!string.IsNullOrEmpty(uiElement.ElementIconPath))
-                {
-                    string iconPath = GetImagePath(uiElement.ElementIconPath);
-
-                    // Check if element size was changed
-                    if (isResized)
-                    {
-                        // Try to get larger icon
-                        string largeIconPath = iconPath.Replace("list.png", "module.png");
-                        if (FileHelper.FileExists(largeIconPath))
-                        {
-                            iconPath = largeIconPath;
-                        }
-                    }
-
-                    buttonImage.ImageUrl = GetImageUrl(iconPath);
-                    buttonLink.Controls.Add(buttonImage);
-                }
-                // Use Icon class
-                else if (!string.IsNullOrEmpty(uiElement.ElementIconClass))
-                {
-                    var icon = new CMSIcon
-                    {
-                        ID = string.Format("ico_{0}_{1}", identifier, i),
-                        EnableViewState = false,
-                        ToolTip = pnlButton.ToolTip,
-                        CssClass = "cms-icon-80 " + uiElement.ElementIconClass
-                    };
-                    buttonLink.Controls.Add(icon);
-                }
-                // Load default module icon if ElementIconPath is not specified
-                else
-                {
-                    buttonImage.ImageUrl = GetImageUrl("CMSModules/module.png");
-                    buttonLink.Controls.Add(buttonImage);
-                }
-
-
-                // Generate caption text
-                Literal captionLiteral = new Literal()
-                                             {
-                                                 ID = "ltlCaption" + uiElement.ElementName,
-                                                 Text = (isSmall ? "\n" : "<br />") + elementCaption,
-                                                 EnableViewState = false
-                                             };
-                buttonLink.Controls.Add(captionLiteral);
-
-
-                //Generate button table (IE7 issue)
-                Table tabButton = new Table();
-                TableRow tabRow = new TableRow();
-                TableCell tabCellLeft = new TableCell();
-                TableCell tabCellMiddle = new TableCell();
-                TableCell tabCellRight = new TableCell();
-
-                tabButton.CellPadding = 0;
-                tabButton.CellSpacing = 0;
-
-                tabButton.EnableViewState = false;
-                tabRow.EnableViewState = false;
-                tabCellLeft.EnableViewState = false;
-                tabCellMiddle.EnableViewState = false;
-                tabCellRight.EnableViewState = false;
-
-                tabButton.Rows.Add(tabRow);
-                tabRow.Cells.Add(tabCellLeft);
-                tabRow.Cells.Add(tabCellMiddle);
-                tabRow.Cells.Add(tabCellRight);
-
-                // Generate left border
-                Panel pnlLeft = new Panel()
-                                    {
-                                        ID = "pnlLeft" + uiElement.ElementName,
-                                        CssClass = "Left" + cssClass,
-                                        EnableViewState = false
-                                    };
-
-                // Generate middle part of button
-                Panel pnlMiddle = new Panel()
-                                      {
-                                          ID = "pnlMiddle" + uiElement.ElementName,
-                                          CssClass = "Middle" + cssClass
-                                      };
-                pnlMiddle.Controls.Add(buttonLink);
-                Panel pnlMiddleTmp = new Panel()
-                                         {
-                                             EnableViewState = false
-                                         };
-                if (isSmall)
-                {
-                    pnlMiddle.Style.Add("min-width", smallButtonMinimalWidth + "px");
-                    // IE7 issue with min-width
-                    pnlMiddleTmp.Style.Add("width", smallButtonMinimalWidth + "px");
-                    pnlMiddle.Controls.Add(pnlMiddleTmp);
-                }
-                else
-                {
-                    pnlMiddle.Style.Add("min-width", bigButtonMinimalWidth + "px");
-                    // IE7 issue with min-width
-                    pnlMiddleTmp.Style.Add("width", bigButtonMinimalWidth + "px");
-                    pnlMiddle.Controls.Add(pnlMiddleTmp);
-                }
-                pnlMiddle.EnableViewState = false;
-
-                // Generate right border
-                Panel pnlRight = new Panel()
-                                     {
-                                         ID = "pnlRight" + uiElement.ElementName,
-                                         CssClass = "Right" + cssClass,
-                                         EnableViewState = false
-                                     };
-
-                // Add inner controls
-                tabCellLeft.Controls.Add(pnlLeft);
-                tabCellMiddle.Controls.Add(pnlMiddle);
-                tabCellRight.Controls.Add(pnlRight);
-
-                pnlButton.Controls.Add(tabButton);
-
-                // If there were two small buttons in a row end the grouping div
-                if ((small == 2) || (isSmall && !isNextSmall))
-                {
-                    small = 0;
-
-                    // Add the button to the small buttons grouping panel
-                    panels[panels.Count - 1].Controls.Add(pnlButton);
-                }
-                else
-                {
-                    if (small == 0)
-                    {
-                        // Add the generated button into collection
-                        panels.Add(pnlButton);
-                    }
-                }
-                if (small == 1)
-                {
-                    small++;
-                }
-
-                // Raise button created event
-                if (OnButtonCreated != null)
-                {
-                    OnButtonCreated(this, new UniMenuArgs { UIElement = uiElement, TargetUrl = url, ButtonControl = pnlButton, ImageControl = buttonImage });
                 }
             }
 
-            // Add all panels to control
-            foreach (Panel panel in panels)
+            // Tooltip
+            if (!string.IsNullOrEmpty(uiElement.ElementDescription))
             {
-                TableCell tabGroupCell = new TableCell()
-                                             {
-                                                 VerticalAlign = VerticalAlign.Top,
-                                                 EnableViewState = false
-                                             };
+                pnlButton.ToolTip = ResHelper.LocalizeString(uiElement.ElementDescription, ResourceCulture);
+            }
+            else
+            {
+                pnlButton.ToolTip = elementCaption;
+            }
+            pnlButton.EnableViewState = false;
 
-                tabGroupCell.Controls.Add(panel);
-                tabGroupRow.Cells.Add(tabGroupCell);
+            // Ensure correct grouping of small buttons
+            if (isSmall && (small == 0))
+            {
+                small++;
+
+                Panel pnlSmallGroup = new Panel
+                {
+                    ID = "pnlGroupSmall" + uiElement.ElementName
+                };
+                if (IsRTL)
+                {
+                    pnlSmallGroup.Style.Add("float", "right");
+                    pnlSmallGroup.Style.Add("text-align", "right");
+                }
+                else
+                {
+                    pnlSmallGroup.Style.Add("float", "left");
+                    pnlSmallGroup.Style.Add("text-align", "left");
+                }
+
+                pnlSmallGroup.EnableViewState = false;
+                pnlSmallGroup.Controls.Add(pnlButton);
+                panels.Add(pnlSmallGroup);
             }
 
-            pnlButtons.Controls.Add(tabGroup);
+            // Generate button link
+            HyperLink buttonLink = new HyperLink
+            {
+                ID = "lnkButton" + uiElement.ElementName,
+                EnableViewState = false
+            };
+
+            // Generate button image
+            Image buttonImage = new Image
+            {
+                ID = "imgButton" + uiElement.ElementName,
+                ImageAlign = (isSmall ? ImageAlign.AbsMiddle : ImageAlign.Top),
+                AlternateText = elementCaption,
+                EnableViewState = false
+            };
+
+            // Use icon path
+            if (!string.IsNullOrEmpty(uiElement.ElementIconPath))
+            {
+                string iconPath = GetImagePath(uiElement.ElementIconPath);
+
+                // Check if element size was changed
+                if (isResized)
+                {
+                    // Try to get larger icon
+                    string largeIconPath = iconPath.Replace("list.png", "module.png");
+                    if (FileHelper.FileExists(largeIconPath))
+                    {
+                        iconPath = largeIconPath;
+                    }
+                }
+
+                buttonImage.ImageUrl = GetImageUrl(iconPath);
+                buttonLink.Controls.Add(buttonImage);
+            }
+            // Use Icon class
+            else if (!string.IsNullOrEmpty(uiElement.ElementIconClass))
+            {
+                var icon = new CMSIcon
+                {
+                    ID = string.Format("ico_{0}_{1}", identifier, i),
+                    EnableViewState = false,
+                    ToolTip = pnlButton.ToolTip,
+                    CssClass = "cms-icon-80 " + uiElement.ElementIconClass
+                };
+                buttonLink.Controls.Add(icon);
+            }
+            // Load default module icon if ElementIconPath is not specified
+            else
+            {
+                buttonImage.ImageUrl = GetImageUrl("CMSModules/module.png");
+                buttonLink.Controls.Add(buttonImage);
+            }
+
+            // Generate caption text
+            Literal captionLiteral = new Literal
+            {
+                ID = "ltlCaption" + uiElement.ElementName,
+                Text = (isSmall ? "\n" : "<br />") + elementCaption,
+                EnableViewState = false
+            };
+            buttonLink.Controls.Add(captionLiteral);
+
+            //Generate button table (IE7 issue)
+            Table tabButton = new Table();
+            TableRow tabRow = new TableRow();
+            TableCell tabCellLeft = new TableCell();
+            TableCell tabCellMiddle = new TableCell();
+            TableCell tabCellRight = new TableCell();
+
+            tabButton.CellPadding = 0;
+            tabButton.CellSpacing = 0;
+
+            tabButton.EnableViewState = false;
+            tabRow.EnableViewState = false;
+            tabCellLeft.EnableViewState = false;
+            tabCellMiddle.EnableViewState = false;
+            tabCellRight.EnableViewState = false;
+
+            tabButton.Rows.Add(tabRow);
+            tabRow.Cells.Add(tabCellLeft);
+            tabRow.Cells.Add(tabCellMiddle);
+            tabRow.Cells.Add(tabCellRight);
+
+            // Generate left border
+            Panel pnlLeft = new Panel
+            {
+                ID = "pnlLeft" + uiElement.ElementName,
+                CssClass = "Left" + cssClass,
+                EnableViewState = false
+            };
+
+            // Generate middle part of button
+            Panel pnlMiddle = new Panel
+            {
+                ID = "pnlMiddle" + uiElement.ElementName,
+                CssClass = "Middle" + cssClass
+            };
+            pnlMiddle.Controls.Add(buttonLink);
+            Panel pnlMiddleTmp = new Panel
+            {
+                EnableViewState = false
+            };
+            if (isSmall)
+            {
+                pnlMiddle.Style.Add("min-width", smallButtonMinimalWidth + "px");
+                // IE7 issue with min-width
+                pnlMiddleTmp.Style.Add("width", smallButtonMinimalWidth + "px");
+                pnlMiddle.Controls.Add(pnlMiddleTmp);
+            }
+            else
+            {
+                pnlMiddle.Style.Add("min-width", bigButtonMinimalWidth + "px");
+                // IE7 issue with min-width
+                pnlMiddleTmp.Style.Add("width", bigButtonMinimalWidth + "px");
+                pnlMiddle.Controls.Add(pnlMiddleTmp);
+            }
+            pnlMiddle.EnableViewState = false;
+
+            // Generate right border
+            Panel pnlRight = new Panel
+            {
+                ID = "pnlRight" + uiElement.ElementName,
+                CssClass = "Right" + cssClass,
+                EnableViewState = false
+            };
+
+            // Add inner controls
+            tabCellLeft.Controls.Add(pnlLeft);
+            tabCellMiddle.Controls.Add(pnlMiddle);
+            tabCellRight.Controls.Add(pnlRight);
+
+            pnlButton.Controls.Add(tabButton);
+
+            // If there were two small buttons in a row end the grouping div
+            if ((small == 2) || (isSmall && !isNextSmall))
+            {
+                small = 0;
+
+                // Add the button to the small buttons grouping panel
+                panels[panels.Count - 1].Controls.Add(pnlButton);
+            }
+            else
+            {
+                if (small == 0)
+                {
+                    // Add the generated button into collection
+                    panels.Add(pnlButton);
+                }
+            }
+            if (small == 1)
+            {
+                small++;
+            }
+
+            // Raise button created event
+            OnButtonCreated?.Invoke(this, new UniMenuArgs { UIElement = uiElement, TargetUrl = url, ButtonControl = pnlButton, ImageControl = buttonImage });
         }
+
+        // Add all panels to control
+        foreach (Panel panel in panels)
+        {
+            TableCell tabGroupCell = new TableCell
+            {
+                VerticalAlign = VerticalAlign.Top,
+                EnableViewState = false
+            };
+
+            tabGroupCell.Controls.Add(panel);
+            tabGroupRow.Cells.Add(tabGroupCell);
+        }
+
+        pnlButtons.Controls.Add(tabGroup);
 
         return pnlButtons;
     }
@@ -1025,63 +1029,62 @@ function SelectButton(elem) {{
     /// <param name="control">Control to add to the content</param>
     /// <param name="captionText">Caption of group</param>
     /// <param name="uiElementId">ID of the UI Element, if the content should be loaded from UI Elements</param>
-    protected Panel GetContent(Control control, int uiElementId, string captionText)
+    private Panel GetContent(Control control, int uiElementId, string captionText)
     {
         Panel content = null;
         if (string.IsNullOrEmpty(captionText) && !AllowEmptyCaptions)
         {
             if (ShowErrors)
             {
-                Controls.Add(GetError(GetString("unimenu.captionempty")));
+                Controls.Add(GetError(GetString("unimenu.captionempty", ResourceCulture)));
+            }
+        }
+        else if (control == null && uiElementId == 0)
+        {
+            if (ShowErrors)
+            {
+                Controls.Add(GetError(GetString("unimenu.pathempty", ResourceCulture)));
             }
         }
         else
-            if (control == null && uiElementId == 0)
+        {
+            // Create panel and set up
+            content = new Panel
             {
-                if (ShowErrors)
+                ID = "pnlContent" + identifier,
+                CssClass = "UniMenuContent"
+            };
+
+            // Add caption
+            if (!HorizontalLayout && !string.IsNullOrEmpty(captionText))
+            {
+                content.Controls.Add(GetCaption(captionText));
+            }
+
+            // Add inner content control
+            if (control != null)
+            {
+                content.Controls.Add(control);
+            }
+            else if (uiElementId > 0)
+            {
+                Panel innerPanel = GetButtons(uiElementId);
+                if (innerPanel == null)
                 {
-                    Controls.Add(GetError(GetString("unimenu.pathempty")));
+                    return null;
+                }
+                else
+                {
+                    content.Controls.Add(innerPanel);
                 }
             }
-            else
+
+            // Add caption
+            if (HorizontalLayout && !string.IsNullOrEmpty(captionText))
             {
-                // Create panel and set up
-                content = new Panel()
-                                    {
-                                        ID = "pnlContent" + identifier,
-                                        CssClass = "UniMenuContent"
-                                    };
-
-                // Add caption
-                if (!HorizontalLayout && !string.IsNullOrEmpty(captionText))
-                {
-                    content.Controls.Add(GetCaption(captionText));
-                }
-
-                // Add inner content control
-                if (control != null)
-                {
-                    content.Controls.Add(control);
-                }
-                else if (uiElementId > 0)
-                {
-                    Panel innerPanel = GetButtons(uiElementId);
-                    if (innerPanel == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        content.Controls.Add(innerPanel);
-                    }
-                }
-
-                // Add caption
-                if (HorizontalLayout && !string.IsNullOrEmpty(captionText))
-                {
-                    content.Controls.Add(GetCaption(captionText));
-                }
+                content.Controls.Add(GetCaption(captionText));
             }
+        }
 
         return content;
     }
@@ -1092,50 +1095,36 @@ function SelectButton(elem) {{
     /// </summary>
     /// <param name="message">Error message to display</param>
     /// <returns>Label with error message</returns>
-    protected Label GetError(string message)
+    private Label GetError(string message)
     {
         // If error occurs skip this group
-        return new Label()
-                   {
-                       ID = "lblError" + identifier,
-                       EnableViewState = false,
-                       Text = message,
-                       CssClass = "ErrorLabel"
-                   };
+        return new Label
+        {
+            ID = "lblError" + identifier,
+            EnableViewState = false,
+            Text = message,
+            CssClass = "ErrorLabel"
+        };
     }
 
 
     /// <summary>
     /// Filters the dataset with UI Elements according to UI Profile of current user by default and according to custom event (if defined).
     /// </summary>
-    protected void FilterElements(DataSet dsElements)
+    private IEnumerable<UIElementInfo> FilterElements(IEnumerable<UIElementInfo> elements)
     {
-        // For all tables in dataset
-        foreach (DataTable dt in dsElements.Tables)
+        foreach (var uiElement in elements)
         {
-            ArrayList deleteRows = new ArrayList();
+            bool allowed = MembershipContext.AuthenticatedUser.IsAuthorizedPerUIElement(uiElement.ElementResourceID, uiElement.ElementName);
 
-            // Find rows to filter out
-            foreach (DataRow dr in dt.Rows)
+            if (OnButtonFiltered != null)
             {
-                UIElementInfo uiElement = new UIElementInfo(dr);
-                bool allowed = MembershipContext.AuthenticatedUser.IsAuthorizedPerUIElement(uiElement.ElementResourceID, uiElement.ElementName);
-
-                if (OnButtonFiltered != null)
-                {
-                    allowed = allowed && OnButtonFiltered(this, new UniMenuArgs { UIElement = uiElement });
-                }
-
-                if (!allowed || !UIContextHelper.CheckElementAvailabilityInUI(uiElement))
-                {
-                    deleteRows.Add(dr);
-                }
+                allowed = allowed && OnButtonFiltered(this, new UniMenuArgs { UIElement = uiElement });
             }
 
-            // Delete the filtered rows
-            foreach (DataRow dr in deleteRows)
+            if (allowed && UIContextHelper.CheckElementAvailabilityInUI(uiElement))
             {
-                dt.Rows.Remove(dr);
+                yield return uiElement;
             }
         }
     }

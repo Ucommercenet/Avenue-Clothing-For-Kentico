@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Web;
-using System.Xml;
 
 using CMS.Base;
 using CMS.Base.Web.UI;
@@ -50,10 +48,6 @@ public partial class CMSModules_Modules_Pages_Module_UserInterface_Properties : 
             MessagesPlaceHolder.UseRelativePlaceHolder = false;
             form.EnsureMessagesPlaceholder(MessagesPlaceHolder);
         }
-
-        // Load default properties from XML
-        XmlDocument xml = new XmlDocument();
-        xml.Load(ResolveUrl(HttpContext.Current.Server.MapPath(PortalFormHelper.BEFOREPROPERTIESDEFINITION)));
 
         // Load UI element and element's page template (if any)
         mUIElementInfo = UIElementInfoProvider.GetUIElementInfo(QueryHelper.GetInteger("elementID", 0));

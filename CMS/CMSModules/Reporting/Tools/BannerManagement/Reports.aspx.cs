@@ -7,11 +7,10 @@ using CMS.BannerManagement;
 using CMS.Core;
 using CMS.DataEngine;
 using CMS.Helpers;
-using CMS.Membership;
 using CMS.Modules;
 using CMS.SiteProvider;
 using CMS.UIControls;
-
+using CMS.Reporting;
 
 public partial class CMSModules_Reporting_Tools_BannerManagement_Reports : CMSBannerManagementEditPage
 {
@@ -68,14 +67,14 @@ public partial class CMSModules_Reporting_Tools_BannerManagement_Reports : CMSBa
         // Check UI personalization
         var uiElement = new UIElementAttribute(ResourceName, elementName);
         uiElement.Check(this);
-        
+
         // Check Reporting permissions
         CheckReportingAvailability();
 
         // Get the ID
         int id = QueryHelper.GetInteger("parameterValue", 0);
 
-        SetEditedObject(BaseAbstractInfoProvider.GetInfoById(objectType, id), string.Empty);
+        SetEditedObject(ProviderHelper.GetInfoById(objectType, id), string.Empty);
     }
 
 
@@ -92,12 +91,6 @@ public partial class CMSModules_Reporting_Tools_BannerManagement_Reports : CMSBa
         if (!ResourceSiteInfoProvider.IsResourceOnSite("CMS.Reporting", SiteContext.CurrentSiteName))
         {
             RedirectToResourceNotAvailableOnSite("CMS.Reporting");
-        }
-
-        // Check additional read permission to Reporting module
-        if (!MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("CMS.Reporting", "Read"))
-        {
-            RedirectToAccessDenied("CMS.Reporting", "Read");
         }
     }
 
@@ -132,6 +125,12 @@ public partial class CMSModules_Reporting_Tools_BannerManagement_Reports : CMSBa
 
                 mIsSaved = true;
 
+                // Check 'SaveReports' permission
+                if (!CurrentUser.IsAuthorizedPerResource("cms.reporting", "SaveReports"))
+                {
+                    RedirectToAccessDenied("cms.reporting", "SaveReports");
+                }
+
                 // Save report
                 if (ucDisplayReport.SaveReport() > 0)
                 {
@@ -151,23 +150,26 @@ public partial class CMSModules_Reporting_Tools_BannerManagement_Reports : CMSBa
             return;
         }
 
-        if (URLHelper.IsPostback() && !IsValidInterval())
+        if (RequestHelper.IsPostBack() && !IsValidInterval())
         {
             ShowError(GetString("analt.invalidinterval"));
             return;
         }
-        
-        string reportsCodeName = QueryHelper.GetString("reportCodeName", String.Empty);
+
+        string reportCodeName = QueryHelper.GetString("reportCodeName", String.Empty);
 
 
-        if (!reportsCodeName.Contains(";"))
+        if (!reportCodeName.Contains(";"))
         {
-            ucDisplayReport.ReportName = reportsCodeName;
+            ValidateReportCategory(reportCodeName);
+            ucDisplayReport.ReportName = reportCodeName;
             ucGraphTypePeriod.GraphTypeVisible = false;
         }
         else
         {
-            ucDisplayReport.ReportName = ucGraphTypePeriod.GetReportName(reportsCodeName);
+            var reportName = ucGraphTypePeriod.GetReportName(reportCodeName);
+            ValidateReportCategory(reportName);
+            ucDisplayReport.ReportName = reportName;
         }
 
         ucGraphTypePeriod.ProcessChartSelectors(false);
@@ -197,8 +199,36 @@ public partial class CMSModules_Reporting_Tools_BannerManagement_Reports : CMSBa
         reportHeader.ReportName = ucDisplayReport.ReportName;
         reportHeader.ReportParameters = ucDisplayReport.ReportParameters;
         reportHeader.SelectedInterval = ucGraphTypePeriod.SelectedInterval;
-        
+
         mParamsLoaded = true;
+    }
+
+
+    private void ValidateReportCategory(string reportCodeName)
+    {
+        if (!IsBannerManagementReport(reportCodeName))
+        {
+            RedirectToAccessDenied(GetString("accessdenied.notallowedtoread"));
+        }
+    }
+
+
+    private bool IsBannerManagementReport(string reportCodeName)
+    {
+        var report = ReportInfoProvider.GetReportInfo(reportCodeName);
+        if (report != null)
+        {
+            var category = ReportCategoryInfoProvider.GetReportCategoryInfo(report.ReportCategoryID);
+            if (category != null)
+            {
+                if (!category.CategoryPath.StartsWith("/BannerManagement", StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 

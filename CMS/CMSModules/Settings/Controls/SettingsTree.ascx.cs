@@ -29,6 +29,7 @@ public partial class CMSModules_Settings_Controls_SettingsTree : CMSUserControl
     private int mMaxRelativeLevel = 1;
     private bool mRootIsClickable = true;
     private bool mShowEmptyCategories = true;
+    private bool mShowHeaderPanel = true;
 
     private string mExpandedPaths = String.Empty;
 
@@ -417,6 +418,20 @@ public partial class CMSModules_Settings_Controls_SettingsTree : CMSUserControl
     }
 
 
+    /// <summary>
+    /// Indicates whether header panel should be displayed on the top of settings tree.
+    /// </summary>
+    public bool ShowHeaderPanel
+    {
+        get
+        {
+            return mShowHeaderPanel;
+        }
+        set
+        {
+            mShowHeaderPanel = value;
+        }
+    }
 
     #endregion
 
@@ -456,10 +471,10 @@ public partial class CMSModules_Settings_Controls_SettingsTree : CMSUserControl
     {
         ScriptHelper.RegisterJQuery(Page);
 
-        SitePanel.Visible = ShowSiteSelector;
-        ActionsPanel.Visible = !ShowSiteSelector;
-        plcSelectionScript.Visible = ShowSiteSelector;
-        plcActionSelectionScript.Visible = !ShowSiteSelector;
+        SitePanel.Visible = ShowHeaderPanel && ShowSiteSelector;
+        ActionsPanel.Visible = ShowHeaderPanel && !SitePanel.Visible;
+        plcActionSelectionScript.Visible = ShowHeaderPanel && !ShowSiteSelector;
+        plcSelectionScript.Visible = !plcActionSelectionScript.Visible;
 
         if (RootCategory != null)
         {

@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Data;
+using System.Linq;
 
 using CMS.Base.Web.UI;
+using CMS.DataEngine;
 using CMS.Helpers;
 using CMS.Protection;
 using CMS.UIControls;
@@ -101,15 +102,10 @@ public partial class CMSModules_BadWords_BadWords_Edit_Cultures : GlobalAdminPag
 
     protected string GetCurrentValues()
     {
-        string currentValues = null;
-        DataSet ds = BadWordCultureInfoProvider.GetBadWordCultures("WordID=" + EditedBadWord.WordID, null);
-        
-        // Initialize selector
-        if (!DataHelper.DataSourceIsEmpty(ds))
-        {
-            currentValues = TextHelper.Join(";", DataHelper.GetStringValues(ds.Tables[0], "CultureID"));
-        }
-        return currentValues;
+        var words = new ObjectQuery<BadWordCultureInfo>().WhereEquals("WordID", EditedBadWord.WordID).Column("CultureID")
+                            .Select(i => i.CultureID);
+
+        return TextHelper.Join(";", words);
     }
 
 

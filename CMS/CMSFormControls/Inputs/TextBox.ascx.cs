@@ -30,9 +30,6 @@ public partial class CMSFormControls_Inputs_TextBox : FormEngineUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Set trimming ability from form controls parameters
-        Trim = ValidationHelper.GetBoolean(GetValue("trim"), false);
-
         CheckMinMaxLength = true;
         CheckRegularExpression = true;
     }

@@ -285,16 +285,6 @@ public partial class CMSModules_Content_CMSDesk_New_NewFile : CMSContentPage
         // Save temporary attachments
         DocumentHelper.SaveTemporaryAttachments(node, Guid, SiteContext.CurrentSiteName);
 
-        // Create default SKU if configured
-        if (ModuleManager.CheckModuleLicense(ModuleName.ECOMMERCE, RequestContext.CurrentDomain, FeatureEnum.Ecommerce, ObjectActionEnum.Insert))
-        {
-            bool? skuCreated = node.CreateDefaultSKU();
-            if (skuCreated.HasValue && !skuCreated.Value)
-            {
-                ShowError(GetString("com.CreateDefaultSKU.Error"));
-            }
-        }
-
         // Set additional values
         if (!string.IsNullOrEmpty(fileExtension))
         {

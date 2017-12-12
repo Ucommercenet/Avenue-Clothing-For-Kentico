@@ -280,7 +280,7 @@ public static class Functions
 
 
     /// <summary>
-    /// Resolves the inline control macros within the parent controls collection and loads the dynamic controls instead.
+    /// Resolves the dynamic control macros within the parent controls collection and loads the dynamic controls instead.
     /// </summary>
     /// <param name="parent">Parent control of the control tree to resolve</param>
     public static void ResolveDynamicControls(Control parent)

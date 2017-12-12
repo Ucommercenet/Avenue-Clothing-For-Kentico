@@ -45,54 +45,6 @@ public partial class CMSInstall_Controls_WizardSteps_DatabaseDialog : CMSUserCon
 
 
     /// <summary>
-    /// Schema name.
-    /// </summary>
-    public string SchemaText
-    {
-        get
-        {
-            return txtSchema.Text.Trim();
-        }
-    }
-
-
-    /// <summary>
-    /// Schema control client ID.
-    /// </summary>
-    public string SchemaClientID
-    {
-        get
-        {
-            return txtSchema.ClientID;
-        }
-    }
-
-
-    /// <summary>
-    /// Schema label client ID.
-    /// </summary>
-    public string SchemaLabelClientID
-    {
-        get
-        {
-            return lblSchema.ClientID;
-        }
-    }
-
-
-    /// <summary>
-    /// Advanced label client ID.
-    /// </summary>
-    public string AdvancedLabelClientID
-    {
-        get
-        {
-            return lblAdvanced.ClientID;
-        }
-    }
-
-
-    /// <summary>
     /// Gets or sets if use existing radio button is checked.
     /// </summary>
     public bool UseExistingChecked
@@ -269,11 +221,7 @@ public partial class CMSInstall_Controls_WizardSteps_DatabaseDialog : CMSUserCon
     protected void Page_Load(object sender, EventArgs e)
     {
         lblExistingDatabaseName.Text = ResHelper.GetFileString("Install.lblExistingDatabaseName");
-        lblAdvanced.Text = ResHelper.GetFileString("install.ShowAdvancedOptions");
-        lblAdvanced.NavigateUrl = "#";
-        lblAdvanced.Attributes.Add("onclick", " AdvancedOptions('?'); ");
         lblNewDatabaseName.Text = ResHelper.GetFileString("Install.lblNewDatabaseName");
-        lblSchema.Text = ResHelper.GetFileString("Install.Schema") + ":";
         lblDatabase.Text = IsDBSeparation ? GetString("separationDB.database") : ResHelper.GetFileString("Install.lblDatabase");
         radCreateNew.Text = ResHelper.GetFileString("Install.radCreateNew");
         radUseExisting.Text = ResHelper.GetFileString("Install.radUseExisting");
@@ -305,7 +253,6 @@ public partial class CMSInstall_Controls_WizardSteps_DatabaseDialog : CMSUserCon
 
             radCreateNew.Checked = false;
             radUseExisting.Checked = true;
-            lblAdvanced.Visible = false;
         }
         else
         {
@@ -535,7 +482,7 @@ public partial class CMSInstall_Controls_WizardSteps_DatabaseDialog : CMSUserCon
     private void DisplaySeparationError(string error)
     {
         plcSeparationError.Visible = true;
-        lblError.Text = TextHelper.LimitLength(HTMLHelper.HTMLEncode(error), 180);
+        lblError.Text = HTMLHelper.HTMLEncode(TextHelper.LimitLength(error, 180));
         lblError.ToolTip = error;
     }
 
@@ -545,7 +492,7 @@ public partial class CMSInstall_Controls_WizardSteps_DatabaseDialog : CMSUserCon
     /// </summary>
     private void DisplayStoppingTasks()
     {
-        ltlStatus.Text = ScriptHelper.GetLoaderInlineHtml(Page, GetString("general.disabling"));
+        ltlStatus.Text = ScriptHelper.GetLoaderInlineHtml(GetString("general.disabling"));
         plcRunningTasks.Visible = true;
         lblTaskStatus.Visible = true;
         lblStatusValue.Visible = true;

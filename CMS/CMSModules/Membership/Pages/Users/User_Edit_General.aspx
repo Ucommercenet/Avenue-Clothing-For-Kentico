@@ -10,6 +10,7 @@
     TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/Inputs/EmailInput.ascx" TagName="EmailInput" 
     TagPrefix="cms" %>
+<%@ Register Src="~/CMSAdminControls/UI/UniSelector/UniSelector.ascx" TagPrefix="cms" TagName="UniSelector" %>
 
 <asp:Content ID="cntBody" runat="server" ContentPlaceHolderID="plcContent">
     <asp:PlaceHolder ID="plcTable" runat="server">
@@ -25,7 +26,7 @@
             </div>
             <div class="form-group">
                 <div class="editing-form-label-cell">
-                    <cms:LocalizedLabel ShowRequiredMark="True" AssociatedControlID="txtFullName" CssClass="control-label" ID="lblFullName" runat="server" EnableViewState="false" ResourceString="Administration-User_Edit_General.FullName" />
+                    <cms:LocalizedLabel AssociatedControlID="txtFullName" CssClass="control-label" ID="lblFullName" runat="server" EnableViewState="false" ResourceString="Administration-User_Edit_General.FullName" />
                 </div>
                 <div class="editing-form-value-cell">
                     <cms:CMSTextBox ID="txtFullName" runat="server" MaxLength="200" />
@@ -80,6 +81,15 @@
                 </div>
                 <div class="editing-form-value-cell">
                     <cms:EnumSelector runat="server" ID="drpPrivilege" AssemblyName="CMS.Base" TypeName="CMS.Base.UserPrivilegeLevelEnum" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editing-form-label-cell">
+                    <cms:LocalizedLabel AssociatedControlID="drpMacroIdentity" CssClass="control-label" ID="lblMacroIdentity" runat="server" EnableViewState="false" ResourceString="user.macroidentity" ToolTipResourceString="user.macroidentity.tooltip"
+                        DisplayColon="true" />
+                </div>
+                <div class="editing-form-value-cell">
+                    <cms:UniSelector ID="drpMacroIdentity" runat="server" SelectionMode="SingleDropDownList" ObjectType="CMS.MacroIdentity" ReturnColumnName="MacroIdentityID" OrderBy="MacroIdentityName" />
                 </div>
             </div>
             <div class="form-group">

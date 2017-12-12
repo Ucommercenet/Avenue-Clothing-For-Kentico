@@ -1,11 +1,11 @@
 ﻿using System;
 
 using CMS.Base;
+using CMS.Base.Web.UI;
 using CMS.DataEngine;
 using CMS.EventLog;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
-using CMS.PortalEngine.Web.UI;
 
 
 public partial class CMSFormControls_Basic_ToggleButton : FormEngineUserControl
@@ -309,7 +309,7 @@ public partial class CMSFormControls_Basic_ToggleButton : FormEngineUserControl
     {
         base.OnInit(e);
 
-        PortalHelper.EnsureScriptManager(Page);
+        ControlsHelper.EnsureScriptManager(Page);
 
         // Initialize checkbox for special values
         if ((FieldInfo != null) && (FieldInfo.DataType != FieldDataType.Boolean))

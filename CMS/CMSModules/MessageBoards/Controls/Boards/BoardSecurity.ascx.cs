@@ -129,12 +129,19 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardSecurity : CM
         base.OnPreRender(e);
 
         // Check permissions and disable controls
-        if (!MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("cms.messageboards", PERMISSION_MODIFY))
+        if (CheckMessageBoardsPermissions())
         {
-            btnRemoveRole.Enabled = false;
-            addRoles.CurrentSelector.Enabled = false;
-            lstRoles.Enabled = false;
+            return;
         }
+
+        if (CheckGroupPermissions())
+        {
+            return;
+        }
+
+        btnRemoveRole.Enabled = false;
+        addRoles.CurrentSelector.Enabled = false;
+        lstRoles.Enabled = false;
     }
 
 
@@ -359,6 +366,18 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardSecurity : CM
     }
 
 
+    private bool CheckMessageBoardsPermissions()
+    {
+        return GroupID == 0 && MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("cms.messageboards", PERMISSION_MODIFY);
+    }
+
+
+    private bool CheckGroupPermissions()
+    {
+        return GroupID > 0 && CMSDeskPage.CheckGroupPermissions(GroupID, PERMISSION_MANAGE, false);
+    }
+
+
     /// <summary>
     /// Reloads data.
     /// </summary>
@@ -378,23 +397,23 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardSecurity : CM
 
             switch (Board.BoardAccess)
             {
-                    // All users
+                // All users
                 case SecurityAccessEnum.AllUsers:
                     radAllUsers.Checked = true;
                     break;
 
-                    // Authenticated users
+                // Authenticated users
                 case SecurityAccessEnum.AuthenticatedUsers:
                     radOnlyUsers.Checked = true;
                     break;
 
-                    //Selected roles
+                //Selected roles
                 case SecurityAccessEnum.AuthorizedRoles:
                     radOnlyRoles.Checked = true;
                     radOnlyRoles_CheckedChanged(null, null);
                     break;
 
-                    // Group members
+                // Group members
                 case SecurityAccessEnum.GroupMembers:
                     radGroupMembers.Checked = true;
                     radGroupMembers_CheckedChanged(null, null);

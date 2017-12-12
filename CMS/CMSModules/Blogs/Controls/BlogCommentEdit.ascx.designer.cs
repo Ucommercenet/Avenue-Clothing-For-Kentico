@@ -270,7 +270,7 @@ public partial class CMSModules_Blogs_Controls_BlogCommentEdit {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSFormControls_Captcha_SecurityCode ctrlCaptcha;
+    protected global::CMS.FormEngine.Web.UI.SecurityCode ctrlCaptcha;
     
     /// <summary>
     /// plcButtons control.

@@ -50,9 +50,9 @@ public partial class CMSModules_Notifications_Controls_TemplateText : CMSUserCon
     {
         base.OnInit(e);
 
-        mDsGateways = NotificationGatewayInfoProvider.GetGateways(null, null, 11, "GatewayID,GatewayDisplayName");
+        mDsGateways = NotificationGatewayInfoProvider.GetNotificationGateways().TopN(11).Columns("GatewayID,GatewayDisplayName").TypedResult;
 
-        GatewayCount = (!DataHelper.DataSourceIsEmpty(mDsGateways)) ? mDsGateways.Items.Count : 0;
+        GatewayCount = mDsGateways.Items.Count;
     }
 
 

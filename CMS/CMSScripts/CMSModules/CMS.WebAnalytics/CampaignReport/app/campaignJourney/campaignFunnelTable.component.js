@@ -3,7 +3,9 @@
 
     angular.module('cms.webanalytics/campaignreport/campaignFunnelTable.component', [
         'cms.webanalytics/campaignreport/sourceDetailLink.component',
+        'cms.webanalytics/campaignreport/campaignTableCollapseButton.component',
         'cms.webanalytics/campaignreport/campaignFunnelTable.service',
+        'cms.webanalytics/campaignreport/demographicsLink/demographicsLink.component',
         'CMS/Filters.Resolve'
     ])
         .component('cmsCampaignFunnelTable', report())
@@ -28,8 +30,8 @@
     function controller(campaignFunnelTableService) {
         var ctrl = this;
         ctrl.sortTypeName = 'name';
+        ctrl.sortTypeContent = 'content';
         ctrl.sortTypeRate = 'rate';
-        ctrl.sortTypeSource = 'link.text';
 
         ctrl.sortType = ctrl.sortTypeRate;
         ctrl.sortDesc = true;
@@ -46,7 +48,7 @@
                 ctrl.sortType = type;
                 switch (ctrl.sortType) {
                     case ctrl.sortTypeName:
-                    case ctrl.sortTypeSource:
+                    case ctrl.sortTypeContent:
                         ctrl.sortDesc = false;
                         break;
                     default:
@@ -62,8 +64,6 @@
                     return source.name;
                 case ctrl.sortTypeRate:
                     return source.conversionRate;
-                case ctrl.sortTypeSource:
-                    return source.link.text;
                 default:
                     if (typeof ctrl.sortType === 'number') {
                         return source.hits[ctrl.sortType];
@@ -76,6 +76,8 @@
 
         /* Prepare items (rows) for rendered table. */
         ctrl.sources = campaignFunnelTableService.initTableData(ctrl.conversions, ctrl.sourceDetails);
+
+        ctrl.summaryHits = campaignFunnelTableService.getSummaryConversionHits(ctrl.conversions);
 
         ctrl.conversionRate = campaignFunnelTableService.getTotalConversionRate(ctrl.conversions);
 

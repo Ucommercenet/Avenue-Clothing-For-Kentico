@@ -217,7 +217,8 @@ public partial class CMSAdminControls_UI_Macros_MacroRuleDesigner : FormEngineUs
             {
                 var where = GetRulesWhereCondition();
 
-                var ds = MacroRuleInfoProvider.GetMacroRules(where, "MacroRuleDisplayName", 0, "MacroRuleID, MacroRuleDisplayName, MacroRuleDescription, MacroRuleRequiredData");
+                var ds = MacroRuleInfoProvider.GetMacroRules().Where(where).OrderBy("MacroRuleDisplayName")
+                                              .Columns("MacroRuleID, MacroRuleDisplayName, MacroRuleDescription, MacroRuleRequiredData").TypedResult;
                 if (!DataHelper.DataSourceIsEmpty(ds))
                 {
                     AddRules(ds);
@@ -592,10 +593,12 @@ $cmsj(document).ready(InitDesignerAreaSize);
 
     protected void btnFilter_Click(object sender, EventArgs e)
     {
-        string textToFind = txtFilter.Text.ToLowerCSafe();
+        var textToFind = txtFilter.Text?.ToLowerInvariant() ?? string.Empty;
+
         foreach (ListItem item in lstRules.Items)
         {
-            item.Enabled = item.Text.ToLowerCSafe().Contains(textToFind);
+            var text = item.Text?.ToLowerInvariant() ?? string.Empty;
+            item.Enabled = text.Contains(textToFind);
         }
     }
 
@@ -624,7 +627,8 @@ $cmsj(document).ready(InitDesignerAreaSize);
         {
             var sourcePath = parts[0];
 
-            int plusOne = sourcePath.CompareToCSafe((string.IsNullOrEmpty(parts[1]) ? "" : parts[1] + ".") + parts[2]);
+            var combinedParts = (string.IsNullOrEmpty(parts[1]) ? "" : parts[1] + ".") + parts[2];
+            int plusOne = string.Compare(sourcePath, combinedParts, StringComparison.Ordinal);
             plusOne = (plusOne < 0 ? 1 : 0);
 
             var targetPath = (parts[1] == pnlCondtion.ClientID) ? "" : parts[1];
@@ -654,7 +658,7 @@ $cmsj(document).ready(InitDesignerAreaSize);
         var selected = GetSelected(hdnParamSelected.Value);
         if (selected != null)
         {
-            string paramName = hdnParam.Value.ToLowerCSafe();
+            string paramName = hdnParam.Value.ToLowerInvariant();
 
             var param = selected.Parameters[paramName];
             if (param != null)
@@ -666,10 +670,9 @@ $cmsj(document).ready(InitDesignerAreaSize);
                     if (ctrl != null)
                     {
                         var dataType = ctrl.FieldInfo.DataType;
-                        bool nullForDefaultValue = !DataTypeManager.IsNumber(TypeEnum.Field, dataType);
+                        var useNullInsteadOfDefaultValue = UseNullInsteadOfDefaultValue(dataType);
                         
-                        // If value is not a number and it is default value of its data type (e.g. Guid.Empty for Guid), convert it to null
-                        object convertedValue = DataTypeManager.ConvertToSystemType(TypeEnum.Field, dataType, ctrl.Value, null, nullForDefaultValue);
+                        object convertedValue = DataTypeManager.ConvertToSystemType(TypeEnum.Field, dataType, ctrl.Value, null, useNullInsteadOfDefaultValue);
 
                         // Convert values to EN culture
                         string value = ValidationHelper.GetString(convertedValue, String.Empty, CultureHelper.EnglishCulture);
@@ -750,10 +753,7 @@ $cmsj(document).ready(InitDesignerAreaSize);
         List<MacroRuleTree> selected = GetSelected();
         foreach (MacroRuleTree item in selected)
         {
-            if (item.Parent != null)
-            {
-                item.Parent.RemoveNode(item.Position);
-            }
+            item.Parent?.RemoveNode(item.Position);
         }
         hdnSelected.Value = "";
     }
@@ -784,7 +784,7 @@ $cmsj(document).ready(InitDesignerAreaSize);
             if (selected.Count == 1)
             {
                 MacroRuleTree item = selected[0];
-                if ((item != null) && (item.Parent != null))
+                if (item?.Parent != null)
                 {
                     item.Parent.AddRule(rule, item.Position + 1);
                     return;
@@ -807,6 +807,14 @@ $cmsj(document).ready(InitDesignerAreaSize);
         pnlFooter.Visible = true;
         mdlDialog.Visible = true;
         mdlDialog.Show();
+    }
+
+
+    private static bool UseNullInsteadOfDefaultValue(string dataType)
+    {
+        // For data types except numeric and boolean ones we need to use null value instead of default one
+        // To avoid usage of Guid.Empty for Guid data type etc.
+        return !DataTypeManager.IsNumber(TypeEnum.Field, dataType) && !DataTypeManager.IsType<bool>(TypeEnum.Field, dataType);
     }
 
     #endregion
@@ -871,7 +879,7 @@ $cmsj(document).ready(InitDesignerAreaSize);
         MacroRuleTree selected = GetSelected((actual ? hdnParamSelected.Value : hdnLastSelected.Value));
         if (selected != null)
         {
-            string paramName = (actual ? hdnParam.Value.ToLowerCSafe() : hdnLastParam.Value.ToLowerCSafe());
+            string paramName = (actual ? hdnParam.Value.ToLowerInvariant() : hdnLastParam.Value.ToLowerInvariant());
             MacroRuleParameter param = selected.Parameters[paramName];
             if (param != null)
             {
@@ -971,14 +979,14 @@ $cmsj(document).ready(InitDesignerAreaSize);
         {
         }
 
-        string user;
+        MacroIdentityOption identityOption;
         if (xml == null)
         {
-            return MacroSecurityProcessor.RemoveMacroSecurityParams(expression, out user);
+            return MacroSecurityProcessor.RemoveMacroSecurityParams(expression, out identityOption);
         }
 
         // Returns first parameter of the expression
-        return MacroSecurityProcessor.RemoveMacroSecurityParams(ValidationHelper.GetString(xml.Value, ""), out user);
+        return MacroSecurityProcessor.RemoveMacroSecurityParams(ValidationHelper.GetString(xml.Value, ""), out identityOption);
     }
 
 
@@ -988,14 +996,11 @@ $cmsj(document).ready(InitDesignerAreaSize);
     public void ParseFromExpression(string expression)
     {
         MacroExpression xml = MacroExpression.ExtractParameter(expression, "rule", 1);
-        if (xml != null)
+        if (xml?.Type == ExpressionType.Value)
         {
             // Load from the XML
-            if (xml.Type == ExpressionType.Value)
-            {
-                LoadFromXML(xml.Value.ToString());
-                return;
-            }
+            LoadFromXML(xml.Value.ToString());
+            return;
         }
 
         // If something went wrong, assign null to the state variable

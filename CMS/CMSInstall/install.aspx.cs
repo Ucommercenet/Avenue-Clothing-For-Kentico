@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Security;
 using System.Security.Principal;
+using System.Text;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -37,7 +40,6 @@ public partial class CMSInstall_install : CMSPage
 
         private string mScriptsFullPath;
         private string mConnectionString;
-        private string mDBSchema;
 
         #endregion
 
@@ -74,22 +76,6 @@ public partial class CMSInstall_install : CMSPage
             set
             {
                 mScriptsFullPath = value;
-            }
-        }
-
-
-        /// <summary>
-        /// Database schema.
-        /// </summary>
-        public string DBSchema
-        {
-            get
-            {
-                return mDBSchema;
-            }
-            set
-            {
-                mDBSchema = value;
             }
         }
 
@@ -137,6 +123,11 @@ public partial class CMSInstall_install : CMSPage
     
     // Index of collation dialog step in wizard
     private const int COLLATION_DIALOG_INDEX = 8;
+
+    private const string INSTALL_CHECK_PAYLOAD = "Install Check Payload";
+    private const string INSTALL_CHECK_PURPOSE = "Install POST Check";
+    private const string INSTALL_CHECK_COOKIE_NAME = "CMSInstallCheck";
+    private const string INSTALL_CHECK_EXCEPTION_MESSAGE = "POST request validation error.";
 
     #endregion
 
@@ -579,8 +570,34 @@ public partial class CMSInstall_install : CMSPage
     }
 
 
+    private void ValidatePostRequest()
+    {
+        if (RequestHelper.IsPostBack())
+        {
+            var isValidPostRequest = false;
+            try
+            {
+                var cookieValue = CookieHelper.GetValue(INSTALL_CHECK_COOKIE_NAME);
+                var value = MachineKey.Unprotect(Convert.FromBase64String(cookieValue), INSTALL_CHECK_PURPOSE);
+                isValidPostRequest = INSTALL_CHECK_PAYLOAD.Equals(Encoding.UTF8.GetString(value), StringComparison.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+                throw new SecurityException(INSTALL_CHECK_EXCEPTION_MESSAGE, ex);
+            }
+
+            if (!isValidPostRequest)
+            {
+                throw new SecurityException(INSTALL_CHECK_EXCEPTION_MESSAGE);
+            }
+        }
+    }
+
+
     protected void Page_Load(Object sender, EventArgs e)
     {
+        ValidatePostRequest();
+
         // Disable CSS minification
         CssLinkHelper.MinifyCurrentRequest = false;
         ScriptHelper.MinifyCurrentRequestScripts = false;
@@ -633,28 +650,6 @@ function Finished(sender) {{
                 pnlWarning.ClientID
             );
 
-            // JS for advanced options link
-            script += "function ShowHideElement(elemid, show) { \n" +
-                           " var elem = document.getElementById(elemid); \n" +
-                           " if (elem) { \n" +
-                           "   if (show=='1') { elem.style.display = ''; } else { elem.style.display = 'none'; } \n" +
-                           " } \n" +
-                           " } \n" +
-                           " function AdvancedOptions(state) { \n" +
-                           "   var elem = document.getElementById('" + hdnAdvanced.ClientID + "'); \n" +
-                           "   if (elem) { \n " +
-                           "      if (state=='1' || state=='?' && (elem.value == '' || elem.value == '0')) { elem.value = '1'; } else { elem.value = '0'; } \n" +
-                           "       ShowHideElement('" + databaseDialog.SchemaClientID + "', elem.value); ShowHideElement('" + databaseDialog.SchemaLabelClientID + "', elem.value); \n" +
-                           "       var label = document.getElementById('" + databaseDialog.AdvancedLabelClientID + "'); \n" +
-                           "       if (label) { " +
-                           "         if (elem.value == '1') { label.innerHTML = " + ScriptHelper.GetString(ResHelper.GetFileString("install.HideAdvancedOptions")) + "; } \n" +
-                           "         else { label.innerHTML = " + ScriptHelper.GetString(ResHelper.GetFileString("install.ShowAdvancedOptions")) + "; } \n" +
-                           "       } \n" +
-                           "   } \n " +
-                           " } \n"
-                ;
-
-
             // Register the script to perform get flags for showing buttons retrieval callback
             ScriptHelper.RegisterClientScriptBlock(this, GetType(), "InstallFunctions", ScriptHelper.GetScript(script));
 
@@ -679,6 +674,9 @@ function Finished(sender) {{
                 {
                     URLHelper.Redirect("~/default.aspx");
                 }
+
+                var protectedValue = MachineKey.Protect(Encoding.UTF8.GetBytes(INSTALL_CHECK_PAYLOAD), INSTALL_CHECK_PURPOSE);
+                CookieHelper.SetValue(INSTALL_CHECK_COOKIE_NAME, Convert.ToBase64String(protectedValue), DateTime.MinValue);
 
                 bool checkPermission = QueryHelper.GetBoolean("checkpermission", true);
                 bool testAgain = QueryHelper.GetBoolean("testagain", false);
@@ -744,9 +742,6 @@ function Finished(sender) {{
 
             // Load the strings
             mDisplayLog = false;
-
-
-            ltlAdvanced.Text = ScriptHelper.GetScript(" AdvancedOptions('" + (hdnAdvanced.Value == "1" ? "1" : "0") + "'); ");
 
             lblCompleted.Text = ResHelper.GetFileString("Install.DBSetupOK");
             lblMediumTrustInfo.Text = ResHelper.GetFileString("Install.MediumTrustInfo");
@@ -1000,14 +995,6 @@ function Finished(sender) {{
                     }
                 }
 
-                // Set DB schema
-                string dbSchema = null;
-                if (hdnAdvanced.Value == "1")
-                {
-                    dbSchema = databaseDialog.SchemaText;
-                }
-
-                Info.DBSchema = dbSchema;
                 Info.LogContext = ctlAsyncDB.LogContext;
 
                 // Use existing database
@@ -1017,13 +1004,6 @@ function Finished(sender) {{
                     if (!DatabaseHelper.DatabaseExists(ConnectionString))
                     {
                         HandleError(string.Format(ResHelper.GetFileString("Install.ErrorDatabseDoesntExist"), Database));
-                        return;
-                    }
-
-                    // Check if DB schema exists
-                    if (!SqlInstallationHelper.CheckIfSchemaExist(ConnectionString, dbSchema))
-                    {
-                        HandleError(string.Format(ResHelper.GetFileString("Install.ErrorDatabseSchemaDoesnotExist"), dbSchema, SqlInstallationHelper.GetCurrentDefaultSchema(ConnectionString)));
                         return;
                     }
 
@@ -1079,7 +1059,7 @@ function Finished(sender) {{
                         else
                         {
                             // Run SQL installation
-                            RunSQLInstallation(dbSchema);
+                            RunSQLInstallation();
                         }
                     }
                     else
@@ -1112,15 +1092,14 @@ function Finished(sender) {{
 
             // After connection string save error
             case 2:
-                // If connection strings don't match
-                if ((SettingsHelper.ConnectionStrings[ConnectionHelper.ConnectionStringName] == null) ||
-                    (SettingsHelper.ConnectionStrings[ConnectionHelper.ConnectionStringName].ConnectionString == null) ||
-                    (SettingsHelper.ConnectionStrings[ConnectionHelper.ConnectionStringName].ConnectionString.Trim() == "") ||
-                    (SettingsHelper.ConnectionStrings[ConnectionHelper.ConnectionStringName].ConnectionString != ConnectionString))
+                // Check whether connection string is defined
+                if (String.IsNullOrWhiteSpace(SettingsHelper.ConnectionStrings[ConnectionHelper.ConnectionStringName]?.ConnectionString))
                 {
                     HandleError(ResHelper.GetFileString("Install.ErrorAddConnString"));
                     return;
                 }
+
+                ConnectionString = SettingsHelper.ConnectionStrings[ConnectionHelper.ConnectionStringName].ConnectionString;
 
                 if (CreateDBObjects)
                 {
@@ -1134,7 +1113,7 @@ function Finished(sender) {{
                     else
                     {
                         // Run SQL installation
-                        RunSQLInstallation(null);
+                        RunSQLInstallation();
                     }
                 }
                 else
@@ -1291,19 +1270,13 @@ function Finished(sender) {{
     /// <summary>
     /// Runs SQL installation scripts
     /// </summary>
-    /// <param name="dbSchema">Database schema</param>
-    private void RunSQLInstallation(string dbSchema)
+    private void RunSQLInstallation()
     {
         // Setup the installation
         var info = Info;
 
         info.ScriptsFullPath = SqlInstallationHelper.GetSQLInstallPath();
         info.ConnectionString = ConnectionString;
-
-        if (dbSchema != null)
-        {
-            info.DBSchema = dbSchema;
-        }
 
         info.ClearLog();
 
@@ -1711,7 +1684,7 @@ function Finished(sender) {{
             SqlInstallationHelper.AfterDataGet += OnAfterGetDefaultData;
 
             var info = Info;
-            bool success = SqlInstallationHelper.InstallDatabase(info.ConnectionString, info.ScriptsFullPath, ResHelper.GetFileString("Installer.LogErrorCreateDBObjects"), ResHelper.GetFileString("Installer.LogErrorDefaultData"), Log, info.DBSchema);
+            bool success = SqlInstallationHelper.InstallDatabase(info.ConnectionString, info.ScriptsFullPath, ResHelper.GetFileString("Installer.LogErrorCreateDBObjects"), ResHelper.GetFileString("Installer.LogErrorDefaultData"), Log);
 
             SqlInstallationHelper.AfterDataGet -= OnAfterGetDefaultData;
 
@@ -1748,7 +1721,7 @@ function Finished(sender) {{
     private void OnAfterGetDefaultData(object sender, DataSetPostProcessingEventArgs args)
     {
         // We use the default admin user name for installation as the users may not yet be ready and we count with administrator account to be installed
-        MacroSecurityProcessor.RefreshSecurityParameters(args.Data, UserInfoProvider.DEFAULT_ADMIN_USERNAME);
+        MacroSecurityProcessor.RefreshSecurityParameters(args.Data, new MacroIdentityOption { IdentityName = MacroIdentityInfoProvider.DEFAULT_GLOBAL_ADMINISTRATOR_IDENTITY_NAME });
     }
 
     #endregion

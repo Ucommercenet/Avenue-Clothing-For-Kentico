@@ -63,7 +63,7 @@ public partial class CMSWebParts_Membership_Registration_CustomRegistrationForm 
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSFormControls_Captcha_SecurityCode captchaElem;
+    protected global::CMS.FormEngine.Web.UI.SecurityCode captchaElem;
     
     /// <summary>
     /// btnRegister control.

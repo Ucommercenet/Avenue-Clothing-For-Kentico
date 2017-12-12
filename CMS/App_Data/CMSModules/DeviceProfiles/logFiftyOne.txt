@@ -19,3 +19,10 @@
    at System.IO.FileSystemEnumerableIterator`1.CommonInit()
    at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
    at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-12T12:03:35.0740550Z - 21676 - Warn - Exception cleaning temporary files
+2017-12-12T12:03:35.0770639Z - 21676 - Warn - 
+2017-12-12T12:03:35.0770639Z - 21676 - Warn - Could not find a part of the path 'C:\Repositories\Avenue Clothing Kentico (WF)\CMS\App_Data\51Degrees'.
+2017-12-12T12:03:35.0790685Z - 21676 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()

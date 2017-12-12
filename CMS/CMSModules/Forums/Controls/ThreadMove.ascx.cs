@@ -5,6 +5,7 @@ using System.Data;
 using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
+using CMS.DataEngine;
 using CMS.Forums;
 using CMS.Forums.Web.UI;
 using CMS.Helpers;
@@ -101,7 +102,7 @@ public partial class CMSModules_Forums_Controls_ThreadMove : ForumViewer
         {
             CopyValuesFromParent(this);
 
-            btnMove.Click += new EventHandler(btnMove_Click);
+            btnMove.Click += btnMove_Click;
 
             if (!RequestHelper.IsPostBack())
             {
@@ -156,10 +157,7 @@ public partial class CMSModules_Forums_Controls_ThreadMove : ForumViewer
 
                 SetValue("TopicMoved", true);
 
-                if (TopicMoved != null)
-                {
-                    TopicMoved(this, null);
-                }
+                TopicMoved?.Invoke(this, null);
             }
         }
         else
@@ -179,20 +177,18 @@ public partial class CMSModules_Forums_Controls_ThreadMove : ForumViewer
             return;
         }
 
-        int currentForumId = 0;
         ForumPostInfo fpi = ForumContext.CurrentThread;
         if ((fpi == null) && (CurrentThread > 0))
         {
             fpi = ForumPostInfoProvider.GetForumPostInfo(CurrentThread);
         }
 
-
         if (fpi != null)
         {
-            bool isOk = AdminMode ? true : ((ForumContext.CurrentForum != null) && (ForumContext.CurrentForum.ForumID == fpi.PostForumID));
+            bool isOk = AdminMode || ((ForumContext.CurrentForum != null) && (ForumContext.CurrentForum.ForumID == fpi.PostForumID));
             if (isOk)
             {
-                currentForumId = fpi.PostForumID;
+                var currentForumId = fpi.PostForumID;
 
                 ForumInfo fi = ForumInfoProvider.GetForumInfo(currentForumId);
                 if (fi != null)
@@ -200,25 +196,32 @@ public partial class CMSModules_Forums_Controls_ThreadMove : ForumViewer
                     ForumGroupInfo fgi = ForumGroupInfoProvider.GetForumGroupInfo(fi.ForumGroupID);
                     if (fgi != null)
                     {
-                        string where = null;
-                        DataSet dsGroups = null;
+                        var whereCondition = new WhereCondition().WhereNotStartsWith("GroupName", "AdHoc").WhereEquals("GroupSiteID", SiteID);
+
                         if (fgi.GroupGroupID > 0)
                         {
-                            where = "GroupName NOT LIKE 'AdHoc%' AND GroupSiteID = " + SiteID + " AND GroupGroupID = " + fgi.GroupGroupID;
+                            whereCondition.WhereEquals("GroupGroupID", fgi.GroupGroupID);
                         }
                         else
                         {
-                            where = "GroupName NOT LIKE 'AdHoc%' AND GroupSiteID = " + SiteID + " AND GroupGroupID IS NULL";
+                            whereCondition.WhereNull("GroupGroupID");
                         }
-                        dsGroups = ForumGroupInfoProvider.GetGroups(where, "GroupDisplayName", 0, "GroupID, GroupDisplayName");
+
+                        DataSet dsGroups = ForumGroupInfoProvider.GetForumGroups().Where(whereCondition).OrderBy("GroupDisplayName").Columns("GroupID, GroupDisplayName");
 
                         if (!DataHelper.DataSourceIsEmpty(dsGroups))
                         {
                             Hashtable forums = new Hashtable();
 
                             // Get all forums for selected groups
-                            string groupWhere = "AND ForumGroupID IN (SELECT GroupID FROM Forums_ForumGroup WHERE " + where + ") ";
-                            DataSet dsForums = ForumInfoProvider.GetForums(" ForumOpen = 1 " + " AND NOT ForumID = " + currentForumId + groupWhere, "ForumDisplayName", 0, "ForumID, ForumDisplayName, ForumGroupID");
+                            var groupWhereCondition = new WhereCondition().WhereIn("ForumGroupID", new ObjectQuery<ForumGroupInfo>().Where(whereCondition).Column("GroupID"));
+                            DataSet dsForums = ForumInfoProvider.GetForums()
+                                                                .WhereEquals("ForumOpen", 1)
+                                                                .WhereNotEquals("ForumID", currentForumId)
+                                                                .Where(groupWhereCondition)
+                                                                .OrderBy("ForumDisplayName")
+                                                                .Columns("ForumID, ForumDisplayName, ForumGroupID")
+                                                                .TypedResult;
 
                             if (!DataHelper.DataSourceIsEmpty(dsForums))
                             {
@@ -226,13 +229,9 @@ public partial class CMSModules_Forums_Controls_ThreadMove : ForumViewer
                                 foreach (DataRow drForum in dsForums.Tables[0].Rows)
                                 {
                                     int groupId = Convert.ToInt32(drForum["ForumGroupID"]);
-                                    List<string[]> forumNames = forums[groupId] as List<string[]>;
-                                    if (forumNames == null)
-                                    {
-                                        forumNames = new List<string[]>();
-                                    }
+                                    List<string[]> forumNames = forums[groupId] as List<string[]> ?? new List<string[]>();
 
-                                    forumNames.Add(new string[] { Convert.ToString(drForum["ForumDisplayName"]), Convert.ToString(drForum["ForumID"]) });
+                                    forumNames.Add(new[] { Convert.ToString(drForum["ForumDisplayName"]), Convert.ToString(drForum["ForumID"]) });
                                     forums[groupId] = forumNames;
                                 }
                             }

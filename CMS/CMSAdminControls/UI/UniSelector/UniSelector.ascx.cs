@@ -88,7 +88,7 @@ public partial class CMSAdminControls_UI_UniSelector_UniSelector : UniSelector, 
 
 
     /// <summary>
-    /// Returns control's client ID based on usage autocomplete. Ussually used in javascript in combination with value property.
+    /// Returns control's client ID based on usage autocomplete. Usually used in javascript in combination with value property.
     /// </summary>
     public string DropDownControlID
     {
@@ -649,11 +649,11 @@ public partial class CMSAdminControls_UI_UniSelector_UniSelector : UniSelector, 
 
         if (!String.IsNullOrEmpty(CssClass))
         {
-            classAtr = String.Format(" class=\"{0}\"", CssClass);
+            classAtr = $" class=\"{CssClass}\"";
         }
         if (!String.IsNullOrEmpty(ControlStyle))
         {
-            styleAtr = String.Format(" style=\"{0}\"", ControlStyle);
+            styleAtr = $" style=\"{ControlStyle}\"";
         }
 
         writer.Write("<div id=\"{0}\"{1}{2}>", UniSelectorClientID, classAtr, styleAtr);
@@ -705,9 +705,9 @@ public partial class CMSAdminControls_UI_UniSelector_UniSelector : UniSelector, 
                     CMSCheckBox chkCheckbox = new CMSCheckBox
                     {
                         ClientIDMode = ClientIDMode.Static,
-                        ID = string.Format("chk{0}_{1}", mCheckBoxClass, itemID)
+                        ID = $"chk{mCheckBoxClass}_{itemID}"
                     };
-                    chkCheckbox.InputAttributes.Add("onclick", String.Format("US_ProcessItem('{0}', {1}, this);", UniSelectorClientID, ScriptSafeValueSeparator));
+                    chkCheckbox.InputAttributes.Add("onclick", $"US_ProcessItem('{UniSelectorClientID}', {ScriptSafeValueSeparator}, this);");
                     chkCheckbox.InputAttributes.Add("class", "chk" + mCheckBoxClass);
 
                     // Keep the check status if checked
@@ -729,11 +729,10 @@ public partial class CMSAdminControls_UI_UniSelector_UniSelector : UniSelector, 
 
                     LinkButton lnkButton = new LinkButton();
                     lnkButton.Text = HTMLHelper.HTMLEncode(TextHelper.LimitLength(itemName, 100));
-                    lnkButton.OnClientClick = String.Format(
-@"if(this.href){{
-    US_ProcessItem('{0}', {1}, document.getElementById('chk{2}_{3}'), true);
+                    lnkButton.OnClientClick = $@"if (this.href) {{
+    US_ProcessItem('{UniSelectorClientID}', {ScriptSafeValueSeparator}, document.getElementById('chk{mCheckBoxClass}_{ScriptHelper.GetString(itemID).Trim('\'')}'), true);
 }}
-return false;", UniSelectorClientID, ScriptSafeValueSeparator, mCheckBoxClass, ScriptHelper.GetString(itemID).Trim('\''));
+return false;";
 
                     val = lnkButton;
                     break;
@@ -827,6 +826,17 @@ return false;", UniSelectorClientID, ScriptSafeValueSeparator, mCheckBoxClass, S
     #region "Public methods"
 
     /// <summary>
+    /// Reloads control's content.
+    /// </summary>
+    protected override void ReloadControlInternal()
+    {
+        base.ReloadControlInternal();
+
+        Reload(true);
+    }
+
+
+    /// <summary>
     /// Reloads all controls.
     /// </summary>
     /// <param name="forceReload">Indicates if data should be loaded from DB</param>
@@ -869,7 +879,7 @@ return false;", UniSelectorClientID, ScriptSafeValueSeparator, mCheckBoxClass, S
     /// Adds CSS class to autocomplete uniselector.
     /// </summary>
     /// <param name="cssClass">Class to add</param>
-    public void AddClassToAutocompleteWidget(String cssClass)
+    public void AddClassToAutocompleteWidget(string cssClass)
     {
         mAdditionalAutocompleteWidgetClass = cssClass;
     }
@@ -880,7 +890,7 @@ return false;", UniSelectorClientID, ScriptSafeValueSeparator, mCheckBoxClass, S
     /// </summary>
     public string GetSelectionDialogScript()
     {
-        var script = String.Format("US_SelectionDialog_{0}(); return false;", UniSelectorClientID);
+        var script = $"US_SelectionDialog_{UniSelectorClientID}(); return false;";
         if (!OnGetSelectionDialogScript.IsBound)
         {
             return script;
@@ -1346,7 +1356,7 @@ function US_SelectNewValue_", UniSelectorClientID, @"(selValue){
         }
         else
         {
-            lblStatus.Text = "[UniSelector]: Object type '" + ObjectType + "' not found.";
+            lblStatus.Text = $"[UniSelector]: Object type '{ObjectType}' not found.";
             StopProcessing = true;
         }
     }
@@ -1503,7 +1513,7 @@ function US_SelectionDialogReady_{0}(rvalue, context)
         if (SelectionMode == SelectionModeEnum.SingleDropDownList)
         {
             // DDL initialization
-            ScriptHelper.RegisterStartupScript(this, typeof(string), "UniSelector_" + UniSelectorClientID, ScriptHelper.GetScript(string.Format("US_InitDropDown(document.getElementById('{0}'))", GetClientID(drpSingleSelect))));
+            ScriptHelper.RegisterStartupScript(this, typeof(string), "UniSelector_" + UniSelectorClientID, ScriptHelper.GetScript($"US_InitDropDown(document.getElementById('{GetClientID(drpSingleSelect)}'))"));
         }
     }
 
@@ -1587,7 +1597,7 @@ function US_SelectionDialogReady_{0}(rvalue, context)
                 ToolTip = GetString("General.CheckAll"),
                 Enabled = Enabled
             };
-            chkAll.InputAttributes.Add("onclick", string.Format("US_SelectAllItems('{0}', {1}, this, 'chk{2}')", UniSelectorClientID, ScriptSafeValueSeparator, mCheckBoxClass));
+            chkAll.InputAttributes.Add("onclick", $"US_SelectAllItems('{UniSelectorClientID}', {ScriptSafeValueSeparator}, this, 'chk{mCheckBoxClass}')");
 
             var headerCell = gridView.HeaderRow.Cells[0];
 
@@ -1775,25 +1785,25 @@ function US_SelectionDialogReady_{0}(rvalue, context)
 
     private string GetSelectButtonScript()
     {
-        return string.Format("US_SelectionDialog_{0}('$|' + US_GetVal('{1}')); return false;", UniSelectorClientID, GetClientID(txtSingleSelect));
+        return $"US_SelectionDialog_{UniSelectorClientID}('$|' + US_GetVal('{GetClientID(txtSingleSelect)}')); return false;";
     }
 
 
     private string GetCleanButtonScript()
     {
-        return string.Format("US_SetVal('{0}', ''); return false;", GetClientID(txtSingleSelect));
+        return $"US_SetVal('{GetClientID(txtSingleSelect)}', ''); return false;";
     }
 
 
     private string GetEditButtonScript(Control inputControl)
     {
-        return string.Format("US_EditItem_{0}(US_GetVal('{1}')); return false;", UniSelectorClientID, GetClientID(inputControl));
+        return $"US_EditItem_{UniSelectorClientID}(US_GetVal('{GetClientID(inputControl)}')); return false;";
     }
 
 
     private string GetNewButtonScript(Control inputControl)
     {
-        return string.Format("US_NewItem_{0}(US_GetVal('{1}')); return false;", UniSelectorClientID, GetClientID(inputControl));
+        return $"US_NewItem_{UniSelectorClientID}(US_GetVal('{GetClientID(inputControl)}')); return false;";
     }
 
     #endregion
@@ -1935,7 +1945,7 @@ function US_SelectionDialogReady_{0}(rvalue, context)
                 HasData = hasData;
             }
 
-            if ((drpSingleSelect.Items.Count == 1) && drpSingleSelect.SelectedValue.Equals(NoneRecordValue))
+            if ((drpSingleSelect.Items.Count == 1) && drpSingleSelect.SelectedValue.Equals(NoneRecordValue, StringComparison.Ordinal))
             {
                 // Disable if only no-data record was added
                 drpSingleSelect.Enabled = false;
@@ -2244,12 +2254,12 @@ function US_SelectionDialogReady_{0}(rvalue, context)
         String events = String.Empty;
         if (!String.IsNullOrEmpty(OnBeforeClientChanged))
         {
-            events += String.Format("$cmsj('#{0}_txtAutocomplete').bind('onBeforeChange', function (e, value) {{{1}}});", ClientID, OnBeforeClientChanged);
+            events += $"$cmsj('#{ClientID}_txtAutocomplete').bind('onBeforeChange', function (e, value) {{{OnBeforeClientChanged}}});";
         }
 
         if (!String.IsNullOrEmpty(OnAfterClientChanged))
         {
-            events += String.Format("$cmsj('#{0}_txtAutocomplete').bind('onAfterChange', function (e, value) {{{1}}});", ClientID, OnAfterClientChanged);
+            events += $"$cmsj('#{ClientID}_txtAutocomplete').bind('onAfterChange', function (e, value) {{{OnAfterClientChanged}}});";
         }
 
         // Initial javascripts

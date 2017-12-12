@@ -300,8 +300,9 @@ public partial class CMSWebParts_SmartSearch_SearchFilter : CMSAbstractWebPart
                 // If query name filled - execute it
                 if (!string.IsNullOrEmpty(FilterQueryName))
                 {
-                    // Execute query
+#pragma warning disable BH2501 // Do not use ExecuteQuery in UI.
                     DataSet ds = ConnectionHelper.ExecuteQuery(FilterQueryName, null, FilterWhere, FilterOrderBy);
+#pragma warning restore BH2501 // Do not use ExecuteQuery in UI.
                     if (!DataHelper.DataSourceIsEmpty(ds))
                     {
                         // Check that dataset has at least 3 columns
@@ -404,7 +405,7 @@ public partial class CMSWebParts_SmartSearch_SearchFilter : CMSAbstractWebPart
 
                         AppendClientHandlers(txtFilter);
 
-                        if (!String.IsNullOrEmpty(DefaultSelectedIndex) && String.IsNullOrEmpty(txtFilter.Text) && !URLHelper.IsPostback())
+                        if (!String.IsNullOrEmpty(DefaultSelectedIndex) && String.IsNullOrEmpty(txtFilter.Text) && !RequestHelper.IsPostBack())
                         {
                             txtFilter.Text = DefaultSelectedIndex;
                         }

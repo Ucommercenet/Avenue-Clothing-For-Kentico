@@ -26,7 +26,7 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_EventBook
         int nodeId = ai.ActivityNodeID;
         ucDetails.AddRow("om.activitydetails.documenturl", GetLinkForDocument(nodeId, ai.ActivityCulture), false);
 
-        GeneralizedInfo iinfo = BaseAbstractInfoProvider.GetInfoById(PredefinedObjectType.EVENTATTENDEE, ai.ActivityItemID);
+        GeneralizedInfo iinfo = ProviderHelper.GetInfoById(PredefinedObjectType.EVENTATTENDEE, ai.ActivityItemID);
         if (iinfo != null)
         {
             ucDetails.AddRow("om.activitydetails.attendee", String.Format("{0} {1} ({2})",

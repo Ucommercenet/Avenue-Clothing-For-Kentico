@@ -58,8 +58,8 @@ public partial class CMSModules_Content_CMSDesk_TemplateSelection : CMSContentPa
         DataClassInfo dci = DataClassInfoProvider.GetDataClassInfo(classId);
         if (dci != null)
         {
-            selTemplate.RootCategory = dci.ClassPageTemplateCategoryID;
-            if (!URLHelper.IsPostback() && (dci.ClassDefaultPageTemplateID > 0))
+            selTemplate.RootCategoryID = dci.ClassPageTemplateCategoryID;
+            if (!RequestHelper.IsPostBack() && (dci.ClassDefaultPageTemplateID > 0))
             {
                 PageTemplateInfo pageTemplate = PageTemplateInfoProvider.GetPageTemplateInfo(dci.ClassDefaultPageTemplateID);
                 if ((pageTemplate != null) && PageTemplateInfoProvider.IsPageTemplateOnSite(pageTemplate.PageTemplateId, SiteContext.CurrentSiteID))

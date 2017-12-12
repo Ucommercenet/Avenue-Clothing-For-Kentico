@@ -11,6 +11,7 @@
         'cms.contactmanagement/contactprofile/submittedForms.component',
         'cms.contactmanagement/contactprofile/notes.component',
         'cms.contactmanagement/contactprofile/detail.component',
+        'cms.contactmanagement/contactprofile/journey.component',
         'CMS/Filters.Resolve'
     ])
     .component('cmsContactProfileFull', contact());
@@ -32,6 +33,7 @@
         this.personaModuleAvailable = dataFromServer.personaModuleAvailable;
         this.formModuleAvailable = dataFromServer.formModuleAvailable;
         this.newsletterModuleAvailable = dataFromServer.newsletterModuleAvailable;
+        this.activitiesExist = dataFromServer.activitiesExist;
     };
 
 }(angular, dataFromServer));

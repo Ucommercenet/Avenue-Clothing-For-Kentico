@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Web.UI.WebControls;
 
-using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.ActionsConfig;
 using CMS.DataEngine;
@@ -16,6 +15,8 @@ using CMS.OnlineForms;
 using CMS.SiteProvider;
 using CMS.UIControls;
 using CMS.UIControls.UniGridConfig;
+
+using Action = CMS.UIControls.UniGridConfig.Action;
 
 
 public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEditControl
@@ -175,7 +176,7 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
 
     protected void gridData_OnAction(string actionName, object actionArgument)
     {
-        switch (actionName.ToLowerCSafe())
+        switch (actionName.ToLowerInvariant())
         {
             case "delete":
                 CheckPermissions("DeleteData");
@@ -197,9 +198,6 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
 
                         // Delete the form record
                         item.Delete();
-
-                        // Update number of entries in BizFormInfo
-                        BizFormInfoProvider.RefreshDataCount(bfi.FormName, bfi.FormSiteID);
                     }
                 }
 
@@ -217,7 +215,7 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
         {
             DataRowView drv = (DataRowView)grv.DataItem;
 
-            switch (sourceName.ToLowerCSafe())
+            switch (sourceName.ToLowerInvariant())
             {
                 case "edit":
                     if (button != null)
@@ -232,13 +230,6 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
                         }
                     }
                     break;
-
-                case "delete":
-                    if (button != null)
-                    {
-                        button.CommandArgument = Convert.ToString(drv[primaryColumn]);
-                    }
-                    break;
             }
         }
 
@@ -250,13 +241,18 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
     {
         if ((bfi != null) && (FormInfo != null))
         {
+            // Update the actions command argument
+            foreach (var action in gridData.GridActions.Actions)
+            {
+                ((Action)action).CommandArgument = primaryColumn;
+            }
+
             // Get existing columns names
             var columnList = GetExistingColumns();
 
             string columns = bfi.FormReportFields;
             if (!string.IsNullOrEmpty(columns))
             {
-                // Get selected columns
                 var selectedColumns = GetSelectedColumns(columns);
 
                 columnList = columnList.Intersect(selectedColumns, StringComparer.InvariantCultureIgnoreCase).ToList();
@@ -292,7 +288,7 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
                 {
                     Caption = fieldCaption,
                     Source = column,
-                    ExternalSourceName = ((ffi != null) && ffi.DataType.EqualsCSafe(FieldDataType.Date, true)) ? DATE_TRANSFORMATION : null,
+                    ExternalSourceName = ((ffi != null) && ffi.DataType.Equals(FieldDataType.Date, StringComparison.OrdinalIgnoreCase)) ? DATE_TRANSFORMATION : null,
                     AllowSorting = true,
                     Wrap = false
                 };
@@ -318,7 +314,7 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
     {
         base.SetValue(propertyName, value);
 
-        switch (propertyName.ToLowerCSafe())
+        switch (propertyName.ToLowerInvariant())
         {
             case "shownewrecordbutton":
                 ShowNewRecordButton = ValidationHelper.GetBoolean(value, false);
@@ -350,7 +346,7 @@ public partial class CMSModules_BizForms_Controls_BizFormEditData : CMSAdminEdit
     /// </summary>
     private List<string> GetExistingColumns()
     {
-        return FormInfo != null ? FormInfo.GetColumnNames(false) : null;
+        return FormInfo?.GetColumnNames(false);
     }
 
 

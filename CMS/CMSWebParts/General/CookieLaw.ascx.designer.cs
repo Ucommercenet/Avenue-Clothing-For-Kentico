@@ -21,6 +21,33 @@ public partial class CMSWebParts_General_CookieLaw {
     protected global::System.Web.UI.WebControls.Label lblText;
     
     /// <summary>
+    /// pnlTrackingConsent control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Panel pnlTrackingConsent;
+    
+    /// <summary>
+    /// ltlTrackingConsentShortText control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal ltlTrackingConsentShortText;
+    
+    /// <summary>
+    /// ltlConsentReferenceMarkup control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal ltlConsentReferenceMarkup;
+    
+    /// <summary>
     /// btnDenyAll control.
     /// </summary>
     /// <remarks>

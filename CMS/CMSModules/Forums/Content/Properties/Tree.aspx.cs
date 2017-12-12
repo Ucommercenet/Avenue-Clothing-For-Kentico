@@ -85,7 +85,7 @@ public partial class CMSModules_Forums_Content_Properties_Tree : CMSForumsPage
         docId = QueryHelper.GetInteger("documentid", 0);
         if (docId > 0)
         {
-            DataSet ds = ForumInfoProvider.GetAllForums("ForumDocumentID = " + docId, null);
+            DataSet ds = ForumInfoProvider.GetForums().WhereEquals("ForumDocumentID", docId);
             if (!DataHelper.DataSourceIsEmpty(ds))
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)

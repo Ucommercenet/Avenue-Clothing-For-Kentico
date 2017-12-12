@@ -48,13 +48,13 @@ public partial class CMSModules_DocumentTypes_FormControls_DocumentTypeIconSelec
     protected global::System.Web.UI.WebControls.PlaceHolder plcCssClass;
     
     /// <summary>
-    /// txtCssClass control.
+    /// fontIconSelector control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMS.Base.Web.UI.CMSTextBox txtCssClass;
+    protected global::CMSAdminControls_UI_FontIconSelector fontIconSelector;
     
     /// <summary>
     /// plcUploaders control.

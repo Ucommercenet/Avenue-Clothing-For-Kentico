@@ -908,7 +908,7 @@ public partial class CMSModules_PortalEngine_Controls_Editable_EditableText : CM
                                     // Maximize editor to fill entire dialog
                                     Editor.RemoveButtons.Add("Maximize");
 
-                                    if (!DeviceContext.CurrentDevice.IsMobile)
+                                    if (!DeviceContext.CurrentDevice.IsMobile())
                                     {
                                         // Desktop browsers
                                         Editor.Config["on"] = "{ 'instanceReady' : function(e) { e.editor.execCommand( 'maximize' ); } }";
@@ -1084,6 +1084,7 @@ public partial class CMSModules_PortalEngine_Controls_Editable_EditableText : CM
                             Editor.Title = Title;
                             Editor.UseInlineMode = UseInlineMode;
                             Editor.ContentsLangDirection = CultureHelper.IsPreferredCultureRTL() ? LanguageDirection.RightToLeft : LanguageDirection.LeftToRight;
+                            Editor.Node = CurrentPageInfo;
 
                             // Set the language
                             try

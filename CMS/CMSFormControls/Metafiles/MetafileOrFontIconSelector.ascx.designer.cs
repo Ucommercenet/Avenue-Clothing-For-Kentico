@@ -21,13 +21,13 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector {
     protected global::CMS.Base.Web.UI.CMSUpdatePanel pnlUpdate;
     
     /// <summary>
-    /// lstOptions control.
+    /// drpThumbnailType control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMS.Base.Web.UI.CMSDropDownList lstOptions;
+    protected global::CMS.Base.Web.UI.CMSDropDownList drpThumbnailType;
     
     /// <summary>
     /// plcMetaFile control.
@@ -57,11 +57,11 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector {
     protected global::System.Web.UI.WebControls.PlaceHolder plcCssClass;
     
     /// <summary>
-    /// txtCssClass control.
+    /// fontIconSelector control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMS.Base.Web.UI.CMSTextBox txtCssClass;
+    protected global::CMSAdminControls_UI_FontIconSelector fontIconSelector;
 }

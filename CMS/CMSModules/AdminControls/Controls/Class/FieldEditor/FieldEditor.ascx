@@ -26,7 +26,7 @@
     <asp:Panel ID="pnlFieldEditorWrapper" runat="server">
         <asp:Panel ID="pnlHeaderActions" runat="server" CssClass="FieldTopMenuPadding" Visible="false">
             <div class="cms-edit-menu">
-                <cms:HeaderActions runat="server" ID="hdrActions" PerformFullPostBack="false" />
+                <cms:HeaderActions runat="server" ID="hdrActions" />
             </div>
         </asp:Panel>
         <asp:Panel ID="pnlHeaderPlaceHolder" runat="server" EnableViewState="false" CssClass="FieldTopMenuPlaceHolder" Visible="false" />

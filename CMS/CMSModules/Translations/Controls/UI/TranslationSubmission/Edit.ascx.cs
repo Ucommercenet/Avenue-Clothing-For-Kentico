@@ -1,6 +1,9 @@
 ﻿using System;
 
+using CMS.DataEngine;
 using CMS.PortalEngine.Web.UI;
+using CMS.SiteProvider;
+using CMS.TranslationServices;
 using CMS.UIControls;
 
 
@@ -11,13 +14,7 @@ public partial class CMSModules_Translations_Controls_UI_TranslationSubmission_E
     /// <summary>
     /// UIForm control used for editing objects properties.
     /// </summary>
-    public UIForm UIFormControl
-    {
-        get
-        {
-            return EditForm;
-        }
-    }
+    public UIForm UIFormControl => EditForm;
 
 
     /// <summary>
@@ -42,12 +39,12 @@ public partial class CMSModules_Translations_Controls_UI_TranslationSubmission_E
     /// </summary>
     public override bool IsLiveSite
     {
-        get 
-        { 
-             return base.IsLiveSite;
+        get
+        {
+            return base.IsLiveSite;
         }
-        set 
-        { 
+        set
+        {
             base.IsLiveSite = value;
             EditForm.IsLiveSite = value;
         }
@@ -60,9 +57,45 @@ public partial class CMSModules_Translations_Controls_UI_TranslationSubmission_E
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        HideUnsupportedFeatures();
         UIFormControl.SubmitButton.Visible = false;
     }
 
     #endregion
+
+    private void HideUnsupportedFeatures()
+    {
+        var submission = UIFormControl.EditedObject as TranslationSubmissionInfo;
+        if (submission == null)
+        {
+            return;
+        }
+
+        var service = TranslationServiceInfoProvider.GetTranslationServiceInfo(submission.SubmissionServiceID);
+        if (service == null)
+        {
+            return;
+        }
+
+        if (!service.TranslationServiceSupportsPriority)
+        {
+            UIFormControl.FieldsToHide.Add("SubmissionPriority");
+        }
+
+        if (!service.TranslationServiceSupportsDeadline)
+        {
+            UIFormControl.FieldsToHide.Add("SubmissionDeadline");
+        }
+
+        if (!service.TranslationServiceSupportsInstructions)
+        {
+            UIFormControl.FieldsToHide.Add("SubmissionInstructions");
+        }
+
+        if (!SettingsKeyInfoProvider.GetBoolValue(SiteContext.CurrentSiteName + ".CMSAllowAttachmentTranslation"))
+        {
+            UIFormControl.FieldsToHide.Add("SubmissionTranslateAttachments");
+        }
+    }
 }
 

@@ -92,6 +92,11 @@
             Represents a container which encapsulates image data that are passed into the image filters.
             </summary>
         </member>
+        <member name="P:CMS.ResponsiveImages.ImageContainer.Metadata">
+            <summary>
+            Image metadata.
+            </summary>
+        </member>
         <member name="M:CMS.ResponsiveImages.ImageContainer.#ctor(CMS.Core.BinaryData,CMS.ResponsiveImages.ImageMetadata)">
             <summary>
             Constructor.
@@ -103,11 +108,6 @@
         <member name="M:CMS.ResponsiveImages.ImageContainer.OpenReadStream">
             <summary>
             Opens a read-only stream with the image's data.
-            </summary>
-        </member>
-        <member name="P:CMS.ResponsiveImages.ImageContainer.Metadata">
-            <summary>
-            Image metadata.
             </summary>
         </member>
         <member name="T:CMS.ResponsiveImages.ImageFilterException">
@@ -139,17 +139,6 @@
             Represents image metadata.
             </summary>
         </member>
-        <member name="M:CMS.ResponsiveImages.ImageMetadata.#ctor(System.Int32,System.Int32,System.String,System.String)">
-            <summary>
-            Creates an instace of the <see cref="T:CMS.ResponsiveImages.ImageMetadata"/> class.
-            </summary>
-            <param name="width">Image width.</param>
-            <param name="height">Image height.</param>
-            <param name="mimeType">Image MIME type.</param>
-            <param name="extension">Image file extension.</param>
-            <exception cref="T:System.ArgumentException">Thrown when <paramref name="mimeType"/> or <paramref name="extension"/> 
-            is <code>null</code> or empty string.</exception>
-        </member>
         <member name="P:CMS.ResponsiveImages.ImageMetadata.Width">
             <summary>
             Image width.
@@ -170,6 +159,15 @@
             Image file extension.
             </summary>
         </member>
+        <member name="M:CMS.ResponsiveImages.ImageMetadata.#ctor(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Creates an instace of the <see cref="T:CMS.ResponsiveImages.ImageMetadata"/> class.
+            </summary>
+            <param name="width">Image width.</param>
+            <param name="height">Image height.</param>
+            <param name="mimeType">Image MIME type.</param>
+            <param name="extension">Image file extension.</param>
+        </member>
         <member name="T:CMS.ResponsiveImages.ImageVariantDefinitionExtensions">
             <summary>
             Extension methods for <see cref="T:CMS.ResponsiveImages.IImageVariantDefinition"/>.
@@ -183,7 +181,7 @@
             <param name="imageContainer">Source image data.</param>
             <param name="context">Image processing context.</param>
             <returns>
-            New instance of <see cref="T:CMS.ResponsiveImages.ImageContainer"/> with transformed image data or <c>null</c> when the definition is not applicable for the provided image.
+            New instance of <see cref="T:CMS.ResponsiveImages.ImageContainer" /> with transformed image data or <c>null</c> when the definition is not applicable for the provided image.
             </returns>
             <exception cref="T:System.ArgumentNullException">Thrown when either of the parameters is null.</exception>
             <exception cref="T:CMS.ResponsiveImages.ImageFilterException">Thrown when an error occurs during a filter application.</exception>
@@ -199,6 +197,11 @@
         <member name="T:CMS.ResponsiveImages.ImageVariantDefinitionManager">
             <summary>
             Provides methods for image variant definition management.
+            </summary>
+        </member>
+        <member name="P:CMS.ResponsiveImages.ImageVariantDefinitionManager.ProviderObject">
+            <summary>
+            Provider object.
             </summary>
         </member>
         <member name="M:CMS.ResponsiveImages.ImageVariantDefinitionManager.SetProvider(CMS.ResponsiveImages.IImageVariantDefinitionProvider)">
@@ -241,14 +244,14 @@
             Returns all registered image variant definitions.
             </summary>
         </member>
-        <member name="P:CMS.ResponsiveImages.ImageVariantDefinitionManager.ProviderObject">
-            <summary>
-            Provider object.
-            </summary>
-        </member>
         <member name="T:CMS.ResponsiveImages.ImageVariantDefinitionProvider">
             <summary>
             Provides image variant definition management implementation for <see cref="T:CMS.ResponsiveImages.ImageVariantDefinitionManager"/>.
+            </summary>
+        </member>
+        <member name="P:CMS.ResponsiveImages.ImageVariantDefinitionProvider.ImageVariantDefinitions">
+            <summary>
+            Collection of registered image variant definition instances.
             </summary>
         </member>
         <member name="M:CMS.ResponsiveImages.ImageVariantDefinitionProvider.RegisterDefinition(CMS.ResponsiveImages.IImageVariantDefinition)">
@@ -283,11 +286,6 @@
             Returns all registered image variant definitions.
             </summary>
         </member>
-        <member name="P:CMS.ResponsiveImages.ImageVariantDefinitionProvider.ImageVariantDefinitions">
-            <summary>
-            Collection of registered image variant definition instances.
-            </summary>
-        </member>
         <member name="T:CMS.ResponsiveImages.IVariantContextScope">
             <summary>
             General interface for variant context scopes which restrict generating of variants based on the context in which the variant is generated.
@@ -304,6 +302,11 @@
             Registers an image variant definition within the system.
             </summary>
         </member>
+        <member name="P:CMS.ResponsiveImages.RegisterImageVariantDefinitionAttribute.MarkedType">
+            <summary>
+            Definition's type.
+            </summary>
+        </member>
         <member name="M:CMS.ResponsiveImages.RegisterImageVariantDefinitionAttribute.#ctor(System.Type)">
             <summary>
             Constructor.
@@ -318,11 +321,6 @@
         <member name="M:CMS.ResponsiveImages.RegisterImageVariantDefinitionAttribute.PreInit">
             <summary>
             Registers the image variant definition during application pre-initialization.
-            </summary>
-        </member>
-        <member name="P:CMS.ResponsiveImages.RegisterImageVariantDefinitionAttribute.MarkedType">
-            <summary>
-            Definition's type.
             </summary>
         </member>
     </members>

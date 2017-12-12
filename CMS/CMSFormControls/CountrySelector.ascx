@@ -1,15 +1,16 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true"
-    Inherits="CMSFormControls_CountrySelector"  Codebehind="CountrySelector.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="CMSFormControls_CountrySelector"  Codebehind="CountrySelector.ascx.cs" %>
 <%@ Register Src="~/CMSAdminControls/UI/UniSelector/UniSelector.ascx" TagName="UniSelector" TagPrefix="cms" %>
-<cms:CMSUpdatePanel ID="pnlUpdate" runat="server" ViewStateMode="Enabled">
-    <ContentTemplate>
-        <div class="country-selector">
-            <cms:UniSelector ID="uniSelectorCountry" runat="server" DisplayNameFormat="{%CountryDisplayName%}"
-                ObjectType="cms.country" ResourcePrefix="countryselector" AllowAll="false" AllowEmpty="false" />
+
+<div class="country-selector">
+    <cms:UniSelector ID="uniSelectorCountry" runat="server" DisplayNameFormat="{%CountryDisplayName%}" SelectionMode="SingleDropDownList"
+        ObjectType="cms.country" ResourcePrefix="countryselector" AllowAll="false" AllowEmpty="false" OnOnSelectionChanged="uniSelectorCountry_OnSelectionChanged" />
+    <cms:CMSUpdatePanel ID="pnlUpdate" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+        <ContentTemplate>
             <asp:PlaceHolder runat="server" ID="plcStates">
-                <cms:UniSelector ID="uniSelectorState" runat="server" DisplayNameFormat="{%StateDisplayName%}"
+                <cms:UniSelector ID="uniSelectorState" runat="server" DisplayNameFormat="{%StateDisplayName%}" SelectionMode="SingleDropDownList"
                     ObjectType="cms.state" ResourcePrefix="stateselector" />
             </asp:PlaceHolder>
-        </div>
-    </ContentTemplate>
-</cms:CMSUpdatePanel>
+        </ContentTemplate>
+    </cms:CMSUpdatePanel>
+</div>
+    

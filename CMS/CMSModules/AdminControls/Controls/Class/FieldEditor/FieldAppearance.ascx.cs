@@ -400,10 +400,14 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_FieldAp
                 Visibility = FieldInfo.Visibility;
 
                 // Load controls for user visibility
-                drpVisibilityControl.DataSource = FormUserControlInfoProvider.GetFormUserControls("UserControlCodeName, UserControlDisplayName", "UserControlForVisibility = 1", "UserControlDisplayName");
+                drpVisibilityControl.DataSource = FormUserControlInfoProvider.GetFormUserControls().Columns("UserControlCodeName, UserControlDisplayName").Where("UserControlForVisibility = 1").OrderBy("UserControlDisplayName");
                 drpVisibilityControl.DataBind();
 
-                FormControlsHelper.SelectSingleValue(FieldInfo.VisibilityControl, drpVisibilityControl, true);
+                var item = drpVisibilityControl.Items.FindByValue(FieldInfo.VisibilityControl, true);
+                if (item != null)
+                {
+                    item.Selected = true;
+                }
             }
 
             plcVisibility.Visible = ShowFieldVisibility;

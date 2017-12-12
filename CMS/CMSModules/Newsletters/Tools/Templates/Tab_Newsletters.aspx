@@ -9,6 +9,7 @@
         CssClass="listing-title" DisplayColon="true" EnableViewState="false" />
     <cms:CMSUpdatePanel runat="server" ID="pnlAvailability">
         <ContentTemplate>
+            <cms:AlertLabel runat="server" AlertType="Error" Visible="False" ID="lblErrorMessage"></cms:AlertLabel>
             <cms:UniSelector ID="usNewsletters" runat="server" IsLiveSite="false" ObjectType="Newsletter.Newsletter"
                 SelectionMode="Multiple" ResourcePrefix="newsletterselect" />
         </ContentTemplate>

@@ -36,7 +36,7 @@ public partial class CMSFormControls_LiveSelectors_InsertImageOrMedia_Tabs_WebLi
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.ToolkitScriptManager scriptManager;
+    protected global::System.Web.UI.ScriptManager scriptManager;
     
     /// <summary>
     /// webLinkSelector control.

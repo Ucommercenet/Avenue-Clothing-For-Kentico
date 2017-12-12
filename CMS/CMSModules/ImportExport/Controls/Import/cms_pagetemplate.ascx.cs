@@ -51,6 +51,13 @@ public partial class CMSModules_ImportExport_Controls_Import_cms_pagetemplate : 
     {
         chkObject.Text = GetString("CMSImport_PageTemplates.ImportSitePageTemplatesScopes");
         chkVariants.Text = GetString("CMSImport_PageTemplates.ImportSitePageTemplatesVariants");
+    }
+
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        base.OnPreRender(e);
+
         Visible = ((SiteImportSettings)Settings).SiteIsIncluded;
     }
 

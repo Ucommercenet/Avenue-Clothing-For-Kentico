@@ -597,7 +597,7 @@ public partial class CMSAdminControls_ImageEditor_ImageEditor : CMSUserControl
             case ImageHelper.ImageTypeEnum.PhysicalFile:
                 if (!String.IsNullOrEmpty(filePath))
                 {
-                    if (CheckPhysicalFilePermissions())
+                    if (!CheckPhysicalFilePermissions())
                     {
                         ReportSavingNotAuthorized();
                         return;
@@ -850,7 +850,7 @@ public partial class CMSAdminControls_ImageEditor_ImageEditor : CMSUserControl
                 // Get parent node ID in case attachment is edited for document not created yet (temporary attachment)
                 int parentNodeId = QueryHelper.GetInteger("parentId", 0);
 
-                node = DocumentHelper.GetDocument(parentNodeId, baseImageEditor.Tree);
+                node = baseImageEditor.Tree.SelectSingleNode(parentNodeId);
             }
         }
     }

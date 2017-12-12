@@ -135,7 +135,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_BBMediaPrope
     {
         if (!StopProcessing)
         {
-            if (!URLHelper.IsPostback() && IsWeb)
+            if (!RequestHelper.IsPostBack() && IsWeb)
             {
                 pnlEmpty.Visible = false;
                 pnlTabs.CssClass = "Dialog_Tabs";
@@ -166,7 +166,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_BBMediaPrope
             widthHeightElem.CustomRefreshCode = ControlsHelper.GetPostBackEventReference(btnHiddenSize, "") + ";return false;";
             widthHeightElem.ShowActions = true;
 
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 EditorClientID = QueryHelper.GetString("editor_clientid", "");
                 widthHeightElem.Locked = true;

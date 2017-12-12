@@ -737,7 +737,7 @@ function SelectAllItems(checkbox, hash) {
             defaultNode.Text = checkBox + defaultNode.Text + "</span>";
 
             // Expand selected categories
-            if (catHasCheckedChildren && !URLHelper.IsPostback())
+            if (catHasCheckedChildren && !RequestHelper.IsPostBack())
             {
                 defaultNode.Expand();
             }

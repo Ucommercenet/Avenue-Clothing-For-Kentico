@@ -91,7 +91,6 @@ public partial class Admin_CMSAdministration : CMSDeskPage
             URLHelper.Redirect(url);
         }
 
-        paneFooter.Visible = SystemContext.DevelopmentMode;
         appListUniview.OnItemDataBound += appListUniview_OnItemDataBound;
         SetupAppList();
     }

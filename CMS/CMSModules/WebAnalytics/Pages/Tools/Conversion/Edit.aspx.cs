@@ -108,7 +108,7 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Conversion_Edit : CMSDe
 
     protected override void OnPreRender(EventArgs e)
     {
-        if (QueryHelper.GetBoolean("saved", false) && !URLHelper.IsPostback())
+        if (QueryHelper.GetBoolean("saved", false) && !RequestHelper.IsPostBack())
         {
             UpdateUniSelector(true);
         }

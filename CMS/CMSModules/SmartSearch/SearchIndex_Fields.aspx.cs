@@ -51,7 +51,7 @@ public partial class CMSModules_SmartSearch_SearchIndex_Fields : GlobalAdminPage
 
         // Get the IndexInfo in order to obtain the ClassID which the index contains.
         SearchIndexInfo sii = SearchIndexInfoProvider.GetSearchIndexInfo(indexId);
-        if ((sii != null) && (sii.IndexSettings != null))
+        if (sii?.IndexSettings != null)
         {
             // Get the index settings
             Dictionary<Guid, SearchIndexSettingsInfo> settingsItems = sii.IndexSettings.Items;

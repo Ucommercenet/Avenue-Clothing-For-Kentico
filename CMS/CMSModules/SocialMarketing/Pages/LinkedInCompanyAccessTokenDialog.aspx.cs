@@ -8,13 +8,13 @@ using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Core;
 using CMS.DataEngine;
-using CMS.ExternalAuthentication;
 using CMS.Globalization;
 using CMS.Helpers;
 using CMS.Membership;
 using CMS.SiteProvider;
 using CMS.SocialMarketing;
 using CMS.UIControls;
+using CMS.SocialMarketing.LinkedInInternal;
 
 using LinkedInHelper = CMS.SocialMarketing.LinkedInHelper;
 

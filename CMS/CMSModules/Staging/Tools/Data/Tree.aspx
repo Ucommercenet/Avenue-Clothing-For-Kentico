@@ -29,7 +29,9 @@
                     currentNode.className = 'ContentTreeItem';
                 }
 
-                parent.frames['tasksContent'].SelectNode(parent.frames['tasksContent'].currentServerId, objectType);
+                if (parent.frames['tasksContent'].SelectNode) {
+                    parent.frames['tasksContent'].SelectNode(parent.frames['tasksContent'].currentServerId, objectType);
+                }
                 document.getElementById('selectedObjectType').value = objectType;
 
                 if (nodeElem != null) {

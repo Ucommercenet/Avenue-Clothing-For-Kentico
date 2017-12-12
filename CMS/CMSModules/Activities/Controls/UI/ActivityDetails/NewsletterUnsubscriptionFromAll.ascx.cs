@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-
-using CMS.Activities;
+﻿using CMS.Activities;
 using CMS.Activities.Web.UI;
-using CMS.MacroEngine;
 using CMS.Newsletters;
 
 
@@ -29,9 +25,8 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_Newslette
             {
                 ucDetails.AddRow("om.activitydetails.newsletter", newsletterInfo.NewsletterDisplayName);
             }
-
-            var issueSubject = MacroSecurityProcessor.RemoveSecurityParameters(issueInfo.IssueSubject, true, null);
-            ucDetails.AddRow("om.activitydetails.newsletterissue", issueSubject);
+            
+            ucDetails.AddRow("om.activitydetails.newsletterissue", issueInfo.IssueDisplayName);
         }
 
         return ucDetails.IsDataLoaded;

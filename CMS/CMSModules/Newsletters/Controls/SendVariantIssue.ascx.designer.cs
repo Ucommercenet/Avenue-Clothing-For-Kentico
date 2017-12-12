@@ -12,15 +12,6 @@
 public partial class CMSModules_Newsletters_Controls_SendVariantIssue {
     
     /// <summary>
-    /// lblTestGroup control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedLabel lblTestGroup;
-    
-    /// <summary>
     /// pnlSlider control.
     /// </summary>
     /// <remarks>
@@ -38,7 +29,6 @@ public partial class CMSModules_Newsletters_Controls_SendVariantIssue {
     /// </remarks>
     protected global::CMSModules_Newsletters_Controls_GroupSizeSlider ucGroupSlider;
     
-   
     /// <summary>
     /// lblAdditionalInfo control.
     /// </summary>

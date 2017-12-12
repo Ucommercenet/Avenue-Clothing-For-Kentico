@@ -9,6 +9,11 @@
             Base automation action
             </summary>
         </member>
+        <member name="P:CMS.Automation.AutomationAction.AutomationManager">
+            <summary>
+            Automation manager
+            </summary>
+        </member>
         <member name="M:CMS.Automation.AutomationAction.RefreshObject">
             <summary>
             Refreshes object instance
@@ -17,11 +22,6 @@
         <member name="M:CMS.Automation.AutomationAction.GetDefaultMacroResolver">
             <summary>
             Gets the default macro resolver.
-            </summary>
-        </member>
-        <member name="P:CMS.Automation.AutomationAction.AutomationManager">
-            <summary>
-            Automation manager
             </summary>
         </member>
         <member name="T:CMS.Automation.AutomationActionEnum">
@@ -54,11 +54,6 @@
             Class representing action to send e-mail
             </summary>
         </member>
-        <member name="M:CMS.Automation.EmailAction.Execute">
-            <summary>
-            Executes action
-            </summary>
-        </member>
         <member name="P:CMS.Automation.EmailAction.Recipients">
             <summary>
             Recipients of e-mail separated by ';' or ','.
@@ -89,19 +84,24 @@
             Whether is e-mail based or template or not 
             </summary>
         </member>
+        <member name="M:CMS.Automation.EmailAction.Execute">
+            <summary>
+            Executes action
+            </summary>
+        </member>
         <member name="T:CMS.Automation.StartProcessAction">
             <summary>
             Class for starting automation process on contact.
             </summary>
         </member>
-        <member name="M:CMS.Automation.StartProcessAction.Execute">
-            <summary>
-            Executes the action.
-            </summary>
-        </member>
         <member name="P:CMS.Automation.StartProcessAction.ProcessName">
             <summary>
             Activity title.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.StartProcessAction.Execute">
+            <summary>
+            Executes the action.
             </summary>
         </member>
         <member name="T:CMS.Automation.AutomationActionContext">
@@ -114,11 +114,6 @@
             Indicates if step permissions should be checked.
             </summary>
         </member>
-        <member name="M:CMS.Automation.AutomationActionContext.RestoreOriginalValues">
-            <summary>
-            Restores the original values to the context
-            </summary>
-        </member>
         <member name="P:CMS.Automation.AutomationActionContext.CheckStepPermissions">
             <summary>
             Indicates if step permissions should be checked.
@@ -127,6 +122,11 @@
         <member name="P:CMS.Automation.AutomationActionContext.CurrentCheckStepPermissions">
             <summary>
             Indicates if step permissions should be checked.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationActionContext.RestoreOriginalValues">
+            <summary>
+            Restores the original values to the context
             </summary>
         </member>
         <member name="T:CMS.Automation.AutomationHelper">
@@ -152,6 +152,11 @@
             Class for automation history log settings.
             </summary>
         </member>
+        <member name="P:CMS.Automation.AutomationLogSettings.StateObjectID">
+            <summary>
+            State object ID
+            </summary>
+        </member>
         <member name="M:CMS.Automation.AutomationLogSettings.#ctor(System.String,System.Int32,System.Int32)">
             <summary>
             Constructor
@@ -159,11 +164,6 @@
             <param name="objectType">Object type</param>
             <param name="objectId">Object ID</param>
             <param name="stateId">State object ID</param>
-        </member>
-        <member name="P:CMS.Automation.AutomationLogSettings.StateObjectID">
-            <summary>
-            State object ID
-            </summary>
         </member>
         <member name="T:CMS.Automation.AutomationTimer">
             <summary>
@@ -330,6 +330,16 @@
         <member name="T:CMS.Automation.AbstractAutomationManager`1">
             <summary>
             Class for managing the marketing automation.
+            </summary>
+        </member>
+        <member name="P:CMS.Automation.AbstractAutomationManager`1.CheckPermissions">
+            <summary>
+            Indicates if step permissions should be checked when the step is moved.
+            </summary>
+        </member>
+        <member name="P:CMS.Automation.AbstractAutomationManager`1.User">
+            <summary>
+            User
             </summary>
         </member>
         <member name="M:CMS.Automation.AbstractAutomationManager`1.GetFirstStep(`0,CMS.Automation.AutomationStateInfo)">
@@ -513,14 +523,6 @@
             <param name="stateObj">State object</param>
             <param name="action">Automation action</param>
         </member>
-        <member name="M:CMS.Automation.AbstractAutomationManager`1.GetUsersWhoCanMove(`0,CMS.Automation.AutomationStateInfo,CMS.WorkflowEngine.Definitions.SourcePoint)">
-            <summary>
-            Returns list of users who can move object to the next step. Users who are approved due to generic roles are not included to the result.
-            </summary>
-            <param name="infoObj">Object instance</param>
-            <param name="stateObj">State object</param>
-            <param name="sourcePoint">Step source point (for steps with multiple outgoing transitions)</param>
-        </member>
         <member name="M:CMS.Automation.AbstractAutomationManager`1.GetUsersWhoCanMove(`0,CMS.Automation.AutomationStateInfo,CMS.WorkflowEngine.Definitions.SourcePoint,System.String,System.String,System.Int32,System.String)">
             <summary>
             Returns list of users who can move object to the next step. Users who are approved due to generic roles are not included to the result.
@@ -532,18 +534,6 @@
             <param name="orderBy">Order by clause</param>
             <param name="topN">Top N items</param>
             <param name="columns">List of columns to return</param>
-        </member>
-        <member name="M:CMS.Automation.AbstractAutomationManager`1.GetUsersWhoCanMove(`0,CMS.Automation.AutomationStateInfo,CMS.WorkflowEngine.Definitions.SourcePoint,System.Boolean,System.Boolean,System.Boolean)">
-            <summary>
-            Returns list of all the users who can move object to the next step.
-            </summary>
-            <param name="infoObj">Object instance</param>
-            <param name="stateObj">State object</param>
-            <param name="sourcePoint">Step source point (for steps with multiple outgoing transitions)</param>
-            <param name="assigned">Indicates if users assigned to the workflow steps should be get. Users in the generic roles are not included</param>
-            <param name="managers">Indicates if users who have the manage workflow permission should be get</param>
-            <param name="administrators">Indicates if users who are global administrators should be get</param>
-            <returns>Returns defined role users, Global administrators and users who have the Manage processes permission for the object</returns>
         </member>
         <member name="M:CMS.Automation.AbstractAutomationManager`1.GetUsersWhoCanMove(`0,CMS.Automation.AutomationStateInfo,CMS.WorkflowEngine.Definitions.SourcePoint,System.Boolean,System.Boolean,System.Boolean,System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -842,16 +832,6 @@
             <param name="triggerData">Trigger data</param>
             <param name="stateData">State data</param>
         </member>
-        <member name="P:CMS.Automation.AbstractAutomationManager`1.CheckPermissions">
-            <summary>
-            Indicates if step permissions should be checked when the step is moved.
-            </summary>
-        </member>
-        <member name="P:CMS.Automation.AbstractAutomationManager`1.User">
-            <summary>
-            User
-            </summary>
-        </member>
         <member name="T:CMS.Automation.AutomationManager">
             <summary>
             Class for managing the marketing automation.
@@ -987,36 +967,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty AutomationHistoryInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new AutomationHistoryInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.Automation.AutomationHistoryInfo.HistoryID">
             <summary>
             ID of history record.
@@ -1102,6 +1052,36 @@
             Process state identification.
             </summary>
         </member>
+        <member name="M:CMS.Automation.AutomationHistoryInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationHistoryInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationHistoryInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.Automation.AutomationHistoryInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty AutomationHistoryInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationHistoryInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new AutomationHistoryInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
         <member name="T:CMS.Automation.AutomationHistoryInfoProvider">
             <summary>
             Class providing AutomationHistoryInfo management.
@@ -1120,13 +1100,6 @@
             <param name="orderBy">Order by expression.</param>
             <param name="topN">Number of records to be selected.</param>        
             <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfoProvider.GetAutomationHistories(System.String,System.String)">
-            <summary>
-            Returns dataset of all automation history records matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
         </member>
         <member name="M:CMS.Automation.AutomationHistoryInfoProvider.GetAutomationHistoryInfo(System.Int32)">
             <summary>
@@ -1186,22 +1159,11 @@
             <param name="endHistoryId">End history ID</param>
             <param name="stateId">State object ID</param>
         </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfoProvider.DeleteObjectsHistories(System.String)">
-            <summary>
-            Removes histories.
-            </summary>
-            <param name="where">Where condition</param>
-        </member>
         <member name="M:CMS.Automation.AutomationHistoryInfoProvider.DeleteObjectsHistories(CMS.DataEngine.IWhereCondition)">
             <summary>
             Removes histories.
             </summary>
             <param name="where">Where condition</param>
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfoProvider.GetAutomationHistoriesInternal">
-            <summary>
-            Returns all automation history records.
-            </summary>
         </member>
         <member name="M:CMS.Automation.AutomationHistoryInfoProvider.GetAutomationHistoriesInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -1211,30 +1173,6 @@
             <param name="orderBy">Order by expression.</param>
             <param name="topN">Number of records to be selected.</param>        
             <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfoProvider.GetAutomationHistoryInfoInternal(System.Int32)">
-            <summary>
-            Returns automation history with specified ID.
-            </summary>
-            <param name="historyId">Automation history ID.</param>        
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfoProvider.GetAutomationHistoryInfoInternal(System.String)">
-            <summary>
-            Returns automation history with specified name.
-            </summary>
-            <param name="historyName">Automation history name.</param>        
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfoProvider.SetAutomationHistoryInfoInternal(CMS.Automation.AutomationHistoryInfo)">
-            <summary>
-            Sets (updates or inserts) specified automation history.
-            </summary>
-            <param name="historyObj">Automation history to be set.</param>        
-        </member>
-        <member name="M:CMS.Automation.AutomationHistoryInfoProvider.DeleteAutomationHistoryInfoInternal(CMS.Automation.AutomationHistoryInfo)">
-            <summary>
-            Deletes specified automation history.
-            </summary>
-            <param name="historyObj">Automation history to be deleted.</param>        
         </member>
         <member name="M:CMS.Automation.AutomationHistoryInfoProvider.GetLastApprovalActionInternal(System.Int32,System.Int32,System.Boolean)">
             <summary>
@@ -1253,6 +1191,11 @@
         <member name="T:CMS.Automation.AutomationStateInfo`1">
             <summary>
             AutomationStateInfo data container class.
+            </summary>
+        </member>
+        <member name="P:CMS.Automation.AutomationStateInfo`1.StateObject">
+            <summary>
+            Object to process automation
             </summary>
         </member>
         <member name="T:CMS.Automation.AutomationStateInfo">
@@ -1279,49 +1222,6 @@
             <summary>
             Workflow state step timeout
             </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets value of the specified column.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">Value</param>
-            <returns>Returns true if the operation was successful</returns>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfo.RegisterProperties">
-            <summary>
-            Registers properties of this object.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty AutomationStateInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new AutomationStateInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="P:CMS.Automation.AutomationStateInfo.StateID">
             <summary>
@@ -1394,10 +1294,48 @@
             State custom data.
             </summary>
         </member>
-        <member name="P:CMS.Automation.AutomationStateInfo`1.StateObject">
+        <member name="M:CMS.Automation.AutomationStateInfo.DeleteObject">
             <summary>
-            Object to process automation
+            Deletes the object using appropriate provider.
             </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationStateInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationStateInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets value of the specified column.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">Value</param>
+            <returns>Returns true if the operation was successful</returns>
+        </member>
+        <member name="M:CMS.Automation.AutomationStateInfo.RegisterProperties">
+            <summary>
+            Registers properties of this object.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationStateInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty AutomationStateInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.AutomationStateInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new AutomationStateInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.Automation.AutomationStateInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="T:CMS.Automation.AutomationStateInfoProvider">
             <summary>
@@ -1452,12 +1390,6 @@
             </summary>
             <param name="stateObj">State object</param>
         </member>
-        <member name="M:CMS.Automation.AutomationStateInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clear hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
         <member name="M:CMS.Automation.AutomationStateInfoProvider.ClearHashtables(System.Boolean)">
             <summary>
             Clear hashtables.
@@ -1472,43 +1404,17 @@
             <param name="data">Custom task data</param>
             <param name="binary">Binary data</param>
         </member>
-        <member name="M:CMS.Automation.AutomationStateInfoProvider.GetAutomationStatesInternal">
+        <member name="M:CMS.Automation.AutomationStateInfoProvider.SetInfo(CMS.Automation.AutomationStateInfo)">
             <summary>
-            Returns all automation states records.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Automation.AutomationStateInfoProvider.GetStatesInternal(System.String,System.String,System.Int32,System.String)">
+        <member name="M:CMS.Automation.AutomationStateInfoProvider.DeleteInfo(CMS.Automation.AutomationStateInfo)">
             <summary>
-            Returns dataset of all states matching the specified parameters.
+            Deletes the object to the database.
             </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfoProvider.GetAutomationStateInfoInternal(System.Int32)">
-            <summary>
-            Returns state with specified ID.
-            </summary>
-            <param name="stateId">state ID.</param>        
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfoProvider.GetAutomationStateInfoInternal(System.Guid)">
-            <summary>
-            Returns state with specified GUID.
-            </summary>
-            <param name="stateGuid">State GUID.</param>        
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfoProvider.SetAutomationStateInfoInternal(CMS.Automation.AutomationStateInfo)">
-            <summary>
-            Sets (updates or inserts) specified state.
-            </summary>
-            <param name="stateObj">state to be set.</param>        
-        </member>
-        <member name="M:CMS.Automation.AutomationStateInfoProvider.DeleteAutomationStateInfoInternal(CMS.Automation.AutomationStateInfo)">
-            <summary>
-            Deletes specified state.
-            </summary>
-            <param name="stateObj">state to be deleted.</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Automation.AutomationStateInfoProvider.DeleteAutomationStatesInternal(System.String,System.Collections.Generic.IList{System.Int32})">
             <summary>
@@ -1550,7 +1456,8 @@
         </member>
         <member name="M:CMS.Automation.AutomationStateInfoProvider.BulkInsertAutomationState(System.Collections.Generic.IEnumerable{CMS.Automation.AutomationStateInfo})">
             <summary>
-            Inserts all automation states given by <paramref name="states" /> collection into database
+            Inserts all automation states given by <paramref name="states" /> collection into database.
+            <see cref="P:CMS.Automation.AutomationStateInfo.StateCreated"/> will be set to the insertion time.
             </summary>
             <param name="states">Collection of automation states to insert into database</param>
         </member>
@@ -1568,51 +1475,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.UpdateData">
-            <summary>
-            Updates the object.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.InsertData">
-            <summary>
-            Inserts the object.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.DeleteData">
-            <summary>
-            Deletes the object.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ObjectWorkflowTriggerInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ObjectWorkflowTriggerInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="P:CMS.Automation.ObjectWorkflowTriggerInfo.TriggerID">
             <summary>
@@ -1669,6 +1531,51 @@
             Parameters of trigger.
             </summary>
         </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.UpdateData">
+            <summary>
+            Updates the object.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.InsertData">
+            <summary>
+            Inserts the object.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.DeleteData">
+            <summary>
+            Deletes the object.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ObjectWorkflowTriggerInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ObjectWorkflowTriggerInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.Automation.ObjectWorkflowTriggerInfoProvider">
             <summary>
             Class providing ObjectWorkflowTriggerInfo management.
@@ -1678,22 +1585,6 @@
             <summary>
             Returns all object workflow triggers.
             </summary>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggers(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all ObjectWorkflowTriggers matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggers(System.String,System.String)">
-            <summary>
-            Returns dataset of all ObjectWorkflowTriggers matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
         </member>
         <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggerInfo(System.Int32)">
             <summary>
@@ -1719,22 +1610,6 @@
             </summary>
             <param name="ObjectWorkflowTriggerId">ObjectWorkflowTrigger ID.</param>
         </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggers(System.String,System.String,System.Int32,System.String,System.Int32)">
-            <summary>
-            Returns dataset of all ObjectWorkflowTriggers for specified site matching the specified parameters.
-            </summary>       
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-            <param name="siteId">Site ID.</param>        		
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggers(System.Int32)">
-            <summary>
-            Returns dataset of all ObjectWorkflowTriggers for specified site.
-            </summary>
-            <param name="siteId">Site ID.</param>        
-        </member>
         <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.DeleteObjectsTriggers(System.String,System.Collections.Generic.IList{System.Int32})">
             <summary>
             Removes triggers associated to selected objects of given type.
@@ -1742,47 +1617,17 @@
             <param name="objectType">Object type</param>
             <param name="ids">List of IDs</param>
         </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggersInternal">
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.SetInfo(CMS.Automation.ObjectWorkflowTriggerInfo)">
             <summary>
-            Returns all object workflow triggers.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggersInternal(System.String,System.String,System.Int32,System.String)">
+        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.DeleteInfo(CMS.Automation.ObjectWorkflowTriggerInfo)">
             <summary>
-            Returns dataset of all ObjectWorkflowTriggers matching the specified parameters.
+            Deletes the object to the database.
             </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggerInfoInternal(System.Int32)">
-            <summary>
-            Returns ObjectWorkflowTrigger with specified ID.
-            </summary>
-            <param name="ObjectWorkflowTriggerId">ObjectWorkflowTrigger ID.</param>        
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.SetObjectWorkflowTriggerInfoInternal(CMS.Automation.ObjectWorkflowTriggerInfo)">
-            <summary>
-            Sets (updates or inserts) specified ObjectWorkflowTrigger.
-            </summary>
-            <param name="ObjectWorkflowTriggerObj">ObjectWorkflowTrigger to be set.</param>        
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.DeleteObjectWorkflowTriggerInfoInternal(CMS.Automation.ObjectWorkflowTriggerInfo)">
-            <summary>
-            Deletes specified ObjectWorkflowTrigger.
-            </summary>
-            <param name="ObjectWorkflowTriggerObj">ObjectWorkflowTrigger to be deleted.</param>        
-        </member>
-        <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.GetObjectWorkflowTriggersInternal(System.String,System.String,System.Int32,System.String,System.Int32)">
-            <summary>
-            Returns dataset of all ObjectWorkflowTriggers for specified site matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-            <param name="siteId">Site ID.</param> 
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Automation.ObjectWorkflowTriggerInfoProvider.Clear(System.String,System.Boolean)">
             <summary>
@@ -1841,6 +1686,11 @@
         <member name="F:CMS.Automation.TriggerDataConstants.TRIGGER_DATA_ACTIVITY_VALUE">
             <summary>
             The trigger activity value dictionary key
+            </summary>
+        </member>
+        <member name="F:CMS.Automation.TriggerDataConstants.TRIGGER_DATA_ACTIVITY_SITEID">
+            <summary>
+            The trigger activity site id dictionary key
             </summary>
         </member>
         <member name="F:CMS.Automation.TriggerDataConstants.TRIGGER_DATA">
@@ -1927,6 +1777,11 @@
             Allowed object type of workflow process that trigger would start. Required field.
             </summary>
         </member>
+        <member name="P:CMS.Automation.TriggerOptions.IgnoreProcesses">
+            <summary>
+            List of processes to ignore.
+            </summary>
+        </member>
         <member name="F:CMS.Automation.TriggerOptions.Resolver">
             <summary>
             Resolver on which macros of triggers will be resolved.
@@ -1945,11 +1800,6 @@
         <member name="F:CMS.Automation.TriggerOptions.AdditionalData">
             <summary>
             The additional data for trigger that will be available in trigger via TriggerParameters[TRIGGER_DATA]
-            </summary>
-        </member>
-        <member name="P:CMS.Automation.TriggerOptions.IgnoreProcesses">
-            <summary>
-            List of processes to ignore.
             </summary>
         </member>
     </members>

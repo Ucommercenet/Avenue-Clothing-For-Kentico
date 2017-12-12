@@ -27,7 +27,7 @@ public partial class CMSModules_MediaLibrary_Tools_FolderActions_SelectFolder_Fo
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.ToolkitScriptManager scriptManager;
+    protected global::System.Web.UI.ScriptManager scriptManager;
     
     /// <summary>
     /// folderFooter control.

@@ -72,8 +72,11 @@ public partial class CMSModules_PortalEngine_UI_WebParts_WebPartProperties_heade
                 // New webpart is loaded via WebPartID
                 if ((webPart == null) && !isNew)
                 {
-                    pti.TemplateInstance.LoadVariants(false, VariantModeEnum.None);
-                    webPart = pti.TemplateInstance.GetWebPart(instanceGuid, -1, 0);
+                    // Clone templateInstance to avoid caching of the temporary template instance loaded with CP/MVT variants
+                    var tempTemplateInstance = pti.TemplateInstance.Clone();
+                    tempTemplateInstance.LoadVariants(false, VariantModeEnum.None);
+
+                    webPart = tempTemplateInstance.GetWebPart(instanceGuid, -1, 0);
                 }
 
                 WebPartInfo wi = (webPart != null) ? WebPartInfoProvider.GetWebPartInfo(webPart.WebPartType) :

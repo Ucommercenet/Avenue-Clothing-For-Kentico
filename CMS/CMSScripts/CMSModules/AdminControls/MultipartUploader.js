@@ -1,5 +1,4 @@
 ﻿cmsdefine([], function () {
-    'use strict';
 
     var MultipartUploader = function () {
 

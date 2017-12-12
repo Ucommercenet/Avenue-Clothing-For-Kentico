@@ -70,7 +70,31 @@ public partial class CMSModules_Activities_Controls_UI_ActivityType_List : CMSAd
     }
 
 
-    void gridElem_OnAction(string actionName, object actionArgument)
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+        if (gridElem.RowsCount > 0)
+        {
+            int i = 0;
+            DataView view = (DataView)gridElem.GridView.DataSource;
+            foreach (DataRow row in view.Table.Rows)
+            {
+                // Hide object menu to system activity types (only custom activity types may be exported)
+                if (!DataHelper.GetBoolValue(row, "ActivityTypeIsCustom"))
+                {
+                    if ((gridElem.GridView.Rows[i].Cells.Count > 0) && (gridElem.GridView.Rows[i].Cells[0].Controls.Count > 2)
+                        && (gridElem.GridView.Rows[i].Cells[0].Controls[2] is ContextMenuContainer))
+                    {
+                        gridElem.GridView.Rows[i].Cells[0].Controls[2].Visible = false;
+                    }
+                }
+
+                i++;
+            }
+        }
+    }
+
+
+    private void gridElem_OnAction(string actionName, object actionArgument)
     {
         switch (actionName)
         {
@@ -111,32 +135,22 @@ public partial class CMSModules_Activities_Controls_UI_ActivityType_List : CMSAd
                 }
 
                 break;
-        }
-        return sender;
-    }
-
-
-    protected void Page_PreRender(object sender, EventArgs e)
-    {
-        if (gridElem.RowsCount > 0)
-        {
-            int i = 0;
-            DataView view = (DataView)gridElem.GridView.DataSource;
-            foreach (DataRow row in view.Table.Rows)
-            {
-                // Hide object menu to system activity types (only custom activity types may be exported)
-                if (!DataHelper.GetBoolValue(row, "ActivityTypeIsCustom"))
+            case "activitytypename":
+                var activityTypeRow = parameter as DataRowView;
+                if (activityTypeRow == null)
                 {
-                    if ((gridElem.GridView.Rows[i].Cells.Count > 0) && (gridElem.GridView.Rows[i].Cells[0].Controls.Count > 2)
-                        && (gridElem.GridView.Rows[i].Cells[0].Controls[2] is ContextMenuContainer))
-                    {
-                        gridElem.GridView.Rows[i].Cells[0].Controls[2].Visible = false;
-                    }
+                    return string.Empty;
                 }
 
-                i++;
-            }
+                // Create tag with activity type name and color
+                var activityTypeInfo = new ActivityTypeInfo(activityTypeRow.Row);
+                return new Tag
+                {
+                    Text = activityTypeInfo.ActivityTypeDisplayName,
+                    Color = activityTypeInfo.ActivityTypeColor
+                };
         }
+        return sender;
     }
 
     #endregion

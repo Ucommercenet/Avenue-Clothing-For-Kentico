@@ -36,7 +36,7 @@ public partial class CMSFormControls_Selectors_InsertImageOrMedia_Tabs_Web {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.ToolkitScriptManager scriptManager;
+    protected global::System.Web.UI.ScriptManager scriptManager;
     
     /// <summary>
     /// webContentSelector control.

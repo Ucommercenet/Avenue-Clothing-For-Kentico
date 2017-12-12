@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 using CMS;
-using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.DocumentEngine;
 using CMS.Helpers;
@@ -177,8 +176,6 @@ public class ContentEditTabsControlExtender : UITabsExtender
 
         var element = e.UIElement;
 
-        string elementName = element.ElementName.ToLowerCSafe();
-
         // Hides UI element if it is not relevant for edited node
         if (DocumentUIHelper.IsElementHiddenForNode(element, Node))
         {
@@ -186,7 +183,7 @@ public class ContentEditTabsControlExtender : UITabsExtender
             return;
         }
 
-        switch (elementName)
+        switch (element.ElementName.ToLowerInvariant())
         {
             case "page":
                 {
@@ -276,11 +273,11 @@ public class ContentEditTabsControlExtender : UITabsExtender
     /// </summary>
     private void HandleContentCheckBox(List<UITabItem> items)
     {
-        var script = String.Format(
-@"var IsCMSDesk = true;
+        var script = $@"
+var IsCMSDesk = true;
 function ShowContent(show) {{
-    document.getElementById('{0}').style.display = show ? 'block' : 'none';
-}}", pnlContent.ClientID);
+    document.getElementById('{pnlContent.ClientID}').style.display = show ? 'block' : 'none';
+}}";
 
         ScriptHelper.RegisterClientScriptBlock(Control.Page, typeof(string), "UserInterfaceEditTabsControlExtender", ScriptHelper.GetScript(script));
 
@@ -293,16 +290,20 @@ function ShowContent(show) {{
     /// </summary>
     private void AppendDesignContentCheckBox()
     {
-        pnlContent = new Panel();
-        pnlContent.ID = "pc";
-        pnlContent.CssClass = "design-showcontent";
+        pnlContent = new Panel
+        {
+            ID = "pc",
+            CssClass = "design-showcontent"
+        };
 
-        chkContent = new CMSCheckBox();
-        chkContent.Text = Control.GetString("EditTabs.DisplayContent");
-        chkContent.ID = "chk";
-        chkContent.AutoPostBack = true;
-        chkContent.EnableViewState = false;
-        chkContent.Checked = PortalHelper.DisplayContentInDesignMode;
+        chkContent = new CMSCheckBox
+        {
+            Text = Control.GetString("EditTabs.DisplayContent"),
+            ID = "chk",
+            AutoPostBack = true,
+            EnableViewState = false,
+            Checked = PortalHelper.DisplayContentInDesignMode
+        };
         chkContent.CheckedChanged += ContentCheckBoxCheckedChanged;
 
         pnlContent.Controls.Add(chkContent);
@@ -321,7 +322,7 @@ function ShowContent(show) {{
         foreach (var tab in items)
         {
             var isDesign = (tab.TabName == "Design");
-            var script = String.Format("ShowContent({0})", isDesign.ToString().ToLower());
+            var script = $"ShowContent({isDesign.ToString().ToLowerInvariant()})";
 
             if (isDesign)
             {

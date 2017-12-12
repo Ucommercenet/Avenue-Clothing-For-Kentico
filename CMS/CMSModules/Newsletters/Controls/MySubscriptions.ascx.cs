@@ -25,9 +25,9 @@ public partial class CMSModules_Newsletters_Controls_MySubscriptions : CMSAdminC
     private UserInfo userInfo;
     private int siteID;
 
-    private readonly ISubscriptionService mSubscriptionService = Service<ISubscriptionService>.Entry();
-    private readonly IUnsubscriptionProvider mUnsubscriptionProvider = Service<IUnsubscriptionProvider>.Entry();
-    private readonly IContactProvider mContactProvider = Service<IContactProvider>.Entry();
+    private readonly ISubscriptionService mSubscriptionService = Service.Resolve<ISubscriptionService>();
+    private readonly IUnsubscriptionProvider mUnsubscriptionProvider = Service.Resolve<IUnsubscriptionProvider>();
+    private readonly IContactProvider mContactProvider = Service.Resolve<IContactProvider>();
 
     #endregion
 
@@ -190,8 +190,6 @@ public partial class CMSModules_Newsletters_Controls_MySubscriptions : CMSAdminC
             InitializeUser();
 
             usNewsletters.WhereCondition = new WhereCondition().WhereEquals("NewsletterSiteID", SiteID).WhereEquals("NewsletterType", (int)EmailCommunicationTypeEnum.Newsletter).ToString(true);
-            usNewsletters.OnSelectionChanged += usNewsletters_OnSelectionChanged;
-            usNewsletters.IsLiveSite = IsLiveSite;
 
             if (IsUserIdentified())
             {
@@ -278,6 +276,9 @@ public partial class CMSModules_Newsletters_Controls_MySubscriptions : CMSAdminC
     /// </summary>
     protected void Page_Load(object sender, EventArgs e)
     {
+        usNewsletters.OnSelectionChanged += usNewsletters_OnSelectionChanged;
+        usNewsletters.IsLiveSite = IsLiveSite;
+
         if (ExternalUse)
         {
             LoadData();

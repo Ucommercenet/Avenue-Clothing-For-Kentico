@@ -51,12 +51,6 @@ public partial class CMSFormControls_System_LocalizableTextBox : LocalizableForm
     /// </summary>
     private const string DEV_PREFIX = "test.";
 
-    /// <summary>
-    /// Maximum resource string key length.
-    /// </summary>
-    private const int MAX_KEY_LENGTH = 200;
-
-
     private const string ADD_ARGUMENT = "add|";
     private const string TEXT_BOX_LOCALIZED_CSS = "input-localized";
 
@@ -515,7 +509,7 @@ public partial class CMSFormControls_System_LocalizableTextBox : LocalizableForm
     {
         if (FieldInfo != null)
         {
-            var maxLength = FieldInfo.GetMaxInputLength(ContextResolver);
+            var maxLength = FieldInfo.GetMaxInputLength();
             if (maxLength > 0)
             {
                 TextBox.MaxLength = maxLength;
@@ -605,7 +599,7 @@ public partial class CMSFormControls_System_LocalizableTextBox : LocalizableForm
 
             TextBox.ToolTip =
                 mUserHasPermissionForLocalizations ?
-                String.Format(GetString("localizable.localized"), GetResouceKeyFromString(OriginalValue)) :
+                String.Format(GetString("localizable.localized"), GetResourceKeyFromString(OriginalValue)) :
                 GetString("localizable.localizedwithoutpermissions");
         }
         // Textbox contains only plain text
@@ -718,40 +712,42 @@ function LocalizationDialog", ClientID, @"(value) {
         // Save changes only when translation is edited
         if (IsLocalizationMacro && mUserHasPermissionForLocalizations && LocalizationExists && !IsInplaceMacro(OriginalValue))
         {
-            string resKey = GetResouceKeyFromString(OriginalValue);
+            string resKey = GetResourceKeyFromString(OriginalValue);
 
             // Prevent from creating translation containing macro
             if (!MacroProcessor.IsLocalizationMacro(TextBox.Text))
             {
                 resKey = resKey.Trim();
 
-                // Update / insert key
-                var ri = ResourceStringInfoProvider.GetResourceStringInfo(resKey) ?? new ResourceStringInfo
-                {
-                    StringKey = resKey,
-                    StringIsCustom = !SystemContext.DevelopmentMode
-                };
-
-                var translationsText = TextBox.Text.Trim();
-                if (String.IsNullOrEmpty(translationsText))
+                var translationText = TextBox.Text.Trim();
+                if (string.IsNullOrEmpty(translationText))
                 {
                     lblError.Visible = true;
                     lblError.ResourceString = "localize.entertext";
                     return false;
                 }
 
-                ri.TranslationText = translationsText;
-                if (CultureInfoProvider.GetCultureID(CultureHelper.PreferredUICultureCode) != 0)
+                var cultureCode = CultureInfoProvider.GetCultureID(CultureHelper.PreferredUICultureCode) != 0
+                    ? CultureHelper.PreferredUICultureCode
+                    : CultureHelper.DefaultUICultureCode;
+
+                if (IsTranslationChanged(resKey, cultureCode, translationText))
                 {
-                    ri.CultureCode = CultureHelper.PreferredUICultureCode;
-                }
-                else
-                {
-                    ri.CultureCode = CultureHelper.DefaultUICultureCode;
+                    // Update / insert key
+                    var ri = ResourceStringInfoProvider.GetResourceStringInfo(resKey) ?? new ResourceStringInfo
+                    {
+                        StringKey = resKey,
+                        StringIsCustom = !SystemContext.DevelopmentMode
+                    };
+
+                    ri.TranslationText = translationText;
+                    ri.CultureCode = cultureCode;
+
+                    ResourceStringInfoProvider.SetResourceStringInfo(ri);
+                    return true;
                 }
 
-                ResourceStringInfoProvider.SetResourceStringInfo(ri);
-                return true;
+                return false;
             }
         }
 
@@ -759,11 +755,18 @@ function LocalizationDialog", ClientID, @"(value) {
     }
 
 
+    private static bool IsTranslationChanged(string resourceKey, string cultureCode, string translation)
+    {
+        var existingTranslation = LocalizationHelper.GetString(resourceKey, cultureCode);
+        return !string.Equals(existingTranslation, translation, StringComparison.Ordinal);
+    }
+
+
     /// <summary>
     /// Gets the resource string name from the text
     /// </summary>
     /// <param name="text">Text</param>
-    private static string GetResouceKeyFromString(string text)
+    private static string GetResourceKeyFromString(string text)
     {
         return text.Substring(MACRO_START.Length, text.Length - (MACRO_END.Length + MACRO_START.Length));
     }

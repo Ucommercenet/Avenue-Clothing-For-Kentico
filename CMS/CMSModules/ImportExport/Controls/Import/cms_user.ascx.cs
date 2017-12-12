@@ -40,7 +40,6 @@ public partial class CMSModules_ImportExport_Controls_Import_cms_user : ImportEx
     {
         chkObject.Text = GetString("CMSImport_Users.ImportUserDashboards");
         chkSiteObjects.Text = GetString("CMSImport_Users.ImportUserSiteDashboards");
-        chkSiteObjects.Visible = ((SiteImportSettings)Settings).SiteIsIncluded;
         // Javascript
         string script = "var dashboardChck1 = document.getElementById('" + chkObject.ClientID + "'); \n" +
                         "var dashboardChck2 = document.getElementById('" + chkSiteObjects.ClientID + "'); \n" +
@@ -49,6 +48,14 @@ public partial class CMSModules_ImportExport_Controls_Import_cms_user : ImportEx
         ltlScript.Text = ScriptHelper.GetScript(script);
 
         chkObject.Attributes.Add("onclick", "CheckChange();");
+    }
+
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        base.OnPreRender(e);
+
+        chkSiteObjects.Visible = ((SiteImportSettings)Settings).SiteIsIncluded;
     }
 
 

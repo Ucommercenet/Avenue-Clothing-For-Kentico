@@ -272,8 +272,8 @@ public partial class CMSMasterPages_UI_Dialogs_ModalDialogPage : CMSMasterPage, 
 
         bodyElem.Attributes["class"] = mBodyClass;
 
-        CurrentDeviceInfo device = DeviceContext.CurrentDevice;
-        if (!device.IsMobile)
+        var device = DeviceContext.CurrentDevice;
+        if (!device.IsMobile())
         {
             // Footer - apply fixed position
             pnlFooterContent.Style.Add("position", "fixed");
@@ -339,7 +339,7 @@ function ResizeWorkingArea()
             }
         }");
 
-        if (device.IsMobile)
+        if (device.IsMobile())
         {
             resizeScript.Append(@"
         if ((jIframe == null) || (!jIframe.length)) {
@@ -415,11 +415,6 @@ window.onload = function() { ResizeWorkingArea(); };");
         }
 
         ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "resizeScript", ScriptHelper.GetScript(resizeScript.ToString()));
-
-        if (BrowserHelper.IsIE7())
-        {
-            ScriptHelper.RegisterStartupScript(this, typeof(string), "ie7ResizeFix", ScriptHelper.GetScript("document.getElementById('divContent').style.height = '0px';"));
-        }
 
         // Register a script that will re-calculate content height when the CKToolbar is displayed
         const string ckEditorScript = @"

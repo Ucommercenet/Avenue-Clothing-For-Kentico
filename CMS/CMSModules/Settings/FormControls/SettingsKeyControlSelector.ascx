@@ -13,7 +13,7 @@
             <%-- Form control selection --%>
             <asp:Panel ID="pnlFormControl" runat="server" Visible="false" CssClass="selector-subitem">
                 <cms:FormControlSelector ID="ucFormControlSelector" runat="server" ShowInheritedControls="true" ReturnColumnName="UserControlCodeName" AutoPostBack="true" AllowEmptyValue="True"
-                    OnOnSelectionChanged="component_Changed" />
+                    OnOnSelectionChanged="component_Changed" ForcedValueSet="True" />
             </asp:Panel>
             <cms:CMSRadioButton ID="radFileSystem" GroupName="ControlTypeRadGroup" runat="server" AutoPostBack="true" ResourceString="settingskey.filesystempath"
                 OnCheckedChanged="component_Changed" />

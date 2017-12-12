@@ -444,8 +444,7 @@ public partial class CMSModules_MediaLibrary_Controls_MediaLibrary_MediaFileEdit
 
                 pnlPrew.Visible = true;
             }
-            else if (MediaHelper.IsFlash(FileInfo.FileExtension) || MediaHelper.IsAudio(FileInfo.FileExtension) ||
-                     MediaHelper.IsVideo(FileInfo.FileExtension))
+            else if (MediaHelper.IsAudioVideo(FileInfo.FileExtension))
             {
                 mediaPreview.Height = MediaHelper.IsAudio(FileInfo.FileExtension) ? 45 : 180;
                 mediaPreview.Width = 270;
@@ -453,7 +452,6 @@ public partial class CMSModules_MediaLibrary_Controls_MediaLibrary_MediaFileEdit
                 mediaPreview.AutoPlay = false;
                 mediaPreview.AVControls = true;
                 mediaPreview.Loop = false;
-                mediaPreview.Menu = true;
                 mediaPreview.Type = FileInfo.FileExtension;
 
                 // If is Image show image properties

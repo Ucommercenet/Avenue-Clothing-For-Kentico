@@ -66,7 +66,7 @@ public partial class CMSModules_PortalEngine_UI_PageTemplates_PageTemplate_Desig
 
         // Set the design mode
         PortalContext.SetRequestViewMode(ViewModeEnum.Design);
-        ContextHelper.Add("DisplayContentInDesignMode", "0", true, false, false, DateTime.MinValue);
+        ContextHelper.Add(CookieName.DisplayContentInDesignMode, "0", true, false, false, DateTime.MinValue);
 
         ManagersContainer = plcManagers;
         ScriptManagerControl = manScript;

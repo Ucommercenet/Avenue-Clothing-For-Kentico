@@ -368,7 +368,7 @@ public partial class CMSModules_MediaLibrary_Controls_MediaLibrary_FolderActions
                 }
             }
 
-            if (!RequestHelper.IsCallback() && !URLHelper.IsPostback())
+            if (!RequestHelper.IsCallback() && !RequestHelper.IsPostBack())
             {
                 bool performAction = ValidationHelper.GetBoolean(Parameters["performaction"], false);
                 if (performAction)

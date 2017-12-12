@@ -35,7 +35,7 @@ public partial class CMSModules_Personas_Pages_Tab_Rules : CMSDeskPage
 
         listElem.ScoreId = mPersona.PersonaScoreID;
         listElem.EditActionUrl = string.Format("Tab_Rules_Edit.aspx?ruleId={{0}}&personaId={0}", mPersona.PersonaID);
-        listElem.ModifyPermissions = mPersona.CheckPermissions(PermissionsEnum.Modify, CurrentSiteName, CurrentUser);
+        listElem.ModuleNameForPermissionCheck = PersonaInfo.TYPEINFO.ModuleName;
 
         listElem.OverrideUITexts(new CMSModules_Scoring_Controls_UI_Rule_List.UITexts
         {

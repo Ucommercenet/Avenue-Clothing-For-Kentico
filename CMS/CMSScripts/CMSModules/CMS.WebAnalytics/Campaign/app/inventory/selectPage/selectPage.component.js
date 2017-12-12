@@ -48,7 +48,6 @@
         var ctrl = this,
             application = applicationService.application;
 
-        ctrl.itemID = 0;
         ctrl.restUrl = application.getData('applicationUrl') + 'cmsapi/CampaignConversionPage';
         ctrl.restUrlParams = { objType: "page" };
 
@@ -72,13 +71,13 @@
         };
 
         ctrl.isSelectionValid = function () {
-            return ctrl.itemID > 0;
+            return ctrl.detail != null ? ctrl.detail.id > 0 : true;
         }
 
         ctrl.confirm = function () {
             ctrl.form.$setSubmitted();
             if (ctrl.isSelectionValid()) {
-                $uibModalInstance.close(ctrl.itemID);
+                $uibModalInstance.close(ctrl.detail.id);
             }
         };
 

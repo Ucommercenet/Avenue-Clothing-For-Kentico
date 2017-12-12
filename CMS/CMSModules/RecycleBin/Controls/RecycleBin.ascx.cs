@@ -19,8 +19,6 @@ using CMS.Membership;
 using CMS.SiteProvider;
 using CMS.UIControls;
 
-using TreeNode = CMS.DocumentEngine.TreeNode;
-
 
 public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
 {
@@ -623,21 +621,21 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
         {
             TreeProvider tree = new TreeProvider(currentUserInfo);
             tree.AllowAsyncActions = false;
-            VersionManager verMan = VersionManager.GetInstance(tree);
+            VersionManager versionManager = VersionManager.GetInstance(tree);
             // Restore all documents
             foreach (DataRow dataRow in recycleBin.Tables[0].Rows)
             {
-                int versionId = ValidationHelper.GetInteger(dataRow["VersionHistoryID"], 0);
-
                 // Log actual event
                 string taskTitle = HTMLHelper.HTMLEncode(ValidationHelper.GetString(dataRow["DocumentNamePath"], string.Empty));
 
                 // Restore document
-                if (versionId > 0)
+                int versionHistoryId = ValidationHelper.GetInteger(dataRow["VersionHistoryID"], 0);
+                if (versionHistoryId > 0)
                 {
+                    var versionHistoryInfo = GetVersionHistoryInfo(versionHistoryId);
+
                     // Check permissions
-                    TreeNode tn;
-                    if (!IsAuthorizedPerDocument(versionId, "Create", mCurrentUser, out tn, verMan))
+                    if (!IsAuthorizedPerDocument(versionHistoryInfo, "Create", mCurrentUser))
                     {
                         CurrentError = String.Format(ResHelper.GetString("Recyclebin.RestorationFailedPermissions", mCurrentCulture), taskTitle);
                         AddLog(CurrentError);
@@ -645,8 +643,8 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
                     }
                     else
                     {
-                        tn = verMan.RestoreDocument(versionId, tn);
-                        if (tn != null)
+                        var treeNode = versionManager.RestoreDocument(versionHistoryId);
+                        if (treeNode != null)
                         {
                             AddLog(ResHelper.GetString("general.document", mCurrentCulture) + "'" + taskTitle + "'");
                         }
@@ -720,15 +718,15 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
             {
                 TreeProvider tree = new TreeProvider(currentUserInfo);
                 tree.AllowAsyncActions = false;
-                VersionManager verMan = VersionManager.GetInstance(tree);
+                VersionManager versionManager = VersionManager.GetInstance(tree);
 
                 foreach (DataRow dr in recycleBin.Tables[0].Rows)
                 {
                     int versionHistoryId = Convert.ToInt32(dr["VersionHistoryID"]);
+                    var versionHistoryInfo = GetVersionHistoryInfo(versionHistoryId);
                     string documentNamePath = ValidationHelper.GetString(dr["DocumentNamePath"], string.Empty);
                     // Check permissions
-                    TreeNode tn;
-                    if (!IsAuthorizedPerDocument(versionHistoryId, "Destroy", mCurrentUser, out tn, verMan))
+                    if (!IsAuthorizedPerDocument(versionHistoryInfo, "Destroy", mCurrentUser))
                     {
                         CurrentError = String.Format(ResHelper.GetString("Recyclebin.DestructionFailedPermissions", mCurrentCulture), documentNamePath);
                         AddLog(CurrentError);
@@ -737,7 +735,7 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
                     {
                         AddLog(ResHelper.GetString("general.document", mCurrentCulture) + "'" + HTMLHelper.HTMLEncode(ValidationHelper.GetString(dr["DocumentNamePath"], string.Empty)) + "'");
                         // Destroy the version
-                        verMan.DestroyDocumentHistory(ValidationHelper.GetInteger(dr["DocumentID"], 0));
+                        versionManager.DestroyDocumentHistory(ValidationHelper.GetInteger(dr["DocumentID"], 0));
                         LogContext.LogEventToCurrent(EventType.INFORMATION, "Content", "DESTROYDOC", string.Format(ResHelper.GetString("Recyclebin.documentdestroyed"), documentNamePath), RequestContext.RawURL, mCurrentUser.UserID, mCurrentUser.UserName, 0, null, RequestContext.UserHostAddress, SiteContext.CurrentSiteID, SystemContext.MachineName, RequestContext.URLReferrer, RequestContext.UserAgent, DateTime.Now);
                     }
                 }
@@ -894,7 +892,7 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
 
     protected object ugRecycleBin_OnExternalDataBound(object sender, string sourceName, object parameter)
     {
-        sourceName = sourceName.ToLowerCSafe();
+        sourceName = sourceName != null ? sourceName.ToLowerInvariant() : null;
         switch (sourceName)
         {
             case "view":
@@ -903,10 +901,10 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
                 {
                     GridViewRow row = (GridViewRow)parameter;
                     object siteId = DataHelper.GetDataRowViewValue((DataRowView)row.DataItem, "NodeSiteID");
-                    SiteInfo si = SiteInfoProvider.GetSiteInfo(ValidationHelper.GetInteger(siteId, 0));
-                    if (si != null)
+                    SiteInfo siteInfo = SiteInfoProvider.GetSiteInfo(ValidationHelper.GetInteger(siteId, 0));
+                    if (siteInfo != null)
                     {
-                        if (si.Status == SiteStatusEnum.Stopped)
+                        if (siteInfo.Status == SiteStatusEnum.Stopped)
                         {
                             btnView.Enabled = false;
                         }
@@ -917,8 +915,8 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
             case "nodesiteid":
                 {
                     int siteId = ValidationHelper.GetInteger(parameter, 0);
-                    SiteInfo si = SiteInfoProvider.GetSiteInfo(siteId);
-                    return (si != null) ? HTMLHelper.HTMLEncode(si.DisplayName) : string.Empty;
+                    SiteInfo siteInfo = SiteInfoProvider.GetSiteInfo(siteId);
+                    return (siteInfo != null) ? HTMLHelper.HTMLEncode(siteInfo.DisplayName) : string.Empty;
                 }
 
             case "documentname":
@@ -938,61 +936,76 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
     protected void ugRecycleBin_OnAction(string actionName, object actionArgument)
     {
         TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
-        VersionManager verMan = VersionManager.GetInstance(tree);
+        VersionManager versionManager = VersionManager.GetInstance(tree);
         int versionHistoryId = ValidationHelper.GetInteger(actionArgument, 0);
-        TreeNode doc;
+        var versionHistoryInfo = GetVersionHistoryInfo(versionHistoryId);
 
-        switch (actionName.ToLowerCSafe())
+        switch (actionName.ToLowerInvariant())
         {
             case "restore":
-                {
-                    try
-                    {
-                        if (IsAuthorizedPerDocument(versionHistoryId, "Create", mCurrentUser, out doc, verMan))
-                        {
-                            verMan.RestoreDocument(versionHistoryId, doc);
-                            ShowConfirmation(GetString("Recyclebin.RestorationOK"));
-                        }
-                        else
-                        {
-                            ShowError(String.Format(ResHelper.GetString("Recyclebin.RestorationFailedPermissions", mCurrentCulture), HTMLHelper.HTMLEncode(doc.DocumentNamePath)));
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogAndShowError("Content", "RESTOREDOC", ex);
-                    }
-                }
+                RestoreDocumentVersion(versionHistoryInfo, versionManager);
                 break;
+
             case "destroy":
-                {
-                    try
-                    {
-                        if (IsAuthorizedPerDocument(versionHistoryId, "Destroy", mCurrentUser, out doc, verMan))
-                        {
-                            verMan.DestroyDocumentHistory(doc.DocumentID);
-                            ShowConfirmation(GetString("recyclebin.destroyok"));
-                        }
-                        else
-                        {
-                            ShowError(String.Format(ResHelper.GetString("recyclebin.destructionfailedpermissions", mCurrentCulture), HTMLHelper.HTMLEncode(doc.DocumentNamePath)));
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogAndShowError("Content", "DESTROYDOC", ex);
-                    }
-                }
+                DestroyDocumentHistory(versionHistoryInfo, versionManager);
                 break;
         }
 
         ugRecycleBin.ResetSelection();
     }
 
+
+    private void RestoreDocumentVersion(VersionHistoryInfo versionHistoryInfo, VersionManager versionManager)
+    {
+        try
+        {
+            if (IsAuthorizedPerDocument(versionHistoryInfo, "Create", mCurrentUser))
+            {
+                versionManager.RestoreDocument(versionHistoryInfo.VersionHistoryID);
+                ShowConfirmation(GetString("Recyclebin.RestorationOK"));
+            }
+            else
+            {
+                ShowError(String.Format(ResHelper.GetString("Recyclebin.RestorationFailedPermissions", mCurrentCulture), HTMLHelper.HTMLEncode(versionHistoryInfo.DocumentNamePath)));
+            }
+        }
+        catch (Exception ex)
+        {
+            LogAndShowError("Content", "RESTOREDOC", ex);
+        }
+    }
+
+
+    private void DestroyDocumentHistory(VersionHistoryInfo versionHistoryInfo, VersionManager versionManager)
+    {
+        try
+        {
+            if (IsAuthorizedPerDocument(versionHistoryInfo, "Destroy", mCurrentUser))
+            {
+                versionManager.DestroyDocumentHistory(versionHistoryInfo.DocumentID);
+                ShowConfirmation(GetString("recyclebin.destroyok"));
+            }
+            else
+            {
+                ShowError(String.Format(ResHelper.GetString("recyclebin.destructionfailedpermissions", mCurrentCulture), HTMLHelper.HTMLEncode(versionHistoryInfo.DocumentNamePath)));
+            }
+        }
+        catch (Exception ex)
+        {
+            LogAndShowError("Content", "DESTROYDOC", ex);
+        }
+    }
+
     #endregion
 
 
     #region "Helper methods"
+
+    private static VersionHistoryInfo GetVersionHistoryInfo(int versionHistoryId)
+    {
+        return VersionHistoryInfoProvider.GetVersionHistoryInfo(versionHistoryId);
+    }
+
 
     /// <summary>
     /// Merges given where condition with additional settings.
@@ -1074,47 +1087,23 @@ public partial class CMSModules_RecycleBin_Controls_RecycleBin : CMSUserControl
 
 
     /// <summary>
-    /// Check user permissions for document version.
-    /// </summary>
-    /// <param name="versionId">Document version</param>
-    /// <param name="permission">Permission</param>
-    /// <param name="user">User</param>
-    /// <param name="checkedNode">Checked node</param>
-    /// <param name="versionManager">Version manager</param>
-    /// <returns>True if authorized, false otherwise</returns>
-    public bool IsAuthorizedPerDocument(int versionId, string permission, CurrentUserInfo user, out TreeNode checkedNode, VersionManager versionManager)
-    {
-        if (versionManager == null)
-        {
-            TreeProvider tree = new TreeProvider(user);
-            tree.AllowAsyncActions = false;
-            versionManager = VersionManager.GetInstance(tree);
-        }
-
-        // Get the values form deleted node
-        checkedNode = versionManager.GetVersion(versionId);
-        return IsAuthorizedPerDocument(checkedNode, permission, user);
-    }
-
-
-    /// <summary>
     /// Check user permissions for document.
     /// </summary>
-    /// <param name="document">Document</param>
+    /// <param name="versionHistoryInfo">Document version history info</param>
     /// <param name="permission">Permissions</param>
     /// <param name="user">User</param>
     /// <returns>TreeNode if authorized, null otherwise</returns>
-    public bool IsAuthorizedPerDocument(TreeNode document, string permission, CurrentUserInfo user)
+    private bool IsAuthorizedPerDocument(VersionHistoryInfo versionHistoryInfo, string permission, CurrentUserInfo user)
     {
         // Check global permission
-        bool userHasGlobalPerm = user.IsAuthorizedPerResource("CMS.Content", permission);
+        var userHasGlobalPerm = user.IsAuthorizedPerResource("CMS.Content", permission);
 
         // Get the values form deleted node
-        string className = document.NodeClassName;
+        var className = new DocumentClassNameRetriever(versionHistoryInfo.Data, true).Retrieve();
 
-        bool additionalPermission = false;
+        var additionalPermission = false;
 
-        if (permission.ToLowerCSafe() == "create")
+        if (permission.Equals("create", StringComparison.InvariantCultureIgnoreCase))
         {
             additionalPermission = user.IsAuthorizedPerClassName(className, "CreateSpecific");
         }

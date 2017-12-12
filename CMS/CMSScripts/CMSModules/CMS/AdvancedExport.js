@@ -23,7 +23,7 @@
             },
             
             setChecked = function(checked) {
-                $('#' + config.chlColumnsId + ' :checkbox').attr('checked', checked);
+                $('#' + config.chlColumnsId + ' :checkbox').prop('checked', checked);
                 return false;
             },
             
@@ -42,7 +42,7 @@
 
                 for (var i = 0; i < checkBoxes.length; i++) {
                     var indexOfChk = $.inArray(i.toString(), defaultSel);
-                    $(checkBoxes[i]).attr('checked', (indexOfChk > -1));
+                    $(checkBoxes[i]).prop('checked', (indexOfChk > -1));
                 }
                 return false;
             },

@@ -18,11 +18,10 @@ public partial class CMSAdminControls_UI_UIProfiles_UIToolbar : UIToolbar
 {
     #region "Variables"
 
-    protected string preselectedItem = null;
-
-    protected string mElementName = null;
-    protected string mModuleName = null;
-    protected string mTargetFrameset = null;
+    protected string mPreselectedItem;
+    protected string mElementName;
+    protected string mModuleName;
+    protected string mTargetFrameset;
 
     #endregion
 
@@ -247,14 +246,17 @@ public partial class CMSAdminControls_UI_UIProfiles_UIToolbar : UIToolbar
             return;
         }
 
+        string localizationCulture = PortalHelper.GetUILocalizationCulture();
+        uniMenu.ResourceCulture = localizationCulture;
+
         // Handle the pre-selection
-        preselectedItem = QueryHelper.GetString(QueryParameterName, "");
-        if (preselectedItem.StartsWithCSafe("cms.", true))
+        mPreselectedItem = QueryHelper.GetString(QueryParameterName, "");
+        if (mPreselectedItem.StartsWith("cms.", StringComparison.OrdinalIgnoreCase))
         {
-            preselectedItem = preselectedItem.Substring(4);
+            mPreselectedItem = mPreselectedItem.Substring(4);
         }
 
-        uniMenu.HighlightItem = preselectedItem;
+        uniMenu.HighlightItem = mPreselectedItem;
 
         // If element name is not set, use root module element
         string elemName = ElementName;
@@ -276,7 +278,7 @@ public partial class CMSAdminControls_UI_UIProfiles_UIToolbar : UIToolbar
                 UIElementTypeEnum type = ValidationHelper.GetString(dr["ElementType"], "").ToEnum<UIElementTypeEnum>();
 
                 Group group = new Group();
-                if (url.EndsWithCSafe("ascx") && (type == UIElementTypeEnum.UserControl))
+                if (url.EndsWith("ascx", StringComparison.OrdinalIgnoreCase) && (type == UIElementTypeEnum.UserControl))
                 {
                     group.ControlPath = url;
                 }
@@ -294,10 +296,10 @@ public partial class CMSAdminControls_UI_UIProfiles_UIToolbar : UIToolbar
                     group.SeparatorCssClass = "UniMenuSeparator" + name;
                 }
 
-                group.Caption = ResHelper.LocalizeString(ValidationHelper.GetString(dr["ElementCaption"], ""));
+                group.Caption = ResHelper.LocalizeString(ValidationHelper.GetString(dr["ElementCaption"], ""), localizationCulture);
                 if (group.Caption == String.Empty)
                 {
-                    group.Caption = ResHelper.LocalizeString(ValidationHelper.GetString(dr["ElementDisplayName"], ""));
+                    group.Caption = ResHelper.LocalizeString(ValidationHelper.GetString(dr["ElementDisplayName"], ""), localizationCulture);
                 }
                 uniMenu.Groups.Add(group);
             }
@@ -317,7 +319,7 @@ public partial class CMSAdminControls_UI_UIProfiles_UIToolbar : UIToolbar
             var link = PortalUIHelper.GetResourceUIElementLink(ModuleName, ElementName);
             if (!String.IsNullOrEmpty(link))
             {
-                ltlAfter.Text += String.Format("<div class=\"UIElementsLink\" >{0}</div>", link);
+                ltlAfter.Text += $"<div class=\"UIElementsLink\" >{link}</div>";
             }
         }
     }

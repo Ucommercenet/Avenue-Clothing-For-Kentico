@@ -30,36 +30,30 @@
         // Prepare all the shadow holder panels the shadow should be applied to
         ensureUiHeader = function () {
             if ($uiHeader == null || $uiHeader.length <= 0) {
-                if ($('div.shadow-holder').height() > 0) {
-                    $uiHeader.push($('div.shadow-holder'));
-                }
-                if ($('div.PreviewMenu').height() > 0) {
-                    $uiHeader.push($('div.PreviewMenu'));
-                }
-                if ($('div.preview-edit-panel').height() > 0) {
-                    $uiHeader.push($('div.preview-edit-panel'));
-                } 
-                if ($('div#CMSHeaderDiv').height() > 0) {
-                    $uiHeader.push($('div#CMSHeaderDiv'));
-                }
-                if ($('div.object-edit-panel').height() > 0) {
-                    $uiHeader.push($('div.object-edit-panel'));
-                }
-                if ($('div.header-container').height() > 0) {
-                    $uiHeader.push($('div.header-container'));
-                }
-                if ($('div#CKToolbar').height() > 0) {
-                    $uiHeader.push($('div#CKToolbar'));
-                }
-                if ($('div.preview-edit-panel').height() > 0) {
-                    $uiHeader.push($('div.preview-edit-panel'));
-                }
-                if ($('div.cms-edit-menu').height() > 0) {
-                    $uiHeader.push($('div.cms-edit-menu'));
-                }
-                if ($('div.header-actions-container').height() > 0) {
-                    $uiHeader.push($('div.header-actions-container'));
-                }
+
+                var selectors =
+                [
+                    'div.shadow-holder',
+                    'div.PreviewMenu',
+                    'div.preview-edit-panel',
+                    'div#CMSHeaderDiv',
+                    'div.object-edit-panel',
+                    'div.header-container',
+                    'div#CKToolbar',
+                    'div.preview-edit-panel',
+                    'div.cms-edit-menu',
+                    'div.header-actions-container'
+                ]
+
+                selectors.forEach(function (selector) {
+                    if ($(selector).height() > 0) {
+                        $uiHeader.push(
+                            {
+                                $object: $(selector),
+                                selector: selector
+                            });
+                    }
+                })
             }
         },
 
@@ -68,32 +62,32 @@
 
             headerPanelFound = false;
 
-            _.each($uiHeader, function ($header) {
+            _.each($uiHeader, function (header) {
                 // Only one shadow header panel should be selected per scroll
                 if (headerPanelFound === false) {
                     // Find previous siblings. E.g. data driven UI
-                    if (($headerPanel = $(scrollElem).prevAll($header.selector).first()).length > 0) { // .first() is used in order to match only one wrapper
+                    if (($headerPanel = $(scrollElem).prevAll(header.selector)).length > 0) { // .first() is used in order to match only one wrapper
                         scrolled ? $headerPanel.addClass(headerShadowClass) : $headerPanel.removeClass(headerShadowClass);
                         headerPanelFound = true; // We know now the closest shadow holder panel
                     }
                         // Find all previous siblings and then traverse deep down. E.g. Media Library - bottom
-                    else if (($headerPanel = $(scrollElem).prevAll('div').find($header.selector).first()).length > 0) {
+                    else if (($headerPanel = $(scrollElem).prevAll('div').find(header.selector).first()).length > 0) {
                         scrolled ? $headerPanel.addClass(headerShadowClass) : $headerPanel.removeClass(headerShadowClass);
                         headerPanelFound = true;
                     }
                         // Go up and find all previous siblings. Traverse deep down then. E.g. Media Library - top
-                    else if (($headerPanel = $(scrollElem).parents('div').prevAll('div').find($header.selector).first()).length > 0) {
+                    else if (($headerPanel = $(scrollElem).parents('div').prevAll('div').find(header.selector).first()).length > 0) {
                         scrolled ? $headerPanel.addClass(headerShadowClass) : $headerPanel.removeClass(headerShadowClass);
                         headerPanelFound = true;
                     }
                         // You are on the root of document so traverse down directly. E.g. Page, Design or Form tab
-                    else if (($headerPanel = $(scrollElem).find($header).first()).length > 0) { // .selector is missing because this works with an iframe
+                    else if (($headerPanel = $(scrollElem).find(header.$object).first()).length > 0) { // .selector is missing because this works with an iframe
                         scrolled ? $headerPanel.addClass(headerShadowClass) : $headerPanel.removeClass(headerShadowClass);
                         headerPanelFound = true;
                     }
                         // Use the shadow holder directly as a fallback. E.g. Preview mode
                     else {
-                        $headerPanel = $header.first();
+                        $headerPanel = header.$object.first();
                         scrolled ? $headerPanel.addClass(headerShadowClass) : $headerPanel.removeClass(headerShadowClass);
                         headerPanelFound = true;
                     }

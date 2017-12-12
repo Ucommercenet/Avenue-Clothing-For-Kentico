@@ -19,24 +19,7 @@
             "click": function () { allowClose = true; },
             "hide.bs.dropdown": function () { if (!allowClose) return false; }
         });
-
-        // This prevents IE9 bug when caching styles causes bad resolving media queries when opening iframe with lesser width.
-        $('iframe').load(function () {
-            if ($('body').hasClass('IE9')) {
-                var iframeContent = $(this).contents();
-                iframeContent.find('link[rel="stylesheet"]').each(function () {
-
-                    // Add a 'nocache' random num query string to stylesheet's url for disabling the caching.
-                    var cssURL = $(this).attr('href');
-                    if (cssURL) {
-                        cssURL += (cssURL.indexOf('?') != -1) ? '&' : '?';
-                        cssURL += 'nocache=' + (Math.random());
-                        $(this).attr('href', cssURL);
-                    }
-                });
-            }
-        });
-
+        
         // On/off switcher
         $('.has-switch').click(function () {
             $(this).find('.switch').toggle();

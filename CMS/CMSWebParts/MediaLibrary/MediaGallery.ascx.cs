@@ -597,7 +597,7 @@ public partial class CMSWebParts_MediaLibrary_MediaGallery : CMSAbstractWebPart
 
 
     /// <summary>
-    /// Indicates if active content (video, flash etc.) should be displayed.
+    /// Indicates if active content (video etc.) should be displayed.
     /// </summary>
     public bool DisplayActiveContent
     {

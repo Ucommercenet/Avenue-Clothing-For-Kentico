@@ -1,10 +1,12 @@
-﻿(function (angular, _) {
+﻿(function(angular, _) {
     'use strict';
 
-    angular.module('cms.webanalytics/campaignreport/conversionReport.component', [
-        'cms.webanalytics/campaignreport/sourceDetailLink.component',
-        'CMS/Filters.Resolve'
-    ])
+    angular.module('cms.webanalytics/campaignreport/conversionReport.component',[
+            'cms.webanalytics/campaignreport/sourceDetailLink.component',
+            'cms.webanalytics/campaignreport/campaignTableCollapseButton.component',
+            'cms.webanalytics/campaignreport/conversionReport.service',
+            'CMS/Filters.Resolve'
+        ])
         .component('cmsConversionReport', report());
 
     function report() {
@@ -19,10 +21,10 @@
 
         return component;
     }
-
-    function controller() {
+    
+    /*@ngInject*/
+    function controller(conversionReportService) {
         var self = this,
-
             prepareSourceLink = function (source) {
                 var detail = _.find(self.sourceDetails, function (d) {
                     return d.name === source.name;
@@ -34,11 +36,11 @@
             init = function () {
                 if (self.conversion) {
                     self.conversion.sources.map(prepareSourceLink);
+                    self.transformedData = conversionReportService.initTableData(self.conversion);
                 }
-
+                
                 self.sortTypeName = 'name';
                 self.sortTypeHits = 'hits';
-                self.sortTypeSource = 'link.text';
 
                 self.sortType = self.sortTypeHits;
                 self.sortDesc = true;
@@ -53,7 +55,6 @@
                 self.sortType = type;
                 switch (type) {
                     case self.sortTypeName:
-                    case self.sortTypeSource:
                         self.sortDesc = false;
                         break;
                     case self.sortTypeHits:

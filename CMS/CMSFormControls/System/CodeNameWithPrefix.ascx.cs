@@ -91,10 +91,10 @@ public partial class CMSFormControls_System_CodeNameWithPrefix : FormEngineUserC
                 if (AllowEditPrefix)
                 {
                     txtPrefix.Visible = true;
-                    txtPrefix.Text = codeName.Substring(0, codeName.IndexOf(Joiner));
+                    txtPrefix.Text = codeName.Substring(0, codeName.IndexOf(Joiner, StringComparison.Ordinal));
                 }
 
-                txtCodeName.Text = codeName.Substring(codeName.IndexOf(Joiner) + Joiner.Length);
+                txtCodeName.Text = codeName.Substring(codeName.IndexOf(Joiner, StringComparison.Ordinal) + Joiner.Length);
             }
         }
     }

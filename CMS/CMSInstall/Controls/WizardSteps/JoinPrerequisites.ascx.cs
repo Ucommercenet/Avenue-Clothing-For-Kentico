@@ -136,7 +136,7 @@ public partial class CMSInstall_Controls_WizardSteps_JoinPrerequisites : CMSUser
     /// </summary>
     private void DisplayStoppingTasks()
     {
-        ltlStatus.Text = ScriptHelper.GetLoaderInlineHtml(Page, GetString("general.disabling"));
+        ltlStatus.Text = ScriptHelper.GetLoaderInlineHtml(GetString("general.disabling"));
         plcTasks.Visible = true;
         lblTaskStatus.Visible = true;
         lblStatusValue.Visible = true;
@@ -151,7 +151,7 @@ public partial class CMSInstall_Controls_WizardSteps_JoinPrerequisites : CMSUser
     private void DisplaySeparationError(string error)
     {
         plcSeparationError.Visible = true;
-        lblErrorTasks.Text = TextHelper.LimitLength(HTMLHelper.HTMLEncode(error), 180);
+        lblErrorTasks.Text = HTMLHelper.HTMLEncode(TextHelper.LimitLength(error, 180));
         lblErrorTasks.ToolTip = error;
         plcInfo.Visible = false;
     }

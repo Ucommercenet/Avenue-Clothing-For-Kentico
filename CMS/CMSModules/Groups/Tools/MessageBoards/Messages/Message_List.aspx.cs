@@ -71,7 +71,7 @@ public partial class CMSModules_Groups_Tools_MessageBoards_Messages_Message_List
     {
         base.OnPreRender(e);
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             messageList.ReloadData();
         }

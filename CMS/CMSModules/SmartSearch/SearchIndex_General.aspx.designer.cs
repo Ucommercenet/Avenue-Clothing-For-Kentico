@@ -21,6 +21,24 @@ public partial class CMSModules_SmartSearch_SearchIndex_General {
     protected global::CMSModules_SmartSearch_Controls_UI_SearchIndex_General ucSearchIndexEdit;
     
     /// <summary>
+    /// headElem control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedHeading headElem;
+    
+    /// <summary>
+    /// infoMessage control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Search.Web.UI.InfoMessage infoMessage;
+    
+    /// <summary>
     /// pnlIndexInfo control.
     /// </summary>
     /// <remarks>

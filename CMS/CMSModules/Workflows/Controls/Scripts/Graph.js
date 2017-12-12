@@ -58,7 +58,7 @@ var JsPlumbGraph = $class({
         this.readOnly = readOnly;
 
         this.myJsPlumb = jsPlumb.getInstance({ ParentElement: parent });
-        this.myJsPlumb.setRenderMode(jsPlumb.CANVAS);
+        this.myJsPlumb.setRenderMode(readOnly ? jsPlumb.SVG : jsPlumb.CANVAS);
 
         if (service) {
             this.serviceHandler = new GraphSavingServiceRequest(service, this);
@@ -93,7 +93,7 @@ var JsPlumbGraph = $class({
 
         this.nodePadding = 50;
 
-        $cmsj(window).unload(function (graph) {
+        $cmsj(window).bind('unload', function (graph) {
             return function () {
                 graph.myJsPlumb.unload();
                 graph.myJsPlumb.unload();

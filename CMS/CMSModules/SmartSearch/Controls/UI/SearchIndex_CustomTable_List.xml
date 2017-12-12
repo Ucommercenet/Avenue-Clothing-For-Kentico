@@ -10,7 +10,6 @@
     <column cssclass="main-column-100"></column>
   </columns>
   <pager>
-    <key name="ShowFirstLastButtons" value="false" />
     <key name="ShowDirectPageControl" value="false" />
   </pager>
   <options>

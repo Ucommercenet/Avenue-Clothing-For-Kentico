@@ -1,8 +1,5 @@
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="CMSMasterPages_UI_TabsHeaderVertical"
      Codebehind="TabsHeaderVertical.master.cs" %>
-
-<%@ Register Src="~/CMSAdminControls/UI/Development/DevTools.ascx" TagName="DevTools"
-    TagPrefix="cms" %>
 <!DOCTYPE html>
 <html>
 <head runat="server" enableviewstate="false">
@@ -30,7 +27,6 @@
             </asp:Panel>
         </asp:Panel>
     </asp:Panel>
-    <cms:DevTools ID="devElem" runat="server" />
     </form>
     <asp:PlaceHolder runat="server" ID="plcAfterForm"></asp:PlaceHolder>
 </body>

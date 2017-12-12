@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"  Codebehind="MVTestReport.aspx.cs" Inherits="CMSModules_OnlineMarketing_Pages_Content_MVTest_MVTestReport"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MVTestReport.aspx.cs" Inherits="CMSModules_OnlineMarketing_Pages_Content_MVTest_MVTestReport"
     MasterPageFile="~/CMSMasterPages/UI/SimplePage.master" Title="MV test reports"
     EnableEventValidation="false" Theme="Default" %>
 
@@ -21,13 +21,11 @@
     </div>
 </asp:Content>
 <asp:Content ID="cntContent" runat="server" ContentPlaceHolderID="plcContent">
-    <div class="header-panel">
-        <asp:Panel runat="server" ID="pnlDisabled">
-            <cms:DisabledModule runat="server" ID="ucDisabledModule" TestSettingKeys="CMSAnalyticsEnabled;CMSMVTEnabled" />
-        </asp:Panel>
-        <cms:GraphPreLoader runat="server" ID="ucGraphPreLoader" />
-        <cms:GraphType runat="server" ID="ucGraphType" />
-    </div>
+    <asp:Panel runat="server" ID="pnlDisabled">
+        <cms:DisabledModule runat="server" ID="ucDisabledModule" TestSettingKeys="CMSAnalyticsEnabled;CMSMVTEnabled" />
+    </asp:Panel>
+    <cms:GraphPreLoader runat="server" ID="ucGraphPreLoader" />
+    <cms:GraphType runat="server" ID="ucGraphType" />
     <asp:Panel ID="pnlRadioButtons" runat="server" CssClass="header-panel">
         <div class="radio-list-vertical">
             <cms:CMSRadioButton runat="server" ID="rbCount" ResourceString="conversion.count"
@@ -40,32 +38,30 @@
                 AutoPostBack="true" CssClass="PageReportRadioButton" GroupName="Radio" />
         </div>
     </asp:Panel>
-    <div class="ReportBody">
-        <div class="form-horizontal">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="editing-form-label-cell">
+                <cms:LocalizedLabel CssClass="control-label" ID="lblConversions" runat="server" ResourceString="abtesting.conversions"
+                    DisplayColon="true" />
+            </div>
+            <div class="editing-form-value-cell">
+                <cms:SelectConversion runat="server" ID="ucConversions" SelectionMode="SingleDropDownList" />
+            </div>
+        </div>
+        <asp:PlaceHolder runat="server" ID="pnlCombination">
             <div class="form-group">
                 <div class="editing-form-label-cell">
-                    <cms:LocalizedLabel CssClass="control-label" ID="lblConversions" runat="server" ResourceString="abtesting.conversions"
+                    <cms:LocalizedLabel CssClass="control-label" ID="lblCombination" runat="server" ResourceString="mvt.combination"
                         DisplayColon="true" />
                 </div>
                 <div class="editing-form-value-cell">
-                    <cms:SelectConversion runat="server" ID="ucConversions" SelectionMode="SingleDropDownList" />
+                    <cms:SelectCombinaton runat="server" ID="usCombination" PostbackOnChange="true" AllowAll="true"
+                        AllowEmpty="false" ReturnColumnName="MVTCombinationName" />
                 </div>
             </div>
-            <asp:PlaceHolder runat="server" ID="pnlCombination">
-                <div class="form-group">
-                    <div class="editing-form-label-cell">
-                        <cms:LocalizedLabel CssClass="control-label" ID="lblCombination" runat="server" ResourceString="mvt.combination"
-                            DisplayColon="true" />
-                    </div>
-                    <div class="editing-form-value-cell">
-                        <cms:SelectCombinaton runat="server" ID="usCombination" PostbackOnChange="true" AllowAll="true"
-                            AllowEmpty="false" ReturnColumnName="MVTCombinationName" />
-                    </div>
-                </div>
-            </asp:PlaceHolder>
+        </asp:PlaceHolder>
 
-        </div>
-        <asp:Panel runat="server" ID="pnlContent">
-        </asp:Panel>
     </div>
+    <asp:Panel runat="server" ID="pnlContent">
+    </asp:Panel>
 </asp:Content>

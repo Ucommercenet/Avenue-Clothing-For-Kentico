@@ -39,15 +39,6 @@ public partial class Admin_CMSAdministration {
     protected global::CMS.UIControls.UILayoutPane cmsdesktop;
     
     /// <summary>
-    /// paneFooter control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.UIControls.UILayoutPane paneFooter;
-    
-    /// <summary>
     /// appListUniview control.
     /// </summary>
     /// <remarks>

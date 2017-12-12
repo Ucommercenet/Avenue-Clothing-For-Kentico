@@ -27,9 +27,9 @@ public class LicenseListControlExtender : ControlExtender<UniGrid>
 
 
     /// <summary>
-    /// Support e-mail address
+    /// Sales e-mail address
     /// </summary>
-    private const string SUPPORT_MAIL = "support@kentico.com";
+    private const string SALES_MAIL = "sales@kentico.com";
 
     #endregion
 
@@ -67,7 +67,7 @@ public class LicenseListControlExtender : ControlExtender<UniGrid>
               .AppendFormat("<li>{0} ", GetString("invalidlicense.howto.option1.firstpart"))
               .AppendFormat("<a target=\"_blank\" href=\"{0}\" title=\"{1}\">{2}</a>", CLIENT_PORTAL, CLIENT_PORTAL, GetString("invalidlicense.clientportal"))
               .AppendFormat("{0}</li>", GetString("invalidlicense.howto.option1.secondpart"))
-              .AppendFormat("<li>{0} <a href=\"mailto:{1}\">{2}</a>.</li>", GetString("invalidlicense.howto.option2"), SUPPORT_MAIL, SUPPORT_MAIL)
+              .AppendFormat("<li>{0} <a href=\"mailto:{1}\">{2}</a>.</li>", GetString("invalidlicense.howto.option2"), SALES_MAIL, SALES_MAIL)
               .AppendFormat("<li>{0} ", GetString("invalidlicense.howto.option3.firstpart"))
               .AppendFormat("<a target=\"_blank\" href=\"{0}\" title=\"{1}\">{2}</a>", CLIENT_PORTAL, CLIENT_PORTAL, GetString("invalidlicense.clientportal"))
               .AppendFormat("{0}</li>", GetString("invalidlicense.howto.option3.secondpart"));

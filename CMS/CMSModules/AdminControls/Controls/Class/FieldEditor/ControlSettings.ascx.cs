@@ -327,7 +327,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Control
     {
         if (settingField != null)
         {
-            var checkType = new DataTypeIntegrity(value, settingField.DataType, SystemContext.EnglishCulture);
+            var checkType = new DataTypeIntegrity(value, settingField, SystemContext.EnglishCulture);
             return String.IsNullOrEmpty(checkType.ValidateDataType());
         }
 

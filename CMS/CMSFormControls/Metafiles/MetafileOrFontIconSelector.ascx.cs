@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
@@ -15,7 +16,6 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
 {
     #region "Variables"
 
-    private IconTypeEnum iconType = IconTypeEnum.Metafile;
     private string mValue;
     private BaseInfo mFormObject;
     private FormFieldInfo mIconCssFieldInfo;
@@ -127,6 +127,16 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
         }
     }
 
+
+    private ThumbnailTypeEnum ThumbnailType
+    {
+        get
+        {
+            return drpThumbnailType.SelectedValue.ToEnum<ThumbnailTypeEnum>();
+        }
+    }
+
+
     #endregion
 
 
@@ -137,22 +147,23 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
     /// </summary>
     protected void Page_Load(object sender, EventArgs e)
     {
-        lstOptions.SelectedIndexChanged += lstOptions_SelectedIndexChanged;
+        CheckFieldEmptiness = false;
 
         if (Form != null)
         {
             Form.OnBeforeSave += Form_OnBeforeSave;
             Form.OnAfterSave += Form_OnAfterSave;
-
-            if (!RequestHelper.IsPostBack())
-            {
-                InitializeControl();
-            }
-
-            iconType = lstOptions.SelectedValue.ToEnum<IconTypeEnum>();
         }
 
-        CheckFieldEmptiness = false;
+        if (!RequestHelper.IsPostBack() && (FormObject != null))
+        {
+            InitializeThumbnailTypeDropDownList();
+
+            fontIconSelector.Value = FormObject.GetStringValue(IconCssFieldName, null);
+            drpThumbnailType.SelectedValue = String.IsNullOrEmpty(fontIconSelector.Value) ? ThumbnailTypeEnum.Metafile.ToStringRepresentation() : ThumbnailTypeEnum.CssClass.ToStringRepresentation();
+        }
+
+        SetupFileUploaderControl();
     }
 
 
@@ -162,14 +173,14 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
     protected override void OnPreRender(EventArgs e)
     {
         // Setup control visibility
-        switch (iconType)
+        switch (ThumbnailType)
         {
-            case IconTypeEnum.CssClass:
+            case ThumbnailTypeEnum.CssClass:
                 plcMetaFile.Visible = false;
                 plcCssClass.Visible = true;
                 break;
 
-            case IconTypeEnum.Metafile:
+            case ThumbnailTypeEnum.Metafile:
                 plcMetaFile.Visible = true;
                 plcCssClass.Visible = false;
                 break;
@@ -178,15 +189,10 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
         base.OnPreRender(e);
     }
 
+    #endregion
 
-    /// <summary>
-    /// Handles the SelectedIndexChanged event of the lstOptions control.
-    /// </summary>
-    private void lstOptions_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        iconType = lstOptions.SelectedValue.ToEnum<IconTypeEnum>();
-    }
 
+    #region "Methods"
 
     /// <summary>
     /// Handles the OnBeforeSave event of the Form control.
@@ -195,20 +201,21 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
     {
         if (FormObject != null)
         {
-            switch (iconType)
+            switch (ThumbnailType)
             {
-                case IconTypeEnum.Metafile:
-                    // Remove icon css class
-                    FormObject.SetValue(IconCssFieldName, null);
-                    txtCssClass.Text = string.Empty;
+                case ThumbnailTypeEnum.Metafile:
+                    // Clear the Icon CSS class field
+                    FormObject.SetValue(IconCssFieldName, string.Empty);
+                    fontIconSelector.Value = string.Empty;
+
                     break;
 
-                case IconTypeEnum.CssClass:
+                case ThumbnailTypeEnum.CssClass:
                     // Delete uploaded metafile
                     Guid metaFileguid = ValidationHelper.GetGuid(Value, Guid.Empty);
                     if (metaFileguid != Guid.Empty)
                     {
-                        MetaFileInfo metaFile = MetaFileInfoProvider.GetMetaFileInfo(metaFileguid, null, true);
+                        MetaFileInfo metaFile = MetaFileInfoProvider.GetMetaFileInfo(metaFileguid, FormObject.Generalized.ObjectSiteName, true);
                         MetaFileInfoProvider.DeleteMetaFileInfo(metaFile);
                     }
 
@@ -217,7 +224,7 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
                     FormObject.SetValue(Field, null);
 
                     // Update the Icon CSS class field
-                    FormObject.SetValue(IconCssFieldName, txtCssClass.Text);
+                    FormObject.SetValue(IconCssFieldName, fontIconSelector.Value);
                     break;
             }
         }
@@ -231,73 +238,35 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
     {
         if (Form.Mode == FormModeEnum.Insert)
         {
-            InitializeUploadControl();
+            // Update the fileUploader.ObjectID property with the just-created object id
+            SetupFileUploaderControl();
 
             // Upload new metafile
             fileUploader.UploadFile();
         }
     }
 
-    #endregion
 
-
-    #region "Methods"
-
-    /// <summary>
-    /// Loads the form control data.
-    /// </summary>
-    private void InitializeControl()
+    private void InitializeThumbnailTypeDropDownList()
     {
-        if (FormObject != null)
+        drpThumbnailType.Items.Add(new ListItem
         {
-            InitializeCssClassTextBox();
-
-            // Load file uploader
-            fileUploader.Category = Category;
-            fileUploader.ObjectType = FormObject.TypeInfo.ObjectType;
-            fileUploader.ObjectID = FormObject.Generalized.ObjectID;
-
-            if (FormObject.Generalized.ObjectSiteID > 0)
-            {
-                fileUploader.SiteID = FormObject.Generalized.ObjectSiteID;
-            }
-
-            // Identify the currently selected icon type
-            iconType = IconTypeEnum.Metafile;
-            if (!string.IsNullOrEmpty(txtCssClass.Text))
-            {
-                iconType = IconTypeEnum.CssClass;
-            }
-
-            lstOptions.SelectedValue = iconType.ToStringRepresentation();
-        }
-
-        InitializeUploadControl();
+            Text = "metafileorfonticonselector.thumbnailtype.image",
+            Value = ThumbnailTypeEnum.Metafile.ToStringRepresentation()
+        });
+        drpThumbnailType.Items.Add(new ListItem
+        {
+            Text = "metafileorfonticonselector.thumbnailtype.iconclass",
+            Value = ThumbnailTypeEnum.CssClass.ToStringRepresentation()
+        });
     }
 
 
-    /// <summary>
-    /// Initializes the CSS class text box control.
-    /// </summary>
-    private void InitializeCssClassTextBox()
+    private void SetupFileUploaderControl()
     {
-        // Icon CSS class
-        txtCssClass.Text = FormObject.GetStringValue(IconCssFieldName, null);
-        txtCssClass.ToolTip = GetString("fontIconCss.tooltip");
+        fileUploader.Category = Category;
+        fileUploader.AllowedExtensions = String.Join(";", ImageHelper.ImageExtensions);
 
-        // Set the max length of the textbox according to the form field definition
-        if ((IconCssFieldInfo != null) && (IconCssFieldInfo.DataType == FieldDataType.Text))
-        {
-            txtCssClass.MaxLength = IconCssFieldInfo.Size;
-        }
-    }
-
-
-    /// <summary>
-    /// Initializes the file upload control.
-    /// </summary>
-    private void InitializeUploadControl()
-    {
         if (Form.EditedObject is BaseInfo)
         {
             BaseInfo info = (BaseInfo)Form.EditedObject;
@@ -332,9 +301,8 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
     /// <param name="enabled">If true, nested controls will be enabled.</param>
     private void SetEnabled(bool enabled)
     {
-        txtCssClass.Enabled = enabled;
         fileUploader.Enabled = enabled;
-        lstOptions.Enabled = enabled;
+        drpThumbnailType.Enabled = enabled;
     }
 
 
@@ -344,7 +312,7 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
     public override bool IsValid()
     {
         // Check the max length of the css class text box field
-        if ((iconType == IconTypeEnum.CssClass) && (IconCssFieldInfo != null) && (txtCssClass.Text.Length > IconCssFieldInfo.Size))
+        if ((ThumbnailType == ThumbnailTypeEnum.CssClass) && (IconCssFieldInfo != null) && (fontIconSelector.Value.Length > IconCssFieldInfo.Size))
         {
             ValidationError = String.Format(ResHelper.GetString("BasicForm.InvalidLength"), IconCssFieldInfo.Size);
 
@@ -357,22 +325,22 @@ public partial class CMSFormControls_Metafiles_MetafileOrFontIconSelector : Form
     #endregion
 
 
-    #region "Icon type enum"
+    #region "Thumbnail type enum"
 
     /// <summary>
-    /// Internal enum - used for distinguishing between icon types
+    /// Thumbnail enumeration - used for distinguishing between thumbnail types
     /// </summary>
-    private enum IconTypeEnum
+    protected enum ThumbnailTypeEnum
     {
         /// <summary>
-        /// Icon is defined by a metafile
+        /// Thumbnail is defined by a metafile
         /// </summary>
         [EnumDefaultValue]
         [EnumStringRepresentation("metafile")]
         Metafile,
 
         /// <summary>
-        /// Icon is a font icon and is defined by a css class
+        /// Thumbnail is a font icon and is defined by a css class
         /// </summary>
         [EnumStringRepresentation("cssclass")]
         CssClass

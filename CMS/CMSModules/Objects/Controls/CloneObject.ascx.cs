@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-
-using CMS.Base;
-
-using System.Text;
+using System.Linq;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Core;
 using CMS.DataEngine;
+using CMS.FormEngine;
 using CMS.Helpers;
 using CMS.Localization;
 using CMS.Membership;
@@ -20,20 +18,15 @@ using CMS.UIControls;
 
 public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
 {
-    #region "Variables"
-
     private string mCloseScript = null;
     private CloneSettingsControl customProperties = null;
     private ObjectTypeInfo typeInfo = null;
+    private int mDisplayNameMaxLength;
 
-    private List<string> excludedChildren = new List<string>();
-    private List<string> excludedBindings = new List<string>();
-    private List<string> excludedOtherBindings = new List<string>();
+    private ICollection<string> excludedChildren = new List<string>();
+    private ICollection<string> excludedBindings = new List<string>();
+    private ICollection<string> excludedOtherBindings = new List<string>();
 
-    #endregion
-
-
-    #region "Properties"
 
     /// <summary>
     /// Returns script which should be run when cloning is successfully finished.
@@ -46,13 +39,14 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
             {
                 return mCloseScript;
             }
+
             return "RefreshContent(); CloseDialog();";
         }
     }
 
 
     /// <summary>
-    /// Gets or sets BaseInfo object to be clonned.
+    /// Gets or sets BaseInfo object to be cloned.
     /// </summary>
     public BaseInfo InfoToClone
     {
@@ -62,7 +56,7 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
 
 
     /// <summary>
-    /// Indicates if user chosed to use transaction to clone object.
+    /// Indicates if user required transaction to be used within cloning.
     /// </summary>
     public bool UseTransaction
     {
@@ -72,246 +66,343 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
         }
     }
 
-    #endregion
-
-
-    #region "Page events"
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (InfoToClone != null)
+        if (InfoToClone == null)
         {
-            ScriptHelper.RegisterJQuery(this.Page);
+            return;
+        }
 
-            typeInfo = InfoToClone.TypeInfo;
+        ScriptHelper.RegisterJQuery(Page);
 
-            siteElem.AllowGlobal = typeInfo.SupportsGlobalObjects;
+        typeInfo = InfoToClone.TypeInfo;
 
-            SetLabel(lblDisplayName, "displaynamelabel", "clonning.newdisplayname");
-            SetLabel(lblCodeName, "codenamelabel", "clonning.newcodename");
+        SetLabel(lblDisplayName, "displaynamelabel", "clonning.newdisplayname");
+        SetLabel(lblCodeName, "codenamelabel", "clonning.newcodename");
 
-            lblKeepFieldsTranslated.ToolTip = GetString("clonning.settings.keepfieldstranslated.tooltip");
-            lblCloneUnderSite.ToolTip = GetString("clonning.settings.cloneundersite.tooltip");
-            lblMetafiles.ToolTip = GetString("clonning.settings.metafiles.tooltip");
-            lblMaxRelativeLevel.ToolTip = GetString("clonning.settings.maxrelativelevel.tooltip");
+        lblKeepFieldsTranslated.ToolTip = GetString("clonning.settings.keepfieldstranslated.tooltip");
+        lblCloneUnderSite.ToolTip = GetString("clonning.settings.cloneundersite.tooltip");
+        lblMetafiles.ToolTip = GetString("clonning.settings.metafiles.tooltip");
+        lblMaxRelativeLevel.ToolTip = GetString("clonning.settings.maxrelativelevel.tooltip");
 
+        FormInfo formInfo = FormHelper.GetFormInfo(typeInfo.ObjectClassName, false);
 
-            plcCodeName.Visible = (typeInfo.CodeNameColumn != ObjectTypeInfo.COLUMN_NAME_UNKNOWN);
-            plcDisplayName.Visible = (typeInfo.DisplayNameColumn != ObjectTypeInfo.COLUMN_NAME_UNKNOWN) && !typeInfo.DisplayNameColumn.EqualsCSafe(typeInfo.CodeNameColumn, true);
+        SetUpCodeNameControl(formInfo);
+        SetUpDisplayNameControl(formInfo);
 
-            // Try to load Custom properties
-            customProperties = LoadCustomProperties(typeInfo.ObjectType);
-            if ((customProperties == null) && (typeInfo.ObjectType != typeInfo.OriginalObjectType))
-            {
-                // Try get original object type settings control
-                customProperties = LoadCustomProperties(typeInfo.OriginalObjectType);
-            }
+        customProperties = LoadCustomProperties(typeInfo.ObjectType, typeInfo.OriginalObjectType);
+        if (customProperties != null)
+        {
+            SetUpControlsByCustomProperties();
+        }
 
-            if (customProperties != null)
-            {
-                headCustom.Text = GetCustomParametersTitle();
-                customProperties.ID = "customProperties";
-                customProperties.InfoToClone = InfoToClone;
+        siteElem.AllowGlobal = typeInfo.SupportsGlobalObjects;
+        plcCloneUnderSite.Visible = ShowCloneUnderSite();
 
-                plcCustomParameters.Controls.Add(customProperties);
-                plcCustomParametersBox.Visible = customProperties.DisplayControl;
+        RemoveSiteBindingFromBindings();
+        SetUpChildrenControl();
+        SetUpSiteBindingsControls();
 
-                if (customProperties.HideDisplayName)
-                {
-                    plcDisplayName.Visible = false;
-                }
-                if (customProperties.HideCodeName)
-                {
-                    plcCodeName.Visible = false;
-                }
+        // Allow meta files control if any
+        if (InfoToClone.MetaFiles?.Count > 0)
+        {
+            plcMetafiles.Visible = true;
+        }
 
-                if (!RequestHelper.IsPostBack())
-                {
-                    TransferExcludedTypes();
-                }
-            }
-
-            // Show site DDL only for Global Admin and for controls which have SiteID (and are not under group or any other parent) and are not from E-Commerce/Forums module
-            int sitesCount = SiteInfoProvider.GetSitesCount();
-            plcCloneUnderSite.Visible = typeInfo.SupportsCloneToOtherSite
-                && (typeInfo.SiteIDColumn != ObjectTypeInfo.COLUMN_NAME_UNKNOWN)
-                && (MembershipContext.AuthenticatedUser != null)
-                && (MembershipContext.AuthenticatedUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin))
-                && ((typeInfo.SupportsGlobalObjects && (sitesCount > 0)) || (sitesCount > 1))
-                && (InfoToClone.Generalized.ObjectGroupID == 0)
-                && (InfoToClone.Generalized.ObjectParentID == 0)
-                && !typeInfo.ModuleName.EqualsCSafe(ModuleName.ECOMMERCE, true)
-                && !typeInfo.ModuleName.EqualsCSafe(ModuleName.FORUMS, true)
-                && (typeInfo.OriginalObjectType != CategoryInfo.OBJECT_TYPE);
-
-            if (((typeInfo.BindingObjectTypes != null) && (typeInfo.BindingObjectTypes.Count > 0)) || ((typeInfo.OtherBindingObjectTypes != null) && (typeInfo.OtherBindingObjectTypes.Count > 0)))
-            {
-                // Remove site binding from bindings if exists
-                List<string> bindings = new List<string>();
-                if (typeInfo.BindingObjectTypes != null)
-                {
-                    bindings.AddRange(typeInfo.BindingObjectTypes);
-                }
-                if (typeInfo.OtherBindingObjectTypes != null)
-                {
-                    bindings.AddRange(typeInfo.OtherBindingObjectTypes);
-                }
-                if (!string.IsNullOrEmpty(typeInfo.SiteBinding))
-                {
-                    if (bindings.Contains(typeInfo.SiteBinding))
-                    {
-                        bindings.Remove(typeInfo.SiteBinding);
-                    }
-                }
-                if (bindings.Count > 0)
-                {
-                    List<string> excludedTypes = new List<string>();
-                    excludedTypes.AddRange(excludedBindings);
-                    excludedTypes.AddRange(excludedOtherBindings);
-
-                    int itemNumber = 0;
-                    lblBindings.ToolTip = GetCloneHelpText(bindings, excludedTypes, out itemNumber);
-
-                    if (itemNumber == 1)
-                    {
-                        lblBindings.Text = lblBindings.ToolTip;
-                        lblBindings.ToolTip = "";
-                    }
-                    else
-                    {
-                        SetLabel(lblBindings, "bindingslabel", "clonning.settings.bindings");
-                    }
-
-                    plcBindings.Visible = itemNumber > 0;
-                }
-            }
-
-            if ((typeInfo.ChildObjectTypes != null) && (typeInfo.ChildObjectTypes.Count > 0))
-            {
-                int itemNumber = 0;
-                lblChildren.ToolTip = GetCloneHelpText(typeInfo.ChildObjectTypes, excludedChildren, out itemNumber);
-
-                if (itemNumber == 1)
-                {
-                    lblChildren.Text = lblChildren.ToolTip;
-                    lblChildren.ToolTip = "";
-                }
-                else
-                {
-                    lblChildren.Text = GetString("clonning.settings.children");
-                }
-
-                plcChildren.Visible = itemNumber > 0;
-                plcChildrenLevel.Visible = ShowChildrenLevel(excludedChildren);
-            }
-
-            if (!string.IsNullOrEmpty(typeInfo.SiteBinding) && (InfoToClone.Generalized.ObjectGroupID == 0))
-            {
-                // For objects with SiteID column allow site bindings only for global versions of the object (for example polls)
-                if ((typeInfo.SiteIDColumn == ObjectTypeInfo.COLUMN_NAME_UNKNOWN) || (InfoToClone.Generalized.ObjectSiteID == 0))
-                {
-                    lblAssignToCurrentSite.ToolTip = GetString("clonning.settings.assigntocurrentsite.tooltip");
-                    plcAssignToCurrentSite.Visible = true;
-
-                    lblSiteBindings.ToolTip = GetCloneHelpText(new List<string>() { typeInfo.SiteBinding });
-
-                    plcSiteBindings.Visible = true;
-                }
-            }
-
-            if ((InfoToClone.MetaFiles != null) && (InfoToClone.MetaFiles.Count > 0))
-            {
-                plcMetafiles.Visible = true;
-            }
-
+        if (!RequestHelper.IsPostBack())
+        {
             // Preselect site of the object as a "clone under site" option
-            if (plcCloneUnderSite.Visible && !RequestHelper.IsPostBack())
+            if (plcCloneUnderSite.Visible)
             {
                 siteElem.SiteName = InfoToClone.Generalized.ObjectSiteName;
             }
 
-            if (!RequestHelper.IsPostBack())
+            // Exception for cultures for assigning to current site (for cultures the default value should be false)
+            if (typeInfo.ObjectType == CultureInfo.OBJECT_TYPE)
             {
-                if (plcCodeName.Visible)
-                {
-                    txtCodeName.Text = InfoToClone.Generalized.GetUniqueCodeName();
-                }
-                if (plcDisplayName.Visible)
-                {
-                    txtDisplayName.Text = InfoToClone.Generalized.GetUniqueDisplayName();
-                }
-
-                // Exception for cultures for assigning to current site (for cultures the default value should be false)
-                if (typeInfo.ObjectType == CultureInfo.OBJECT_TYPE)
-                {
-                    chkAssignToCurrentSite.Checked = false;
-                }
-            }
-
-            if (plcChildren.Visible)
-            {
-                LoadMaxRelativeLevel();
+                chkAssignToCurrentSite.Checked = false;
             }
         }
+
+        if (plcChildren.Visible)
+        {
+            LoadMaxRelativeLevel();
+        }
+
     }
 
     /// <summary>
-    /// Loads custom object type properties control
+    /// Clones the object to the DB according to provided settings.
     /// </summary>
-    /// <param name="objectType">Object type of current cloned object</param>
-    private CloneSettingsControl LoadCustomProperties(string objectType)
+    /// 
+    public CloneResult CloneObject()
     {
-        string fileName = TranslationHelper.GetSafeClassName(objectType) + "Settings.ascx";
-        string generalControlFile = "~/CMSModules/Objects/FormControls/Cloning/" + fileName;
-        string moduleControlFile = ((typeInfo.ModuleInfo == null) || string.IsNullOrEmpty(typeInfo.ModuleInfo.ModuleRootPath) ? generalControlFile : typeInfo.ModuleInfo.ModuleRootPath.TrimEnd('/') + "/FormControls/Cloning/" + fileName);
-
-        if (customProperties == null)
+        if (InfoToClone == null)
         {
-            try
-            {
-                customProperties = this.LoadUserControl(moduleControlFile) as CloneSettingsControl;
-            }
-            catch { }
+            return null;
         }
 
-        if (customProperties == null)
+        TransferExcludedTypes();
+
+        // Check code name
+        if (plcCodeName.Visible)
         {
-            try
+            bool checkCodeName = customProperties?.ValidateCodeName ?? true;
+            if (checkCodeName && !ValidationHelper.IsCodeName(txtCodeName.Text))
             {
-                customProperties = this.LoadUserControl(generalControlFile) as CloneSettingsControl;
+                ShowError(GetString("general.invalidcodename"));
+
+                return null;
             }
-            catch { }
         }
 
-        return customProperties;
-    }
-
-
-    private void SetLabel(LocalizedLabel label, string suffix, string defaultString)
-    {
-        string stringPrefixName = "cloning.settings." + TranslationHelper.GetSafeClassName(typeInfo.ObjectType) + ".";
-        string newString = stringPrefixName + suffix;
-
-        if (GetString(newString) != newString)
+        // Check display name length
+        if (plcDisplayName.Visible && (txtDisplayName.Text.Length > mDisplayNameMaxLength))
         {
-            label.ResourceString = newString;
+            ShowError(string.Format(GetString("cloning.displayname.maxlengthexceed"), mDisplayNameMaxLength));
+
+            return null;
+        }
+
+        // Check permissions
+        string targetSiteName = SiteContext.CurrentSiteName;
+        if (plcCloneUnderSite.Visible && siteElem.Visible && (siteElem.SiteID > 0))
+        {
+            targetSiteName = SiteInfoProvider.GetSiteName(siteElem.SiteID);
+        }
+
+        // Check object permissions (Create & Modify)
+        try
+        {
+            InfoToClone.CheckPermissions(PermissionsEnum.Create, targetSiteName, CurrentUser, true);
+            InfoToClone.CheckPermissions(PermissionsEnum.Modify, targetSiteName, CurrentUser, true);
+        }
+        catch (PermissionCheckException ex)
+        {
+            RedirectToAccessDenied(ex.ModuleName, ex.PermissionFailed);
+        }
+
+        CloneSettings settings = InitializeCloneSettings();
+
+        if (settings == null)
+        {
+            return null;
+        }
+
+        var result = new CloneResult();
+        BaseInfo clone;
+
+        if (chkUseTransaction.Checked)
+        {
+            using (var transaction = new CMSTransactionScope())
+            {
+                clone = InfoToClone.Generalized.InsertAsClone(settings, result);
+                transaction.Commit();
+            }
         }
         else
         {
-            label.ResourceString = defaultString;
+            clone = InfoToClone.Generalized.InsertAsClone(settings, result);
+        }
+
+        string script = customProperties?.CloseScript;
+        if (!string.IsNullOrEmpty(script))
+        {
+            mCloseScript = script.Replace("{0}", clone.Generalized.ObjectID.ToString());
+        }
+
+        return result;
+    }
+
+
+    protected string GetCustomParametersTitle()
+    {
+        if (InfoToClone != null)
+        {
+            return string.Format(GetString("clonning.settings.customparameters"), GetString($"objecttype.{TranslationHelper.GetSafeClassName(InfoToClone.TypeInfo.ObjectType)}"));
+        }
+
+        return string.Empty;
+    }
+
+
+    /// <summary>
+    /// Sets up display name control if any.
+    /// </summary>
+    private void SetUpDisplayNameControl(FormInfo formInfo)
+    {
+        plcDisplayName.Visible = (typeInfo.DisplayNameColumn != ObjectTypeInfo.COLUMN_NAME_UNKNOWN) && !string.Equals(typeInfo.DisplayNameColumn, typeInfo.CodeNameColumn, StringComparison.OrdinalIgnoreCase);
+        if (plcDisplayName.Visible)
+        {
+            txtDisplayName.MaxLength = mDisplayNameMaxLength = GetMaxLengthOrDefault(formInfo, typeInfo.DisplayNameColumn, 200);
+
+            if (!RequestHelper.IsPostBack())
+            {
+                txtDisplayName.Text = InfoToClone.Generalized.GetUniqueDisplayName(false);
+            }
         }
     }
 
-    #endregion
-
-
-    #region "Methods"
 
     /// <summary>
-    /// Determines whether the children objects have their own children
+    /// Sets up code name control if any.
+    /// </summary>
+    /// <param name="formInfo"></param>
+    private void SetUpCodeNameControl(FormInfo formInfo)
+    {
+        plcCodeName.Visible = (typeInfo.CodeNameColumn != ObjectTypeInfo.COLUMN_NAME_UNKNOWN);
+        if (plcCodeName.Visible)
+        {
+            txtCodeName.MaxLength = GetMaxLengthOrDefault(formInfo, typeInfo.CodeNameColumn, 100);
+
+            if (!RequestHelper.IsPostBack())
+            {
+                txtCodeName.Text = InfoToClone.Generalized.GetUniqueCodeName();
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Sets site bindings.
+    /// </summary>
+    /// <remarks>For objects with SiteID column allow site bindings only for global versions of the object (for example polls).</remarks>
+    private void SetUpSiteBindingsControls()
+    {
+        bool isGlobalObject = !string.IsNullOrEmpty(typeInfo.SiteBinding)
+            && (InfoToClone.Generalized.ObjectGroupID == 0)
+            && (typeInfo.SiteIDColumn == ObjectTypeInfo.COLUMN_NAME_UNKNOWN) || (InfoToClone.Generalized.ObjectSiteID == 0);
+
+        if (isGlobalObject)
+        {
+            lblAssignToCurrentSite.ToolTip = GetString("clonning.settings.assigntocurrentsite.tooltip");
+            plcAssignToCurrentSite.Visible = true;
+
+            lblSiteBindings.ToolTip = GetCloneHelpText(typeInfo.SiteBinding);
+            plcSiteBindings.Visible = true;
+
+            if (!MembershipContext.AuthenticatedUser?.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin) ?? false)
+            {
+                chkAssignToCurrentSite.Checked = true;
+                chkAssignToCurrentSite.Enabled = false;
+
+                chkSiteBindings.Checked = false;
+                chkSiteBindings.Enabled = false;
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Sets children control if any.
+    /// </summary>
+    private void SetUpChildrenControl()
+    {
+        if (typeInfo.ChildObjectTypes?.Any() ?? false)
+        {
+            int itemNumber;
+            lblChildren.ToolTip = GetCloneHelpText(typeInfo.ChildObjectTypes, excludedChildren, out itemNumber);
+
+            if (itemNumber == 1)
+            {
+                lblChildren.Text = lblChildren.ToolTip;
+                lblChildren.ToolTip = string.Empty;
+            }
+            else
+            {
+                lblChildren.Text = GetString("clonning.settings.children");
+            }
+
+            plcChildren.Visible = (itemNumber > 0);
+            plcChildrenLevel.Visible = ShowChildrenLevel(excludedChildren);
+        }
+    }
+
+
+    /// <summary>
+    /// Removes site binding from initialized bindings.
+    /// </summary>
+    private void RemoveSiteBindingFromBindings()
+    {
+        var bindings = (typeInfo.BindingObjectTypes ?? Enumerable.Empty<string>())?
+            .Union(typeInfo.OtherBindingObjectTypes ?? Enumerable.Empty<string>())?
+            .ToList();
+
+        if (!bindings?.Any() ?? true)
+        {
+            return;
+        }
+
+        if (typeInfo.SiteBinding != null)
+        {
+            bindings.Remove(typeInfo.SiteBinding);
+        }
+
+        var excludedTypes = excludedBindings
+            .Concat(excludedOtherBindings)
+            .ToList();
+
+        int itemNumber;
+        lblBindings.ToolTip = GetCloneHelpText(bindings, excludedTypes, out itemNumber);
+
+        if (itemNumber == 1)
+        {
+            lblBindings.Text = lblBindings.ToolTip;
+            lblBindings.ToolTip = string.Empty;
+        }
+        else
+        {
+            SetLabel(lblBindings, "bindingslabel", "clonning.settings.bindings");
+        }
+
+        plcBindings.Visible = itemNumber > 0;
+    }
+
+
+    /// <summary>
+    /// Sets controls defined by the custom properties.
+    /// </summary>
+    private void SetUpControlsByCustomProperties()
+    {
+        headCustom.Text = GetCustomParametersTitle();
+        customProperties.ID = "customProperties";
+        customProperties.InfoToClone = InfoToClone;
+
+        plcCustomParameters.Controls.Add(customProperties);
+        plcCustomParametersBox.Visible = customProperties.DisplayControl;
+
+        if (customProperties.HideDisplayName)
+        {
+            plcDisplayName.Visible = false;
+        }
+        if (customProperties.HideCodeName)
+        {
+            plcCodeName.Visible = false;
+        }
+
+        if (!RequestHelper.IsPostBack())
+        {
+            TransferExcludedTypes();
+        }
+    }
+
+
+    /// <summary>
+    /// Returns max <paramref name="columnName"/> length to value defined in <paramref name="formInfo"/> definition, if it's not defined returns <paramref name="defaultValue"/>.
+    /// </summary>
+    private int GetMaxLengthOrDefault(FormInfo formInfo, string columnName, int defaultValue)
+    {
+        var maxLength = formInfo?.GetFormField(columnName)?.Size ?? 0;
+        return (maxLength > 0) ? maxLength : defaultValue;
+    }
+
+
+    /// <summary>
+    /// Determines whether the children objects have their own children.
     /// </summary>
     /// <param name="excludedTypes">Excluded child types</param>
-    public bool ShowChildrenLevel(List<string> excludedTypes)
+    private bool ShowChildrenLevel(ICollection<string> excludedTypes)
     {
         ObjectTypeInfo typeInfo = InfoToClone.TypeInfo;
         if (typeInfo.ChildObjectTypes == null)
@@ -319,21 +410,10 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
             return false;
         }
 
-        string[] objTypes = typeInfo.ChildObjectTypes.ToArray();
-        for (int i = 0; i < objTypes.Length; i++)
-        {
-            bool allowed = (excludedTypes == null) || !excludedTypes.Contains(objTypes[i]);
-            if (allowed)
-            {
-                ObjectTypeInfo typeInfoChild = ModuleManager.GetReadOnlyObject(objTypes[i]).TypeInfo;
-                if ((typeInfoChild.ChildObjectTypes != null) && (typeInfoChild.ChildObjectTypes.Count > 0))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return typeInfo.ChildObjectTypes
+            .Where(type => (excludedTypes == null) || !excludedTypes.Contains(type))
+            .Select(type => ModuleManager.GetReadOnlyObject(type).TypeInfo.ChildObjectTypes)
+            .Any(childTypes => (childTypes != null) && childTypes.Any());
     }
 
 
@@ -349,11 +429,11 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
     /// <summary>
     /// Creates tooltip for given list of object types.
     /// </summary>
-    /// <param name="objectTypes">Object types list</param>
-    private string GetCloneHelpText(List<string> objectTypes)
+    /// <param name="objectType">Object type</param>
+    private string GetCloneHelpText(string objectType)
     {
-        int itemNumber = 0;
-        return GetCloneHelpText(objectTypes, null, out itemNumber);
+        int dummy;
+        return GetCloneHelpText(new [] { objectType }, null, out dummy);
     }
 
 
@@ -361,24 +441,20 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
     /// Creates tooltip for given list of object types.
     /// </summary>
     /// <param name="objTypes">Object types list</param>
-    /// <param name="excludedTypes">Object types which whould be excluded</param>
+    /// <param name="excludedTypes">Object types which should be excluded</param>
     /// <param name="itemNumber">Number of items</param>
-    private string GetCloneHelpText(List<string> objTypes, List<string> excludedTypes, out int itemNumber)
+    private string GetCloneHelpText(IEnumerable<string> objTypes, ICollection<string> excludedTypes, out int itemNumber)
     {
-        List<string> types = new List<string>();
-        for (int i = 0; i < objTypes.Count; i++)
-        {
-            bool allowed = (excludedTypes == null) || !excludedTypes.Contains(objTypes[i]);
-            if (allowed)
-            {
-                types.Add(GetString("objecttype." + TranslationHelper.GetSafeClassName(objTypes[i])));
-            }
-        }
+        var types = objTypes
+            .Where(type => (excludedTypes == null) || !excludedTypes.Contains(type))
+            .Select(type => GetString($"objecttype.{TranslationHelper.GetSafeClassName(type)}"))
+            .ToList();
+
         itemNumber = types.Count;
         if (itemNumber == 1)
         {
-            string baseName = types[0];
-            if (baseName.Length > 2)
+            string baseName = types.FirstOrDefault();
+            if (baseName?.Length > 2)
             {
                 if (Char.IsUpper(baseName[0]) && !Char.IsUpper(baseName[1]))
                 {
@@ -387,10 +463,8 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
             }
             return string.Format(GetString("clonning.settings.oneitemhelp"), baseName.Trim());
         }
-        else
-        {
-            return string.Format(GetString("clonning.settings.tooltiphelp"), string.Join(", ", types.ToArray()));
-        }
+
+        return string.Format(GetString("clonning.settings.tooltiphelp"), string.Join(", ", types));
     }
 
 
@@ -410,127 +484,56 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
 
 
     /// <summary>
-    /// Clones the object to the DB according to provided settings.
+    /// Returns initialized clone settings based on filled controls.
     /// </summary>
-    public CloneResult CloneObject()
+    private CloneSettings InitializeCloneSettings()
     {
-        if (InfoToClone != null)
+        var settings = new CloneSettings
         {
-            TransferExcludedTypes();
+            KeepFieldsTranslated = chkKeepFieldsTranslated.Checked,
+            CloneBase = InfoToClone,
+            CodeName = txtCodeName.Text,
+            DisplayName = txtDisplayName.Text,
+            IncludeBindings = chkBindings.Checked,
+            IncludeOtherBindings = chkBindings.Checked,
+            IncludeChildren = chkChildren.Checked,
+            IncludeMetafiles = chkMetafiles.Checked,
+            IncludeSiteBindings = chkSiteBindings.Checked,
+            MaxRelativeLevel = ValidationHelper.GetInteger(drpMaxRelativeLevel.SelectedValue, -1),
+            CloneToSiteID = (plcCloneUnderSite.Visible && siteElem.Visible) ? siteElem.SiteID : InfoToClone.Generalized.ObjectSiteID
+        };
 
-            // Check code name
-            if (plcCodeName.Visible)
-            {
-                bool checkCodeName = true;
-                if (customProperties != null)
-                {
-                    checkCodeName = customProperties.ValidateCodeName;
-                }
-
-                if (checkCodeName && !ValidationHelper.IsCodeName(txtCodeName.Text))
-                {
-                    ShowError(GetString("general.invalidcodename"));
-                    return null;
-                }
-            }
-
-            // Check permissions
-            string targetSiteName = SiteContext.CurrentSiteName;
-            if (plcCloneUnderSite.Visible && siteElem.Visible)
-            {
-                int targetSiteId = siteElem.SiteID;
-                if (targetSiteId > 0)
-                {
-                    targetSiteName = SiteInfoProvider.GetSiteName(targetSiteId);
-                }
-            }
-
-            // Check object permissions (Create & Modify)
-            try
-            {
-                InfoToClone.CheckPermissions(PermissionsEnum.Create, targetSiteName, CurrentUser, true);
-                InfoToClone.CheckPermissions(PermissionsEnum.Modify, targetSiteName, CurrentUser, true);
-            }
-            catch (PermissionCheckException ex)
-            {
-                RedirectToAccessDenied(ex.ModuleName, ex.PermissionFailed);
-            }
-
-            CloneSettings settings = new CloneSettings();
-            settings.KeepFieldsTranslated = chkKeepFieldsTranslated.Checked;
-            settings.CloneBase = InfoToClone;
-            settings.CodeName = txtCodeName.Text;
-            settings.DisplayName = txtDisplayName.Text;
-            settings.IncludeBindings = chkBindings.Checked;
-            settings.IncludeOtherBindings = chkBindings.Checked;
-            settings.IncludeChildren = chkChildren.Checked;
-            settings.IncludeMetafiles = chkMetafiles.Checked;
-            settings.IncludeSiteBindings = chkSiteBindings.Checked;
-            if (plcAssignToCurrentSite.Visible)
-            {
-                settings.AssignToSiteID = (chkAssignToCurrentSite.Checked ? SiteContext.CurrentSiteID : 0);
-            }
-            settings.MaxRelativeLevel = ValidationHelper.GetInteger(drpMaxRelativeLevel.SelectedValue, -1);
-            if (plcCloneUnderSite.Visible && siteElem.Visible)
-            {
-                settings.CloneToSiteID = siteElem.SiteID;
-            }
-            else
-            {
-                settings.CloneToSiteID = InfoToClone.Generalized.ObjectSiteID;
-            }
-            if (customProperties != null)
-            {
-                if (customProperties.IsValid(settings))
-                {
-                    Hashtable p = customProperties.CustomParameters;
-                    if (p != null)
-                    {
-                        settings.CustomParameters = p;
-                    }
-
-                    settings.ExcludedChildTypes.AddRange(excludedChildren);
-                    settings.ExcludedBindingTypes.AddRange(excludedBindings);
-                    settings.ExcludedOtherBindingTypes.AddRange(excludedOtherBindings);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            if (InfoToClone.Parent != null)
-            {
-                settings.ParentID = InfoToClone.Parent.Generalized.ObjectID;
-            }
-
-            CloneResult result = new CloneResult();
-            BaseInfo clone = null;
-
-            if (chkUseTransaction.Checked)
-            {
-                using (var transaction = new CMSTransactionScope())
-                {
-                    clone = InfoToClone.Generalized.InsertAsClone(settings, result);
-                    transaction.Commit();
-                }
-            }
-            else
-            {
-                clone = InfoToClone.Generalized.InsertAsClone(settings, result);
-            }
-
-            if (customProperties != null)
-            {
-                string script = customProperties.CloseScript;
-                if (!string.IsNullOrEmpty(script))
-                {
-                    mCloseScript = script.Replace("{0}", clone.Generalized.ObjectID.ToString());
-                }
-            }
-
-            return result;
+        if (plcAssignToCurrentSite.Visible)
+        {
+            settings.AssignToSiteID = (chkAssignToCurrentSite.Checked ? SiteContext.CurrentSiteID : 0);
         }
-        return null;
+
+        if (customProperties != null)
+        {
+            if (customProperties.IsValid(settings))
+            {
+                var customParameters = customProperties.CustomParameters;
+                if (customParameters != null)
+                {
+                    settings.CustomParameters = customParameters;
+                }
+
+                settings.ExcludedChildTypes.AddRange(excludedChildren);
+                settings.ExcludedBindingTypes.AddRange(excludedBindings);
+                settings.ExcludedOtherBindingTypes.AddRange(excludedOtherBindings);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        if (InfoToClone.Parent != null)
+        {
+            settings.ParentID = InfoToClone.Parent.Generalized.ObjectID;
+        }
+
+        return settings;
     }
 
 
@@ -541,32 +544,115 @@ public partial class CMSModules_Objects_Controls_CloneObject : CMSUserControl
             string children = customProperties.ExcludedChildTypes;
             string bindings = customProperties.ExcludedBindingTypes;
             string otherBindings = customProperties.ExcludedOtherBindingTypes;
-            char[] sep = new char[] { ';' };
+            char[] separator = { ';' };
             if (!string.IsNullOrEmpty(children))
             {
-                excludedChildren = new List<string>(children.Split(sep, StringSplitOptions.None));
+                excludedChildren = children.Split(separator, StringSplitOptions.None);
             }
             if (!string.IsNullOrEmpty(bindings))
             {
-                excludedBindings = new List<string>(bindings.Split(sep, StringSplitOptions.None));
+                excludedBindings = bindings.Split(separator, StringSplitOptions.None);
             }
             if (!string.IsNullOrEmpty(otherBindings))
             {
-                excludedOtherBindings = new List<string>(otherBindings.Split(sep, StringSplitOptions.None));
+                excludedOtherBindings = otherBindings.Split(separator, StringSplitOptions.None);
             }
         }
     }
 
 
-    protected string GetCustomParametersTitle()
+    /// <summary>
+    /// Tries to load clone settings control of <paramref name="objectType"/> or <paramref name="originalObjectType"/>.
+    /// </summary>
+    /// <param name="objectType">Object type of current cloned object.</param>
+    /// <param name="originalObjectType">Original object type of current cloned object.</param>
+    /// <returns>Clone settings control, if any. Returns <c>null</c> otherwise.</returns>
+    private CloneSettingsControl LoadCustomProperties(string objectType, string originalObjectType)
     {
-        if (InfoToClone != null)
+        CloneSettingsControl customProperties = LoadCustomProperties(objectType);
+
+        if ((customProperties == null) && (objectType != originalObjectType))
         {
-            return string.Format(GetString("clonning.settings.customparameters"), GetString("objecttype." + TranslationHelper.GetSafeClassName(InfoToClone.TypeInfo.ObjectType)));
+            // Try get original object type settings control
+            customProperties = LoadCustomProperties(originalObjectType);
         }
 
-        return "";
+        return customProperties;
     }
 
-    #endregion
+
+    /// <summary>
+    /// Returns <c>true</c> only for Admin and for controls which have SiteID (and are not under group or any other parent) and are not from E-Commerce/Forums module. Returns <c>false</c> otherwise.
+    /// </summary>
+    private bool ShowCloneUnderSite()
+    {
+        int sitesCount = SiteInfoProvider.GetSitesCount();
+
+        bool isAdmin = MembershipContext.AuthenticatedUser?.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin) ?? false;
+
+        bool isSupportedModule = !ModuleName.ECOMMERCE.Equals(typeInfo.ModuleName, StringComparison.OrdinalIgnoreCase)
+                    && !ModuleName.FORUMS.Equals(typeInfo.ModuleName, StringComparison.OrdinalIgnoreCase);
+
+        bool isSupportedObject = ((typeInfo.SupportsGlobalObjects && (sitesCount > 0)) || (sitesCount > 1))
+                    && (typeInfo.SiteIDColumn != ObjectTypeInfo.COLUMN_NAME_UNKNOWN)
+                    && (typeInfo.OriginalObjectType != CategoryInfo.OBJECT_TYPE);
+
+        bool hasNoBindings = (InfoToClone.Generalized.ObjectParentID == 0)
+                    && (InfoToClone.Generalized.ObjectGroupID == 0);
+
+        return typeInfo.SupportsCloneToOtherSite
+                    && hasNoBindings
+                    && isAdmin
+                    && isSupportedModule
+                    && isSupportedObject;
+    }
+
+
+    /// <summary>
+    /// Loads custom object type properties control.
+    /// </summary>
+    /// <param name="objectType">Object type of current cloned object</param>
+    private CloneSettingsControl LoadCustomProperties(string objectType)
+    {
+        Type customCloneControl;
+        if (CustomCloneSettings.TryGetControl(objectType, out customCloneControl))
+        {
+            return Activator.CreateInstance(customCloneControl) as CloneSettingsControl;
+        }
+
+        string fileName = $"{TranslationHelper.GetSafeClassName(objectType)}Settings.ascx";
+        string generalControlFile = "~/CMSModules/Objects/FormControls/Cloning/" + fileName;
+        string moduleControlFile = (string.IsNullOrEmpty(InfoToClone.TypeInfo.ModuleInfo?.ModuleRootPath)
+            ? generalControlFile
+            : $"{InfoToClone.TypeInfo.ModuleInfo.ModuleRootPath.TrimEnd('/')}/FormControls/Cloning/{fileName}");
+
+        if (customProperties == null)
+        {
+            try
+            {
+                customProperties = LoadUserControl(moduleControlFile) as CloneSettingsControl;
+            }
+            catch { }
+        }
+
+        if (customProperties == null)
+        {
+            try
+            {
+                customProperties = LoadUserControl(generalControlFile) as CloneSettingsControl;
+            }
+            catch { }
+        }
+
+        return customProperties;
+    }
+
+
+    private void SetLabel(LocalizedLabel label, string suffix, string defaultString)
+    {
+        string stringPrefixName = $"cloning.settings.{TranslationHelper.GetSafeClassName(InfoToClone.TypeInfo.ObjectType)}.";
+        string newString = stringPrefixName + suffix;
+
+        label.ResourceString = (GetString(newString) != newString) ? newString : defaultString;
+    }
 }

@@ -204,7 +204,7 @@ public partial class CMSModules_Objects_Controls_Versioning_ViewObjectVersion : 
         {
             lblInfo.Text = GetString("objectversion.notexists");
             lblInfo.Visible = true;
-            pnlAdditionalControls.Visible = false;
+            pnlControl.Visible = false;
             viewDataSet.Visible = false;
         }
     }
@@ -335,7 +335,7 @@ public partial class CMSModules_Objects_Controls_Versioning_ViewObjectVersion : 
         // Otherwise hide dropdown list
         else
         {
-            pnlControl.Visible = false;
+            pnlDropDown.Visible = false;
         }
 
         // Pre-select dropdown list
@@ -403,7 +403,7 @@ public partial class CMSModules_Objects_Controls_Versioning_ViewObjectVersion : 
             string tooltip = null;
             string confirmText = null;
 
-            var info = BaseAbstractInfoProvider.GetInfoById(Version.VersionObjectType, Version.VersionObjectID);
+            var info = ProviderHelper.GetInfoById(Version.VersionObjectType, Version.VersionObjectID);
             var rollbackEnabled = !SynchronizationHelper.IsCheckedOutByOtherUser(info);
 
             // Set image action and description according to roll back type

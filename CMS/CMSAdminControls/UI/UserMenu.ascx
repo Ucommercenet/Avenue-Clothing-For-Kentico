@@ -12,7 +12,7 @@
             <ul class="dropdown-menu" role="menu">
                 <li>
                     <a class="js-check-changes" href="<%= ApplicationUrlHelper.GetApplicationHash("CMS", "MyProfile") %>">
-                        <%= HTMLHelper.HTMLEncode(MembershipContext.AuthenticatedUser.FullName) %>
+                        <%= HTMLHelper.HTMLEncode(MembershipContext.AuthenticatedUser.Generalized.ObjectDisplayName) %>
                     </a>
                 </li>
                 <cms:CMSPlaceHolder ID="plcTopDivider" runat="server">

@@ -81,7 +81,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
         }
         else
         {
-            Service<IIssueSender>.Entry().SendAsync((IssueInfo)EditedObject, txtSendDraft.Text.Trim());
+            Service.Resolve<IDraftSender>().SendAsync((IssueInfo)EditedObject, txtSendDraft.Text.Trim());
 
             // Close the dialog
             ScriptHelper.RegisterStartupScript(this, GetType(), "ClosePage", "if (CloseDialog) { CloseDialog(); }", true);

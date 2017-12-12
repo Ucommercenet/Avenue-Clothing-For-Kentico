@@ -34,7 +34,7 @@ public partial class CMSModules_OnlineMarketing_Controls_UI_ABVariant_NewPage : 
         mTree = new TreeProvider(MembershipContext.AuthenticatedUser);
         mNode = mTree.SelectSingleNode(mNodeId);
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             if (mNode != null)
             {

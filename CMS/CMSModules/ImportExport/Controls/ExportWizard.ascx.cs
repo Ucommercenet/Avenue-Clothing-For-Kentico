@@ -14,7 +14,6 @@ using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.IO;
 using CMS.Membership;
-using CMS.PortalEngine.Web.UI;
 using CMS.UIControls;
 
 using IOExceptions = System.IO;
@@ -347,7 +346,7 @@ public partial class CMSModules_ImportExport_Controls_ExportWizard : CMSUserCont
                     }
                 }
 
-                PortalHelper.EnsureScriptManager(Page).EnablePageMethods = true;
+                ControlsHelper.EnsureScriptManager(Page).EnablePageMethods = true;
 
                 // Javascript functions
                 string script = String.Format(
@@ -471,8 +470,6 @@ function exNextStepAction()
 
     private void wzdExport_NextButtonClick(object sender, WizardNavigationEventArgs e)
     {
-        var settings = ExportSettings;
-
         switch (e.CurrentStepIndex)
         {
             case 0:
@@ -502,7 +499,7 @@ StartSelectionTimer();");
                 }
                 else
                 {
-                    pnlExport.Settings = settings;
+                    pnlExport.Settings = ExportSettings;
                     pnlExport.ReloadData();
 
                     wzdExport.ActiveStepIndex = e.NextStepIndex;
@@ -521,7 +518,7 @@ StartSelectionTimer();");
                 // Delete temporary files
                 try
                 {
-                    ExportProvider.DeleteTemporaryFiles(settings, true);
+                    ExportProvider.DeleteTemporaryFiles(ExportSettings, true);
                 }
                 catch (Exception ex)
                 {
@@ -536,9 +533,9 @@ StartSelectionTimer();");
                     ExportHistoryInfo history = new ExportHistoryInfo
                     {
                         ExportDateTime = DateTime.Now,
-                        ExportFileName = settings.TargetFileName,
-                        ExportSettings = settings.GetXML(),
-                        ExportSiteID = settings.SiteId,
+                        ExportFileName = ExportSettings.TargetFileName,
+                        ExportSettings = ExportSettings.GetXML(),
+                        ExportSiteID = ExportSettings.SiteId,
                         ExportUserID = MembershipContext.AuthenticatedUser.UserID
                     };
 
@@ -552,16 +549,16 @@ StartSelectionTimer();");
                     return;
                 }
 
-                if (settings.SiteId > 0)
+                if (ExportSettings.SiteId > 0)
                 {
-                    settings.EventLogSource = string.Format(settings.GetAPIString("ExportSite.EventLogSiteSource", "Export '{0}' site"), ResHelper.LocalizeString(settings.SiteInfo.DisplayName));
+                    ExportSettings.EventLogSource = string.Format(ExportSettings.GetAPIString("ExportSite.EventLogSiteSource", "Export '{0}' site"), ResHelper.LocalizeString(ExportSettings.SiteInfo.DisplayName));
                 }
 
                 // Start asynchronous export
                 var manager = ExportManager;
 
-                settings.LogContext = ctlAsyncExport.CurrentLog;
-                manager.Settings = settings;
+                ExportSettings.LogContext = ctlAsyncExport.CurrentLog;
+                manager.Settings = ExportSettings;
 
                 ctlAsyncExport.RunAsync(manager.Export, WindowsIdentity.GetCurrent());
 
@@ -599,7 +596,7 @@ StartSelectionTimer();");
         settings.LoadDefaultSelection();
         settings.SavePersistent();
     }
-    
+
     #endregion
 
 

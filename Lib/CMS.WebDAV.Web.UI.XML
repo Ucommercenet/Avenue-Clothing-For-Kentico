@@ -9,21 +9,6 @@
             Attachment WebDAV control.
             </summary>
         </member>
-        <member name="T:CMS.WebDAV.Web.UI.WebDAVEditControl">
-            <summary>
-            Base control for WebDAV editing of files
-            </summary>
-        </member>
-        <member name="M:CMS.WebDAV.Web.UI.WebDAVEditControl.CheckEnable">
-            <summary>
-            Checks the enabled status of the control
-            </summary>
-        </member>
-        <member name="M:CMS.WebDAV.Web.UI.WebDAVEditControl.GetEditScript">
-            <summary>
-            Gets the editing action script
-            </summary>
-        </member>
         <member name="M:CMS.WebDAV.Web.UI.AttachmentEditControl.#ctor">
             <summary>
             Creates instance.
@@ -68,6 +53,21 @@
         <member name="M:CMS.WebDAV.Web.UI.MetaFileEditControl.GetUrl">
             <summary>
             Gets the meta file URL.
+            </summary>
+        </member>
+        <member name="T:CMS.WebDAV.Web.UI.WebDAVEditControl">
+            <summary>
+            Base control for WebDAV editing of files
+            </summary>
+        </member>
+        <member name="M:CMS.WebDAV.Web.UI.WebDAVEditControl.CheckEnable">
+            <summary>
+            Checks the enabled status of the control
+            </summary>
+        </member>
+        <member name="M:CMS.WebDAV.Web.UI.WebDAVEditControl.GetEditScript">
+            <summary>
+            Gets the editing action script
             </summary>
         </member>
         <member name="T:CMS.WebDAV.Web.UI.WebDAVWebUIModule">

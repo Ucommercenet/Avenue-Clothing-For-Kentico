@@ -223,14 +223,14 @@ public partial class CMSModules_SmartSearch_Controls_Edit_SearchFields : CMSAdmi
         ClassFields.DisplaySaved = false;
 
         // Setup controls
-        if (!URLHelper.IsPostback() && (ClassInfo != null))
+        if (!RequestHelper.IsPostBack() && (ClassInfo != null))
         {
             pnlSearchFields.Visible = chkSearchEnabled.Checked = ClassInfo.ClassSearchEnabled;
         }
 
         plcAdvancedMode.Visible = AdvancedMode;
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             ReloadData();
         }

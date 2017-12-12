@@ -6,7 +6,9 @@ using System.Web.UI;
 using CMS.Helpers;
 using CMS.UIControls;
 
+#pragma warning disable BH3502 // Page must inherit from right class.
 public partial class CMSPages_Dialogs_CaptchaImage : Page
+#pragma warning restore BH3502 // Page must inherit from right class.
 {
     #region "Constants"
 
