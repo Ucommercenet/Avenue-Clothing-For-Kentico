@@ -19,3 +19,220 @@
    at System.IO.FileSystemEnumerableIterator`1.CommonInit()
    at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
    at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:00:54.4854679Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:00:54.4874705Z - 15976 - Warn - 
+2017-12-15T09:00:54.4884727Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:00:54.4894754Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:00:54.5155451Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:00:54.5155451Z - 15976 - Fatal - 
+2017-12-15T09:00:54.5155451Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:00:54.5155451Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:00:54.5165564Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:01:01.8221412Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:01:01.8241462Z - 15976 - Warn - 
+2017-12-15T09:01:01.8241462Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:01:01.8251488Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:01:01.8467109Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:01:01.8467109Z - 15976 - Fatal - 
+2017-12-15T09:01:01.8467109Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:01:01.8467109Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:01:01.8472078Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:01:12.8297734Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:01:12.8317772Z - 15976 - Warn - 
+2017-12-15T09:01:12.8317772Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:01:12.8327798Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:01:12.8518320Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:01:12.8518320Z - 15976 - Fatal - 
+2017-12-15T09:01:12.8518320Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:01:12.8518320Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:01:12.8523322Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:02:22.3861437Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:02:22.3891449Z - 15976 - Warn - 
+2017-12-15T09:02:22.3891449Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:02:22.3911495Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:02:22.4187484Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:02:22.4192446Z - 15976 - Fatal - 
+2017-12-15T09:02:22.4192446Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:02:22.4192446Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:02:22.4202485Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:02:32.7023386Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:02:32.7043435Z - 15976 - Warn - 
+2017-12-15T09:02:32.7043435Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:02:32.7053474Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:02:32.7253999Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:02:32.7253999Z - 15976 - Fatal - 
+2017-12-15T09:02:32.7253999Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:02:32.7253999Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:02:32.7264045Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:02:38.3410076Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:02:38.3425116Z - 15976 - Warn - 
+2017-12-15T09:02:38.3425116Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:02:38.3435146Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:02:38.3665779Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:02:38.3665779Z - 15976 - Fatal - 
+2017-12-15T09:02:38.3665779Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:02:38.3665779Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:02:38.3670788Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:02:42.7360744Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:02:42.7380809Z - 15976 - Warn - 
+2017-12-15T09:02:42.7380809Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:02:42.7385807Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:02:42.7581323Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:02:42.7581323Z - 15976 - Fatal - 
+2017-12-15T09:02:42.7581323Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:02:42.7581323Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:02:42.7581323Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:02:47.6928239Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:02:47.6948550Z - 15976 - Warn - 
+2017-12-15T09:02:47.6948550Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:02:47.6958323Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:02:47.7158856Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:02:47.7158856Z - 15976 - Fatal - 
+2017-12-15T09:02:47.7158856Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:02:47.7158856Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:02:47.7158856Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:03:03.7058807Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:03:03.7078746Z - 15976 - Warn - 
+2017-12-15T09:03:03.7078746Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:03:03.7088765Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:03:03.7279275Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:03:03.7279275Z - 15976 - Fatal - 
+2017-12-15T09:03:03.7279275Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:03:03.7279275Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:03:03.7279275Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:03:09.9338953Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:03:09.9359018Z - 15976 - Warn - 
+2017-12-15T09:03:09.9359018Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:03:09.9369021Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:03:09.9569570Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:03:09.9569570Z - 15976 - Fatal - 
+2017-12-15T09:03:09.9569570Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:03:09.9574583Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:03:09.9574583Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:03:36.6011623Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:03:36.6031661Z - 15976 - Warn - 
+2017-12-15T09:03:36.6031661Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:03:36.6041656Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:03:36.6292322Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:03:36.6292322Z - 15976 - Fatal - 
+2017-12-15T09:03:36.6292322Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:03:36.6302348Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:03:36.6302348Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:04:56.1932733Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:04:56.1962809Z - 15976 - Warn - 
+2017-12-15T09:04:56.1962809Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:04:56.1972844Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:04:56.2083137Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:04:56.2083137Z - 15976 - Fatal - 
+2017-12-15T09:04:56.2083137Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:04:56.2083137Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:04:56.2083137Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:06:45.2351312Z - 15976 - Warn - Exception cleaning temporary files
+2017-12-15T09:06:45.2371452Z - 15976 - Warn - 
+2017-12-15T09:06:45.2371452Z - 15976 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:06:45.2381392Z - 15976 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:06:45.2571902Z - 15976 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:06:45.2571902Z - 15976 - Fatal - 
+2017-12-15T09:06:45.2571902Z - 15976 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:06:45.2571902Z - 15976 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:06:45.2576916Z - 15976 - Fatal - No data source available to create provider.
+2017-12-15T09:08:25.1457183Z - 21580 - Warn - Exception cleaning temporary files
+2017-12-15T09:08:25.1477232Z - 21580 - Warn - 
+2017-12-15T09:08:25.1477232Z - 21580 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:08:25.1496957Z - 21580 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()
+2017-12-15T09:08:25.1707825Z - 21580 - Fatal - Exception processing device data from binary file 'C:\Projects\Accelerators\Kentico 10 WF\CMS\App_Data\CMSModules\DeviceProfiles\51Degrees.dat'. Enable debug level logging and try again to help identify cause.
+2017-12-15T09:08:25.1707825Z - 21580 - Fatal - 
+2017-12-15T09:08:25.1707825Z - 21580 - Fatal - Access to the path '~/App_Data/51Degrees' is denied.
+2017-12-15T09:08:25.1707825Z - 21580 - Fatal -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.GetTempFileDataSet()
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.Create()
+2017-12-15T09:08:25.1707825Z - 21580 - Fatal - No data source available to create provider.
+2017-12-15T09:09:26.8110862Z - 10864 - Warn - Exception cleaning temporary files
+2017-12-15T09:09:26.8135937Z - 10864 - Warn - 
+2017-12-15T09:09:26.8135937Z - 10864 - Warn - Could not find a part of the path 'c:\Windows\System32\inetsrv\~\App_Data\51Degrees'.
+2017-12-15T09:09:26.8155899Z - 10864 - Warn -    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.DirectoryInfo.InternalGetFiles(String searchPattern, SearchOption searchOption)
+   at FiftyOne.Foundation.Mobile.Detection.WebProvider.CleanTemporaryFiles()

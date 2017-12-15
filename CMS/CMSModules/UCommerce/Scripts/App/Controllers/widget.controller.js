@@ -39,14 +39,14 @@
 	}
 
     $scope.calculateFontSize = function() {
-    	var element = $('#' + $scope.widget.userWidgetSettings.userWidgetSettingId);
+        var element = $('#' + $scope.widget.userWidgetSettings.userWidgetSettingId.UserWidgetSettingId);
 
     	var height = element.height() / 1.3;
     	var width = element.width() / 1.3;
 
     	var properFontSize = Math.min(height, width) - 20; // Make it a little smaller than the actual size of the container.
 
-    	var loadingElement = $('#' + $scope.widget.userWidgetSettings.userWidgetSettingId + ' .widgetLoading i');
+        var loadingElement = $('#' + $scope.widget.userWidgetSettings.userWidgetSettingId.UserWidgetSettingId + ' .widgetLoading i');
     	loadingElement.css('font-size', properFontSize);
     	loadingElement.css('margin-top', (properFontSize/2)*-1);
     }

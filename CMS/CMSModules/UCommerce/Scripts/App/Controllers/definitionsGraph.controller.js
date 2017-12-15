@@ -8,11 +8,6 @@
     $scope.id = /id=(.+)&?/g.exec(window.location.search);
     $scope.id = ($scope.id == null) ? null : $scope.id[1];
 
-    $scope.saveGraph = function () {
-        definitionsService.saveDefinitionGraph($scope.definitionGraph, $scope.id);
-	    UCommerceClientMgr.showSpeechBubble('success', "save", "save");
-	}
-
     $scope.getVisibility = function() {
         return ($scope.selectedNode != null);
     };
