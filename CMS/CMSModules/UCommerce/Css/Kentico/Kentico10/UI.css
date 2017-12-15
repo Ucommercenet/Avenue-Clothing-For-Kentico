@@ -915,9 +915,9 @@ ul#sectionGroupTabs {
     font-size: 26px;
     font-weight: bold;
     font-family: Arial, sans-serif;
+    max-width: 100%;
     border: 1px solid transparent;
     background: transparent;
-    width: 50%;
     padding: 0px;
 }
 
@@ -1231,6 +1231,7 @@ textarea, .propertyPane select {
     border: 1px solid #e3e3e3;
     box-sizing: border-box;
     background: #fff;
+    vertical-align: top;
 }
 
 .multiPicker .selectedNodes, .multiPicker .selectedItemsHeaderText {

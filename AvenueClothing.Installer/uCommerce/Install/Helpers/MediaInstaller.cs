@@ -15,17 +15,21 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 	{
 		private string productFolder = "Product";
 		private string categoryFolder = "Category";
+	    private string emsFolder = "EMS";
 
-		public void Configure()
+        public void Configure()
 		{
 			if (MediaLibraryInfoProvider.GetMediaLibraryInfo("AvenueClothing", SiteContext.CurrentSiteName) == null)
 			{
 				CMS.DataEngine.CMSApplication.Init();
 				var libraryId = CreateMediaLibrary();
-				CreateMediaLibraryFolders(libraryId);
-				CreateAndUploadMediaFiles(libraryId);
 
-			}
+                CreateMediaLibraryFolders(libraryId);
+                CreateAndUploadMediaFiles(libraryId, emsFolder);
+			    CreateAndUploadMediaFiles(libraryId, productFolder);
+			    CreateAndUploadMediaFiles(libraryId, categoryFolder);
+
+            }
 
 			AddUcommerceProductImages();
 			AddUcommerceCategoryImages();
@@ -77,26 +81,21 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 			}
 		}
 
-		private void CreateAndUploadMediaFiles(int libraryId)
-		{
-			// Prepares a path to a local file
-			var pathWithSiteName = new StringBuilder("~/")
-				.Append(SiteContext.CurrentSiteName)
-				.Append("/media/AvenueClothing/")
-				.ToString();
+	    private void CreateAndUploadMediaFiles(int libraryId, string folderPath)
+	    {
+	        var pathWithSiteName = new StringBuilder("~/")
+	            .Append(SiteContext.CurrentSiteName)
+	            .Append("/media/AvenueClothing/")
+	            .ToString();
 
-			string filePath = HttpContext.Current.Server.MapPath(pathWithSiteName);
+            string filePath = HttpContext.Current.Server.MapPath(pathWithSiteName);
 
-			var productImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + productFolder);
-			UploadImages(productImagesDirectory);
-			CreateFilesAsMediaInfos(libraryId, productImagesDirectory, productFolder);
+            var directoryInfo = new CMS.FileSystemStorage.DirectoryInfo(filePath + folderPath);
+	        UploadImages(directoryInfo);
+	        CreateFilesAsMediaInfos(libraryId, directoryInfo, folderPath);
+	    }
 
-			var categoryImagesDirectory = new CMS.FileSystemStorage.DirectoryInfo(filePath + categoryFolder);
-			UploadImages(categoryImagesDirectory);
-			CreateFilesAsMediaInfos(libraryId, categoryImagesDirectory, categoryFolder);
-		}
-
-		private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
+	    private void UploadImages(CMS.FileSystemStorage.DirectoryInfo imagesDirectory)
 		{
 			System.IO.DirectoryInfo fromDirectory;
 			//for subapplication
@@ -166,6 +165,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 		{
 			MediaLibraryInfoProvider.CreateMediaLibraryFolder(SiteContext.CurrentSiteName, libraryId, productFolder);
 			MediaLibraryInfoProvider.CreateMediaLibraryFolder(SiteContext.CurrentSiteName, libraryId, categoryFolder);
+			MediaLibraryInfoProvider.CreateMediaLibraryFolder(SiteContext.CurrentSiteName, libraryId, emsFolder);
 		}
 
 		private int CreateMediaLibrary()

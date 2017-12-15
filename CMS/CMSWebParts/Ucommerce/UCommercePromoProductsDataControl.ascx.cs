@@ -48,7 +48,7 @@ namespace CMSApp.CMSWebParts.Custom
             //var data = base.GetDataSource(offset, maxRecords) as List<UCommerceProduct>;
             var data = GetDataSourceFromDB() as List<UCommerceProduct>;
 
-            UCommerceContext.SetProducts(data);
+			UCommerceContext.SetProducts(data);
 
             return data.ToDataSet();
         }
@@ -57,24 +57,19 @@ namespace CMSApp.CMSWebParts.Custom
         protected override object GetDataSourceFromDB()
         {
             CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
-            var data = new List<UCommerceProduct>();
 
             _products = SiteContext.Current.CatalogContext.CurrentCatalog.Categories
                 .SelectMany(c => c.Products.Where(p => p.ProductProperties.Any(pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && Convert.ToBoolean(pp.Value)))).ToList();
 
-            Product altProduct = null; ;
-            try
-            {
-                altProduct = CatalogLibrary.GetProduct(AltProductSKUControl);
-            }
-            catch
-            {
-                // Checking whether the given SKU value is correct
+            if (string.IsNullOrEmpty(AltProductSKUControl) == false) {
+                var productRepository = ObjectFactory.Instance.Resolve<IRepository<Product>>();
+                var altProduct = productRepository.SingleOrDefault(p => p.Sku == AltProductSKUControl);
+                _products = ReplaceAltProduct(_products, altProduct);
             }
 
-            data = convertToUcommerceProduct(_products, altProduct);     
-            
-            return data;
+            return _products
+                .Select(p => ConvertProductToUcommerceProduct(p))
+                .ToList();
         }    
 
         public Category CurrentCategory
@@ -83,42 +78,45 @@ namespace CMSApp.CMSWebParts.Custom
             set { }
         }
 
-        private List<UCommerceProduct> convertToUcommerceProduct(ICollection<Product> _products, Product altProduct)
+        private ICollection<Product> ReplaceAltProduct(ICollection<Product> products, Product altProduct)
         {
-            var data = new List<UCommerceProduct>();
-
-            bool firstProduct = true;
-            foreach (Product product in _products)
+            var productList = new List<Product>(products);
+            if (altProduct != null)
             {
-                if (firstProduct && altProduct != null)
-                {
-                    addProductToList(data, altProduct);
-                }
-                else
-                {
-                    addProductToList(data, product);
-                }
-                firstProduct = false;
+                productList[0] = altProduct;
             }
-            return data;
+
+            return productList;
         }
 
-        private void addProductToList(List<UCommerceProduct> data, Product product)
+        private UCommerceProduct ConvertProductToUcommerceProduct(Product product)
         {
-	        var url = CatalogLibrary.GetNiceUrlForProduct(product);
+            var imageService = ObjectFactory.Instance.Resolve<IImageService>();
+
+            var url = CatalogLibrary.GetNiceUrlForProduct(product);
             var price = CatalogLibrary.CalculatePrice(product);
 
-            if (!string.IsNullOrWhiteSpace(product.ThumbnailImageMediaId))
+            var ucommerceProduct = new UCommerceProduct
             {
-				var imageService = ObjectFactory.Instance.Resolve<IImageService>().GetImage(product.PrimaryImageMediaId);
-	            var imageUrl = imageService.Url;
+                ProductName = product.Name,
+                ProductSKU = product.Sku,
+                ProductUrl = url,
+                Price = "-",
+                Tax = "-"
+            };
 
-                data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, ImageUrl = imageUrl, Tax = price.YourTax.ToString() });
-            }
-            else
+            if (price.YourPrice != null)
             {
-                data.Add(new UCommerceProduct { ProductName = product.Name, ProductSKU = product.Sku, Price = price.YourPrice.Amount.ToString(), ProductUrl = url, Tax = price.YourTax.ToString() });
+                ucommerceProduct.Price = price.YourPrice.Amount.ToString();
+                ucommerceProduct.Tax = price.YourTax.ToString();
             }
+
+            if (string.IsNullOrWhiteSpace(product.PrimaryImageMediaId) == false)
+            {
+                ucommerceProduct.ImageUrl = imageService.GetImage(product.PrimaryImageMediaId).Url;
+            }
+
+            return ucommerceProduct;
         }
 
         public IList<Facet> GetFacets()

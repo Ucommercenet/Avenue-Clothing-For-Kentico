@@ -13,15 +13,6 @@ namespace CMSApp.CMSTemplates.AvenueClothingSite {
     public partial class CMSTemplates_AvenueClothingSite_Homepage {
         
         /// <summary>
-        /// HomepageBanner1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CMSApp.CMSTemplates.AvenueClothing.Controls.HomepageBanner HomepageBanner1;
-        
-        /// <summary>
         /// WebPartZonePlaceholder control.
         /// </summary>
         /// <remarks>

@@ -48,42 +48,42 @@
             </tr>
             <tr id="subOrder" runat="server">
 
-                <td>Sub total:</td>
+                <td class="order-value-label">Sub total:</td>
                 <td class="money order-subtotal">
                     <asp:Literal runat="server" ID="litSubtotal"></asp:Literal>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr id="vatOrder" runat="server">
-                <td>VAT:</td>
+                <td class="order-value-label">VAT:</td>
                 <td class="money order-tax">
                     <asp:Literal runat="server" ID="litTax"></asp:Literal>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr id="discountOrder" runat="server">
-                <td>Discounts:</td>
+                <td class="order-value-label">Discounts:</td>
                 <td class="money order-discounts">
                     <asp:Literal runat="server" ID="litDiscount"></asp:Literal>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr id="shippingOrder" runat="server">
-                <td>Shipping</td>
+                <td class="order-value-label">Shipping</td>
                 <td class="money order-shipping">
                     <asp:Literal runat="server" ID="litShipping"></asp:Literal>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr id="paymentOrder" runat="server">
-                <td>Payment</td>
+                <td class="order-value-label">Payment</td>
                 <td class="money order-payment">
                     <asp:Literal runat="server" ID="litPayment"></asp:Literal>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>Order total:</td>
+                <td class="order-value-label">Order total:</td>
                 <td class="money order-total">
                     <asp:Literal runat="server" ID="litTotal"></asp:Literal>
                 </td>

@@ -324,6 +324,30 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 /* Common
 -------------------------------------------*/
+
+.banner-image { 
+	position: relative; 
+	width: 100%; 
+	margin-bottom: 1rem;
+}
+
+.banner-image h2 { 
+	position: absolute;
+	top: 80px;
+	left: 0;
+	padding: 20px;
+	width: 70%;
+}
+.banner-image p { 
+	position: absolute;
+	top: 125px;
+	left: 0;
+	padding: 20px;
+	width: 70%;
+}
+.banner-image img {
+	width: 100%;
+}
 #search-form {
 }
     #search-form .btn {
@@ -645,3 +669,75 @@ input[type=text], input[type=email] {
 
 
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
+
+/* Responsive fixes */
+.table.table-striped.table-basket {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.table-basket th{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+}
+
+td.money {
+    padding-left: 0px;
+    overflow-x: hidden; 
+}
+
+@media (max-width: 768px) {
+    .product.span4 {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    a.brand.span3 {
+        display: none;
+    }
+
+    .banner-image p, .banner-image h2 {
+        width: 50%;
+    }
+
+    .icon-refresh.update-cart-button {
+        display: block;
+        margin-left: 25%;
+    }
+
+    .table-basket tr td:first-child:not(.order-value-label), 
+    .table-basket thead tr th:first-child {
+        display: none;
+    }
+
+    #cart .qty.update-cart {
+        width: 25px;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 20%;
+    }
+
+    .container-fluid .row-fluid .span3 .sidebar-nav:not(.main-nav) {
+        display: none;
+    }
+   
+}
+
+@media (max-width: 642px) {
+    .banner-image h2 {
+        top: 0;
+    }
+
+    .banner-image p {
+        top: 45px;
+    }
+    
+    .banner-image img {
+        min-height: 185px;
+    }
+    .table-basket tr td {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

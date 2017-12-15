@@ -820,10 +820,4 @@
     }
 }
 
-@media (max-width: 768px) {
-    .row-fluid div.pull-right {
-        display: none;
-    }
-}
-
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

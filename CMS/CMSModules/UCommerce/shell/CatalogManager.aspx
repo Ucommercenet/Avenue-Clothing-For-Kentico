@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="Masterpages/MasterPageShell.Master" CodeBehind="CatalogManager.aspx.cs" Inherits="UCommerce.Web.Shell.Kentico.CatalogManager" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlacerHolder" runat="server">
-	<ucommerce-shell content-picker-type="CatalogApp" tree-indetion-size="31" fixed-left-size="300px" disable-resize="false" start-page="../Catalog/StoresStartPage.aspx?IsSpeak=true" stylesheet="<%= string.Equals(Request.QueryString["IsSpeak"], bool.TrueString, StringComparison.OrdinalIgnoreCase) ? "/sitecore modules/Shell/ucommerce/css/Speak/ucommerce-speak.css" : string.Empty %>" script="<%= string.Equals(Request.QueryString["IsSpeak"], bool.TrueString, StringComparison.OrdinalIgnoreCase) ? "/sitecore modules/Shell/ucommerce/scripts/speak.js" : string.Empty %>"></ucommerce-shell>        
+	<ucommerce-shell content-picker-type="CatalogApp" tree-indetion-size="31" fixed-left-size="300px" disable-resize="false" start-page="../Catalog/StoresStartPage.aspx"></ucommerce-shell>        
 </asp:Content>

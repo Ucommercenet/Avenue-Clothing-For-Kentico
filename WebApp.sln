@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSApp", "CMS\CMSApp.csproj", "{BB8817AE-48DF-4672-A1CB-CFB7441B88DA}"
 EndProject
@@ -302,6 +302,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{79B2222A
 		Lib\Azure\Microsoft.WindowsAzure.Storage.xml = Lib\Azure\Microsoft.WindowsAzure.Storage.xml
 		Lib\Azure\System.Spatial.dll = Lib\Azure\System.Spatial.dll
 		Lib\Azure\System.Spatial.xml = Lib\Azure\System.Spatial.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{1745D4AA-C79F-4839-A155-9D73647DE590}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Release-notes.txt = docs\Release-notes.txt
 	EndProjectSection
 EndProject
 Global

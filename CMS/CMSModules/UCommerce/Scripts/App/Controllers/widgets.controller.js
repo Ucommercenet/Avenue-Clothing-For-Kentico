@@ -181,7 +181,7 @@
 				properties: propertiesToAdd,
 				userWidgetSettings: {
 					displayName: widget.name,
-					userWidgetSettingId: data.data,
+                    userWidgetSettingId: data.data.UserWidgetSettingId,
 					userWidth: widget.defaultWidth,
 					userHeight: widget.defaultHeight,
 					userPositionX: 1,
