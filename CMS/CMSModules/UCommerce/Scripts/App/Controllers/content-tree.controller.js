@@ -60,7 +60,7 @@
 
 		$scope.$broadcast('preSelectedValuesChanged', $scope.selectedNodes);
 
-	});
+    });
 
 	$scope.getPaddingStyle = function(node) {
 

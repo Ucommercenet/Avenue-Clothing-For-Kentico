@@ -25,6 +25,5 @@
 		}
 
 		$scope.$broadcast('preSelectedValuesChanged', $scope.preSelectedValues);
-	});
-
+    });
 }

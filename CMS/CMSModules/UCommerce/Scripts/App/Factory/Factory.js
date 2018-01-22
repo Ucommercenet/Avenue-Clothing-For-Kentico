@@ -28,8 +28,10 @@ angular.module('ucommerce').controller("widgetsController", uc_widgetResizableCo
 angular.module('ucommerce').controller("appPreviewController", uc_appPreviewController);
 angular.module('ucommerce').controller("appInstallerController", uc_appInstallerController);
 angular.module('ucommerce').controller("appsInstalledController", uc_appsInstalledController);
+angular.module('ucommerce').controller("catalogSearchController", uc_catalogSearchController);
 
 angular.module('ucommerce.directives').directive("rightClick", uc_rightClick);
+angular.module('ucommerce.directives').directive("ucommerceCatalogSearch", ucommerceCatalogSearch);
 angular.module('ucommerce.directives').directive('ucommerceDefinitionsGraph', ucommerceDefinitionsGraph);
 angular.module('ucommerce.directives').directive('ucommerceTree', ucommerceTree);
 angular.module('ucommerce.directives').directive('ucommerceContentTree', ucommerceContentTree);
