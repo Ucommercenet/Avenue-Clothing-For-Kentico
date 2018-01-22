@@ -23,35 +23,35 @@ body {
     vertical-align: top;
 }
 
-    .imagePicker .imagePickerContainer .imagePickerContainerRibbon {
-        background: #e0eced url("/sitecore/shell/themes/standard/images/RibbonToolbarStrip.png") repeat-x;
-        height: 33px;
-        border-bottom: 1px solid #BABABA;
+.imagePicker .imagePickerContainer .imagePickerContainerRibbon {
+    background: #e0eced url("/sitecore/shell/themes/standard/images/RibbonToolbarStrip.png") repeat-x;
+    height: 33px;
+    border-bottom: 1px solid #BABABA;
+}
+
+.imagePicker .imagePickerContainer .imagePickerContainerHeader {
+    padding: 1px;
+    height: 20px;
+    background: #4E4E4E url(/sitecore/shell/themes/standard/gradients/gray1.gif) 50% 0 repeat-y;
+}
+
+    .imagePicker .imagePickerContainer .imagePickerContainerHeader .imagePickerContainerClose {
+        float: right;
+        height: 13px;
+        width: 38px;
+        background: url(/sitecore/shell/themes/standard/Images/Window%20Management/Close_red.png);
     }
 
-    .imagePicker .imagePickerContainer .imagePickerContainerHeader {
-        padding: 1px;
-        height: 20px;
-        background: #4E4E4E url(/sitecore/shell/themes/standard/gradients/gray1.gif) 50% 0 repeat-y;
-    }
-
-        .imagePicker .imagePickerContainer .imagePickerContainerHeader .imagePickerContainerClose {
-            float: right;
-            height: 13px;
-            width: 38px;
-            background: url(/sitecore/shell/themes/standard/Images/Window%20Management/Close_red.png);
-        }
-
-    .imagePicker .imagePickerContainer .imagePickerContainerRibbon .imagePickerContainerSave {
-        width: 24px;
-        height: 24px;
-        display: inline-block;
-        background: url("/sitecore%20modules/Shell/ucommerce/images/save.gif");
-        background-repeat: no-repeat;
-        background-size: 20px;
-        margin: 7px;
-        cursor: pointer;
-    }
+.imagePicker .imagePickerContainer .imagePickerContainerRibbon .imagePickerContainerSave {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url("/sitecore%20modules/Shell/ucommerce/images/save.gif");
+    background-repeat: no-repeat;
+    background-size: 20px;
+    margin: 7px;
+    cursor: pointer;
+}
 
 .imagePicker span p {
     cursor: pointer;
@@ -388,7 +388,6 @@ th {
     font-size: 11px;
     color: #333333;
     margin: 0;
-    margin-right: 8px;
 }
 
 .guiInputButton {
@@ -810,15 +809,15 @@ guiEditor {
     }
 
 
-    #tinymce ul{
-        font-family: "Segoe UI",Helvetica,Verdana,Arial,sans-serif;
-        font-size: 14px;
-    }
+#tinymce ul {
+    font-family: "Segoe UI",Helvetica,Verdana,Arial,sans-serif;
+    font-size: 14px;
+}
 
-        .tinymceMenuBar table {
-            margin: 1px 0 0 6px;
-            _margin-top: 2px;
-        }
+.tinymceMenuBar table {
+    margin: 1px 0 0 6px;
+    _margin-top: 2px;
+}
 
 .editorIcon {
     display: none;
@@ -921,7 +920,7 @@ ul#sectionGroupTabs {
     padding: 0px;
 }
 
-    #uc-headline.editable{
+    #uc-headline.editable {
         color: black;
     }
 
@@ -966,7 +965,7 @@ table.CatalogItemSelectorTable {
         display: inline-block;
     }
 
-   .contentTree .treeItemExpandContainer a.treeItemOpen span {
+    .contentTree .treeItemExpandContainer a.treeItemOpen span {
         background-image: url("../Kentico10/images/treemenu_expanded.png");
     }
 
@@ -1226,7 +1225,7 @@ textarea, .propertyPane select {
     width: 49%;
     height: 100%;
     overflow-y: scroll;
-    overflow-x: auto;
+    overflow-x: hidden;
     padding: 10px 5px 0 10px;
     border: 1px solid #e3e3e3;
     box-sizing: border-box;
@@ -1700,18 +1699,18 @@ select::-ms-expand {
     }
 
 .secondary-button-wrapper {
-  display: none;
+    display: none;
 }
 
 .menubar .secondary-button-wrapper {
     display: inline-block
 }
 
-.menubar .secondary-button-wrapper .secondary-button-label {
-    word-spacing: initial;
-    vertical-align: inherit;
-    margin: 0 8px 8px 0;
-}
+    .menubar .secondary-button-wrapper .secondary-button-label {
+        word-spacing: initial;
+        vertical-align: inherit;
+        margin: 0 8px 8px 0;
+    }
 
 .footerOkCancel {
     white-space: nowrap;
@@ -1778,6 +1777,8 @@ form, body {
 .contentTree .multiPickerAction {
     height: 100%;
     box-sizing: border-box;
+    margin-top: -26px;
+    padding-top: 26px;
 }
 
 .multiPickerContainer-CreateProductRelation {
@@ -1845,7 +1846,7 @@ form, body {
 }
 
 .propertyPane {
-    font-family: "Segoe UI",Helvetica,Verdana,Arial,sans-serif!important;
+    font-family: "Segoe UI",Helvetica,Verdana,Arial,sans-serif !important;
     font-size: 14px;
 }
 
@@ -1994,7 +1995,6 @@ img.ui-datepicker-trigger {
 
 .TreeViewWrapper table tbody tr td {
     padding-left: 5px;
-    
 }
 
     .TreeViewWrapper table tbody tr td input {
@@ -2004,7 +2004,7 @@ img.ui-datepicker-trigger {
     .TreeViewWrapper table tbody tr td a {
         line-height: 24px;
         vertical-align: bottom;
-            font-family: "Segoe UI",Helvetica,Verdana,Arial,sans-serif;
+        font-family: "Segoe UI",Helvetica,Verdana,Arial,sans-serif;
     }
 
 .ui-state-hover .ui-icon {
@@ -2843,20 +2843,125 @@ a.propertyLink {
     height: 100%;
 }
 
-.boxbody .imagePicker .imagePickerContainer {
-    flex: 1 auto;
-    overflow: auto;
-}
+    .boxbody .imagePicker .imagePickerContainer {
+        flex: 1 auto;
+        overflow: auto;
+    }
 
 .imagePickerContainer .contentTree .treeNodeIcon span {
     margin-top: 0 !important;
 }
 
 .imagePickerContainer .contentTree .treeTop:first-child {
-
 }
 
 .marketing-container legend, .marketing-container table tbody tr td, .marketing-container table tbody tr td div, .marketing-container table tbody tr td span {
     font-family: "Segoe UI",Helvetica,Verdana,Arial,sans-serif;
+    font-size: 14px;
+}
+
+.contentPickerSearchInput {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.contentPickerSearchResults .treeLink {
+    padding: 3px 0 3px 0;
+}
+
+.selectedNodes .selected-nodes-container {
+    display: flex;
+    flex-flow: column;
+}
+
+    .selectedNodes .selected-nodes-container .selectedNode {
+        display: flex;
+    }
+
+
+    .selectedNodes .selected-nodes-container .selectedNode {
+        display: flex;
+        flex-flow: row;
+        overflow: hidden;
+    }
+
+        .selectedNodes .selected-nodes-container .selectedNode .removeIcon {
+            display: flex;
+            flex: 0 0 20px;
+            flex-flow: column;
+        }
+
+        .selectedNodes .selected-nodes-container .selectedNode .node {
+            display: flex;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .selectedNodes .selected-nodes-container .selectedNode .nodeName {
+            display: flex;
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .selectedNodes .selected-nodes-container .selectedNode .node .treeNodeIcon {
+            display: flex;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+.clear-search {
+    margin-left: -30px;
+    top: 3px;
+    cursor: pointer;
+    color: #a7a7a7;
+    font-size: 20px;
+}
+
+    .clear-search.clear-search-spinner {
+        margin-top: 5px;
+        margin-left: -35px;
+    }
+
+
+    .clear-search:hover {
+        color: black;
+    }
+
+.content-picker-search-result {
+    display: flex;
+    flex-flow: row;
+    min-width: 0;
+    cursor: pointer;
+    align-items: center;
+    padding: 10px 0;
+}
+
+    .content-picker-search-result:hover {
+        background-color: #f8f8f8;
+    }
+
+.content-picker-search-result-checkbox {
+    flex: 0 0 16px;
+}
+
+.content-picker-search-result-icon {
+    flex: 0 0 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+.content-picker-search-result-text {
+    flex: 1 1 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-left: 5px;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
 }

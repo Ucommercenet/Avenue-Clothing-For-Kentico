@@ -1,4 +1,4 @@
-﻿function uc_multiPickerController($scope, $rootScope, $window, $location, $q, uCommerceContentService) {
+﻿function uc_multiPickerController($scope, $rootScope, $window, $location, $q, uCommerceContentService, $http, $timeout) {
 
 	$scope.treeHeaderText = 'Available items';
 	$scope.selectedItemsHeaderText = 'Selected items';
@@ -28,7 +28,19 @@
 	    if ($scope.multiSelect == "false" && data.nodeType.toLowerCase().split(',').indexOf($scope.pickertype.toLowerCase()) != -1) {
 			$scope.preSelectedValues = data.id;
 		}
-	});
+    });
+
+
+    $scope.treeDisplayed = true;
+    $rootScope.$on('startSearch',
+        function (event) {
+            $scope.treeDisplayed = false;
+        });
+
+    $rootScope.$on('stopSearch',
+        function(event) {
+            $scope.treeDisplayed = true;
+        });
 
 	$scope.updatePreselectedValues = function() {
 		var preselectedValues = '';
@@ -50,13 +62,26 @@
 		if ($scope.selectedNodes.size > 0) {
 			$scope.updatePreselectedValues();
 		}
-	});
+    });
+
+    var intersectNodeTypes = function(firstNodeTypeString, secondNodeTypeString) {
+        var firstNodeTypeArray = firstNodeTypeString.split(",");
+        var secondNodeTypeArray = secondNodeTypeString.split(",");
+
+        for (i in firstNodeTypeArray) {
+            for (m in secondNodeTypeArray) {
+                if (secondNodeTypeArray[m].toLowerCase() == firstNodeTypeArray[i].toLowerCase()) {
+                    return true;
+                }
+            }
+        }
+    };
 
 	$scope.$on('toggleSelectedNode', function (event, node) {
         
 		for (n in $scope.selectedNodes) {
 			var selectedNode = $scope.selectedNodes[n];
-			if (selectedNode.id == node.id && selectedNode.nodeType == node.nodeType) {
+			if (selectedNode.id == node.id && intersectNodeTypes(selectedNode.nodeType, node.nodeType)) {
 			    $scope.selectedNodes.splice(n, 1);
 			    $scope.updatePreselectedValues();
 				$scope.$broadcast('preSelectedValuesChanged', $scope.selectedNodes);
