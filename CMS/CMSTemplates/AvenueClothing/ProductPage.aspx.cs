@@ -11,6 +11,7 @@ using UCommerce.Runtime;
 using UCommerce.EntitiesV2;
 using UCommerce.Api;
 using UCommerce.Content;
+using UCommerce.Extensions;
 using UCommerce.Infrastructure;
 using UCommerce.Pipelines;
 
@@ -63,7 +64,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
         private void SetupProduct(Product product)
         {
-            litHeadline.Text = product.Name;
+            litHeadline.Text = product.DisplayName();
             productSku.Text = product.Sku;
             litDescription.Text = product.GetDescription(CultureInfo.CurrentCulture.ToString()).LongDescription;
 
