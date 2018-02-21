@@ -52,8 +52,8 @@ namespace CMSApp.CMSTemplates.AvenueClothing
         {
             if (product.ProductReviews.Any())
             {
-                litReviewHeadline.Text = "<h5>Latest Reviews</h5>";
-                rptReviews.DataSource = product.ProductReviews.Where(x => x.ProductReviewStatus.ProductReviewStatusId != (int)ProductReviewStatusCode.Approved).ToList();
+                litReviewHeadline.Text = "<h5>Latest Reviews-</h5>";
+                rptReviews.DataSource = product.ProductReviews.Where(x => x.ProductReviewStatus.ProductReviewStatusId == (int)ProductReviewStatusCode.Approved).ToList();
                 rptReviews.DataBind();
             }
             else
