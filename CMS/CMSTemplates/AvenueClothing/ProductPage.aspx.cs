@@ -10,6 +10,7 @@ using CMS.UIControls;
 using UCommerce.Runtime;
 using UCommerce.EntitiesV2;
 using UCommerce.Api;
+using UCommerce.Catalog.Status;
 using UCommerce.Content;
 using UCommerce.Infrastructure;
 using UCommerce.Pipelines;
@@ -52,7 +53,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             if (product.ProductReviews.Any())
             {
                 litReviewHeadline.Text = "<h5>Latest Reviews</h5>";
-                rptReviews.DataSource = product.ProductReviews;
+                rptReviews.DataSource = product.ProductReviews.Where(x => x.ProductReviewStatus.ProductReviewStatusId != (int)ProductReviewStatusCode.Approved).ToList();
                 rptReviews.DataBind();
             }
             else
