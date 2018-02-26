@@ -1,5 +1,7 @@
 Version 1.3.0
 FIX: Personalization variants for banner now work for both A/B split test scenarios.
+FIX: Translated text when visiting the category page for product card.
+FIX: Translated text when visiting the product page.
 
 Version 1.2.0
 NEW: Updated Ucommerce to version 7.12.0

@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Product.ascx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.Controls.Product" %>
 
-
 <div class="product span4">
     <div class="product-image">
         <asp:Hyperlink runat="server" ID="hlIMage" Visible="false">
