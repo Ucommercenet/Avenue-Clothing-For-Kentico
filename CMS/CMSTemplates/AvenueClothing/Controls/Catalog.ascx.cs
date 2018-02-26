@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce.Runtime;
@@ -16,21 +14,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
         public Category CurrentCategory
         {
             get { return SiteContext.Current.CatalogContext.CurrentCategory; }
-            set { }
         }
 
         private ICollection<UCommerce.EntitiesV2.Product> _products = new List<UCommerce.EntitiesV2.Product>();
 
         private void Page_Load(object sender, EventArgs e)
         {
-            CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
-            //string imageMediaId = CurrentCategory.ImageMediaId;
-            //if (!string.IsNullOrWhiteSpace(imageMediaId))
-            //{
-                //ID mediaItem = Sitecore.Data.ID.Parse(imageMediaId);
-                //imgCategory.MediaItem = Sitecore.Context.Database.GetItem(mediaItem);
-            //}
-
             GetAllProductsRecursive(CurrentCategory);
 
             var facetsForQuerying = GetFacets();
@@ -38,7 +27,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 
             var listOfProducts = new List<UCommerce.EntitiesV2.Product>();
 
-            if (filterProducts.Count == 0)
+            if (filterProducts.Any())
             {
                 lvProducts.DataSource = _products;
             }
