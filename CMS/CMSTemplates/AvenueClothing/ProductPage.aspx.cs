@@ -35,8 +35,14 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             rptVariant.DataSource = GetUniqueVariants(currentProduct);
             rptVariant.DataBind();
 
-            novariantsavailable.Visible = !SellableProductsAvaliable();
-            btnAddToBasket.Enabled = SellableProductsAvaliable();
+            novariantsavailable.Visible = false;
+
+            if (!SellableProductsAvaliable())
+            {
+                novariantsavailable.Visible = true;
+                btnAddToBasket.Attributes.Add("disabled", "disabled");
+            } 
+
         }
 
         private IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> GetUniqueVariants(Product product)

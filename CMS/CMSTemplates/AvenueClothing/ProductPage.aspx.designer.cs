@@ -58,6 +58,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         protected global::System.Web.UI.WebControls.Literal litHeadline;
         
         /// <summary>
+        /// novariantsavailable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel novariantsavailable;
+        
+        /// <summary>
         /// litPrice control.
         /// </summary>
         /// <remarks>
@@ -83,15 +92,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptVariant;
-        
-        /// <summary>
-        /// novariantsavailable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel novariantsavailable;
         
         /// <summary>
         /// productSku control.

@@ -30,6 +30,9 @@
                 </h2>
             </header>
             <div class="span12 well">
+                <asp:Panel ID="novariantsavailable" runat="server" CssClass="alert alert-danger" role="alert">
+                    <strong>Oh snap!</strong><br>Remember to add variants to the product, before start selling.
+                </asp:Panel>
                 <aside class="span6" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
                     <p class="item-price" itemprop="price">
                         <asp:Literal ID="litPrice" runat="server" />
@@ -58,13 +61,10 @@
                         </div>
                     </FooterTemplate>
                 </asp:Repeater>
-                <asp:Panel class="span6" runat="server" ID="novariantsavailable">
-                    <span>No variants available.</span>
-                </asp:Panel>
                 <asp:TextBox type="hidden" runat="server" ID="productSku" ClientIDMode="static" />
                 <input name="quantity-to-add" id="quantity-to-add" type="hidden" value="1" />
                 <asp:Button runat="server" Enabled="True" ID="btnAddToBasket" ClientIDMode="static" class="btn btn-block btn-success" Text="Add to basket" OnClick="btnAddToBasket_Click" />
-           
+                
             </div>
             <div class="tabbable">
                 <ul class="nav nav-tabs" role="tablist">
