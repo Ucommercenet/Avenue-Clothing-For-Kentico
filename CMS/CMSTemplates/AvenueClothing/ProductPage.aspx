@@ -31,7 +31,7 @@
             </header>
             <div class="span12 well">
                 <asp:Panel ID="novariantsavailable" runat="server" CssClass="alert alert-danger" role="alert">
-                    <strong>Oh snap!</strong><br>Remember to add variants to the product, before start selling.
+                    <strong>Oh snap!</strong><br>Remember to add variants to the product before you start selling it.
                 </asp:Panel>
                 <aside class="span6" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
                     <p class="item-price" itemprop="price">
