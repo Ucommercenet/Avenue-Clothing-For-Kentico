@@ -35,6 +35,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             rptVariant.DataSource = GetUniqueVariants(currentProduct);
             rptVariant.DataBind();
+
+            novariantsavailable.Visible = false;
+
+            if (!SellableProductsAvaliable())
+            {
+                novariantsavailable.Visible = true;
+                btnAddToBasket.Attributes.Add("disabled", "disabled");
+            } 
+
         }
 
         private IEnumerable<IGrouping<ProductDefinitionField, ProductProperty>> GetUniqueVariants(Product product)
@@ -61,6 +70,16 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 litReviewHeadline.Text = "<p>No-one has reviewed this product yet.</p>";
             }
+        }
+
+        public bool SellableProductsAvaliable()
+        {
+            var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
+
+            if (!currentProduct.ProductDefinition.IsProductFamily())
+                return true;
+
+            return currentProduct.Variants.Any();
         }
 
         private void SetupProduct(Product product)
