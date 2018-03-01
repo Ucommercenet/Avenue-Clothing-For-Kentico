@@ -519,9 +519,6 @@
   <data name="duplicate_name_on_child_error_message" xml:space="preserve">
     <value>Navnet '{0}' er allerede brugt på denne definition, eller et barn.</value>
   </data>
-  <data name="duplicate_name_on_parent_error_message" xml:space="preserve">
-    <value>Navnet '{0}' er allerede brugt på denne definition, eller en forælder.</value>
-  </data>
   <data name="sort_definition_relations" xml:space="preserve">
     <value>Sortér forældre definitioner</value>
   </data>
@@ -626,5 +623,14 @@
   </data>
   <data name="definition_type_product" xml:space="preserve">
     <value>Produkt</value>
+  </data>
+  <data name="export_products_tooltip" xml:space="preserve">
+    <value>Eksporter produkter</value>
+  </data>
+  <data name="duplicate_name_on_parent_error_message" xml:space="preserve">
+    <value>Navnet '{0}' er allerede brugt på denne definition, eller en forælder.</value>
+  </data>
+  <data name="export" xml:space="preserve">
+    <value>Eksport</value>
   </data>
 </root>

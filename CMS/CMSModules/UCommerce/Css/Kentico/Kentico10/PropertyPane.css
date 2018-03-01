@@ -73,10 +73,6 @@ div.inline {
 	padding: 4px 8px;
 }
 
-.propertyItemContent input[type="text"].hasDatepicker {
-	width: 176px;
-}
-
 .propertyItemContent input[type=checkbox] {
     margin-top: 8px;
 }
@@ -176,4 +172,8 @@ div.propertyPane.dialog-actions {
 .propertyItem > div {
 	display: inline-block;
 	vertical-align: top;
+}
+
+.propertyItemContent .audit-label {
+    margin-top: 6px;
 }

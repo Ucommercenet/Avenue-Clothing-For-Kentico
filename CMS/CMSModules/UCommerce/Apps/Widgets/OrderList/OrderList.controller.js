@@ -126,7 +126,7 @@
 
     ConvertDate = function (orders) {
         for (var i = 0; i < orders.length; i++) {
-            orders[i].CompletedDate = new Date(orders[i].CompletedDate.match(/\d+/) * 1).toLocaleString();
+            orders[i].CompletedDate = new Date(orders[i].CompletedDate).toLocaleString();
         }
         return orders;
     }

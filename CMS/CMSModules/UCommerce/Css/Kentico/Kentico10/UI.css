@@ -108,6 +108,23 @@ body {
         width: 100%;
     }
 
+.imagePickerContainer .selected-nodes-container .selectedNode .removeIcon {
+    position: absolute;
+}
+.imagePickerContainer .selected-nodes-container .selectedNode .node {
+    padding-left: 25px;
+    padding-top: 4px;
+}
+    .imagePickerContainer .selected-nodes-container .selectedNode .node span {
+        -ms-background-repeat: no-repeat;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+.imagePickerContainer .selected-nodes-container .selectedNode .node span span {
+        padding-left: 25px;
+        line-height: 15px;
+    }
 /*CREATE DIALOG */
 .dialog-head {
     background: url("../images/panel_boxhead_bg.gif") no-repeat scroll left top transparent;
@@ -1860,6 +1877,16 @@ form, body {
 
 .variantContainer tbody tr td select {
     width: auto;
+}
+
+.datePickerContainer {
+    position: relative;
+}
+
+.datePickerContainer > img {
+    position: absolute;
+    right: 3px;
+    top: 10px;
 }
 
 .boxbody .contentPaneOne {
