@@ -621,4 +621,10 @@
   <data name="definition_type_product" xml:space="preserve">
     <value>Product</value>
   </data>
+  <data name="export_products_tooltip" xml:space="preserve">
+    <value>Exportera produkter</value>
+  </data>
+  <data name="export" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
 </root>

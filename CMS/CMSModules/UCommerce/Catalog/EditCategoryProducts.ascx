@@ -41,7 +41,10 @@
     $(function () {
         $("#productTable").dataTable(
 			{
-			    "bPaginate": false,
+                "bPaginate": false,
+                "oLanguage": {
+                    "sSearch": "Start typing to search for products"
+                },
 			    // disable initial sort
 			    "aaSorting": []
 			}
