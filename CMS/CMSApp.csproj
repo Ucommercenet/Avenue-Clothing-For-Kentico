@@ -241,7 +241,7 @@
     <Reference Include="UCommerce, Version=7.14.0.18060, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\uCommerce.Core.7.14.0.18060\lib\net45\UCommerce.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Admin, Version=7.14.0.18060, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UCommerce.Admin">
       <HintPath>..\packages\uCommerce.Core.7.14.0.18060\lib\net45\UCommerce.Admin.dll</HintPath>
     </Reference>
     <Reference Include="UCommerce.Infrastructure, Version=7.14.0.18060, Culture=neutral, processorArchitecture=MSIL">
