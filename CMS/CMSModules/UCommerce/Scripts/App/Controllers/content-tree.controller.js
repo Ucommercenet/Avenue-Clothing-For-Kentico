@@ -322,6 +322,12 @@
 	function handleAction(option, node) {
 		if (option.optionType.toLowerCase() == 'refresh') {
 			reloadChildNodes(node);
+        }
+        if (option.optionType.toLowerCase() == 'export') {
+            var http = new XMLHttpRequest();
+            var url = '//' + window.location.hostname + option.actionUrl;
+            http.open('GET', url, true);
+            http.send();
 		}
 		this.$emit('handleAction',
 			{

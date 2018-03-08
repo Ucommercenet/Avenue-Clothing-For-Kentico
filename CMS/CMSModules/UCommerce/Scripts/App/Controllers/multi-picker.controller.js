@@ -84,7 +84,9 @@
 			if (selectedNode.id == node.id && intersectNodeTypes(selectedNode.nodeType, node.nodeType)) {
 			    $scope.selectedNodes.splice(n, 1);
 			    $scope.updatePreselectedValues();
-				$scope.$broadcast('preSelectedValuesChanged', $scope.selectedNodes);
+                $scope.$broadcast('preSelectedValuesChanged', $scope.selectedNodes);
+			    $scope.$emit('preSelectedValuesChanged', $scope.selectedNodes);
+
 				return;
 			}
 		}
@@ -97,7 +99,7 @@
 		});
 
 		$scope.$broadcast('preSelectedValuesChanged', $scope.selectedNodes);
-
+	    $scope.$emit('preSelectedValuesChanged', $scope.selectedNodes);
 		$scope.updatePreselectedValues();
 	});
 

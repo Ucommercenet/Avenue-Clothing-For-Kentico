@@ -6,26 +6,26 @@
     <div class="propertyItem">
         <div class="propertyItemHeader"><asp:Localize ID="Localize4" runat="server" meta:resourceKey="CreatedDate" /></div>
         <div class="propertyItemContent">
-            <asp:Label runat="server" ID="CreateDateLabel" Text="<%# Entity.CreatedOn %>" />
+            <asp:Label runat="server" CssClass="audit-label" ID="CreateDateLabel" Text="<%# Entity.CreatedOn %>" />
         </div>
     </div>
     <div class="propertyItem">
         <div class="propertyItemHeader"><asp:Localize ID="Localize5" runat="server" meta:resourceKey="CreatedBy"></asp:Localize></div>
         <div class="propertyItemContent">
-            <asp:Label runat="server" ID="LastModifiedLabel" Text="<%# Entity.CreatedBy %>" />
+            <asp:Label runat="server" CssClass="audit-label" ID="LastModifiedLabel" Text="<%# Entity.CreatedBy %>" />
         </div>
     </div>
     <div class="propertyItem" runat="server" Visible="<%# Entity as IAuditModifiedEntity != null %>">
         <div class="propertyItemHeader"><asp:Localize ID="Localize2" runat="server" meta:resourceKey="ModifiedOn"></asp:Localize></div>
         <div class="propertyItemContent">
-            <asp:Label runat="server" ID="Label1" Text="<%# GetModifiedOn() %>" />
+            <asp:Label runat="server" ID="Label1" CssClass="audit-label" Text="<%# GetModifiedOn() %>" />
         </div>
     </div>
 
     <div class="propertyItem" runat="server" Visible="<%# Entity as IAuditModifiedEntity != null %>">
         <div class="propertyItemHeader"><asp:Localize ID="Localize3" runat="server" meta:resourceKey="ModifiedBy"></asp:Localize></div>
         <div class="propertyItemContent">
-            <asp:Label runat="server" ID="Label2" Text="<%# GetModifiedBy() %>" />
+            <asp:Label runat="server" ID="Label2" CssClass="audit-label" Text="<%# GetModifiedBy() %>" />
         </div>
     </div>
 </div>

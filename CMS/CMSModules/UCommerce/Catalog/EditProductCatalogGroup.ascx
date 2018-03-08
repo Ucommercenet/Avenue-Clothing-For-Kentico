@@ -1,9 +1,7 @@
 <%@ Import Namespace="UCommerce.Presentation.Web"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditProductCatalogGroup.ascx.cs" Inherits="UCommerce.Web.UI.Catalog.EditProductCatalogGroup1" %>
 <%@ Register tagPrefix="commerce" tagName="ValidationSummary" src="../Controls/ValidationSummaryDisplay.ascx" %>
-
-<commerce:ValidationSummary runat="server" />
-
+    
 <%@ Register tagPrefix="commerce" tagName="AuditInformation" src="../Controls/AuditInformation.ascx" %>
 <commerce:ValidationSummary ID="Audit" runat="server" />
 
