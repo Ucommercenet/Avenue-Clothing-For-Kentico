@@ -8,8 +8,7 @@ namespace CMSApp.Old_App_Code.Custom
 {
     public class UCommerceContext : AbstractContext<UCommerceContext>
     {
-        private List<UCommerceProduct> _products = null;
-        private List<UCommerceOrderline> _orderlines = null;
+        private List<UCommerceProduct> _products;
 
         // ----------------------------------------------------------------------------------------
         //
@@ -31,28 +30,6 @@ namespace CMSApp.Old_App_Code.Custom
         {
             var property = productObj.GetType().GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             return property.GetValue(productObj);
-        }
-
-        // ----------------------------------------------------------------------------------------
-        //
-        // Functions for orderlines
-        public static void SetOrderlines(List<UCommerceOrderline> orderlines)
-        {
-            Current._orderlines = orderlines;
-        }
-        public static object GetOrderlineValue(int orderlineId, string propertyName)
-        {
-            if (!Current._orderlines.Any(p => p.OrderlineId == orderlineId))
-                return null;
-
-            var orderline = Current._orderlines.First(p => p.OrderlineId == orderlineId);
-            return GetOrderlineValue(orderline, propertyName);
-        }
-
-        public static object GetOrderlineValue(UCommerceOrderline orderlineObj, string propertyName)
-        {
-            var property = orderlineObj.GetType().GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-            return property.GetValue(orderlineObj);
         }
     }
 }

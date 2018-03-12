@@ -10,7 +10,6 @@ namespace CMSApp.Old_App_Code.Custom
     {
         public int OrderlineId { get; set; }
         //public Product Product { get; set; }
-        public string OrderlineNumber { get; set; }
         public string ProductName { get; set; }
         public string ProductSKU { get; set; }
         public string VariantSKU { get; set; }

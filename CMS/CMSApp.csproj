@@ -4150,13 +4150,11 @@
     <Content Include="CMSWebParts\Ucommerce\CategoryNavigation.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Facets.ascx" />
     <Content Include="CMSWebParts\Ucommerce\MiniBasket.ascx" />
-    <Content Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\ProductDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\PaymentPicker.ascx" />
     <Content Include="CMSWebParts\Ucommerce\PromoProductDataSource.ascx" />
     <Content Include="CMSWebParts\Ucommerce\QuantityEditor.ascx" />
     <Content Include="CMSWebParts\Ucommerce\SearchBar.ascx" />
-    <Content Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommerceProductsDataControl.ascx" />
     <Content Include="CMSWebParts\Ucommerce\Shipping.ascx" />
     <Content Include="CMSWebParts\Ucommerce\UCommercePromoProductsDataControl.ascx" />
@@ -15811,16 +15809,9 @@
     <Compile Include="CMSWebParts\Ucommerce\MiniBasket.ascx.designer.cs">
       <DependentUpon>MiniBasket.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.cs">
-      <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.cs">
       <DependentUpon>PaymentPicker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\OrderlinesDatasource.ascx.designer.cs">
-      <DependentUpon>OrderlinesDatasource.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\PaymentPicker.ascx.designer.cs">
       <DependentUpon>PaymentPicker.ascx</DependentUpon>
@@ -15853,16 +15844,9 @@
     <Compile Include="CMSWebParts\Ucommerce\SearchBar.ascx.designer.cs">
       <DependentUpon>SearchBar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.cs">
-      <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.cs">
       <DependentUpon>Shipping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CMSWebParts\Ucommerce\UCommerceOrderlinesDataControl.ascx.designer.cs">
-      <DependentUpon>UCommerceOrderlinesDataControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSWebParts\Ucommerce\Shipping.ascx.designer.cs">
       <DependentUpon>Shipping.ascx</DependentUpon>
