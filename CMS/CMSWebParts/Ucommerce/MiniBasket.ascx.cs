@@ -1,22 +1,15 @@
-using System;
-using System.Data;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using UCommerce;
-using UCommerce.Api;
-using UCommerce.EntitiesV2;
-using UCommerce.Runtime;
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
 using System.Linq;
+using UCommerce.Infrastructure;
+using UCommerce.Transactions;
 
 public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
 {
     #region "Properties"
 
-    
+
 
     #endregion
 
@@ -44,50 +37,36 @@ public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
         }
         else
         {
-            PurchaseOrder basket = null;
-            var currency = SiteContext.Current.CatalogContext.CurrentCatalog.PriceGroup.Currency;
-            var orderTotal = new Money(0, currency);
-
-            if (TransactionLibrary.HasBasket())
-            {
-                basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
-                if (basket.OrderTotal.HasValue)
-                {
-                    orderTotal = new Money(basket.OrderTotal.Value, currency);
-                }
-            }
-
             string textColor = ValidationHelper.GetString(GetValue("TextColor"), "black").ToLower();
             bool valuePrice = ValidationHelper.GetBoolean(GetValue("ShowPrice"), false);
             bool valueAmount = ValidationHelper.GetBoolean(GetValue("ShowProductAmount"), false);
             string iconColor = ValidationHelper.GetString(GetValue("IconColor"), "black").ToLower();
-            if (basket == null || !basket.OrderLines.Any())
+
+            var transactionLibraryInternal = ObjectFactory.Instance.Resolve<TransactionLibraryInternal>();
+            if (!transactionLibraryInternal.HasBasket())
             {
                 lblMinicartAmount.Text = "Your basket is empty";
                 hlMinicart.Attributes.Add("class", "" + textColor);
+                return;
             }
-            else
+
+            var purchaseOrder = transactionLibraryInternal.GetBasket(false).PurchaseOrder;
+            var numberOfItemsInBasket = purchaseOrder.OrderLines.Sum(x => x.Quantity);
+            var basketTotal = purchaseOrder.OrderTotal.HasValue ? new Money(purchaseOrder.OrderTotal.Value, purchaseOrder.BillingCurrency) : new Money(0, purchaseOrder.BillingCurrency);
+
+            hlMinicart.Attributes.Add("href", "~/basket");
+            hlMinicart.Attributes.Add("class", "" + textColor);
+            imgMinicart.Attributes.Add("class", "icon-shopping-cart icon-" + iconColor);
+            if (valuePrice)
             {
-                hlMinicart.Attributes.Add("href", "~/basket");
-                hlMinicart.Attributes.Add("class", "" + textColor);
-                imgMinicart.Attributes.Add("class", "icon-shopping-cart icon-" + iconColor);
-                if (valuePrice && valueAmount)
-                {
-                    lblMinicartAmount.Text = basket.OrderLines.Sum(x => x.Quantity).ToString("#,##") + " item(s):";
-                    lblMinicartPrice.Text = "" + orderTotal;
-                }
-                else if (valuePrice)
-                {
-                    lblMinicartPrice.Text = "" + orderTotal;
-                }
-                else if (valueAmount)
-                {
-                    lblMinicartAmount.Text = basket.OrderLines.Sum(x => x.Quantity).ToString("#,##") + " item(s)";
-                }
+                lblMinicartPrice.Text = basketTotal.ToString();
+            }
+            if (valueAmount)
+            {
+                lblMinicartAmount.Text = $"{numberOfItemsInBasket} item(s)";
             }
         }
     }
-
 
     /// <summary>
     /// Reloads the control data.
