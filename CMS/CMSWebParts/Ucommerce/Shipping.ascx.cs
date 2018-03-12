@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CMS.PortalEngine;
 using UCommerce.Infrastructure;
+using UCommerce.Transactions;
 
 public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 {
@@ -32,6 +33,9 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
             return rblShippingMethods;
         }
     }
+
+    private readonly TransactionLibraryInternal _transactionLibraryInternal =
+        ObjectFactory.Instance.Resolve<TransactionLibraryInternal>();
 
     #endregion
 
@@ -66,7 +70,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 
             if (availableShippingMethods.Count == 0)
             {
-                litAlert.Text = "No shipping methods available for the shipping country.";
+                litAlert.Text = "No shipping methods available.";
                 return;
             }
             pPaymentAlert.Visible = false;
@@ -77,15 +81,16 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 
     private void SetupShippingMethods(List<ShippingMethod> shippingMethods)
     {
-        var currentShippingMethod = TransactionLibrary.GetShippingMethod();
-        var currentBasket = TransactionLibrary.GetBasket().PurchaseOrder;
+        var currentShippingMethod = _transactionLibraryInternal.GetShippingMethod();
+        var currentBasket = _transactionLibraryInternal.GetBasket().PurchaseOrder;
 
         foreach (ShippingMethod shippingMethod in shippingMethods)
         {
             var price = shippingMethod.GetPriceForCurrency(currentBasket.BillingCurrency);
             var formattedPrice = new Money((price == null ? 0 : price.Price), currentBasket.BillingCurrency);
 
-            ListItem currentListItem = new ListItem($"{shippingMethod.Name} <text>(</text>{formattedPrice}<text>)</text>", shippingMethod.Id.ToString());
+            //ListItem currentListItem = new ListItem($"{shippingMethod.Name} <text>(</text>{formattedPrice}<text>)</text>", shippingMethod.Id.ToString());
+            ListItem currentListItem = new ListItem($"{shippingMethod.Name} ({formattedPrice})", shippingMethod.Id.ToString());
             currentListItem.Selected = currentShippingMethod.Id == shippingMethod.Id;
 
             rblShippingMethods.Items.Add(currentListItem);
@@ -99,7 +104,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 
         if (showForCurrentCountry)
         {
-            availableShippingMethods = TransactionLibrary.GetShippingMethods().ToList();
+            availableShippingMethods = _transactionLibraryInternal.GetShippingMethods().ToList();
         }
         else
         {
