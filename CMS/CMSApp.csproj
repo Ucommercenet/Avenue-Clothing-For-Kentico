@@ -3866,6 +3866,7 @@
     <Content Include="CMSTemplates\AvenueClothing\Catalog.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Confirmation.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\ConfirmationEmail.aspx" />
+    <Content Include="CMSTemplates\AvenueClothing\Controls\Product.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Controls\SidebarStaticContent.ascx" />
     <Content Include="CMSTemplates\AvenueClothing\Homepage.aspx" />
     <Content Include="CMSTemplates\AvenueClothing\Payment.aspx" />
@@ -14411,6 +14412,13 @@
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\ConfirmationEmail.aspx.designer.cs">
       <DependentUpon>ConfirmationEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Product.ascx.cs">
+      <DependentUpon>Product.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMSTemplates\AvenueClothing\Controls\Product.ascx.designer.cs">
+      <DependentUpon>Product.ascx</DependentUpon>
     </Compile>
     <Compile Include="CMSTemplates\AvenueClothing\Controls\SidebarStaticContent.ascx.cs">
       <DependentUpon>SidebarStaticContent.ascx</DependentUpon>
