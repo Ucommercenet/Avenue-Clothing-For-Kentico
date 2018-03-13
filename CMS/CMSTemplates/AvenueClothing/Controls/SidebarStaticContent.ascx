@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SidebarStaticContent.ascx.cs" Inherits="CMSApp.CMSTemplates.AvenueClothing.Controls.SidebarStaticContent" %>
 
-
-
 <div class="well sidebar-nav" id="why-buy">
     <ol>
         <li><i class="icon-grey-star"></i>5 star satisfaction</li>
