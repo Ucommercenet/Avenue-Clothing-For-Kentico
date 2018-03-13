@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DotNetOpenAuth.Messaging;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
+using UCommerce.Infrastructure;
 using UCommerce.Runtime;
+using UCommerce.Search;
 using UCommerce.Search.Facets;
 
 namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 {
     public partial class Catalog : System.Web.UI.UserControl
     {
-        public Category CurrentCategory
-        {
-            get { return SiteContext.Current.CatalogContext.CurrentCategory; }
-        }
-
         private ICollection<UCommerce.EntitiesV2.Product> _products = new List<UCommerce.EntitiesV2.Product>();
+        IList<string> queryStringBlackList = new List<string> { "product", "category", "catalog", "aliaspath", "viewmode" };
+
+        private readonly ICatalogContext _catalogContext = ObjectFactory.Instance.Resolve<ICatalogContext>();
+        private readonly SearchLibraryInternal _searchLibraryInternal = ObjectFactory.Instance.Resolve<SearchLibraryInternal>();
 
         private void Page_Load(object sender, EventArgs e)
         {
-            GetAllProductsRecursive(CurrentCategory);
+            var currentCategory = _catalogContext.CurrentCategory;
+            GetAllProductsRecursive(currentCategory);
 
             var facetsForQuerying = GetFacets();
-            var filterProducts = CurrentCategory != null ? SearchLibrary.GetProductsFor(CurrentCategory, facetsForQuerying) : new List<UCommerce.Documents.Product>();
+            var filterProducts = currentCategory != null ? _searchLibraryInternal.GetProductsFor(currentCategory, facetsForQuerying) : new List<UCommerce.Documents.Product>();
 
             var listOfProducts = new List<UCommerce.EntitiesV2.Product>();
 
@@ -47,33 +50,17 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
 
         public IList<Facet> GetFacets()
         {
-            var parameters = new Dictionary<string, string>();
-            foreach (var queryString in HttpContext.Current.Request.QueryString.AllKeys)
-            {
-                if (queryString == null) continue;
-
-                parameters[queryString] = HttpContext.Current.Request.QueryString[queryString];
-            }
-            if (parameters.ContainsKey("product"))
-            {
-                parameters.Remove("product");
-            }
-            if (parameters.ContainsKey("category"))
-            {
-                parameters.Remove("category");
-            }
-            if (parameters.ContainsKey("catalog"))
-            {
-                parameters.Remove("catalog");
-            }
             var facetsForQuerying = new List<Facet>();
-
+            var parameters = GetQueryStringParametersForFacets();
+            
             foreach (var parameter in parameters)
             {
-                var facet = new Facet();
-                facet.FacetValues = new List<FacetValue>();
+                var facet = new Facet()
+                {
+                    Name = parameter.Key,
+                    FacetValues = new List<FacetValue>()
+                };
                 
-                facet.Name = parameter.Key;
                 foreach (var value in parameter.Value.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     facet.FacetValues.Add(new FacetValue() { Value = value });
@@ -84,12 +71,23 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls
             return facetsForQuerying;
         }
 
+        private Dictionary<string,string> GetQueryStringParametersForFacets()
+        {
+            var parameters = new Dictionary<string, string>();
+            foreach (var queryString in HttpContext.Current.Request.QueryString.AllKeys)
+            {
+                if (queryString == null || queryStringBlackList.Contains(queryString))
+                {
+                    continue;
+                }
+                parameters[queryString] = HttpContext.Current.Request.QueryString[queryString];
+            }
+            return parameters;
+        }
+
         public void GetAllProductsRecursive(Category currentCategory)
         {
-            foreach (var product in CatalogLibrary.GetProducts(currentCategory))
-            {
-                _products.Add(product);
-            }
+            _products.AddRange(CatalogLibrary.GetProducts(currentCategory));
 
             foreach (var childCategory in currentCategory.Categories)
             {
