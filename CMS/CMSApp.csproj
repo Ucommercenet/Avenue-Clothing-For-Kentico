@@ -1690,12 +1690,8 @@
     <Content Include="CMSPages\WebAnalyticsService.asmx" />
     <Content Include="CMSPages\WebService.asmx" />
     <Content Include="AvenueClothing\Scripts\uCommerce.bootstrap.js" />
-    <Content Include="AvenueClothing\Scripts\uCommerce.demostore.cart.js" />
     <Content Include="AvenueClothing\Scripts\uCommerce.demostore.js" />
     <Content Include="AvenueClothing\Scripts\uCommerce.demostore.productpage.js" />
-    <Content Include="AvenueClothing\Scripts\uCommerce.facets.js" />
-    <Content Include="AvenueClothing\Scripts\uCommerce.jQuery.js" />
-    <Content Include="AvenueClothing\Scripts\uCommerce.ServiceStack.js" />
     <Content Include="CMSScripts\Bootstrap\ui-bootstrap-custom-tpls-1.3.3.js" />
     <Content Include="CMSScripts\CMSModules\AdminControls\MultipartUploader.js" />
     <Content Include="CMSScripts\CMSModules\CMS.Charts\amCharts\amcharts.js" />

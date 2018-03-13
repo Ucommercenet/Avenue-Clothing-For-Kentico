@@ -22,10 +22,10 @@
 <div class="well sidebar-nav newsletter">
     <h5>Keep up-to-date</h5>
     <p>Sign up to our newsletter.</p>
-    <form action="http://campaign.ucommerce.dk/t/t/s/mnlh/" method="post" class="validate sign-up" id="newsletter-form">
+    <form class="validate sign-up" id="newsletter-form">
         <div class="input-append">
-            <input id="fieldmnlh" name="cm-mnlh-mnlh" type="email" required class="span9">
-            <button type="submit" id="newsletter-button" value=">" name="subscribe" class="btn btn-secondary">></button>
+            <input id="fieldmnlh" name="cm-mnlh-mnlh" type="email" class="span9">
+            <input type="button" id="newsletter-button" value=">" name="subscribe" class="btn btn-secondary"/>
         </div>
     </form>
 </div>
