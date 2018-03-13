@@ -1,18 +1,13 @@
-﻿using CMS.DataEngine;
-using CMS.DocumentEngine.Web.UI;
-using CMS.Membership;
+﻿using CMS.DocumentEngine.Web.UI;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using CMSApp.Old_App_Code.Custom;
 using System.Linq;
 using UCommerce.EntitiesV2;
 using UCommerce.Runtime;
 using UCommerce.Api;
 using UCommerce.Search.Facets;
 using System.Web;
-using UCommerce.Kentico.Content;
-using CMS.Helpers;
+using CMSApp.CMSWebParts.Ucommerce.DataSourceContext;
 using UCommerce.Content;
 using UCommerce.Infrastructure;
 
@@ -46,9 +41,9 @@ namespace CMSApp.CMSWebParts.Custom
         protected override object GetDataSource(int offset, int maxRecords)
         {
             //var data = base.GetDataSource(offset, maxRecords) as List<UCommerceProduct>;
-            var data = GetDataSourceFromDB() as List<UCommerceProduct>;
+            var data = GetDataSourceFromDB() as List<UcommerceProductDto>;
 
-			UCommerceContext.SetProducts(data);
+			UcommerceContext.SetProducts(data);
 
             return data.ToDataSet();
         }
@@ -89,17 +84,17 @@ namespace CMSApp.CMSWebParts.Custom
             return productList;
         }
 
-        private UCommerceProduct ConvertProductToUcommerceProduct(Product product)
+        private UcommerceProductDto ConvertProductToUcommerceProduct(Product product)
         {
             var imageService = ObjectFactory.Instance.Resolve<IImageService>();
 
             var url = CatalogLibrary.GetNiceUrlForProduct(product);
             var price = CatalogLibrary.CalculatePrice(product);
 
-            var ucommerceProduct = new UCommerceProduct
+            var ucommerceProduct = new UcommerceProductDto
             {
                 ProductName = product.Name,
-                ProductSKU = product.Sku,
+                ProductSku = product.Sku,
                 ProductUrl = url,
                 Price = "-",
                 Tax = "-"

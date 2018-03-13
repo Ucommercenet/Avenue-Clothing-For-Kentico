@@ -4,15 +4,13 @@ using System.Linq;
 using System.Web;
 using CMS.DocumentEngine.Web.UI;
 using CMS.Helpers;
-using CMSApp.Old_App_Code.Custom;
+using CMSApp.CMSWebParts.Ucommerce.DataSourceContext;
 using DotNetOpenAuth.Messaging;
-using ServiceStack.Common.Extensions;
 using UCommerce.Api;
 using UCommerce.Content;
 using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
 using UCommerce.Infrastructure;
-using UCommerce.Kentico.Content;
 using UCommerce.Runtime;
 using UCommerce.Search.Facets;
 
@@ -26,9 +24,9 @@ namespace CMSApp.CMSWebParts.Ucommerce
 
         protected override object GetDataSource(int offset, int maxRecords)
         {
-            var data = GetDataSourceFromDB() as List<UCommerceProduct>;
+            var data = GetDataSourceFromDB() as List<UcommerceProductDto>;
 
-            UCommerceContext.SetProducts(data);
+            UcommerceContext.SetProducts(data);
 
             return data.ToDataSet();
         }
@@ -36,7 +34,7 @@ namespace CMSApp.CMSWebParts.Ucommerce
         protected override object GetDataSourceFromDB()
         {
             var currentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
-            var ucommerceProducts = new List<UCommerceProduct>();
+            var ucommerceProducts = new List<UcommerceProductDto>();
 
             if (currentCategory == null)
             {
@@ -55,7 +53,7 @@ namespace CMSApp.CMSWebParts.Ucommerce
 
         // Method that loads the required data
         // Called only if the data doesn't already exist in the cache
-        private List<UCommerceProduct> LoadProducts(CacheSettings cs, Category category)
+        private List<UcommerceProductDto> LoadProducts(CacheSettings cs, Category category)
         {
             // Loads all products from this category from the database
             if (category == null)
@@ -92,19 +90,19 @@ namespace CMSApp.CMSWebParts.Ucommerce
             set { }
         }
 
-        public List<UCommerceProduct> ConvertToUcommerceProduct(ICollection<Product> _products)
+        public List<UcommerceProductDto> ConvertToUcommerceProduct(ICollection<Product> _products)
         {
-            var data = new List<UCommerceProduct>();
+            var data = new List<UcommerceProductDto>();
             var imageService = ObjectFactory.Instance.Resolve<IImageService>();
             foreach (Product product in _products)
             {
                 var url = CatalogLibrary.GetNiceUrlForProduct(product, SiteContext.Current.CatalogContext.CurrentCategory, SiteContext.Current.CatalogContext.CurrentCatalog);
                 var price = CatalogLibrary.CalculatePrice(product);
 
-                var ucommerceProduct = new UCommerceProduct
+                var ucommerceProduct = new UcommerceProductDto
                 {
                     ProductName = product.DisplayName(),
-                    ProductSKU = product.Sku,
+                    ProductSku = product.Sku,
                     ProductUrl = url,
                     Price = "-",
                     Tax = "-"

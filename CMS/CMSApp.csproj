@@ -15774,6 +15774,9 @@
     <Compile Include="CMSWebParts\Ucommerce\AddressPicker.ascx.designer.cs">
       <DependentUpon>AddressPicker.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CMSWebParts\Ucommerce\DataSourceContext\ListExtensions.cs" />
+    <Compile Include="CMSWebParts\Ucommerce\DataSourceContext\UcommerceContext.cs" />
+    <Compile Include="CMSWebParts\Ucommerce\DataSourceContext\UcommerceProductDto.cs" />
     <Compile Include="CMSWebParts\Ucommerce\DeleteOrderline.ascx.cs">
       <DependentUpon>DeleteOrderline.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -20767,10 +20770,6 @@
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Filters\CropImageFilter.cs" />
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Filters\ResizeImageFilter.cs" />
     <Compile Include="Old_App_Code\Demo\ResponsiveImages\Definitions\MediumSizeImageVariantDefinition.cs" />
-    <Compile Include="Old_App_Code\ListExtensions.cs" />
-    <Compile Include="Old_App_Code\UCommerceContext.cs" />
-    <Compile Include="Old_App_Code\UCommerceOrderline.cs" />
-    <Compile Include="Old_App_Code\UCommerceProduct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

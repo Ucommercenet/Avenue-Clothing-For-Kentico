@@ -1,12 +1,13 @@
-﻿using CMS.DataEngine;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Linq;
+using System.Web;
 
-namespace CMSApp.Old_App_Code.Custom
+namespace CMSApp.CMSWebParts.Ucommerce.DataSourceContext
 {
-    public class UCommerceProduct
+    public class UcommerceProductDto
     {
-        public string ProductSKU { get; set; }
+        public string ProductSku { get; set; }
         public string ProductName { get; set; }
         public string Price { get; set; }
         public string ProductUrl { get; set; }
