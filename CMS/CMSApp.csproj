@@ -1691,7 +1691,6 @@
     <Content Include="CMSPages\WebService.asmx" />
     <Content Include="AvenueClothing\Scripts\uCommerce.bootstrap.js" />
     <Content Include="AvenueClothing\Scripts\uCommerce.demostore.cart.js" />
-    <Content Include="AvenueClothing\Scripts\uCommerce.demostore.checkout.js" />
     <Content Include="AvenueClothing\Scripts\uCommerce.demostore.js" />
     <Content Include="AvenueClothing\Scripts\uCommerce.demostore.productpage.js" />
     <Content Include="AvenueClothing\Scripts\uCommerce.facets.js" />

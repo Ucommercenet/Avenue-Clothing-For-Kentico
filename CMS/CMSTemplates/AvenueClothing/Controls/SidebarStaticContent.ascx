@@ -18,13 +18,14 @@
     <p>All products listed are from existing retailers but no orders will be fulfilled.</p>
     <p><a href="http://ucommerce.net" class="btn btn-secondary" title="The most feature rich e-commerce package for Kentico">More...</a></p>
 </div>
-<div class="well sidebar-nav" id="newsletter">
+
+<div class="well sidebar-nav newsletter">
     <h5>Keep up-to-date</h5>
     <p>Sign up to our newsletter.</p>
-    <form action="http://thesitedoctor.createsend.com/t/y/s/xbjtk/" method="post" class="validate" id="newsletter-form">
+    <form action="http://campaign.ucommerce.dk/t/t/s/mnlh/" method="post" class="validate sign-up" id="newsletter-form">
         <div class="input-append">
-            <input type="email" name="cm-xbjtk-xbjtk" id="xbjtk-xbjtk" class="required email span9" />
-            <button type="submit" class="btn btn-secondary">></button>
+            <input id="fieldmnlh" name="cm-mnlh-mnlh" type="email" required class="span9">
+            <button type="submit" id="newsletter-button" value=">" name="subscribe" class="btn btn-secondary">></button>
         </div>
     </form>
 </div>
