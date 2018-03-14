@@ -8,6 +8,7 @@ using UCommerce.Api;
 using UCommerce.Search.Facets;
 using System.Web;
 using CMSApp.CMSWebParts.Ucommerce.DataSourceContext;
+using DotNetOpenAuth.Messaging;
 using UCommerce.Content;
 using UCommerce.Infrastructure;
 
@@ -18,6 +19,9 @@ namespace CMSApp.CMSWebParts.Custom
 
         ICollection<Product> _products = new List<Product>();
         private string altProductSKUControl;
+        //Query string parameters that shouldn't be used in facets. 
+        IList<string> queryStringBlackList = new List<string>() { "product", "category", "catalog", "aliaspath", "viewmode" };
+
         public string AltProductSKUControl
         {
             get
@@ -51,10 +55,8 @@ namespace CMSApp.CMSWebParts.Custom
 
         protected override object GetDataSourceFromDB()
         {
-            CurrentCategory = SiteContext.Current.CatalogContext.CurrentCategory;
-
             _products = SiteContext.Current.CatalogContext.CurrentCatalog.Categories
-                .SelectMany(c => c.Products.Where(p => p.ProductProperties.Any(pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && Convert.ToBoolean(pp.Value)))).ToList();
+                .SelectMany(c => c.Products.Where(p => p.ProductProperties.Any(pp => pp.ProductDefinitionField.Name == "ShowOnHomepage" && pp.Value.Equals(true.ToString(), StringComparison.CurrentCultureIgnoreCase)))).ToList();
 
             if (string.IsNullOrEmpty(AltProductSKUControl) == false) {
                 var productRepository = ObjectFactory.Instance.Resolve<IRepository<Product>>();
@@ -63,15 +65,9 @@ namespace CMSApp.CMSWebParts.Custom
             }
 
             return _products
-                .Select(p => ConvertProductToUcommerceProduct(p))
+                .Select(p => ConvertProductToUcommerceProductDto(p))
                 .ToList();
         }    
-
-        public Category CurrentCategory
-        {
-            get { return SiteContext.Current.CatalogContext.CurrentCategory; }
-            set { }
-        }
 
         private ICollection<Product> ReplaceAltProduct(ICollection<Product> products, Product altProduct)
         {
@@ -84,7 +80,7 @@ namespace CMSApp.CMSWebParts.Custom
             return productList;
         }
 
-        private UcommerceProductDto ConvertProductToUcommerceProduct(Product product)
+        private UcommerceProductDto ConvertProductToUcommerceProductDto(Product product)
         {
             var imageService = ObjectFactory.Instance.Resolve<IImageService>();
 
@@ -119,30 +115,14 @@ namespace CMSApp.CMSWebParts.Custom
             var parameters = new Dictionary<string, string>();
             foreach (var queryString in HttpContext.Current.Request.QueryString.AllKeys)
             {
-                if (queryString == null) continue;
+                if (queryString == null || queryStringBlackList.Contains(queryString))
+                {
+                    continue;
+                }
 
                 parameters[queryString] = HttpContext.Current.Request.QueryString[queryString];
             }
-            if (parameters.ContainsKey("product"))
-            {
-                parameters.Remove("product");
-            }
-            if (parameters.ContainsKey("category"))
-            {
-                parameters.Remove("category");
-            }
-            if (parameters.ContainsKey("catalog"))
-            {
-                parameters.Remove("catalog");
-            }
-             if (parameters.ContainsKey("aliaspath"))
-            {
-                parameters.Remove("aliaspath");
-            }
-            if (parameters.ContainsKey("viewmode"))
-            {
-                parameters.Remove("viewmode");
-            }
+           
             var facetsForQuerying = new List<Facet>();
 
             foreach (var parameter in parameters)
@@ -162,10 +142,7 @@ namespace CMSApp.CMSWebParts.Custom
         }
         public void GetAllProductsRecursive(Category currentCategory)
         {
-            foreach (var product in CatalogLibrary.GetProducts(currentCategory))
-            {
-                _products.Add(product);
-            }
+            _products.AddRange(CatalogLibrary.GetProducts(currentCategory));
 
             foreach (var childCategory in currentCategory.Categories)
             {

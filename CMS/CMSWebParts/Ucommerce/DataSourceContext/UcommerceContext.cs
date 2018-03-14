@@ -18,7 +18,7 @@ namespace CMSApp.CMSWebParts.Ucommerce.DataSourceContext
                 if (Current._products.All(p => p.ProductSku != productSku))
                     return null;
 
-                var product = Current._products.First(p => p.ProductSku == productSku);
+                UcommerceProductDto product = Current._products.First(p => p.ProductSku == productSku);
                 return GetProductValue(product, propertyName);
             }
 

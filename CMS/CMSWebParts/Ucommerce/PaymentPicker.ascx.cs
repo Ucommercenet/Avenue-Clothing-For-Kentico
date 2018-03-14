@@ -1,14 +1,13 @@
 using System.Web.UI.WebControls;
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
-using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce;
 using System.Linq;
 using UCommerce.Infrastructure;
 using System.Collections.Generic;
 using CMS.PortalEngine;
-using UCommerce.Transactions;
+using UCommerce.Api;
 
 public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
 {
@@ -32,9 +31,6 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
             return rblPaymentMethods;
         }
     }
-
-    private readonly TransactionLibraryInternal _transactionLibraryInternal =
-        ObjectFactory.Instance.Resolve<TransactionLibraryInternal>();
 
     #endregion
 
@@ -81,7 +77,7 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
 
     private void SetupPaymentMethods(List<PaymentMethod> billingMethods)
     {
-        var basket = _transactionLibraryInternal.GetBasket().PurchaseOrder;
+        var basket = TransactionLibrary.GetBasket().PurchaseOrder;
         var existingPayment = basket.Payments.FirstOrDefault();
         var selectedPaymentMethodId = existingPayment != null
             ? existingPayment.PaymentMethod.PaymentMethodId
@@ -116,7 +112,7 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
 
         if (showForCurrentCountry)
         {
-            availablePaymentMethods = _transactionLibraryInternal.GetPaymentMethods().ToList();
+            availablePaymentMethods = TransactionLibrary.GetPaymentMethods().ToList();
         }
         else
         {
@@ -132,7 +128,7 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
         {
             return false;
         }
-        if (!_transactionLibraryInternal.HasBasket())
+        if (!TransactionLibrary.HasBasket())
         {
             return false;
         }

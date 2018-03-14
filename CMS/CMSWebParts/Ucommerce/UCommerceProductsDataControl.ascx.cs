@@ -57,7 +57,7 @@ namespace CMSApp.CMSWebParts.Ucommerce
         {
             // Loads all products from this category from the database
             if (category == null)
-                return ConvertToUcommerceProduct(_products);
+                return ConvertToUcommerceProduct(new List<Product>());
 
             GetAllProductsRecursive(category);
 
@@ -82,12 +82,6 @@ namespace CMSApp.CMSWebParts.Ucommerce
             }
 
             return ConvertToUcommerceProduct(listOfProducts);
-        }
-
-        public Category CurrentCategory
-        {
-            get { return SiteContext.Current.CatalogContext.CurrentCategory; }
-            set { }
         }
 
         public List<UcommerceProductDto> ConvertToUcommerceProduct(ICollection<Product> _products)

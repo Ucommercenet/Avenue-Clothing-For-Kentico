@@ -2,8 +2,7 @@ using UCommerce;
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
 using System.Linq;
-using UCommerce.Infrastructure;
-using UCommerce.Transactions;
+using UCommerce.Api;
 
 public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
 {
@@ -42,15 +41,14 @@ public partial class CMSWebParts_Ucommerce_MiniBasket : CMSAbstractWebPart
             bool valueAmount = ValidationHelper.GetBoolean(GetValue("ShowProductAmount"), false);
             string iconColor = ValidationHelper.GetString(GetValue("IconColor"), "black").ToLower();
 
-            var transactionLibraryInternal = ObjectFactory.Instance.Resolve<TransactionLibraryInternal>();
-            if (!transactionLibraryInternal.HasBasket())
+            if (!TransactionLibrary.HasBasket())
             {
                 lblMinicartAmount.Text = "Your basket is empty";
                 hlMinicart.Attributes.Add("class", "" + textColor);
                 return;
             }
 
-            var purchaseOrder = transactionLibraryInternal.GetBasket(false).PurchaseOrder;
+            var purchaseOrder = TransactionLibrary.GetBasket(false).PurchaseOrder;
             var numberOfItemsInBasket = purchaseOrder.OrderLines.Sum(x => x.Quantity);
             var basketTotal = purchaseOrder.OrderTotal.HasValue ? new Money(purchaseOrder.OrderTotal.Value, purchaseOrder.BillingCurrency) : new Money(0, purchaseOrder.BillingCurrency);
 
