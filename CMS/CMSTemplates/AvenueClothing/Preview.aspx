@@ -42,12 +42,12 @@
         </div>
 
     </div>
-        <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
-                         <LayoutTemplate>
-                         <cms:CMSWebPartZone runat="server" ID="PreviewContentZone"/>
-                         </LayoutTemplate>
-                    </cms:CMSPagePlaceholder>
+    <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
+        <LayoutTemplate>
+            <cms:CMSWebPartZone runat="server" ID="PreviewContentZone" />
+        </LayoutTemplate>
+    </cms:CMSPagePlaceholder>
+
     <a href="~/Basket/Payment" class="btn btn-small btn-secondary">Back</a>
     <asp:Button ID="btnContinue" runat="server" OnClick="btnContinue_Click" class="pull-right btn btn-large btn-success" Text="Complete Order" />
-
 </asp:Content>

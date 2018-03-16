@@ -13,13 +13,13 @@ namespace CMSApp.CMSTemplates.AvenueClothing.Controls {
     public partial class Product {
         
         /// <summary>
-        /// hlIMage control.
+        /// hlImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlIMage;
+        protected global::System.Web.UI.WebControls.HyperLink hlImage;
         
         /// <summary>
         /// productImage control.

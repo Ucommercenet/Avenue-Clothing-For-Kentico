@@ -32,7 +32,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             if (!string.IsNullOrEmpty(shipmentAddress.Attention))
             {
-                litShippingAttention.Text = "<text>att. </text>" + shipmentAddress.Attention;
+                litShippingAttention.Text = $"att. {shipmentAddress.Attention}";
             }
 
             litShippingPhone.Text = shipmentAddress.PhoneNumber;
@@ -53,7 +53,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             if (!string.IsNullOrEmpty(billingAddress.Attention))
             {
-                litBillingAttention.Text = "<text>att. </text>" + billingAddress.Attention;
+                litBillingAttention.Text = $"att. {billingAddress.Attention}";
             }
 
             litBillingPhone.Text = billingAddress.PhoneNumber;
