@@ -3,7 +3,7 @@
 
 <commerce:validationsummary runat="server" />
 <div class="propertyPane">
-    <div class="propertyItem">
+    <div class="propertyItem email-subject">
         <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="Subject" /></div>
         <div class="propertyItemContent">
             <asp:TextBox runat="server" ID="SubjectTextBox" Text="<%# EmailContent.Subject %>" CssClass="largeWidth" />

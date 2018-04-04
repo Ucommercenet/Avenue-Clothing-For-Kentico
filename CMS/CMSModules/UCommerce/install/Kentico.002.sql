@@ -110,3 +110,30 @@ BEGIN
 	)
 END
 
+IF NOT EXISTS (SELECT * FROM OM_ActivityType WHERE ActivityTypeName = 'UCommerceProductRemovedFromBasket')
+BEGIN
+	INSERT INTO OM_ActivityType
+	(
+		ActivityTypeDisplayName,
+		ActivityTypeName,
+		ActivityTypeEnabled,
+		ActivityTypeIsCustom,
+		ActivityTypeDescription,
+		ActivityTypeManualCreationAllowed,
+		ActivityTypeMainFormControl,
+		ActivityTypeDetailFormControl,
+		ActivityTypeIsHiddenInContentOnly
+	)
+	VALUES
+	(
+		'Ucommerce Product removed from basket',
+		'UCommerceProductRemovedFromBasket',
+		1,
+		0,
+		'The visitor removed a product from the Ucommerce basket',
+		0,
+		'UcommerceProductIdSelector',
+		NULL,
+		0
+	)
+END

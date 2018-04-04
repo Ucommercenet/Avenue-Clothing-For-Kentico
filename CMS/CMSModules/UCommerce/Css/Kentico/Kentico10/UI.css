@@ -2992,3 +2992,8 @@ a.propertyLink {
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
+
+/*Hide Subject field */
+.propertyItem.email-subject {
+    display: none;
+}
