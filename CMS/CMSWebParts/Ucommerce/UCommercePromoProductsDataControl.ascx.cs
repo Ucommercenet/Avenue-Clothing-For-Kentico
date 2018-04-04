@@ -72,7 +72,7 @@ namespace CMSApp.CMSWebParts.Custom
         private ICollection<Product> ReplaceAltProduct(ICollection<Product> products, Product altProduct)
         {
             var productList = new List<Product>(products);
-            if (altProduct != null)
+            if (altProduct != null && productList.Any())
             {
                 productList[0] = altProduct;
             }
