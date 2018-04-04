@@ -2,7 +2,7 @@
 
 <div class="product span4">
     <div class="product-image">
-        <asp:Hyperlink runat="server" ID="hlIMage" Visible="false">
+        <asp:Hyperlink runat="server" ID="hlImage" Visible="false">
             <asp:Image runat="server" ID="productImage" MaxHeight="400" MaxWidth="300"/>
         </asp:Hyperlink>
     </div>

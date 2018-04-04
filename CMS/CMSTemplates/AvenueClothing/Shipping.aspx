@@ -2,11 +2,11 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceholder" runat="server">
     
-            <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
-                <LayoutTemplate>
-                <cms:CMSWebPartZone runat="server" ID="MainContentZone"/>
-                </LayoutTemplate>
-            </cms:CMSPagePlaceholder>
+    <cms:CMSPagePlaceholder runat="server" ID="WebPartZonePlaceholder">
+        <LayoutTemplate>
+            <cms:CMSWebPartZone runat="server" ID="MainContentZone"/>
+        </LayoutTemplate>
+    </cms:CMSPagePlaceholder>
 
     <a href="~/basket/address" class="btn btn-small btn-secondary">Back</a>
     <asp:Button UseSubmitBehavior="true" id="btnUpdateShipment" CssClass="pull-right btn btn-large btn-success" runat="server" Text="Continue to payment options" OnClick="btnUpdateShipment_Click"/>
