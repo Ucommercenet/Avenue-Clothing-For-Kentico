@@ -3,7 +3,7 @@
 <div class="navbar-search form-search" id="search-form">
     <div class="input-append">
         <input name="search" class="search-query" runat="server" id="siteSearch" type="text" autocomplete="off"/>
-        <button class="btn" id="submitSearch"><i class="icon-search"></i></button>
+        <button type="button" class="btn" id="submitSearch"><i class="icon-search"></i></button>
     
     </div>
 </div>

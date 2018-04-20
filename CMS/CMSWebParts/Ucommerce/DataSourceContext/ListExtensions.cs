@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace CMSApp.Old_App_Code.Custom
+namespace CMSApp.CMSWebParts.Ucommerce.DataSourceContext
 {
     public static class ListExtensions
     {

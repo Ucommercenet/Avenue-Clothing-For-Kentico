@@ -66,7 +66,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
 
             if (availableShippingMethods.Count == 0)
             {
-                litAlert.Text = "No shipping methods available for the shipping country.";
+                litAlert.Text = "No shipping methods available.";
                 return;
             }
             pPaymentAlert.Visible = false;
@@ -85,7 +85,7 @@ public partial class CMSWebParts_Ucommerce_Shipping : CMSAbstractWebPart
             var price = shippingMethod.GetPriceForCurrency(currentBasket.BillingCurrency);
             var formattedPrice = new Money((price == null ? 0 : price.Price), currentBasket.BillingCurrency);
 
-            ListItem currentListItem = new ListItem($"{shippingMethod.Name} <text>(</text>{formattedPrice}<text>)</text>", shippingMethod.Id.ToString());
+            ListItem currentListItem = new ListItem($"{shippingMethod.Name} ({formattedPrice})", shippingMethod.Id.ToString());
             currentListItem.Selected = currentShippingMethod.Id == shippingMethod.Id;
 
             rblShippingMethods.Items.Add(currentListItem);

@@ -19,17 +19,17 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 products = Product.Find(p =>
-                    p.VariantSku == null
-                    && p.DisplayOnSite
-                    &&
-                    (
-                        p.Sku.Contains(keyword)
-                        || p.Name.Contains(keyword)
-                        || p.ProductDescriptions.Any(d => d.DisplayName.Contains(keyword)
-                                                          || d.ShortDescription.Contains(keyword)
-                                                          || d.LongDescription.Contains(keyword)
-                        )
-                    )
+                                    p.VariantSku == null
+                                    && p.DisplayOnSite
+                                    &&
+                                    (
+                                        p.Sku.Contains(keyword)
+                                        || p.Name.Contains(keyword)
+                                        || p.ProductDescriptions.Any(d => d.DisplayName.Contains(keyword)
+                                                                    || d.ShortDescription.Contains(keyword)
+                                                                    || d.LongDescription.Contains(keyword)
+                                                                    )
+                                    )
                 );
             }
 

@@ -23,12 +23,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 return;
             }
 
-            if (shipping != null && !Int32.TryParse(shipping.SelectedValue, out shippingMethodId))
+            if (!Int32.TryParse(shipping.SelectedValue, out shippingMethodId))
             {
                 return;
             }
 
-            TransactionLibrary.CreateShipment(shippingMethodId, Constants.DefaultShipmentAddressName, overwriteExisting: true);
+            TransactionLibrary.CreateShipment(shippingMethodId, Constants.DefaultShipmentAddressName, true);
             TransactionLibrary.ExecuteBasketPipeline();
             HttpContext.Current.Response.Redirect("~/basket/payment");
         }

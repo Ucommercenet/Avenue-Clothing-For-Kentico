@@ -1,13 +1,13 @@
 using System.Web.UI.WebControls;
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
-using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce;
 using System.Linq;
 using UCommerce.Infrastructure;
 using System.Collections.Generic;
 using CMS.PortalEngine;
+using UCommerce.Api;
 
 public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
 {
@@ -62,34 +62,39 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
         }
         else
         {
-            var availableBillingMethods = GetBillingMethods();
+            var availablePaymentMethods = GetPaymentMethods();
 
-            if (availableBillingMethods.Count == 0)
+            if (availablePaymentMethods.Count == 0)
             {
-                litAlert.Text = "No payments methods available for the shipping country.";
+                litAlert.Text = "No payments methods available.";
                 return;
             }
             pPaymentAlert.Visible = false;
 
-            SetupPaymentMethods(availableBillingMethods);
+            SetupPaymentMethods(availablePaymentMethods);
         }
     }
 
     private void SetupPaymentMethods(List<PaymentMethod> billingMethods)
     {
         var basket = TransactionLibrary.GetBasket().PurchaseOrder;
-        var payment = basket.Payments.FirstOrDefault();
+        var existingPayment = basket.Payments.FirstOrDefault();
+        var selectedPaymentMethodId = existingPayment != null
+            ? existingPayment.PaymentMethod.PaymentMethodId
+            : -1;
 
         foreach (PaymentMethod paymentMethod in billingMethods)
         {
-            decimal feePercent = paymentMethod.FeePercent;
+            var feePercent = paymentMethod.FeePercent;
             var fee = paymentMethod.GetFeeForCurrency(basket.BillingCurrency);
+            var formattedFee = new Money(fee == null ? 0 : fee.Fee, basket.BillingCurrency);
 
-            var formattedFee = new Money((fee == null ? 0 : fee.Fee), basket.BillingCurrency);
-            string paymentMethodText = $"{paymentMethod.Name} <text>(</text>{formattedFee}<text> + </text>{feePercent:0.00}<text>%)</text>";
+            string paymentMethodText = $"{paymentMethod.Name} ({formattedFee} + {feePercent:0.00}%)";
 
-            ListItem currentListItem = new ListItem(paymentMethodText, paymentMethod.Id.ToString());
-            currentListItem.Selected = payment?.PaymentMethod.Id == paymentMethod.Id;
+            ListItem currentListItem = new ListItem(paymentMethodText, paymentMethod.Id.ToString())
+            {
+                Selected = paymentMethod.PaymentMethodId == selectedPaymentMethodId
+            };
 
             rblPaymentMethods.Items.Add(currentListItem);
         }
@@ -100,21 +105,21 @@ public partial class CMSWebParts_Ucommerce_PaymentPicker : CMSAbstractWebPart
         }
     }
 
-    private List<PaymentMethod> GetBillingMethods()
+    private List<PaymentMethod> GetPaymentMethods()
     {
-        List<PaymentMethod> availableBillingMethods;
+        List<PaymentMethod> availablePaymentMethods;
         bool showForCurrentCountry = ValidationHelper.GetBoolean(GetValue("ShowForCurrentCountry"), true);
 
         if (showForCurrentCountry)
         {
-            availableBillingMethods = TransactionLibrary.GetPaymentMethods().ToList();
+            availablePaymentMethods = TransactionLibrary.GetPaymentMethods().ToList();
         }
         else
         {
             var paymentMethods = ObjectFactory.Instance.Resolve<IRepository<PaymentMethod>>();
-            availableBillingMethods = paymentMethods.Select(x => !x.Deleted).ToList();
+            availablePaymentMethods = paymentMethods.Select(x => !x.Deleted).ToList();
         }
-        return availableBillingMethods;
+        return availablePaymentMethods;
     }
 
     private bool SetupIsNeeded()

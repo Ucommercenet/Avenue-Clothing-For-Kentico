@@ -17,8 +17,8 @@
             </div>
         </div>
     </asp:PlaceHolder>
-    <cms:BasicRepeater runat="server" ID="paymentsRepeater"/>
-    
+    <cms:BasicRepeater runat="server" ID="paymentsRepeater" />
+
     <div class="row-fluid" id="product-details" itemtype="http://schema.org/Product" itemscope="">
         <div class="span5 row">
             <asp:Image ID="imgTop" runat="server" CssClass="product-page-image" />
@@ -31,7 +31,8 @@
             </header>
             <div class="span12 well">
                 <asp:Panel ID="novariantsavailable" runat="server" CssClass="alert alert-danger" role="alert">
-                    <strong>Oh snap!</strong><br>Remember to add variants to the product before you start selling it.
+                    <strong>Oh snap!</strong><br>
+                    Remember to add variants to the product before you start selling it.
                 </asp:Panel>
                 <aside class="span6" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
                     <p class="item-price" itemprop="price">
@@ -64,7 +65,7 @@
                 <asp:TextBox type="hidden" runat="server" ID="productSku" ClientIDMode="static" />
                 <input name="quantity-to-add" id="quantity-to-add" type="hidden" value="1" />
                 <asp:Button runat="server" Enabled="True" ID="btnAddToBasket" ClientIDMode="static" class="btn btn-block btn-success" Text="Add to basket" OnClick="btnAddToBasket_Click" />
-                
+
             </div>
             <div class="tabbable">
                 <ul class="nav nav-tabs" role="tablist">
@@ -116,21 +117,6 @@
                         </asp:Repeater>
 
                         <h5>Send Us Your Review</h5>
-                        <%--<div class="control-group">
-                            <label class="control-label" for="review-rating">Rating</label>
-                            <div class="controls rating">
-                                <label>
-                                    <input type="radio" name="review-rating" value="1" /><i class="icon-star"></i></label>
-                                <label>
-                                    <input type="radio" name="review-rating" value="2" /><i class="icon-star"></i></label>
-                                <label>
-                                    <input type="radio" name="review-rating" value="3" /><i class="icon-star"></i></label>
-                                <label>
-                                    <input type="radio" name="review-rating" value="4" /><i class="icon-star"></i></label>
-                                <label>
-                                    <input type="radio" name="review-rating" value="5" /><i class="icon-star"></i></label>
-                            </div>
-                        </div>--%>
                         <div class="control-group">
                             <label class="control-label" for="review-rating">Rating</label>
                             <div class="controls rating">
@@ -148,7 +134,7 @@
                         </div>
                         <div id="review-form">
                             <div class="control-group">
-                                <br/>
+                                <br />
                                 <label class="control-label" for="review-name">Your Name</label>
                                 <div class="controls">
                                     <input type="text" id="reviewName" runat="server" name="review-name" class="required span12" />

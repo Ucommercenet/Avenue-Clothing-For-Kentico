@@ -62,7 +62,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
         {
             if (product.ProductReviews.Any())
             {
-                litReviewHeadline.Text = "<h5>Latest Reviews-</h5>";
+                litReviewHeadline.Text = "<h5>Latest Reviews</h5>";
                 rptReviews.DataSource = product.ProductReviews.Where(x => x.ProductReviewStatus.ProductReviewStatusId == (int)ProductReviewStatusCode.Approved).ToList();
                 rptReviews.DataBind();
             }
@@ -101,8 +101,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 litPrice.Text = "-";
                 litTax.Text = "-";
             }
-        
-            if (string.IsNullOrWhiteSpace(product.PrimaryImageMediaId)) return;
+
+            if (string.IsNullOrWhiteSpace(product.PrimaryImageMediaId))
+            {
+                return;
+            }
 
             var imageService = ObjectFactory.Instance.Resolve<IImageService>();
             imgTop.ImageUrl = imageService.GetImage(product.PrimaryImageMediaId).Url;
@@ -136,8 +139,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             var metaReviewRating = (HtmlGenericControl)e.Item.FindControl("metaReviewRating");
             var litComments = (Literal)e.Item.FindControl("litComments");
 
-            string abbr = "<abbr title=\"" + currentItem.CreatedOn.ToString("u") + "\">"
-                          + currentItem.CreatedOn.ToString("MMM dd, yyyy") + "</abbr>";
+            string abbr = $"<abbr title=\"{currentItem.CreatedOn:u}\">{currentItem.CreatedOn:MM dd, yyyy} </abbr>";
             litAbbr.Text = abbr;
             litDisplayStars.Text = DisplayStars(currentItem.Rating);
             litSpecificReviewHeadline.Text = currentItem.ReviewHeadline;
@@ -171,30 +173,6 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             return returnValue;
         }
 
-        public string DisplayStars(double? rating)
-        {
-            string returnValue = "";
-            if (rating.HasValue)
-            {
-                returnValue += "<span class=\"star-rating\">";
-                for (int i = 20; i <= 100; i = i + 20)
-                {
-                    if (rating >= i)
-                    {
-                        returnValue += "<i class=\"fa fa-star\"></i>";
-                    }
-                    else
-                    {
-                        returnValue += "<i class=\"fa fa-star-o\"></i>";
-                    }
-                }
-            }
-            
-
-            returnValue += "</span>";
-            return returnValue;
-        }
-
         public void VariantRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
@@ -208,17 +186,17 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             var litLabel = (Literal)e.Item.FindControl("litLabel");
             var litOptions = (Literal)e.Item.FindControl("litOptions");
             var litSelect = (Literal)e.Item.FindControl("litSelect");
-            var controlName = string.Format("variation-{0}", currentItem.Key.Name.ToLower());
+            var controlName = $"variation-{currentItem.Key.Name.ToLower()}";
 
             lbLabel.Attributes.Add("for", controlName);
             litLabel.Text = currentItem.Key.GetDisplayName();
 
-            litSelect.Text = "<select name=\"" + controlName + "\" class=\"variant\" id=\"" + controlName + "\">";
+            litSelect.Text = $"<select name=\"{controlName}\" class=\"variant\" id=\"{controlName}\">";
             string options = "";
 
             foreach (var value in currentItem.Select(p => p.Value).Distinct())
             {
-                options += "<option value=\"" + value + "\">" + value + "</option>";
+                options += $"<option value=\"{value}\">{value}</option>";
             }
 
             litOptions.Text = options;
