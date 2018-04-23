@@ -177,3 +177,15 @@ div.propertyPane.dialog-actions {
 .propertyItemContent .audit-label {
     margin-top: 6px;
 }
+
+@media only screen and (max-width: 1024px) {
+    .propertyItemHeader {
+        display: block;
+        width: 100% !important;
+        text-align: left;
+    }
+
+    .propertyItemContent {
+        display: block;
+    }
+}

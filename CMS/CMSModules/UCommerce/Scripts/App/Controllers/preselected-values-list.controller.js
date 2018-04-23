@@ -68,6 +68,6 @@
     }
 
     $scope.updatePreselectedValues = function (node) {
-        $rootScope.$broadcast('toggleSelectedNode', node);
+        $scope.$emit('toggleSelectedNode', node);
     }
 }
