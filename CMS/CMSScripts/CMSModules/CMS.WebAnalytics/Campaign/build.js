@@ -2007,9 +2007,22 @@ resolve(angular, dataFromServer.resources);
 
 
         var activityTypesConfiguration = {
- 
+
             // BEGIN Ucommerce activities - automatically inserted by Ucommerce, do not delete.
             UCommerceProductAddedToBasket: {
+                selectorLabel: resolveFilter('campaign.conversion.productselector'),
+                areParametersRequired: true,
+                errorMessage: resolveFilter('campaign.conversion.productisrequired'),
+                configuration: {
+                    restUrl: application.getData('applicationUrl') + 'cmsapi/UcommerceProducts',
+                    restUrlParams: { objType: '' },
+                    isRequired: true,
+                    resultTemplate: resultTemplate,
+                    allowAny: true
+                }
+            },
+
+            UCommerceProductRemovedFromBasket: {
                 selectorLabel: resolveFilter('campaign.conversion.productselector'),
                 areParametersRequired: true,
                 errorMessage: resolveFilter('campaign.conversion.productisrequired'),
@@ -2048,6 +2061,9 @@ resolve(angular, dataFromServer.resources);
             },
 
             // END Ucommerce activities
+
+
+ 
             pagevisit: {
                 selectorLabel: resolveFilter('campaign.conversion.pageselector'),
                 areParametersRequired: !isSiteContentOnly,
