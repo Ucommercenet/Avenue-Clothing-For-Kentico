@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using UCommerce.EntitiesV2;
 using UCommerce.EntitiesV2.Factories;
 using UCommerce.Infrastructure;
@@ -38,7 +36,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
         /// </summary>
         private void TriggerIndexing()
         {
-            ObjectFactory.Instance.Resolve<ScratchIndexer>().Index();
+            ObjectFactory.Instance.Resolve<IScratchIndexer>().Index();
         }
 
         private ProductCatalogGroup CreateCatalogGroup()
