@@ -2063,6 +2063,11 @@ resolve(angular, dataFromServer.resources);
             // END Ucommerce activities
 
 
+
+
+
+
+
  
             pagevisit: {
                 selectorLabel: resolveFilter('campaign.conversion.pageselector'),
