@@ -2068,6 +2068,16 @@ resolve(angular, dataFromServer.resources);
 
 
 
+
+
+
+
+
+
+
+
+
+
  
             pagevisit: {
                 selectorLabel: resolveFilter('campaign.conversion.pageselector'),
