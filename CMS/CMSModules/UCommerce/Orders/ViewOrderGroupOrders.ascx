@@ -72,14 +72,14 @@
 				<thead>
 					<tr>
 						<th><asp:CheckBox runat="server" ID="CheckAll" OnClick="toggleAllCheckboxes($(this).is(':checked'));" /></span></th>
-						<th><span><asp:Localize runat="server" meta:resourceKey="Ordernumber" /></span></th>
-						<th><span><asp:Localize runat="server" meta:resourceKey="CustomerName" /></span></th>
-						<th><span><asp:Localize runat="server" meta:resourceKey="Status" /></span></th>
-						<th><span><asp:Localize runat="server" meta:resourceKey="CompletedDate" /></span></th>
-						<th><span><asp:Localize runat="server" meta:resourceKey="CompletedDate" /></span></th>
-						<th><span><asp:Localize runat="server" meta:resourceKey="CatalogSetName" /></span></th>
-						<th><span><asp:Localize runat="server" meta:resourceKey="Currency" /></span></th>
-						<th class="rightAligned" ><span><asp:Localize runat="server" meta:resourceKey="OrderTotal" /></span></th>
+						<th><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_Ordernumber" /></span></th>
+						<th><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_CustomerName" /></span></th>
+						<th><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_Status" /></span></th>
+						<th><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_CompletedDate" /></span></th>
+						<th><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_CompletedDate" /></span></th>
+						<th><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_CatalogSetName" /></span></th>
+						<th><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_Currency" /></span></th>
+						<th class="rightAligned" ><span><asp:Localize runat="server" meta:resourceKey="Ucommerce_OrderTotal" /></span></th>
 					</tr>
 				</thead>
 				<tbody>

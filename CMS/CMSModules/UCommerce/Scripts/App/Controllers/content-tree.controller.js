@@ -349,7 +349,27 @@
 				return {
 					'background-image': 'url("' + newUrl + '")'
 				};
-			}
+            }
+
+            if (UCommerceClientMgr.Shell == 'Sitefinity') {
+                if ($scope.iconFolder == 'uCommerce') {
+                    if (icon.indexOf("/Apps/") > -1) {
+                        var object = {
+                            'background-image': 'url("' + UCommerceClientMgr.BaseUCommerceUrl + icon + '")'
+                        };
+                        return object;
+                    } else {
+                        var object = {
+                            'background-image': 'url("' + UCommerceClientMgr.BaseUCommerceUrl + 'shell/content/images/ui/' + icon + '")'
+                        };
+                        return object;
+                    }
+                } else {
+                    return {
+                        'background-image': 'url("' + icon + '")'
+                    };
+                }
+            }
 
 			if (UCommerceClientMgr.Shell == 'Sitecore' || UCommerceClientMgr.Shell == 'Kentico') {
 			    if ($scope.iconFolder == 'uCommerce') {
@@ -571,8 +591,14 @@
 	    if (UCommerceClientMgr.Shell === 'Kentico') {
 	        if ($scope.iconFolder == 'uCommerce') {
 	            nodeSpinner = "ajax-loader.gif";
-	        }
-	    }
+            }
+        }
+
+        if (UCommerceClientMgr.Shell === "Sitefinity") {
+            if ($scope.iconFolder == 'uCommerce') {
+                nodeSpinner = "ajax-loader.gif";
+            }
+        }
 
 		node.nodes.push(
 		{

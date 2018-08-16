@@ -10,7 +10,7 @@
             <div style="height: 100%;">
                 <asp:PlaceHolder ID="CategoriesPlaceHolder" runat="server"></asp:PlaceHolder>                    
             </div>
-            <asp:CustomValidator runat="server" ID="ProductCategoriesValidator" ErrorMessage='<%# GetLocalResourceObject("ProductCategories") %>' Display="None" OnServerValidate="OnServerValidate"></asp:CustomValidator>
+            <asp:CustomValidator runat="server" CssClass="validator" ID="ProductCategoriesValidator" ErrorMessage='<%# GetLocalResourceObject("ProductCategories") %>' Display="None" OnServerValidate="OnServerValidate"></asp:CustomValidator>
         </div>
         <div class="propertyPaneFooter"></div>
     </div>

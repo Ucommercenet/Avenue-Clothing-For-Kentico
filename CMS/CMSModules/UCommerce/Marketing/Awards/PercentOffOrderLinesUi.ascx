@@ -17,7 +17,7 @@
 								  MaximumValue="100"
                                   Display="Dynamic" />
 				<asp:RequiredFieldValidator id="RequiredValidator" runat="server" ValidationGroup="PercentOffOrderLines"
-								ControlToValidate="PercentOffOrderLinesText" Display="Dynamic" />
+								ControlToValidate="PercentOffOrderLinesText" Display="Dynamic" CssClass="validator" ErrorMessage="Please enter percentage"/>
 			</asp:PlaceHolder>
 		</td>
 		<td style="width:50px; text-align:right; vertical-align:top;">

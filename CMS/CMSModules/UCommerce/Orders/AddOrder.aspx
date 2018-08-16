@@ -50,7 +50,7 @@
 							Display="Dynamic"
 							ControlToValidate="OrderNumberTextBox" 
 							ValidationExpression="^([\S\s]{0,50})$"
-							CssClass="validationMessage"
+							CssClass="validationMessage validator"
 							ErrorMessage='<%$ Resources:MaxOrderNumberLength.Text %>' />
 						<asp:CustomValidator 
 							id="UniqueOrderNumberValidator" 
@@ -58,7 +58,7 @@
 							OnServerValidate="OrderNumber_ServerValidate" 
 							ControlToValidate="OrderNumberTextBox" 
 							Display="Dynamic"
-							CssClass="validationMessage"
+							CssClass="validationMessage validator"
 							ErrorMessage='<%$ Resources:OrderNumberNotUnique.Text %>' />					
 					</div>
 			</div>

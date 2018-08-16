@@ -6,9 +6,9 @@
     <asp:TextBox runat="server" ID="NameTextBox" CssClass="bigInput fontSize" Width="350px"/>
 </div>
 
-<asp:RequiredFieldValidator runat="server" CssClass="validationMessage" ControlToValidate="NameTextBox" ErrorMessage="Please enter a name.(*)" Width="100%" meta:ResourceKey="RequiredNameValidator" Display="Dynamic" />
+<asp:RequiredFieldValidator runat="server" CssClass="validationMessage validator" ControlToValidate="NameTextBox" ErrorMessage="Please enter a name.(*)" Width="100%" meta:ResourceKey="RequiredNameValidator" Display="Dynamic" />
 <asp:CustomValidator runat="server" ID="UniqueNameCustomValidator" 
-    CssClass="validationMessage" 
+    CssClass="validationMessage validator" 
     Display="Dynamic"
     meta:ResourceKey="UniqueNameValidator" 
     ErrorMessage="The product definition already exists. Please select another name.(*)" 
@@ -16,7 +16,7 @@
     OnServerValidate="UniqeNameCustomVallidator_ServerValidate" />
 
 <asp:CustomValidator runat="server" ID="LicenseCustomValidator" 
-    CssClass="validationMessage" 
+    CssClass="validationMessage validator" 
     Display="Dynamic"
     meta:ResourceKey="LicenseCustomValidator" 
     ErrorMessage="You will exceed your license if you create any more.(*)" 

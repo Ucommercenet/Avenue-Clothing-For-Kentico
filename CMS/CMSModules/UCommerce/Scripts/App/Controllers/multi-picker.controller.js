@@ -175,7 +175,19 @@
 						'padding-left': '16px'
 					};
 				}
-			}
+            }
+		    if (UCommerceClientMgr.Shell == 'Sitefinity') {
+		        if ($scope.iconFolder == 'uCommerce') {
+		            var object = {
+		                'background-image': 'url("' + UCommerceClientMgr.BaseUCommerceUrl + 'shell/content/images/ui/' + icon + '")'
+		            };
+		            return object;
+		        } else {
+		            return {
+		                'background-image': 'url("' + icon + '")'
+		            };
+		        }
+		    }
 		}
 	}
 }

@@ -12,18 +12,18 @@
     <asp:DropDownList runat="server" ID="DefinitionDropDown" DataTextField="Name" DataValueField="Id" CssClass="bigInput fontSize" />
 </div>
 
-<asp:RequiredFieldValidator runat="server" ControlToValidate="NameTextBox" CssClass="validationMessage" Display="Dynamic" ErrorMessage="Please enter a name" Width="100%" meta:ResourceKey="RequiredNameValidator" />
+<asp:RequiredFieldValidator runat="server" ControlToValidate="NameTextBox" CssClass="validationMessage validator" Display="Dynamic" ErrorMessage="Please enter a name" Width="100%" meta:ResourceKey="RequiredNameValidator" />
 <asp:CustomValidator runat="server"
     ID="UniqueNameValidator"
     Display="Dynamic"
-    CssClass="validationMessage"
+    CssClass="validationMessage validator"
     ErrorMessage="The selected name is already in use"
     Width="100%"
     OnServerValidate="UniqueNameValidator_ServerValidate"
     meta:ResourceKey="UniqueNameValidator" />
 
 <asp:CustomValidator runat="server" ID="CustomValidator1"
-    CssClass="validationMessage"
+    CssClass="validationMessage validator"
     Display="Dynamic"
     ErrorMessage="Your license does not allow you to create any more"
     Width="100%"

@@ -4,9 +4,9 @@
 		<td><asp:Localize ID="Localize2" runat="server" meta:ResourceKey="Name" /></td>
 		<td>
 			<asp:TextBox runat="server" ID="NameTextBox" CssClass="bigInput fontSize" /><br />
-			<asp:RequiredFieldValidator meta:ResourceKey="RequiredNameValidator" ID="RequiredFieldValidator1" runat="server" CssClass="validationMessage" ControlToValidate="NameTextBox" ErrorMessage="Please enter a name.(*)" Width="100%" Display="Dynamic"/>
-			<asp:RegularExpressionValidator meta:ResourceKey="NameValidator" ID="NameValidator" ControlToValidate="NameTextBox" CssClass="validationMessage" ValidationExpression="^(?!(xml|[_\W]))[^ \s\W]+$" ErrorMessage="Name can contain only letters and numbers(*)." Display="Dynamic" runat="server" />
-			<asp:CustomValidator meta:ResourceKey="UniqueNameCustomValidator" ID="UniqueFieldNameCustomValidatator" ControlToValidate="NameTextBox" CssClass="validationMessage" ErrorMessage="The field already exists for product definition. Please select another name.(*)" OnServerValidate="UniqueFieldNameCustomValidatator_ValidateUniqueName" runat="server" Display="Dynamic" />
+			<asp:RequiredFieldValidator meta:ResourceKey="RequiredNameValidator" ID="RequiredFieldValidator1" runat="server" CssClass="validationMessage validator" ControlToValidate="NameTextBox" ErrorMessage="Please enter a name.(*)" Width="100%" Display="Dynamic"/>
+			<asp:RegularExpressionValidator meta:ResourceKey="NameValidator" ID="NameValidator" ControlToValidate="NameTextBox" CssClass="validationMessage validator" ValidationExpression="^(?!(xml|[_\W]))[^ \s\W]+$" ErrorMessage="Name can contain only letters and numbers(*)." Display="Dynamic" runat="server" />
+			<asp:CustomValidator meta:ResourceKey="UniqueNameCustomValidator" ID="UniqueFieldNameCustomValidatator" ControlToValidate="NameTextBox" CssClass="validationMessage validator" ErrorMessage="The field already exists for product definition. Please select another name.(*)" OnServerValidate="UniqueFieldNameCustomValidatator_ValidateUniqueName" runat="server" Display="Dynamic" />
 		</td>
 	</tr>
 	<tr>

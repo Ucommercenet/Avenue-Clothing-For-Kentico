@@ -32,8 +32,8 @@
                             <EditItemTemplate>
                                 <asp:HiddenField runat="server" ID="ProductIdHiddenField" Value="<%# ((Product)Container.DataItem).ProductId %>" />
                                 <asp:TextBox runat="server" ID="VariantSkuTextBox" Text="<%# ((Product)Container.DataItem).VariantSku %>" MaxLength="30" cssclass="uc-variant-sku" />
-                                <asp:CustomValidator runat="server" Display="Dynamic" id="UniqueVariantSkuValidator" OnServerValidate="UniqueVariantSkuValidator_Validate" ControlToValidate="VariantSkuTextBox" ErrorMessage="*" ForeColor="Red"></asp:CustomValidator>
-                                <asp:RequiredFieldValidator runat="server" Display="Dynamic" id="RequiredSkuValidator" ControlToValidate="VariantSkuTextBox" Text="*" ErrorMessage="<%# GetRequiredSkuMessage()%>" ForeColor="Red" Enabled="<%# ((Product)Container.DataItem).ProductId > 0 %>"></asp:RequiredFieldValidator>
+                                <asp:CustomValidator runat="server" CssClass="validator" Display="Dynamic" id="UniqueVariantSkuValidator" OnServerValidate="UniqueVariantSkuValidator_Validate" ControlToValidate="VariantSkuTextBox" ErrorMessage="*" ForeColor="Red"></asp:CustomValidator>
+                                <asp:RequiredFieldValidator runat="server" Display="Dynamic" CssClass="validator" id="RequiredSkuValidator" ControlToValidate="VariantSkuTextBox" Text="*" ErrorMessage="<%# GetRequiredSkuMessage()%>" ForeColor="Red" Enabled="<%# ((Product)Container.DataItem).ProductId > 0 %>"></asp:RequiredFieldValidator>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField meta:resourceKey="NameHeader" HeaderText="Name" ControlStyle-Width="100px">

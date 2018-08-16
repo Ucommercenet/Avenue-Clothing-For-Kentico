@@ -17,7 +17,7 @@
     </commerce:PropertyPanel>
     <commerce:PropertyPanel runat="server" meta:resourcekey="Enabled">
         <asp:CheckBox runat="server" ID="EnabledCheckBox" Checked="<%# View.Campaign.Enabled %>"/>
-		<asp:CustomValidator runat="server" id="LicenseValidator" OnServerValidate="LicenseValidator_ServerValidate" meta:ResourceKey="LicenseValidator" ErrorMessage="Marketing Foundation not available with current license.(*)" CssClass="validator"/>
+		<asp:CustomValidator runat="server" CssClass="validator" id="LicenseValidator" OnServerValidate="LicenseValidator_ServerValidate" meta:ResourceKey="LicenseValidator" ErrorMessage="Marketing Foundation not available with current license.(*)"/>
     </commerce:PropertyPanel>
 	<div class="propertyPaneFooter">-</div>
 </div>

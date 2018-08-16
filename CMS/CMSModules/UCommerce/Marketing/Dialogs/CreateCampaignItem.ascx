@@ -8,8 +8,8 @@
     </div>
     <div>
         <asp:TextBox runat="server" ID="NameTextBox" CssClass="bigInput fontSize"/>
-        <asp:RequiredFieldValidator runat="server" ControlToValidate="NameTextBox" CssClass="validationMessage" Display="Dynamic" ErrorMessage="Please enter a name(*)" Width="100%" />
-        <asp:CustomValidator runat="server" OnServerValidate="ValidateCampaignItem" CssClass="validationMessage" Display="Dynamic" ErrorMessage="The name is already in use." Width="100%" />
+        <asp:RequiredFieldValidator runat="server" ControlToValidate="NameTextBox" CssClass="validationMessage validator" Display="Dynamic" ErrorMessage="Please enter a name(*)" Width="100%" />
+        <asp:CustomValidator runat="server" OnServerValidate="ValidateCampaignItem" CssClass="validationMessage validator" Display="Dynamic" ErrorMessage="The name is already in use." Width="100%" />
     </div>
 </div>
 <div style="margin-top: 10px;">

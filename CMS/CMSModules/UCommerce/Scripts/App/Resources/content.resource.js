@@ -6,6 +6,7 @@
         if (path === "/sitecore%20modules") path = "";
         if (path === "/umbraco") path = "";
         if (path === "/Umbraco") path = "";
+        if (path === "/ucommerce") path = "";
 
         return path;
     }

@@ -25,7 +25,7 @@
         <asp:PlaceHolder ID="ProductsPlaceHolder" runat="server"></asp:PlaceHolder>
     </div>
 
-    <asp:CustomValidator runat="server" ID="ProductCategoriesValidator" ErrorMessage='<%# GetLocalResourceObject("ProductCategories") %>' Display="None" OnServerValidate="OnServerValidate"></asp:CustomValidator>
+    <asp:CustomValidator runat="server" CssClass="validator" ID="ProductCategoriesValidator" ErrorMessage='<%# GetLocalResourceObject("ProductCategories") %>' Display="None" OnServerValidate="OnServerValidate"></asp:CustomValidator>
     
     <div class="propertyPane dialog-actions">
 	    <div class="footerOkCancel">

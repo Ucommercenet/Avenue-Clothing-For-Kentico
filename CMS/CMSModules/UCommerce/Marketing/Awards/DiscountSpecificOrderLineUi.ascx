@@ -12,10 +12,10 @@
 					<asp:Textbox runat="server" CssClass="AmountTextBox" id="AmountTextBox"></asp:Textbox>
 					<asp:RegularExpressionValidator id="DecimalValidator" runat="server" ControlToValidate="AmountTextBox" 
 									Style="color:Red;" ValidationExpression="^(\d|-)?(\d|,)*\.?\d*$"
-									Display="Dynamic" ErrorMessage="*" />
-					<asp:RequiredFieldValidator id="RequiredValidator" runat="server"
-									ControlToValidate="AmountTextBox" Display="Dynamic" Style="color:Red;" ErrorMessage="*"/>
-					<asp:CustomValidator runat="server" id="AmountOffBasedOnAmountTypeSelectedValidator" Style="color:Red;" ErrorMessage="*"
+									Display="Dynamic" ErrorMessage="Please enter only numbers" />
+					<asp:RequiredFieldValidator id="RequiredValidator" CssClass="validator" runat="server"
+									ControlToValidate="AmountTextBox" Display="Dynamic" ErrorMessage="Please enter amount"/>
+					<asp:CustomValidator runat="server" CssClass="validator" id="AmountOffBasedOnAmountTypeSelectedValidator" Style="color:Red;" ErrorMessage="*"
 									OnServerValidate="AmountOffBasedOnAmountTypeSelectedValidator_Validate" ControlToValidate="AmountTextBox"/>
 					<asp:DropDownList runat="server" dataTextField="Key" dataValueField="Value" id="AmountTypeDropDownList"></asp:DropDownList>
 					<asp:Localize meta:resourcekey="OffLabel" runat="server">off</asp:Localize>

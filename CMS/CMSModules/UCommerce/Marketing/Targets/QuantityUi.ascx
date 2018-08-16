@@ -10,9 +10,9 @@
 			<asp:placeholder runat="server" id="EditModePlaceHolder"  visible="false">
 				<asp:TextBox runat="server" id="MinQuantityText" />
 				<asp:rangevalidator id="QuantityValidator" runat="server" ControlToValidate="MinQuantityText" 
-								Style="color:Red;" type="Integer" minimumvalue="1" maximumvalue="9999999" Display="Dynamic" />
+								Style="color:Red;" type="Integer" minimumvalue="1" maximumvalue="9999999" Display="Dynamic" CssClass="validator" />
 				<asp:RequiredFieldValidator id="RequiredValidator" runat="server"
-								ControlToValidate="MinQuantityText" Display="Dynamic" />&nbsp;
+								ControlToValidate="MinQuantityText" Display="Dynamic" CssClass="validator" />&nbsp;
 			    <asp:localize runat="server" meta:resourcekey="OnLabel" /><br />
 				<asp:DropDownList runat="server" id="TargetOrderLineOrOrderDropDownList" cssclass="targetOrderOrLine" />&nbsp;
 			</asp:placeholder>

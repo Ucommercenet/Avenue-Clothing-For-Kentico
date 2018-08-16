@@ -75,13 +75,14 @@
 							<asp:RequiredFieldValidator id="ManualCodeValidator" runat="server" 
 								ValidationGroup="ManualVoucherGroup"
                                 Display="Dynamic"
-								ControlToValidate="CodeTextBox" Text="*" />
+								ControlToValidate="CodeTextBox" Text="Required value" CssClass="validator" />
 							<asp:CustomValidator id="ManualUniqueVoucherCodeValidator" runat="server" 
 							OnServerValidate="UniqueVoucherCode_OnServerValidate"  
 							ControlToValidate="CodeTextBox" 
+                            CssClass="validator"
                             Display="Dynamic"
 							ValidationGroup="ManualVoucherGroup"
-							Text="*"/>
+							Text="Required value"/>
 						</td>
 					</tr>
 					<tr>
@@ -92,7 +93,7 @@
 							<asp:RequiredFieldValidator id="ManualMaxUseValidator" runat="server" 
 							 ValidationGroup="ManualVoucherGroup" 
                                 Display="Dynamic"
-							 ControlToValidate="MaxUseTextBox" Text="*" />
+							 ControlToValidate="MaxUseTextBox" Text="Required value" CssClass="validator" />
 						    <asp:RangeValidator 
                                 runat="server" 
                                 Display="Dynamic" 
@@ -102,7 +103,7 @@
                                 Type="Integer"
                                 ValidationGroup="ManualVoucherGroup" 
                                 ErrorMessage="Value must be between 1 and 2147483646" 
-                                Text="*" />
+                                Text="Required value" />
 						</td>
 					</tr>
                     <tr>					
@@ -151,16 +152,16 @@
 								  Type="Integer"
 								  MinimumValue="6"
                                   Display="Dynamic"
-								  MaximumValue="20" Text="*" />
+								  MaximumValue="20" Text="Required value" />
 							<asp:RequiredFieldValidator id="GenerateCodeLengthValidator" runat="server" 
 								 ValidationGroup="GenerateVoucherGroup"
                                     Display="Dynamic"
-								 ControlToValidate="CodeLengthTextBox" Text="*" />
+								 ControlToValidate="CodeLengthTextBox" Text="Required value" CssClass="validator" />
 							<asp:RegularExpressionValidator id="GenerateRegexLengthValidator" runat="server"     
 								 ValidationGroup="GenerateVoucherGroup" 
                                     Display="Dynamic"
 								 ControlToValidate="CodeLengthTextBox"  
-								 ValidationExpression="^\d+$" InitialValue="" Text="*" />					
+								 ValidationExpression="^\d+$" InitialValue="" Text="Required value" />					
 						</td>
 					</tr>
 					<tr>
@@ -170,12 +171,12 @@
 							<asp:RequiredFieldValidator id="GenerateMaxUseValidator" runat="server" 
                                 Display="Dynamic"
 								 ValidationGroup="GenerateVoucherGroup"
-								 ControlToValidate="GenerateMaxUseTextBox" Text="*" />
+								 ControlToValidate="GenerateMaxUseTextBox" Text="Required value" CssClass="validator"/>
 							<asp:RegularExpressionValidator id="GenerateRegexMaxUseValidator" runat="server"     
 								 ValidationGroup="GenerateVoucherGroup"
                                 Display="Dynamic"
 								 ControlToValidate="GenerateMaxUseTextBox"   
-								 Text="*"  
+								 Text="Required value"  
 								 InitialValue=""
 								 ValidationExpression="^\d+$" />
 						    <asp:RangeValidator runat="server" Display="Dynamic" type="Integer" ControlToValidate="GenerateMaxUseTextBox" MinimumValue="1" MaximumValue="2147483646" ValidationGroup="GenerateVoucherGroup" ErrorMessage="Value must be between 1 and 2147483646" Text="*" />
@@ -189,12 +190,12 @@
 							<asp:RequiredFieldValidator id="GenerateNumberToGenValidator" runat="server" 
 								ValidationGroup="GenerateVoucherGroup"
                                 Display="Dynamic"
-								ControlToValidate="NumberToGenerateTextBox" Text="*" />
+								ControlToValidate="NumberToGenerateTextBox" Text="Required value" CssClass="validator" />
 							<asp:RegularExpressionValidator id="GenerateRegexNumberValidator" runat="server"     
 								 ValidationGroup="GenerateVoucherGroup" 
 								 ControlToValidate="NumberToGenerateTextBox" 
                                 Display="Dynamic" 
-								 Text="*"   
+								 Text="Required value"   
 								 ValidationExpression="^\d+$" />
 						    <asp:RangeValidator runat="server" Display="Dynamic" ControlToValidate="NumberToGenerateTextBox" MinimumValue="1" MaximumValue="2147483646" ValidationGroup="GenerateVoucherGroup" ErrorMessage="Value must be between 1 and 2147483646" Text="*" Type="Integer" />
 						</td>
@@ -232,7 +233,7 @@
 				<fieldset>
 				<legend>
 				<%= GetLocalResourceObject("Showing.Text") %>
-					<%= VoucherCodesToShow() %> 
+					<%= VoucherCodesTotal() %> 
 					<%= GetLocalResourceObject("Of.Text") %> 
 					<%= VoucherCodesTotal() %>
 				</legend>
