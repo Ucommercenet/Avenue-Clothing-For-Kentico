@@ -5,6 +5,9 @@
 * This project contains the full Kentico solution with a functional Ucommerce store, which can be used as a starting point for projects, to accelerate development time.
 * It is built with Ucommerce and Kentico best practices in mind.
 
+### Compatibility ###
+Ucommerce v7.18.0.18185 and higher
+
 ### Requirements ###
 Currently, the requirements of running this version of the accelerator are:
 
