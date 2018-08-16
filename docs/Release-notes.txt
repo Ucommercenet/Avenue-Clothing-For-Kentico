@@ -1,4 +1,5 @@
 vNext:
+NEW: Compatibility with Ucommerce 7.18
 FIX: A/B test variant home page no longer throws a YSOD when there are no products marked as "ShowOnHomepage".
 
 Version 1.3.0
