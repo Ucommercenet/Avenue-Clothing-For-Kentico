@@ -348,16 +348,8 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
                             LongDescription = longDescription
                         });
                 });
-
-            Type priceGroupPriceType = Type.GetType("UCommerce.EntitiesV2.PriceGroupPrice, Ucommerce");
-            if (priceGroupPriceType != null)
-            {
-                CreatePriceGroupPricesForProduct(category, price, priceGroupPriceType, product);
-            }
-            else
-            {
-                CreateProductPricesForProduct(category, price, product);
-            }
+           
+            CreateProductPricesForProduct(category, price, product);
 
             // uCommerce checks whether the product already exists in the create
             // when creating the new relation.
