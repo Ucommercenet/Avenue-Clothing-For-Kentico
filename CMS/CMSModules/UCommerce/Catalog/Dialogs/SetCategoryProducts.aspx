@@ -6,10 +6,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderLabel" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentArea" runat="server">
-    <div class="propertyPane dialog-header">
+    <div class="dialog-header">
         <h3>
 		    <span>
-			    <asp:Localize id="Localize2" meta:resourcekey="Header" runat="server" />
+			    <asp:Localize id="Localize2" meta:resourcekey="Header" runat="server" /> <asp:Label id="categoryName" runat="server"></asp:Label>
 		    </span>
 	    </h3>
 	    <div>
@@ -21,13 +21,13 @@
         <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
    	</div>
     <commerce:ValidationSummary runat="server" />
-    <div class="propertyPane contentPane set-category-products">
+    <div class="set-category-products dialog-content">
         <asp:PlaceHolder ID="ProductsPlaceHolder" runat="server"></asp:PlaceHolder>
     </div>
 
     <asp:CustomValidator runat="server" CssClass="validator" ID="ProductCategoriesValidator" ErrorMessage='<%# GetLocalResourceObject("ProductCategories") %>' Display="None" OnServerValidate="OnServerValidate"></asp:CustomValidator>
     
-    <div class="propertyPane dialog-actions">
+    <div class="dialog-actions">
 	    <div class="footerOkCancel">
 			<asp:Button id="SaveButton" CssClass="dialog-saveButton" runat="server" meta:resourcekey="SaveButton" onclick="SaveButton_Clicked"></asp:Button>
 			<em>

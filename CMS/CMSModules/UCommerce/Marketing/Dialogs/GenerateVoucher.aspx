@@ -59,9 +59,9 @@
             <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
 		</div>
     </div>
-    <div class="propertyPane contentPane">
+    <div class="propertyPane contentPane dialog-content">
 		<div class="propertyItem voucher ui-widget no-border max-height">
-		<table width="100%">
+		    <table width="100%">
 		<tr>
 			<td class="voucherTopLeftCell" colspan="1">
 				<FieldSet class="voucherFieldset">
@@ -297,15 +297,15 @@
 		</table>			
 		</div>
 	
-		<div class="propertyPane dialog-actions">
-			<div class="footerOkCancel">
-				<asp:Button cssClass="mediumButton" id="SaveButton" runat="server" onclick="SaveButton_Click" text="Save" />
-				<em> <%= GetLocalResourceObject("Or.Text") %> </em>
-				<a href="#" onclick="UCommerceClientMgr.closeModalWindow();" class="dialog-cancelButton">
-					<%= GetLocalResourceObject("Cancel.Text") %>
-				</a>
-			</div>
+	<div class="propertyPane dialog-actions">
+		<div class="footerOkCancel">
+			<asp:Button cssClass="mediumButton" id="SaveButton" runat="server" onclick="SaveButton_Click" text="Save" />
+			<em> <%= GetLocalResourceObject("Or.Text") %> </em>
+			<a href="#" onclick="UCommerceClientMgr.closeModalWindow();" class="dialog-cancelButton">
+				<%= GetLocalResourceObject("Cancel.Text") %>
+			</a>
 		</div>
+	</div>
 	</div>
 
 </asp:Content>

@@ -7,7 +7,7 @@
     $rootScope.findNode = function(nodeId) {
         var collection = $rootScope.treeNodesCollection;
         var nodeIdentifier = nodeId.split('_');
-        for (n in collection) {
+        for (var n in collection) {
             var tempNode = collection[n];
             if (tempNode.id == nodeIdentifier[1] && tempNode.nodeType == nodeIdentifier[0])
                 return tempNode;
@@ -20,7 +20,7 @@
 
 		var collection = $rootScope.treeNodesCollection;
 
-		for (n in keyVal) {
+		for (var n in keyVal) {
 			var id = keyVal[n].id;
 			var nodeType = keyVal[n].nodeType;
 			var found = false;
@@ -42,7 +42,7 @@
 			$scope.selectedNodes = [];
 		}
 
-		for (n in $scope.selectedNodes) {
+        for (var n in $scope.selectedNodes) {
 			var selectedNode = $scope.selectedNodes[n];
 			if (selectedNode.id == node.id && selectedNode.nodeType == node.nodeType) {
 				$scope.selectedNodes.splice(n, 1);
@@ -212,20 +212,22 @@
 	};
 
 	$scope.showCheckBoxForNode = function (node) {
-		if (node) {
+	    var showCheckboxForNode = false;
+	    if (node) {
 			if ($scope.hasCheckboxFor && node.nodeType != null && node.nodeType != '') {
 				var checkBoxTypes = $scope.hasCheckboxFor.split(",");
 				var nodeTypes = node.nodeType.split(",");
-				for (i in nodeTypes) {
-					for (n in checkBoxTypes) {
-						if (checkBoxTypes[n].toLowerCase() == nodeTypes[i].toLowerCase()) {
-							return true;
-						}
-					}
-				}
+
+			    nodeTypes.forEach(function(outerElement, outerIndex) {
+			        checkBoxTypes.forEach(function(innerElement, index) {
+			            if (innerElement.toLowerCase() === outerElement.toLowerCase()) {
+			                showCheckboxForNode = true;
+			            }
+			        });
+			    });
 			}
 		}
-		return false;
+        return showCheckboxForNode;
 	};
 
 	function loadContentTree() {

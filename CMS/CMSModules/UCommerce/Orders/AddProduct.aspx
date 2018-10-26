@@ -16,7 +16,7 @@
 	    </div>
         <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
    	</div>
-	<div class="contentPane propertyPane add-product-on-order">
+	<div class="contentPane propertyPane add-product-on-order dialog-content">
 		<div class="propertyContainer propertyItems">
 			<div class="propertyItem">
 				<div class="propertyItemHeader"><asp:Localize ID="Localize4" runat="server" meta:resourceKey="PriceGroup" /></div>

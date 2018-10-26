@@ -33,12 +33,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderLabel" runat="server"><asp:Localize ID="Localize5" runat="server" meta:resourceKey="Header" /></asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentArea" runat="server">
-   	<div class="propertyPane dialog-header"><h3><asp:Localize id="Localize2" runat="server" meta:resourcekey="Header" /></h3>
+   	<div class="dialog-header"><h3><asp:Localize id="Localize2" runat="server" meta:resourcekey="Header" /></h3>
         <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
    	</div>
 
-	<div class="propertyPane contentPaneOne addOrderContent">
-	        <div class="propertyContainer propertyItems">
+	<div class="addOrderContent dialog-content">
+	        <div class="propertyContainer propertyItems dialog-content__property">
 				<div class="propertyItem">
 					<div class="propertyItemHeader propertyItemContentSmall"><asp:Localize runat="server" meta:resourcekey="OrderNumber" /></div>
 					<div class="propertyItemContent propertyItemContentSmall">
@@ -63,14 +63,14 @@
 					</div>
 			</div>
 
-			<div class="propertyItem">
+			<div class="propertyItem dialog-content__property">
 				<div class="propertyItemHeader propertyItemContentSmall"><asp:Localize runat="server" meta:resourcekey="OrderStatus" /></div>
 				<div class="propertyItemContent propertyItemContentSmall">
 					<asp:DropDownList runat="server" ID="OrderStatusDropDown" CssClass="mediumWidth" />
 				</div>
 			</div>
 
-			<div class="propertyItem">
+			<div class="propertyItem dialog-content__property">
 				<div class="propertyItemHeader propertyItemContentSmall"><asp:Localize runat="server" meta:resourcekey="Group" /></div>
 				<div class="propertyItemContent propertyItemContentSmall">
 					<asp:DropDownList runat="server" ID="OrderGroupDropDown" CssClass="mediumWidth" />
@@ -88,7 +88,7 @@
         
 			</div>
 
-			<div class="propertyItem">
+			<div class="propertyItem dialog-content__property">
 				<div class="propertyItemHeader propertyItemContentSmall"><asp:Localize runat="server" meta:resourcekey="Currency" /></div>
 				<div class="propertyItemContent propertyItemContentSmall">
 					<asp:DropDownList runat="server" ID="CurrencyDropDown" CssClass="mediumWidth" />
@@ -97,11 +97,11 @@
 		</div>
 		<div class="propertyPaneFooter">-</div>
 	</div>
-    <div class="propertyPane dialog-actions">
+    <div class="dialog-actions">
 	    <div class="footerOkCancel">
 			<asp:Button id="SaveButton" CssClass="dialog-saveButton" runat="server" meta:resourcekey="SaveButton" onclick="SaveButton_Clicked" />
 			<em>or </em>
-			<a href="#"  Class="dialog-cancelButton" onclick="UCommerceClientMgr.closeModalWindow()"><asp:Localize id="Localize1" runat="server" meta:resourcekey="CancelButton" /></a>
+			<a href="#" Class="dialog-cancelButton" onclick="UCommerceClientMgr.closeModalWindow()"><asp:Localize id="Localize1" runat="server" meta:resourcekey="CancelButton" /></a>
 		</div>
 	</div>
  

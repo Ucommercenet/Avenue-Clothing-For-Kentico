@@ -44,8 +44,10 @@
 	};
 
 	$scope.$on('nodeSelected', function (event, data) {
-		var node = data;
-		setSelectedImagePreviewUrl(node);
+        var node = data;
+        if (node.nodeType.toLowerCase() !== "content") {
+            setSelectedImagePreviewUrl(node);
+        }
 		setSelectedId(node.id);
 		setSelectedName(node.name);
 	});
@@ -249,5 +251,3 @@
 		});
 	}
 }
-
-angular.module('ucommerce').controller("contentPickerController", contentPickerController);

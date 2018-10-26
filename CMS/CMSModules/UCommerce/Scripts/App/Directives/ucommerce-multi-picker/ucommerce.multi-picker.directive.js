@@ -1,52 +1,64 @@
-﻿function ucommerceMultiPicker($compile) {
-	return {
-		restrict: 'E',
-		scope: true,
-		templateUrl: UCommerceClientMgr.BaseUCommerceUrl + 'scripts/app/directives/ucommerce-multi-picker/ucommerce.multi-picker.directive.html',
-		replace: false,
-		controller: uc_multiPickerController,
-		compile: function (tElement, tAttr) {
-			var contents = tElement.contents().remove();
-			var compiledContents;
-			return function (scope, iElement, iAttr) {
-				scope.loadOnCompile = iAttr["loadOnCompile"];
-				scope.currentNodeElement = iElement;
-				if (!scope.contentPickerType) {
-					scope.contentPickerType = iAttr["contentPickerType"];
-				}
+﻿function ucommerceMultiPicker ($compile) {
+  return {
+    restrict: 'E',
+    scope: true,
+    templateUrl: UCommerceClientMgr.BaseUCommerceUrl +
+      'scripts/app/directives/ucommerce-multi-picker/ucommerce.multi-picker.directive.html',
+    replace: false,
+    controller: uc_multiPickerController,
+    compile: function (tElement, tAttr) {
+      var contents = tElement.contents().remove()
+      var compiledContents
+      return function (scope, iElement, iAttr) {
+        scope.loadOnCompile = iAttr['loadOnCompile']
+        scope.currentNodeElement = iElement
+        if (!scope.contentPickerType) {
+          scope.contentPickerType = iAttr['contentPickerType']
+        }
 
-				if (!scope.selectedNodeStyle) {
-					scope.selectedNodeStyle = iAttr["selectedNodeStyle"];
-				}
+        if (!scope.selectedNodeStyle) {
+          scope.selectedNodeStyle = iAttr['selectedNodeStyle']
+        }
 
-				scope.hasRightClickMenu = iAttr["hasRightClickMenu"];
-				scope.hasCheckboxFor = iAttr["hasCheckboxFor"];
-				scope.multiSelect = iAttr["multiSelect"];
-				scope.showSelectedNodes = true;
-				if (iAttr["multiSelect"] == "false") {
-					scope.showSelectedNodes = false;
-				}
+        if (!scope.hasCheckboxFor) {
+          scope.hasCheckboxFor = iAttr['hasCheckboxFor']
+        }
 
-				scope.pickertype = iAttr["pickertype"];
-				scope.iconFolder = iAttr["iconFolder"];
+        scope.hasRightClickMenu = iAttr['hasRightClickMenu']
+        scope.multiSelect = iAttr['multiSelect']
+        scope.showSelectedNodes = true
+        if (iAttr['multiSelect'] == 'false') {
+          scope.showSelectedNodes = false
+        }
 
-				var preselectedVals = iAttr["preSelectedValues"];
-				if (preselectedVals) {
-					scope.preSelectedValues = iAttr["preSelectedValues"].split(',');
+        scope.pickertype = iAttr['pickertype']
+        scope.iconFolder = iAttr['iconFolder']
 
-				}
-				scope.formName = iAttr["formName"];
+        if (!scope.preSelectedValues) {
+          var preselectedVals = iAttr['preSelectedValues']
+          if (preselectedVals) {
+            scope.preSelectedValues = iAttr['preSelectedValues'].split(',')
+          }
+                    else if (scope.preSelectedValues == null ||
+                        scope.preSelectedValues == '' ||
+                        scope.preSelectedValues.length == 0) {
+                        scope.preSelectedValues = [];
+                    } 
+        }
 
-				if (!compiledContents) {
-					compiledContents = $compile(contents);
-				}
-				compiledContents(scope, function (clone, scope) {
-					iElement.append(clone);
-				});
+        if (!scope.formName) {
+          scope.formName = iAttr['formName']
+        }
 
-				scope.loadPreselectedNodes();
-			};
+        if (!compiledContents) {
+          compiledContents = $compile(contents)
+        }
+        compiledContents(scope, function (clone, scope) {
+          iElement.append(clone)
+        })
 
-		}
-	};
+        scope.loadPreselectedNodes()
+      }
+    }
+  }
 }

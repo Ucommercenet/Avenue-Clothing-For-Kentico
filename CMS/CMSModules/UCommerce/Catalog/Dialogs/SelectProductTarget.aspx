@@ -21,11 +21,11 @@
 		</div>
         <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
     </div>
-	<div class="propertyPane contentPane">
+	<div class="propertyPane contentPane dialog-content">
             <asp:PlaceHolder id="ProductsSelector" runat="server"></asp:PlaceHolder>
 		<div class="propertyPaneFooter"></div>
 	</div>
-    <div class="propertyPane dialog-actions">
+    <div class="dialog-actions">
 	    <div class="footerOkCancel"> 
 			<asp:Button id="SaveButton" CssClass="dialog-saveButton" runat="server" onclick="SaveButton_Clicked" />
 			<em><%= GetLocalResourceObject("Or.Text") %> </em>

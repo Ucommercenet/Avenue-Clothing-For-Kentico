@@ -1,6 +1,6 @@
 ﻿<div class="content-picker-search-component" ng-show="showSearch()">
     <div class="content-picker-search-placeHolder">
-        <input class="contentPickerSearchInput" type="text" ng-model="searchTerm" ng-keydown="checkIfEscapeKeyWasPressed($event)" ng-change="initiateProductSearch(searchTerm)" placeholder="Search" />
+        <input class="contentPickerSearchInput" type="text" ng-model="searchTerm" ng-keydown="checkIfEscapeKeyWasPressed($event)" ng-change="initiateProductSearch(searchTerm)" placeholder="Start typing to filter" />
         <span ng-click="clearTextBox()" ng-show="searchTerm != null && searchTerm != '' && showSpinner==false" class="clear-search">&times;</span>
         <img ng-src="{{baseCommerceImagesUrl}}ajax-loader.gif" ng-show="showSpinner" class="clear-search clear-search-spinner"/>
     </div>
