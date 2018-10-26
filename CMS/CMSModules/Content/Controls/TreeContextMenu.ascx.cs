@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Web.UI.WebControls;
 
-using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Core;
 using CMS.DataEngine;
@@ -23,10 +22,6 @@ using TreeNode = CMS.DocumentEngine.TreeNode;
 public partial class CMSModules_Content_Controls_TreeContextMenu : CMSContextMenuControl
 {
     #region "Variables"
-
-    private string mDocumentTypeOrderBy = "MenuItemOrder, ClassDisplayName";
-    private string mResourceName = ModuleName.CONTENT;
-    private bool mEnableABTestVariant = true;
 
     #endregion
 
@@ -48,15 +43,9 @@ public partial class CMSModules_Content_Controls_TreeContextMenu : CMSContextMen
     /// </summary>
     public string DocumentTypeOrderBy
     {
-        get
-        {
-            return mDocumentTypeOrderBy;
-        }
-        set
-        {
-            mDocumentTypeOrderBy = value;
-        }
-    }
+        get;
+        set;
+    } = "MenuItemOrder, ClassDisplayName";
 
 
     /// <summary>
@@ -86,15 +75,9 @@ public partial class CMSModules_Content_Controls_TreeContextMenu : CMSContextMen
     /// </summary>
     public string ResourceName
     {
-        get
-        {
-            return mResourceName;
-        }
-        set
-        {
-            mResourceName = value;
-        }
-    }
+        get;
+        set;
+    } = ModuleName.CONTENT;
 
 
     /// <summary>
@@ -102,15 +85,9 @@ public partial class CMSModules_Content_Controls_TreeContextMenu : CMSContextMen
     /// </summary>
     public bool EnableABTestVariant
     {
-        get
-        {
-            return mEnableABTestVariant;
-        }
-        set
-        {
-            mEnableABTestVariant = value;
-        }
-    }
+        get;
+        set;
+    } = true;
 
     #endregion
 
@@ -227,7 +204,7 @@ public partial class CMSModules_Content_Controls_TreeContextMenu : CMSContextMen
                             continue;
                         }
 
-                        var elementName = element.ElementName.ToLowerCSafe();
+                        var elementName = element.ElementName.ToLowerInvariant();
 
                         // If UI element is available and user has permission to show it then add it
                         if (UIContextHelper.CheckElementAvailabilityInUI(element) && user.IsAuthorizedPerUIElement(element.ElementResourceID, elementName))

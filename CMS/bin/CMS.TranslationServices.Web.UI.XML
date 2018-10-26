@@ -9,14 +9,14 @@
             Form control for translation priority selection.
             </summary>
         </member>
-        <member name="M:CMS.TranslationServices.Web.UI.TranslationPriority.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
         <member name="P:CMS.TranslationServices.Web.UI.TranslationPriority.Priority">
             <summary>
             Returns the instructions of the submission.
+            </summary>
+        </member>
+        <member name="M:CMS.TranslationServices.Web.UI.TranslationPriority.#ctor">
+            <summary>
+            Constructor
             </summary>
         </member>
         <member name="T:CMS.TranslationServices.Web.UI.TranslationStatus">

@@ -27,7 +27,7 @@
                     'id="{{id}}"  ' +
                     'data-ng-model="value" ' +
                     'data-ng-required="required" ' +
-                    'name="{{id}}" cms-select-convert-to-number>' +
+                    'name="{{id}}">' +
                 '<option data-ng-repeat="option in options track by $index"   ' +
                         'value="{{option.id}}"  ' +
                         'data-ng-disabled="option.disabled" ' +

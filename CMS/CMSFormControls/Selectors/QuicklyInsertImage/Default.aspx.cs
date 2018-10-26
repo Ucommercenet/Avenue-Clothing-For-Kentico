@@ -3,6 +3,7 @@
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
 using CMS.Helpers;
+using CMS.Localization;
 using CMS.SiteProvider;
 using CMS.UIControls;
 
@@ -52,6 +53,8 @@ public partial class CMSFormControls_Selectors_QuicklyInsertImage_Default : CMSD
             fileUploaderElem.AfterSaveJavascript = "InsertImageOrMedia";
             fileUploaderElem.InsertMode = true;
             fileUploaderElem.IsLiveSite = false;
+
+            fileUploaderElem.FileUploadControl.Attributes["title"] = HTMLHelper.EncodeForHtmlAttribute(LocalizationHelper.GetString("wysiwyg.ui.quicklyinsertimage"));
 
             ScriptHelper.RegisterStartupScript(this, typeof(String), "DirectFileUpload_" + ClientID, "window.uploaderFocused = false;", true);
         }

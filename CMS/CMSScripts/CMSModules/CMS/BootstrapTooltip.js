@@ -1,5 +1,4 @@
 ﻿cmsdefine(['jQuery'], function ($) {
-    'use strict';
 
     var Module = function(data) {
         var ttElems = $(data.selector);

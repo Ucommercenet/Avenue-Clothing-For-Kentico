@@ -37,22 +37,4 @@ public partial class CMSFormControls_Macros_MacroEditor {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.CMSAccessibleButton btnInsertMacro;
-    
-    /// <summary>
-    /// plcMacroSelector control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.PlaceHolder plcMacroSelector;
-    
-    /// <summary>
-    /// ucMacroSelector control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMSAdminControls_UI_Macros_MacroSelector ucMacroSelector;
 }

@@ -7,7 +7,7 @@ using CMS.IO;
 using CMS.UIControls;
 
 
-public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSelector_NewFolder : CMSModalGlobalAdminPage
+public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSelector_NewFolder : CMSModalPage
 {
     #region "Variables"
 

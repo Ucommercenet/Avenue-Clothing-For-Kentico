@@ -244,7 +244,15 @@ public partial class CMSModules_Departments_FormControls_DepartmentSectionsManag
         ResourceInfo resMediaLibs = ResourceInfoProvider.GetResourceInfo("CMS.MediaLibrary");
 
         // Get permissions IDs
-        DataSet dsMediaLibPerm = PermissionNameInfoProvider.GetPermissionNames("ResourceID = " + resMediaLibs.ResourceID + " AND (PermissionName = 'LibraryAccess' OR PermissionName = 'FileCreate')", null, 0, "PermissionID");
+        var where = new WhereCondition()
+            .WhereEquals("ResourceID", resMediaLibs.ResourceID)
+            .And()
+            .Where(new WhereCondition()
+                .WhereEquals("PermissionName", "LibraryAccess")
+                .Or()
+                .WhereEquals("PermissionName", "FileCreate"));
+
+        DataSet dsMediaLibPerm = PermissionNameInfoProvider.GetPermissionNames().Where(where).Column("PermissionID");
         IList<int> mediaLibPermissionsIds = null;
         if (!DataHelper.DataSourceIsEmpty(dsMediaLibPerm))
         {
@@ -563,6 +571,7 @@ public partial class CMSModules_Departments_FormControls_DepartmentSectionsManag
             sii.IndexAnalyzerType = SearchAnalyzerTypeEnum.StandardAnalyzer;
             sii.IndexType = TreeNode.OBJECT_TYPE;
             sii.IndexIsCommunityGroup = false;
+            sii.IndexProvider = SearchIndexInfo.LUCENE_SEARCH_PROVIDER;
 
             // Create search index settings info
             SearchIndexSettingsInfo sisi = new SearchIndexSettingsInfo();
@@ -614,6 +623,7 @@ public partial class CMSModules_Departments_FormControls_DepartmentSectionsManag
             sii.IndexAnalyzerType = SearchAnalyzerTypeEnum.StandardAnalyzer;
             sii.IndexType = PredefinedObjectType.FORUM;
             sii.IndexIsCommunityGroup = false;
+            sii.IndexProvider = SearchIndexInfo.LUCENE_SEARCH_PROVIDER;
 
             // Create search index settings info
             SearchIndexSettingsInfo sisi = new SearchIndexSettingsInfo();

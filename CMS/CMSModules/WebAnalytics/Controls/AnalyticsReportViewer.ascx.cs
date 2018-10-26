@@ -8,7 +8,6 @@ using CMS.Reporting.Web.UI;
 using CMS.UIControls;
 using CMS.WebAnalytics;
 
-
 public partial class CMSModules_WebAnalytics_Controls_AnalyticsReportViewer : CMSAdminControl
 {
     #region "Variables"
@@ -347,23 +346,28 @@ public partial class CMSModules_WebAnalytics_Controls_AnalyticsReportViewer : CM
     /// <summary>
     /// Saves current report.
     /// </summary>
-    public int SaveReport()
+    public void SaveReport()
     {
         if (mUcDisplayReport != null)
         {
             DisplayReport(false);
-            int result = mUcDisplayReport.SaveReport();
 
+            // Check 'SaveReports' permission
+            if (!CurrentUser.IsAuthorizedPerResource("cms.reporting", "SaveReports"))
+            {
+                RedirectToAccessDenied("cms.reporting", "SaveReports");
+            }
+            
             // Display info label
-            if (result > 0)
+            if (mUcDisplayReport.SaveReport() > 0)
             {
                 ShowConfirmation(String.Format(GetString("Ecommerce_Report.ReportSavedTo"), ReportDisplayName + " - " + DateTime.Now.ToString()));
             }
-
-            return result;
+            else
+            {
+                ShowError(GetString("reporting.savingreportfailed"));
+            }
         }
-
-        return 0;
     }
 
 

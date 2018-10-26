@@ -269,7 +269,7 @@ public partial class CMSModules_Blogs_Controls_BlogPostSubscriptions : CMSAdminC
                     // Log activity
                     if (MembershipContext.AuthenticatedUser.UserID == UserID)
                     {
-                        Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                        Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                         var blogsActivityLogger = new BlogsActivityLogger();
                         blogsActivityLogger.LogBlogPostSubscriptionActivity(bsi);
                     }

@@ -103,7 +103,7 @@ public partial class CMSModules_Blogs_Controls_BlogCommentDetail : BlogCommentDe
         lnkReject.OnClientClick = string.Format("{0}; return false;", GetPostBackEventReference("reject"));
 
         // Initialize report abuse
-        ucInlineAbuseReport.ReportTitle = ResHelper.GetString("BlogCommentDetail.AbuseReport", SettingsKeyInfoProvider.GetValue(SiteContext.CurrentSiteName + ".CMSDefaultCulture")) + Comment.CommentText;
+        ucInlineAbuseReport.ReportTitle = ResHelper.GetString("BlogCommentDetail.AbuseReport", CultureHelper.GetDefaultCultureCode(SiteContext.CurrentSiteName)) + Comment.CommentText;
         ucInlineAbuseReport.ReportObjectID = CommentID;
         ucInlineAbuseReport.CMSPanel.Roles = AbuseReportRoles;
         ucInlineAbuseReport.CMSPanel.SecurityAccess = AbuseReportSecurityAccess;

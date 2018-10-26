@@ -25,14 +25,14 @@
             Class for retrieving module usage counters.
             </summary>
         </member>
-        <member name="M:CMS.ModuleUsageTracking.CountersDataSource.GetData">
-            <summary>
-            Get the module usage counters' data.
-            </summary>
-        </member>
         <member name="P:CMS.ModuleUsageTracking.CountersDataSource.Name">
             <summary>
             Name of the global data source.
+            </summary>
+        </member>
+        <member name="M:CMS.ModuleUsageTracking.CountersDataSource.GetData">
+            <summary>
+            Get the module usage counters' data.
             </summary>
         </member>
         <member name="T:CMS.ModuleUsageTracking.ModuleUsageCounter">
@@ -73,6 +73,21 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageCounterInfo.ModuleUsageCounterID">
+            <summary>
+            Module usage counter ID
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageCounterInfo.ModuleUsageCounterName">
+            <summary>
+            Module usage counter name
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageCounterInfo.ModuleUsageCounterValue">
+            <summary>
+            Module usage counter value
+            </summary>
+        </member>
         <member name="M:CMS.ModuleUsageTracking.ModuleUsageCounterInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -100,21 +115,6 @@
             Constructor - Creates a new ModuleUsageCounterInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageCounterInfo.ModuleUsageCounterID">
-            <summary>
-            Module usage counter ID
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageCounterInfo.ModuleUsageCounterName">
-            <summary>
-            Module usage counter name
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageCounterInfo.ModuleUsageCounterValue">
-            <summary>
-            Module usage counter value
-            </summary>
         </member>
         <member name="T:CMS.ModuleUsageTracking.ModuleUsageCounterInfoProvider">
             <summary>
@@ -173,35 +173,6 @@
             </summary>
             <param name="name">ModuleUsageCounterInfo name</param>
         </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageCounterInfoProvider.GetModuleUsageCountersInternal">
-            <summary>
-            Returns a query for all the ModuleUsageCounterInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageCounterInfoProvider.GetModuleUsageCounterInfoInternal(System.Int32)">
-            <summary>
-            Returns ModuleUsageCounterInfo with specified ID.
-            </summary>
-            <param name="id">ModuleUsageCounterInfo ID</param>        
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageCounterInfoProvider.GetModuleUsageCounterInfoInternal(System.String)">
-            <summary>
-            Returns ModuleUsageCounterInfo with specified name.
-            </summary>
-            <param name="name">ModuleUsageCounterInfo name</param>        
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageCounterInfoProvider.SetModuleUsageCounterInfoInternal(CMS.ModuleUsageTracking.ModuleUsageCounterInfo)">
-            <summary>
-            Sets (updates or inserts) specified ModuleUsageCounterInfo.
-            </summary>
-            <param name="infoObj">ModuleUsageCounterInfo to be set</param>        
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageCounterInfoProvider.DeleteModuleUsageCounterInfoInternal(CMS.ModuleUsageTracking.ModuleUsageCounterInfo)">
-            <summary>
-            Deletes specified ModuleUsageCounterInfo.
-            </summary>
-            <param name="infoObj">ModuleUsageCounterInfo to be deleted</param>        
-        </member>
         <member name="M:CMS.ModuleUsageTracking.ModuleUsageCounterInfoProvider.IncrementModuleUsageCounterInfoInternal(System.String)">
             <summary>
             Increments ModuleUsageCounterInfo with specified name.
@@ -222,6 +193,11 @@
         <member name="F:CMS.ModuleUsageTracking.ObjectCountDataSource.mTrackedObjects">
             <summary>
             Types of objects which count will be tracked. 
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ObjectCountDataSource.Name">
+            <summary>
+            Name of the object count data source.
             </summary>
         </member>
         <member name="M:CMS.ModuleUsageTracking.ObjectCountDataSource.GetData">
@@ -250,19 +226,9 @@
             Unknown object types or types without table are left out.
             </remarks>
         </member>
-        <member name="P:CMS.ModuleUsageTracking.ObjectCountDataSource.Name">
-            <summary>
-            Name of the object count data source.
-            </summary>
-        </member>
         <member name="T:CMS.ModuleUsageTracking.GlobalUsageDataSource">
             <summary>
             Class for retrieving global statistical information about current web application instance.
-            </summary>
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.GlobalUsageDataSource.GetData">
-            <summary>
-            Get the global statistical information about current web application instance.
             </summary>
         </member>
         <member name="P:CMS.ModuleUsageTracking.GlobalUsageDataSource.Name">
@@ -270,9 +236,19 @@
             Name of the global data source.
             </summary>
         </member>
+        <member name="M:CMS.ModuleUsageTracking.GlobalUsageDataSource.GetData">
+            <summary>
+            Get the global statistical information about current web application instance.
+            </summary>
+        </member>
         <member name="T:CMS.ModuleUsageTracking.EnumTypeRepresentationAttribute">
             <summary>
             Specifies the data type representation for an enum field.
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.EnumTypeRepresentationAttribute.TypeRepresentation">
+            <summary>
+            Gets the data type representation value.
             </summary>
         </member>
         <member name="M:CMS.ModuleUsageTracking.EnumTypeRepresentationAttribute.#ctor(System.Type)">
@@ -281,35 +257,9 @@
             </summary>
             <param name="typeRepresentation">Type representation of the attributed enum field</param>
         </member>
-        <member name="P:CMS.ModuleUsageTracking.EnumTypeRepresentationAttribute.TypeRepresentation">
-            <summary>
-            Gets the data type representation value.
-            </summary>
-        </member>
         <member name="T:CMS.ModuleUsageTracking.ModuleUsageData">
             <summary>
             Statistical data about module with metadata.
-            </summary>
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageData.#ctor(System.DateTime,System.String,System.String,System.String,System.Int64,CMS.Base.IModuleUsageDataCollection)">
-            <summary>
-            Default model constructor.
-            </summary>
-            <param name="dateTime">Date and time when these statistics were collected.</param>
-            <param name="identity">Identity of this installation.</param>
-            <param name="dataSourceName">Name of the data source component relevant to data.</param>
-            <param name="productVersion">Current product version.></param>
-            <param name="dataCollectionTime">Duration of module data retrieval in milliseconds.</param>
-            <param name="data">Statistical data about module.</param>
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageData.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo"/> with the data needed to serialize the target object.
-            </summary>
-        </member>
-        <member name="M:CMS.ModuleUsageTracking.ModuleUsageData.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Constructor for de-serialization.
             </summary>
         </member>
         <member name="P:CMS.ModuleUsageTracking.ModuleUsageData.DateTime">
@@ -340,6 +290,27 @@
         <member name="P:CMS.ModuleUsageTracking.ModuleUsageData.Data">
             <summary>
             Statistical data about module.
+            </summary>
+        </member>
+        <member name="M:CMS.ModuleUsageTracking.ModuleUsageData.#ctor(System.DateTime,System.String,System.String,System.String,System.Int64,CMS.Base.IModuleUsageDataCollection)">
+            <summary>
+            Default model constructor.
+            </summary>
+            <param name="dateTime">Date and time when these statistics were collected.</param>
+            <param name="identity">Identity of this installation.</param>
+            <param name="dataSourceName">Name of the data source component relevant to data.</param>
+            <param name="productVersion">Current product version.></param>
+            <param name="dataCollectionTime">Duration of module data retrieval in milliseconds.</param>
+            <param name="data">Statistical data about module.</param>
+        </member>
+        <member name="M:CMS.ModuleUsageTracking.ModuleUsageData.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo"/> with the data needed to serialize the target object.
+            </summary>
+        </member>
+        <member name="M:CMS.ModuleUsageTracking.ModuleUsageData.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
             </summary>
         </member>
         <member name="T:CMS.ModuleUsageTracking.ModuleUsageDataCollection">
@@ -463,6 +434,21 @@
             Represents one fragment of module usage data
             </summary>
         </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageDataItem.Key">
+            <summary>
+            Key representing the item. Must be unique within one data source.
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageDataItem.Value">
+            <summary>
+            Item value
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageDataItem.Type">
+            <summary>
+            Data type of value
+            </summary>
+        </member>
         <member name="M:CMS.ModuleUsageTracking.ModuleUsageDataItem.Equals(CMS.ModuleUsageTracking.ModuleUsageDataItem)">
             <summary>
             Indicates whether the current object is equal to another object.
@@ -486,21 +472,6 @@
         <member name="M:CMS.ModuleUsageTracking.ModuleUsageDataItem.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
             Constructor for de-serialization.
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageDataItem.Key">
-            <summary>
-            Key representing the item. Must be unique within one data source.
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageDataItem.Value">
-            <summary>
-            Item value
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageDataItem.Type">
-            <summary>
-            Data type of value
             </summary>
         </member>
         <member name="T:CMS.ModuleUsageTracking.ModuleUsageDataTypeEnum">
@@ -553,6 +524,22 @@
         <member name="T:CMS.ModuleUsageTracking.ModuleUsageProvider">
             <summary>
             Processes statistical data collected from module data providers.
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageProvider.Container">
+            <summary>
+            Container providing module usage data sources
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageProvider.EndPoint">
+            <summary>
+            Module usage server endpoint 
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageProvider.SentFields">
+            <summary>
+            Collection of names of all data fields obtained from datasources and sent to server.
+            Names of sent fields are logged as information into event log after send process is finished.
             </summary>
         </member>
         <member name="M:CMS.ModuleUsageTracking.ModuleUsageProvider.#ctor">
@@ -641,25 +628,19 @@
             </summary>
             <param name="data">Data collection with data describing http error</param>
         </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageProvider.Container">
-            <summary>
-            Container providing module usage data sources
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageProvider.EndPoint">
-            <summary>
-            Module usage server endpoint 
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageProvider.SentFields">
-            <summary>
-            Collection of names of all data fields obtained from datasources and sent to server.
-            Names of sent fields are logged as information into event log after send process is finished.
-            </summary>
-        </member>
         <member name="T:CMS.ModuleUsageTracking.ModuleUsageTrackingModule">
             <summary>
             Represents the Module usage tracking module.
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageTrackingModule.Identity">
+            <summary>
+            Kentico installation identity
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleUsageTracking.ModuleUsageTrackingModule.Initialized">
+            <summary>
+            The module usage module has all prerequisites to process and send the data.
             </summary>
         </member>
         <member name="M:CMS.ModuleUsageTracking.ModuleUsageTrackingModule.#ctor">
@@ -683,16 +664,6 @@
             Initializes schedule time of module usage data dispatcher task.
             </summary>
             <returns>True on success</returns>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageTrackingModule.Identity">
-            <summary>
-            Kentico installation identity
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleUsageTracking.ModuleUsageTrackingModule.Initialized">
-            <summary>
-            The module usage module has all prerequisites to process and send the data.
-            </summary>
         </member>
     </members>
 </doc>

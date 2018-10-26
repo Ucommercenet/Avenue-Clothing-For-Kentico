@@ -9,8 +9,9 @@
 
 
 
-public partial class CMSModules_Newsletters_Controls_VariantMailout {
-    
+public partial class CMSModules_Newsletters_Controls_VariantMailout
+{
+
     /// <summary>
     /// pnlUM control.
     /// </summary>
@@ -19,7 +20,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.CMSUpdatePanel pnlUM;
-    
+
     /// <summary>
     /// pnlMailoutHeading control.
     /// </summary>
@@ -28,7 +29,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.LocalizedHeading pnlMailoutHeading;
-    
+
     /// <summary>
     /// pnlMailout control.
     /// </summary>
@@ -37,7 +38,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Panel pnlMailout;
-    
+
     /// <summary>
     /// pnlMailoutContent control.
     /// </summary>
@@ -46,7 +47,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Panel pnlMailoutContent;
-    
+
     /// <summary>
     /// grdElem control.
     /// </summary>
@@ -55,7 +56,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMSAdminControls_UI_UniGrid_UniGrid grdElem;
-    
+
     /// <summary>
     /// pMOut control.
     /// </summary>
@@ -64,7 +65,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Panel pMOut;
-    
+
     /// <summary>
     /// lblMailoutTime control.
     /// </summary>
@@ -73,7 +74,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.LocalizedLabel lblMailoutTime;
-    
+
     /// <summary>
     /// drpAllSelected control.
     /// </summary>
@@ -82,7 +83,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.CMSDropDownList drpAllSelected;
-    
+
     /// <summary>
     /// lblTo control.
     /// </summary>
@@ -91,7 +92,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.LocalizedLabel lblTo;
-    
+
     /// <summary>
     /// dtpMailout control.
     /// </summary>
@@ -100,7 +101,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.DateTimePicker dtpMailout;
-    
+
     /// <summary>
     /// btnOk control.
     /// </summary>

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Linq;
 
 using CMS.Community;
 using CMS.DataEngine;
@@ -48,15 +48,10 @@ public partial class CMSModules_Friends_CMSPages_Friends_Approve : CMSLiveModalP
             string[] items = Request["ids"].Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
             if (items.Length > 0)
             {
-                ArrayList friends = new ArrayList();
-                foreach (string item in items)
+                FriendsApprove.SelectedFriends = items.Select(x => ValidationHelper.GetInteger(x, 0)).ToList();
+                if (FriendsApprove.SelectedFriends.Count == 1)
                 {
-                    friends.Add(ValidationHelper.GetInteger(item, 0));
-                }
-                FriendsApprove.SelectedFriends = friends;
-                if (friends.Count == 1)
-                {
-                    friendshipId = Convert.ToInt32(friends[0]);
+                    friendshipId = FriendsApprove.SelectedFriends.First();
                 }
             }
         }

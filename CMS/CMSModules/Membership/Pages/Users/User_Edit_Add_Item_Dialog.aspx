@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/CMSMasterPages/UI/Dialogs/ModalDialogPage.master"
+﻿<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/CMSMasterPages/UI/Dialogs/ModalDialogPage.master"
     EnableEventValidation="false" Theme="Default"  Codebehind="User_Edit_Add_Item_Dialog.aspx.cs"
     Inherits="CMSModules_Membership_Pages_Users_User_Edit_Add_Item_Dialog" %>
 
@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <div class="editing-form-label-cell">
                         <cms:LocalizedLabel CssClass="control-label" runat="server" ID="lblValidTo" ResourceString="membership.validto"
-                            DisplayColon="true" AssociatedControlID="ucDateTime" />
+                            DisplayColon="true" AssociatedControlID="ucDateTime:txtDateTime" EnableViewState="false" />
                     </div>
                     <div class="editing-form-value-cell">
                         <cms:DateTimePicker ID="ucDateTime" runat="server" EditTime="true" />
@@ -23,8 +23,8 @@
                 </div>
                 <asp:Panel ID="pnlSendNotification" runat="server" class="form-group" Visible="false">
                     <div class="editing-form-label-cell">
-                        <cms:LocalizedLabel CssClass="control-label" runat="server" ResourceString="membership.sendnotification" DisplayColon="true"
-                            AssociatedControlID="chkSendNotification" />
+                        <cms:LocalizedLabel CssClass="control-label" runat="server" ID="lblSendNotification" ResourceString="membership.sendnotification" DisplayColon="true"
+                            AssociatedControlID="chkSendNotification" EnableViewState="false" />
                     </div>
                     <div class="editing-form-value-cell">
                         <cms:CMSCheckBox ID="chkSendNotification" runat="server" Checked="false" />

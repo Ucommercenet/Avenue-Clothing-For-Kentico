@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Data;
-using System.Linq;
-using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
 using CMS.Helpers;
 using CMS.Newsletters;
 using CMS.UIControls;
-using CMS.UIControls.UniGridConfig;
 
 
 public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
@@ -30,103 +27,55 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
     /// <summary>
     /// Newsletter issue ID.
     /// </summary>
-    public int IssueID
-    {
-        get;
-        set;
-    }
+    public int IssueID { get; set; }
 
 
     /// <summary>
     /// Indicates whether click statistics from winner issue (variant + main issue) are included.
     /// </summary>
-    public bool IncludeWinnerStatistics
-    {
-        get;
-        set;
-    }
+    public bool IncludeWinnerStatistics { get; set; }
 
 
     /// <summary>
     /// Indicates whether click statistics from all variants are displayed for the main issue.
     /// </summary>
-    public bool IncludeAllVariants
-    {
-        get;
-        set;
-    }
-
-
-    /// <summary>
-    /// Indicates whether the user can remove outdated links.
-    /// </summary>
-    public bool ShowDeleteOutdated
-    {
-        get;
-        set;
-    }
+    public bool IncludeAllVariants { get; set; }
 
 
     /// <summary>
     /// Indicates whether the filter is displayed above the listing.
     /// </summary>
-    public bool ShowFilter
-    {
-        get;
-        set;
-    }
+    public bool ShowFilter { get; set; }
 
 
     /// <summary>
     /// Selects only N most clicked links.
     /// </summary>
-    public int TopN
-    {
-        get;
-        set;
-    }
+    public int TopN { get; set; }
 
 
     /// <summary>
     /// Indicates whether the grid displays only clicked links (having ClickLink records).
     /// </summary>
-    public bool DisplayOnlyClickedLinks
-    {
-        get;
-        set;
-    }
+    public bool DisplayOnlyClickedLinks { get; set; }
 
 
     /// <summary>
     /// Indicates whether the grid displays the Click rate column for AB tested issue.
     /// </summary>
-    public bool AllowHidingClickRateColumnForAbTest
-    {
-        get;
-        set;
-    }
+    public bool AllowHidingClickRateColumnForAbTest { get; set; }
 
 
     /// <summary>
     /// Inner grid control.
     /// </summary>
-    public UniGrid UniGrid
-    {
-        get
-        {
-            return ugLinks;
-        }
-    }
+    public UniGrid UniGrid => ugLinks;
 
 
     /// <summary>
     /// Text displayed when UniGrid data source is empty.
     /// </summary>
-    public string NoDataText
-    {
-        get;
-        set;
-    }
+    public string NoDataText { get; set; }
 
     #endregion
 
@@ -150,10 +99,11 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
 
         ScriptHelper.RegisterDialogScript(Page);
 
-        string scriptBlock = string.Format(@"
+        var subscriberClicksUrl = ResolveUrl(@"~\CMSModules\Newsletters\Tools\Newsletters\Newsletter_Issue_SubscribersClicks.aspx");
+        string scriptBlock = $@"
             function OpenTarget(url) {{ window.open(url, 'LinkTarget'); return false; }}
-            function ViewClicks(id) {{ modalDialog('{0}?linkid=' + id, 'NewsletterIssueSubscriberClicks', '900px', '700px');  return false; }}",
-                                           ResolveUrl(@"~\CMSModules\Newsletters\Tools\Newsletters\Newsletter_Issue_SubscribersClicks.aspx"));
+            function ViewClicks(id) {{ modalDialog('{subscriberClicksUrl}?linkid=' + id, 'NewsletterIssueSubscriberClicks', '900px', '700px');  return false; }}";
+
         ScriptHelper.RegisterClientScriptBlock(this, GetType(), "Actions", scriptBlock, true);
 
         
@@ -181,30 +131,9 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
         ugLinks.Pager.ShowPageSize = false;
         ugLinks.FilterLimit = 1;
         ugLinks.OnExternalDataBound += UniGrid_OnExternalDataBound;
-        ugLinks.OnAction += UniGrid_OnAction;
 
         ugLinks.OnDataReload += GetLinks;
-
-        // Hide actions column if there is no outdated links
-        ugLinks.OnAfterDataReload += () =>
-        {
-            var dv = ugLinks.GridView.DataSource as DataView;
-            if (DataHelper.DataSourceIsEmpty(dv))
-            {
-                return;
-            }
-
-            var outdated = DataHelper.GetValues<Boolean>(dv.Table, "LinkOutdated");
-            if (!outdated.Any(x => x) || !ShowDeleteOutdated)
-            {
-                if (ugLinks.GridActions != null)
-                {
-                    ugLinks.GridActions.Actions.Clear();
-                    ugLinks.GridActions.Actions.Add(new EmptyAction());
-                }
-            }
-        };
-
+        
         fltLinks.Visible = ShowFilter;
         ugLinks.ZeroRowsText = NoDataText;
     }
@@ -253,7 +182,6 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
                             new QueryColumn("LinkIssueID"),
                             new QueryColumn("LinkTarget"),
                             new QueryColumn("LinkDescription"),
-                            new QueryColumn("LinkOutdated"),
 
                             // Get total and unique clicks
                             new AggregatedColumn(AggregationType.Count, "DISTINCT(ClickedLinkEmail)").As("UniqueClicks"),
@@ -263,17 +191,16 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
                         .And()
                         .Where(fltLinks.WhereCondition)
                         .Source(s => s.LeftJoin<ClickedLinkInfo>("LinkID", "ClickedLinkNewsletterLinkID"))
-                        .GroupBy("LinkID", "LinkIssueID", "LinkTarget", "LinkDescription", "LinkOutdated");
+                        .GroupBy("LinkID", "LinkIssueID", "LinkTarget", "LinkDescription");
 
 
         if ((winnerIssueId > 0) || IncludeAllVariants)
         {
-            // Aggregate same links (LinkTarget, LinkDescription, LinkOutdated) from various variants (variant + winner OR all variants)
+            // Aggregate same links (LinkTarget, LinkDescription) from various variants (variant + winner OR all variants)
             query = query.AsNested()
                  .Columns(
                      new QueryColumn("LinkTarget"),
                      new QueryColumn("LinkDescription"),
-                     new QueryColumn("LinkOutdated"),
 
                      // Get ID of main issue link (grater than variant link ID)
                      new AggregatedColumn(AggregationType.Max, "LinkID").As("LinkID"),
@@ -283,7 +210,7 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
                      new AggregatedColumn(AggregationType.Sum, "TotalClicks").As("TotalClicks")
 
                  )
-                 .GroupBy("LinkTarget", "LinkDescription", "LinkOutdated");
+                 .GroupBy("LinkTarget", "LinkDescription");
                  
             if (DisplayOnlyClickedLinks)
             {
@@ -328,7 +255,7 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
                     }
 
                     var rate = (sentOrDeliveredEmails == 0) ? 0 : ((uniqueClicks / sentOrDeliveredEmails) * 100);
-                    return GetClickDialogLink(linkID, String.Format("{0:F2}%", rate));
+                    return GetClickDialogLink(linkID, $"{rate:F2}%");
                 }
             case "uniqueclicks":
                 {
@@ -352,32 +279,12 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
                 }
 
             case "linktarget":
-                return string.Format(@"<a href=""#"" onclick=""OpenTarget('{0}')"">{1}</a>",
-                                     parameter,
-                                     HTMLHelper.HTMLEncode(TextHelper.LimitLength(parameter.ToString(), 50)));
-
-            case "deleteoutdated":
-                var isOutdated = DataHelper.GetDataRowViewValue((DataRowView)((GridViewRow)parameter).DataItem, "LinkOutdated");
-                return ((CMSGridActionButton)sender).Visible = ValidationHelper.GetBoolean(isOutdated, false);
-
+                return $@"<a href=""#"" onclick=""OpenTarget('{ScriptHelper.GetString(parameter.ToString(), false)}')"">
+                        {HTMLHelper.HTMLEncode(TextHelper.LimitLength(parameter.ToString(), 50))}</a>";
             default:
                 return parameter;
         }
     }
-
-
-    protected void UniGrid_OnAction(string actionName, object actionArgument)
-    {
-        switch (actionName)
-        {
-            case "deleteoutdated":
-                // Delete link that is not used in current version of the issue
-                int linkId = ValidationHelper.GetInteger(actionArgument, 0);
-                LinkInfoProvider.DeleteLinkInfo(linkId);
-                break;
-        }
-    }
-
 
     /// <summary>
     /// Returns HTML link to link click dialog.
@@ -392,7 +299,7 @@ public partial class CMSModules_Newsletters_Controls_IssueLinks : CMSUserControl
             return text;
         }
 
-        return string.Format(@"<a href=""#"" onclick=""ViewClicks({0})"">{1}</a>", linkID, text);
+        return $@"<a href=""#"" onclick=""ViewClicks({linkID})"">{text}</a>";
     }
 
 

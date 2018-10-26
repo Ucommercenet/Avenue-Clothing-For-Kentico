@@ -58,7 +58,6 @@ public partial class CMSModules_OnlineMarketing_Pages_Content_MVTest_MVTestRepor
         mUcDisplayReport = (IDisplayReport)LoadUserControl("~/CMSModules/Reporting/Controls/DisplayReport.ascx");
         pnlContent.Controls.Add((Control)mUcDisplayReport);
 
-        CurrentMaster.PanelContent.CssClass = String.Empty;
         UIHelper.AllowUpdateProgress = false;
 
         // MVTest Info
@@ -153,6 +152,12 @@ public partial class CMSModules_OnlineMarketing_Pages_Content_MVTest_MVTestRepor
     {
         if (mReportLoaded)
         {
+            return;
+        }
+
+        if (RequestHelper.IsPostBack() && !IsValidInterval())
+        {
+            ShowError(GetString("analt.invalidinterval"));
             return;
         }
 
@@ -274,10 +279,10 @@ public partial class CMSModules_OnlineMarketing_Pages_Content_MVTest_MVTestRepor
     /// </summary>
     private void Save()
     {
-        // Check web analytics save permission
-        if (!MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("CMS.WebAnalytics", "SaveReports"))
+        // Check 'SaveReports' permission
+        if (!CurrentUser.IsAuthorizedPerResource("cms.reporting", "SaveReports"))
         {
-            RedirectToAccessDenied("CMS.WebAnalytics", "SaveReports");
+            RedirectToAccessDenied("cms.reporting", "SaveReports");
         }
 
         DisplayReport(false);
@@ -291,6 +296,23 @@ public partial class CMSModules_OnlineMarketing_Pages_Content_MVTest_MVTestRepor
         }
 
         mIsSaved = false;
+    }
+
+
+    /// <summary>
+    /// Returns true if selected interval is valid.
+    /// </summary>
+    private bool IsValidInterval()
+    {
+        var from = ucGraphType.From;
+        var to = ucGraphType.To;
+
+        if (from == DateTimeHelper.ZERO_TIME || to == DateTimeHelper.ZERO_TIME)
+        {
+            return false;
+        }
+
+        return from <= to;
     }
 
     #endregion

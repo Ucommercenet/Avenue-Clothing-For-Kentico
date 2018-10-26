@@ -9,6 +9,21 @@
             Base page for the workflow pages.
             </summary>
         </member>
+        <member name="P:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.WorkflowId">
+            <summary>
+            Current workflow ID
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.CurrentWorkflow">
+            <summary>
+            Current workflow
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.WorkflowType">
+            <summary>
+            Type of the workflow
+            </summary>
+        </member>
         <member name="M:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.CheckProcessManagePermission">
             <summary>
             Ensures that current user can manage automation processes.
@@ -27,21 +42,6 @@
         <member name="M:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.BasePage_Load(System.Object,System.EventArgs)">
             <summary>
             Load event handler
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.WorkflowId">
-            <summary>
-            Current workflow ID
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.CurrentWorkflow">
-            <summary>
-            Current workflow
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Web.UI.CMSWorkflowPage.WorkflowType">
-            <summary>
-            Type of the workflow
             </summary>
         </member>
         <member name="T:CMS.WorkflowEngine.Web.UI.StepTypeUniMenuItems">

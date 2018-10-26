@@ -10,7 +10,6 @@
     <column source="AttachmentID" externalsourcename="attachmentsize" caption="$general.size$" wrap="false" allowsorting="false" />
   </columns>
   <pager>
-    <key name="ShowFirstLastButtons" value="false" />
     <key name="DisplayPager" value="false" />
   </pager>
   <options>

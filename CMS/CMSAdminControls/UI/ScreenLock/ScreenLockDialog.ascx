@@ -69,7 +69,7 @@
         <div class="dialog-footer">
             <input type="button" class="btn btn-primary" id="screenLockSignInButton" value="<%=GetString("screenlock.signin")%>"
                 onclick="ScreenLockRedirectToLogon('<%=URLHelper.ResolveUrl("~/Admin/")%>'); return false;" style="display: none;" />
-            <input type="button" class="btn btn-primary" id="screenLockUnlockButton" value="<%=GetString("screenlock.unlock")%>"
+            <input type="submit" class="btn btn-primary" id="screenLockUnlockButton" value="<%=GetString("screenlock.unlock")%>"
                 onclick="ScreenLockValidateUser(); return false;" />
             <cms:LocalizedButton runat="server" ID="btnScreenLockSignOut" ResourceString="signoutbutton.signout" ButtonStyle="Primary" OnClientClick="ScreenLockLogoutUser(); return false;" />
         </div>

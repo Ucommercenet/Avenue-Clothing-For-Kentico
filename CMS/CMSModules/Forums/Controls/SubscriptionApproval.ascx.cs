@@ -15,9 +15,9 @@ public partial class CMSModules_Forums_Controls_SubscriptionApproval : CMSUserCo
 {
     #region "Private variables"
 
-    private string mSubscriptionHash = null;
-    private string mRequestTime = null;
-    private ForumSubscriptionInfo mSubscriptionObject = null;
+    private string mSubscriptionHash;
+    private string mRequestTime;
+    private ForumSubscriptionInfo mSubscriptionObject;
 
     #endregion
 
@@ -91,12 +91,7 @@ public partial class CMSModules_Forums_Controls_SubscriptionApproval : CMSUserCo
     {
         get
         {
-            if (mSubscriptionObject == null)
-            {
-                mSubscriptionObject = ForumSubscriptionInfoProvider.GetForumSubscriptionInfo(mSubscriptionHash);
-            }
-
-            return mSubscriptionObject;
+            return mSubscriptionObject ?? (mSubscriptionObject = ForumSubscriptionInfoProvider.GetForumSubscriptionInfo(mSubscriptionHash));
         }
     }
 
@@ -186,7 +181,7 @@ public partial class CMSModules_Forums_Controls_SubscriptionApproval : CMSUserCo
         {
             try
             {
-                datetime = DateTime.ParseExact(requestTime, SecurityHelper.EMAIL_CONFIRMATION_DATETIME_FORMAT, null);
+                datetime = DateTimeUrlFormatter.Parse(requestTime);
             }
             catch
             {
@@ -226,7 +221,7 @@ public partial class CMSModules_Forums_Controls_SubscriptionApproval : CMSUserCo
                 {
                     ShowInfo(DataHelper.GetNotEmpty(SuccessfulConfirmationText, GetString("general.subscription_approval")));
                     ForumSubscriptionInfoProvider.LogSubscriptionActivity(SubscriptionObject, null, QueryHelper.GetInteger("cid", 0), QueryHelper.GetInteger("siteid", 0), QueryHelper.GetText("url", ""), QueryHelper.GetInteger("docid", 0), QueryHelper.GetText("camp", ""), true);
-                    Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(SubscriptionObject.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                    Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(SubscriptionObject.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                 }
                 break;
 
@@ -242,7 +237,6 @@ public partial class CMSModules_Forums_Controls_SubscriptionApproval : CMSUserCo
 
             // Subscription not found
             default:
-            case OptInApprovalResultEnum.NotFound:
                 DisplayError(DataHelper.GetNotEmpty(UnsuccessfulConfirmationText, GetString("general.subscription_invalid")));
                 break;
         }

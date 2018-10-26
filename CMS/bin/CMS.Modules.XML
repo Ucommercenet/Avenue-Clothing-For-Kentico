@@ -58,6 +58,27 @@
             for which it has a token.
             </remarks>
         </member>
+        <member name="P:CMS.Modules.InstallableModulesManager.Current">
+            <summary>
+            Gets current instance.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.InstallableModulesManager.RootPath">
+            <summary>
+            Root path for resolving relative paths.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.InstallableModulesManager.NuGetModulesMetaFilesPath">
+            <summary>
+            Rooted path to directory containing module descriptions managed by NuGet (with trailing slash).
+            Each description file is expected to be named accordingly to <see cref="F:CMS.Modules.InstallableModulesManager.MODULE_DESCRIPTION_META_FILE_NAME_PATTERN"/>.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.InstallableModulesManager.InstalledNuGetModulesMetaFilesPath">
+            <summary>
+            Rooted path to directory containing meta files of installed modules (with trailing slash).
+            </summary>
+        </member>
         <member name="M:CMS.Modules.InstallableModulesManager.#ctor">
             <summary>
             Prepares the only instance of installable module manager.
@@ -246,27 +267,6 @@
             <param name="metaFilesPath">Meta files path.</param>
             <param name="startingPath">Starting path.</param>
         </member>
-        <member name="P:CMS.Modules.InstallableModulesManager.Current">
-            <summary>
-            Gets current instance.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.InstallableModulesManager.RootPath">
-            <summary>
-            Root path for resolving relative paths.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.InstallableModulesManager.NuGetModulesMetaFilesPath">
-            <summary>
-            Rooted path to directory containing module descriptions managed by NuGet (with trailing slash).
-            Each description file is expected to be named accordingly to <see cref="F:CMS.Modules.InstallableModulesManager.MODULE_DESCRIPTION_META_FILE_NAME_PATTERN"/>.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.InstallableModulesManager.InstalledNuGetModulesMetaFilesPath">
-            <summary>
-            Rooted path to directory containing meta files of installed modules (with trailing slash).
-            </summary>
-        </member>
         <member name="T:CMS.Modules.InstallableModulesState">
             <summary>
             State object containing information regarding installable modules.
@@ -304,6 +304,24 @@
             <summary>
             Dictionary with modules in the database - name and version pairs. Contains the same entries as <see cref="F:CMS.Modules.InstallableModulesState.mDatabaseInstalledModules"/>.
             </summary>
+        </member>
+        <member name="P:CMS.Modules.InstallableModulesState.NuGetInstalledModules">
+            <summary>
+            List with basic module installation meta data from the <see cref="F:CMS.Modules.InstallableModulesManager.NUGET_MODULES_META_FILES_PATH"/> folder.
+            </summary>
+            <seealso cref="M:CMS.Modules.InstallableModulesState.IsDatabaseModulePresent(System.String)"/>
+        </member>
+        <member name="P:CMS.Modules.InstallableModulesState.UninstallationTokens">
+            <summary>
+            List with module uninstallation tokens from the <see cref="F:CMS.Modules.InstallableModulesManager.INSTALLED_NUGET_MODULES_META_FILES_PATH"/> folder.
+            </summary>
+            <seealso cref="M:CMS.Modules.InstallableModulesState.IsUninstallationTokenPresent(System.String,System.String)"/>
+        </member>
+        <member name="P:CMS.Modules.InstallableModulesState.DatabaseInstalledModules">
+            <summary>
+            List of modules installed in the database.
+            </summary>
+            <seealso cref="M:CMS.Modules.InstallableModulesState.IsDatabaseModulePresent(System.String)"/>
         </member>
         <member name="M:CMS.Modules.InstallableModulesState.IsNuGetModulePresent(System.String)">
             <summary>
@@ -383,27 +401,24 @@
             <param name="uninstallationTokens">List of uninstallation tokens.</param>
             <param name="installedDatabaseModules">List of modules installed in the database.</param>
         </member>
-        <member name="P:CMS.Modules.InstallableModulesState.NuGetInstalledModules">
-            <summary>
-            List with basic module installation meta data from the <see cref="F:CMS.Modules.InstallableModulesManager.NUGET_MODULES_META_FILES_PATH"/> folder.
-            </summary>
-            <seealso cref="M:CMS.Modules.InstallableModulesState.IsDatabaseModulePresent(System.String)"/>
-        </member>
-        <member name="P:CMS.Modules.InstallableModulesState.UninstallationTokens">
-            <summary>
-            List with module uninstallation tokens from the <see cref="F:CMS.Modules.InstallableModulesManager.INSTALLED_NUGET_MODULES_META_FILES_PATH"/> folder.
-            </summary>
-            <seealso cref="M:CMS.Modules.InstallableModulesState.IsUninstallationTokenPresent(System.String,System.String)"/>
-        </member>
-        <member name="P:CMS.Modules.InstallableModulesState.DatabaseInstalledModules">
-            <summary>
-            List of modules installed in the database.
-            </summary>
-            <seealso cref="M:CMS.Modules.InstallableModulesState.IsDatabaseModulePresent(System.String)"/>
-        </member>
         <member name="T:CMS.Modules.ModuleInstallationException">
             <summary>
             Thrown when module installation operation fails.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleInstallationException.ModuleName">
+            <summary>
+            Gets name of the module that caused the exception.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleInstallationException.ModuleVersion">
+            <summary>
+            Gets version of the module that caused the exception.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleInstallationException.Operation">
+            <summary>
+            Gets the name of installation operation that caused the exception.
             </summary>
         </member>
         <member name="M:CMS.Modules.ModuleInstallationException.#ctor">
@@ -453,21 +468,6 @@
             <param name="info">The SerializationInfo to populate with data. </param>
             <param name="context">The destination (see StreamingContext) for this serialization. </param>
         </member>
-        <member name="P:CMS.Modules.ModuleInstallationException.ModuleName">
-            <summary>
-            Gets name of the module that caused the exception.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleInstallationException.ModuleVersion">
-            <summary>
-            Gets version of the module that caused the exception.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleInstallationException.Operation">
-            <summary>
-            Gets the name of installation operation that caused the exception.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.ModuleInstallationState">
             <summary>
             Contains installation well-known states of modules.
@@ -486,6 +486,22 @@
         <member name="T:CMS.Modules.ModuleInstaller">
             <summary>
             Class responsible for modules installation from the high level perspective.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleInstaller.Current">
+            <summary>
+            Gets current instance.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleInstaller.RestartRequired">
+            <summary>
+            Tells you whether module installer has processed any module requiring application restart.
+            Once set to true the flag is not cleared until application is restarted.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleInstaller.RootPath">
+            <summary>
+            Path to application root.
             </summary>
         </member>
         <member name="M:CMS.Modules.ModuleInstaller.ProcessInstallation">
@@ -541,7 +557,7 @@
         </member>
         <member name="M:CMS.Modules.ModuleInstaller.UninstallModule(CMS.Core.BasicModuleInstallationMetaData)">
             <summary>
-            Uninstalls a module from the system.
+            Uninstall a module from the system.
             </summary>
             <param name="basicModuleInstallationMetaData">Basic module installation meta data.</param>
             <exception cref="T:CMS.Modules.ModuleInstallationException">Thrown when uninstallation fails.</exception>
@@ -629,22 +645,6 @@
             Prepares the only instance of module installer.
             </summary>
         </member>
-        <member name="P:CMS.Modules.ModuleInstaller.Current">
-            <summary>
-            Gets current instance.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleInstaller.RestartRequired">
-            <summary>
-            Tells you whether module installer has processed any module requiring application restart.
-            Once set to true the flag is not cleared until application is restarted.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleInstaller.RootPath">
-            <summary>
-            Path to application root.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.Internal.ModuleInstallerConfiguration">
             <summary>
             Holds configuration information for module installation.
@@ -652,11 +652,6 @@
             <remarks>
             This API supports the framework infrastructure and is not intended to be used directly from your code.
             </remarks>
-        </member>
-        <member name="M:CMS.Modules.Internal.ModuleInstallerConfiguration.GetInstallationUser">
-            <summary>
-            Gets user to be used in module installation.
-            </summary>
         </member>
         <member name="P:CMS.Modules.Internal.ModuleInstallerConfiguration.ModuleInstallerUserProvider">
             <summary>
@@ -666,17 +661,78 @@
             The provided user is used in the process of macro signing.
             </remarks>
         </member>
+        <member name="M:CMS.Modules.Internal.ModuleInstallerConfiguration.GetInstallationUser">
+            <summary>
+            Gets user to be used in module installation.
+            </summary>
+        </member>
+        <member name="T:CMS.Modules.BuildNuSpecManifestEventArgs">
+            <summary>
+            Arguments of event represented by <see cref="T:CMS.Modules.BuildNuSpecManifestHandler"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.BuildNuSpecManifestEventArgs.#ctor">
+            <summary>
+            Initializes event arguments for event raised during packaging of a module.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.BuildNuSpecManifestEventArgs.#ctor(System.String)">
+            <summary>
+            Initializes event arguments for event raised during packaging of a module with given <paramref name="resourceName"/>.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.BuildNuSpecManifestEventArgs.ResourceName">
+            <summary>
+            Name of the module being packaged.
+            </summary>
+            <seealso cref="M:CMS.Modules.ModulePackageBuilder.#ctor(CMS.Modules.ResourceInfo)"/>
+            <seealso cref="M:CMS.Modules.ModulePackageBuilder.BuildPackage(System.String)"/>
+            <seealso cref="M:CMS.Modules.ModulePackageBuilder.BuildPackage(System.IO.Stream)"/>
+        </member>
+        <member name="P:CMS.Modules.BuildNuSpecManifestEventArgs.NuSpecBuilder">
+            <summary>
+            Builder class for NuSpec manifest. Use the builder to adjust the resulting manifest during the before phase of the event.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.BuildNuSpecManifestEventArgs.Manifest">
+            <summary>
+            NuSpec manifest created by <see cref="P:CMS.Modules.BuildNuSpecManifestEventArgs.NuSpecBuilder"/>. The manifest is available during the after phase of the event.
+            </summary>
+        </member>
+        <member name="T:CMS.Modules.BuildNuSpecManifestHandler">
+            <summary>
+            Handler for event raised when NuSpec manifest for an installable module NuGet package is being built.
+            </summary>
+            <seealso cref="T:CMS.Modules.NuSpecBuilder"/>
+        </member>
+        <member name="T:CMS.Modules.ModulePackagingEvents">
+            <summary>
+            Events for installable module package creation process. Allows for customization of the process.
+            </summary>
+            <seealso cref="T:CMS.Modules.ModulePackageBuilder"/>
+            <seealso cref="T:CMS.Modules.NuSpecBuilder"/>
+        </member>
+        <member name="P:CMS.Modules.ModulePackagingEvents.Instance">
+            <summary>
+            Gets the <see cref="T:CMS.Modules.ModulePackagingEvents"/> instance.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ModulePackagingEvents.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Modules.ModulePackagingEvents"/> class.
+            </summary>
+        </member>
+        <member name="F:CMS.Modules.ModulePackagingEvents.BuildNuSpecManifest">
+            <summary>
+            An event raised upon building NuSpec manifest. The before phase allows for modification of <see cref="P:CMS.Modules.BuildNuSpecManifestEventArgs.NuSpecBuilder"/>,
+            the after phase allows for modification of resulting <see cref="P:CMS.Modules.BuildNuSpecManifestEventArgs.Manifest"/>.
+            </summary>
+            <seealso cref="M:CMS.Modules.NuSpecBuilder.BuildToStream(System.IO.Stream)"/>
+        </member>
         <member name="T:CMS.Modules.ElementAccessCheckResult">
             <summary>
             Encapsulates the result of <see cref="P:CMS.Modules.ElementAccessCheckResult.UIElementInfo"/> access check.
             </summary>
-        </member>
-        <member name="M:CMS.Modules.ElementAccessCheckResult.#ctor(CMS.Modules.ElementAccessCheckStatus,CMS.Modules.UIElementInfo)">
-            <summary>
-            Creates access check result for given <see cref="P:CMS.Modules.ElementAccessCheckResult.UIElementInfo"/>.
-            </summary>
-            <param name="elementAccessCheckStatus">Status of element access check</param>
-            <param name="uiElementInfo"><see cref="P:CMS.Modules.ElementAccessCheckResult.UIElementInfo"/> for which access check was made</param>
         </member>
         <member name="P:CMS.Modules.ElementAccessCheckResult.ElementAccessCheckStatus">
             <summary>
@@ -687,6 +743,13 @@
             <summary>
             <see cref="P:CMS.Modules.ElementAccessCheckResult.UIElementInfo"/> for which access check was made.
             </summary>
+        </member>
+        <member name="M:CMS.Modules.ElementAccessCheckResult.#ctor(CMS.Modules.ElementAccessCheckStatus,CMS.Modules.UIElementInfo)">
+            <summary>
+            Creates access check result for given <see cref="P:CMS.Modules.ElementAccessCheckResult.UIElementInfo"/>.
+            </summary>
+            <param name="elementAccessCheckStatus">Status of element access check</param>
+            <param name="uiElementInfo"><see cref="P:CMS.Modules.ElementAccessCheckResult.UIElementInfo"/> for which access check was made</param>
         </member>
         <member name="T:CMS.Modules.ElementAccessCheckStatus">
             <summary>
@@ -727,6 +790,14 @@
             <summary>
             Contains object types of supported module database objects.
             </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleDataProvider.SupportedObjectTypes">
+            <summary>
+            Enumerates object types which are considered as module's objects.
+            The module object type itself ("cms.resource") is not present in the enumeration.
+            </summary>
+            <returns>Enumeration of object types.</returns>
+            <seealso cref="M:CMS.Modules.ModuleDataProvider.GetModuleObjects(System.String)"/>
         </member>
         <member name="M:CMS.Modules.ModuleDataProvider.GetModuleObjects(System.String)">
             <summary>
@@ -773,19 +844,17 @@
             </summary>
             <returns>Settings categories of module</returns>
         </member>
+        <member name="M:CMS.Modules.ModuleDataProvider.GetModuleSystemTables">
+            <summary>
+            Gets object query for system tables (contained in module) to be included in the export package.
+            </summary>
+            <returns>System tables of module</returns>
+        </member>
         <member name="M:CMS.Modules.ModuleDataProvider.#ctor(CMS.Modules.ResourceInfo)">
             <summary>
             Creates a new module database objects provider.
             </summary>
             <param name="module">Module for which the objects are retrieved.</param>
-        </member>
-        <member name="P:CMS.Modules.ModuleDataProvider.SupportedObjectTypes">
-            <summary>
-            Enumerates object types which are considered as module's objects.
-            The module object type itself ("cms.resource") is not present in the enumeration.
-            </summary>
-            <returns>Enumeration of object types.</returns>
-            <seealso cref="M:CMS.Modules.ModuleDataProvider.GetModuleObjects(System.String)"/>
         </member>
         <member name="T:CMS.Modules.ModuleExportPackageImporter">
             <summary>
@@ -842,13 +911,6 @@
             Specifies module file that will be included in the module package.
             </summary>
         </member>
-        <member name="M:CMS.Modules.ModuleFile.#ctor(System.String,System.String)">
-            <summary>
-            Creates new ModuleFile.
-            </summary>
-            <param name="sourceRelativePath">File's path (relative to root).</param>
-            <param name="targetRelativePath">Path (relative to root) where file specified by <paramref name="sourceRelativePath"/> is installed.</param>
-        </member>
         <member name="P:CMS.Modules.ModuleFile.SourceRelativePath">
             <summary>
             Gets file's path (relative to root). 
@@ -860,10 +922,160 @@
             File is copied to an application's root folder when no target path is specified.
             </summary>
         </member>
+        <member name="M:CMS.Modules.ModuleFile.#ctor(System.String,System.String)">
+            <summary>
+            Creates new ModuleFile.
+            </summary>
+            <param name="sourceRelativePath">File's path (relative to root).</param>
+            <param name="targetRelativePath">Path (relative to root) where file specified by <paramref name="sourceRelativePath"/> is installed.</param>
+        </member>
         <member name="T:CMS.Modules.ModuleFileResolver">
             <summary>
             Provides paths to all module files and folders which are needed during installation package creation.
             </summary>
+        </member>
+        <member name="F:CMS.Modules.ModuleFileResolver.mInstanceGuid">
+            <summary>
+            GUID to be used in paths so that each instance has its own temp folders.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.TemporaryFolderPathPattern">
+            <summary>
+            Path pattern to folder for temporary files. All temporary paths
+            must be created from this path so that all temporary
+            data can be deleted at once.
+            </summary>
+            <remarks>
+            Substitution '{0}' is replaced by the module codename.
+            </remarks>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageFolderPathPattern">
+            <summary>
+            Path pattern to folder where export package is to be stored.
+            </summary>
+            <remarks>
+            Substitution '{0}' is replaced by the module codename.
+            </remarks>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackagePathPattern">
+            <summary>
+            Path pattern to file where export package is to be stored.
+            </summary>
+            <remarks>
+            Substitution '{0}' is replaced by the module codename.
+            Substitution '{1}' is replaced by the module version.
+            </remarks>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageTempFolderPathPattern">
+            <summary>
+            Path pattern to folder where export package temporary data are to be stored.
+            </summary>
+            <remarks>
+            Substitution '{0}' is replaced by the module codename.
+            </remarks>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataTempFolderPathPattern">
+            <summary>
+            Path pattern to folder where installation meta data are to be stored.
+            </summary>
+            <remarks>
+            Substitution '{0}' is replaced by the module codename.
+            </remarks>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.ContentPathRules">
+            <summary>
+            Specifies all paths where module files can be located. 
+            </summary>
+            <remarks>
+            Substitution '{0}' is replaced by the module codename.
+            Substitution '{1}' is replaced by the module version.
+            </remarks>
+        </member>
+        <member name="F:CMS.Modules.ModuleFileResolver.mExcludedContentFileExtensions">
+            <summary>
+            Specifies all content files extensions that are excluded from the package.
+            </summary>
+        </member>
+        <member name="F:CMS.Modules.ModuleFileResolver.mLibraryPathRules">
+            <summary>
+            Specifies all paths where module assemblies can be located.
+            Module can reference additional libraries that are specified by <see cref="T:CMS.Modules.ResourceLibraryInfo"/>.
+            </summary>
+            <remarks>
+            Substitution '{0}' is replaced by the module codename.
+            </remarks>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataPathRules">
+            <summary>
+            Specifies all paths where module installation meta data files can be located.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageFolderPhysicalPath">
+            <summary>
+            Gets the physical path of the folder where the export package with module's data is located.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageFileName">
+            <summary>
+            Gets the name of file containing exported module's data.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageTempFolderPhysicalPath">
+            <summary>
+            Gets the physical path of the folder that is used as temporary storage while creating the package with module's data.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataTempFolderPhysicalPath">
+            <summary>
+            Gets the physical path of the folder that is used as temporary storage for installation meta data.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataModuleDescriptionFileName">
+            <summary>
+            Gets the name of file containing installation module description.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleFileResolver.TemporaryFilesPath">
+            <summary>
+            Gets the physical path of the folder that is used as temporary storage during package creation.
+            All temporary paths are subfolders of this path so deleting this folder safely removes all
+            temporary data.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ModuleFileResolver.#ctor(CMS.Modules.ResourceInfo,System.String)">
+            <summary>
+            Creates new ModuleFileResolver.
+            </summary>
+            <param name="module">Resource info specifying module for which paths are created.</param>
+            <param name="rootPath">Root physical path. All paths are relative to this path.</param>
+        </member>
+        <member name="M:CMS.Modules.ModuleFileResolver.GetMetaDataFiles">
+            <summary>
+            Gets source and target paths of all module's installation meta data files.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ModuleFileResolver.GetContentFiles">
+            <summary>
+            Gets source and target paths of all module's files.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ModuleFileResolver.GetContentFilesByModuleName(System.String)">
+            <summary>
+            Gets source and target paths of all module's files that match given module name.
+            </summary>
+            <param name="moduleName">Module name that is used for replacing substitutions in paths.</param>
+        </member>
+        <member name="M:CMS.Modules.ModuleFileResolver.GetLibraryFiles">
+            <summary>
+            Gets source and target paths of all module's libraries.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ModuleFileResolver.ResolvePath(System.String)">
+            <summary>
+            Resolves given path replacing the substitutions in it.
+            </summary>
+            <param name="path">Path that can contain substitutions.</param>
+            <returns>Resolved path.</returns>
         </member>
         <member name="T:CMS.Modules.ModuleFileResolverBase">
             <summary>
@@ -922,149 +1134,6 @@
             <param name="version">Module version.</param>
             <returns>Substituted path.</returns>
         </member>
-        <member name="F:CMS.Modules.ModuleFileResolver.mInstanceGuid">
-            <summary>
-            GUID to be used in paths so that each instance has its own temp folders.
-            </summary>
-        </member>
-        <member name="F:CMS.Modules.ModuleFileResolver.mExcludedContentFileExtensions">
-            <summary>
-            Specifies all content files extensions that are excluded from the package.
-            </summary>
-        </member>
-        <member name="F:CMS.Modules.ModuleFileResolver.mLibraryPathRules">
-            <summary>
-            Specifies all paths where module assemblies can be located.
-            Module can reference additional libraries that are specified by <see cref="T:CMS.Modules.ResourceLibraryInfo"/>.
-            </summary>
-            <remarks>
-            Substitution '{0}' is replaced by the module codename.
-            </remarks>
-        </member>
-        <member name="M:CMS.Modules.ModuleFileResolver.#ctor(CMS.Modules.ResourceInfo,System.String)">
-            <summary>
-            Creates new ModuleFileResolver.
-            </summary>
-            <param name="module">Resource info specifying module for which paths are created.</param>
-            <param name="rootPath">Root physical path. All paths are relative to this path.</param>
-        </member>
-        <member name="M:CMS.Modules.ModuleFileResolver.GetMetaDataFiles">
-            <summary>
-            Gets source and target paths of all module's installation meta data files.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ModuleFileResolver.GetContentFiles">
-            <summary>
-            Gets source and target paths of all module's files.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ModuleFileResolver.GetContentFilesByModuleName(System.String)">
-            <summary>
-            Gets source and target paths of all module's files that match given module name.
-            </summary>
-            <param name="moduleName">Module name that is used for replacing substitutions in paths.</param>
-        </member>
-        <member name="M:CMS.Modules.ModuleFileResolver.GetLibraryFiles">
-            <summary>
-            Gets source and target paths of all module's libraries.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ModuleFileResolver.ResolvePath(System.String)">
-            <summary>
-            Resolves given path replacing the substitutions in it.
-            </summary>
-            <param name="path">Path that can contain substitutions.</param>
-            <returns>Resolved path.</returns>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.TemporaryFolderPathPattern">
-            <summary>
-            Path pattern to folder for temporary files. All temporary paths
-            must be created from this path so that all temporary
-            data can be deleted at once.
-            </summary>
-            <remarks>
-            Substitution '{0}' is replaced by the module codename.
-            </remarks>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageFolderPathPattern">
-            <summary>
-            Path pattern to folder where export package is to be stored.
-            </summary>
-            <remarks>
-            Substitution '{0}' is replaced by the module codename.
-            </remarks>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackagePathPattern">
-            <summary>
-            Path pattern to file where export package is to be stored.
-            </summary>
-            <remarks>
-            Substitution '{0}' is replaced by the module codename.
-            Substitution '{1}' is replaced by the module version.
-            </remarks>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageTempFolderPathPattern">
-            <summary>
-            Path pattern to folder where export package temporary data are to be stored.
-            </summary>
-            <remarks>
-            Substitution '{0}' is replaced by the module codename.
-            </remarks>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataTempFolderPathPattern">
-            <summary>
-            Path pattern to folder where installation meta data are to be stored.
-            </summary>
-            <remarks>
-            Substitution '{0}' is replaced by the module codename.
-            </remarks>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.ContentPathRules">
-            <summary>
-            Specifies all paths where module files can be located. 
-            </summary>
-            <remarks>
-            Substitution '{0}' is replaced by the module codename.
-            Substitution '{1}' is replaced by the module version.
-            </remarks>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataPathRules">
-            <summary>
-            Specifies all paths where module installation meta data files can be located.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageFolderPhysicalPath">
-            <summary>
-            Gets the physical path of the folder where the export package with module's data is located.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageFileName">
-            <summary>
-            Gets the name of file containing exported module's data.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.ExportPackageTempFolderPhysicalPath">
-            <summary>
-            Gets the physical path of the folder that is used as temporary storage while creating the package with module's data.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataTempFolderPhysicalPath">
-            <summary>
-            Gets the physical path of the folder that is used as temporary storage for installation meta data.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.InstallationMetaDataModuleDescriptionFileName">
-            <summary>
-            Gets the name of file containing installation module description.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModuleFileResolver.TemporaryFilesPath">
-            <summary>
-            Gets the physical path of the folder that is used as temporary storage during package creation.
-            All temporary paths are subfolders of this path so deleting this folder safely removes all
-            temporary data.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.ModuleInstallationFileResolver">
             <summary>
             Provides paths to all module files and folders which are needed during package installation.
@@ -1089,14 +1158,6 @@
             Substitution '{0}' is replaced by the module codename.
             Substitution '{1}' is replaced by the module version.
             </remarks>
-        </member>
-        <member name="M:CMS.Modules.ModuleInstallationFileResolver.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Creates a new file path resolver for installation/update/uninstallation of modules.
-            </summary>
-            <param name="rootPath">Root physical path. All paths are relative to this path.</param>
-            <param name="moduleName">Name of module for which paths are created.</param>
-            <param name="moduleVersion">Version of module for which paths are created.</param>
         </member>
         <member name="P:CMS.Modules.ModuleInstallationFileResolver.InstallationExportPackagePath">
             <summary>
@@ -1194,6 +1255,14 @@
             </remarks>
             <seealso cref="P:CMS.Modules.ModuleInstallationFileResolver.RootedUninstallationPath"/>
         </member>
+        <member name="M:CMS.Modules.ModuleInstallationFileResolver.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new file path resolver for installation/update/uninstallation of modules.
+            </summary>
+            <param name="rootPath">Root physical path. All paths are relative to this path.</param>
+            <param name="moduleName">Name of module for which paths are created.</param>
+            <param name="moduleVersion">Version of module for which paths are created.</param>
+        </member>
         <member name="T:CMS.Modules.NuGetPackages.ModulePackageMetadata">
             <summary>
             Provides module's metadata.
@@ -1229,15 +1298,6 @@
             Specifies module path rule resolver's context.
             </summary>
         </member>
-        <member name="M:CMS.Modules.ModulePathRuleResolverContext.#ctor(System.String,CMS.Modules.ResourceInfo,System.String,System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Creates new ModulePathRuleResolverContext.
-            </summary>
-            <param name="rootPath">Root physical path. All paths are relative to this path.</param>
-            <param name="module">The module in whose context the path rule is resolved.</param>
-            <param name="moduleName">Module name that is used for replacing substitutions in paths. This overrides the original module's name.</param>
-            <param name="excludedFileExtensions">List of file extensions that are excluded when resolving path rule in format '.ext'.</param>
-        </member>
         <member name="P:CMS.Modules.ModulePathRuleResolverContext.RootPath">
             <summary>
             Gets root physical path. All paths are relative to this path.
@@ -1258,12 +1318,29 @@
             Gets list of file extensions that are excluded when resolving path rule in format '.ext'.
             </summary>
         </member>
+        <member name="M:CMS.Modules.ModulePathRuleResolverContext.#ctor(System.String,CMS.Modules.ResourceInfo,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates new ModulePathRuleResolverContext.
+            </summary>
+            <param name="rootPath">Root physical path. All paths are relative to this path.</param>
+            <param name="module">The module in whose context the path rule is resolved.</param>
+            <param name="moduleName">Module name that is used for replacing substitutions in paths. This overrides the original module's name.</param>
+            <param name="excludedFileExtensions">List of file extensions that are excluded when resolving path rule in format '.ext'.</param>
+        </member>
         <member name="T:CMS.Modules.ModuleExportPackageBuilder">
             <summary>
             Allows you to create export package to be bundled with NuGet package.
             The package contains some useful DB objects supported by import/export.
             The package does not contain any files (those are handled by NuGet itself).
             </summary>
+        </member>
+        <member name="P:CMS.Modules.ModuleExportPackageBuilder.IncludedObjectTypes">
+            <summary>
+            The export package contains module objects of types enumerated by this property.
+            The module object type itself ("cms.resource") is not present in the enumeration.
+            </summary>
+            <returns>Enumeration of object types</returns>
+            <seealso cref="M:CMS.Modules.ModuleExportPackageBuilder.GetModuleObjects(System.String)"/>
         </member>
         <member name="M:CMS.Modules.ModuleExportPackageBuilder.BuildExportPackage(System.String,System.String,System.String)">
             <summary>
@@ -1334,17 +1411,24 @@
             <param name="module">Module for which the export package will be created</param>
             <param name="userInfo">Current user</param>
         </member>
-        <member name="P:CMS.Modules.ModuleExportPackageBuilder.IncludedObjectTypes">
-            <summary>
-            The export package contains module objects of types enumerated by this property.
-            The module object type itself ("cms.resource") is not present in the enumeration.
-            </summary>
-            <returns>Enumeration of object types</returns>
-            <seealso cref="M:CMS.Modules.ModuleExportPackageBuilder.GetModuleObjects(System.String)"/>
-        </member>
         <member name="T:CMS.Modules.ModulePathRuleResolver">
             <summary>
             Allows you to resolve module path rule.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModulePathRuleResolver.ResolverContext">
+            <summary>
+            Gets resolver's context.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModulePathRuleResolver.PathRule">
+            <summary>
+            Gets path rule that is being resolved.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ModulePathRuleResolver.ResolvedFiles">
+            <summary>
+            List of files that match the <see cref="P:CMS.Modules.ModulePathRuleResolver.PathRule"/>.
             </summary>
         </member>
         <member name="M:CMS.Modules.ModulePathRuleResolver.#ctor(CMS.Modules.ModuleFilePathRule,CMS.Modules.ModulePathRuleResolverContext)">
@@ -1388,25 +1472,18 @@
             <param name="path">Physical file path.</param>
             <returns>True if file exists, false otherwise.</returns>
         </member>
-        <member name="P:CMS.Modules.ModulePathRuleResolver.ResolverContext">
-            <summary>
-            Gets resolver's context.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModulePathRuleResolver.PathRule">
-            <summary>
-            Gets path rule that is being resolved.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ModulePathRuleResolver.ResolvedFiles">
-            <summary>
-            List of files that match the <see cref="P:CMS.Modules.ModulePathRuleResolver.PathRule"/>.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.ModulePackageBuilder">
             <summary>
-            Allows you to create NuGet package containing all module files.
+            Allows for creating a NuGet package containing all installable module files.
             </summary>
+        </member>
+        <member name="P:CMS.Modules.ModulePackageBuilder.IncludedObjectTypes">
+            <summary>
+            The installation package contains module objects of types enumerated by this property.
+            The module object type itself ("cms.resource") is not present in the enumeration.
+            </summary>
+            <returns>Enumeration of object types</returns>
+            <seealso cref="M:CMS.Modules.ModulePackageBuilder.GetModuleObjects(System.String)"/>
         </member>
         <member name="M:CMS.Modules.ModulePackageBuilder.#ctor(CMS.Modules.ResourceInfo)">
             <summary>
@@ -1479,14 +1556,6 @@
             Cleans up all possible temporary files after building a module package.
             </summary>
         </member>
-        <member name="P:CMS.Modules.ModulePackageBuilder.IncludedObjectTypes">
-            <summary>
-            The installation package contains module objects of types enumerated by this property.
-            The module object type itself ("cms.resource") is not present in the enumeration.
-            </summary>
-            <returns>Enumeration of object types</returns>
-            <seealso cref="M:CMS.Modules.ModulePackageBuilder.GetModuleObjects(System.String)"/>
-        </member>
         <member name="T:CMS.Modules.NuGetPackageBuilder">
             <summary>
             Allows you to create a NuGet package based on NuSpec manifest.
@@ -1511,9 +1580,32 @@
         </member>
         <member name="T:CMS.Modules.NuSpecBuilder">
             <summary>
-            Allows you to configure a NuSpec manifest which can be used for NuGet package creation.
+            Builder class for a NuSpec manifest. Allows for configuration of a NuSpec manifest which can be used for NuGet package creation.
             </summary>
             <remarks>http://docs.nuget.org/docs/reference/nuspec-reference</remarks>
+        </member>
+        <member name="P:CMS.Modules.NuSpecBuilder.ReadmeFilePath">
+            <summary>
+            Gets or sets a relative path to the package's readme file
+            If null, no readme is included
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.NuSpecBuilder.MinimumManifestVersion">
+            <summary>
+            Gets or sets the minimum NuSpec manifest version. The actual version is determined
+            at the time of build.
+            Default version is 1.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.NuSpecBuilder.MinimumClientVersion">
+            <summary>
+            Gets or sets the minimum version of NuGet required when installing the package. Optional.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.NuSpecBuilder.ModulePackageMetadata">
+            <summary>
+            Gets module's metadata.
+            </summary>
         </member>
         <member name="M:CMS.Modules.NuSpecBuilder.#ctor(CMS.Modules.NuGetPackages.ModulePackageMetadata)">
             <summary>
@@ -1553,10 +1645,11 @@
         </member>
         <member name="M:CMS.Modules.NuSpecBuilder.BuildToStream(System.IO.Stream)">
             <summary>
-            Builds NuSpec manifest to a stream and returns it.
+            Builds NuSpec manifest to <paramref name="stream"/>.
             </summary>
-            <param name="stream">Stream for writing a NuSpec.</param>
-            <exception cref="T:System.ComponentModel.DataAnnotations.ValidationException">When the resulting NuSpec manifest is not valid.</exception>
+            <param name="stream">Stream for writing a NuSpec manifest.</param>
+            <exception cref="T:System.ComponentModel.DataAnnotations.ValidationException">Thrown When the resulting NuSpec manifest is not valid.</exception>
+            <seealso cref="F:CMS.Modules.ModulePackagingEvents.BuildNuSpecManifest"/>
         </member>
         <member name="M:CMS.Modules.NuSpecBuilder.BuildManifest">
             <summary>
@@ -1583,29 +1676,6 @@
             <param name="targetFramework">Target framework (optional).</param>
             <returns>Target path built from given arguments.</returns>
         </member>
-        <member name="P:CMS.Modules.NuSpecBuilder.ReadmeFilePath">
-            <summary>
-            Gets or sets a relative path to the package's readme file
-            If null, no readme is included
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.NuSpecBuilder.MinimumManifestVersion">
-            <summary>
-            Gets or sets the minimum NuSpec manifest version. The actual version is determined
-            at the time of build.
-            Default version is 1.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.NuSpecBuilder.MinimumClientVersion">
-            <summary>
-            Gets or sets the minimum version of NuGet required when installing the package. Optional.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.NuSpecBuilder.ModulePackageMetadata">
-            <summary>
-            Gets module's metadata.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.ResourceInfo">
             <summary>
             Resource info data container class.
@@ -1620,35 +1690,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfo.#ctor">
-            <summary>
-            Constructor, creates an empty ResourceInfo structure.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor, creates an empty ResourceInfo object from the given DataRow data.
-            </summary>
-            <param name="dr">Datarow with the class info data</param>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
         </member>
         <member name="P:CMS.Modules.ResourceInfo.ResourceID">
             <summary>
@@ -1736,6 +1777,35 @@
             Indicates if resource is editable (resource is in development or development mode is enabled).
             </summary>
         </member>
+        <member name="M:CMS.Modules.ResourceInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ResourceInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ResourceInfo.#ctor">
+            <summary>
+            Constructor, creates an empty ResourceInfo structure.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.ResourceInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor, creates an empty ResourceInfo object from the given DataRow data.
+            </summary>
+            <param name="dr">Datarow with the class info data</param>
+        </member>
+        <member name="M:CMS.Modules.ResourceInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
         <member name="T:CMS.Modules.ResourceInfoProvider">
             <summary>
             Provides access to information about resources.
@@ -1781,12 +1851,6 @@
             </summary>
             <param name="resourceId">Resource ID</param>
         </member>
-        <member name="M:CMS.Modules.ResourceInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clear hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
         <member name="M:CMS.Modules.ResourceInfoProvider.GetResources(System.Int32)">
             <summary>
             Gets resources for specified site.
@@ -1810,34 +1874,17 @@
             </summary>
             <param name="resourceName">Resource code name</param>
         </member>
-        <member name="M:CMS.Modules.ResourceInfoProvider.GetResourcesInternal">
+        <member name="M:CMS.Modules.ResourceInfoProvider.SetInfo(CMS.Modules.ResourceInfo)">
             <summary>
-            Returns all resources.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Modules.ResourceInfoProvider.SetResourceInfoInternal(CMS.Modules.ResourceInfo)">
+        <member name="M:CMS.Modules.ResourceInfoProvider.DeleteInfo(CMS.Modules.ResourceInfo)">
             <summary>
-            Sets the specified resource data.
+            Deletes the object to the database.
             </summary>
-            <param name="resourceObj">Resource data object</param>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfoProvider.GetResourceInfoInternal(System.String)">
-            <summary>
-            Returns the ResourceInfo structure for the specified resource.
-            </summary>
-            <param name="resourceName">Resource name to use for retrieving the resource data</param>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfoProvider.GetResourceInfoInternal(System.Int32)">
-            <summary>
-            Returns the ResourceInfo structure for the specified resource.
-            </summary>
-            <param name="resourceId">Id of the resource to retrieve</param>
-        </member>
-        <member name="M:CMS.Modules.ResourceInfoProvider.DeleteResourceInfoInternal(CMS.Modules.ResourceInfo)">
-            <summary>
-            Delete specified resource.
-            </summary>
-            <param name="resourceObj">Resource object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Modules.ResourceInfoProvider.GetResourcesInternal(System.Int32)">
             <summary>
@@ -1860,6 +1907,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Modules.ResourceSiteInfo.ResourceID">
+            <summary>
+            Resource ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ResourceSiteInfo.SiteID">
+            <summary>
+            Site ID.
+            </summary>
+        </member>
         <member name="M:CMS.Modules.ResourceSiteInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -1880,22 +1937,17 @@
             Constructor - Creates a new ResourceSiteInfo object from the given DataRow.
             </summary>
         </member>
-        <member name="P:CMS.Modules.ResourceSiteInfo.ResourceID">
-            <summary>
-            Resource ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ResourceSiteInfo.SiteID">
-            <summary>
-            Site ID.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.ResourceSiteInfoProvider">
             <summary>
             Class providing ResourceSiteInfo management.
             </summary>
         </member>
         <member name="F:CMS.Modules.ResourceSiteInfoProvider.mSiteResources">
+            <summary>
+            Table of the resources assigned to site [siteName] -> [resourceName -> true]
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ResourceSiteInfoProvider.SiteResources">
             <summary>
             Table of the resources assigned to site [siteName] -> [resourceName -> true]
             </summary>
@@ -1940,11 +1992,6 @@
             </summary>
             <param name="infoObj">ResourceSite object</param>
         </member>
-        <member name="M:CMS.Modules.ResourceSiteInfoProvider.Clear">
-            <summary>
-            Clears the SiteResources hashtable.
-            </summary>
-        </member>
         <member name="M:CMS.Modules.ResourceSiteInfoProvider.RemoveResourceFromSite(System.Int32,System.Int32)">
             <summary>
             Removes specified resource from site.
@@ -1972,20 +2019,6 @@
             </summary>
             <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
-        <member name="M:CMS.Modules.ResourceSiteInfoProvider.GetResourceSitesInternal">
-            <summary>
-            Returns all bindings between modules(resources) and sites.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ResourceSiteInfoProvider.GetResourceSitesInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns the bindings between modules(resources) and sites.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>
-            <param name="topN">Specifies number of returned records</param>        
-            <param name="columns">Data columns to return</param>
-        </member>
         <member name="M:CMS.Modules.ResourceSiteInfoProvider.GetResourceSiteInfoInternal(System.Int32,System.Int32)">
             <summary>
             Returns the ResourceSiteInfo structure for the specified resourceSite.
@@ -1993,17 +2026,17 @@
             <param name="resourceId">ResourceID</param>
             <param name="siteId">SiteID</param>
         </member>
-        <member name="M:CMS.Modules.ResourceSiteInfoProvider.SetResourceSiteInfoInternal(CMS.Modules.ResourceSiteInfo)">
+        <member name="M:CMS.Modules.ResourceSiteInfoProvider.SetInfo(CMS.Modules.ResourceSiteInfo)">
             <summary>
-            Sets (updates or inserts) specified resourceSite.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="resourceSite">ResourceSite to set</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Modules.ResourceSiteInfoProvider.DeleteResourceSiteInfoInternal(CMS.Modules.ResourceSiteInfo)">
+        <member name="M:CMS.Modules.ResourceSiteInfoProvider.DeleteInfo(CMS.Modules.ResourceSiteInfo)">
             <summary>
-            Deletes specified resourceSite.
+            Deletes the object to the database.
             </summary>
-            <param name="infoObj">ResourceSite object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Modules.ResourceSiteInfoProvider.IsResourceOnSiteInternal(System.String,System.String)">
             <summary>
@@ -2017,11 +2050,6 @@
             Returns IDs of document types that are related to the module with given id.
             </summary>
             <param name="resourceID">Module ID</param>
-        </member>
-        <member name="P:CMS.Modules.ResourceSiteInfoProvider.SiteResources">
-            <summary>
-            Table of the resources assigned to site [siteName] -> [resourceName -> true]
-            </summary>
         </member>
         <member name="T:CMS.Modules.ExportSpecialActions">
             <summary>
@@ -2136,14 +2164,6 @@
             Specifies path where module files are located and where they are installed.
             </summary>
         </member>
-        <member name="M:CMS.Modules.ModuleFilePathRule.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Creates new ModuleFilePath.
-            </summary>
-            <param name="sourceRelativePath">Path to module file or directory (relative to application root). <see cref="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath"/></param>
-            <param name="targetRelativePath">Path (relative to application root) where files specified by <see cref="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath"/> are installed. <see cref="P:CMS.Modules.ModuleFilePathRule.TargetRelativePath"/></param>
-            <param name="exclude">List of file (or directory) paths that are excluded from <see cref="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath"/>.</param>
-        </member>
         <member name="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath">
             <summary>
             Gets path (relative to application root) to module's file or directory (directory's path ends with '\'). 
@@ -2161,6 +2181,14 @@
             <summary>
             Gets list of file (or directory) paths that are excluded from <see cref="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath"/>.
             </summary>
+        </member>
+        <member name="M:CMS.Modules.ModuleFilePathRule.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates new ModuleFilePath.
+            </summary>
+            <param name="sourceRelativePath">Path to module file or directory (relative to application root). <see cref="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath"/></param>
+            <param name="targetRelativePath">Path (relative to application root) where files specified by <see cref="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath"/> are installed. <see cref="P:CMS.Modules.ModuleFilePathRule.TargetRelativePath"/></param>
+            <param name="exclude">List of file (or directory) paths that are excluded from <see cref="P:CMS.Modules.ModuleFilePathRule.SourceRelativePath"/>.</param>
         </member>
         <member name="T:CMS.Modules.PermissionNameInfo">
             <summary>
@@ -2186,27 +2214,6 @@
             <summary>
             Class type information.
             </summary>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfo.#ctor">
-            <summary>
-            Constructor, creates an empty PermissionNameInfo structure.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor, creates an empty PermissionNameInfo object from the given DataRow data.
-            </summary>
-            <param name="dr">Datarow with the class info data</param>
         </member>
         <member name="P:CMS.Modules.PermissionNameInfo.PermissionId">
             <summary>
@@ -2268,6 +2275,27 @@
             Type info.
             </summary>
         </member>
+        <member name="M:CMS.Modules.PermissionNameInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.PermissionNameInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.PermissionNameInfo.#ctor">
+            <summary>
+            Constructor, creates an empty PermissionNameInfo structure.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.PermissionNameInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor, creates an empty PermissionNameInfo object from the given DataRow data.
+            </summary>
+            <param name="dr">Datarow with the class info data</param>
+        </member>
         <member name="T:CMS.Modules.PermissionNameInfoProvider">
             <summary>
             Permission info data container class.
@@ -2282,42 +2310,6 @@
             <summary>
             Returns all permission names.
             </summary>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionMatrix(System.Int32,System.String,System.Int32)">
-            <summary>
-            Returns the permission matrix.
-            </summary>
-            <param name="permissionId">Permission name ID</param>
-            <param name="permissionType">Permission type</param>
-            <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionMatrix(System.Int32,System.String,System.Int32,System.Boolean)">
-            <summary>
-            Returns the permission matrix.
-            </summary>
-            <param name="permissionId">Permission name ID</param>
-            <param name="permissionType">Permission type</param>
-            <param name="siteId">Site ID</param>
-            <param name="displayInMatrix">Return permission displayed in matrix</param>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionMatrix(System.Int32,System.String,System.Int32,System.Int32)">
-            <summary>
-            Returns the permission matrix.
-            </summary>
-            <param name="permissionId">Permission name ID</param>
-            <param name="permissionType">Permission type</param>
-            <param name="siteId">Site ID</param>
-            <param name="roleGroupId">Group ID the roles should belong to</param>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionMatrix(System.Int32,System.String,System.Int32,System.Int32,System.Boolean)">
-            <summary>
-            Returns the permission matrix.
-            </summary>
-            <param name="permissionId">Permission name ID</param>
-            <param name="permissionType">Permission type</param>
-            <param name="siteId">Site ID</param>
-            <param name="roleGroupId">Group ID the roles should belong to</param>
-            <param name="displayInMatrix">Return permission displayed in matrix</param>
         </member>
         <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionNameInfoByGUID(System.Guid)">
             <summary>
@@ -2399,6 +2391,26 @@
             <param name="resourceId">ID of the resource the permissions are included in</param>
             <param name="roleId">ID of the role which is granted with requested permissions</param> 
         </member>
+        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetParentWhereCondition(System.Int32)">
+            <summary>
+            Gets the where condition to limit the objects to specific parent.
+            </summary>
+            <param name="objectParentId">Object parent ID to filter by</param>        
+        </member>
+        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetBindingWhereCondition(System.String,System.Object[])">
+            <summary>
+            Gets the where condition to limit the objects to specific binding dependencies. Use this method for 3 and more-keys bindings.
+            </summary>
+            <param name="bindingType">Binding object type name</param>
+            <param name="dependencies">Pairs of binding dependencies to filter by (first variable in each pair - dependency object type, second variable in each pair - dependency value)</param>  
+        </member>
+        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetBindingWhereCondition(System.String,System.Int32)">
+            <summary>
+            Gets the where condition to limit the objects to specific binding dependency. Use this method only for 2-keys bindings.
+            </summary>
+            <param name="bindingType">Binding object type name</param>
+            <param name="bindingDependencyId">Binding dependency ID to filter by</param>        
+        </member>
         <member name="M:CMS.Modules.PermissionNameInfoProvider.CreateDefaultClassPermissions(System.Int32)">
             <summary>
             Creates the default.
@@ -2479,11 +2491,6 @@
             <param name="topN">TopN parameter</param>
             <param name="columns">Columns to be selected</param>
         </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionNamesInternal">
-            <summary>
-            Returns all permission names.
-            </summary>
-        </member>
         <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionNamesInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
             Returns all the permission names within the system.
@@ -2492,22 +2499,6 @@
             <param name="orderBy">Order by statement to use</param>
             <param name="topN">TopN parameter</param>       
             <param name="columns">Data columns to return</param>   
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionMatrixInternal(System.Int32,System.String,System.Int32,System.Int32,System.Boolean)">
-            <summary>
-            Returns the permission matrix.
-            </summary>
-            <param name="permissionId">Permission name ID</param>
-            <param name="permissionType">Permission type</param>
-            <param name="siteId">Site ID</param>
-            <param name="displayInMatrix">Return permission displayed in matrix</param>
-            <param name="roleGroupId">Group ID the roles should belong to</param>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionNameInfoByGUIDInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
         </member>
         <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionNameInfoForResourceInternal(System.String,System.String,System.String)">
             <summary>
@@ -2533,23 +2524,17 @@
             <param name="resourceName">Resource name (null when Class permission)</param>
             <param name="className">Class name (null when Resource permission)</param>
         </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.GetPermissionNameInfoInternal(System.Int32)">
+        <member name="M:CMS.Modules.PermissionNameInfoProvider.SetInfo(CMS.Modules.PermissionNameInfo)">
             <summary>
-            Returns the permission name info object.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="permissionId">Id of the permission to retrieve</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.SetPermissionInfoInternal(CMS.Modules.PermissionNameInfo)">
+        <member name="M:CMS.Modules.PermissionNameInfoProvider.DeleteInfo(CMS.Modules.PermissionNameInfo)">
             <summary>
-            Sets the specified permission data.
+            Deletes the object to the database.
             </summary>
-            <param name="permissionObj">New permission info data</param>
-        </member>
-        <member name="M:CMS.Modules.PermissionNameInfoProvider.DeletePermissionInfoInternal(CMS.Modules.PermissionNameInfo)">
-            <summary>
-            Deletes the specified permission.
-            </summary>
-            <param name="pni">Permission object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Modules.PermissionNameInfoProvider.GetResourcePermissionsInternal(System.Int32)">
             <summary>
@@ -2603,6 +2588,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Modules.RolePermissionInfo.PermissionID">
+            <summary>
+            Permission ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.RolePermissionInfo.RoleID">
+            <summary>
+            Role ID.
+            </summary>
+        </member>
         <member name="M:CMS.Modules.RolePermissionInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -2629,16 +2624,6 @@
             </summary>
             <param name="permission">Permission to convert to string</param>
         </member>
-        <member name="P:CMS.Modules.RolePermissionInfo.PermissionID">
-            <summary>
-            Permission ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.RolePermissionInfo.RoleID">
-            <summary>
-            Role ID.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.RolePermissionInfoProvider">
             <summary>
             Class providing RolePermissionInfo management.
@@ -2648,22 +2633,6 @@
             <summary>
             Returns all role permissions.
             </summary>
-        </member>
-        <member name="M:CMS.Modules.RolePermissionInfoProvider.GetRolePermissions(System.String,System.String)">
-            <summary>
-            Returns the RolePermissionInfo structure for the specified rolePermission.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>        
-        </member>
-        <member name="M:CMS.Modules.RolePermissionInfoProvider.GetRolePermissions(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns the RolePermissionInfo structure for the specified rolePermission.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>        
-            <param name="topN">Specifies number of returned records</param>        
-            <param name="columns">Data columns to return</param>
         </member>
         <member name="M:CMS.Modules.RolePermissionInfoProvider.GetRolePermissionInfo(System.Int32,System.Int32)">
             <summary>
@@ -2698,38 +2667,12 @@
             <param name="roleId">RoleID</param>
             <param name="permissionId">PermissionID</param>
         </member>
-        <member name="M:CMS.Modules.RolePermissionInfoProvider.GetRolePermissionsInternal">
-            <summary>
-            Returns all role permissions.
-            </summary>
-        </member>
         <member name="M:CMS.Modules.RolePermissionInfoProvider.GetRolePermissionInfoInternal(System.Int32,System.Int32)">
             <summary>
             Returns the RolePermissionInfo structure for the specified rolePermission.
             </summary>
             <param name="roleId">RoleID</param>
             <param name="permissionId">PermissionID</param>
-        </member>
-        <member name="M:CMS.Modules.RolePermissionInfoProvider.GetRolePermissionsInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all the role permissions data.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>
-            <param name="topN">Specifies number of returned records</param>        
-            <param name="columns">Data columns to return</param>
-        </member>
-        <member name="M:CMS.Modules.RolePermissionInfoProvider.SetRolePermissionInfoInternal(CMS.Modules.RolePermissionInfo)">
-            <summary>
-            Sets (updates or inserts) specified rolePermission.
-            </summary>
-            <param name="rolePermission">RolePermission to set</param>
-        </member>
-        <member name="M:CMS.Modules.RolePermissionInfoProvider.DeleteRolePermissionInfoInternal(CMS.Modules.RolePermissionInfo)">
-            <summary>
-            Deletes specified rolePermission.
-            </summary>
-            <param name="infoObj">RolePermission object</param>
         </member>
         <member name="T:CMS.Modules.ResourceLibraryInfo">
             <summary>
@@ -2744,6 +2687,21 @@
         <member name="F:CMS.Modules.ResourceLibraryInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ResourceLibraryInfo.ResourceLibraryID">
+            <summary>
+            Resource library ID
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ResourceLibraryInfo.ResourceLibraryResourceID">
+            <summary>
+            Resource library resource ID
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.ResourceLibraryInfo.ResourceLibraryPath">
+            <summary>
+            Gets or sets the physical path to a dll library within the application directory. 
             </summary>
         </member>
         <member name="M:CMS.Modules.ResourceLibraryInfo.DeleteObject">
@@ -2773,21 +2731,6 @@
             Constructor - Creates a new ResourceLibraryInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.Modules.ResourceLibraryInfo.ResourceLibraryID">
-            <summary>
-            Resource library ID
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ResourceLibraryInfo.ResourceLibraryResourceID">
-            <summary>
-            Resource library resource ID
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.ResourceLibraryInfo.ResourceLibraryPath">
-            <summary>
-            Gets or sets the physical path to a dll library within the application directory. 
-            </summary>
         </member>
         <member name="T:CMS.Modules.ResourceLibraryInfoProvider">
             <summary>
@@ -2840,29 +2783,6 @@
             <param name="resourceId"><see cref="T:CMS.Modules.ResourceInfo"/> id.</param>
             <param name="pathToLibrary">Relative path to library.</param>
         </member>
-        <member name="M:CMS.Modules.ResourceLibraryInfoProvider.GetResourceLibrariesInternal">
-            <summary>
-            Returns a query for all the ResourceLibraryInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.ResourceLibraryInfoProvider.GetResourceLibraryInfoInternal(System.Int32)">
-            <summary>
-            Returns ResourceLibraryInfo with specified ID.
-            </summary>
-            <param name="id">ResourceLibraryInfo ID</param>        
-        </member>
-        <member name="M:CMS.Modules.ResourceLibraryInfoProvider.SetResourceLibraryInfoInternal(CMS.Modules.ResourceLibraryInfo)">
-            <summary>
-            Sets (updates or inserts) specified ResourceLibraryInfo after verifying it is valid.
-            </summary>
-            <param name="infoObj">ResourceLibraryInfo to be set</param>        
-        </member>
-        <member name="M:CMS.Modules.ResourceLibraryInfoProvider.DeleteResourceLibraryInfoInternal(CMS.Modules.ResourceLibraryInfo)">
-            <summary>
-            Deletes specified ResourceLibraryInfo.
-            </summary>
-            <param name="infoObj">ResourceLibraryInfo to be deleted</param>        
-        </member>
         <member name="M:CMS.Modules.ResourceLibraryInfoProvider.SetInfo(CMS.Modules.ResourceLibraryInfo)">
             <summary>
             Saves given info object to Database after verifying it is valid.
@@ -2901,13 +2821,6 @@
         <member name="F:CMS.Modules.ApplicationUrlHelper.DEFAULT_UI_CONTROL_PAGE_PATH">
             <summary>
             Blank page path for controls
-            </summary>
-        </member>
-        <member name="F:CMS.Modules.ApplicationUrlHelper.COLLAPSIBLE_EMPTY_PARENT_ELEMENT_URL">
-            <summary>
-            Represents <see cref="P:CMS.Modules.UIElementInfo.ElementTargetURL"/> of a dummy <see cref="T:CMS.Modules.UIElementInfo"/> of type <see cref="F:CMS.Modules.UIElementTypeEnum.Url"/>.
-            This kind of element is used as parent node in collapsible tree without any content.
-            It's used for grouping <see cref="T:CMS.Modules.UIElementInfo"/>s in a tree.
             </summary>
         </member>
         <member name="M:CMS.Modules.ApplicationUrlHelper.GetPageEditLink(System.Int32)">
@@ -3029,6 +2942,13 @@
             <param name="objectId">Indicates whether append object ID to URL.</param>
             <param name="additionalQuery">Additional query to append to URL</param>
         </member>
+        <member name="F:CMS.Modules.ApplicationUrlHelper.COLLAPSIBLE_EMPTY_PARENT_ELEMENT_URL">
+            <summary>
+            Represents <see cref="P:CMS.Modules.UIElementInfo.ElementTargetURL"/> of a dummy <see cref="T:CMS.Modules.UIElementInfo"/> of type <see cref="F:CMS.Modules.UIElementTypeEnum.Url"/>.
+            This kind of element is used as parent node in collapsible tree without any content.
+            It's used for grouping <see cref="T:CMS.Modules.UIElementInfo"/>s in a tree.
+            </summary>
+        </member>
         <member name="T:CMS.Modules.HelpTopicInfo">
             <summary>
             HelpTopicInfo data container class.
@@ -3043,27 +2963,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Modules.HelpTopicInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.HelpTopicInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.HelpTopicInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty HelpTopicInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.HelpTopicInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new HelpTopicInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
         </member>
         <member name="P:CMS.Modules.HelpTopicInfo.HelpTopicID">
             <summary>
@@ -3100,6 +2999,27 @@
             Help topic last modified
             </summary>
         </member>
+        <member name="M:CMS.Modules.HelpTopicInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.HelpTopicInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.HelpTopicInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty HelpTopicInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.HelpTopicInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new HelpTopicInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
         <member name="T:CMS.Modules.HelpTopicInfoProvider">
             <summary>
             Class providing HelpTopicInfo management.
@@ -3134,29 +3054,6 @@
             </summary>
             <param name="id">HelpTopicInfo ID</param>
         </member>
-        <member name="M:CMS.Modules.HelpTopicInfoProvider.GetHelpTopicsInternal">
-            <summary>
-            Returns a query for all the HelpTopicInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.HelpTopicInfoProvider.GetHelpTopicInfoInternal(System.Int32)">
-            <summary>
-            Returns HelpTopicInfo with specified ID.
-            </summary>
-            <param name="id">HelpTopicInfo ID</param>        
-        </member>
-        <member name="M:CMS.Modules.HelpTopicInfoProvider.SetHelpTopicInfoInternal(CMS.Modules.HelpTopicInfo)">
-            <summary>
-            Sets (updates or inserts) specified HelpTopicInfo.
-            </summary>
-            <param name="infoObj">HelpTopicInfo to be set</param>        
-        </member>
-        <member name="M:CMS.Modules.HelpTopicInfoProvider.DeleteHelpTopicInfoInternal(CMS.Modules.HelpTopicInfo)">
-            <summary>
-            Deletes specified HelpTopicInfo.
-            </summary>
-            <param name="infoObj">HelpTopicInfo to be deleted</param>        
-        </member>
         <member name="T:CMS.Modules.RoleApplicationInfo">
             <summary>
             RoleApplicationInfo data container class.
@@ -3170,6 +3067,16 @@
         <member name="F:CMS.Modules.RoleApplicationInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.RoleApplicationInfo.RoleID">
+            <summary>
+            Role ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.RoleApplicationInfo.ElementID">
+            <summary>
+            Element ID.
             </summary>
         </member>
         <member name="M:CMS.Modules.RoleApplicationInfo.DeleteObject">
@@ -3192,16 +3099,6 @@
             Constructor - Creates a new RoleApplicationInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.Modules.RoleApplicationInfo.RoleID">
-            <summary>
-            Role ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.RoleApplicationInfo.ElementID">
-            <summary>
-            Element ID.
-            </summary>
         </member>
         <member name="T:CMS.Modules.RoleApplicationInfoProvider">
             <summary>
@@ -3254,18 +3151,6 @@
             <param name="roleId">Role ID</param>
             <param name="uielementId">UI element ID</param>  
         </member>
-        <member name="M:CMS.Modules.RoleApplicationInfoProvider.SetRoleApplicationInfoInternal(CMS.Modules.RoleApplicationInfo)">
-            <summary>
-            Sets specified RoleApplicationInfo binding.
-            </summary>
-            <param name="infoObj">RoleApplicationInfo object</param>
-        </member>
-        <member name="M:CMS.Modules.RoleApplicationInfoProvider.DeleteRoleApplicationInfoInternal(CMS.Modules.RoleApplicationInfo)">
-            <summary>
-            Deletes specified RoleApplicationInfo.
-            </summary>
-            <param name="infoObj">RoleApplicationInfo object</param>
-        </member>
         <member name="M:CMS.Modules.RoleApplicationInfoProvider.RemoveRoleFromUIelementInternal(System.Int32,System.Int32)">
             <summary>
             Deletes RoleApplicationInfo binding.
@@ -3295,6 +3180,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Modules.RoleUIElementInfo.ElementID">
+            <summary>
+            ID of the UIElement.
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.RoleUIElementInfo.RoleID">
+            <summary>
+            ID of the role.
+            </summary>
+        </member>
         <member name="M:CMS.Modules.RoleUIElementInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -3315,16 +3210,6 @@
             Constructor - Creates a new RoleUIElementInfo object from the given DataRow.
             </summary>
         </member>
-        <member name="P:CMS.Modules.RoleUIElementInfo.ElementID">
-            <summary>
-            ID of the UIElement.
-            </summary>
-        </member>
-        <member name="P:CMS.Modules.RoleUIElementInfo.RoleID">
-            <summary>
-            ID of the role.
-            </summary>
-        </member>
         <member name="T:CMS.Modules.RoleUIElementInfoProvider">
             <summary>
             Class providing RoleUIElementInfo management.
@@ -3340,7 +3225,7 @@
             Returns the RoleUIElementInfo structure for the specified role UI element.
             </summary>
             <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>        
+            <param name="orderBy">Order by statement</param>
         </member>
         <member name="M:CMS.Modules.RoleUIElementInfoProvider.GetRoleUIElementInfo(System.Int32,System.Int32)">
             <summary>
@@ -3375,11 +3260,6 @@
             <param name="roleId">RoleID</param>
             <param name="elementId">ElementID</param>
         </member>
-        <member name="M:CMS.Modules.RoleUIElementInfoProvider.GetRoleUIElementsInternal">
-            <summary>
-            Returns all role UI elements.
-            </summary>
-        </member>
         <member name="M:CMS.Modules.RoleUIElementInfoProvider.GetRoleUIElementInfoInternal(System.Int32,System.Int32)">
             <summary>
             Returns the RoleUIElementInfo structure for the specified role UI element.
@@ -3387,24 +3267,25 @@
             <param name="roleId">RoleID</param>
             <param name="elementId">ElementID</param>
         </member>
-        <member name="M:CMS.Modules.RoleUIElementInfoProvider.GetRoleUIElementsInternal(System.String,System.String)">
+        <member name="M:CMS.Modules.RoleUIElementInfoProvider.DeleteInfo(CMS.Modules.RoleUIElementInfo)">
             <summary>
-            Gets all the role UI elements data.
+            Deletes the object to the database.
             </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>
+            <param name="info">Object to delete</param>
         </member>
-        <member name="M:CMS.Modules.RoleUIElementInfoProvider.SetRoleUIElementInfoInternal(CMS.Modules.RoleUIElementInfo)">
+        <member name="T:CMS.Modules.UIElementCachingHelper">
             <summary>
-            Sets (updates or inserts) specified role UI element.
+            Provides support for caching <see cref="T:CMS.Modules.UIElementInfo"/> objects.
             </summary>
-            <param name="infoObj">RoleUIElement to set</param>
         </member>
-        <member name="M:CMS.Modules.RoleUIElementInfoProvider.DeleteRoleUIElementInfoInternal(CMS.Modules.RoleUIElementInfo)">
+        <member name="M:CMS.Modules.UIElementCachingHelper.GetElements(System.String,System.String,System.Func{CMS.DataEngine.InfoDataSet{CMS.Modules.UIElementInfo}},System.Int32)">
             <summary>
-            Deletes specified role UI element.
+            Returns set of children UI elements.
             </summary>
-            <param name="infoObj">RoleUIElement object</param>
+            <param name="resourceName">Name of the resource (module)</param>
+            <param name="elementName">CodeName of the UIElement</param>
+            <param name="loadMethod">Method for element loading</param>
+            <param name="cacheDurationInMinutes">Cache durability in minutes</param>
         </member>
         <member name="T:CMS.Modules.UIElementInfo">
             <summary>
@@ -3416,107 +3297,24 @@
             Object type
             </summary>
         </member>
-        <member name="F:CMS.Modules.UIElementInfo.UIELEMENT_ADMINISTRATION_CODENAME">
-            <summary>
-            Code name of CMS Desk in UIElements tree
-            </summary>
-        </member>
         <member name="F:CMS.Modules.UIElementInfo.TYPEINFO">
             <summary>
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Modules.UIElementInfo.GetExisting">
+        <member name="F:CMS.Modules.UIElementInfo.UIELEMENT_ADMINISTRATION_CODENAME">
             <summary>
-            Returns the existing object based on current object data.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.#ctor">
-            <summary>
-            Constructor, creates an empty UIElementInfo structure.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor, creates an empty UIElementInfo object from the given DataRow data.
-            </summary>
-            <param name="dr">Datarow with the class info data</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
-            <summary>
-            Removes object dependencies. Removes ad-hoc page templates that are used in UIElement.
-            </summary>
-            <param name="deleteAll">If false, only required dependencies are deleted, dependencies with default value are replaced with default value and nullable values are replaced with null</param>
-            <param name="clearHashtables">If true, hashtables of all objecttypes which were potentially modified are cleared</param>
-            <remarks>UI ad-hoc templates are inside UIElement because they extend it from the page template side of view.</remarks>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.BuildObjectPath(System.String,System.String,System.String,System.String,System.Int32@)">
-            <summary>
-            Builds the path from the given column.
-            </summary>
-            <param name="parentColumName">Column of the parent ID</param>
-            <param name="pathColumnName">Column name to build the path from</param>
-            <param name="levelColumnName">Column name of the level</param>
-            <param name="level">Level of the object within the tree hierarchy</param>
-            <param name="pathPartColumn">Name of the column which creates the path (IDColumn for IDPath, CodeNameColumn for name path)</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.RegisterProperties">
-            <summary>
-            Registers properties of the object
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.GetSiblingsWhereCondition">
-            <summary>
-            Creates where condition according to Parent, Group and Site settings.
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.GetNewElement">
-            <summary>
-            Finds first element from children collection starting with prefix 'new'
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.GetEditElement">
-            <summary>
-            Finds first element from children collection starting with prefix 'edit'
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.GetParentElements">
-            <summary>
-            Return element's parent objects
-            </summary>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.GetApplicationNavigationString(System.String)">
-            <summary>
-            Returns navigation string that describes a route to the application represented by UI element.
-            </summary>
-            <param name="cultureCode">Culture code</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfo.LoadDefaultData">
-            <summary>
-            Loads the default data to the object.
+            Code name of CMS Desk in UIElements tree
             </summary>
         </member>
         <member name="P:CMS.Modules.UIElementInfo.ElementDescription">
             <summary>
             Description of the UI Element (used for example in the UI Guide).
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.UIElementInfo.ElementRequiresGlobalAdminPriviligeLevel">
+            <summary>
+            Defines if UI Element can be accessed only by global administrator.
             </summary>
         </member>
         <member name="P:CMS.Modules.UIElementInfo.ElementProperties">
@@ -3653,13 +3451,13 @@
         </member>
         <member name="P:CMS.Modules.UIElementInfo.ElementIsGlobalApplication">
             <summary>
-            Indicates whether the element is available in global context and some restrictions are not applied to it.
+            Indicates whether the element is available without an operating site.
             </summary>
         </member>
         <member name="P:CMS.Modules.UIElementInfo.ElementCheckModuleReadPermission">
             <summary>
             Indicates if the system should check the "read" permission for the module to which the current UI element is assigned.
-            When the "read" permission doesn�t exist for the current module, this setting has no effect.
+            When the "read" permission doesn't exist for the current module, this setting has no effect.
             </summary>
         </member>
         <member name="P:CMS.Modules.UIElementInfo.RepresentsNew">
@@ -3702,6 +3500,94 @@
             Tells you whether UIElement is application or not.
             </summary>
         </member>
+        <member name="M:CMS.Modules.UIElementInfo.GetExisting">
+            <summary>
+            Returns the existing object based on current object data.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.#ctor">
+            <summary>
+            Constructor, creates an empty UIElementInfo structure.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor, creates an empty UIElementInfo object from the given DataRow data.
+            </summary>
+            <param name="dr">Datarow with the class info data</param>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
+            <summary>
+            Removes object dependencies. Removes ad-hoc page templates that are used in UIElement.
+            </summary>
+            <param name="deleteAll">If false, only required dependencies are deleted, dependencies with default value are replaced with default value and nullable values are replaced with null</param>
+            <param name="clearHashtables">If true, hashtables of all objecttypes which were potentially modified are cleared</param>
+            <remarks>UI ad-hoc templates are inside UIElement because they extend it from the page template side of view.</remarks>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.BuildObjectPath(System.String,System.String,System.String,System.String,System.Int32@)">
+            <summary>
+            Builds the path from the given column.
+            </summary>
+            <param name="parentColumName">Column of the parent ID</param>
+            <param name="pathColumnName">Column name to build the path from</param>
+            <param name="levelColumnName">Column name of the level</param>
+            <param name="level">Level of the object within the tree hierarchy</param>
+            <param name="pathPartColumn">Name of the column which creates the path (IDColumn for IDPath, CodeNameColumn for name path)</param>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.RegisterProperties">
+            <summary>
+            Registers properties of the object
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.GetSiblingsWhereCondition">
+            <summary>
+            Creates where condition according to Parent, Group and Site settings.
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.GetNewElement">
+            <summary>
+            Finds first element from children collection starting with prefix 'new'
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.GetEditElement">
+            <summary>
+            Finds first element from children collection starting with prefix 'edit'
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.GetParentElements">
+            <summary>
+            Return element's parent objects
+            </summary>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.GetApplicationNavigationString(System.String)">
+            <summary>
+            Returns navigation string that describes a route to the application represented by UI element.
+            </summary>
+            <param name="cultureCode">Culture code</param>
+        </member>
+        <member name="M:CMS.Modules.UIElementInfo.LoadDefaultData">
+            <summary>
+            Loads the default data to the object.
+            </summary>
+        </member>
         <member name="T:CMS.Modules.UIElementInfoProvider">
             <summary>
             UIElement info data container class.
@@ -3720,6 +3606,11 @@
         <member name="M:CMS.Modules.UIElementInfoProvider.#ctor">
             <summary>
             Constructor. Init hashtables for ID and Fullname (ResourceName|ElementName)
+            </summary>
+        </member>
+        <member name="P:CMS.Modules.UIElementInfoProvider.AllowEditOnlyCurrentModule">
+            <summary>
+            Indicates whether allow editing only current selected module
             </summary>
         </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetElementCaption(CMS.Modules.UIElementInfo,System.Boolean)">
@@ -3784,26 +3675,12 @@
             </summary>
             <param name="elementId">Element ID</param>
         </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElements(System.String)">
-            <summary>
-            Returns DataSet with specified UI elements.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-        </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElements(System.String,System.String)">
             <summary>
             Returns DataSet with specified UI elements.
             </summary>
             <param name="where">Where condition to filter data</param>
             <param name="orderBy">Order by statement</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElements(System.String,System.String,System.Int32)">
-            <summary>
-            Returns DataSet with specified UI elements.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>
-            <param name="topN">Specifies number of returned records</param>
         </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElements(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -3882,13 +3759,6 @@
             </summary>
             <param name="elementId">ID of the UIElement</param>
         </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetRolesUIElements(System.String,System.String)">
-            <summary>
-            Returns all UIElements for which the roles have permission.
-            </summary>
-            <param name="roles">Role IDs</param>
-            <param name="columns">Data columns to return</param>
-        </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetRolesUIElements(System.Collections.Generic.IEnumerable{System.Int32},System.String)">
             <summary>
             Returns all UIElements for which the roles have permission.
@@ -3924,13 +3794,6 @@
             Gets top module's element (element with lowest element level)
             </summary>
         </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElementAllChildren(CMS.Modules.UIElementInfo,System.Int32)">
-            <summary>
-            Returns all element's children limited by level's offset
-            </summary>
-            <param name="elem">UI element</param>
-            <param name="levelOffset">Level offset from element's level to filter elements.</param>
-        </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetFirstChildElement(System.Int32)">
             <summary>
             Get first child of UI element
@@ -3950,35 +3813,11 @@
             Updates all counts for all sub-objects.
             </summary>
         </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElementsInternal">
-            <summary>
-            Returns all UI elements.
-            </summary>
-        </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetFirstChildElementInternal(System.Int32)">
             <summary>
             Get first child of UI element
             </summary>
             <param name="elementID">Element ID</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElementAllChildrenInternal(CMS.Modules.UIElementInfo,System.Int32)">
-            <summary>
-            Returns all element's children limited by level's offset
-            </summary>
-            <param name="elem">UI element</param>
-            <param name="levelOffset">Level offset from element's level to filter elements.</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElementInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElementInfoInternal(System.Int32)">
-            <summary>
-            Returns the UIElement info object.
-            </summary>
-            <param name="elementId">ID of the UIElement to retrieve</param>
         </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetModuleTopUIElementInternal(System.Int32)">
             <summary>
@@ -3999,17 +3838,17 @@
             <param name="elementName">Codename of the UIElement to retrieve</param>
             <param name="resourceId">ID of the resource (module)</param>
         </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.SetUIElementInfoInternal(CMS.Modules.UIElementInfo)">
+        <member name="M:CMS.Modules.UIElementInfoProvider.SetInfo(CMS.Modules.UIElementInfo)">
             <summary>
-            Sets the specified UIElement data.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="infoObj">UIElement info data</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.DeleteUIElementInfoInternal(CMS.Modules.UIElementInfo)">
+        <member name="M:CMS.Modules.UIElementInfoProvider.DeleteInfo(CMS.Modules.UIElementInfo)">
             <summary>
-            Deletes the specified UIElement.
+            Deletes the object to the database.
             </summary>
-            <param name="infoObj">UIElement object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetUIElementsInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -4033,7 +3872,7 @@
             Only elements with not empty ElementCaption will be returned because it says that such elements represent menu items.
             </summary>
             <param name="resourceName">Name of the resource (module)</param>
-            /// <param name="elementName">Name of the element</param>
+            <param name="elementName">Name of the element</param>
         </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetChildUIElementsInternal(System.String,System.String)">
             <summary>
@@ -4082,13 +3921,6 @@
             </summary>
             <param name="elementId">ID of the UIElement</param>
         </member>
-        <member name="M:CMS.Modules.UIElementInfoProvider.GetRolesUIElementsInternal(System.String,System.String)">
-            <summary>
-            Returns all UIElements for which the given roles have permission.
-            </summary>
-            <param name="roles">Roles IDs separated with comma</param>
-            <param name="columns">Data columns to return</param>
-        </member>
         <member name="M:CMS.Modules.UIElementInfoProvider.GetRolesUIElementsInternal(System.Collections.Generic.IEnumerable{System.Int32},System.String)">
             <summary>
             Returns all UIElements for which the given roles have permission.
@@ -4135,11 +3967,6 @@
             Gets the where condition that searches the object based on the given full name
             </summary>
             <param name="fullName">Object full name</param>
-        </member>
-        <member name="P:CMS.Modules.UIElementInfoProvider.AllowEditOnlyCurrentModule">
-            <summary>
-            Indicates whether allow editing only current selected module
-            </summary>
         </member>
         <member name="T:CMS.Modules.UIElementSizeEnum">
             <summary>

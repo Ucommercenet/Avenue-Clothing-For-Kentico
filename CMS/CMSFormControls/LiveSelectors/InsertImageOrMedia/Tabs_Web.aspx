@@ -18,8 +18,8 @@
 </head>
 <body class="<%=mBodyClass%>">
     <form id="form1" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="scriptManager" runat="server">
-    </ajaxToolkit:ToolkitScriptManager>
+    <asp:ScriptManager ID="scriptManager" runat="server">
+    </asp:ScriptManager>
     <div class="LiveSiteDialog">
         <cms:WebContentSelector ID="webContentSelector" runat="server" IsLiveSite="true" />
         <asp:Literal ID="ltlScript" runat="server" EnableViewState="false" />

@@ -39,7 +39,7 @@ public class WebFarmServerListExtender : ControlExtender<UniGrid>
 
         Control.ShowInformation(String.Format(ResHelper.GetString(messageToShow), SystemContext.ServerName));
 
-        if ((WebFarmLicenseHelper.ServerCount > 1) && !WebFarmLicenseHelper.LicenseIsValid)
+        if (!WebFarmLicenseHelper.LicenseIsValid)
         {
             Control.ShowError(ResHelper.GetString("webfarm.unsufficientdomainlicense"));
         }

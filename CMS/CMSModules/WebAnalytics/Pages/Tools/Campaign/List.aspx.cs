@@ -10,9 +10,8 @@ using CMS.PortalEngine.Internal;
 using CMS.SiteProvider;
 using CMS.UIControls;
 using CMS.WebAnalytics;
-using CMS.WebAnalytics.Internal;
 using CMS.WebAnalytics.Web.UI;
-
+using CMS.WebAnalytics.Web.UI.Internal;
 
 [UIElement(ModuleName.WEBANALYTICS, "Campaigns")]
 public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_List : CMSCampaignPage
@@ -83,13 +82,13 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Campaign_List : CMSCamp
 
     private static CampaignListItemViewModel CreateCampaignViewModel(CampaignInfo campaign, DateTime now)
     {
-        return Service<ICampaignListItemViewModelService>.Entry().GetModel(campaign, now);
+        return Service.Resolve<ICampaignListItemViewModelService>().GetModel(campaign, now);
     }
 
 
     private static string GetCreateCampaignLink()
     {
-        return URLHelper.GetAbsoluteUrl(Service.Entry<IUILinkProvider>().GetSingleObjectLink(CampaignInfo.TYPEINFO.ModuleName, CAMPAIGN_ELEMENT_CODENAME, new ObjectDetailLinkParameters
+        return URLHelper.GetAbsoluteUrl(Service.Resolve<IUILinkProvider>().GetSingleObjectLink(CampaignInfo.TYPEINFO.ModuleName, CAMPAIGN_ELEMENT_CODENAME, new ObjectDetailLinkParameters
         {
             ParentTabName = ANALYTICS_CAMPAIGNS_TABNAME,
             AllowNavigationToListing = true,

@@ -42,17 +42,17 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSel
 
 
     /// <summary>
-    /// Gets or sets ID of the parent of the currently selected node.
+    /// Gets or sets path of the parent of the currently selected node.
     /// </summary>
-    public string NodeParentID
+    public string NodeParentPath
     {
         get
         {
-            return ValidationHelper.GetString(hdnLastNodeParentID.Value, "");
+            return ValidationHelper.GetString(hdnLastNodeParentPath.Value, "");
         }
         set
         {
-            hdnLastNodeParentID.Value = value;
+            hdnLastNodeParentPath.Value = value;
         }
     }
 
@@ -173,10 +173,10 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSel
         }
 
         // Parent directory button
-        if (ShowParentButton && (!String.IsNullOrEmpty(NodeParentID)))
+        if (ShowParentButton && !String.IsNullOrEmpty(NodeParentPath))
         {
             plcParentButton.Visible = true;
-            btnParent.OnClientClick = String.Format("SelectNode('{0}');SetParentAction('{0}'); return false;", NodeParentID.Replace("\\", "\\\\").Replace("'", "\\'"));
+            btnParent.OnClientClick = String.Format("SelectNode('{0}');SetParentAction('{0}'); return false;", NodeParentPath.Replace("\\", "\\\\").Replace("'", "\\'"));
         }
     }
 

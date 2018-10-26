@@ -52,7 +52,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Width of media or flash player.
+    /// Width of media.
     /// </summary>
     public int Width
     {
@@ -73,7 +73,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Height of media or flash player.
+    /// Height of media.
     /// </summary>
     public int Height
     {
@@ -94,7 +94,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Auto play media or flash.
+    /// Auto play media.
     /// </summary>
     public bool AutoPlay
     {
@@ -110,7 +110,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Loop media or flash.
+    /// Loop media.
     /// </summary>
     public bool Loop
     {
@@ -158,39 +158,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Enable flash control context menu.
-    /// </summary>
-    public bool Menu
-    {
-        get
-        {
-            return ValidationHelper.GetBoolean(GetValue("Menu"), false);
-        }
-        set
-        {
-            SetValue("Menu", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Scale of flash control.
-    /// </summary>
-    public string Scale
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("Scale"), null);
-        }
-        set
-        {
-            SetValue("Scale", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Flash control id.
+    /// Image ID attribute value.
     /// </summary>
     public string Id
     {
@@ -206,7 +174,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Title of flash player control.
+    /// Title of image.
     /// </summary>
     public string Title
     {
@@ -222,7 +190,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Flash control css style class.
+    /// Image css style class.
     /// </summary>
     public string Class
     {
@@ -238,7 +206,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     /// <summary>
-    /// Flash control inline style.
+    /// Image inline style.
     /// </summary>
     public string Style
     {
@@ -249,22 +217,6 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
         set
         {
             SetValue("Style", value);
-        }
-    }
-
-
-    /// <summary>
-    /// Flash control variables.
-    /// </summary>
-    public string FlashVars
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("FlashVars"), null);
-        }
-        set
-        {
-            SetValue("FlashVars", value);
         }
     }
 
@@ -296,11 +248,7 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        if (MediaHelper.IsFlash(Type))
-        {
-            CreateFlash();
-        }
-        else if (ImageHelper.IsImage(Type))
+        if (ImageHelper.IsImage(Type))
         {
             CreateImage();
         }
@@ -314,30 +262,6 @@ public partial class CMSInlineControls_MediaControl : InlineUserControl
 
 
     #region "Private methods"
-
-    /// <summary>
-    /// Creates the flash object
-    /// </summary>
-    private void CreateFlash()
-    {
-        FlashParameters flParams = new FlashParameters();
-        flParams.Url = URLHelper.GetAbsoluteUrl(Url);
-        flParams.Extension = Type;
-        flParams.Width = Width;
-        flParams.Height = Height;
-        flParams.Autoplay = AutoPlay;
-        flParams.Loop = Loop;
-        flParams.Menu = Menu;
-        flParams.Scale = Scale;
-        flParams.Id = HttpUtility.UrlDecode(Id);
-        flParams.Title = HttpUtility.UrlDecode(Title);
-        flParams.Class = HttpUtility.UrlDecode(Class);
-        flParams.Style = HttpUtility.UrlDecode(Style);
-        flParams.FlashVars = HttpUtility.UrlDecode(FlashVars);
-
-        ltlMedia.Text = MediaHelper.GetFlash(flParams);
-    }
-
 
     /// <summary>
     /// Creates the media (audio / video) object

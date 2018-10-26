@@ -96,7 +96,7 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_Languages : CMS
             plcCultures.Visible = radSelectedLanguages.Checked;
 
             // Load user cultures
-            DataTable dt = UserCultureInfoProvider.GetUserCultures(userId, siteID, null, null);
+            DataTable dt = UserCultureInfoProvider.GetUserCultures(userId, siteID);
             currentValues = TextHelper.Join(";", DataHelper.GetStringValues(dt, "CultureID"));
 
             if (!RequestHelper.IsPostBack())
@@ -250,7 +250,7 @@ public partial class CMSModules_Membership_Pages_Users_User_Edit_Languages : CMS
     /// </summary>
     protected void ReloadCultures()
     {
-        DataTable dt = UserCultureInfoProvider.GetUserCultures(userId, SiteID, null, null);
+        DataTable dt = UserCultureInfoProvider.GetUserCultures(userId, SiteID);
         if (!DataHelper.DataSourceIsEmpty(dt))
         {
             currentValues = TextHelper.Join(";", DataHelper.GetStringValues(dt, "CultureID"));

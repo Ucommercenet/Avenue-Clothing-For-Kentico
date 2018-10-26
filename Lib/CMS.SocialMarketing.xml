@@ -9,11 +9,6 @@
             Action to publish message to LinkedIn.
             </summary>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAction.Execute">
-            <summary>
-            Executes action.
-            </summary>
-        </member>
         <member name="P:CMS.SocialMarketing.LinkedInAction.Text">
             <summary>
             Text to be published.
@@ -29,14 +24,14 @@
             If true, the action will verify that there is no post related to the document yet. If there are any, no action is executed.
             </summary>
         </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAction.Execute">
+            <summary>
+            Executes action.
+            </summary>
+        </member>
         <member name="T:CMS.SocialMarketing.FacebookAction">
             <summary>
             Action to publish message to Facebook.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAction.Execute">
-            <summary>
-            Executes action.
             </summary>
         </member>
         <member name="P:CMS.SocialMarketing.FacebookAction.Text">
@@ -54,11 +49,25 @@
             If true, the action will verify that there is no post related to the document yet. If there are any, no action is executed.
             </summary>
         </member>
+        <member name="M:CMS.SocialMarketing.FacebookAction.Execute">
+            <summary>
+            Executes action.
+            </summary>
+        </member>
         <member name="T:CMS.SocialMarketing.Internal.FacebookAccessTokenService">
             <summary>
             Provides method for getting Facebook access token. This service is for internal use only.
             </summary>
             <exclude />
+        </member>
+        <member name="M:CMS.SocialMarketing.Internal.FacebookAccessTokenService.GetAccessToken(System.String,System.String)">
+            <summary>
+            Gets Facebook access token for given <paramref name="applicationID"/> and <paramref name="applicationSecret"/>.
+            </summary>
+            <param name="applicationID">Application ID provided by the Facebook</param>
+            <param name="applicationSecret">Application secret provided by the Facebook</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="applicationID"/> is null -or- <paramref name="applicationSecret"/> is null</exception>
+            <returns>Access token authorizing </returns>
         </member>
         <member name="T:CMS.SocialMarketing.Internal.IFacebookAccessTokenService">
             <summary>
@@ -73,26 +82,6 @@
             <param name="applicationID">Application ID provided by the Facebook</param>
             <param name="applicationSecret">Application secret provided by the Facebook</param>
             <returns>Access token authorizing </returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.Internal.FacebookAccessTokenService.GetAccessToken(System.String,System.String)">
-            <summary>
-            Gets Facebook access token for given <paramref name="applicationID"/> and <paramref name="applicationSecret"/>.
-            </summary>
-            <param name="applicationID">Application ID provided by the Facebook</param>
-            <param name="applicationSecret">Application secret provided by the Facebook</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="applicationID"/> is null -or- <paramref name="applicationSecret"/> is null</exception>
-            <returns>Access token authorizing </returns>
-        </member>
-        <member name="T:CMS.SocialMarketing.Internal.FacebookContext">
-            <summary>
-            Facebook context. This context is for internal use only.
-            </summary>
-            <exclude />
-        </member>
-        <member name="P:CMS.SocialMarketing.Internal.FacebookContext.FacebookAccessToken">
-            <summary>
-            Access token used for authorize facebook requests.
-            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.FacebookInsightsCollectionTask">
             <summary>
@@ -130,6 +119,16 @@
             Represents data of FacebookInsightsCollectionTask.
             </summary>
         </member>
+        <member name="P:CMS.SocialMarketing.FacebookInsightsCollectionTaskData.ApplicationId">
+            <summary>
+            Application ID to which the task belongs.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookInsightsCollectionTaskData.FacebookInsightsState">
+            <summary>
+            Insights state.
+            </summary>
+        </member>
         <member name="M:CMS.SocialMarketing.FacebookInsightsCollectionTaskData.ToXmlString(CMS.SocialMarketing.FacebookInsightsCollectionTaskData)">
             <summary>
             Gets XML string representation of given taks data object.
@@ -155,16 +154,6 @@
             </summary>
             <param name="applicationId">Application ID.</param>
         </member>
-        <member name="P:CMS.SocialMarketing.FacebookInsightsCollectionTaskData.ApplicationId">
-            <summary>
-            Application ID to which the task belongs.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookInsightsCollectionTaskData.FacebookInsightsState">
-            <summary>
-            Insights state.
-            </summary>
-        </member>
         <member name="T:CMS.SocialMarketing.FacebookInsightsHelper">
             <summary>
             Provides methods for processing Facebook Insights.
@@ -173,18 +162,6 @@
         <member name="F:CMS.SocialMarketing.FacebookInsightsHelper.INSIGHT_CODENAME_PREFIX">
             <summary>
             Prefix used for Facebook Insights code names.
-            </summary>
-        </member>
-        <member name="F:CMS.SocialMarketing.FacebookInsightsHelper.EMPTY_STRUCTURED_NAME">
-            <summary>
-            Facebook response may contain structured values with zero length key
-            (occured i.e. in page_fans_locale_city), which breaks the query
-            that displays the graph (results in empty column name).
-            </summary>
-        </member>
-        <member name="F:CMS.SocialMarketing.FacebookInsightsHelper.POST_INSIGHTS_BATCH_SIZE">
-            <summary>
-            How many posts are processed by one Facebook Graph API request.
             </summary>
         </member>
         <member name="F:CMS.SocialMarketing.FacebookInsightsHelper.scalarPageInsights">
@@ -205,6 +182,18 @@
         <member name="F:CMS.SocialMarketing.FacebookInsightsHelper.SKIP_COLLECTION_TIME">
             <summary>
             How long after successful Facebook Insights collection is not necessary to ask Facebook API for new Insights.
+            </summary>
+        </member>
+        <member name="F:CMS.SocialMarketing.FacebookInsightsHelper.EMPTY_STRUCTURED_NAME">
+            <summary>
+            Facebook response may contain structured values with zero length key
+            (occured i.e. in page_fans_locale_city), which breaks the query
+            that displays the graph (results in empty column name).
+            </summary>
+        </member>
+        <member name="F:CMS.SocialMarketing.FacebookInsightsHelper.POST_INSIGHTS_BATCH_SIZE">
+            <summary>
+            How many posts are processed by one Facebook Graph API request.
             </summary>
         </member>
         <member name="M:CMS.SocialMarketing.FacebookInsightsHelper.ProcessFacebookAccountInsightsByApplication(System.Int32,CMS.SocialMarketing.FacebookInsightsState)">
@@ -374,6 +363,11 @@
             Represents state of Facebook Insights collection.
             </summary>
         </member>
+        <member name="P:CMS.SocialMarketing.FacebookInsightsState.StateItemArrayList">
+            <summary>
+            Contains FacebookInsightsStateItem for purpose of serialization.
+            </summary>
+        </member>
         <member name="M:CMS.SocialMarketing.FacebookInsightsState.ContainsStateItem(System.String)">
             <summary>
             Tells you whether FacebookInsightsState contains item with given object ID.
@@ -388,14 +382,24 @@
             <param name="objectId">Object ID of FacebookinsightsStateItem to get.</param>
             <returns>FacebookinsightsStateItem with given object ID.</returns>
         </member>
-        <member name="P:CMS.SocialMarketing.FacebookInsightsState.StateItemArrayList">
-            <summary>
-            Contains FacebookInsightsStateItem for purpose of serialization.
-            </summary>
-        </member>
         <member name="T:CMS.SocialMarketing.FacebookInsightsStateItem">
             <summary>
             Represents state of one object for which Facebook Insights are collected.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookInsightsStateItem.ObjectId">
+            <summary>
+            Object ID to which the state item belongs.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookInsightsStateItem.CollectedEndTime">
+            <summary>
+            The latest collected end time.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookInsightsStateItem.SkipCollectionUntil">
+            <summary>
+            Till when the collection of this object ID's Insights can be skipped.
             </summary>
         </member>
         <member name="M:CMS.SocialMarketing.FacebookInsightsStateItem.#ctor">
@@ -417,21 +421,6 @@
             <param name="collectedEndTime">Latest end time which has been retrieved from Facebook for this object's Insights.</param>
             <param name="skipCollectionUntil">Until when the collection of new Insights can be skipped.</param>
         </member>
-        <member name="P:CMS.SocialMarketing.FacebookInsightsStateItem.ObjectId">
-            <summary>
-            Object ID to which the state item belongs.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookInsightsStateItem.CollectedEndTime">
-            <summary>
-            The latest collected end time.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookInsightsStateItem.SkipCollectionUntil">
-            <summary>
-            Till when the collection of this object ID's Insights can be skipped.
-            </summary>
-        </member>
         <member name="T:CMS.SocialMarketing.FacebookPostInfo">
             <summary>
             Represents a Facebook post.
@@ -446,43 +435,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfo.DeleteObject">
-            <summary>
-            Deletes this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfo.SetObject">
-            <summary>
-            Updates this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfo.#ctor">
-            <summary>
-            Initializes a new instance of the FacebookPostInfo class.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the FacebookPostInfo class with the specified data.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">New value</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="P:CMS.SocialMarketing.FacebookPostInfo.FacebookPostFacebookAccountID">
             <summary>
@@ -643,6 +595,43 @@
             Gets or sets the display name of the Facebook post.
             </summary>
         </member>
+        <member name="M:CMS.SocialMarketing.FacebookPostInfo.DeleteObject">
+            <summary>
+            Deletes this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookPostInfo.SetObject">
+            <summary>
+            Updates this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookPostInfo.#ctor">
+            <summary>
+            Initializes a new instance of the FacebookPostInfo class.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookPostInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the FacebookPostInfo class with the specified data.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookPostInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">New value</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookPostInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.SocialMarketing.FacebookPostInfoProvider">
             <summary>
             Provides management of Facebook posts.
@@ -718,12 +707,6 @@
             <exception cref="T:Facebook.FacebookApiException">FacebookApiException is thrown when an error occurs while communicating with Facebook.</exception>
             <exception cref="T:System.Exception">Exception is thrown if the Facebook account doesn't exist or its access token is invalid or post could not be deleted from Facebook.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.GetFacebookPosts(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Returns a query for all the FacebookPostInfo objects of a specified site.
@@ -785,13 +768,6 @@
             <param name="shortMessage">Indicates if short message has to be used instead of detail message.</param>
             <returns>Localized status message.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
-            <summary>
-            Checks the license.
-            </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, current domain name is used</param>
-        </member>
         <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.GetFacebookPostInfosWithOutdatedInsights(System.Int32)">
             <summary>
             Retrieves an object query of Facebook posts which has outdated insights for the specified Facebook account (page) identifier, and returns it.
@@ -808,38 +784,11 @@
             <exception cref="T:System.Exception">When post does not exist, has already been published to Facebook or the account is not valid.</exception>
             <exception cref="T:Facebook.FacebookApiException">When something in communication with Facebook goes wrong.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.GetFacebookPostsInternal">
+        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.DeleteInfo(CMS.SocialMarketing.FacebookPostInfo)">
             <summary>
-            Returns a query for all the FacebookPostInfo objects.
+            Deletes the object to the database.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.GetFacebookPostInfoInternal(System.Guid)">
-            <summary>
-            Returns FacebookPostInfo with specified GUID.
-            </summary>
-            <param name="guid">FacebookPostInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.GetFacebookPostInfoInternal(System.Int32)">
-            <summary>
-            Retrieves a Facebook post with the specified identifier, and returns it.
-            </summary>
-            <param name="postId">Facebook post identifier.</param>        
-            <returns>A Facebook post with the specified identifier, if found; otherwise, null.</returns>       
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.SetFacebookPostInfoInternal(CMS.SocialMarketing.FacebookPostInfo)">
-            <summary>
-            Updates or creates the specified Facebook post.
-            </summary>
-            <param name="post">Facebook post to be updated or created.</param>       
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.DeleteFacebookPostInfoInternal(CMS.SocialMarketing.FacebookPostInfo)">
-            <summary>
-            Deletes the specified Facebook post. If the post is published on the Facebook, it will be deleted there first.
-            Deletes scheduled task as well.
-            </summary>
-            <param name="post">Facebook post to be deleted.</param>         
-            <exception cref="T:Facebook.FacebookApiException">FacebookApiException is thrown when an error occurs while communicating with Facebook.</exception>
-            <exception cref="T:System.Exception">Exception is thrown if the Facebook account doesn't exist or its access token is invalid or post could not be deleted from Facebook.</exception>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.FacebookPostInfoProvider.GetFacebookPostsInternal(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
@@ -979,22 +928,33 @@
             <exception cref="T:Facebook.FacebookApiException">FacebookApiException is thrown when an error occurs while communicating with Facebook.</exception>
             <exception cref="T:System.Exception">Exception is thrown if the post could not be deleted.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookHelper.TryGetFacebookPageId(System.String,System.String@)">
+        <member name="M:CMS.SocialMarketing.FacebookHelper.TryGetFacebookPageId(System.String,CMS.SocialMarketing.FacebookApplicationInfo,System.String@)">
             <summary>
-            Gets the Facebook page identifier associated with the specified URL. May throw exception.
+            Gets the Facebook page identifier associated with the specified URL and facebook application. May throw exception.
             </summary>
             <param name="pageUrl">The URL to get the Facebook page identifier from.</param>
+            <param name="appInfo">Facebook application associated with given <paramref name="pageUrl"/>.</param>
             <param name="pageId">The Facebook page identifier, if the specified URL is a valid Facebook page URL; otherwise, null.</param>
-            <returns>True, if the specified URL is a valid Facebook page URL; otherwise, false.</returns>
+            <returns>True, if the specified URL is a valid Facebook page URL and <paramref name="appInfo"/> is correctly set; otherwise, false.</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookHelper.ParseOAuthAccessToken(System.String)">
+            <summary>
+            Parses an OAuth access token in JSON format to <see cref="T:CMS.SocialMarketing.OAuthAccessToken"/>.
+            </summary>
+            <param name="oAuthAccessToken">OAuth access token JSON string.</param>
+            <returns>Parsed token.</returns>
         </member>
         <member name="M:CMS.SocialMarketing.FacebookHelper.GetPageAccessToken(System.String,System.String)">
             <summary>
+            <para>
             Downloads account info from https://graph.facebook.com/me/accounts/ and finds page access token in it.
-            
+            </para>
+            <para>
             Returns null if page access token could not be retrieved.
+            </para>
             </summary>
-            <param name="accessToken">Application access token acquired via login bounce</param>
-            <param name="pageId">Facebook page identifier to find page access token for</param>
+            <param name="accessToken">Application access token acquired via login bounce.</param>
+            <param name="pageId">Facebook page identifier to find page access token for.</param>
         </member>
         <member name="M:CMS.SocialMarketing.FacebookHelper.RetrieveFacebookInsights(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
             <summary>
@@ -1070,6 +1030,25 @@
             <exception cref="T:Facebook.FacebookApiException">FacebookApiException is thrown when an error occurs while communicating with Facebook.</exception>
             <exception cref="T:System.Exception">Exception is thrown if the post could not be deleted.</exception>
         </member>
+        <member name="M:CMS.SocialMarketing.FacebookHelper.ParseOAuthAccessTokenInternal(System.String)">
+            <summary>
+            Parses an OAuth access token in JSON format to <see cref="T:CMS.SocialMarketing.OAuthAccessToken"/>.
+            </summary>
+            <param name="oAuthAccessToken">OAuth access token JSON string.</param>
+            <returns>Parsed token.</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookHelper.GetPageAccessTokenInternal(System.String,System.String)">
+            <summary>
+            <para>
+            Downloads account info from https://graph.facebook.com/me/accounts/ and finds page access token in it.
+            </para>
+            <para>
+            Returns null if page access token could not be retrieved.
+            </para>
+            </summary>
+            <param name="accessToken">Application access token acquired via login bounce.</param>
+            <param name="pageId">Facebook page identifier to find page access token for.</param>
+        </member>
         <member name="M:CMS.SocialMarketing.FacebookHelper.GetFacebookResponse(System.String,System.String)">
             <summary>
             Gets Facebook Graph API response for given URL and access token.
@@ -1135,6 +1114,40 @@
             <param name="url">Page URL.</param>
             <param name="id">Page identifier.</param>
         </member>
+        <member name="T:CMS.SocialMarketing.OAuthAccessToken">
+            <summary>
+            Represents a response for an OAuth access token request.
+            </summary>
+            <remarks>
+            The response has be following format:
+            <code>
+            {
+                "access_token": {access-token}, 
+                "token_type": {type},
+                "expires_in":  {seconds-til-expiration}
+            }
+            </code>
+            See https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow#exchangecode for details.
+            </remarks>
+        </member>
+        <member name="P:CMS.SocialMarketing.OAuthAccessToken.AccessToken">
+            <summary>
+            Gets or sets the access token.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.OAuthAccessToken.TokenType">
+            <summary>
+            Gets or sets the access token type.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.OAuthAccessToken.ExpiresIn">
+            <summary>
+            Gets or sets the number of seconds till the access token expires.
+            </summary>
+            <remarks>
+            The token expiration value is 0 for access tokens which never expire.
+            </remarks>
+        </member>
         <member name="T:CMS.SocialMarketing.InsightInfo">
             <summary>
             Represents an insight for social marketing.
@@ -1148,22 +1161,6 @@
         <member name="F:CMS.SocialMarketing.InsightInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.InsightInfo.#ctor">
-            <summary>
-            Initializes a new instance of the InsightInfo class.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.InsightInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the InsightInfo class with the specified data.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.InsightInfo.SetObject">
-            <summary>
-            Updates this object.
             </summary>
         </member>
         <member name="P:CMS.SocialMarketing.InsightInfo.InsightCodeName">
@@ -1189,6 +1186,22 @@
         <member name="P:CMS.SocialMarketing.InsightInfo.InsightID">
             <summary>
             Gets or sets the identifier of the Insight.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.InsightInfo.#ctor">
+            <summary>
+            Initializes a new instance of the InsightInfo class.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.InsightInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the InsightInfo class with the specified data.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.InsightInfo.SetObject">
+            <summary>
+            Updates this object.
             </summary>
         </member>
         <member name="T:CMS.SocialMarketing.InsightInfoProvider">
@@ -1249,20 +1262,6 @@
             <param name="periodDateTime">The local date and time that applies to the specified value.</param>
             <param name="hits">The value to store.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.InsightInfoProvider.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
-            <summary>
-            Checks the license.
-            </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, current domain name is used</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.InsightInfoProvider.GetInsightInternal(System.Int32)">
-            <summary>
-            Retrieves the insight with the specified identifier, and returns it.
-            </summary>
-            <param name="insightId">The insight identifier.</param>
-            <returns>The insight with the specified identifier, if found; otherwise, null.</returns>
-        </member>
         <member name="M:CMS.SocialMarketing.InsightInfoProvider.GetInsightInternal(System.String,System.String,System.String)">
             <summary>
             Retrieves the insight matching the specified criteria, and returns it.
@@ -1282,12 +1281,6 @@
             <param name="valueName">The value name.</param>
             <returns>The partial insight matching the specified criteria, if found; otherwise, null.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.InsightInfoProvider.SetInsightInternal(CMS.SocialMarketing.InsightInfo)">
-            <summary>
-            Creates or updates the specified insight.
-            </summary>
-            <param name="insight">The insight to create or update.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.InsightInfoProvider.UpdateHitsInternal(CMS.SocialMarketing.InsightInfo,System.DateTime,System.Func{CMS.SocialMarketing.InsightInfo,System.DateTime,System.Int64})">
             <summary>
             Stores the value of the specified insight and comuptes the aggregated values.
@@ -1304,19 +1297,55 @@
             <param name="periodDateTime">The local date and time that applies to the specified value.</param>
             <param name="hits">The value to store.</param>
         </member>
-        <member name="T:CMS.SocialMarketing.LinkedInCompany">
+        <member name="T:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization">
             <summary>
-            Represents a LinkedIn company.
+            Provides authorization methods for LinkedIn API.
             </summary>
         </member>
-        <member name="P:CMS.SocialMarketing.LinkedInCompany.ID">
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.AccessToken">
             <summary>
-            Company ID.
+            Access token.
             </summary>
         </member>
-        <member name="P:CMS.SocialMarketing.LinkedInCompany.Name">
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.#ctor(CMS.SocialMarketing.LinkedInInternal.TokenManager,System.String)">
             <summary>
-            Company name.
+            Creates new instance of <see cref="T:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization"/>.
+            </summary>
+            <param name="tokenManager">Token manager.</param>
+            <param name="accessToken">Access token.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.PrepareGetRequest(System.Uri)">
+            <summary>
+            Prepares GET request that has OAuth authorization already attached to it.
+            </summary>
+            <param name="requestUrl">Request URL</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.PreparePostRequest(System.Uri)">
+            <summary>
+            Prepares POST request that has OAuth authorization already attached to it.
+            </summary>
+            <param name="requestUrl">Request URL</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.BeginAuthorize(System.Uri)">
+            <summary>
+            Prepares a request for user authorization from an authorization server
+            </summary>
+            <param name="returnUrl">Return URL.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.CompleteAuthorize">
+            <summary>
+            Completes process authorization,
+            </summary>
+            <returns>Access token</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.Dispose">
+            <summary>
+            Disposes the object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization.Dispose(System.Boolean)">
+            <summary>
+            Disposes the object.
             </summary>
         </member>
         <member name="T:CMS.SocialMarketing.LinkedInInternal.Company">
@@ -1451,55 +1480,178 @@
             </summary>
             <remarks>Shall be used in context of <see cref="T:CMS.SocialMarketing.LinkedInInternal.HistoricalFollowStatistics"/> only.</remarks>
         </member>
+        <member name="T:CMS.SocialMarketing.LinkedInInternal.ApiResponse">
+            <summary>
+            Represents a response to LinkedIn API request.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.ApiResponse.HttpStatusCode">
+            <summary>
+            Contains the HTTP status code of the response.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.ApiResponse.ResponseBody">
+            <summary>
+            Contains the reponse body.
+            </summary>
+        </member>
+        <member name="T:CMS.SocialMarketing.LinkedInInternal.Update">
+            <summary>
+            Represents a response body after publishing a new share.
+            </summary>
+            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Update.UpdateKey">
+            <summary>
+            Update key.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Update.UpdateUrl">
+            <summary>
+            Update URL.
+            </summary>
+        </member>
+        <member name="T:CMS.SocialMarketing.LinkedInInternal.Error">
+            <summary>
+            Represents an error element which is usually returned as an API response in case of a protocol error.
+            </summary>
+            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.Status">
+            <summary>
+            HTTP status code of the response.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.Timestamp">
+            <summary>
+            Timestampe of the response.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.RequestId">
+            <summary>
+            Request identifier.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.ErrorCode">
+            <summary>
+            Error code of the response.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.Message">
+            <summary>
+            Message describing the error condition.
+            </summary>
+        </member>
+        <member name="T:CMS.SocialMarketing.LinkedInInternal.Share">
+            <summary>
+            Represents a request body for publishing a new share.
+            </summary>
+            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Share.Comment">
+            <summary>
+            Share's comment.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Share.Visibility">
+            <summary>
+            Share's visibility.
+            </summary>
+        </member>
+        <member name="T:CMS.SocialMarketing.LinkedInInternal.Visibility">
+            <summary>
+            Represents visibility setting used i.e. by shares.
+            </summary>
+            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.Visibility.Code">
+            <summary>
+            Visibility code.
+            </summary>
+        </member>
+        <member name="T:CMS.SocialMarketing.LinkedInInternal.TokenManager">
+            <summary>
+            TokenManager class
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.TokenManager.ConsumerKey">
+            <summary>
+            Consumer key
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.TokenManager.ConsumerSecret">
+            <summary>
+            Consumer secret
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInternal.TokenManager.Tokens">
+            <summary>
+            All tokens and their secrets contained in token manager
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.TokenManager.#ctor(System.String,System.String)">
+            <summary>
+            TokenManager constructor
+            </summary>
+            <param name="consumerKey">Consumer key.</param>
+            <param name="consumerSecret">Consumer secret.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.TokenManager.AddToken(System.String,System.String)">
+            <summary>
+            Adds token and its secret to the manager.
+            </summary>
+            <param name="token">Token.</param>
+            <param name="tokenSecret">Token secret.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.TokenManager.GetTokenSecret(System.String)">
+            <summary>
+            Gets the Token Secret given a request or access token.
+            </summary>
+            <param name="token">The request or access token.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.TokenManager.StoreNewRequestToken(DotNetOpenAuth.OAuth.Messages.UnauthorizedTokenRequest,DotNetOpenAuth.OAuth.Messages.ITokenSecretContainingMessage)">
+            <summary>
+            Stores a newly generated unauthorized request token, secret, and optional
+            application-specific parameters for later recall.
+            </summary>
+            <param name="request">The request message that resulted in the generation of a new unauthorized request token.</param>
+            <param name="response">The response message that includes the unauthorized request token.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.TokenManager.ExpireRequestTokenAndStoreNewAccessToken(System.String,System.String,System.String,System.String)">
+            <summary>
+            Deletes a request token and its associated secret and stores a new access
+            token and secret.
+            </summary>
+            <param name="consumerKey">The Consumer that is exchanging its request token for an access token.</param>
+            <param name="requestToken">The Consumer's request token that should be deleted/expired.</param>
+            <param name="accessToken">The new access token that is being issued to the Consumer.</param>
+            <param name="accessTokenSecret">The secret associated with the newly issued access token.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInInternal.TokenManager.GetTokenType(System.String)">
+            <summary>
+            Classifies a token as a request token or an access token.
+            </summary>
+            <param name="token">The token to classify.</param>
+        </member>
+        <member name="T:CMS.SocialMarketing.LinkedInCompany">
+            <summary>
+            Represents a LinkedIn company.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInCompany.ID">
+            <summary>
+            Company ID.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInCompany.Name">
+            <summary>
+            Company name.
+            </summary>
+        </member>
         <member name="T:CMS.SocialMarketing.LinkedInApiThrottleLimitException">
             <summary>
             Thrown when the LinkedIn API throttle limit is reached.
             The HTTP status code in such case is most certainly a 403.
-            </summary>
-        </member>
-        <member name="T:CMS.SocialMarketing.LinkedInApiException">
-            <summary>
-            Thrown when protocol error in communication with LinkedIn API occurs.
-            </summary>
-            <remarks>
-            The exception is ment for situations when the error condition arised at LinkedIn server, thus the <see cref="P:CMS.SocialMarketing.LinkedInApiException.HttpStatus"/> and <see cref="P:CMS.SocialMarketing.LinkedInApiException.ErrorCode"/> should always be available.
-            Should not be used in situations when the root cause is local.
-            </remarks>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor">
-            <summary>
-             Thrown when protocol error in communication with LinkedIn API occurs.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor(System.String)">
-            <summary>
-             Thrown when protocol error in communication with LinkedIn API occurs.
-            </summary>
-            <param name="message">Exception message</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor(System.String,System.Exception)">
-            <summary>
-             Thrown when protocol error in communication with LinkedIn API occurs.
-            </summary>
-            <param name="message">Exception message</param>
-            <param name="innerException">Exception that caused the current exception</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor(System.Int32,System.Int32,System.String)">
-            <summary>
-            Thrown when protocol error in communication with LinkedIn API occurs.
-            </summary>
-            <param name="httpStatus">HTTP code of LinkedIn API response</param>
-            <param name="errorCode">Error code of LinkedIn API response (originates from the API response body)</param>
-            <param name="message">Exception message</param>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApiException.HttpStatus">
-            <summary>
-            HTTP status code which was present in the API's HTTP response.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApiException.ErrorCode">
-            <summary>
-            Error code of the LinkedIn API response. Originates from the API response body.
             </summary>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInApiThrottleLimitException.#ctor">
@@ -1572,6 +1724,16 @@
             Represents data of LinkedInInsightsCollectionTask.
             </summary>
         </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInsightsCollectionTaskData.ApplicationId">
+            <summary>
+            Application ID to which the task belongs.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInInsightsCollectionTaskData.AccountInsights">
+            <summary>
+            List of insights collection states of accounts within application.
+            </summary>
+        </member>
         <member name="M:CMS.SocialMarketing.LinkedInInsightsCollectionTaskData.ToXmlString(CMS.SocialMarketing.LinkedInInsightsCollectionTaskData)">
             <summary>
             Gets XML string representation of given taks data object.
@@ -1596,16 +1758,6 @@
             Creates task data with given application ID.
             </summary>
             <param name="applicationId">Application ID.</param>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInsightsCollectionTaskData.ApplicationId">
-            <summary>
-            Application ID to which the task belongs.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInsightsCollectionTaskData.AccountInsights">
-            <summary>
-            List of insights collection states of accounts within application.
-            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.LinkedInAccessToken">
             <summary>
@@ -1680,36 +1832,50 @@
             <returns>Authorization object, or null if accountInfo is null or it's <see cref="P:CMS.SocialMarketing.LinkedInAccountInfo.LinkedInAccountLinkedInApplicationID"/> is not valid.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown when access token of corresponding account is null.</exception>
         </member>
-        <member name="T:CMS.SocialMarketing.LinkedInInternal.ApiResponse">
+        <member name="T:CMS.SocialMarketing.LinkedInApiException">
             <summary>
-            Represents a response to LinkedIn API request.
+            Thrown when protocol error in communication with LinkedIn API occurs.
+            </summary>
+            <remarks>
+            The exception is ment for situations when the error condition arised at LinkedIn server, thus the <see cref="P:CMS.SocialMarketing.LinkedInApiException.HttpStatus"/> and <see cref="P:CMS.SocialMarketing.LinkedInApiException.ErrorCode"/> should always be available.
+            Should not be used in situations when the root cause is local.
+            </remarks>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApiException.HttpStatus">
+            <summary>
+            HTTP status code which was present in the API's HTTP response.
             </summary>
         </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.ApiResponse.HttpStatusCode">
+        <member name="P:CMS.SocialMarketing.LinkedInApiException.ErrorCode">
             <summary>
-            Contains the HTTP status code of the response.
+            Error code of the LinkedIn API response. Originates from the API response body.
             </summary>
         </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.ApiResponse.ResponseBody">
+        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor">
             <summary>
-            Contains the reponse body.
+             Thrown when protocol error in communication with LinkedIn API occurs.
             </summary>
         </member>
-        <member name="T:CMS.SocialMarketing.LinkedInInternal.Update">
+        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor(System.String)">
             <summary>
-            Represents a response body after publishing a new share.
+             Thrown when protocol error in communication with LinkedIn API occurs.
             </summary>
-            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
+            <param name="message">Exception message</param>
         </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Update.UpdateKey">
+        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor(System.String,System.Exception)">
             <summary>
-            Update key.
+             Thrown when protocol error in communication with LinkedIn API occurs.
             </summary>
+            <param name="message">Exception message</param>
+            <param name="innerException">Exception that caused the current exception</param>
         </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Update.UpdateUrl">
+        <member name="M:CMS.SocialMarketing.LinkedInApiException.#ctor(System.Int32,System.Int32,System.String)">
             <summary>
-            Update URL.
+            Thrown when protocol error in communication with LinkedIn API occurs.
             </summary>
+            <param name="httpStatus">HTTP code of LinkedIn API response</param>
+            <param name="errorCode">Error code of LinkedIn API response (originates from the API response body)</param>
+            <param name="message">Exception message</param>
         </member>
         <member name="T:CMS.SocialMarketing.LinkedInApiUnauthorizedException">
             <summary>
@@ -1756,6 +1922,46 @@
         <member name="F:CMS.SocialMarketing.LinkedInApplicationInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationConsumerKey">
+            <summary>
+            Gets or sets the consumer key of the LinkedIn application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationConsumerSecret">
+            <summary>
+            Gets or sets the consumer secret of the LinkedIn application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationID">
+            <summary>
+            Gets or sets the identifier of the LinkedInApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationDisplayName">
+            <summary>
+            Gets or sets the display name of the LinkedInApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationName">
+            <summary>
+            Gets or sets the code name of the LinkedInApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationLastModified">
+            <summary>
+            Gets or sets the timestamp of the LinkedInApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationGUID">
+            <summary>
+            Gets or sets the globally unique identifier of the LinkedInApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationSiteID">
+            <summary>
+            Gets or sets the site identifier of the LinkedInApplicationInfo object.
             </summary>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInApplicationInfo.DeleteObject">
@@ -1807,46 +2013,6 @@
             <param name="siteName">Name of the site</param>
             <param name="userInfo">UserInfo object</param>
             <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationConsumerKey">
-            <summary>
-            Gets or sets the consumer key of the LinkedIn application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationConsumerSecret">
-            <summary>
-            Gets or sets the consumer secret of the LinkedIn application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationID">
-            <summary>
-            Gets or sets the identifier of the LinkedInApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationDisplayName">
-            <summary>
-            Gets or sets the display name of the LinkedInApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationName">
-            <summary>
-            Gets or sets the code name of the LinkedInApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationLastModified">
-            <summary>
-            Gets or sets the timestamp of the LinkedInApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationGUID">
-            <summary>
-            Gets or sets the globally unique identifier of the LinkedInApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInApplicationInfo.LinkedInApplicationSiteID">
-            <summary>
-            Gets or sets the site identifier of the LinkedInApplicationInfo object.
-            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.LinkedInApplicationInfoProvider">
             <summary>
@@ -1902,12 +2068,6 @@
             </summary>
             <param name="applicationId">LinkedIn application identifier.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.GetLinkedInApplications(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Retrieves a dataset of LinkedIn applications for the specified site, and returns it.
@@ -1915,43 +2075,17 @@
             <param name="siteId">Site ID.</param>        
             <returns>A dataset of LinkedIn applications for the specified site.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.GetLinkedInApplicationsInternal">
+        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.SetInfo(CMS.SocialMarketing.LinkedInApplicationInfo)">
             <summary>
-            Returns a query for all the LinkedInApplicationInfo objects.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.GetLinkedInApplicationInfoInternal(System.Int32)">
+        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.DeleteInfo(CMS.SocialMarketing.LinkedInApplicationInfo)">
             <summary>
-            Retrieves a LinkedIn application with the specified identifier, and returns it.
+            Deletes the object to the database.
             </summary>
-            <param name="applicationId">LinkedIn application identifier.</param>        
-            <returns>A LinkedIn application with the specified identifier, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.GetLinkedInApplicationInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Retrieves a LinkedIn application matching the specified criteria, and returns it.
-            </summary>
-            <param name="applicationName">LinkedIn application name.</param>                
-            <param name="siteName">The site name.</param>
-            <returns>A LinkedIn application matching the specified criteria, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.GetLinkedInApplicationInfoInternal(System.Guid)">
-            <summary>
-            Returns LinkedInApplicationInfo with specified GUID.
-            </summary>
-            <param name="guid">LinkedInApplicationInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.SetLinkedInApplicationInfoInternal(CMS.SocialMarketing.LinkedInApplicationInfo)">
-            <summary>
-            Updates or creates the specified LinkedIn application.
-            </summary>
-            <param name="application">LinkedIn application to be updated or created.</param>        
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.DeleteLinkedInApplicationInfoInternal(CMS.SocialMarketing.LinkedInApplicationInfo)">
-            <summary>
-            Deletes the specified LinkedIn application.
-            </summary>
-            <param name="application">LinkedIn application to be deleted.</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInApplicationInfoProvider.SetLinkedInInsightsSchedulerStateInternal(CMS.SocialMarketing.LinkedInApplicationInfo,System.Boolean)">
             <summary>
@@ -1981,56 +2115,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.DeleteObject">
-            <summary>
-            Deletes this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.SetObject">
-            <summary>
-            Updates this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">New value</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.GetValue(System.String)">
-            <summary>
-            Gets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Constructor for de-serialization.
-            </summary>
-            <param name="info">Serialization info</param>
-            <param name="context">Streaming context</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.#ctor">
-            <summary>
-            Initializes a new instance of the LinkedInAccountInfo class.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the LinkedInAccountInfo class with the specified data.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="P:CMS.SocialMarketing.LinkedInAccountInfo.LinkedInAccountAccessToken">
             <summary>
@@ -2097,6 +2181,56 @@
             Gets or sets the display name of the LinkedIn account.
             </summary>
         </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.DeleteObject">
+            <summary>
+            Deletes this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.SetObject">
+            <summary>
+            Updates this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">New value</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.GetValue(System.String)">
+            <summary>
+            Gets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.#ctor">
+            <summary>
+            Initializes a new instance of the LinkedInAccountInfo class.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the LinkedInAccountInfo class with the specified data.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.SocialMarketing.LinkedInAccountInfoProvider">
             <summary>
             Provides management of LinkedIn accounts.
@@ -2151,12 +2285,6 @@
             </summary>
             <param name="accountId">LinkedIn account identifier.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.GetLinkedInAccounts(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Returns a query for all the LinkedInAccountInfo objects of a specified site.
@@ -2170,43 +2298,17 @@
             <param name="siteId">Site for which you want the default LinkedInAccount</param>
             <returns>Default LinkedInAccount for given site, null if no default LinkedInAccount exists</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.GetLinkedInAccountsInternal">
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.SetInfo(CMS.SocialMarketing.LinkedInAccountInfo)">
             <summary>
-            Returns a query for all the LinkedInAccountInfo objects.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.GetLinkedInAccountInfoInternal(System.Int32)">
+        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.DeleteInfo(CMS.SocialMarketing.LinkedInAccountInfo)">
             <summary>
-            Retrieves a LinkedIn account with the specified identifier, and returns it.
+            Deletes the object to the database.
             </summary>
-            <param name="accountId">LinkedIn account identifier.</param>        
-            <returns>A LinkedIn account with the specified identifier, if found; otherwise, null.</returns>       
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.GetLinkedInAccountInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Retrieves a LinkedIn account with the specified identifier, and returns it.
-            </summary>
-            <param name="codeName">LinkedIn account code name.</param>
-            <param name="siteId">ID of the site the account is for.</param>
-            <returns>A LinkedIn account with the specified identifier, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.GetLinkedInAccountInfoInternal(System.Guid)">
-            <summary>
-            Returns LinkedInAccountInfo with specified GUID.
-            </summary>
-            <param name="guid">LinkedInAccountInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.SetLinkedInAccountInfoInternal(CMS.SocialMarketing.LinkedInAccountInfo)">
-            <summary>
-            Updates or creates the specified LinkedIn account.
-            </summary>
-            <param name="account">LinkedIn account to be updated or created.</param>       
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.DeleteLinkedInAccountInfoInternal(CMS.SocialMarketing.LinkedInAccountInfo)">
-            <summary>
-            Deletes the specified LinkedIn account.
-            </summary>
-            <param name="account">LinkedIn account to be deleted.</param>         
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInAccountInfoProvider.GetLinkedInAccountsInternal(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
@@ -2220,64 +2322,6 @@
             </summary>
             <param name="siteId">Site for which you want the default LinkedInAccount</param>
             <returns>Default LinkedInAccount for given site, null if no default LinkedInAccount exists</returns>
-        </member>
-        <member name="T:CMS.SocialMarketing.LinkedInInternal.Error">
-            <summary>
-            Represents an error element which is usually returned as an API response in case of a protocol error.
-            </summary>
-            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.Status">
-            <summary>
-            HTTP status code of the response.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.Timestamp">
-            <summary>
-            Timestampe of the response.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.RequestId">
-            <summary>
-            Request identifier.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.ErrorCode">
-            <summary>
-            Error code of the response.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Error.Message">
-            <summary>
-            Message describing the error condition.
-            </summary>
-        </member>
-        <member name="T:CMS.SocialMarketing.LinkedInInternal.Share">
-            <summary>
-            Represents a request body for publishing a new share.
-            </summary>
-            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Share.Comment">
-            <summary>
-            Share's comment.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Share.Visibility">
-            <summary>
-            Share's visibility.
-            </summary>
-        </member>
-        <member name="T:CMS.SocialMarketing.LinkedInInternal.Visibility">
-            <summary>
-            Represents visibility setting used i.e. by shares.
-            </summary>
-            <remarks>This class is public for purposes of serialization only. Do not consider it a part of public API. The class' content may change without prior notification.</remarks>
-        </member>
-        <member name="P:CMS.SocialMarketing.LinkedInInternal.Visibility.Code">
-            <summary>
-            Visibility code.
-            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.LinkedInHelper">
             <summary>
@@ -2302,7 +2346,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiUnauthorizedException">Thrown when protocol error occurs because the request is not authorized properly.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.PublishShareOnLinkedInCompanyProfile(LinkedIn.WebOAuthAuthorization,System.String,System.String)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.PublishShareOnLinkedInCompanyProfile(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.String,System.String)">
             <summary>
             Publishes a new share on company profile identified by LinkedIn's company ID.
             The share is visible to anyone.
@@ -2316,7 +2360,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiUnauthorizedException">Thrown when protocol error occurs because the request is not authorized properly.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.BeginAuthorization(CMS.ExternalAuthentication.TokenManager,System.String)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.BeginAuthorization(CMS.SocialMarketing.LinkedInInternal.TokenManager,System.String)">
             <summary>
             Begins authorization process by redirecting client to the LinkedIn authorization page.
             </summary>
@@ -2325,7 +2369,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
             <exception cref="T:System.Exception">Throw when unexpected error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.CompleteAuthorization(CMS.ExternalAuthentication.TokenManager)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.CompleteAuthorization(CMS.SocialMarketing.LinkedInInternal.TokenManager)">
             <summary>
             Completes authorization and gets user's access token. All needed parameters are obtained from query string (LinkedIn adds these parameters when redirecting to callback URL).
             </summary>
@@ -2348,7 +2392,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
             <exception cref="T:System.Exception">Thrown when unexpected error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.ProcessPostRequest(LinkedIn.WebOAuthAuthorization,System.Uri,System.String)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.ProcessPostRequest(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.Uri,System.String)">
             <summary>
             Processes POST request specified by URI and request body. The request is made on behalf of given authorization.
             </summary>
@@ -2360,7 +2404,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiThrottleLimitException">Thrown when protocol error occurs because the limit of API requests was overdrawn.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.ProcessGetRequest(LinkedIn.WebOAuthAuthorization,System.Uri)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.ProcessGetRequest(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.Uri)">
             <summary>
             Processes GET request specified by URI. The request is made on behalf of given authorization.
             </summary>
@@ -2409,7 +2453,7 @@
             <returns>String obtained from response stream (UTF-8 encoded)</returns>
             <remarks>You should always call the response <see cref="M:System.Net.HttpWebResponse.Close"/> method to make sure the connection is released even if getting the response stream fails.</remarks>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.PublishShareOnLinkedInCompanyProfileInternal(LinkedIn.WebOAuthAuthorization,System.String,System.String)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.PublishShareOnLinkedInCompanyProfileInternal(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.String,System.String)">
             <summary>
             Publishes a new share on company profile identified by LinkedIn's company ID.
             </summary>
@@ -2422,7 +2466,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiUnauthorizedException">Thrown when protocol error occurs because the request is not authorized properly.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.BeginAuthorizationInternal(CMS.ExternalAuthentication.TokenManager,System.String)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.BeginAuthorizationInternal(CMS.SocialMarketing.LinkedInInternal.TokenManager,System.String)">
             <summary>
             Begins authorization process by redirecting client to the LinkedIn authorization page.
             </summary>
@@ -2430,15 +2474,14 @@
             <param name="callbackUrl">URL the client is redirected to after authorization.</param>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiUnauthorizedException">Thrown when protocol error occurs and the root cause is not being authorized properly.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
-            <exception cref="T:System.Exception">Thrown when unexpected error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInHelper.CompleteAuthorizationInternal(CMS.ExternalAuthentication.TokenManager)">
+        <member name="M:CMS.SocialMarketing.LinkedInHelper.CompleteAuthorizationInternal(CMS.SocialMarketing.LinkedInInternal.TokenManager)">
             <summary>
             Completes authorization and gets user's access token. All needed parameters are obtained from query string (LinkedIn adds these parameters when redirecting to callback URL).
             </summary>
             <param name="tokenManager">Token manager used for authorization - the same instance that was used to BeginAuthorization must be provided.</param>
             <returns>LinkedInAccessToken structure.</returns>
-            <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
+            <exception cref="T:System.InvalidOperationException">Throw when access token is not retrieved.</exception>
             <exception cref="T:System.Exception">Throw when unexpected error occurs.</exception>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInHelper.GetUserCompaniesInternal(System.String,System.String,System.String,System.String)">
@@ -2453,7 +2496,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiUnauthorizedException">Thrown when protocol error occurs because the request is not authorized properly.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiThrottleLimitException">Thrown when protocol error occurs because the limit of API requests was overdrawn.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
-            <exception cref="T:System.Exception">Thrown when unexpected error occurs.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when unexpected error occurs.</exception>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInHelper.GetXmlForCompanyShare(System.String,CMS.SocialMarketing.LinkedInVisibilityCodeEnum)">
             <summary>
@@ -2471,6 +2514,16 @@
         <member name="F:CMS.SocialMarketing.LinkedInInsightsHelper.INSIGHT_CODENAME_PREFIX">
             <summary>
             Prefix used for LinkedIn Insights code names.
+            </summary>
+        </member>
+        <member name="F:CMS.SocialMarketing.LinkedInInsightsHelper.accountHistoricalUpdateInsights">
+            <summary>
+            Array containing pairs (name, period) of scalar Insights for LinkedIn account updates (company profile).
+            </summary>
+        </member>
+        <member name="F:CMS.SocialMarketing.LinkedInInsightsHelper.accountHistoricalFollowerInsights">
+            <summary>
+            Array containing pairs (name, period) of scalar Insights for LinkedIn account followers (company profile).
             </summary>
         </member>
         <member name="F:CMS.SocialMarketing.LinkedInInsightsHelper.API_URI">
@@ -2491,16 +2544,6 @@
         <member name="F:CMS.SocialMarketing.LinkedInInsightsHelper.POST_STATISTICS_URI_FORMAT">
             <summary>
             URI for post stats collection.
-            </summary>
-        </member>
-        <member name="F:CMS.SocialMarketing.LinkedInInsightsHelper.accountHistoricalUpdateInsights">
-            <summary>
-            Array containing pairs (name, period) of scalar Insights for LinkedIn account updates (company profile).
-            </summary>
-        </member>
-        <member name="F:CMS.SocialMarketing.LinkedInInsightsHelper.accountHistoricalFollowerInsights">
-            <summary>
-            Array containing pairs (name, period) of scalar Insights for LinkedIn account followers (company profile).
             </summary>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.ProcessLinkedInAccountInsightsByApplication(System.Int32,System.Collections.Generic.List{CMS.SocialMarketing.LinkedInAccountInsightsState})">
@@ -2528,7 +2571,7 @@
             <param name="account">LinkedIn account (company profile).</param>
             <returns>True on successful processing, false otherwise. Any internal errors are logged into event log.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.CollectLinkedInAccountInsights(LinkedIn.WebOAuthAuthorization,System.String,System.Nullable{System.DateTime})">
+        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.CollectLinkedInAccountInsights(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.String,System.Nullable{System.DateTime})">
             <summary>
             Collects LinkedIn statistics for company identified by its LinkedIn identifier.
             The stats are collected once a day, by default for yesterday (in UTC).
@@ -2559,7 +2602,7 @@
             <param name="followerAccountStats">Historical follower statistics to be stored.</param>
             <returns>UTC date of the latest stored stat (accordinly to LinkedIn's time stamps). Null if nothing to be stored (followerAccountStats are empty).</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.UpdateLinkedInPostInsights(LinkedIn.WebOAuthAuthorization,System.String,CMS.SocialMarketing.LinkedInPostInfo)">
+        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.UpdateLinkedInPostInsights(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.String,CMS.SocialMarketing.LinkedInPostInfo)">
             <summary>
             Retrieves LinkedIn Insights for given post. Insights are retrieved by one batch request for each type of insight.
             </summary>
@@ -2571,7 +2614,7 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiThrottleLimitException">Thrown when protocol error occurs because the limit of API requests was overdrown.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.GetLinkedInHistoricalFollowerStatistics(LinkedIn.WebOAuthAuthorization,System.String,System.Nullable{System.DateTime})">
+        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.GetLinkedInHistoricalFollowerStatistics(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.String,System.Nullable{System.DateTime})">
             <summary>
             Gets historical follower statistics for given LinkedIn company profile (only stats for finished days can be retrieved).
             </summary>
@@ -2586,7 +2629,7 @@
             Can be used to collect statistics for whole days only. This means the latest sinceWhen must represent UTC's yesterday (LinkedIn uses UTC).
             </remarks>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.GetLinkedInHistoricalStatusUpdateStatistics(LinkedIn.WebOAuthAuthorization,System.String,System.Nullable{System.DateTime})">
+        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.GetLinkedInHistoricalStatusUpdateStatistics(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.String,System.Nullable{System.DateTime})">
             <summary>
             Gets historical status update statistics for given LinkedIn company profile (only stats for finished days can be retrieved).
             </summary>
@@ -2601,7 +2644,7 @@
             Can be used to collect statistics for whole days only. This means the latest sinceWhen must represent UTC's yesterday (LinkedIn uses UTC).
             </remarks>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.GetLinkedInHistoricalStatusUpdateStatistics(LinkedIn.WebOAuthAuthorization,System.String,System.String,System.DateTime)">
+        <member name="M:CMS.SocialMarketing.LinkedInInsightsHelper.GetLinkedInHistoricalStatusUpdateStatistics(CMS.SocialMarketing.LinkedInInternal.LinkedInAuthorization,System.String,System.String,System.DateTime)">
             <summary>
             Gets historical status update statistics for given LinkedIn company update.
             The statistics are with month granularity starting at the post published datetime.
@@ -2690,51 +2733,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-            <exception cref="T:CMS.SocialMarketing.LinkedInPartialDeleteException">Thrown when the deleted post has already been published on LiknedIn. In such case the post is deleted locally only.</exception>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Constructor for de-serialization.
-            </summary>
-            <param name="info">Serialization info</param>
-            <param name="context">Streaming context</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty LinkedInPostInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new LinkedInPostInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">New value</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="P:CMS.SocialMarketing.LinkedInPostInfo.LinkedInPostComment">
             <summary>
@@ -2878,6 +2876,51 @@
             Gets or sets the display name of the LinkedIn post.
             </summary>
         </member>
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+            <exception cref="T:CMS.SocialMarketing.LinkedInPartialDeleteException">Thrown when the deleted post has already been published on LiknedIn. In such case the post is deleted locally only.</exception>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty LinkedInPostInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new LinkedInPostInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">New value</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.SocialMarketing.LinkedInPostInfoProvider">
             <summary>
             Provides management of LinkedIn posts.
@@ -2954,12 +2997,6 @@
             </summary>
             <param name="id">LinkedInPostInfo ID</param>
             <exception cref="T:CMS.SocialMarketing.LinkedInPartialDeleteException">Thrown when the deleted post has already been published on LiknedIn. In such case the post is deleted locally only.</exception>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.GetLinkedInPosts(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
@@ -3042,38 +3079,11 @@
             <exception cref="T:CMS.SocialMarketing.LinkedInApiUnauthorizedException">Thrown when protocol error occurs because the request is not authorized properly.</exception>
             <exception cref="T:CMS.SocialMarketing.LinkedInApiException">Thrown when protocol error occurs.</exception>
         </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.GetLinkedInPostsInternal">
+        <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.DeleteInfo(CMS.SocialMarketing.LinkedInPostInfo)">
             <summary>
-            Returns a query for all the LinkedInPostInfo objects.
+            Deletes the object to the database.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.GetLinkedInPostInfoInternal(System.Int32)">
-            <summary>
-            Returns LinkedInPostInfo with specified ID.
-            </summary>
-            <param name="id">LinkedInPostInfo ID</param>        
-            <returns>LinkedInPostInfo with specified ID, or null if not found.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.GetLinkedInPostInfoInternal(System.Guid)">
-            <summary>
-            Returns LinkedInPostInfo with specified GUID.
-            </summary>
-            <param name="guid">LinkedInPostInfo GUID</param>
-            <returns>LinkedInPostInfo with specified GUID, or null if not found.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.SetLinkedInPostInfoInternal(CMS.SocialMarketing.LinkedInPostInfo)">
-            <summary>
-            Sets (updates or inserts) specified LinkedInPostInfo.
-            </summary>
-            <param name="infoObj">LinkedInPostInfo to be set</param>        
-        </member>
-        <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.DeleteLinkedInPostInfoInternal(CMS.SocialMarketing.LinkedInPostInfo)">
-            <summary>
-            Deletes the specified LinkedIn post. If the post is published on the LinkedIn, it will be deleted only locally - the LiknedIn API does not allow its removal.
-            Deletes scheduled task as well.
-            </summary>
-            <param name="infoObj">LinkedInPostInfo post to be deleted.</param>
-            <exception cref="T:CMS.SocialMarketing.LinkedInPartialDeleteException">Thrown when the deleted post has already been published on LiknedIn. In such case the post is deleted locally only.</exception>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.LinkedInPostInfoProvider.GetLinkedInPostsInternal(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
@@ -3145,6 +3155,11 @@
             <param name="errorCode">Error code that LinkedIn returned in the response body. Or custom error (negative value)</param>
             <param name="errorMessage">Error message that LinkedIn returned in the response body.</param>
             <returns>Localized error message.</returns>
+        </member>
+        <member name="T:CMS.SocialMarketing.LinkedInXmlSerializer">
+            <summary>
+            Helper methods for LinkedIn xml serialization.
+            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.LinkedInVisibilityCodeEnum">
             <summary>
@@ -3268,11 +3283,6 @@
             Action to publish message to Twitter.
             </summary>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterAction.Execute">
-            <summary>
-            Executes action.
-            </summary>
-        </member>
         <member name="P:CMS.SocialMarketing.TwitterAction.Text">
             <summary>
             Text to be published.
@@ -3286,6 +3296,11 @@
         <member name="P:CMS.SocialMarketing.TwitterAction.PostOnlyOnce">
             <summary>
             If true, the action will verify that there is no post related to the document yet. If there are any, no action is executed.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterAction.Execute">
+            <summary>
+            Executes action.
             </summary>
         </member>
         <member name="T:CMS.SocialMarketing.ITwitterRetryPolicyProvider">
@@ -3334,7 +3349,7 @@
             <summary>
             Collects insights for the specified Twitter account.
             </summary>
-            <param name="account">The Twitte account.</param>
+            <param name="account">The Twitter account.</param>
             <param name="currentDateTime">The current date and time.</param>
         </member>
         <member name="M:CMS.SocialMarketing.TwitterInsightsCollectionTask.ProcessFollowers(CMS.SocialMarketing.TwitterAccountInfo,System.DateTime,LinqToTwitter.TwitterContext,LinqToTwitter.Help)">
@@ -3433,7 +3448,17 @@
             Represents a range of object identifiers on a Twitter timeline.
             </summary>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterIdentifierRange.#ctor(System.String,System.String)">
+        <member name="P:CMS.SocialMarketing.TwitterIdentifierRange.From">
+            <summary>
+            Gets the range start (inclusive).
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterIdentifierRange.To">
+            <summary>
+            Gets the range end (inclusive).
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterIdentifierRange.#ctor(System.UInt64,System.UInt64)">
             <summary>
             Initializes a new instance of the TimelineRange struct.
             </summary>
@@ -3452,16 +3477,6 @@
             </summary>
             <param name="input">A string containing a range to convert.</param>
             <returns>A range whose value is represented by the specified string.</returns>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterIdentifierRange.From">
-            <summary>
-            Gets the range start (inclusive).
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterIdentifierRange.To">
-            <summary>
-            Gets the range end (inclusive).
-            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.TwitterRetryPolicyProvider">
             <summary>
@@ -3491,6 +3506,11 @@
         <member name="T:CMS.SocialMarketing.TwitterHelper">
             <summary>
             Provides helper method for Twitter social network.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterHelper.TwitterConfiguration">
+            <summary>
+            Gets Twitter configuration. 
             </summary>
         </member>
         <member name="M:CMS.SocialMarketing.TwitterHelper.PublishTweet(System.String,System.String,System.String,System.String,System.String)">
@@ -3545,6 +3565,11 @@
             <param name="accessTokenSecret">The access token secret that will be used for authentication.</param>
             <param name="tweetId">Identifier of the tweet on Twitter.</param>
         </member>
+        <member name="M:CMS.SocialMarketing.TwitterHelper.DeleteTweetAsync(LinqToTwitter.PinAuthorizer,System.UInt64)">
+            <summary>
+            Deletes tweet with given ID from Twitter.
+            </summary>
+        </member>
         <member name="M:CMS.SocialMarketing.TwitterHelper.GetTwitterUserIdInternal(System.String,System.String,System.String,System.String)">
             <summary>
             Retrieves the Twitter user identifier for the specified credentials, and returns it.
@@ -3568,10 +3593,13 @@
             <param name="account">Twitter account with credentials that will be used when communication with API.</param>
             <returns>Actual Twitter configuration.</returns>
         </member>
-        <member name="P:CMS.SocialMarketing.TwitterHelper.TwitterConfiguration">
+        <member name="M:CMS.SocialMarketing.TwitterHelper.IsPostNotFoundErrorCode(System.Int32)">
             <summary>
-            Gets Twitter configuration. 
+            Indicates whether twitter post with given ID was not found based on response error code.
             </summary>
+            <param name="errorCode">Error code returned by <see cref="T:LinqToTwitter.TwitterQueryException"/></param>
+            <remarks>This can occur when the user manually deletes the post on the twitter, instead of deleting it through CMS API.</remarks>
+            <returns><c>true</c> when post not found; otherwise <c>false</c>.</returns>
         </member>
         <member name="T:CMS.SocialMarketing.TwitterPostInfo">
             <summary>
@@ -3587,43 +3615,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfo.DeleteObject">
-            <summary>
-            Deletes this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfo.SetObject">
-            <summary>
-            Updates this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfo.#ctor">
-            <summary>
-            Initializes a new instance of the TwitterPostInfo class.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the TwitterPostInfo class with the specified data.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">New value</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="P:CMS.SocialMarketing.TwitterPostInfo.TwitterPostTwitterAccountID">
             <summary>
@@ -3689,6 +3680,9 @@
             <summary>
             Gets or sets the number that indicates approximately how many times this tweet has been favored by Twitter users.
             </summary>
+            <remarks>
+            Favorites were renamed to likes in twitter application.
+            </remarks>
         </member>
         <member name="P:CMS.SocialMarketing.TwitterPostInfo.TwitterPostRetweets">
             <summary>
@@ -3739,6 +3733,43 @@
             <summary>
             Indicates whether the post can be edited or not. Faulty or published posts cannot be edited.
             </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterPostInfo.DeleteObject">
+            <summary>
+            Deletes this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterPostInfo.SetObject">
+            <summary>
+            Updates this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterPostInfo.#ctor">
+            <summary>
+            Initializes a new instance of the TwitterPostInfo class.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterPostInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the TwitterPostInfo class with the specified data.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterPostInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">New value</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterPostInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="T:CMS.SocialMarketing.TwitterPostInfoProvider">
             <summary>
@@ -3810,12 +3841,6 @@
             </summary>
             <param name="postId">Twitter post identifier.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.GetTwitterPosts(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Returns a query for all the TwitterPostInfo objects of a specified site.
@@ -3875,43 +3900,12 @@
             <param name="shortMessage">Indicates if short message has to be used instead of detail message.</param>
             <returns>Localized status message.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
-            <summary>
-            Checks the license.
-            </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, current domain name is used</param>
-        </member>
         <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.PublishTwitterPostToTwitter(System.Int32)">
             <summary>
             Publishes the Twitter post on the appropriate Twitter channel immediately.
             </summary>
             <param name="postInfoId">Identifier of the TwitterPostInfo that will be published.</param>
             <exception cref="T:System.Exception">When post does not exist, has already been published to Twitter or the account is not valid.</exception>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.GetTwitterPostsInternal">
-            <summary>
-            Returns a query for all the TwitterPostInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.GetTwitterPostInfoInternal(System.Int32)">
-            <summary>
-            Retrieves a Twitter post with the specified identifier, and returns it.
-            </summary>
-            <param name="postId">Twitter post identifier.</param>        
-            <returns>A Twitter post with the specified identifier, if found; otherwise, null.</returns>       
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.GetTwitterPostInfoInternal(System.Guid)">
-            <summary>
-            Returns TwitterPostInfo with specified GUID.
-            </summary>
-            <param name="guid">TwitterPostInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.SetTwitterPostInfoInternal(CMS.SocialMarketing.TwitterPostInfo)">
-            <summary>
-            Updates or creates the specified Twitter post.
-            </summary>
-            <param name="post">Twitter post to be updated or created.</param>       
         </member>
         <member name="M:CMS.SocialMarketing.TwitterPostInfoProvider.DeleteTwitterPostInfoInternal(CMS.SocialMarketing.TwitterPostInfo)">
             <summary>
@@ -3998,49 +3992,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.DeleteObject">
-            <summary>
-            Deletes this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.SetObject">
-            <summary>
-            Updates this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">New value</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.GetValue(System.String)">
-            <summary>
-            Gets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.#ctor">
-            <summary>
-            Initializes a new instance of the TwitterAccountInfo class.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the TwitterAccountInfo class with the specified data.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
         <member name="P:CMS.SocialMarketing.TwitterAccountInfo.TwitterAccountAccessToken">
             <summary>
             Gets or sets the access token of the Twitter account.
@@ -4111,6 +4062,49 @@
             Gets or sets the display name of the Twitter account.
             </summary>
         </member>
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.DeleteObject">
+            <summary>
+            Deletes this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.SetObject">
+            <summary>
+            Updates this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">New value</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.GetValue(System.String)">
+            <summary>
+            Gets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.#ctor">
+            <summary>
+            Initializes a new instance of the TwitterAccountInfo class.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the TwitterAccountInfo class with the specified data.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.SocialMarketing.TwitterAccountInfoProvider">
             <summary>
             Provides management of Twitter accounts.
@@ -4165,12 +4159,6 @@
             </summary>
             <param name="accountId">Twitter account identifier.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.GetTwitterAccounts(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Returns a query for all the TwitterAccountInfo objects of a specified site.
@@ -4184,50 +4172,17 @@
             <param name="siteId">Site for which you want the default TwitterAccount</param>
             <returns>Default TwitterAccount for given site, null if no default TwitterAccount exists</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.SetInfo(CMS.SocialMarketing.TwitterAccountInfo)">
             <summary>
-            Checks the license.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, current domain name is used</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.GetTwitterAccountsInternal">
+        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.DeleteInfo(CMS.SocialMarketing.TwitterAccountInfo)">
             <summary>
-            Returns a query for all the TwitterAccountInfo objects.
+            Deletes the object to the database.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.GetTwitterAccountInfoInternal(System.Int32)">
-            <summary>
-            Retrieves a Twitter account with the specified identifier, and returns it.
-            </summary>
-            <param name="accountId">Twitter account identifier.</param>        
-            <returns>A Twitter account with the specified identifier, if found; otherwise, null.</returns>       
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.GetTwitterAccountInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Retrieves a Twitter account with the specified identifier, and returns it.
-            </summary>
-            <param name="codeName">Twitter account code name.</param>
-            <param name="siteId">ID of the site the account is for.</param>
-            <returns>A Twitter account with the specified identifier, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.GetTwitterAccountInfoInternal(System.Guid)">
-            <summary>
-            Returns TwitterAccountInfo with specified GUID.
-            </summary>
-            <param name="guid">TwitterAccountInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.SetTwitterAccountInfoInternal(CMS.SocialMarketing.TwitterAccountInfo)">
-            <summary>
-            Updates or creates the specified Twitter account.
-            </summary>
-            <param name="account">Twitter account to be updated or created.</param>       
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.DeleteTwitterAccountInfoInternal(CMS.SocialMarketing.TwitterAccountInfo)">
-            <summary>
-            Deletes the specified Twitter account.
-            </summary>
-            <param name="account">Twitter account to be deleted.</param>         
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.TwitterAccountInfoProvider.GetTwitterAccountsInternal(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
@@ -4255,6 +4210,46 @@
         <member name="F:CMS.SocialMarketing.TwitterApplicationInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationConsumerKey">
+            <summary>
+            Gets or sets the consumer key of the Twitter application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationConsumerSecret">
+            <summary>
+            Gets or sets the consumer secret of the Twitter application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationID">
+            <summary>
+            Gets or sets the identifier of the Twitter application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationSiteID">
+            <summary>
+            Gets or sets the site identifier of the Twitter application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationName">
+            <summary>
+            Gets or sets the code name of the Twitter application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationDisplayName">
+            <summary>
+            Gets or sets the display name of the Twitter application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationLastModified">
+            <summary>
+            Gets or sets the timestamp of the Twitter application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationGUID">
+            <summary>
+            Gets or sets the globally unique identifier of the Twitter application.
             </summary>
         </member>
         <member name="M:CMS.SocialMarketing.TwitterApplicationInfo.DeleteObject">
@@ -4299,46 +4294,6 @@
             <param name="siteName">Name of the site</param>
             <param name="userInfo">UserInfo object</param>
             <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationConsumerKey">
-            <summary>
-            Gets or sets the consumer key of the Twitter application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationConsumerSecret">
-            <summary>
-            Gets or sets the consumer secret of the Twitter application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationID">
-            <summary>
-            Gets or sets the identifier of the Twitter application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationSiteID">
-            <summary>
-            Gets or sets the site identifier of the Twitter application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationName">
-            <summary>
-            Gets or sets the code name of the Twitter application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationDisplayName">
-            <summary>
-            Gets or sets the display name of the Twitter application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationLastModified">
-            <summary>
-            Gets or sets the timestamp of the Twitter application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.TwitterApplicationInfo.TwitterApplicationGUID">
-            <summary>
-            Gets or sets the globally unique identifier of the Twitter application.
-            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.TwitterApplicationInfoProvider">
             <summary>
@@ -4394,12 +4349,6 @@
             </summary>
             <param name="applicationId">Twitter application identifier.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.GetTwitterApplications(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Retrieves a dataset of Twitter applications for the specified site, and returns it.
@@ -4407,50 +4356,17 @@
             <param name="siteId">Site ID.</param>        
             <returns>A dataset of Twitter applications for the specified site.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.SetInfo(CMS.SocialMarketing.TwitterApplicationInfo)">
             <summary>
-            Checks the license.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, current domain name is used</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.GetTwitterApplicationsInternal">
+        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.DeleteInfo(CMS.SocialMarketing.TwitterApplicationInfo)">
             <summary>
-            Returns a query for all the TwitterApplicationInfo objects.
+            Deletes the object to the database.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.GetTwitterApplicationInfoInternal(System.Int32)">
-            <summary>
-            Retrieves a Twitter application with the specified identifier, and returns it.
-            </summary>
-            <param name="applicationId">Twitter application identifier.</param>        
-            <returns>A Twitter application with the specified identifier, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.GetTwitterApplicationInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Retrieves a Twitter application matching the specified criteria, and returns it.
-            </summary>
-            <param name="applicationName">Twitter application name.</param>
-            <param name="siteName">The site name.</param>
-            <returns>A Twitter application matching the specified criteria, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.GetTwitterApplicationInfoInternal(System.Guid)">
-            <summary>
-            Returns TwitterApplicationInfo with specified GUID.
-            </summary>
-            <param name="guid">TwitterApplicationInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.SetTwitterApplicationInfoInternal(CMS.SocialMarketing.TwitterApplicationInfo)">
-            <summary>
-            Updates or creates the specified Twitter application.
-            </summary>
-            <param name="application">Twitter application to be updated or created.</param>        
-        </member>
-        <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.DeleteTwitterApplicationInfoInternal(CMS.SocialMarketing.TwitterApplicationInfo)">
-            <summary>
-            Deletes the specified Twitter application.
-            </summary>
-            <param name="application">Twitter application to be deleted.</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.TwitterApplicationInfoProvider.GetTwitterApplicationsInternal(System.Int32)">
             <summary>
@@ -4488,49 +4404,6 @@
             <summary>
             Current information about a Facebook page.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.DeleteObject">
-            <summary>
-            Deletes this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.SetObject">
-            <summary>
-            Updates this object.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">New value</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.GetValue(System.String)">
-            <summary>
-            Gets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.#ctor">
-            <summary>
-            Initializes a new instance of the FacebookAccountInfo class.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the FacebookAccountInfo class with the specified data.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="P:CMS.SocialMarketing.FacebookAccountInfo.FacebookPageIdentity">
             <summary>
@@ -4602,6 +4475,49 @@
             Gets or sets the display name of the Facebook account.
             </summary>
         </member>
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.DeleteObject">
+            <summary>
+            Deletes this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.SetObject">
+            <summary>
+            Updates this object.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">New value</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.GetValue(System.String)">
+            <summary>
+            Gets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.#ctor">
+            <summary>
+            Initializes a new instance of the FacebookAccountInfo class.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the FacebookAccountInfo class with the specified data.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.SocialMarketing.FacebookAccountInfoProvider">
             <summary>
             Provides management of Facebook accounts.
@@ -4657,12 +4573,6 @@
             </summary>
             <param name="accountId">Facebook account identifier.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.GetFacebookAccounts(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Retrieves a dataset of Facebook accounts for the specified site, and returns it.
@@ -4684,50 +4594,17 @@
             <param name="applicationId">Facebook application ID.</param>
             <returns>Facebook accounts with required application ID.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.SetInfo(CMS.SocialMarketing.FacebookAccountInfo)">
             <summary>
-            Checks the license.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, current domain name is used</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.GetFacebookAccountsInternal">
+        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.DeleteInfo(CMS.SocialMarketing.FacebookAccountInfo)">
             <summary>
-            Returns a query for all the FacebookAccountInfo objects.
+            Deletes the object to the database.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.GetFacebookAccountInfoInternal(System.Int32)">
-            <summary>
-            Retrieves a Facebook account with the specified identifier, and returns it.
-            </summary>
-            <param name="accountId">Facebook account identifier.</param>        
-            <returns>A Facebook account with the specified identifier, if found; otherwise, null.</returns>       
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.GetFacebookAccountInfoInternal(System.Guid)">
-            <summary>
-            Returns FacebookAccountInfo with specified GUID.
-            </summary>
-            <param name="guid">FacebookAccountInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.GetFacebookAccountInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Retrieves a FacebookAccountInfo with the specified Facebook page identifier, and returns it.
-            </summary>
-            <param name="facebookPageCodeName">Facebook page identifier.</param>
-            <param name="siteId">Account site identifier.</param>
-            <returns>A FacebookAccountInfo with the specified Facebook page identifier, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.SetFacebookAccountInfoInternal(CMS.SocialMarketing.FacebookAccountInfo)">
-            <summary>
-            Updates or creates the specified Facebook account.
-            </summary>
-            <param name="account">Facebook account to be updated or created.</param>       
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.DeleteFacebookAccountInfoInternal(CMS.SocialMarketing.FacebookAccountInfo)">
-            <summary>
-            Deletes the specified Facebook account.
-            </summary>
-            <param name="account">Facebook account to be deleted.</param>         
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.FacebookAccountInfoProvider.GetFacebookAccountsInternal(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
@@ -4790,6 +4667,46 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationConsumerKey">
+            <summary>
+            Gets or sets the consumer key of the Facebook application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationConsumerSecret">
+            <summary>
+            Gets or sets the consumer secret of the Facebook application.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationID">
+            <summary>
+            Gets or sets the identifier of the FacebookApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationSiteID">
+            <summary>
+            Gets or sets the site identifier of the FacebookApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationName">
+            <summary>
+            Gets or sets the code name of the FacebookApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationDisplayName">
+            <summary>
+            Gets or sets the display name of the FacebookApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationLastModified">
+            <summary>
+            Gets or sets the timestamp of the FacebookApplicationInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationGUID">
+            <summary>
+            Gets or sets the globally unique identifier of the FacebookApplicationInfo object.
+            </summary>
+        </member>
         <member name="M:CMS.SocialMarketing.FacebookApplicationInfo.DeleteObject">
             <summary>
             Deletes this object.
@@ -4832,46 +4749,6 @@
             <param name="siteName">Name of the site</param>
             <param name="userInfo">UserInfo object</param>
             <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationConsumerKey">
-            <summary>
-            Gets or sets the consumer key of the Facebook application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationConsumerSecret">
-            <summary>
-            Gets or sets the consumer secret of the Facebook application.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationID">
-            <summary>
-            Gets or sets the identifier of the FacebookApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationSiteID">
-            <summary>
-            Gets or sets the site identifier of the FacebookApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationName">
-            <summary>
-            Gets or sets the code name of the FacebookApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationDisplayName">
-            <summary>
-            Gets or sets the display name of the FacebookApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationLastModified">
-            <summary>
-            Gets or sets the timestamp of the FacebookApplicationInfo object.
-            </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.FacebookApplicationInfo.FacebookApplicationGUID">
-            <summary>
-            Gets or sets the globally unique identifier of the FacebookApplicationInfo object.
-            </summary>
         </member>
         <member name="T:CMS.SocialMarketing.FacebookApplicationInfoProvider">
             <summary>
@@ -4927,12 +4804,6 @@
             </summary>
             <param name="applicationId">Facebook application identifier.</param>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">Indicates whether the web farms tasks will be logged.</param>
-        </member>
         <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.GetFacebookApplications(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Retrieves a dataset of Facebook applications for the specified site, and returns it.
@@ -4940,50 +4811,17 @@
             <param name="siteId">Site ID.</param>        
             <returns>A dataset of Facebook applications for the specified site.</returns>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.SetInfo(CMS.SocialMarketing.FacebookApplicationInfo)">
             <summary>
-            Checks the license.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, current domain name is used</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.GetFacebookApplicationsInternal">
+        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.DeleteInfo(CMS.SocialMarketing.FacebookApplicationInfo)">
             <summary>
-            Returns a query for all the FacebookApplicationInfo objects.
+            Deletes the object to the database.
             </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.GetFacebookApplicationInfoInternal(System.Int32)">
-            <summary>
-            Retrieves a Facebook application with the specified identifier, and returns it.
-            </summary>
-            <param name="applicationId">Facebook application identifier.</param>        
-            <returns>A Facebook application with the specified identifier, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.GetFacebookApplicationInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Retrieves a Facebook application matching the specified criteria, and returns it.
-            </summary>
-            <param name="applicationName">Facebook application name.</param>                
-            <param name="siteName">The site name.</param>
-            <returns>A Facebook application matching the specified criteria, if found; otherwise, null.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.GetFacebookApplicationInfoInternal(System.Guid)">
-            <summary>
-            Returns FacebookApplicationInfo with specified GUID.
-            </summary>
-            <param name="guid">FacebookApplicationInfo GUID</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.SetFacebookApplicationInfoInternal(CMS.SocialMarketing.FacebookApplicationInfo)">
-            <summary>
-            Updates or creates the specified Facebook application.
-            </summary>
-            <param name="application">Facebook application to be updated or created.</param>        
-        </member>
-        <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.DeleteFacebookApplicationInfoInternal(CMS.SocialMarketing.FacebookApplicationInfo)">
-            <summary>
-            Deletes the specified Facebook application.
-            </summary>
-            <param name="application">Facebook application to be deleted.</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SocialMarketing.FacebookApplicationInfoProvider.SetFacebookInsightsSchedulerStateInternal(CMS.SocialMarketing.FacebookApplicationInfo,System.Boolean)">
             <summary>
@@ -5018,26 +4856,6 @@
             <summary>
             Initializes a new instance of the TwitterConfiguration with default values.
             </summary>
-        </member>
-        <member name="T:CMS.SocialMarketing.URLShortening.IURLShortener">
-            <summary>
-            Provides a template for what any URLshortener class should do.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.IURLShortener.IsAvailable(CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Determines whether shortener is available
-            </summary>
-            <param name="site">Site for whom availability you want to know</param>
-            <returns>True if available.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.IURLShortener.Shorten(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Shortens the given URL via an URLShortener
-            </summary>
-            <param name="url">URL to be shortened</param>
-            <param name="site">Context to get settings for</param>
-            <returns>Shortened URL on succes, <paramref name="url"/> otherwise.</returns>
         </member>
         <member name="M:CMS.SocialMarketing.URLShortening.BitLyShortener.#ctor">
             <summary>
@@ -5091,6 +4909,26 @@
             <param name="site">Context to get settings for</param>
             <returns>Shortened URL on success, <paramref name="url"/> otherwise.</returns>
         </member>
+        <member name="T:CMS.SocialMarketing.URLShortening.IURLShortener">
+            <summary>
+            Provides a template for what any URLshortener class should do.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.IURLShortener.IsAvailable(CMS.DataEngine.SiteInfoIdentifier)">
+            <summary>
+            Determines whether shortener is available
+            </summary>
+            <param name="site">Site for whom availability you want to know</param>
+            <returns>True if available.</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.IURLShortener.Shorten(System.String,CMS.DataEngine.SiteInfoIdentifier)">
+            <summary>
+            Shortens the given URL via an URLShortener
+            </summary>
+            <param name="url">URL to be shortened</param>
+            <param name="site">Context to get settings for</param>
+            <returns>Shortened URL on succes, <paramref name="url"/> otherwise.</returns>
+        </member>
         <member name="T:CMS.SocialMarketing.URLShortening.IURLShortenerHelperEnvironment">
             <summary>
             This interface is designed purely to separate URLShortener helper from the CMS environment.
@@ -5112,6 +4950,61 @@
             <returns>URL-Encoded original string</returns>
         </member>
         <member name="M:CMS.SocialMarketing.URLShortening.IURLShortenerHelperEnvironment.LogWarning(System.String,System.String,System.Exception,CMS.DataEngine.SiteInfoIdentifier)">
+            <summary>
+            Logs a warning if an URLshortening failed.
+            </summary>
+            <param name="source">Source of the event (Content, Administration, etc.)</param>
+            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
+            <param name="eventException">Exception to be logged</param>
+            <param name="site">Current site</param>
+        </member>
+        <member name="T:CMS.SocialMarketing.URLShortening.TinyURLShortener">
+            <summary>
+            Represents a provider for TinyURL
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.#ctor">
+            <summary>
+            Public default constructor
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.#ctor(CMS.SocialMarketing.URLShortening.IURLShortenerHelperEnvironment)">
+            <summary>
+            Internal constructor for testing purposes
+            </summary>
+            <param name="env">Environment mock</param>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.IsAvailable(CMS.DataEngine.SiteInfoIdentifier)">
+            <summary>
+            Determines whether shortener is available
+            </summary>
+            <param name="site">Site for whom availability you want to know</param>
+            <returns>True if available.</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.Shorten(System.String,CMS.DataEngine.SiteInfoIdentifier)">
+            <summary>
+            Shortens the given URL via TinyURL
+            </summary>
+            <param name="url">URL to be shortened</param>
+            <param name="site">Context to get settings for</param>
+            <returns>Shortened URL on succes, <paramref name="url"/> otherwise.</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.URLShortenerHelperEnvironment.URLEncode(System.String)">
+            <summary>
+            Provides URL-Encoding function. ' ' => %20 etc.
+            </summary>
+            <param name="str">string to be URL-Encoded</param>
+            <returns>URL-Encoded original string</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.URLShortenerHelperEnvironment.GetStringSettingValue(System.String,CMS.DataEngine.SiteInfoIdentifier)">
+            <summary>
+            Provides settings for URLShortenerHelper.
+            </summary>
+            <param name="key">SetteingsKey</param>
+            <param name="site">Site which you want the settings for</param>
+            <returns>Site's settings for given key or global settings. Empty string if key does not exist.</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLShortening.URLShortenerHelperEnvironment.LogWarning(System.String,System.String,System.Exception,CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Logs a warning if an URLshortening failed.
             </summary>
@@ -5150,41 +5043,36 @@
             None - Error state - null replacement
             </summary>
         </member>
-        <member name="T:CMS.SocialMarketing.URLShortening.TinyURLShortener">
-            <summary>
-            Represents a provider for TinyURL
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.#ctor">
-            <summary>
-            Public default constructor
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.#ctor(CMS.SocialMarketing.URLShortening.IURLShortenerHelperEnvironment)">
-            <summary>
-            Internal constructor for testing purposes
-            </summary>
-            <param name="env">Environment mock</param>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.IsAvailable(CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Determines whether shortener is available
-            </summary>
-            <param name="site">Site for whom availability you want to know</param>
-            <returns>True if available.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.TinyURLShortener.Shorten(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Shortens the given URL via TinyURL
-            </summary>
-            <param name="url">URL to be shortened</param>
-            <param name="site">Context to get settings for</param>
-            <returns>Shortened URL on succes, <paramref name="url"/> otherwise.</returns>
-        </member>
         <member name="T:CMS.SocialMarketing.URLParser">
             <summary>
             Provides methods for replacing URLs in a text.
             </summary>
+        </member>
+        <member name="F:CMS.SocialMarketing.URLParser.mURLRegex">
+            <summary>
+            The URL regular expression.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.URLParser.URLRegex">
+            <summary>
+            Gets the URL regular expression.
+            </summary>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLParser.Replace(System.String,System.Func{CMS.SocialMarketing.URLParserMatch,System.String})">
+            <summary>
+            In a specified input string, replaces all URLs with a string returned by an evaluator.
+            </summary>
+            <param name="input">The string to search for URLs.</param>
+            <param name="evaluator">A custom method that examines each match and returns a replacement string.</param>
+            <returns>A new string that is identical to the input string, except that a replacement string takes the place of each matched URL.</returns>
+        </member>
+        <member name="M:CMS.SocialMarketing.URLParser.EvaluateMatch(System.Text.RegularExpressions.Match,System.Func{CMS.SocialMarketing.URLParserMatch,System.String})">
+            <summary>
+            Examines a matched URL and returns a replacement string.
+            </summary>
+            <param name="match">An URL match.</param>
+            <param name="evaluator">A custom method that examines an URL match and returns a replacement string.</param>
+            <returns>A replacement string.</returns>
         </member>
         <member name="F:CMS.SocialMarketing.URLParser.URL_DOMAIN_GROUPNAME">
             <summary>
@@ -5262,32 +5150,6 @@
         <member name="F:CMS.SocialMarketing.URLParser.VALID_URL_PATTERN_STRING">
             <summary>
             The whole URL recognition pattern.
-            </summary>
-        </member>
-        <member name="F:CMS.SocialMarketing.URLParser.mURLRegex">
-            <summary>
-            The URL regular expression.
-            </summary>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLParser.Replace(System.String,System.Func{CMS.SocialMarketing.URLParserMatch,System.String})">
-            <summary>
-            In a specified input string, replaces all URLs with a string returned by an evaluator.
-            </summary>
-            <param name="input">The string to search for URLs.</param>
-            <param name="evaluator">A custom method that examines each match and returns a replacement string.</param>
-            <returns>A new string that is identical to the input string, except that a replacement string takes the place of each matched URL.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLParser.EvaluateMatch(System.Text.RegularExpressions.Match,System.Func{CMS.SocialMarketing.URLParserMatch,System.String})">
-            <summary>
-            Examines a matched URL and returns a replacement string.
-            </summary>
-            <param name="match">An URL match.</param>
-            <param name="evaluator">A custom method that examines an URL match and returns a replacement string.</param>
-            <returns>A replacement string.</returns>
-        </member>
-        <member name="P:CMS.SocialMarketing.URLParser.URLRegex">
-            <summary>
-            Gets the URL regular expression.
             </summary>
         </member>
         <member name="T:CMS.SocialMarketing.URLParserMatch">
@@ -5448,30 +5310,6 @@
             </summary>
             <param name="match">URL to be prepared.</param>
             <returns>String representing the URL to be shortened.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.URLShortenerHelperEnvironment.URLEncode(System.String)">
-            <summary>
-            Provides URL-Encoding function. ' ' => %20 etc.
-            </summary>
-            <param name="str">string to be URL-Encoded</param>
-            <returns>URL-Encoded original string</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.URLShortenerHelperEnvironment.GetStringSettingValue(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Provides settings for URLShortenerHelper.
-            </summary>
-            <param name="key">SetteingsKey</param>
-            <param name="site">Site which you want the settings for</param>
-            <returns>Site's settings for given key or global settings. Empty string if key does not exist.</returns>
-        </member>
-        <member name="M:CMS.SocialMarketing.URLShortening.URLShortenerHelperEnvironment.LogWarning(System.String,System.String,System.Exception,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Logs a warning if an URLshortening failed.
-            </summary>
-            <param name="source">Source of the event (Content, Administration, etc.)</param>
-            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
-            <param name="eventException">Exception to be logged</param>
-            <param name="site">Current site</param>
         </member>
         <member name="T:CMS.SocialMarketing.URLShortenerTypeEnum">
             <summary>

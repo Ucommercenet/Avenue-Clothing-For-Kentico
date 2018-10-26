@@ -203,6 +203,8 @@ public partial class CMSFormControls_System_UIElementPropertiesEditor : FormEngi
     private void LoadData()
     {
         data.Clear();
+        var authenticatedUserIdentityOption = MacroIdentityOption.FromUserInfo(MembershipContext.AuthenticatedUser);
+
         foreach (String key in Request.Form.AllKeys)
         {
             if ((key != null) && key.StartsWithCSafe(UniqueID + "$tk"))
@@ -210,7 +212,7 @@ public partial class CMSFormControls_System_UIElementPropertiesEditor : FormEngi
                 String value = Request.Form[key.Replace(UniqueID + "$tk", UniqueID + "$tv")];
 
                 // Sign the macro
-                value = MacroSecurityProcessor.AddSecurityParameters(value, MembershipContext.AuthenticatedUser.UserName, null);
+                value = MacroSecurityProcessor.AddSecurityParameters(value, authenticatedUserIdentityOption, null);
                 String k = Request.Form[key];
                 if (!IsValidKey(k))
                 {
@@ -235,7 +237,7 @@ public partial class CMSFormControls_System_UIElementPropertiesEditor : FormEngi
             }
 
             // Sign the macro
-            newValue = MacroSecurityProcessor.AddSecurityParameters(newValue, MembershipContext.AuthenticatedUser.UserName, null);
+            newValue = MacroSecurityProcessor.AddSecurityParameters(newValue, authenticatedUserIdentityOption, null);
             data.SetValue(newKey, newValue);
         }
     }

@@ -21,7 +21,7 @@
 <body class="cms-bootstrap design-ui">
     <form id="form1" runat="server">
         <asp:PlaceHolder runat="server" ID="plcManagers">
-            <ajaxToolkit:ToolkitScriptManager ID="manScript" runat="server" ScriptMode="Release"
+            <asp:ScriptManager ID="manScript" runat="server" ScriptMode="Release"
                 EnableViewState="false" />
             <cms:CMSPortalManager ID="manPortal" ShortID="m" runat="server" EnableViewState="false" />
             <cms:CMSDocumentManager ID="docMan" ShortID="dm" runat="server" StopProcessing="true"

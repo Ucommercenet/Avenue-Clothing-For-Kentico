@@ -19,7 +19,6 @@
     <column source="##ALL##" externalsourcename="#published" caption="$general.published$" wrap="false" />
   </columns>
   <pager>
-    <key name="ShowFirstLastButtons" value="false" />
     <key name="ShowDirectPageControl" value="false" />
   </pager>
   <options>

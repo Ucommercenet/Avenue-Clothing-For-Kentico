@@ -96,31 +96,6 @@
             Summary description for CMSOutputFile.
             </summary>
         </member>
-        <member name="M:CMS.Forums.CMSOutputForumAttachment.#ctor">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.CMSOutputForumAttachment.#ctor(CMS.Forums.ForumAttachmentInfo,System.Byte[])">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="fi">ForumAttachment info</param>
-            <param name="data">Output file data</param>
-        </member>
-        <member name="M:CMS.Forums.CMSOutputForumAttachment.EnsureData(System.Byte[])">
-            <summary>
-            Ensures that the object contains the output data.
-            </summary>
-            <param name="defaultData">Default data which should be loaded if data required</param>
-            <returns>Returns true if new data has been loaded</returns>
-        </member>
-        <member name="M:CMS.Forums.CMSOutputForumAttachment.LoadData(System.Byte[])">
-            <summary>
-            Loads the data to the object.
-            </summary>
-            <param name="data">New data</param>
-        </member>
         <member name="P:CMS.Forums.CMSOutputForumAttachment.ForumAttachment">
             <summary>
             Forum attachment info without AttachmentBinary.
@@ -176,6 +151,31 @@
             If true, the file is resized version of the file.
             </summary>
         </member>
+        <member name="M:CMS.Forums.CMSOutputForumAttachment.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.CMSOutputForumAttachment.#ctor(CMS.Forums.ForumAttachmentInfo,System.Byte[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="fi">ForumAttachment info</param>
+            <param name="data">Output file data</param>
+        </member>
+        <member name="M:CMS.Forums.CMSOutputForumAttachment.EnsureData(System.Byte[])">
+            <summary>
+            Ensures that the object contains the output data.
+            </summary>
+            <param name="defaultData">Default data which should be loaded if data required</param>
+            <returns>Returns true if new data has been loaded</returns>
+        </member>
+        <member name="M:CMS.Forums.CMSOutputForumAttachment.LoadData(System.Byte[])">
+            <summary>
+            Loads the data to the object.
+            </summary>
+            <param name="data">New data</param>
+        </member>
         <member name="T:CMS.Forums.ForumContext">
             <summary>
             Forum context.
@@ -186,6 +186,11 @@
             Returns hashtable with current user forums in which is moderator, key = forum id.
             </summary>
             <param name="userId">User ID</param>
+        </member>
+        <member name="P:CMS.Forums.ForumContext.UserIsModeratorInSomeForum">
+            <summary>
+            Returns true if current user is moderator in at least one forum.
+            </summary>
         </member>
         <member name="M:CMS.Forums.ForumContext.IsCommunityGroupAdmin(System.Int32,CMS.Membership.UserInfo)">
             <summary>
@@ -222,21 +227,6 @@
             <param name="groupID">Forum group id object.</param>
             <param name="forumID">Forum id object.</param>
             <param name="postID">Post id object.</param>
-        </member>
-        <member name="M:CMS.Forums.ForumContext.RegisterProperties">
-            <summary>
-            Registers the properties of this object
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumContext.GetCurrentGroup">
-            <summary>
-            Gets the current forum group
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.ForumContext.UserIsModeratorInSomeForum">
-            <summary>
-            Returns true if current user is moderator in at least one forum.
-            </summary>
         </member>
         <member name="P:CMS.Forums.ForumContext.CurrentForumDiscussionMacroHelper">
             <summary>
@@ -316,6 +306,16 @@
         <member name="P:CMS.Forums.ForumContext.CurrentGroup">
             <summary>
             Returns current thread.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumContext.RegisterProperties">
+            <summary>
+            Registers the properties of this object
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumContext.GetCurrentGroup">
+            <summary>
+            Gets the current forum group
             </summary>
         </member>
         <member name="T:CMS.Forums.ForumStateEnum">
@@ -644,6 +644,11 @@
             Sets to 0 if you do not wish to cache large files.
             </summary>
         </member>
+        <member name="P:CMS.Forums.GetForumAttachmentHandler.AllowCache">
+            <summary>
+            Returns true if the process allows cache.
+            </summary>
+        </member>
         <member name="M:CMS.Forums.GetForumAttachmentHandler.ProcessRequestInternal(System.Web.HttpContextBase)">
             <summary>
             Processes the handler request
@@ -661,12 +666,6 @@
             </summary>
             <param name="file">File to send</param>
         </member>
-        <member name="M:CMS.Forums.GetForumAttachmentHandler.SetResponseContentType(CMS.Forums.CMSOutputForumAttachment)">
-            <summary>
-            Sets content type of the response based on file MIME type
-            </summary>
-            <param name="file">Output file</param>
-        </member>
         <member name="M:CMS.Forums.GetForumAttachmentHandler.GetOutputDataDependency(CMS.Forums.ForumAttachmentInfo)">
             <summary>
             Returns the output data dependency based on the given attachment record.
@@ -678,11 +677,6 @@
             Ensures the physical file.
             </summary>
             <param name="file">Output file</param>
-        </member>
-        <member name="P:CMS.Forums.GetForumAttachmentHandler.AllowCache">
-            <summary>
-            Returns true if the process allows cache.
-            </summary>
         </member>
         <member name="T:CMS.Forums.ForumHandlers">
             <summary>
@@ -699,9 +693,32 @@
             Includes forums content to the document search content
             </summary>
         </member>
+        <member name="T:CMS.Forums.Internal.ForumSearchablesRetriever">
+            <summary>
+            Helps with retrieving <see cref="T:CMS.DataEngine.ISearchable"/> objects and <see cref="T:CMS.Search.SearchIndexInfo"/>s
+            related to forum search.
+            </summary>
+            <seealso cref="M:CMS.Search.Internal.SearchablesRetrievers.Register``1(System.String)"/>
+        </member>
+        <member name="M:CMS.Forums.Internal.ForumSearchablesRetriever.GetRelevantIndexes(CMS.DataEngine.ISearchable,System.String)">
+            <summary>
+            Gets the list of indexes relevant to the given object
+            </summary>
+            <param name="searchObject">Search object</param>
+            <param name="searchProvider">
+            Defines search provider for which to return relevant indexes.
+            If not defined then indexes for all search providers are returned.
+            </param>
+            <seealso cref="P:CMS.Search.SearchIndexInfo.IndexProvider"/>
+        </member>
         <member name="T:CMS.Forums.ForumSearchIndexer">
             <summary>
             Search indexer for forums
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumSearchIndexer.#ctor">
+            <summary>
+            Forum search indexer.
             </summary>
         </member>
         <member name="M:CMS.Forums.ForumSearchIndexer.Rebuild(CMS.Search.SearchIndexInfo)">
@@ -716,8 +733,9 @@
             Selects the search document based on the given ID
             </summary>
             <param name="documentId">Document ID</param>
+            <returns>Enumeration of searchable objects or empty enumeration.</returns>
         </member>
-        <member name="M:CMS.Forums.ForumSearchIndexer.CheckResultPermissions(CMS.Search.SearchResults,CMS.DataEngine.ISearchDocument,System.Int32)">
+        <member name="M:CMS.Forums.ForumSearchIndexer.CheckResultPermissions(CMS.Search.SearchResults,CMS.Search.ILuceneSearchDocument,System.Int32)">
             <summary>
             Checks the permissions for the given result document
             </summary>
@@ -725,24 +743,18 @@
             <param name="currentDoc">Current result document</param>
             <param name="index">Current document index</param>
         </member>
-        <member name="M:CMS.Forums.ForumSearchIndexer.LoadResults(System.Collections.Generic.IEnumerable{CMS.DataEngine.ISearchDocument},CMS.Base.SafeDictionary{System.String,System.Data.DataRow})">
+        <member name="M:CMS.Forums.ForumSearchIndexer.LoadResults(System.Collections.Generic.IEnumerable{CMS.Search.ILuceneSearchDocument},CMS.Base.SafeDictionary{System.String,System.Data.DataRow})">
             <summary>
             Loads the results to the given result collection
             </summary>
             <param name="results">Collection of results to load</param>
             <param name="result">Dictionary of the loaded results indexed by their key</param>
         </member>
-        <member name="M:CMS.Forums.ForumSearchIndexer.GetDataClassInfo(CMS.DataEngine.ISearchDocument)">
+        <member name="M:CMS.Forums.ForumSearchIndexer.GetDataClassInfo(CMS.Search.ILuceneSearchDocument)">
             <summary>
             Returns the data class info for the given search document
             </summary>
             <param name="obj">Document object</param>
-        </member>
-        <member name="M:CMS.Forums.ForumSearchIndexer.GetRelevantIndexes(CMS.DataEngine.ISearchable)">
-            <summary>
-            Gets the list of indexes relevant to the given object
-            </summary>
-            <param name="searchObject">Search object</param>
         </member>
         <member name="M:CMS.Forums.ForumSearchIndexer.GetSearchImageUrl(System.String,System.String,System.String)">
             <summary>
@@ -843,6 +855,11 @@
             Web farm synchronization for Forums
             </summary>
         </member>
+        <member name="P:CMS.Forums.ForumsSynchronization.SynchronizeForumAttachments">
+            <summary>
+            Gets or sets value that indicates whether file synchronization for forum attachments is enabled.
+            </summary>
+        </member>
         <member name="M:CMS.Forums.ForumsSynchronization.Init">
             <summary>
             Initializes the tasks for media files synchronization
@@ -873,11 +890,6 @@
             <param name="target">Task target</param>
             <param name="data">Task data</param>
             <param name="binaryData">Task binary data</param>
-        </member>
-        <member name="P:CMS.Forums.ForumsSynchronization.SynchronizeForumAttachments">
-            <summary>
-            Gets or sets value that indicates whether file synchronization for forum attachments is enabled.
-            </summary>
         </member>
         <member name="T:CMS.Forums.ForumsTaskType">
             <summary>
@@ -966,61 +978,6 @@
             Current attachment forum id.
             </summary>
         </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.GetDependencyCacheKeys(System.String,System.String)">
-            <summary>
-            Gets collection of dependency keys to be touched when modifying the current object.
-            </summary>
-            <param name="key">Cache key</param>
-            <param name="context">Cache context</param>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.GetDependencyCacheKeys">
-            <summary>
-            Gets collection of dependency keys to be touched when modifying the current object.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ForumAttachment object.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ForumAttachment object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor(System.String,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Constructor - Creates a new ForumAttachment object based on the file posted through the upload control.
-            </summary>
-            <param name="filePath">Path to the file</param>
-            <param name="maxWidth">Maximal image width</param>
-            <param name="maxHeight">Maximal image height</param>
-            <param name="maxSideSize">Maximal side size</param>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor(System.Web.HttpPostedFile,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Constructor - Creates a new ForumAttachment object based on the file posted through the upload control.
-            </summary>
-            <param name="postedFile">Posted file</param>
-            <param name="maxWidth">Maximal image width</param>
-            <param name="maxHeight">Maximal image height</param>
-            <param name="maxSideSize">Maximal side size</param>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
-            <summary>
-            Removes object dependencies.
-            </summary>
-        </member>
         <member name="P:CMS.Forums.ForumAttachmentInfo.AttachmentSiteID">
             <summary>
             Attachment site ID.
@@ -1086,9 +1043,67 @@
             Gets the attachment forum ID.
             </summary>
         </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.GetCacheDependencies">
+            <summary>
+            Gets collection of dependency keys to be touched when modifying the current object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.GetDependencyCacheKeys">
+            <summary>
+            Gets collection of dependency keys to be touched when modifying the current object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ForumAttachment object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ForumAttachment object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor - Creates a new ForumAttachment object based on the file posted through the upload control.
+            </summary>
+            <param name="filePath">Path to the file</param>
+            <param name="maxWidth">Maximal image width</param>
+            <param name="maxHeight">Maximal image height</param>
+            <param name="maxSideSize">Maximal side size</param>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.#ctor(System.Web.HttpPostedFile,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor - Creates a new ForumAttachment object based on the file posted through the upload control.
+            </summary>
+            <param name="postedFile">Posted file</param>
+            <param name="maxWidth">Maximal image width</param>
+            <param name="maxHeight">Maximal image height</param>
+            <param name="maxSideSize">Maximal side size</param>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
+            <summary>
+            Removes object dependencies.
+            </summary>
+        </member>
         <member name="T:CMS.Forums.ForumAttachmentInfoProvider">
             <summary>
             Class providing ForumAttachment management.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.ForumAttachmentInfoProvider.WebApplicationPhysicalPath">
+            <summary>
+            Full path to the root of the web.
             </summary>
         </member>
         <member name="M:CMS.Forums.ForumAttachmentInfoProvider.UpdateData(System.String,System.String,CMS.DataEngine.QueryDataParameters)">
@@ -1098,6 +1113,11 @@
             <param name="updateExpression">Update expression, e.g. "Value = Value * 2"</param>
             <param name="where">Where condition</param>
             <param name="parameters">Parameters</param>
+        </member>
+        <member name="M:CMS.Forums.ForumAttachmentInfoProvider.GetForumAttachments">
+            <summary>
+            Returns a query for all the ForumAttachmentInfo objects.
+            </summary>
         </member>
         <member name="M:CMS.Forums.ForumAttachmentInfoProvider.GetForumAttachmentInfoByGuid(System.Guid,System.String)">
             <summary>
@@ -1291,23 +1311,17 @@
             <param name="guid">GUID of the forumAttachment to return</param>   
             <param name="siteName">Attachment site name</param>
         </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfoProvider.GetForumAttachmentInfoInternal(System.Int32)">
+        <member name="M:CMS.Forums.ForumAttachmentInfoProvider.SetInfo(CMS.Forums.ForumAttachmentInfo)">
             <summary>
-            Returns the ForumAttachment structure for the specified forumAttachment.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="forumAttachmentId">ForumAttachment id</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfoProvider.SetForumAttachmentInfoInternal(CMS.Forums.ForumAttachmentInfo)">
+        <member name="M:CMS.Forums.ForumAttachmentInfoProvider.DeleteInfo(CMS.Forums.ForumAttachmentInfo)">
             <summary>
-            Sets (updates or inserts) specified forumAttachment.
+            Deletes the object to the database.
             </summary>
-            <param name="forumAttachment">ForumAttachmentInfo to set</param>
-        </member>
-        <member name="M:CMS.Forums.ForumAttachmentInfoProvider.DeleteForumAttachmentInfoInternal(CMS.Forums.ForumAttachmentInfo)">
-            <summary>
-            Deletes specified forumAttachment.
-            </summary>
-            <param name="infoObj">ForumAttachmentInfo object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Forums.ForumAttachmentInfoProvider.GetForumAttachmentsInternal(System.Int32,System.Boolean)">
             <summary>
@@ -1324,11 +1338,6 @@
             <param name="orderBy">Order by</param>
             <param name="topN">Top N</param>
             <param name="columns">Columns</param>
-        </member>
-        <member name="P:CMS.Forums.ForumAttachmentInfoProvider.WebApplicationPhysicalPath">
-            <summary>
-            Full path to the root of the web.
-            </summary>
         </member>
         <member name="T:CMS.Forums.ForumsModule">
             <summary>
@@ -1436,42 +1445,6 @@
             <summary>
             Type information for group forum group.
             </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfo.CheckUniqueCodeName">
-            <summary>
-            Checks if the object has unique code name. Returns true if the object has unique code name.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ForumGroupInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ForumGroupInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Custom permissions check. Chat user can be read with Read or GlobalRead permission
-            and modified with Modify or GlobalModify permission.
-            </summary>
-            <param name="permission">Permission to perform this operation will be checked</param>
-            <param name="siteName">Permissions on this site will be checked</param>
-            <param name="userInfo">Permissions of this user will be checked</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-            <returns>True if user is allowed to perform specified operation on the this object; otherwise false</returns>
         </member>
         <member name="P:CMS.Forums.ForumGroupInfo.GroupAttachmentMaxFileSize">
             <summary>
@@ -1686,6 +1659,42 @@
             Type information.
             </summary>
         </member>
+        <member name="M:CMS.Forums.ForumGroupInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumGroupInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumGroupInfo.CheckUniqueCodeName">
+            <summary>
+            Checks if the object has unique code name. Returns true if the object has unique code name.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumGroupInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ForumGroupInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumGroupInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ForumGroupInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumGroupInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Custom permissions check. Chat user can be read with Read or GlobalRead permission
+            and modified with Modify or GlobalModify permission.
+            </summary>
+            <param name="permission">Permission to perform this operation will be checked</param>
+            <param name="siteName">Permissions on this site will be checked</param>
+            <param name="userInfo">Permissions of this user will be checked</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+            <returns>True if user is allowed to perform specified operation on the this object; otherwise false</returns>
+        </member>
         <member name="T:CMS.Forums.ForumGroupInfoProvider">
             <summary>
             Class providing ForumGroupInfo management.
@@ -1694,6 +1703,11 @@
         <member name="M:CMS.Forums.ForumGroupInfoProvider.#ctor">
             <summary>
             Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumGroupInfoProvider.GetForumGroups">
+            <summary>
+            Returns a query for all the ForumGroupInfo objects.
             </summary>
         </member>
         <member name="M:CMS.Forums.ForumGroupInfoProvider.GetGroups(System.String,System.String)">
@@ -1711,16 +1725,6 @@
             <param name="orderBy">Order by statement used to sort the data</param>
             <param name="topN">TOP N Rows</param>
             <param name="columns">Columns</param>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.GetAllGroups">
-            <summary>
-            Returns all groups.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.GetAllGroups(System.String)">
-            <summary>
-            Returns all groups for selected site.
-            </summary>
         </member>
         <member name="M:CMS.Forums.ForumGroupInfoProvider.GetForumGroupInfoByGUID(System.Guid)">
             <summary>
@@ -1785,18 +1789,6 @@
             </summary>
             <param name="forumGroupId">Group ID to move</param>
         </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears the hash table.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.RemoveFromHash(System.String)">
-            <summary>
-            Remove from hash table.
-            </summary>
-            <param name="dataText">Data text</param>
-        </member>
         <member name="M:CMS.Forums.ForumGroupInfoProvider.DoubleOptInInterval(System.String)">
             <summary>
             Gets double opt-in interval for the site. It's time interval in hours within which user has to approve her subscription.
@@ -1822,37 +1814,17 @@
             <param name="topN">TOP N Rows</param>
             <param name="columns">Columns</param>
         </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.GetForumGroupInfoInternal(System.Guid)">
+        <member name="M:CMS.Forums.ForumGroupInfoProvider.SetInfo(CMS.Forums.ForumGroupInfo)">
             <summary>
-            Returns object with specified GUID.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="guid">Object GUID</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.GetForumGroupInfoInternal(System.Int32)">
+        <member name="M:CMS.Forums.ForumGroupInfoProvider.DeleteInfo(CMS.Forums.ForumGroupInfo)">
             <summary>
-            Returns the ForumGroupInfo structure for the specified forumGroup.
+            Deletes the object to the database.
             </summary>
-            <param name="forumGroupId">ForumGroup id</param>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.GetForumGroupInfoInternal(System.String,System.Int32,System.Int32)">
-            <summary>
-            Returns the ForumGroupInfo structure for the specified forumGroup.
-            </summary>
-            <param name="forumGroupName">ForumGroup name</param>
-            <param name="siteId">Site id</param>
-            <param name="communityGroupId">Community group id</param>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.SetForumGroupInfoInternal(CMS.Forums.ForumGroupInfo)">
-            <summary>
-            Sets (updates or inserts) specified forumGroup.
-            </summary>
-            <param name="forumGroup">ForumGroup to set</param>
-        </member>
-        <member name="M:CMS.Forums.ForumGroupInfoProvider.DeleteForumGroupInfoInternal(CMS.Forums.ForumGroupInfo)">
-            <summary>
-            Deletes specified forumGroup.
-            </summary>
-            <param name="forumGroupObj">ForumGroup object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Forums.ForumGroupInfoProvider.MoveGroupUpInternal(System.Int32)">
             <summary>
@@ -1890,65 +1862,6 @@
             <summary>
             Type information for group forum.
             </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.RegisterProperties">
-            <summary>
-            Registers the properties of this object
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Clones forum role and forum moderator bindings
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
-            <summary>
-            Checks the object license. Returns true if the licensing conditions for this object were matched
-            </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, uses current domain</param>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ForumInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ForumInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Custom permissions check. Chat user can be read with Read or GlobalRead permission
-            and modified with Modify or GlobalModify permission.
-            </summary>
-            <param name="permission">Permission to perform this operation will be checked</param>
-            <param name="siteName">Permissions on this site will be checked</param>
-            <param name="userInfo">Permissions of this user will be checked</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-            <returns>True if user is allowed to perform specified operation on the this object; otherwise false</returns>
         </member>
         <member name="P:CMS.Forums.ForumInfo.CurrentForumGroupInfo">
             <summary>
@@ -2253,14 +2166,68 @@
             Type information.
             </summary>
         </member>
+        <member name="M:CMS.Forums.ForumInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.RegisterProperties">
+            <summary>
+            Registers the properties of this object
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Clones forum role and forum moderator bindings
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+            <summary>
+            Checks the object license. Returns true if the licensing conditions for this object were matched
+            </summary>
+            <param name="action">Object action</param>
+            <param name="domainName">Domain name, if not set, uses current domain</param>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ForumInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ForumInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Custom permissions check. Chat user can be read with Read or GlobalRead permission
+            and modified with Modify or GlobalModify permission.
+            </summary>
+            <param name="permission">Permission to perform this operation will be checked</param>
+            <param name="siteName">Permissions on this site will be checked</param>
+            <param name="userInfo">Permissions of this user will be checked</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+            <returns>True if user is allowed to perform specified operation on the this object; otherwise false</returns>
+        </member>
         <member name="T:CMS.Forums.ForumInfoProvider">
             <summary>
             Class providing ForumInfo management.
-            </summary>
-        </member>
-        <member name="F:CMS.Forums.ForumInfoProvider.licForums">
-            <summary>
-            License limitations hashtable.
             </summary>
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.#ctor">
@@ -2332,7 +2299,7 @@
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.MoveForumUp(System.Int32)">
             <summary>
-            Moves forum up in the order sequence (up = smaller ForumOrder = soooner in the navigation).
+            Moves forum up in the order sequence (up = smaller ForumOrder = sooner in the navigation).
             </summary>
             <param name="forumId">Forum ID to move</param>
         </member>
@@ -2344,14 +2311,14 @@
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetForumsByGroupID(System.Int32,System.Boolean)">
             <summary>
-            Returns DataSet with all forums which are assingned to group id.
+            Returns DataSet with all forums which are assigned to group id.
             </summary>
             <param name="groupId">Forum group ID</param>
             <param name="onlyOpen">Get only open forums or all</param>
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetForumsByGroupID(System.Int32)">
             <summary>
-            Returns DataSet with all forums which are assingned to group id.
+            Returns DataSet with all forums which are assigned to group id.
             </summary>
             <param name="groupId">Forum group ID</param>
         </member>
@@ -2377,7 +2344,7 @@
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetAllForums(System.String,System.String)">
             <summary>
-            Returns all forums according to the specifed conditions.
+            Returns all forums according to the specified conditions.
             </summary>
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetAllForums">
@@ -2387,29 +2354,12 @@
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetForums(System.String,System.String,System.Int32,System.String)">
             <summary>
-            Returns forums according to the specifed conditions.
+            Returns forums according to the specified conditions.
             </summary>        
             <param name="where">Where condition to apply</param>
             <param name="orderBy">Order by statement used to sort the data</param>
             <param name="topN">TOP N Rows</param>
             <param name="columns">Columns</param>
-        </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears the hashtable.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.RemoveFromHash(System.String)">
-            <summary>
-            Remove from hash table.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.UpdateHashs(System.Int32)">
-            <summary>
-            Update Forum post when post is insert.
-            </summary>
-            <param name="forumId">Forum ID</param>
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.AddRoleToForum(System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -2504,7 +2454,7 @@
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetForumSiteName(System.Int32)">
             <summary>
-            Returns sitename with dependence on selected forum id.
+            Returns site name with dependence on selected forum id.
             </summary>
             <param name="forumId">Forum Id</param>
         </member>
@@ -2531,43 +2481,11 @@
             <param name="where">Where condition</param>
             <param name="parameters">Parameters</param>
         </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.GetForumsInternal">
-            <summary>
-            Returns a query for all the ForumInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.GetForumInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetForumsCountInternal(System.Int32)">
             <summary>
             Returns the number of message boards related to the specified document.
             </summary>
             <param name="documentId">Document ID to return number of boards for</param> 
-        </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.GetForumInfoInternal(System.Int32)">
-            <summary>
-            Returns the ForumInfo structure for the specified forum.
-            </summary>
-            <param name="forumId">Forum id</param>
-        </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.GetForumInfoInternal(System.String,System.Int32)">
-            <summary>
-            Returns the ForumInfo structure for the specified forum.
-            </summary>
-            <param name="forumName">Forum name</param>
-            <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.GetForumInfoInternal(System.String,System.Int32,System.Int32)">
-            <summary>
-            Returns the ForumInfo structure for the specified forum.
-            </summary>
-            <param name="forumName">Forum name</param>
-            <param name="siteId">Site ID</param>
-            <param name="groupId">Community group ID</param>
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetForumInfoByDocumentInternal(System.Int32)">
             <summary>
@@ -2575,17 +2493,22 @@
             </summary>
             <param name="documentId">Document ID</param>
         </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.SetForumInfoInternal(CMS.Forums.ForumInfo)">
+        <member name="M:CMS.Forums.ForumInfoProvider.SetInfo(CMS.Forums.ForumInfo)">
             <summary>
-            Sets (updates or inserts) specified forum.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="forum">Forum to set</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Forums.ForumInfoProvider.DeleteForumInfoInternal(CMS.Forums.ForumInfo)">
+        <member name="M:CMS.Forums.ForumInfoProvider.DeleteInfo(CMS.Forums.ForumInfo)">
             <summary>
-            Deletes specified forum.
+            Deletes the object to the database.
             </summary>
-            <param name="forumObj">Forum object</param>
+            <param name="info">Object to delete</param>
+        </member>
+        <member name="M:CMS.Forums.ForumInfoProvider.DeleteAttachments(CMS.Forums.ForumInfo)">
+            <summary>
+            Delete attachments related to the current forum
+            </summary>
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.MoveForumUpInternal(System.Int32)">
             <summary>
@@ -2621,7 +2544,7 @@
         </member>
         <member name="M:CMS.Forums.ForumInfoProvider.GetForumsInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
-            Returns forums according to the specifed conditions.
+            Returns forums according to the specified conditions.
             </summary>        
             <param name="where">Where condition to apply</param>
             <param name="orderBy">Order by statement used to sort the data</param>
@@ -2690,6 +2613,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Forums.ForumModeratorInfo.UserID">
+            <summary>
+            User ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.ForumModeratorInfo.ForumID">
+            <summary>
+            Forum ID.
+            </summary>
+        </member>
         <member name="M:CMS.Forums.ForumModeratorInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -2708,16 +2641,6 @@
         <member name="M:CMS.Forums.ForumModeratorInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new ForumRoleInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.ForumModeratorInfo.UserID">
-            <summary>
-            User ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.ForumModeratorInfo.ForumID">
-            <summary>
-            Forum ID.
             </summary>
         </member>
         <member name="T:CMS.Forums.ForumModeratorInfoProvider">
@@ -2791,6 +2714,21 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Forums.ForumRoleInfo.RoleID">
+            <summary>
+            Role ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.ForumRoleInfo.ForumID">
+            <summary>
+            Forum ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.ForumRoleInfo.PermissionID">
+            <summary>
+            Permission ID.
+            </summary>
+        </member>
         <member name="M:CMS.Forums.ForumRoleInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -2809,21 +2747,6 @@
         <member name="M:CMS.Forums.ForumRoleInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new ForumRoleInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.ForumRoleInfo.RoleID">
-            <summary>
-            Role ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.ForumRoleInfo.ForumID">
-            <summary>
-            Forum ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.ForumRoleInfo.PermissionID">
-            <summary>
-            Permission ID.
             </summary>
         </member>
         <member name="T:CMS.Forums.ForumRoleInfoProvider">
@@ -2930,33 +2853,6 @@
             Type information.
             </summary>        
         </member>
-        <member name="M:CMS.Forums.ForumUserFavoritesInfo.GetDependencyCacheKeys(System.String,System.String)">
-            <summary>
-            Gets collection of dependency keys to be touched when modifying the current object.
-            </summary>
-            <param name="key">Cache key</param>
-            <param name="context">Cache context</param>
-        </member>
-        <member name="M:CMS.Forums.ForumUserFavoritesInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumUserFavoritesInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumUserFavoritesInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ForumUserFavoritesInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumUserFavoritesInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ForumUserFavoritesInfo object from the given DataRow.
-            </summary>
-        </member>
         <member name="P:CMS.Forums.ForumUserFavoritesInfo.SiteID">
             <summary>
             Site ID.
@@ -2995,6 +2891,31 @@
         <member name="P:CMS.Forums.ForumUserFavoritesInfo.FavoriteLastModified">
             <summary>
             Favorite last modified.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumUserFavoritesInfo.GetCacheDependencies">
+            <summary>
+            Gets collection of dependency keys to be touched when modifying the current object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumUserFavoritesInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumUserFavoritesInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumUserFavoritesInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ForumUserFavoritesInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumUserFavoritesInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ForumUserFavoritesInfo object from the given DataRow.
             </summary>
         </member>
         <member name="T:CMS.Forums.ForumUserFavoritesInfoProvider">
@@ -3109,107 +3030,9 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Forums.ForumPostInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.GetValue(System.String)">
-            <summary>
-            Gets the field value.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.GetSiblingsWhereCondition">
-            <summary>
-            Creates where condition according to Parent, Group and Site settings.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.BuildObjectPath(System.String,System.String,System.String,System.String,System.Int32@)">
-            <summary>
-            Builds the path from the given column.
-            </summary>
-            <param name="parentColumName">Column of the parent ID</param>
-            <param name="pathColumnName">Column name to build the path from</param>
-            <param name="levelColumnName">Column name of the level</param>
-            <param name="level">Level of the object within the tree hierarchy</param>
-            <param name="pathPartColumn">Name of the column which creates the path (IDColumn for IDPath, CodeNameColumn for name path)</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.Approve">
-            <summary>
-            Approves this post by current user and immediately saves it to DB.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.Approve(System.Int32,System.Boolean)">
-            <summary>
-            Approves this post by specified user id and optionally all its sub-posts.
-            </summary>
-            <param name="userId">The user id</param>
-            <param name="withSubtree">If set to <c>true</c> all sub-posts of this post are approved too</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.Reject">
-            <summary>
-            Rejects this post and immediately saves it to DB.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.Reject(System.Boolean)">
-            <summary>
-            Rejects this post and optionally all its sub-posts.
-            </summary>        
-            <param name="withSubtree">If set to <c>true</c> all sub-posts of this post are rejected too</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
-            <summary>
-            Removes object dependencies.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.SetSiteIdFromForum">
-            <summary>
-            Sets the post's siteID to the same SiteID as to post's forum.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ForumPostInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ForumPostInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.GetSearchFields(CMS.DataEngine.ISearchIndexInfo,CMS.DataEngine.ISearchFields)">
-            <summary>
-            Returns search fields collection. When existing collection is passed as argument, fields will be added to that collection.
-            When collection is not passed, new collection will be created and return. 
-            Collection will contain field values only when collection with StoreValues property set to true is passed to the method.
-            When method creates new collection, it is created with StoreValues property set to false.
-            </summary>
-            <param name="index">Search index</param>
-            <param name="searchFields">Search fields collection</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfo.GetSearchDocument(CMS.DataEngine.ISearchIndexInfo)">
-            <summary>
-            Returns index document for current object.
-            </summary>
-            <param name="index">Search index info object</param>
-        </member>
         <member name="P:CMS.Forums.ForumPostInfo.PostInfo">
             <summary>
-            Post ip, and agent values.
+            Post IP, and agent values.
             </summary>
         </member>
         <member name="P:CMS.Forums.ForumPostInfo.SiteId">
@@ -3234,7 +3057,7 @@
         </member>
         <member name="P:CMS.Forums.ForumPostInfo.PostStickOrder">
             <summary>
-            Gets or sets the value that indicates whether the current post is stricked and in which order.
+            Gets or sets the value that indicates whether the current post is sticked and in which order.
             </summary>
         </member>
         <member name="P:CMS.Forums.ForumPostInfo.PostIsAnswer">
@@ -3373,14 +3196,122 @@
             Forum thread last modified time.
             </summary>
         </member>
+        <member name="M:CMS.Forums.ForumPostInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.GetValue(System.String)">
+            <summary>
+            Gets the field value.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.GetSiblingsWhereCondition">
+            <summary>
+            Creates where condition according to Parent, Group and Site settings.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.BuildObjectPath(System.String,System.String,System.String,System.String,System.Int32@)">
+            <summary>
+            Builds the path from the given column.
+            </summary>
+            <param name="parentColumName">Column of the parent ID</param>
+            <param name="pathColumnName">Column name to build the path from</param>
+            <param name="levelColumnName">Column name of the level</param>
+            <param name="level">Level of the object within the tree hierarchy</param>
+            <param name="pathPartColumn">Name of the column which creates the path (IDColumn for IDPath, CodeNameColumn for name path)</param>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.Approve">
+            <summary>
+            Approves this post by current user and immediately saves it to DB.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.Approve(System.Int32,System.Boolean)">
+            <summary>
+            Approves this post by specified user id and optionally all its sub-posts.
+            </summary>
+            <param name="userId">The user id</param>
+            <param name="withSubtree">If set to <c>true</c> all sub-posts of this post are approved too</param>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.Reject">
+            <summary>
+            Rejects this post and immediately saves it to DB.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.Reject(System.Boolean)">
+            <summary>
+            Rejects this post and optionally all its sub-posts.
+            </summary>        
+            <param name="withSubtree">If set to <c>true</c> all sub-posts of this post are rejected too</param>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
+            <summary>
+            Removes object dependencies.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.SetSiteIdFromForum">
+            <summary>
+            Sets the post's siteID to the same SiteID as to post's forum.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ForumPostInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ForumPostInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="P:CMS.Forums.ForumPostInfo.SearchType">
             <summary>
             Gets the type of current object.
             </summary>
         </member>
+        <member name="M:CMS.Forums.ForumPostInfo.GetSearchFields(CMS.DataEngine.ISearchIndexInfo,CMS.DataEngine.ISearchFields)">
+            <summary>
+            Returns search fields collection. When existing collection is passed as argument, fields will be added to that collection.
+            When collection is not passed, new collection will be created and return. 
+            Collection will contain field values only when collection with StoreValues property set to true is passed to the method.
+            When method creates new collection, it is created with StoreValues property set to false.
+            </summary>
+            <param name="index">Search index</param>
+            <param name="searchFields">Search fields collection</param>
+        </member>
+        <member name="M:CMS.Forums.ForumPostInfo.GetSearchDocument(CMS.DataEngine.ISearchIndexInfo)">
+            <summary>
+            Returns index document for current object.
+            </summary>
+            <param name="index">Search index info object</param>
+        </member>
         <member name="T:CMS.Forums.ForumPostInfoProvider">
             <summary>
             Class providing ForumPostInfo management.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.ForumPostInfoProvider.ForumPostIdLength">
+            <summary>
+            Post ID Path length. Default = 8 '00000001/000000001'
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.ForumPostInfoProvider.MaxPostLevel">
+            <summary>
+            Returns maximal available post level.
             </summary>
         </member>
         <member name="M:CMS.Forums.ForumPostInfoProvider.GetForumPostInfoByGUID(System.Guid)">
@@ -3679,13 +3610,13 @@
             <param name="forumId">Forum id</param>
             <param name="encodeQueryString">Indicates if query string should be encoded</param>
         </member>
-        <member name="M:CMS.Forums.ForumPostInfoProvider.FilterSearchResults(CMS.DataEngine.ISearchDocument)">
+        <member name="M:CMS.Forums.ForumPostInfoProvider.FilterSearchResults(CMS.Search.ILuceneSearchDocument)">
             <summary>
             Returns '0' if current user is authorized to view current search document.
             </summary>
             <param name="doc">Search document object</param>
         </member>
-        <member name="M:CMS.Forums.ForumPostInfoProvider.FilterSearchResults(CMS.DataEngine.ISearchDocument,CMS.Membership.UserInfo)">
+        <member name="M:CMS.Forums.ForumPostInfoProvider.FilterSearchResults(CMS.Search.ILuceneSearchDocument,CMS.Membership.UserInfo)">
             <summary>
             Returns '0' if specified user is authorized to view current search document.
             </summary>
@@ -3705,18 +3636,6 @@
             <param name="updateExpression">Update expression, e.g. "Value = Value * 2"</param>
             <param name="where">Where condition</param>
             <param name="parameters">Parameters</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfoProvider.GetForumPostInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Forums.ForumPostInfoProvider.GetForumPostInfoInternal(System.Int32)">
-            <summary>
-            Returns the ForumPostInfo structure for the specified forumPost.
-            </summary>
-            <param name="forumPostId">ForumPost id</param>
         </member>
         <member name="M:CMS.Forums.ForumPostInfoProvider.SetForumPostInfoInternal(CMS.Forums.ForumPostInfo,System.String,System.String)">
             <summary>
@@ -3848,16 +3767,6 @@
             </summary>
             <param name="queryResult"></param>
         </member>
-        <member name="P:CMS.Forums.ForumPostInfoProvider.ForumPostIdLength">
-            <summary>
-            Post ID Path length. Default = 8 '00000001/000000001'
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.ForumPostInfoProvider.MaxPostLevel">
-            <summary>
-            Returns maximal available post level.
-            </summary>
-        </member>
         <member name="T:CMS.Forums.ForumSubscriptionInfo">
             <summary>
             ForumSubscriptionInfo data container class.
@@ -3871,26 +3780,6 @@
         <member name="F:CMS.Forums.ForumSubscriptionInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumSubscriptionInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumSubscriptionInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumSubscriptionInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ForumSubscriptionInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.ForumSubscriptionInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ForumSubscriptionInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Forums.ForumSubscriptionInfo.SubscriptionEmail">
@@ -3936,6 +3825,26 @@
         <member name="P:CMS.Forums.ForumSubscriptionInfo.SubscriptionApprovalHash">
             <summary>
             Subscription approval hash code.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumSubscriptionInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumSubscriptionInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumSubscriptionInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ForumSubscriptionInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.ForumSubscriptionInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ForumSubscriptionInfo object from the given DataRow.
             </summary>
         </member>
         <member name="T:CMS.Forums.ForumSubscriptionInfoProvider">

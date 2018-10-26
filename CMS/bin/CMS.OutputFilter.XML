@@ -9,58 +9,6 @@
             Cached output container.
             </summary>
         </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.#ctor">
-            <summary>
-            CMSCachedOutput constructor
-            </summary>
-        </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.CopyCacheSettingsTo(CMS.OutputFilter.CachedOutput)">
-            <summary>
-            Copies the cache settings to the target object
-            </summary>
-            <param name="target">Target object</param>
-        </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.TryGetValue(System.String,System.Object@)">
-            <summary>
-            Returns value of column.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">Returns the value</param>
-            <returns>Returns true if the operation was successful (the value was present)</returns>
-        </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.GetValue(System.String)">
-            <summary>
-            Returns value of column.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.SetValue(System.String,System.Object)">
-            <summary>
-            Sets value of column.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">Column value</param> 
-        </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.ContainsColumn(System.String)">
-            <summary>
-            Returns true if the object contains specified column.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Constructor for deserialization.
-            </summary>
-            <param name="info">Serialization inf</param>
-            <param name="context">Streaming context</param>
-        </member>
-        <member name="M:CMS.OutputFilter.CachedOutput.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Object serialization.
-            </summary>
-            <param name="info">Serialization info</param>
-            <param name="context">Context</param>
-        </member>
         <member name="P:CMS.OutputFilter.CachedOutput.TestCookieName">
             <summary>
             Gets or sets the A/B or Multivariate test cookie name
@@ -146,6 +94,17 @@
             URL address of cached page - contains final URL address which reflects rewrite settings
             </summary>
         </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.#ctor">
+            <summary>
+            CMSCachedOutput constructor
+            </summary>
+        </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.CopyCacheSettingsTo(CMS.OutputFilter.CachedOutput)">
+            <summary>
+            Copies the cache settings to the target object
+            </summary>
+            <param name="target">Target object</param>
+        </member>
         <member name="P:CMS.OutputFilter.CachedOutput.Item(System.String)">
             <summary>
             Gets or sets the value of the column.
@@ -157,9 +116,60 @@
             Returns the column names.
             </summary>
         </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.TryGetValue(System.String,System.Object@)">
+            <summary>
+            Returns value of column.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">Returns the value</param>
+            <returns>Returns true if the operation was successful (the value was present)</returns>
+        </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.GetValue(System.String)">
+            <summary>
+            Returns value of column.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.SetValue(System.String,System.Object)">
+            <summary>
+            Sets value of column.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">Column value</param> 
+        </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.ContainsColumn(System.String)">
+            <summary>
+            Returns true if the object contains specified column.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for deserialization.
+            </summary>
+            <param name="info">Serialization inf</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.OutputFilter.CachedOutput.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Object serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Context</param>
+        </member>
         <member name="T:CMS.OutputFilter.OutputDebug">
             <summary>
             Output debug methods
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.OutputDebug.Settings">
+            <summary>
+            Debug settings
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.OutputDebug.DebugCurrentRequest">
+            <summary>
+            Debug current request output.
             </summary>
         </member>
         <member name="M:CMS.OutputFilter.OutputDebug.GetDebugSettings">
@@ -180,16 +190,6 @@
             Logs the query to file.
             </summary>
             <param name="outputHtml">Output HTML</param>
-        </member>
-        <member name="P:CMS.OutputFilter.OutputDebug.Settings">
-            <summary>
-            Debug settings
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.OutputDebug.DebugCurrentRequest">
-            <summary>
-            Debug current request output.
-            </summary>
         </member>
         <member name="T:CMS.OutputFilter.OutputData">
             <summary>
@@ -225,34 +225,6 @@
             <summary>
             True if the output contains some substitutions.
             </summary>
-        </member>
-        <member name="M:CMS.OutputFilter.OutputData.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:CMS.OutputFilter.OutputData.#ctor(System.String,System.Boolean,System.Text.Encoding)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="outputHtml">Output HTML</param>
-            <param name="gZip">GZip the data</param>
-            <param name="outputEncoding">Output encoding</param>
-        </member>
-        <member name="M:CMS.OutputFilter.OutputData.WriteOutputToStream(System.IO.Stream,System.Boolean,System.Boolean)">
-            <summary>
-            Writes the data to the stream and closes the stream.
-            </summary>
-            <param name="s">Stream to write to</param>
-            <param name="trimmed">If true, the trimmed version of the output is written to the output</param>
-            <param name="allowSubstitutions">If true, the substitutions are allowed in the code</param>
-            <returns>Returns the size of data written to the output</returns>
-        </member>
-        <member name="M:CMS.OutputFilter.OutputData.GetData(System.String)">
-            <summary>
-            Gets the data for given HTML.
-            </summary>
-            <param name="html">Output HTML</param>
         </member>
         <member name="P:CMS.OutputFilter.OutputData.HasDebugInformation">
             <summary>
@@ -299,9 +271,70 @@
             Returns whether current user supports GZip and it is allowed on server.
             </summary>
         </member>
+        <member name="M:CMS.OutputFilter.OutputData.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.OutputFilter.OutputData.#ctor(System.String,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="outputHtml">Output HTML</param>
+            <param name="gZip">GZip the data</param>
+            <param name="outputEncoding">Output encoding</param>
+        </member>
+        <member name="M:CMS.OutputFilter.OutputData.WriteOutputToStream(System.IO.Stream,System.Boolean,System.Boolean)">
+            <summary>
+            Writes the data to the stream and closes the stream.
+            </summary>
+            <param name="s">Stream to write to</param>
+            <param name="trimmed">If true, the trimmed version of the output is written to the output</param>
+            <param name="allowSubstitutions">If true, the substitutions are allowed in the code</param>
+            <returns>Returns the size of data written to the output</returns>
+        </member>
+        <member name="M:CMS.OutputFilter.OutputData.GetData(System.String)">
+            <summary>
+            Gets the data for given HTML.
+            </summary>
+            <param name="html">Output HTML</param>
+        </member>
         <member name="T:CMS.OutputFilter.ResponseOutputFilter">
             <summary>
             Fixes bugs in ASP.NET related to XHTML support and URL Rewriting.
+            </summary>
+        </member>
+        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnResolveSubstitution">
+            <summary>
+            Custom substitution event.
+            </summary>
+        </member>
+        <member name="T:CMS.OutputFilter.ResponseOutputFilter.OutputFilterHandler">
+            <summary>
+            Output filter handler.
+            </summary>
+            <param name="filter">Filter that has been created</param>
+        </member>
+        <member name="T:CMS.OutputFilter.ResponseOutputFilter.CustomFilterHandler">
+            <summary>
+            Custom filter handler definition.
+            </summary>
+            <param name="filter">Output filter object</param>
+            <param name="finalHtml">Final HTML code of the page to filter</param>
+        </member>
+        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnBeforeFiltering">
+            <summary>
+            Fires before the filtering occurs.
+            </summary>
+        </member>
+        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnAfterFiltering">
+            <summary>
+            Fires after the filtering occurs.
+            </summary>
+        </member>
+        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnFilterCreated">
+            <summary>
+            Fires after the filter has been created.
             </summary>
         </member>
         <member name="F:CMS.OutputFilter.ResponseOutputFilter.mDefaultFilterCapacity">
@@ -324,11 +357,6 @@
             Response HTML.
             </summary>
         </member>
-        <member name="F:CMS.OutputFilter.ResponseOutputFilter.mApplyFilter">
-            <summary>
-            Apply the filter?
-            </summary>
-        </member>
         <member name="F:CMS.OutputFilter.ResponseOutputFilter.mEncoding">
             <summary>
             Encoding for the current filter
@@ -337,6 +365,56 @@
         <member name="F:CMS.OutputFilter.ResponseOutputFilter.SubstitutionPattern">
             <summary>
             Substitution pattern used for searching output cache substitutions.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.UseOutputFilterCache">
+            <summary>
+            Returns true if full client cache is enabled (no revalidation requests).
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.TrackCacheDependencies">
+            <summary>
+            Returns true if the cache dependencies for the output cache are tracked.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CacheItems">
+            <summary>
+            List of the cache key items.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.DefaultFilterCapacity">
+            <summary>
+            Default capacity for the output filter.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.OutputFilterEndRequest">
+            <summary>
+            When true, the request is completed, when false, the Request.End is called.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.ApplyFilter">
+            <summary>
+            If true, the filter is applied to the response.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.LogToFile">
+            <summary>
+            If true, the filter logs the output to the file.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.LogToDebug">
+            <summary>
+            If true, the filter logs the output to the debug.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.UseGZip">
+            <summary>
+            If true, the filter uses GZip compression on output.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.Encoding">
+            <summary>
+            Current response encoding
             </summary>
         </member>
         <member name="M:CMS.OutputFilter.ResponseOutputFilter.GetExcludedXHTMLResolveUrls(System.String)">
@@ -413,6 +491,29 @@
         <member name="M:CMS.OutputFilter.ResponseOutputFilter.EnsureOutputFilter">
             <summary>
             Ensures that current request contains the output filter.
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CanRead">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CanSeek">
+             <summary></summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CanWrite">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.Length">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.ResponseOutputFilter.Position">
+            <summary>
+            
             </summary>
         </member>
         <member name="M:CMS.OutputFilter.ResponseOutputFilter.#ctor(System.IO.Stream)">
@@ -504,112 +605,6 @@
             <param name="expression">Expression to resolve</param>
             <param name="match">Returns true if matched</param>
         </member>
-        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnResolveSubstitution">
-            <summary>
-            Custom substitution event.
-            </summary>
-        </member>
-        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnBeforeFiltering">
-            <summary>
-            Fires before the filtering occurs.
-            </summary>
-        </member>
-        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnAfterFiltering">
-            <summary>
-            Fires after the filtering occurs.
-            </summary>
-        </member>
-        <member name="E:CMS.OutputFilter.ResponseOutputFilter.OnFilterCreated">
-            <summary>
-            Fires after the filter has been created.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.UseOutputFilterCache">
-            <summary>
-            Returns true if full client cache is enabled (no revalidation requests).
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.TrackCacheDependencies">
-            <summary>
-            Returns true if the cache dependencies for the output cache are tracked.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CacheItems">
-            <summary>
-            List of the cache key items.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.DefaultFilterCapacity">
-            <summary>
-            Default capacity for the output filter.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.OutputFilterEndRequest">
-            <summary>
-            When true, the request is completed, when false, the Request.End is called.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.ApplyFilter">
-            <summary>
-            If true, the filter is applied to the response.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.LogToFile">
-            <summary>
-            If true, the filter logs the output to the file.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.LogToDebug">
-            <summary>
-            If true, the filter logs the output to the debug.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.UseGZip">
-            <summary>
-            If true, the filter uses GZip compression on output.
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.Encoding">
-            <summary>
-            Current response encoding
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CanRead">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CanSeek">
-             <summary></summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.CanWrite">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.Length">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.ResponseOutputFilter.Position">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:CMS.OutputFilter.ResponseOutputFilter.OutputFilterHandler">
-            <summary>
-            Output filter handler.
-            </summary>
-            <param name="filter">Filter that has been created</param>
-        </member>
-        <member name="T:CMS.OutputFilter.ResponseOutputFilter.CustomFilterHandler">
-            <summary>
-            Custom filter handler definition.
-            </summary>
-            <param name="filter">Output filter object</param>
-            <param name="finalHtml">Final HTML code of the page to filter</param>
-        </member>
         <member name="T:CMS.OutputFilter.OutputHelper">
             <summary>
             Output helper.
@@ -619,6 +614,26 @@
             <summary>
              Cache item priority.
              </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.OutputHelper.UseOutputFilterCache">
+            <summary>
+            Returns true if full client cache is enabled (no revalidation requests).
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.OutputHelper.AvailableCacheItemNames">
+            <summary>
+            Gets list of cache items supported by system
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.OutputHelper.CacheItems">
+            <summary>
+            List of the cache key items separated by semicolon. Defaults to "username;sitename;lang;browser;cookielevel;deviceprofile". Other available values are: domain, viewmode
+            </summary>
+        </member>
+        <member name="P:CMS.OutputFilter.OutputHelper.ClearOutputCacheOnPostback">
+            <summary>
+            If true, output cache is cleared on postback.
+            </summary>
         </member>
         <member name="M:CMS.OutputFilter.OutputHelper.EnableOutputCache(System.String)">
             <summary>
@@ -730,26 +745,6 @@
             Ends the current request
             </summary>
         </member>
-        <member name="P:CMS.OutputFilter.OutputHelper.UseOutputFilterCache">
-            <summary>
-            Returns true if full client cache is enabled (no revalidation requests).
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.OutputHelper.AvailableCacheItemNames">
-            <summary>
-            Gets list of cache items supported by system
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.OutputHelper.CacheItems">
-            <summary>
-            List of the cache key items separated by semicolon. Defaults to "username;sitename;lang;browser;cookielevel;deviceprofile". Other available values are: domain, viewmode
-            </summary>
-        </member>
-        <member name="P:CMS.OutputFilter.OutputHelper.ClearOutputCacheOnPostback">
-            <summary>
-            If true, output cache is cleared on postback.
-            </summary>
-        </member>
         <member name="T:CMS.OutputFilter.SubstitutionEventArgs">
             <summary>
             Substitution event arguments
@@ -859,14 +854,9 @@
             </summary>
             <param name="app">The http application</param>
         </member>
-        <member name="M:CMS.OutputFilter.OutputFilterModule.app_ReleaseRequestState(System.Object,System.EventArgs)">
+        <member name="M:CMS.OutputFilter.OutputFilterModule.ReleaseRequestState(System.Object,System.EventArgs)">
             <summary>
             Output filter assignment handler.
-            </summary>
-        </member>
-        <member name="M:CMS.OutputFilter.OutputFilterModule.System#Web#IHttpModule#Dispose">
-            <summary>
-            Destructor.
             </summary>
         </member>
         <member name="T:CMS.OutputFilter.OutputCacheEventArgs">

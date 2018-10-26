@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/Core', 'jQuery'], function (Core, $) {
-    'use strict';
 
     var Module = function (opt) {
         var core = new Core(opt, null),

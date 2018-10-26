@@ -2,24 +2,32 @@
 using System.Collections.Generic;
 
 using CMS.Base;
-using CMS.Core;
 using CMS.DataEngine;
 using CMS.DocumentEngine;
-using CMS.FormEngine;
 using CMS.Helpers;
 using CMS.IO;
 using CMS.SiteProvider;
 using CMS.UIControls;
 
-
-public partial class CMSAdminControls_UI_Development_Generators_DocumentsCodeGenerator : CMSAdminControl
+public partial class CMSAdminControls_UI_Development_Generators_DocumentsCodeGenerator : CodeGeneratorBase
 {
     private string mFolderBasePath;
 
     protected override void OnLoad(EventArgs e)
     {
         base.OnLoad(e);
-        btnSaveCode.Click += SaveCode;
+
+        if (SystemContext.IsPrecompiledWebsite)
+        {
+            ShowCodeSaveDisabledMessage();
+
+            ucSavePath.Enabled = false;
+            btnSaveCode.Enabled = false;
+        }
+        else
+        {
+            btnSaveCode.Click += SaveCode;
+        }
 
         mFolderBasePath = String.Format("~/{0}/CMSClasses", SystemContext.IsWebApplicationProject ? "Old_App_Code" : "App_Code");
         if (!RequestHelper.IsPostBack())
@@ -37,32 +45,16 @@ public partial class CMSAdminControls_UI_Development_Generators_DocumentsCodeGen
 
     private void SaveCode(object sender, EventArgs e)
     {
-        try
+        var dataClasses = GetDataClasses();
+        var path = ValidationHelper.GetString(ucSavePath, String.Empty);
+
+        if (String.IsNullOrEmpty(path))
         {
-            var path = ValidationHelper.GetString(ucSavePath.Value, String.Empty);
-            if (String.IsNullOrEmpty(path))
-            {
-                path = mFolderBasePath;
-                ucSavePath.Value = path;
-            }
-
-            var baseFolderPath = URLHelper.GetPhysicalPath(path);
-
-            ContentItemCodeFileGenerator.Internal.GenerateFiles(
-                dataClasses: GetDataClasses(),
-                baseFolderPath: baseFolderPath
-            );
-
-            var message = GetString("classes.code.filessavesuccess");
-            ShowConfirmation(message);
+            path = mFolderBasePath;
+            ucSavePath.Value = path;
         }
-        catch (Exception exception)
-        {
-            CoreServices.EventLog.LogException("Content item code generator", "Save", exception);
 
-            var message = GetString("classes.code.filessaveerror");
-            ShowError(message);
-        }
+        base.SaveCode(path, dataClasses);
     }
 
 

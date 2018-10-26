@@ -141,7 +141,7 @@ public partial class CMSModules_MessageBoards_Controls_LiveControls_Subscription
         SetupControls();
 
         // Reload data if necessary
-        if (!URLHelper.IsPostback() && !IsLiveSite)
+        if (!RequestHelper.IsPostBack() && !IsLiveSite)
         {
             ReloadData();
         }

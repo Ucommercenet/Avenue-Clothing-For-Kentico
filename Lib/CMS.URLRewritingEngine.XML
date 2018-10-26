@@ -351,6 +351,11 @@
             If true (default), the routing behaves the same way as URL path = switches the current culture to the route culture
             </summary>
         </member>
+        <member name="P:CMS.URLRewritingEngine.BaseDocumentConstraint.SwitchToRouteCulture">
+            <summary>
+            If true (default), the routing behaves the same way as URL path = switches the current culture to the route culture
+            </summary>
+        </member>
         <member name="M:CMS.URLRewritingEngine.BaseDocumentConstraint.#ctor(System.String,System.String,System.Int32,System.String,System.String,CMS.DocumentEngine.PageInfoSource)">
             <summary>
             Constructor
@@ -396,11 +401,6 @@
             <param name="route">The current route</param>
             <param name="culture">The culture</param>
             <param name="pathPrefix">The path type prefix ("MVC:", "ROUTE:" prefix).</param>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.BaseDocumentConstraint.SwitchToRouteCulture">
-            <summary>
-            If true (default), the routing behaves the same way as URL path = switches the current culture to the route culture
-            </summary>
         </member>
         <member name="T:CMS.URLRewritingEngine.CMSMvcDocumentConstraint">
             <summary>
@@ -483,46 +483,6 @@
             <param name="route">Route</param>
             <param name="values">Values</param>
         </member>
-        <member name="T:CMS.Mvc.MvcAdapter">
-            <summary>
-            Class providing a connection for the implementation of the MVC contract
-            </summary>
-        </member>
-        <member name="M:CMS.Mvc.MvcAdapter.GetMvcHandler(System.Web.Routing.RequestContext)">
-            <summary>
-            Gets the MVC handler for the given request context.
-            </summary>
-            <param name="context">The request context</param>
-        </member>
-        <member name="M:CMS.Mvc.MvcAdapter.GetMvcRouteHandler">
-            <summary>
-            Gets the MVC route handler object.
-            </summary>
-        </member>
-        <member name="M:CMS.Mvc.MvcAdapter.ProceedDefaultRouteValues(System.Web.Routing.RouteValueDictionary,System.Web.Routing.RouteValueDictionary)">
-            <summary>
-            Proceeds the default route values.
-            </summary>
-            <param name="values">The values</param>
-            <param name="routeDefaults">The route defaults</param>
-        </member>
-        <member name="M:CMS.Mvc.MvcAdapter.GetControllerType(System.Web.Routing.RequestContext,System.String)">
-            <summary>
-            Gets the type of the controller.
-            </summary>
-            <param name="context">The context</param>
-            <param name="controllerName">Name of the controller</param>
-        </member>
-        <member name="P:CMS.Mvc.MvcAdapter.MvcAdapterImplementation">
-            <summary>
-            Gets the MVC implementation object.
-            </summary>
-        </member>
-        <member name="P:CMS.Mvc.MvcAdapter.OptionalUrlParameter">
-            <summary>
-            Gets the "Optional URL parameter" type.
-            </summary>
-        </member>
         <member name="T:CMS.URLRewritingEngine.CMSDocumentRouteHelper">
             <summary>
             Handler for the MVC routes for URL rewriter.
@@ -533,19 +493,14 @@
             Alias page info result type.
             </summary>
         </member>
-        <member name="F:CMS.URLRewritingEngine.CMSDocumentRouteHelper.mRoutes">
+        <member name="P:CMS.URLRewritingEngine.CMSDocumentRouteHelper.Routes">
             <summary>
             Table of the registered routes [siteName] -> [List of RouteBase]
             </summary>
         </member>
-        <member name="F:CMS.URLRewritingEngine.CMSDocumentRouteHelper.mRoutesByDocuments">
+        <member name="P:CMS.URLRewritingEngine.CMSDocumentRouteHelper.RoutesByDocuments">
             <summary>
-            Table of the registers routes by the document [nodeId] -> [List of RouteBase]
-            </summary>
-        </member>
-        <member name="F:CMS.URLRewritingEngine.CMSDocumentRouteHelper.routeLock">
-            <summary>
-            Route lock.
+            Table of the registers routes by the document [node key] -> [List of RouteBase]
             </summary>
         </member>
         <member name="M:CMS.URLRewritingEngine.CMSDocumentRouteHelper.DropAllRoutes">
@@ -642,21 +597,6 @@
             <param name="m">Element match</param>
             <param name="defaults">If set, returns the default values of the wildcards</param>
         </member>
-        <member name="P:CMS.URLRewritingEngine.CMSDocumentRouteHelper.Routes">
-            <summary>
-            Table of the registered routes [siteName] -> [List of RouteBase]
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.CMSDocumentRouteHelper.RoutesByDocuments">
-            <summary>
-            Table of the registers routes by the document [nodeId] -> [List of RouteBase]
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.CMSDocumentRouteHelper.UseDefaultValuesInPattern">
-            <summary>
-            If true, the default values of pattern elements are used in the pattern
-            </summary>
-        </member>
         <member name="T:CMS.URLRewritingEngine.CMSDocumentRouteHandler">
             <summary>
             Route handler for the portal pages
@@ -708,6 +648,11 @@
             CMS override of the default route class
             </summary>
         </member>
+        <member name="P:CMS.URLRewritingEngine.CMSRoute.Name">
+            <summary>
+            Route name
+            </summary>
+        </member>
         <member name="M:CMS.URLRewritingEngine.CMSRoute.#ctor(System.String,System.String,System.Web.Routing.IRouteHandler)">
             <summary>
             Creates a new route
@@ -715,11 +660,6 @@
             <param name="name">Route name</param>
             <param name="pattern">Route pattern</param>
             <param name="handler">Route handler</param>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.CMSRoute.Name">
-            <summary>
-            Route name
-            </summary>
         </member>
         <member name="T:CMS.URLRewritingEngine.CMSDocumentRouteConstraint">
             <summary>
@@ -751,6 +691,16 @@
             URL rewriter class.
             </summary>
         </member>
+        <member name="P:CMS.URLRewritingEngine.URLRewriter.ProviderObject">
+            <summary>
+            Provider object.
+            </summary>
+        </member>
+        <member name="F:CMS.URLRewritingEngine.URLRewriter.CacheItemPriority">
+            <summary>
+            Cache item priority.
+            </summary>
+        </member>
         <member name="F:CMS.URLRewritingEngine.URLRewriter.PREFIX_GETATTACHMENT">
             <summary>
             GetAttachment prefix.
@@ -774,11 +724,6 @@
         <member name="F:CMS.URLRewritingEngine.URLRewriter.PREFIX_CMS_GETDOC">
             <summary>
             GetDoc prefix for CMS pages (pages which require authentication).
-            </summary>
-        </member>
-        <member name="F:CMS.URLRewritingEngine.URLRewriter.CacheItemPriority">
-            <summary>
-            Cache item priority.
             </summary>
         </member>
         <member name="F:CMS.URLRewritingEngine.URLRewriter.mGetAttachmentPrefixes">
@@ -816,6 +761,37 @@
         <member name="F:CMS.URLRewritingEngine.URLRewriter.mFixRewriteRedirect">
             <summary>
             If true, the URL rewriting process attempts to fix the redirect that some module did with wrong URL by another redirect with the original URL. Set true when using cookieless mode. Default is false.
+            </summary>
+        </member>
+        <member name="P:CMS.URLRewritingEngine.URLRewriter.FixRewriteRedirect">
+            <summary>
+            If true, the URL rewriting process attempts to fix the redirect that some module did with wrong URL by another redirect with the original URL. Set true when using cookieless mode. Default is false.
+            </summary>
+        </member>
+        <member name="P:CMS.URLRewritingEngine.URLRewriter.WildcardQueryMapping">
+            <summary>
+            Gets the wildcard query mapping setting. Possible values: join replaceexisting keepexisting.
+            </summary>
+        </member>
+        <member name="P:CMS.URLRewritingEngine.URLRewriter.UseRedirectForDefaultPage">
+            <summary>
+            Gets the value that indicates whether default page should be redirected to the main URL.
+            </summary>
+        </member>
+        <member name="P:CMS.URLRewritingEngine.URLRewriter.RedirectLangParameterToPrefix">
+            <summary>
+            Gets the value that indicates whether URL with lang prefix should be redirected to the 
+            culture prefix if culture prefix is enabled for current site
+            </summary>
+        </member>
+        <member name="P:CMS.URLRewritingEngine.URLRewriter.EncodeNodeAliasPath">
+            <summary>
+            Gets the value that indicates whether node alias path should be encoded for RewritePath method.
+            </summary>
+        </member>
+        <member name="P:CMS.URLRewritingEngine.URLRewriter.GetAttachmentPrefixes">
+            <summary>
+            Prefixes for the available permanent attachment URLs.
             </summary>
         </member>
         <member name="M:CMS.URLRewritingEngine.URLRewriter.GetGoogleSiteMapURL(System.String)">
@@ -916,6 +892,13 @@
             <param name="viewMode">View mode</param>
             <returns>Returns how current URL was processed</returns>
         </member>
+        <member name="M:CMS.URLRewritingEngine.URLRewriter.RemovePathInfo(System.String,System.String)">
+            <summary>
+            Removes the path info from URL.
+            </summary>
+            <param name="url">URL to process</param>
+            <param name="pathInfo">Path info to remove</param>
+        </member>
         <member name="M:CMS.URLRewritingEngine.URLRewriter.FileDomainRedirect(CMS.SiteProvider.SiteNameOnDemand,CMS.PortalEngine.ViewModeOnDemand,CMS.URLRewritingEngine.UrlRewritingAction)">
             <summary>
             Redirects files to proper domain if enabled
@@ -1002,13 +985,12 @@
             Handles the page not found response in case it wasn't yet handled
             </summary>
         </member>
-        <member name="M:CMS.URLRewritingEngine.URLRewriter.PageNotFound(CMS.SiteProvider.SiteNameOnDemand,CMS.PortalEngine.ViewModeOnDemand,System.Boolean)">
+        <member name="M:CMS.URLRewritingEngine.URLRewriter.PageNotFound(CMS.SiteProvider.SiteNameOnDemand,CMS.PortalEngine.ViewModeOnDemand)">
             <summary>
             Returns the page not found error or redirects to the page not found page
             </summary>
             <param name="siteName">Site name</param>
             <param name="viewMode">View mode</param>
-            <param name="alwaysRedirect">If true, the request is always redirected, not just rewritten</param>
         </member>
         <member name="M:CMS.URLRewritingEngine.URLRewriter.NotPage(System.Boolean)">
             <summary>
@@ -1016,13 +998,12 @@
             </summary>
             <param name="disableDebug">If true, the debug is disabled for this request</param>
         </member>
-        <member name="M:CMS.URLRewritingEngine.URLRewriter.RedirectToPageNotFound(CMS.SiteProvider.SiteNameOnDemand,CMS.PortalEngine.ViewModeOnDemand,System.Boolean)">
+        <member name="M:CMS.URLRewritingEngine.URLRewriter.RedirectToPageNotFound(CMS.SiteProvider.SiteNameOnDemand,CMS.PortalEngine.ViewModeOnDemand)">
             <summary>
             Redirects the user to page not found URL.
             </summary>
             <param name="siteName">Site name</param>
             <param name="viewMode">View mode</param>
-            <param name="alwaysRedirect">If true, the request is always redirected, not just rewritten</param>
         </member>
         <member name="M:CMS.URLRewritingEngine.URLRewriter.CompleteRequest">
             <summary>
@@ -1424,42 +1405,6 @@
             </summary>
             <returns>Return true if the request was processed by GetAttachment handler.</returns>
         </member>
-        <member name="P:CMS.URLRewritingEngine.URLRewriter.ProviderObject">
-            <summary>
-            Provider object.
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.URLRewriter.FixRewriteRedirect">
-            <summary>
-            If true, the URL rewriting process attempts to fix the redirect that some module did with wrong URL by another redirect with the original URL. Set true when using cookieless mode. Default is false.
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.URLRewriter.WildcardQueryMapping">
-            <summary>
-            Gets the wildcard query mapping setting. Possible values: join replaceexisting keepexisting.
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.URLRewriter.UseRedirectForDefaultPage">
-            <summary>
-            Gets the value that indicates whether default page should be redirected to the main URL.
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.URLRewriter.RedirectLangParameterToPrefix">
-            <summary>
-            Gets the value that indicates whether URL with lang prefix should be redirected to the 
-            culture prefix if culture prefix is enabled for current site
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.URLRewriter.EncodeNodeAliasPath">
-            <summary>
-            Gets the value that indicates whether node alias path should be encoded for RewritePath method.
-            </summary>
-        </member>
-        <member name="P:CMS.URLRewritingEngine.URLRewriter.GetAttachmentPrefixes">
-            <summary>
-            Prefixes for the available permanent attachment URLs.
-            </summary>
-        </member>
         <member name="M:CMS.URLRewritingEngine.PreferredCultureEvaluator.#ctor(CMS.PortalEngine.ViewModeOnDemand)">
             <summary>
             Creates a new instance of the <see cref="T:CMS.URLRewritingEngine.PreferredCultureEvaluator"/> class.
@@ -1518,11 +1463,6 @@
             Initializes the module
             </summary>
         </member>
-        <member name="M:CMS.URLRewritingEngine.URLRewritingModule.PageNotFound_Execute(System.Object,CMS.URLRewritingEngine.URLRewriterPageNotFoundEventArgs)">
-            <summary>
-            Try handle toolkit script request
-            </summary>
-        </member>
         <member name="T:CMS.URLRewritingEngine.URLRewritingModuleMetadata">
             <summary>
             Represents the URL Rewriting module metadata.
@@ -1562,6 +1502,46 @@
             <summary>
             Relative path
             </summary>
+        </member>
+        <member name="T:CMS.Mvc.MvcAdapter">
+            <summary>
+            Class providing a connection for the implementation of the MVC contract
+            </summary>
+        </member>
+        <member name="P:CMS.Mvc.MvcAdapter.MvcAdapterImplementation">
+            <summary>
+            Gets the MVC implementation object.
+            </summary>
+        </member>
+        <member name="M:CMS.Mvc.MvcAdapter.GetMvcHandler(System.Web.Routing.RequestContext)">
+            <summary>
+            Gets the MVC handler for the given request context.
+            </summary>
+            <param name="context">The request context</param>
+        </member>
+        <member name="M:CMS.Mvc.MvcAdapter.GetMvcRouteHandler">
+            <summary>
+            Gets the MVC route handler object.
+            </summary>
+        </member>
+        <member name="M:CMS.Mvc.MvcAdapter.ProceedDefaultRouteValues(System.Web.Routing.RouteValueDictionary,System.Web.Routing.RouteValueDictionary)">
+            <summary>
+            Proceeds the default route values.
+            </summary>
+            <param name="values">The values</param>
+            <param name="routeDefaults">The route defaults</param>
+        </member>
+        <member name="P:CMS.Mvc.MvcAdapter.OptionalUrlParameter">
+            <summary>
+            Gets the "Optional URL parameter" type.
+            </summary>
+        </member>
+        <member name="M:CMS.Mvc.MvcAdapter.GetControllerType(System.Web.Routing.RequestContext,System.String)">
+            <summary>
+            Gets the type of the controller.
+            </summary>
+            <param name="context">The context</param>
+            <param name="controllerName">Name of the controller</param>
         </member>
     </members>
 </doc>

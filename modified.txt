@@ -1,0 +1,3 @@
+Following files were copied into the target directory with the '.new' extension. Merge your custom changes into these files and remove the '.new' extensions afterwards.
+C:\Repositories\Avenue Clothing Kentico (WF)\avenue-clothing-for-kentico-wf\CMS\CMSPages\logon.aspx.cs
+C:\Repositories\Avenue Clothing Kentico (WF)\avenue-clothing-for-kentico-wf\CMS\CMSScripts\CMSModules\CMS.WebAnalytics\Campaign\build.js

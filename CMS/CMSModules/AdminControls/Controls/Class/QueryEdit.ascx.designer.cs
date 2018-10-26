@@ -138,31 +138,13 @@ public partial class CMSModules_AdminControls_Controls_Class_QueryEdit {
     protected global::CMS.Base.Web.UI.ExtendedTextArea txtQueryText;
     
     /// <summary>
-    /// plcLoadGeneration control.
+    /// plcConnectionString control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.PlaceHolder plcLoadGeneration;
-    
-    /// <summary>
-    /// lblLoadGeneration control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedLabel lblLoadGeneration;
-    
-    /// <summary>
-    /// drpGeneration control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMSAdminControls_UI_Selectors_LoadGenerationSelector drpGeneration;
+    protected global::System.Web.UI.WebControls.PlaceHolder plcConnectionString;
     
     /// <summary>
     /// lblConnString control.

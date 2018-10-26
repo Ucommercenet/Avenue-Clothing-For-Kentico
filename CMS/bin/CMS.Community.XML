@@ -172,41 +172,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Community.FriendInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.FriendInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.FriendInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.Community.FriendInfo.GetExisting">
-            <summary>
-            Get existing object
-            </summary>
-            <returns>Existing friend object</returns>
-        </member>
-        <member name="M:CMS.Community.FriendInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty FriendInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.FriendInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new FriendInfo object from the given DataRow.
-            </summary>
-        </member>
         <member name="P:CMS.Community.FriendInfo.FriendUserID">
             <summary>
             ID of requesting user.
@@ -262,6 +227,41 @@
             Friendship status.
             </summary>
         </member>
+        <member name="M:CMS.Community.FriendInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.FriendInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.FriendInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.Community.FriendInfo.GetExisting">
+            <summary>
+            Get existing object
+            </summary>
+            <returns>Existing friend object</returns>
+        </member>
+        <member name="M:CMS.Community.FriendInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty FriendInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.FriendInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new FriendInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="F:CMS.Community.FriendListInfo.OBJECT_TYPE">
             <summary>
             Object type
@@ -296,6 +296,11 @@
         <member name="T:CMS.Community.FriendInfoProvider">
             <summary>
             Class providing FriendInfo management.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.FriendInfoProvider.GetFriends">
+            <summary>
+            Returns all friends.
             </summary>
         </member>
         <member name="M:CMS.Community.FriendInfoProvider.GetFriendInfo(System.Int32)">
@@ -348,14 +353,6 @@
             Deletes specified friend.
             </summary>
             <param name="friendId">Friend id</param>
-        </member>
-        <member name="M:CMS.Community.FriendInfoProvider.GetFriends(System.String,System.String)">
-            <summary>
-            Gets all friends filtered out by where condition and ordered by given expression.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <returns>DataSet with friends.</returns>
         </member>
         <member name="M:CMS.Community.FriendInfoProvider.GetFriends(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -461,18 +458,6 @@
             <param name="orderBy">Order by clause</param>
             <param name="topN">Number of records to return</param>
             <param name="columns">Columns to select, null or empty returns all columns</param>
-        </member>
-        <member name="M:CMS.Community.FriendInfoProvider.GetFriendInfoInternal(System.Int32)">
-            <summary>
-            Returns the FriendInfo structure for the specified friend.
-            </summary>
-            <param name="friendId">Friend id</param>
-        </member>
-        <member name="M:CMS.Community.FriendInfoProvider.GetFriendInfoInternal(System.Guid)">
-            <summary>
-            Returns the FriendInfo structure specified by GUID.
-            </summary>
-            <param name="guid">GUID of FriendInfo</param>
         </member>
         <member name="M:CMS.Community.FriendInfoProvider.GetFriendInfoInternal(System.Int32,System.Int32)">
             <summary>
@@ -613,39 +598,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Community.GroupInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Community.GroupInfo.LoadDefaultData">
-            <summary>
-            Loads the default data to the object.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty GroupInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new GroupInfo object from the given DataRow.
-            </summary>
-        </member>
         <member name="P:CMS.Community.GroupInfo.GroupDisplayName">
             <summary>
             Group display name.
@@ -761,6 +713,39 @@
         <member name="P:CMS.Community.GroupInfo.GroupLogActivity">
             <summary>
             Indicates if ativity logging is performed for this particular group.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Community.GroupInfo.LoadDefaultData">
+            <summary>
+            Loads the default data to the object.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty GroupInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new GroupInfo object from the given DataRow.
             </summary>
         </member>
         <member name="T:CMS.Community.GroupInfoProvider">
@@ -900,29 +885,12 @@
             <param name="ri">Role info</param>
             <returns>Returns error message if this method failed. Otherwise return empty string.</returns>
         </member>
-        <member name="M:CMS.Community.GroupInfoProvider.GetGroupInfoInternal(System.Int32)">
-            <summary>
-            Returns the GroupInfo structure for the specified group.
-            </summary>
-            <param name="groupId">Group ID</param>
-        </member>
-        <member name="M:CMS.Community.GroupInfoProvider.GetGroupInfoInternal(System.Guid)">
-            <summary>
-            Returns the GroupInfo structure for the specified group.
-            </summary>
-            <param name="groupGuid">Group GUID</param>
-        </member>
         <member name="M:CMS.Community.GroupInfoProvider.GetGroupInfoInternal(System.String,System.String)">
             <summary>
             Returns the GroupInfo structure for the specified group.
             </summary>
             <param name="groupCodeName">Code name of the group to get</param>
             <param name="siteName">Group site name</param>
-        </member>
-        <member name="M:CMS.Community.GroupInfoProvider.GetGroupsInternal">
-            <summary>
-            Returns object query for groups.
-            </summary>
         </member>
         <member name="M:CMS.Community.GroupInfoProvider.GetGroupsManagedByUserInternal(System.Int32,System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -945,11 +913,11 @@
             <param name="columns">Columns to select, null or empty select all columns</param>
             <returns>Data set with records.</returns>
         </member>
-        <member name="M:CMS.Community.GroupInfoProvider.SetGroupInfoInternal(CMS.Community.GroupInfo)">
+        <member name="M:CMS.Community.GroupInfoProvider.SetInfo(CMS.Community.GroupInfo)">
             <summary>
-            Sets (updates or inserts) specified group.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="group">Group to set</param>
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="M:CMS.Community.GroupInfoProvider.DeleteGroupInfoInternal(CMS.Community.GroupInfo,System.Boolean)">
             <summary>
@@ -1067,6 +1035,21 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Community.GroupRolePermissionInfo.GroupID">
+            <summary>
+            Group ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.GroupRolePermissionInfo.RoleID">
+            <summary>
+            Role ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.GroupRolePermissionInfo.PermissionID">
+            <summary>
+            Permission ID.
+            </summary>
+        </member>
         <member name="M:CMS.Community.GroupRolePermissionInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -1085,21 +1068,6 @@
         <member name="M:CMS.Community.GroupRolePermissionInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new ForumRoleInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.GroupRolePermissionInfo.GroupID">
-            <summary>
-            Group ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.GroupRolePermissionInfo.RoleID">
-            <summary>
-            Role ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.GroupRolePermissionInfo.PermissionID">
-            <summary>
-            Permission ID.
             </summary>
         </member>
         <member name="T:CMS.Community.GroupRolePermissionInfoProvider">
@@ -1173,26 +1141,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Community.InvitationInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.InvitationInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.InvitationInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty InvitationInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.InvitationInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new InvitationInfo object from the given DataRow.
-            </summary>
-        </member>
         <member name="P:CMS.Community.InvitationInfo.InvitationCreated">
             <summary>
             Invitation created.
@@ -1241,6 +1189,26 @@
         <member name="P:CMS.Community.InvitationInfo.InvitationUserEmail">
             <summary>
             Invitation user e-mail.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.InvitationInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.InvitationInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.InvitationInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty InvitationInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.InvitationInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new InvitationInfo object from the given DataRow.
             </summary>
         </member>
         <member name="T:CMS.Community.InvitationInfoProvider">
@@ -1347,31 +1315,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Community.GroupMemberInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupMemberInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupMemberInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty GroupMemberInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupMemberInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new GroupMemberInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.GroupMemberInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
-            <summary>
-            Removes object dependencies.
-            </summary>
-        </member>
         <member name="P:CMS.Community.GroupMemberInfo.MemberStatus">
             <summary>
             Member status.
@@ -1427,6 +1370,31 @@
             Member comment.
             </summary>
         </member>
+        <member name="M:CMS.Community.GroupMemberInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupMemberInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupMemberInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty GroupMemberInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupMemberInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new GroupMemberInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.GroupMemberInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
+            <summary>
+            Removes object dependencies.
+            </summary>
+        </member>
         <member name="T:CMS.Community.GroupMemberInfoProvider">
             <summary>
             Class providing GroupMemberInfo management.
@@ -1438,22 +1406,10 @@
             </summary>
             <param name="groupMemberId">GroupMember id</param>
         </member>
-        <member name="M:CMS.Community.GroupMemberInfoProvider.GetGroupMembers(System.String,System.String,System.Int32)">
+        <member name="M:CMS.Community.GroupMemberInfoProvider.GetGroupMembers">
             <summary>
-            Returns first N records on group members according to the specifed conditions.
+            Returns a query for all the <see cref="T:CMS.Community.GroupMemberInfo"/> objects.
             </summary>
-            <param name="where">Where condition to apply</param>
-            <param name="orderBy">Order by statement used to sort the data</param>
-            <param name="topN">Number of records to return</param>
-            <returns>Data set with records.</returns>
-        </member>
-        <member name="M:CMS.Community.GroupMemberInfoProvider.GetGroupMembers(System.String,System.String)">
-            <summary>
-            Returns records on group members according to the specifed conditions.
-            </summary>
-            <param name="where">Where condition to apply</param>
-            <param name="orderBy">Order by statement used to sort the data</param>
-            <returns>Data set with records.</returns>
         </member>
         <member name="M:CMS.Community.GroupMemberInfoProvider.GetGroupMembers(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -1462,7 +1418,7 @@
             <param name="where">Where condition to apply</param>
             <param name="orderBy">Order by statement used to sort the data</param>
             <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>        
+            <param name="columns">Columns to select, null or empty returns all columns</param>
         </member>
         <member name="M:CMS.Community.GroupMemberInfoProvider.GetCompleteSiteMembers(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -1540,21 +1496,6 @@
             <param name="memberName">Member name</param>
             <param name="siteName">Site name</param>
         </member>
-        <member name="M:CMS.Community.GroupMemberInfoProvider.GetGroupMemberInfoInternal(System.Int32)">
-            <summary>
-            Returns the GroupMemberInfo structure for the specified groupMember.
-            </summary>
-            <param name="groupMemberId">GroupMember id</param>
-        </member>
-        <member name="M:CMS.Community.GroupMemberInfoProvider.GetGroupMembersInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns first N records on group members according to the specifed conditions.
-            </summary>
-            <param name="where">Where condition to apply</param>
-            <param name="orderBy">Order by statement used to sort the data</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>        
-        </member>
         <member name="M:CMS.Community.GroupMemberInfoProvider.GetCompleteSiteMembersInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
             Returns records with information about members with complete user and site info.
@@ -1578,17 +1519,11 @@
             <param name="userId">ID of user</param>
             <param name="groupId">ID of group</param>
         </member>
-        <member name="M:CMS.Community.GroupMemberInfoProvider.SetGroupMemberInfoInternal(CMS.Community.GroupMemberInfo)">
+        <member name="M:CMS.Community.GroupMemberInfoProvider.SetInfo(CMS.Community.GroupMemberInfo)">
             <summary>
-            Sets (updates or inserts) specified groupMember.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="groupMember">GroupMember to set</param>
-        </member>
-        <member name="M:CMS.Community.GroupMemberInfoProvider.DeleteGroupMemberInfoInternal(CMS.Community.GroupMemberInfo)">
-            <summary>
-            Deletes specified groupMember.
-            </summary>
-            <param name="infoObj">GroupMember object</param>
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="T:CMS.Community.ImportSpecialActions">
             <summary>
@@ -1603,6 +1538,26 @@
         <member name="T:CMS.Community.CommunityContext">
             <summary>
             Site related context methods and variables.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.CommunityContext.CurrentGroup">
+            <summary>
+            Current group info object matching groupid, groupguid or groupname specified in the URL parameter of the current request.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.CommunityContext.CurrentFriend">
+            <summary>
+            Current friend - user info object from friend info object matching friendship friendid or friendguid specified in the URL parameter of the current request.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.CommunityContext.CurrentFriendship">
+            <summary>
+            Current friendship - friend info object matching friendship friendid or friendguid specified in the URL parameter of the current request.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.CommunityContext.CurrentDepartment">
+            <summary>
+            Returns the current department node.
             </summary>
         </member>
         <member name="M:CMS.Community.CommunityContext.GetCurrentGroup">
@@ -1632,26 +1587,6 @@
             <param name="aliasPath">Alias path</param>
             <param name="siteName">Site name</param>
             <param name="tree">Tree provider</param>
-        </member>
-        <member name="P:CMS.Community.CommunityContext.CurrentGroup">
-            <summary>
-            Current group info object matching groupid, groupguid or groupname specified in the URL parameter of the current request.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.CommunityContext.CurrentFriend">
-            <summary>
-            Current friend - user info object from friend info object matching friendship friendid or friendguid specified in the URL parameter of the current request.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.CommunityContext.CurrentFriendship">
-            <summary>
-            Current friendship - friend info object matching friendship friendid or friendguid specified in the URL parameter of the current request.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.CommunityContext.CurrentDepartment">
-            <summary>
-            Returns the current department node.
-            </summary>
         </member>
         <member name="T:CMS.Community.FriendsActionEnum">
             <summary>

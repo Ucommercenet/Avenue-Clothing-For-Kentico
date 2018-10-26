@@ -327,6 +327,11 @@ public partial class CMSWebParts_UserContributions_EditContribution : CMSAbstrac
                     editForm.OnAfterDelete += editForm_OnAfterChange;
                     editForm.CMSForm.OnAfterSave += CMSForm_OnAfterSave;
                 }
+                else
+                {
+                    // Not authorized
+                    editForm.StopProcessing = true;
+                }
             }
         }
     }

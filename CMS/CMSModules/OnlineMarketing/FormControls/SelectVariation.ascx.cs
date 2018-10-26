@@ -126,7 +126,7 @@ public partial class CMSModules_OnlineMarketing_FormControls_SelectVariation : F
             scr.RegisterPostBackControl(ucUniSelector);
         }
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             ReloadData(false);
         }

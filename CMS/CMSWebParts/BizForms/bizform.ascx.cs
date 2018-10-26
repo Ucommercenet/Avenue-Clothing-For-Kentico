@@ -1,5 +1,6 @@
 ﻿using System;
 
+using CMS.Core;
 using CMS.Helpers;
 using CMS.Localization;
 using CMS.PortalEngine.Web.UI;
@@ -191,7 +192,7 @@ public partial class CMSWebParts_BizForms_bizform : CMSAbstractWebPart
         {
             string siteName = SiteContext.CurrentSiteName;
 
-            if (AnalyticsHelper.AnalyticsEnabled(siteName) && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
+            if (AnalyticsHelper.AnalyticsEnabled(siteName) && Service.Resolve<IAnalyticsConsentProvider>().HasConsentForLogging() && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
             {
                 HitLogProvider.LogConversions(SiteContext.CurrentSiteName, LocalizationContext.PreferredCultureCode, TrackConversionName, 0, ConversionValue);
             }

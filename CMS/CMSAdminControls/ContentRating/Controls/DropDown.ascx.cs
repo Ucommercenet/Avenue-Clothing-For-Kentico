@@ -7,8 +7,6 @@ using CMS.Helpers;
 
 public partial class CMSAdminControls_ContentRating_Controls_DropDown : AbstractRatingControl
 {
-    #region "Public properties"
-
     /// <summary>
     /// Enables/disables rating scale
     /// </summary>
@@ -25,10 +23,6 @@ public partial class CMSAdminControls_ContentRating_Controls_DropDown : Abstract
         }
     }
 
-    #endregion
-
-
-    #region "Methods"
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -92,6 +86,4 @@ public partial class CMSAdminControls_ContentRating_Controls_DropDown : Abstract
         // Throw the rating event
         OnRating();
     }
-
-    #endregion
 }

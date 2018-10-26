@@ -13,9 +13,9 @@ public partial class CMSModules_Forums_Controls_Unsubscription : CMSUserControl
     #region "Private variables"
 
     private Guid mSubGuid = Guid.Empty;
-    private string mSubscriptionHash = null;
-    private string mRequestTime = null;
-    private ForumSubscriptionInfo mSubscriptionObject = null;
+    private string mSubscriptionHash;
+    private string mRequestTime;
+    private ForumSubscriptionInfo mSubscriptionObject;
 
     #endregion
 
@@ -91,12 +91,7 @@ public partial class CMSModules_Forums_Controls_Unsubscription : CMSUserControl
         {
             if (mSubscriptionObject == null)
             {
-                mSubscriptionObject = ForumSubscriptionInfoProvider.GetForumSubscriptionInfo(mSubGuid);
-
-                if (mSubscriptionObject == null)
-                {
-                    mSubscriptionObject = ForumSubscriptionInfoProvider.GetForumSubscriptionInfo(mSubscriptionHash);
-                }
+                mSubscriptionObject = ForumSubscriptionInfoProvider.GetForumSubscriptionInfo(mSubGuid) ?? ForumSubscriptionInfoProvider.GetForumSubscriptionInfo(mSubscriptionHash);
             }
 
             return mSubscriptionObject;
@@ -193,7 +188,7 @@ public partial class CMSModules_Forums_Controls_Unsubscription : CMSUserControl
         {
             try
             {
-                datetime = DateTime.ParseExact(requestTime, SecurityHelper.EMAIL_CONFIRMATION_DATETIME_FORMAT, null);
+                datetime = DateTimeUrlFormatter.Parse(requestTime);
             }
             catch
             {
@@ -217,16 +212,9 @@ public partial class CMSModules_Forums_Controls_Unsubscription : CMSUserControl
         // Check if subscription approval hash is supplied
         else if (!string.IsNullOrEmpty(subscriptionHash))
         {
-            if (checkOnly)
-            {
-                // Validate hash 
-                result = ForumSubscriptionInfoProvider.ValidateHash(SubscriptionObject, subscriptionHash, SiteContext.CurrentSiteName, datetime);
-            }
-            else
-            {
-                // Check if hash is valid
-                result = ForumSubscriptionInfoProvider.Unsubscribe(subscriptionHash, true, SiteContext.CurrentSiteName, datetime);
-            }
+            result = checkOnly 
+                ? ForumSubscriptionInfoProvider.ValidateHash(SubscriptionObject, subscriptionHash, SiteContext.CurrentSiteName, datetime) 
+                : ForumSubscriptionInfoProvider.Unsubscribe(subscriptionHash, true, SiteContext.CurrentSiteName, datetime);
         }
 
         switch (result)
@@ -250,7 +238,6 @@ public partial class CMSModules_Forums_Controls_Unsubscription : CMSUserControl
 
             // Subscription not found
             default:
-            case OptInApprovalResultEnum.NotFound:
                 DisplayError(DataHelper.GetNotEmpty(UnsuccessfulUnsubscriptionText, GetString("general.unsubscription_NotSubscribed")));
                 break;
         }

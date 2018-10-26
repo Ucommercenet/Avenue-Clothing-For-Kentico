@@ -5,6 +5,7 @@ using System.Web.UI;
 using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
+using CMS.DocumentEngine;
 using CMS.Helpers;
 using CMS.Search;
 using CMS.UIControls;
@@ -202,7 +203,22 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_Content_List
     {
         if (eventArgument == "saved")
         {
-            if (SearchHelper.CreateRebuildTask(indexId))
+            if (sii.IndexType.Equals(TreeNode.OBJECT_TYPE, StringComparison.OrdinalIgnoreCase) || (sii.IndexType == SearchHelper.DOCUMENTS_CRAWLER_INDEX))
+            {
+                if (!SearchIndexCultureInfoProvider.SearchIndexHasAnyCulture(sii.IndexID))
+                {
+                    ShowError(GetString("index.noculture"));
+                    return;
+                }
+
+                if (!SearchIndexSiteInfoProvider.SearchIndexHasAnySite(sii.IndexID))
+                {
+                    ShowError(GetString("index.nosite"));
+                    return;
+                }
+            }
+
+            if (SearchHelper.CreateRebuildTask(sii.IndexID))
             {
                 ShowInformation(GetString("srch.index.rebuildstarted"));
             }

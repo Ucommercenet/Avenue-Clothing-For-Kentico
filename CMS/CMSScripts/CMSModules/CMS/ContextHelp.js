@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/Core', 'CMS/EventHub', 'CMS/Application', 'jQuery'], function (Core, hub, cmsapp, $) {
-	'use strict';
 
 	var defaultData = {
 		    toolbarPlaceholderId: 'cms-header-contexthelp'

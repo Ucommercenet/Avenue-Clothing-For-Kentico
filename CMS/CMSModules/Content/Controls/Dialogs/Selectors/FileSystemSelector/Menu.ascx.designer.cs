@@ -39,13 +39,13 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSel
     protected global::CMS.Base.Web.UI.LocalizedButton btnParent;
     
     /// <summary>
-    /// hdnLastNodeParentID control.
+    /// hdnLastNodeParentPath control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.HiddenField hdnLastNodeParentID;
+    protected global::System.Web.UI.WebControls.HiddenField hdnLastNodeParentPath;
     
     /// <summary>
     /// menuView control.

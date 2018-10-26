@@ -126,7 +126,7 @@ if (confirmElem != null) {{ confirmElem.value = '{0}'; }}", ScriptHelper.GetStri
             int itemOrder = e.ItemOrder;
 
             // Get form controls inherited from edited one
-            var inheritedControls = FormUserControlInfoProvider.GetFormUserControls("UserControlParentID=" + FormControlID, null);
+            var inheritedControls = FormUserControlInfoProvider.GetFormUserControls().WhereEquals("UserControlParentID", FormControlID);
             foreach (FormUserControlInfo control in inheritedControls)
             {
                 // Remove deleted item (field/category) from inherited form control parameters

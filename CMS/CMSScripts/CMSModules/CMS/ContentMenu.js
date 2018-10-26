@@ -9,7 +9,6 @@
  * @data-viewMode {string} View mode of a given element
  */
 cmsdefine(['CMS/Core', 'CMS/EventHub'], function (Core, EventHub) {
-    'use strict';
 
     var w = window,
         _ = w._,

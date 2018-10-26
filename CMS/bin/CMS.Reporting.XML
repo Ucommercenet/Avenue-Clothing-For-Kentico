@@ -55,6 +55,13 @@
             Class to help transformation from old graph custom data to new one.
             </summary>
         </member>
+        <member name="P:CMS.Reporting.ReportCustomData.Item(System.String)">
+            <summary>
+            Overrides indexer to convert data.
+            </summary>
+            <param name="key">Key in settings collection</param>
+            <returns>Value if found null if not</returns>
+        </member>
         <member name="M:CMS.Reporting.ReportCustomData.GetOldKeyValue(System.String)">
             <summary>
             Search for data stored in old keys
@@ -123,16 +130,14 @@
             <param name="container">Related data container</param>
             <param name="columnName">Related column name</param>
         </member>
-        <member name="P:CMS.Reporting.ReportCustomData.Item(System.String)">
-            <summary>
-            Overrides indexer to convert data.
-            </summary>
-            <param name="key">Key in settings collection</param>
-            <returns>Value if found null if not</returns>
-        </member>
         <member name="T:CMS.Reporting.ReportingUsageDataSource">
             <summary>
             Provides statistical information about reporting module.
+            </summary>
+        </member>
+        <member name="P:CMS.Reporting.ReportingUsageDataSource.Name">
+            <summary>
+            Get the data source name.
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportingUsageDataSource.GetData">
@@ -143,11 +148,6 @@
         <member name="M:CMS.Reporting.ReportingUsageDataSource.GetReportingSubscribersCount">
             <summary>
             Returns number of all users that are subscribed to at least one report.
-            </summary>
-        </member>
-        <member name="P:CMS.Reporting.ReportingUsageDataSource.Name">
-            <summary>
-            Get the data source name.
             </summary>
         </member>
         <member name="F:CMS.Reporting.ReportListInfo.OBJECT_TYPE">
@@ -213,12 +213,6 @@
             </summary>
             <param name="parameters">Parameters array</param>
         </member>
-        <member name="M:CMS.Reporting.ReportingModule.RefreshDataCount(System.Object[])">
-            <summary>
-            Refresh data counts
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
         <member name="M:CMS.Reporting.ReportingModule.CheckPermissions_Before(System.Object,CMS.DataEngine.ObjectSecurityEventArgs)">
             <summary>
             Checks permissions for reporting macro rules.
@@ -252,26 +246,6 @@
         <member name="F:CMS.Reporting.ReportCategoryInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ReportCategoryInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ReportCategoryInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Reporting.ReportCategoryInfo.CategoryDisplayName">
@@ -329,14 +303,39 @@
             Hierarchical category parent id.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.ReportCategoryInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportCategoryInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
         <member name="P:CMS.Reporting.ReportCategoryInfo.ValidateCodeName">
             <summary>
             If true, the code name is validated upon saving.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.ReportCategoryInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ReportCategoryInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportCategoryInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ReportCategoryInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Reporting.ReportCategoryInfoProvider">
             <summary>
             Class providing ReportCategoryInfo management.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportCategoryInfoProvider.GetCategories">
+            <summary>
+            Returns all report category records.
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportCategoryInfoProvider.GetReportCategoryInfoByGUID(System.Guid)">
@@ -405,42 +404,10 @@
             </summary>
             <param name="reportCategoryId">ReportCategory id</param>
         </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfoProvider.RefreshDataCounts">
-            <summary>
-            Updates all counts for all sub-objects.
-            </summary>
-        </member>
         <member name="M:CMS.Reporting.ReportCategoryInfoProvider.RefreshObjectsCounts">
             <summary>
             Updates all counts for all sub-objects.
             </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfoProvider.GetReportCategoryInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfoProvider.GetReportCategoryInfoInternal(System.Int32)">
-            <summary>
-            Returns the ReportCategoryInfo structure for the specified reportCategory.
-            </summary>
-            <param name="reportCategoryId">ReportCategory id</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfoProvider.GetReportCategoryInfoInternal(System.String)">
-            <summary>
-            Returns the ReportCategoryInfo structure for the specified reportCategory.
-            </summary>
-            <param name="categoryName">Category name</param>        
-        </member>
-        <member name="M:CMS.Reporting.ReportCategoryInfoProvider.GetCategoriesInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all ReportCategories.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by columns</param>
-            <param name="topN">TOP N rows</param>
-            <param name="columns">Returned columns</param>
         </member>
         <member name="M:CMS.Reporting.ReportCategoryInfoProvider.SetReportCategoryInfoInternal(CMS.Reporting.ReportCategoryInfo)">
             <summary>
@@ -486,26 +453,6 @@
         <member name="F:CMS.Reporting.ReportGraphInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportGraphInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportGraphInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportGraphInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ReportGraphInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportGraphInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ReportGraphInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Reporting.ReportGraphInfo.GraphIsHtml">
@@ -598,9 +545,34 @@
             CustomData used for load/store settings which can be used for customization
             </summary>
         </member>
+        <member name="M:CMS.Reporting.ReportGraphInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportGraphInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportGraphInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ReportGraphInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportGraphInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ReportGraphInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Reporting.ReportGraphInfoProvider">
             <summary>
             Class providing ReportGraphInfo management.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetReportGraphs">
+            <summary>
+            Returns a query for all the <see cref="T:CMS.Reporting.ReportGraphInfo"/> objects.
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetReportGraphInfoByGUID(System.Guid)">
@@ -662,24 +634,6 @@
             <param name="topN">TOP N rows</param>
             <param name="columns">Returned columns</param>
         </member>
-        <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetGraphs(System.Int32)">
-            <summary>
-            Returns ReportGraphs satisfying where condition.
-            </summary>
-            <param name="reportId">Report ID</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetReportGraphInfoInternal(System.Guid)">
-            <summary>
-            Returns the ReportGraphlnfo structure for the specified ReportGraph GUID.
-            </summary>
-            <param name="reportGraphGuid">GUID of the ReportTable object</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetReportGraphInfoInternal(System.Int32)">
-            <summary>
-            Returns the ReportGraphInfo structure for the specified ReportGraph ID.
-            </summary>
-            <param name="reportGraphId">ID of the ReportGraph object</param>
-        </member>
         <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetReportGraphInfoInternal(System.String)">
             <summary>
             Returns the ReportGraphInfo structure for the specified parameters.
@@ -692,11 +646,11 @@
             </summary>
             <param name="reportGraph">ReportGraph to set</param>
         </member>
-        <member name="M:CMS.Reporting.ReportGraphInfoProvider.DeleteReportGraphInfoInternal(CMS.Reporting.ReportGraphInfo)">
+        <member name="M:CMS.Reporting.ReportGraphInfoProvider.DeleteInfo(CMS.Reporting.ReportGraphInfo)">
             <summary>
-            Deletes specified reportGraph.
+            Deletes the object to the database.
             </summary>
-            <param name="reportGraph">ReportGraph object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetGraphDataInternal(CMS.Reporting.ReportGraphInfo,CMS.DataEngine.QueryDataParameters)">
             <summary>
@@ -704,15 +658,6 @@
             </summary>
             <param name="graphObj">ReportGraphInfo object</param>
             <param name="parameters">Query parameters</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportGraphInfoProvider.GetGraphsInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns DataSet of report graphs.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by columns</param>
-            <param name="topN">Restricts maximum number of rows, for all rows use 0</param>
-            <param name="columns">Select only specified columns</param>
         </member>
         <member name="T:CMS.Reporting.ReportInfo">
             <summary>
@@ -727,41 +672,6 @@
         <member name="F:CMS.Reporting.ReportInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportInfo.#ctor(CMS.Reporting.ReportInfo,System.Boolean)">
-            <summary>
-            Constructor - Creates a new ReportInfo object from the given DataClass.
-            </summary>
-            <param name="ri">Source report info</param>
-            <param name="keepSourceData">If true, source data are kept in the object</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ReportInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ReportInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Reporting.ReportInfo.ReportLayout">
@@ -819,9 +729,42 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.ReportInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Reporting.ReportInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ReportInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ReportInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Reporting.ReportInfoProvider">
             <summary>
             Class providing ReportInfo management.
+            </summary>
+        </member>
+        <member name="P:CMS.Reporting.ReportInfoProvider.GetReportGraphUrlRegExp">
+            <summary>
+            Old GetReportGraph.aspx url regular expression (backward compatibility).
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportInfoProvider.#ctor">
@@ -841,9 +784,9 @@
             </summary>
             <param name="reportName">Report name</param>        
         </member>
-        <member name="M:CMS.Reporting.ReportInfoProvider.GetAll">
+        <member name="M:CMS.Reporting.ReportInfoProvider.GetReports">
             <summary>
-            Returns the DataSet of all reports.
+            Gets all reports.
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportInfoProvider.GetReports(System.String)">
@@ -903,11 +846,6 @@
             </summary>
             <param name="reportName">Name of the report</param>
         </member>
-        <member name="P:CMS.Reporting.ReportInfoProvider.GetReportGraphUrlRegExp">
-            <summary>
-            Old GetReportGraph.aspx url regular expression (backward compatibility).
-            </summary>
-        </member>
         <member name="T:CMS.Reporting.ReportItemType">
             <summary>
             Graph type.
@@ -951,26 +889,6 @@
         <member name="F:CMS.Reporting.ReportTableInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportTableInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportTableInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportTableInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ReportTableInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportTableInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ReportTableInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Reporting.ReportTableInfo.TableID">
@@ -1023,9 +941,34 @@
             CustomData used for load/store settings which can be used for customization
             </summary>
         </member>
+        <member name="M:CMS.Reporting.ReportTableInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportTableInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportTableInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ReportTableInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportTableInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ReportTableInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Reporting.ReportTableInfoProvider">
             <summary>
             Class providing ReportTableInfo management.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportTableInfoProvider.GetReportTables">
+            <summary>
+            Returns a query for all the <see cref="T:CMS.Reporting.ReportTableInfo"/> objects.
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportTableInfoProvider.GetReportTableInfoByGUID(System.Guid)">
@@ -1087,41 +1030,23 @@
             <param name="topN">TOP N rows</param>
             <param name="columns">Returned columns</param>
         </member>
-        <member name="M:CMS.Reporting.ReportTableInfoProvider.GetTables(System.Int32)">
-            <summary>
-            Returns report values for specified report.
-            </summary>
-            <param name="reportId">Report ID</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportTableInfoProvider.GetReportTableInfoInternal(System.Guid)">
-            <summary>
-            Returns the ReportValuIeablenfo structure for the specified ReportTable GUID.
-            </summary>
-            <param name="reportTableGuid">GUID of the ReportTable object</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportTableInfoProvider.GetReportTableInfoInternal(System.Int32)">
-            <summary>
-            Returns the ReportTableInfo structure for the specified ReportTable ID.
-            </summary>
-            <param name="reportTableId">ID of the ReportTable object</param>
-        </member>
         <member name="M:CMS.Reporting.ReportTableInfoProvider.GetReportTableInfoInternal(System.String)">
             <summary>
             Returns the ReportTableInfo structure for the specified parameters.
             </summary>
             <param name="tableName">Table name</param>  
         </member>
-        <member name="M:CMS.Reporting.ReportTableInfoProvider.SetReportTableInfoInternal(CMS.Reporting.ReportTableInfo)">
+        <member name="M:CMS.Reporting.ReportTableInfoProvider.SetInfo(CMS.Reporting.ReportTableInfo)">
             <summary>
-            Sets (updates or inserts) specified reportTable.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="reportTable">ReportTable to set</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Reporting.ReportTableInfoProvider.DeleteReportTableInfoInternal(CMS.Reporting.ReportTableInfo)">
+        <member name="M:CMS.Reporting.ReportTableInfoProvider.DeleteInfo(CMS.Reporting.ReportTableInfo)">
             <summary>
-            Deletes specified report table.
+            Deletes the object to the database.
             </summary>
-            <param name="reportTable">ReportTable object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Reporting.ReportTableInfoProvider.GetTableDataInternal(CMS.Reporting.ReportTableInfo,CMS.DataEngine.QueryDataParameters)">
             <summary>
@@ -1129,15 +1054,6 @@
             </summary>
             <param name="tableObj">ReportTableInfo object</param>
             <param name="parameters">Query parameters</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportTableInfoProvider.GetTablesInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns DataSet of report tables.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by columns</param>
-            <param name="topN">Restricts maximum number of rows, for all rows use 0</param>
-            <param name="columns">Select only specified columns</param>
         </member>
         <member name="T:CMS.Reporting.ReportValueInfo">
             <summary>
@@ -1152,26 +1068,6 @@
         <member name="F:CMS.Reporting.ReportValueInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportValueInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportValueInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportValueInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ReportValueInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportValueInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ReportValueInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Reporting.ReportValueInfo.ValueReportID">
@@ -1229,9 +1125,34 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.ReportValueInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportValueInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportValueInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ReportValueInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportValueInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ReportValueInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Reporting.ReportValueInfoProvider">
             <summary>
             Class providing ReportValueInfo management.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportValueInfoProvider.GetReportValues">
+            <summary>
+            Returns a query for all the <see cref="T:CMS.Reporting.ReportValueInfo"/> objects.
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportValueInfoProvider.GetReportValueInfoByGUID(System.Guid)">
@@ -1293,41 +1214,23 @@
             <param name="topN">TOP N rows</param>
             <param name="columns">Returned columns</param>
         </member>
-        <member name="M:CMS.Reporting.ReportValueInfoProvider.GetValues(System.Int32)">
-            <summary>
-            Returns ReportGraphs satisfying where condition.
-            </summary>
-            <param name="reportId">Report ID</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportValueInfoProvider.GetReportValueInfoInternal(System.Guid)">
-            <summary>
-            Returns the ReportValueInfo structure for the specified ReportValue GUID.
-            </summary>
-            <param name="reportValueGuid">GUID of the ReportValue object</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportValueInfoProvider.GetReportValueInfoInternal(System.Int32)">
-            <summary>
-            Returns the ReportValueInfo structure for the specified ReportValue ID.
-            </summary>
-            <param name="reportValueId">ID of the ReportValue object</param>
-        </member>
         <member name="M:CMS.Reporting.ReportValueInfoProvider.GetReportValueInfoInternal(System.String)">
             <summary>
             Returns the ReportValueInfo structure for the specified parameters.
             </summary>
             <param name="valueName">Value name</param>  
         </member>
-        <member name="M:CMS.Reporting.ReportValueInfoProvider.SetReportValueInfoInternal(CMS.Reporting.ReportValueInfo)">
+        <member name="M:CMS.Reporting.ReportValueInfoProvider.SetInfo(CMS.Reporting.ReportValueInfo)">
             <summary>
-            Sets (updates or inserts) specified report value.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="reportValue">ReportValue to set</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Reporting.ReportValueInfoProvider.DeleteReportValueInfoInternal(CMS.Reporting.ReportValueInfo)">
+        <member name="M:CMS.Reporting.ReportValueInfoProvider.DeleteInfo(CMS.Reporting.ReportValueInfo)">
             <summary>
-            Deletes specified report value.
+            Deletes the object to the database.
             </summary>
-            <param name="reportValue">ReportValue object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Reporting.ReportValueInfoProvider.GetReportValueDataInternal(CMS.Reporting.ReportValueInfo,CMS.DataEngine.QueryDataParameters)">
             <summary>
@@ -1336,21 +1239,12 @@
             <param name="valueObj">ReportValueInfo object</param>
             <param name="parameters">Parameters array</param>
         </member>
-        <member name="M:CMS.Reporting.ReportValueInfoProvider.GetValuesInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns DataSet of report values.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by columns</param>
-            <param name="topN">Restricts maximum number of rows, for all rows use 0</param>
-            <param name="columns">Select only specified columns</param>
-        </member>
         <member name="T:CMS.Reporting.ReportHelper">
             <summary>
             Class providing helper methods for the Reporting module.
             </summary>
         </member>
-        <member name="M:CMS.Reporting.ReportHelper.GetReportParameters(CMS.Reporting.ReportInfo,System.String,System.String,System.Globalization.CultureInfo,System.Globalization.CultureInfo)">
+        <member name="M:CMS.Reporting.ReportHelper.GetReportParameters(CMS.Reporting.ReportInfo,System.String,System.String,System.Globalization.CultureInfo)">
             <summary>
             Returns data row with report parameters from the given parameters string.
             </summary>
@@ -1359,7 +1253,6 @@
             It is in format [param1 name];[param1 value];[param2 name];[param2 value];....[paramN name];[paramN value].</param>
             <param name="replacement">Semicolon replacement in the parameter value</param>
             <param name="stringCulture">Culture of the parameters in the input string</param>
-            <param name="rowCulture">Culture of the parameters in the output data row</param>
         </member>
         <member name="M:CMS.Reporting.ReportHelper.GetDefaultReportConnectionString">
             <summary>
@@ -1380,15 +1273,6 @@
             <param name="dr">Report's default parameters</param>
             <param name="resolveMacros">Indicates whether macros should be resolved</param>
         </member>
-        <member name="M:CMS.Reporting.ReportHelper.GetParameterValue(System.Type,System.Object,System.Globalization.CultureInfo,System.Globalization.CultureInfo)">
-            <summary>
-            Converts parameter value to the given type.
-            </summary>
-            <param name="type">Required type of the returned value</param>
-            <param name="value">Value to be converted</param>
-            <param name="inputCulture">It is used only for conversion to date-time. Culture of the input value.</param>
-            <param name="outputCulture">It is used only for conversion to date-time. Culture of the output value.</param>
-        </member>
         <member name="T:CMS.Reporting.SavedGraphInfo">
             <summary>
             SavedGraphInfo data container class.
@@ -1402,26 +1286,6 @@
         <member name="F:CMS.Reporting.SavedGraphInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SavedGraphInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SavedGraphInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Reporting.SavedGraphInfo.SavedGraphSavedReportID">
@@ -1454,16 +1318,30 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.SavedGraphInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.SavedGraphInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.SavedGraphInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SavedGraphInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.SavedGraphInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SavedGraphInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Reporting.SavedGraphInfoProvider">
             <summary>
             Class providing SavedGraphInfo management.
             </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfoProvider.GetSavedGraphInfoByGUID(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
         </member>
         <member name="M:CMS.Reporting.SavedGraphInfoProvider.GetSavedGraphInfo(System.Int32)">
             <summary>
@@ -1495,30 +1373,6 @@
             </summary>
             <param name="savedGraphId">SavedGraph id</param>
         </member>
-        <member name="M:CMS.Reporting.SavedGraphInfoProvider.GetSavedGraphInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfoProvider.GetSavedGraphInfoInternal(System.Int32)">
-            <summary>
-            Returns the SavedGraphInfo structure for the specified savedGraph.
-            </summary>
-            <param name="savedGraphId">SavedGraph id</param>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfoProvider.SetSavedGraphInfoInternal(CMS.Reporting.SavedGraphInfo)">
-            <summary>
-            Sets (updates or inserts) specified savedGraph.
-            </summary>
-            <param name="savedGraph">SavedGraph to set</param>
-        </member>
-        <member name="M:CMS.Reporting.SavedGraphInfoProvider.DeleteSavedGraphInfoInternal(CMS.Reporting.SavedGraphInfo)">
-            <summary>
-            Deletes specified savedGraph.
-            </summary>
-            <param name="savedGraphObj">SavedGraph object</param>
-        </member>
         <member name="T:CMS.Reporting.SavedReportInfo">
             <summary>
             SavedReportInfo data container class.
@@ -1532,26 +1386,6 @@
         <member name="F:CMS.Reporting.SavedReportInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SavedReportInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SavedReportInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Reporting.SavedReportInfo.SavedReportHTML">
@@ -1599,16 +1433,35 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.SavedReportInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.SavedReportInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.SavedReportInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SavedReportInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.SavedReportInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SavedReportInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Reporting.SavedReportInfoProvider">
             <summary>
             Class providing SavedReportInfo management.
             </summary>
         </member>
-        <member name="M:CMS.Reporting.SavedReportInfoProvider.GetSavedReportInfoByGUID(System.Guid)">
+        <member name="M:CMS.Reporting.SavedReportInfoProvider.GetSavedReports">
             <summary>
-            Returns object with specified GUID.
+            Returns saved reports.
             </summary>
-            <param name="guid">Object GUID</param>
         </member>
         <member name="M:CMS.Reporting.SavedReportInfoProvider.GetSavedReportInfo(System.Int32)">
             <summary>
@@ -1649,39 +1502,6 @@
             </summary>
             <param name="savedReportId">SavedReport id</param>
         </member>
-        <member name="M:CMS.Reporting.SavedReportInfoProvider.GetSavedReportInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfoProvider.GetSavedReportInfoInternal(System.Int32)">
-            <summary>
-            Returns the SavedReportInfo structure for the specified savedReport.
-            </summary>
-            <param name="savedReportId">SavedReport id</param>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfoProvider.GetSavedReportsInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns saved reports.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfoProvider.SetSavedReportInfoInternal(CMS.Reporting.SavedReportInfo)">
-            <summary>
-            Sets (updates or inserts) specified savedReport.
-            </summary>
-            <param name="savedReport">SavedReport to set</param>
-        </member>
-        <member name="M:CMS.Reporting.SavedReportInfoProvider.DeleteSavedReportInfoInternal(CMS.Reporting.SavedReportInfo)">
-            <summary>
-            Deletes specified savedReport.
-            </summary>
-            <param name="savedReportObj">SavedReport object</param>
-        </member>
         <member name="T:CMS.Reporting.ReportSubscriptionInfo">
             <summary>
             ReportSubscriptionInfo data container class.
@@ -1696,42 +1516,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ReportSubscriptionInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ReportSubscriptionInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfo.#ctor(CMS.Reporting.ReportSubscriptionInfo,System.Boolean)">
-            <summary>
-            Constructor - Creates a new ReportSubscriptionInfo object from the given DataClass.
-            </summary>
-            <param name="subscriptionObj">Source ReportSubscriptionInfo object.</param>
-            <param name="keepSourceData">If true, source data are kept in the object.</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
         </member>
         <member name="P:CMS.Reporting.ReportSubscriptionInfo.ReportSubscriptionReportID">
             <summary>
@@ -1828,9 +1612,43 @@
             Subscription's interval. It shows how often report will be sent.
             </summary>
         </member>
+        <member name="M:CMS.Reporting.ReportSubscriptionInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportSubscriptionInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportSubscriptionInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ReportSubscriptionInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportSubscriptionInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ReportSubscriptionInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.Reporting.ReportSubscriptionInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
         <member name="T:CMS.Reporting.ReportSubscriptionInfoProvider">
             <summary>
             Class providing ReportSubscriptionInfo management.
+            </summary>
+        </member>
+        <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.GetSubscriptions">
+            <summary>
+            Returns all report subscriptions.
             </summary>
         </member>
         <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.GetSubscriptions(System.String,System.String,System.Int32,System.String)">
@@ -1885,38 +1703,11 @@
             </summary>
             <param name="where">Where condition to filter data</param>
         </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.GetSubscriptionsInternal(System.String,System.String,System.Int32,System.String)">
+        <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.SetInfo(CMS.Reporting.ReportSubscriptionInfo)">
             <summary>
-            Returns dataset of all subscriptions matching the specified parameters.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.GetReportSubscriptionInfoInternal(System.Int32)">
-            <summary>
-            Returns subscription with specified ID.
-            </summary>
-            <param name="subscriptionId">Subscription ID.</param>        
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.GetReportSubscriptionInfoInternal(System.Guid)">
-            <summary>
-            Returns subscription with specified GUID.
-            </summary>
-            <param name="subscriptionGUID">Subscription GUID.</param>        
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.SetReportSubscriptionInfoInternal(CMS.Reporting.ReportSubscriptionInfo)">
-            <summary>
-            Sets (updates or inserts) specified subscription.
-            </summary>
-            <param name="subscriptionObj">Subscription to be set.</param>        
-        </member>
-        <member name="M:CMS.Reporting.ReportSubscriptionInfoProvider.DeleteReportSubscriptionInfoInternal(CMS.Reporting.ReportSubscriptionInfo)">
-            <summary>
-            Deletes specified subscription.
-            </summary>
-            <param name="subscriptionObj">Subscription to be deleted.</param>        
+            <param name="info">Object to insert / update</param>
         </member>
     </members>
 </doc>

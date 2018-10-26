@@ -273,6 +273,13 @@ public partial class CMSModules_ImportExport_Controls_ImportWizard : CMSUserCont
             ImportSettings = GetNewSettings();
         }
 
+        if (wzdImport.ActiveStepIndex < 3)
+        {
+            stpConfigImport.Settings = ImportSettings;
+            stpSiteDetails.Settings = ImportSettings;
+            stpImport.Settings = ImportSettings;
+        }
+
         if (!RequestHelper.IsCallback())
         {
             if (!VirtualPathHelper.UsingVirtualPathProvider)
@@ -289,10 +296,6 @@ public partial class CMSModules_ImportExport_Controls_ImportWizard : CMSUserCont
 
             if (wzdImport.ActiveStepIndex < 3)
             {
-                stpConfigImport.Settings = ImportSettings;
-                stpSiteDetails.Settings = ImportSettings;
-                stpImport.Settings = ImportSettings;
-
                 // Ensure directory
                 try
                 {
@@ -336,7 +339,7 @@ public partial class CMSModules_ImportExport_Controls_ImportWizard : CMSUserCont
                         return;
                     }
                 }
-                
+
                 // Javascript functions
                 string script = String.Format(
 @"
@@ -413,7 +416,7 @@ function Finished(sender) {{
             InitializeHeader();
 
             // Button click script
-            const string afterScript = 
+            const string afterScript =
 @"
 var imClicked = false;
 
@@ -432,6 +435,15 @@ function NextStepAction() {
             EnsureDefaultButton();
 
             ShowObjectTypeCycleWarning();
+
+            // Display warning if importing package with unsupported version
+            if (wzdImport.ActiveStepIndex == 1 || wzdImport.ActiveStepIndex == 2)
+            {
+                if (ImportSettings.IsUnsupportedVersion())
+                {
+                    SetWarningLabel(String.Format(GetString("siteimport.olderversionimportwarning"),ImportSettings.Version));
+                }
+            }
 
             InitAlertLabels();
         }
@@ -578,7 +590,7 @@ function NextStepAction() {
         var settings = ImportSettings;
 
         // Check if a new module is being imported
-        if (!String.IsNullOrWhiteSpace(settings.ModuleName))
+        if (settings.IsInstallableModule)
         {
             // Start the import process immediately
             settings.DefaultProcessObjectType = ProcessObjectEnum.All;
@@ -617,10 +629,10 @@ function NextStepAction() {
 
         // Move to the next step
         wzdImport.ActiveStepIndex++;
-        
+
         ltlScriptAfter.Text += ScriptHelper.GetScript(script);
     }
-    
+
     #endregion
 
 

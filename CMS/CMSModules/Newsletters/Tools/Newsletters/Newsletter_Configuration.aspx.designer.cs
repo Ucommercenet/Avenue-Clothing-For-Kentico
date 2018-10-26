@@ -372,49 +372,58 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Configu
     protected global::CMSFormControls_Inputs_EmailInput txtDraftEmails;
     
     /// <summary>
-    /// plcTemplate control.
+    /// plcTemplates control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.PlaceHolder plcTemplate;
+    protected global::System.Web.UI.WebControls.PlaceHolder plcTemplates;
     
     /// <summary>
-    /// pnlTemplate control.
+    /// pnlTemplates control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Panel pnlTemplate;
+    protected global::System.Web.UI.WebControls.Panel pnlTemplates;
     
     /// <summary>
-    /// pnlNewsletterIssueTemplate control.
+    /// pnlUsTemplates control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Panel pnlNewsletterIssueTemplate;
+    protected global::System.Web.UI.WebControls.Panel pnlUsTemplates;
     
     /// <summary>
-    /// lblIssueTemplate control.
+    /// lblUsTemplates control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedLabel lblIssueTemplate;
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblUsTemplates;
     
     /// <summary>
-    /// issueTemplate control.
+    /// pnlAvailability control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSModules_Newsletters_FormControls_NewsletterTemplateSelector issueTemplate;
+    protected global::CMS.Base.Web.UI.CMSUpdatePanel pnlAvailability;
+    
+    /// <summary>
+    /// usTemplates control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMSAdminControls_UI_UniSelector_UniSelector usTemplates;
     
     /// <summary>
     /// plcDynamic control.

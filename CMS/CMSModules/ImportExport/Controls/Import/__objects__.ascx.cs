@@ -4,6 +4,7 @@ using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.CMSImportExport;
 using CMS.Helpers;
+using CMS.Membership;
 using CMS.UIControls;
 
 
@@ -18,11 +19,7 @@ public partial class CMSModules_ImportExport_Controls_Import___objects__ : Impor
     {
         get
         {
-            if (Settings != null)
-            {
-                return (SiteImportSettings)Settings;
-            }
-            return null;
+            return (Settings as SiteImportSettings);
         }
 
         set
@@ -36,55 +33,69 @@ public partial class CMSModules_ImportExport_Controls_Import___objects__ : Impor
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!StopProcessing)
+        if (StopProcessing)
         {
-            if (ImportSettings != null)
+            return;
+        }
+
+        if (ImportSettings != null)
+        {
+            if (CheckVersion())
             {
-                if (CheckVersion())
-                {
-                    pnlWarning.Visible = true;
-                    lblWarning.Text = GetString("ImportObjects.WarningVersion");
-                }
-                else if (CheckHotfixVersion())
-                {
-                    pnlWarning.Visible = true;
-                    lblWarning.Text = GetString("ImportObjects.WarningHotfixVersion");
-                }
+                pnlWarning.Visible = true;
+                lblWarning.Text = GetString("ImportObjects.WarningVersion");
+            }
+            else if (CheckHotfixVersion())
+            {
+                pnlWarning.Visible = true;
+                lblWarning.Text = GetString("ImportObjects.WarningHotfixVersion");
             }
 
-            lblInfo.Text = GetString("ImportObjects.Info");
-            lblInfo2.Text = GetString("ImportObjects.Info2");
+            pnlMacroResigning.Visible = !ImportSettings.IsNewSite;
 
-            lnkSelectAll.Text = GetString("ImportObjects.SelectAll");
-            lnkSelectNone.Text = GetString("ImportObjects.SelectNone");
-            lnkSelectNew.Text = GetString("ImportObjects.SelectNew");
-            lnkSelectDefault.Text = GetString("ImportObjects.SelectDefault");
-
-            // Confirmation for select all
-            lnkSelectAll.OnClientClick = "return confirm(" + ScriptHelper.GetString(ResHelper.GetString("importobjects.selectallconfirm")) + ");";
-
-            chkCopyFiles.Text = GetString("ImportObjects.CopyFiles");
-            chkCopyGlobalFiles.Text = GetString("ImportObjects.CopyGlobalFiles");
-            chkCopyAssemblies.Text = GetString("ImportObjects.CopyAssemblies");
-            chkCopyCodeFiles.Text = GetString("ImportObjects.CopyCodeFiles");
-            chkCopySiteFiles.Text = GetString("ImportObjects.CopySiteFiles");
-
-            // Javascript
-            string script = "var im_g_parent = document.getElementById('" + chkCopyFiles.ClientID + "'); \n" +
-                            "var im_g_childIDs = ['" + chkCopyGlobalFiles.ClientID + "', '" + chkCopySiteFiles.ClientID + "', '" + chkCopyCodeFiles.ClientID + "','" + chkCopyAssemblies.ClientID + "']; \n" +
-                            "var im_g_childIDNames = ['gl', 'site', 'code', 'asbl']; \n" +
-                            "var im_g_isPrecompiled = " + (SystemContext.IsPrecompiledWebsite ? "true" : "false") + "; \n" +
-                            "InitCheckboxes(); \n";
-
-            ltlScript.Text = ScriptHelper.GetScript(script);
-
-            chkCopyFiles.Attributes.Add("onclick", "CheckChange();");
-
-            chkSkipOrfans.Text = GetString("ImportObjects.SkipOrfans");
-            chkImportTasks.Text = GetString("ImportObjects.ImportTasks");
-            chkLogSync.Text = GetString("ImportObjects.LogSynchronization");
-            chkLogInt.Text = GetString("ImportObjects.LogIntegration");
+            // If importing a new site which is not from template, preselect Current user as default macro re-sign user
+            if (!ImportSettings.ExistingSite && !ImportSettings.IsNewSite)
+            {
+                userSelectorMacroResigningUser.Value = MembershipContext.AuthenticatedUser.UserID;
+            }
         }
+
+        lblInfo.Text = GetString("ImportObjects.Info");
+        lblInfo2.Text = GetString("ImportObjects.Info2");
+
+        lnkSelectAll.Text = GetString("ImportObjects.SelectAll");
+        lnkSelectNone.Text = GetString("ImportObjects.SelectNone");
+        lnkSelectNew.Text = GetString("ImportObjects.SelectNew");
+        lnkSelectDefault.Text = GetString("ImportObjects.SelectDefault");
+
+        // Confirmation for select all
+        lnkSelectAll.OnClientClick = $"return confirm({ScriptHelper.GetString(ResHelper.GetString("importobjects.selectallconfirm"))});";
+
+        chkCopyFiles.Text = GetString("ImportObjects.CopyFiles");
+        chkCopyGlobalFiles.Text = GetString("ImportObjects.CopyGlobalFiles");
+        chkCopyAssemblies.Text = GetString("ImportObjects.CopyAssemblies");
+        chkCopyCodeFiles.Text = GetString("ImportObjects.CopyCodeFiles");
+        chkCopySiteFiles.Text = GetString("ImportObjects.CopySiteFiles");
+
+        // Javascript
+        string script = $@"
+var im_g_parent = document.getElementById('{chkCopyFiles.ClientID}'); 
+var im_g_childIDs = ['{chkCopyGlobalFiles.ClientID}', '{chkCopySiteFiles.ClientID}', '{chkCopyCodeFiles.ClientID}','{chkCopyAssemblies.ClientID}']; 
+var im_g_childIDNames = ['gl', 'site', 'code', 'asbl']; 
+var im_g_isPrecompiled = {(SystemContext.IsPrecompiledWebsite ? "true" : "false")}; 
+InitCheckboxes(); 
+";
+
+        ltlScript.Text = ScriptHelper.GetScript(script);
+
+        chkCopyFiles.Attributes.Add("onclick", "CheckChange();");
+
+        chkSkipOrfans.Text = GetString("ImportObjects.SkipOrfans");
+        chkImportTasks.Text = GetString("ImportObjects.ImportTasks");
+        chkLogSync.Text = GetString("ImportObjects.LogSynchronization");
+        chkLogInt.Text = GetString("ImportObjects.LogIntegration");
+
+        userSelectorMacroResigningUser.UniSelector.TextBoxSelect.AddCssClass("input-width-60");
     }
 
 
@@ -114,6 +125,14 @@ public partial class CMSModules_ImportExport_Controls_Import___objects__ : Impor
 
         ImportSettings.LogSynchronization = chkLogSync.Checked;
         ImportSettings.LogIntegration = chkLogInt.Checked;
+
+        var userId = (string) userSelectorMacroResigningUser.Value;
+        if (!String.IsNullOrEmpty(userId))
+        {
+            var user = UserInfoProvider.GetUserInfo(Int32.Parse(userId));
+            ImportSettings.RefreshMacroSecurity = (user != null);
+            ImportSettings.MacroSecurityUser = user;
+        }
     }
 
 

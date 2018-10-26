@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/WebFormCaller'], function (webFormCaller) {
-    'use strict';
 
     var Module = function(data) {
         var received = 0,

@@ -162,7 +162,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_LinkMediaSele
             gridList.IsLiveSite = IsLiveSite;
         }
 
-        if (URLHelper.IsPostback())
+        if (RequestHelper.IsPostBack())
         {
             Reload(true);
         }

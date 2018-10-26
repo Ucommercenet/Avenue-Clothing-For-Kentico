@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using CMS.Base;
 using CMS.Core;
@@ -11,8 +12,7 @@ using CMS.IO;
 using CMS.OnlineForms;
 using CMS.UIControls;
 
-
-public partial class CMSAdminControls_UI_Development_Generators_ContentItemCodeGenerator : CMSAdminControl
+public partial class CMSAdminControls_UI_Development_Generators_ContentItemCodeGenerator : CodeGeneratorBase
 {
     private DataClassInfo mDataClass;
     private string mFolderBasePath;
@@ -21,12 +21,23 @@ public partial class CMSAdminControls_UI_Development_Generators_ContentItemCodeG
     protected override void OnLoad(EventArgs e)
     {
         base.OnLoad(e);
-        btnSaveCode.Click += SaveCode;
+
+        if (SystemContext.IsPrecompiledWebsite)
+        {
+            ShowCodeSaveDisabledMessage();
+
+            ucSavePath.Enabled = false;
+            btnSaveCode.Enabled = false;
+        }
+        else
+        {
+            btnSaveCode.Click += SaveCode;
+        }
 
         try
         {
             mDataClass = GetDataClassFromContext();
-            mFolderBasePath = String.Format("~/{0}/CMSClasses", SystemContext.IsWebApplicationProject ? "Old_App_Code" : "App_Code");
+            mFolderBasePath = string.Format("~/{0}/CMSClasses", SystemContext.IsWebApplicationProject ? "Old_App_Code" : "App_Code");
 
             if (!RequestHelper.IsPostBack())
             {
@@ -68,29 +79,16 @@ public partial class CMSAdminControls_UI_Development_Generators_ContentItemCodeG
 
     private void SaveCode(object sender, EventArgs e)
     {
-        try
+        var dataClasses = Enumerable.Repeat(mDataClass, 1);
+        var path = ValidationHelper.GetString(ucSavePath.Value, string.Empty);
+
+        if (string.IsNullOrEmpty(path))
         {
-            var path = ValidationHelper.GetString(ucSavePath.Value, String.Empty);
-            if (String.IsNullOrEmpty(path))
-            {
-                path = mFolderBasePath;
-                ucSavePath.Value = path;
-            }
-
-            var baseFolderPath = URLHelper.GetPhysicalPath(path);
-
-            ContentItemCodeFileGenerator.Internal.GenerateFiles(mDataClass, baseFolderPath);
-
-            var message = GetString("classes.code.filessavesuccess");
-            ShowConfirmation(message);
+            path = mFolderBasePath;
+            ucSavePath.Value = path;
         }
-        catch (Exception exception)
-        {
-            CoreServices.EventLog.LogException("Content item code generator", "Save", exception);
 
-            var message = GetString("classes.code.filessaveerror");
-            ShowError(message);
-        }
+        base.SaveCode(path, dataClasses);
     }
 
 
@@ -119,11 +117,11 @@ public partial class CMSAdminControls_UI_Development_Generators_ContentItemCodeG
         switch (item.TypeInfo.ObjectType)
         {
             case BizFormInfo.OBJECT_TYPE:
-                var classId = ValidationHelper.GetInteger(item.GetValue("FormClassID"), 0);
+                var classId = item.GetIntegerValue("FormClassID", 0);
                 return DataClassInfoProvider.GetDataClassInfo(classId);
             case DocumentTypeInfo.OBJECT_TYPE_DOCUMENTTYPE:
             case CustomTableInfo.OBJECT_TYPE_CUSTOMTABLE:
-                var className = ValidationHelper.GetString(item.GetValue("ClassName"), String.Empty);
+                var className = item.GetStringValue("ClassName", string.Empty);
                 return DataClassInfoProvider.GetDataClassInfo(className);
         }
 

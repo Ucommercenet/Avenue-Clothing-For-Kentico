@@ -4,6 +4,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
+using CMS.DocumentEngine;
 using CMS.Membership;
 using CMS.Reporting.Web.UI;
 using CMS.WebAnalytics;
@@ -40,7 +41,16 @@ public partial class CMSModules_Content_CMSDesk_OnlineMarketing_Reports : CMSAna
         UIHelper.AllowUpdateProgress = false;
 
         // General report data
-        mUcDisplayReport.ReportName = rbContent.Checked ? "pagereports.content" : "pagereports.Traffic";
+        if (IsFilePageType(Node.NodeClassName))
+        {
+            reportTypePnl.Visible = false;
+            mUcDisplayReport.ReportName = "pagereports.file";
+        }
+        else
+        {
+            mUcDisplayReport.ReportName = rbContent.Checked ? "pagereports.content" : "pagereports.Traffic";
+        }
+        
         mUcDisplayReport.LoadFormParameters = false;
         mUcDisplayReport.DisplayFilter = false;
         mUcDisplayReport.GraphImageWidth = 100;
@@ -78,5 +88,11 @@ public partial class CMSModules_Content_CMSDesk_OnlineMarketing_Reports : CMSAna
 		DocumentManager.RegisterSaveChangesScript = false;
 
         base.OnPreRender(e);
+    }
+
+
+    private static bool IsFilePageType(string documentTypeName)
+    {
+        return documentTypeName.Equals(SystemDocumentTypes.File, StringComparison.OrdinalIgnoreCase);
     }
 }

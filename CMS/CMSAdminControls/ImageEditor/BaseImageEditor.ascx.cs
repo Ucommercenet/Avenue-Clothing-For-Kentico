@@ -583,7 +583,7 @@ public partial class CMSAdminControls_ImageEditor_BaseImageEditor : CMSUserContr
 
         RegisterResizeIFrameScripts();
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Display image if available data
             if (imageType != ImageHelper.ImageTypeEnum.None)
@@ -630,7 +630,7 @@ public partial class CMSAdminControls_ImageEditor_BaseImageEditor : CMSUserContr
         InitializeStrings(!RequestHelper.IsPostBack());
         InitializeFields();
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Initialize labels depending on image type in parent control
             if (InitializeLabels != null)
@@ -1267,6 +1267,8 @@ function afterResize() {
             lblCropError.ResourceString = "img.errors.cropsize";
             lblCropError.Visible = true;
         }
+
+        ReInitScriptForCropping();
     }
 
 
@@ -1379,6 +1381,12 @@ function afterResize() {
             txtFileName.Enabled = enable;
             metaDataEditor.Enabled = enable;
         }
+    }
+
+
+    private void ReInitScriptForCropping()
+    {
+        ScriptHelper.RegisterClientScriptBlock(Page, typeof(string), "InitCrop", ScriptHelper.GetScript("InitCrop();"));
     }
 
     #endregion

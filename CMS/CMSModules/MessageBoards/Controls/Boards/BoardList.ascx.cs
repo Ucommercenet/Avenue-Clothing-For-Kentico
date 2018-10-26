@@ -113,7 +113,7 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardList : CMSAdm
         // Display info message
         if (GroupID != 0)
         {
-            if (!URLHelper.IsPostback() && gridBoards.IsEmpty)
+            if (!RequestHelper.IsPostBack() && gridBoards.IsEmpty)
             {
                 ShowInformation(GetString("messageboards.board_list.groupinfo"));
                 txtBoardName.Enabled = false;

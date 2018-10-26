@@ -33,7 +33,7 @@ public partial class CMSModules_WebFarm_Controls_WebFarm_Task_Filter : CMSAbstra
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             drpTaskStatus.Items.Add(new ListItem(ResHelper.GetString("general.selectall"), "all"));
             drpTaskStatus.Items.Add(new ListItem(ResHelper.GetString("webfarm.notprocessed"), "notprocessed"));

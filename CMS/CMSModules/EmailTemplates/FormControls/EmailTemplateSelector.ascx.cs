@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 using CMS.Base;
 using CMS.Base.Web.UI;
@@ -305,7 +306,7 @@ public partial class CMSModules_EmailTemplates_FormControls_EmailTemplateSelecto
             string templateType = null;
             if (TemplateType != null)
             {
-                templateType = "&templatetype=" + URLHelper.URLEncode(TemplateType);
+                templateType = "&templatetype=" + HttpUtility.UrlEncode(TemplateType);
             }
 
             if (!String.IsNullOrEmpty(EditDialogUrl) && ShowEditButton)

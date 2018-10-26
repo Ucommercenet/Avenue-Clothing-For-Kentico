@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
@@ -168,7 +169,7 @@ public partial class CMSModules_SocialMarketing_Pages_InsightsMenu : CMSDeskPage
         TreeNode node = new TreeNode
         {
             Text = String.Format("<span id='node_{0}' class='ContentTreeItem' name='treeNode'>{2}<span class='Name'>{1}</span></span>", insight.CodeName.Replace('.', '_'), HTMLHelper.HTMLEncode(insight.DisplayName), UIHelper.GetAccessibleIconTag("icon-piechart", size: FontIconSizeEnum.Standard)),
-            NavigateUrl = String.Format("~/CMSModules/SocialMarketing/Pages/InsightsReport.aspx?reportCodeNames={0}&periodType={1}&externalId={2}", URLHelper.URLEncode(GetReportCodeNames(insight, context)), insight.PeriodType, context.ExternalId),
+            NavigateUrl = String.Format("~/CMSModules/SocialMarketing/Pages/InsightsReport.aspx?reportCodeNames={0}&periodType={1}&externalId={2}", HttpUtility.UrlEncode(GetReportCodeNames(insight, context)), insight.PeriodType, context.ExternalId),
             Target = treeElem.TargetFrame
         };
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 using CMS.Base;
@@ -213,7 +214,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
     {
         get
         {
-            return drpAttributeType.SelectedValue.ToLowerCSafe();
+            return drpAttributeType.SelectedValue.ToLowerInvariant();
         }
         set
         {
@@ -250,7 +251,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
 
     /// <summary>
-    /// Gets value indicating whether field is unique
+    /// Gets value indicating whether field is unique.
     /// </summary>
     public bool IsUnique
     {
@@ -416,7 +417,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
 
     /// <summary>
-    /// Indicates if current class has dependent child page types with its pages
+    /// Indicates if current class has dependent child page types with its pages.
     /// </summary>
     public bool HasDependentChildren
     {
@@ -443,7 +444,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
 
     /// <summary>
-    /// Gets the dependent class display name if <see cref="HasDependentChildren"/> returns true otherwise is null
+    /// Gets the dependent class display name if <see cref="HasDependentChildren"/> returns true otherwise is null.
     /// </summary>
     public string DependentClassDisplayName
     {
@@ -501,6 +502,13 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
         var attributeType = AttributeType;
 
+        // In case of decimal attribute type, change resource strings of field size and precision 
+        if (attributeType == FieldDataType.Decimal)
+        {
+            lblAttributeSize.ResourceString = "TemplateDesigner.DecimalFieldPrecision";
+            lblAttributePrecision.ResourceString = "TemplateDesigner.DecimalFieldScale";
+        }
+        
         // Update the control settings
         UpdateDefaultValueControlSettings();
 
@@ -547,6 +555,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
     protected void drpGroup_SelectedIndexChanged(object sender, EventArgs e)
     {
         SetSystemAttributeName(drpGroup.SelectedValue, String.Empty);
+        
         if (DropChanged != null)
         {
             DropChanged(this, EventArgs.Empty);
@@ -617,7 +626,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
             // Get system table name
             string tableName;
-            if ((string.IsNullOrEmpty(attributeName)) || (attributeName.ToLowerCSafe().StartsWithCSafe("document")))
+            if ((string.IsNullOrEmpty(attributeName)) || attributeName.StartsWith("document", StringComparison.OrdinalIgnoreCase))
             {
                 // Fields from table CMS_Document
                 tableName = "cms_document";
@@ -667,7 +676,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
             }
 
             LoadAndSelectAttributeType(selectedType);
-
+          
             chkRequired.Checked = !FieldInfo.AllowEmpty;
             chkIsSystem.Checked = (FieldInfo.System || (FieldInfo.PrimaryKey && !IsDocumentType));
             chkUnique.Checked = FieldInfo.IsUnique || FieldInfo.PrimaryKey;
@@ -717,7 +726,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
         if (IsFieldPrimary)
         {
             chkRequired.Checked = true;
-            chkUnique.Checked = true;
+            chkUnique.Checked = true;          
         }
         chkRequired.Enabled = !IsFieldPrimary;
 
@@ -732,6 +741,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
         {
             EnableFieldEditing();
             EnableDisableSections();
+            DisablePKTypeEditing();
         }
 
         chkIsSystem.Enabled &= !IsDocumentType;
@@ -811,15 +821,17 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
                     break;
 
                 case FieldDataType.Double:
-                case FieldDataType.Decimal:
-                    if (isMacro || MacroProcessor.ContainsMacro(defaultValue))
+                    if (!TrySetMacroDefaultValue(isMacro, defaultValue, txtDefaultValue))
                     {
-                        txtDefaultValue.SetValue(defaultValue, isMacro);
-                    }
-                    else
-                    {
-                        Double dblVal = ValidationHelper.GetDoubleSystem(defaultValue, Double.NaN);
+                        var dblVal = ValidationHelper.GetDoubleSystem(defaultValue, Double.NaN);
                         txtDefaultValue.SetValue(!Double.IsNaN(dblVal) ? dblVal.ToString() : null);
+                    }
+                    break;
+                case FieldDataType.Decimal:
+                    if (!TrySetMacroDefaultValue(isMacro, defaultValue, txtDefaultValue))
+                    {
+                        var decVal = ValidationHelper.GetDecimalSystem(defaultValue, Decimal.MinValue);
+                        txtDefaultValue.SetValue(decVal != Decimal.MinValue ? decVal.ToString() : null);
                     }
                     break;
 
@@ -849,7 +861,14 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
                 // Attribute size is invalid -> error
                 if ((attributeSize <= 0) || (attributeSize > dataType.MaxSize))
                 {
-                    return String.Format(GetString("TemplateDesigner.ErrorInvalidAttributeSize"), dataType.MaxSize);
+                    var errorMessage = "TemplateDesigner.ErrorInvalidAttributeSize";
+
+                    if (dataType.Type == typeof(decimal))
+                    {
+                        errorMessage = "TemplateDesigner.ErrorInvalidAttributeDecimalSize";
+                    }
+
+                    return String.Format(GetString(errorMessage), dataType.MaxSize);
                 }
 
                 // Validate default value size for string field
@@ -876,7 +895,14 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
                 // Attribute size is invalid -> error
                 if ((attributePrec < 0) || (attributePrec > maxPrecision))
                 {
-                    return String.Format(GetString("TemplateDesigner.ErrorInvalidAttributePrecision"), maxPrecision);
+                    var errorMessage = "TemplateDesigner.ErrorInvalidAttributePrecision";
+
+                    if (dataType.Type == typeof(decimal))
+                    {
+                        errorMessage = "TemplateDesigner.ErrorInvalidAttributeDecimalPrecision";
+                    }
+
+                    return String.Format(GetString(errorMessage), maxPrecision);
                 }
             }
         }
@@ -906,7 +932,11 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
         if (!isMacro && !IsNowOrToday(defaultValue))
         {
             // Validate input value
-            var checkType = new DataTypeIntegrity(defaultValue, AttributeType);
+            DataTypeIntegrity checkType = new DataTypeIntegrity(defaultValue, AttributeType)
+            {
+                DecimalPrecision = ValidationHelper.GetInteger(AttributeSize, 0),
+                DecimalScale = ValidationHelper.GetInteger(AttributePrecision, 0)
+            };
 
             var result = checkType.ValidateDataType();
             if (!String.IsNullOrEmpty(result))
@@ -920,7 +950,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
 
     /// <summary>
-    /// Validates database configuration of field if the class has dependent children
+    /// Validates database configuration of field if the class has dependent children.
     /// </summary>
     /// <param name="originalFieldInfo">Original field info object</param>
     /// <param name="dataType">Field data type</param>
@@ -938,7 +968,14 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
         // Size of the attribute can't be decreased
         if (fieldHasVariableSize && originalFieldInfo.Size > attributeSize)
         {
-            return String.Format(GetString("TemplateDesigner.SizeDecreasedError"));
+            var errorMessage = "TemplateDesigner.SizeDecreasedError";
+
+            if (dataType.Type == typeof(decimal))
+            {
+                errorMessage = "TemplateDesigner.DecimalSizeDecreasedError";
+            }
+
+            return GetString(errorMessage);
         }
 
         var defValue = ValidationHelper.GetString(txtDefaultValue.Value, String.Empty);
@@ -946,7 +983,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
         // Change field to required is not allowed without specifying default value
         if (plcRequired.Visible && originalFieldInfo.AllowEmpty && chkRequired.Checked && String.IsNullOrEmpty(defValue))
         {
-            return String.Format(GetString("TemplateDesigner.RequiredWithoutDefaultValueError"));
+            return GetString("TemplateDesigner.RequiredWithoutDefaultValueError");
         }
 
         return null;
@@ -954,7 +991,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
 
     /// <summary>
-    /// Gets the string default value
+    /// Gets the string default value.
     /// </summary>
     public EditingFormControl GetDefaultValueControl()
     {
@@ -1110,7 +1147,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
                 // Set default precision for new field
                 if ((IsNewItemEdited || String.IsNullOrEmpty(txtAttributePrecision.Text)) &&
-                    (dataType.DefaultPrecision > 0))
+                    (dataType.DefaultPrecision >= 0))
                 {
                     txtAttributePrecision.Text = dataType.DefaultPrecision.ToString();
                 }
@@ -1268,7 +1305,10 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
         // Ensure selected type
         types.Add(selectedType);
 
-        drpAttributeType.DataSource = ControlsHelper.GetDropDownListSource(types, "TemplateDesigner.FieldTypes");
+        drpAttributeType.DataSource = types
+            .Select(type => new ListItem(ResHelper.GetString($"TemplateDesigner.FieldTypes.{type}"), type))
+            .OrderBy(x => x.Text);
+
         drpAttributeType.DataBind();
 
         if (drpAttributeType.Items.Count > 0)
@@ -1279,7 +1319,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
 
     /// <summary>
-    /// Determines if given page type class has inheriting page type with existing pages
+    /// Determines if given page type class has inheriting page type with existing pages.
     /// </summary>
     /// <param name="className">Page type class name</param>
     /// <param name="classDisplayName">Display name of the class with dependent pages</param>
@@ -1346,7 +1386,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
 
     /// <summary>
-    /// Enable or disable field for translation according to actual Attribute Type (from DropDown list)
+    /// Enable or disable field for translation according to actual Attribute Type (from DropDown list).
     /// </summary>
     private void SetFieldForTranslations()
     {
@@ -1367,7 +1407,7 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
     /// </summary>
     private void SetReferenceToField()
     {
-        plcReference.Visible = (AttributeType.EqualsCSafe(FieldDataType.Integer, true) &&
+        plcReference.Visible = (AttributeType.Equals(FieldDataType.Integer, StringComparison.OrdinalIgnoreCase) &&
             !IsDummyField && !IsExtraField && (!IsFieldPrimary || !IsAttributeIdentity()) &&
             (Mode == FieldEditorModeEnum.ClassFormDefinition) && !IsDocumentType);
     }
@@ -1419,6 +1459,19 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
         drpAttributeType.Enabled = enable && !HasDependentChildren && (!IsSystem || !IsSystemFieldSelected && DevelopmentMode);
         txtAttributeSize.Enabled = enable;
         txtAttributePrecision.Enabled = enable;
+    }
+
+
+    /// <summary>
+    /// If field is primary key, preselects the Integer attribute type and disables editing.
+    /// </summary>
+    private void DisablePKTypeEditing()
+    {
+        if (IsFieldPrimary)
+        {
+            drpAttributeType.SelectedValue = FieldDataType.Integer;
+            drpAttributeType.Enabled = false;
+        }
     }
 
 
@@ -1493,6 +1546,19 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Databas
 
                 return false;
         }
+    }
+
+
+    private static bool TrySetMacroDefaultValue(bool isMacro, string defaultValue, EditingFormControl control)
+    {
+        if (isMacro || MacroProcessor.ContainsMacro(defaultValue))
+        {
+            control.SetValue(defaultValue, isMacro);
+
+            return true;
+        }
+
+        return false;
     }
 
     #endregion

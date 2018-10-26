@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 
 using CMS.Base;
 
@@ -20,6 +21,13 @@ using CMS.UIControls;
 
 public partial class CMSAdminControls_UI_System_ViewObject : CMSAdminEditControl
 {
+    #region "Constants"
+
+    private const int MAX_HEADER_LEVEL = 6;
+
+    #endregion
+    
+
     #region "Variables"
 
     protected object mObject = null;
@@ -109,17 +117,34 @@ public partial class CMSAdminControls_UI_System_ViewObject : CMSAdminEditControl
                 }
                 else if (obj is string)
                 {
+                    var lines = ((string)obj).Count(c => c == '\n');
                     pnlContent.Controls.Add(new CMSTextArea()
                     {
                         Text = HttpUtility.HtmlEncode((string)obj),
-                        Rows = 25,
+                        Rows = lines,
                         ReadOnly = true
                     });
                 }
-                else if (obj is object[])
+                else if (obj is IDictionary)
                 {
-                    // Write all objects in array
-                    foreach (object child in (object[])obj)
+                    var table = new DataTable("IDictionary");
+                    table.Columns.Add("Key");
+                    table.Columns.Add("Value");
+
+                    foreach (DictionaryEntry item in (IDictionary)obj)
+                    {
+                        var keyString = item.Key?.ToString() ?? "null";
+                        var valueString = item.Value?.ToString() ?? "null";
+
+                        table.Rows.Add(keyString, valueString);
+                    }
+
+                    WriteDataTable(table, headerLevel);
+                }
+                else if (headerLevel < MAX_HEADER_LEVEL && obj is IEnumerable)
+                {
+                    // Write all objects in enumeration (array, collection, etc.)
+                    foreach (object child in (IEnumerable)obj)
                     {
                         WriteObject(child, headerLevel + 1);
                     }
@@ -290,9 +315,9 @@ public partial class CMSAdminControls_UI_System_ViewObject : CMSAdminEditControl
     /// <param name="level">Header level</param>
     private void WriteHeader(string text, int level)
     {
-        if (level > 6)
+        if (level > MAX_HEADER_LEVEL)
         {
-            level = 6;
+            level = MAX_HEADER_LEVEL;
         }
 
         var h = new LocalizedHeading { Text = text, Level = level };

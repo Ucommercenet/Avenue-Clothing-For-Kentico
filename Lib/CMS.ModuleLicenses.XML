@@ -19,6 +19,31 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyID">
+            <summary>
+            Module license key ID
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyGuid">
+            <summary>
+            Module license key guid
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyLastModified">
+            <summary>
+            Module license key last modified
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyLicense">
+            <summary>
+            Module license key data
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyResourceID">
+            <summary>
+            Module license key resource ID
+            </summary>
+        </member>
         <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -46,31 +71,6 @@
             Constructor - Creates a new ModuleLicenseKeyInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyID">
-            <summary>
-            Module license key ID
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyGuid">
-            <summary>
-            Module license key guid
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyLastModified">
-            <summary>
-            Module license key last modified
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyLicense">
-            <summary>
-            Module license key data
-            </summary>
-        </member>
-        <member name="P:CMS.ModuleLicenses.ModuleLicenseKeyInfo.ModuleLicenseKeyResourceID">
-            <summary>
-            Module license key resource ID
-            </summary>
         </member>
         <member name="T:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider">
             <summary>
@@ -129,34 +129,17 @@
             </summary>
             <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
-        <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.GetModuleLicenseKeysInternal">
+        <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.SetInfo(CMS.ModuleLicenses.ModuleLicenseKeyInfo)">
             <summary>
-            Returns a query for all the ModuleLicenseKeyInfo objects.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.GetModuleLicenseKeyInfoInternal(System.Int32)">
+        <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.DeleteInfo(CMS.ModuleLicenses.ModuleLicenseKeyInfo)">
             <summary>
-            Returns ModuleLicenseKeyInfo with specified ID.
+            Deletes the object to the database.
             </summary>
-            <param name="id">ModuleLicenseKeyInfo ID</param>        
-        </member>
-        <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.GetModuleLicenseKeyInfoInternal(System.Guid)">
-            <summary>
-            Returns ModuleLicenseKeyInfo with specified GUID.
-            </summary>
-            <param name="guid">ModuleLicenseKeyInfo GUID</param>
-        </member>
-        <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.SetModuleLicenseKeyInfoInternal(CMS.ModuleLicenses.ModuleLicenseKeyInfo)">
-            <summary>
-            Sets (updates or inserts) specified ModuleLicenseKeyInfo.
-            </summary>
-            <param name="infoObj">ModuleLicenseKeyInfo to be set</param>        
-        </member>
-        <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.DeleteModuleLicenseKeyInfoInternal(CMS.ModuleLicenses.ModuleLicenseKeyInfo)">
-            <summary>
-            Deletes specified ModuleLicenseKeyInfo.
-            </summary>
-            <param name="infoObj">ModuleLicenseKeyInfo to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.ModuleLicenses.ModuleLicenseKeyInfoProvider.ClearHashtables(System.Boolean)">
             <summary>
@@ -167,6 +150,11 @@
         <member name="T:CMS.ModuleLicenses.ModuleLicensesHelper">
             <summary>
             Helper class providing API for managing module licenses.
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleLicenses.ModuleLicensesHelper.LicensesDataCache">
+            <summary>
+            Cache for valid module licenses data.
             </summary>
         </member>
         <member name="M:CMS.ModuleLicenses.ModuleLicensesHelper.GenerateKeyPair(System.String@,System.String@)">
@@ -220,14 +208,14 @@
             Clears cache for storing valid module license data.
             </summary>
         </member>
-        <member name="P:CMS.ModuleLicenses.ModuleLicensesHelper.LicensesDataCache">
-            <summary>
-            Cache for valid module licenses data.
-            </summary>
-        </member>
         <member name="T:CMS.ModuleLicenses.ModuleLicensesUsageDataSource">
             <summary>
             Data source for providing statistical information about Module licenses.
+            </summary>
+        </member>
+        <member name="P:CMS.ModuleLicenses.ModuleLicensesUsageDataSource.Name">
+            <summary>
+            Get the data source name.
             </summary>
         </member>
         <member name="M:CMS.ModuleLicenses.ModuleLicensesUsageDataSource.GetData">
@@ -235,11 +223,6 @@
             Returns data collection with count of licensed modules and count of all module license keys of all modules.
             </summary>
             <returns>Collected data</returns>
-        </member>
-        <member name="P:CMS.ModuleLicenses.ModuleLicensesUsageDataSource.Name">
-            <summary>
-            Get the data source name.
-            </summary>
         </member>
     </members>
 </doc>

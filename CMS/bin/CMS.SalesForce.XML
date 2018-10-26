@@ -198,6 +198,17 @@
             Provides SalesForce organization sessions using the Salesforce.com Connector settings.
             </summary>
         </member>
+        <member name="P:CMS.SalesForce.ConfigurationSessionProvider.SiteName">
+            <summary>
+            Gets ot sets the name of the site to look the organization credentials up.
+            </summary>
+        </member>
+        <member name="M:CMS.SalesForce.ConfigurationSessionProvider.CreateSession">
+            <summary>
+            Creates a new SalesForce organization session, and returns it.
+            </summary>
+            <returns>A new SalesForce organization session.</returns>
+        </member>
         <member name="T:CMS.SalesForce.ISessionProvider">
             <summary>
             Represents the interface for classes that provide SalesForce organization sessions.
@@ -209,35 +220,10 @@
             </summary>
             <returns>A new SalesForce organization session.</returns>
         </member>
-        <member name="M:CMS.SalesForce.ConfigurationSessionProvider.CreateSession">
-            <summary>
-            Creates a new SalesForce organization session, and returns it.
-            </summary>
-            <returns>A new SalesForce organization session.</returns>
-        </member>
-        <member name="P:CMS.SalesForce.ConfigurationSessionProvider.SiteName">
-            <summary>
-            Gets ot sets the name of the site to look the organization credentials up.
-            </summary>
-        </member>
         <member name="T:CMS.SalesForce.OrganizationCredentials">
             <summary>
             Contains the credentials used to authenticate SalesForce organization access.
             </summary>
-        </member>
-        <member name="M:CMS.SalesForce.OrganizationCredentials.Serialize(CMS.SalesForce.OrganizationCredentials)">
-            <summary>
-            Serializes an instance of the OrganizationCredentials class into a string.
-            </summary>
-            <param name="instance">An instance of the OrganizationCredentials class.</param>
-            <returns>A string representation of the specified instance.</returns>
-        </member>
-        <member name="M:CMS.SalesForce.OrganizationCredentials.Deserialize(System.String)">
-            <summary>
-            Reads the specified string representation and returns the deserialized instance of the OrganizationCredentials class.
-            </summary>
-            <param name="content">A string representation of the instance of the OrganizationCredentials class.</param>
-            <returns>An instance of the OrganizationCredentials class deserialized from the specified string representation.</returns>
         </member>
         <member name="P:CMS.SalesForce.OrganizationCredentials.RefreshToken">
             <summary>
@@ -269,16 +255,24 @@
             Gets or sets the SalesForce organization name. This information is optional.
             </summary>
         </member>
+        <member name="M:CMS.SalesForce.OrganizationCredentials.Serialize(CMS.SalesForce.OrganizationCredentials)">
+            <summary>
+            Serializes an instance of the OrganizationCredentials class into a string.
+            </summary>
+            <param name="instance">An instance of the OrganizationCredentials class.</param>
+            <returns>A string representation of the specified instance.</returns>
+        </member>
+        <member name="M:CMS.SalesForce.OrganizationCredentials.Deserialize(System.String)">
+            <summary>
+            Reads the specified string representation and returns the deserialized instance of the OrganizationCredentials class.
+            </summary>
+            <param name="content">A string representation of the instance of the OrganizationCredentials class.</param>
+            <returns>An instance of the OrganizationCredentials class deserialized from the specified string representation.</returns>
+        </member>
         <member name="T:CMS.SalesForce.PasswordSessionProvider">
             <summary>
             Provides SalesForce organization sessions using the SalesForce user's login and password.
             </summary>
-        </member>
-        <member name="M:CMS.SalesForce.PasswordSessionProvider.CreateSession">
-            <summary>
-            Creates a new SalesForce organization session, and returns it.
-            </summary>
-            <returns>A new SalesForce organization session.</returns>
         </member>
         <member name="P:CMS.SalesForce.PasswordSessionProvider.ClientId">
             <summary>
@@ -305,16 +299,16 @@
             Gets or sets the SalesForce user's secret token.
             </summary>
         </member>
-        <member name="T:CMS.SalesForce.RefreshTokenSessionProvider">
-            <summary>
-            Provides SalesForce organization sessions using the OAuth refresh token.
-            </summary>
-        </member>
-        <member name="M:CMS.SalesForce.RefreshTokenSessionProvider.CreateSession">
+        <member name="M:CMS.SalesForce.PasswordSessionProvider.CreateSession">
             <summary>
             Creates a new SalesForce organization session, and returns it.
             </summary>
             <returns>A new SalesForce organization session.</returns>
+        </member>
+        <member name="T:CMS.SalesForce.RefreshTokenSessionProvider">
+            <summary>
+            Provides SalesForce organization sessions using the OAuth refresh token.
+            </summary>
         </member>
         <member name="P:CMS.SalesForce.RefreshTokenSessionProvider.ClientId">
             <summary>
@@ -330,6 +324,12 @@
             <summary>
             Gets or sets the OAuth refresh token.
             </summary>
+        </member>
+        <member name="M:CMS.SalesForce.RefreshTokenSessionProvider.CreateSession">
+            <summary>
+            Creates a new SalesForce organization session, and returns it.
+            </summary>
+            <returns>A new SalesForce organization session.</returns>
         </member>
         <member name="T:CMS.SalesForce.SalesForceAuthorizationHelper">
             <summary>
@@ -445,6 +445,11 @@
             Represents the "Replicate lead" workflow action.
             </summary>
         </member>
+        <member name="P:CMS.SalesForce.Automation.ReplicateLeadAction.DeferredReplication">
+            <summary>
+            Gets or sets a value indicating whether the contact will not be replicated immediately, but during the next scheduled replication.
+            </summary>
+        </member>
         <member name="M:CMS.SalesForce.Automation.ReplicateLeadAction.Execute">
             <summary>
             Executes the action.
@@ -457,14 +462,14 @@
             <param name="result">The "Replicate lead" command result.</param>
             <returns>A localized error message for the specified command result.</returns>
         </member>
-        <member name="P:CMS.SalesForce.Automation.ReplicateLeadAction.DeferredReplication">
-            <summary>
-            Gets or sets a value indicating whether the contact will not be replicated immediately, but during the next scheduled replication.
-            </summary>
-        </member>
         <member name="T:CMS.SalesForce.Automation.ReplicateLeadCommand">
             <summary>
             Represents a command that replicates contacts to Salesforce leads.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.Automation.ReplicateLeadCommand.DeferredReplication">
+            <summary>
+            Gets or sets a value indicating whether the contact will not be replicated immediately, but during the next scheduled replication.
             </summary>
         </member>
         <member name="M:CMS.SalesForce.Automation.ReplicateLeadCommand.Execute(CMS.ContactManagement.ContactInfo)">
@@ -476,11 +481,6 @@
             </remarks>
             <param name="contact">The contact to replicate.</param>
             <returns>The action result.</returns>
-        </member>
-        <member name="P:CMS.SalesForce.Automation.ReplicateLeadCommand.DeferredReplication">
-            <summary>
-            Gets or sets a value indicating whether the contact will not be replicated immediately, but during the next scheduled replication.
-            </summary>
         </member>
         <member name="T:CMS.SalesForce.Automation.ReplicateLeadCommandResultEnum">
             <summary>
@@ -707,20 +707,6 @@
             Represents a SalesForce object.
             </summary>
         </member>
-        <member name="M:CMS.SalesForce.Entity.#ctor(CMS.SalesForce.EntityModel)">
-            <summary>
-            Initializes a new instance of the Entity class using the specified model.
-            </summary>
-            <param name="entityModel">The entity model.</param>
-        </member>
-        <member name="M:CMS.SalesForce.Entity.GetAttributeValue``1(System.String)">
-            <summary>
-            Gets the specified attribute value.
-            </summary>
-            <typeparam name="T">The attribute value type.</typeparam>
-            <param name="attributeName">The attribute name.</param>
-            <returns>The specified attribute value.</returns>
-        </member>
         <member name="P:CMS.SalesForce.Entity.Model">
             <summary>
             Gets the entity model.
@@ -740,6 +726,20 @@
             <summary>
             Gets or sets the specified attribute value.
             </summary>
+            <param name="attributeName">The attribute name.</param>
+            <returns>The specified attribute value.</returns>
+        </member>
+        <member name="M:CMS.SalesForce.Entity.#ctor(CMS.SalesForce.EntityModel)">
+            <summary>
+            Initializes a new instance of the Entity class using the specified model.
+            </summary>
+            <param name="entityModel">The entity model.</param>
+        </member>
+        <member name="M:CMS.SalesForce.Entity.GetAttributeValue``1(System.String)">
+            <summary>
+            Gets the specified attribute value.
+            </summary>
+            <typeparam name="T">The attribute value type.</typeparam>
             <param name="attributeName">The attribute name.</param>
             <returns>The specified attribute value.</returns>
         </member>
@@ -878,6 +878,16 @@
             Represents a model of SalesForce entities.
             </summary>
         </member>
+        <member name="P:CMS.SalesForce.EntityModel.Name">
+            <summary>
+            Gets the name of this entity model.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.EntityModel.AttributeModels">
+            <summary>
+            Gets the collection of attribute models.
+            </summary>
+        </member>
         <member name="M:CMS.SalesForce.EntityModel.GetAttributeModel(System.String)">
             <summary>
             Searches for an attribute model with the specified name, and returns it.
@@ -897,16 +907,6 @@
             </summary>
             <param name="info">An instance of the SerializationInfo class.</param>
             <param name="context">An instance of the StreamingContext class.</param>
-        </member>
-        <member name="P:CMS.SalesForce.EntityModel.Name">
-            <summary>
-            Gets the name of this entity model.
-            </summary>
-        </member>
-        <member name="P:CMS.SalesForce.EntityModel.AttributeModels">
-            <summary>
-            Gets the collection of attribute models.
-            </summary>
         </member>
         <member name="T:CMS.SalesForce.Error">
             <summary>
@@ -931,26 +931,6 @@
         <member name="T:CMS.SalesForce.CreateEntityResult">
             <summary>
             Represents a result of create entity command.
-            </summary>
-        </member>
-        <member name="T:CMS.SalesForce.IEntityCommandResult">
-            <summary>
-            Represents the interface for classes that represents a single entity command result.
-            </summary>
-        </member>
-        <member name="P:CMS.SalesForce.IEntityCommandResult.EntityId">
-            <summary>
-            Gets the identifier of the entity, if the operation was successful.
-            </summary>
-        </member>
-        <member name="P:CMS.SalesForce.IEntityCommandResult.IsSuccess">
-            <summary>
-            Gets the value indicating whether the operation was successful.
-            </summary>
-        </member>
-        <member name="P:CMS.SalesForce.IEntityCommandResult.Errors">
-            <summary>
-            Gets a list of errors, if the operation was not successful.
             </summary>
         </member>
         <member name="P:CMS.SalesForce.CreateEntityResult.EntityId">
@@ -1038,6 +1018,26 @@
             Gets a list of entities that were updated in the requested time window.
             </summary>
         </member>
+        <member name="T:CMS.SalesForce.IEntityCommandResult">
+            <summary>
+            Represents the interface for classes that represents a single entity command result.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.IEntityCommandResult.EntityId">
+            <summary>
+            Gets the identifier of the entity, if the operation was successful.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.IEntityCommandResult.IsSuccess">
+            <summary>
+            Gets the value indicating whether the operation was successful.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.IEntityCommandResult.Errors">
+            <summary>
+            Gets a list of errors, if the operation was not successful.
+            </summary>
+        </member>
         <member name="T:CMS.SalesForce.SelectEntitiesResult">
             <summary>
             Represents a result of the select entities command.
@@ -1111,6 +1111,11 @@
         <member name="T:CMS.SalesForce.SalesForceClient">
             <summary>
             Provides access to SalesForce organization using the integration API.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.SalesForceClient.Options">
+            <summary>
+            Gets the current command options.
             </summary>
         </member>
         <member name="M:CMS.SalesForce.SalesForceClient.#ctor(CMS.SalesForce.Session)">
@@ -1245,33 +1250,10 @@
             <param name="options">The command options that override the default ones.</param>
             <returns>An array of operation results.</returns>
         </member>
-        <member name="P:CMS.SalesForce.SalesForceClient.Options">
-            <summary>
-            Gets the current command options.
-            </summary>
-        </member>
         <member name="T:CMS.SalesForce.SalesForceClientException">
             <summary>
             Represents a SalesForce client exception.
             </summary>
-        </member>
-        <member name="T:CMS.SalesForce.SalesForceException">
-            <summary>
-            Represents a general SalesForce exception.
-            </summary>
-        </member>
-        <member name="M:CMS.SalesForce.SalesForceException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the SalesForce exception.
-            </summary>
-            <param name="message">The exception message.</param>
-        </member>
-        <member name="M:CMS.SalesForce.SalesForceException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the SalesForce exception.
-            </summary>
-            <param name="message">The exception message.</param>
-            <param name="innerException">The inner exception.</param>
         </member>
         <member name="P:CMS.SalesForce.SalesForceClientException.Code">
             <summary>
@@ -2190,55 +2172,6 @@
             Provides transformation of contacts to SalesForce leads using the specified mapping.
             </summary>
         </member>
-        <member name="T:CMS.SalesForce.Mapper">
-            <summary>
-            Provides transformation of CMS objects to SalesForce entities using the specified mapping.
-            </summary>
-        </member>
-        <member name="F:CMS.SalesForce.Mapper.mAttributeValueConverterFactory">
-            <summary>
-            A factory that creates instances of entity attribute value converters.
-            </summary>
-        </member>
-        <member name="F:CMS.SalesForce.Mapper.mMapping">
-            <summary>
-            A mapping of CMS objects to SalesForce entities.
-            </summary>
-        </member>
-        <member name="F:CMS.SalesForce.Mapper.mEntityModel">
-            <summary>
-            A model of SalesForce entity.
-            </summary>
-        </member>
-        <member name="F:CMS.SalesForce.Mapper.mFormInfo">
-            <summary>
-            A form info of CMS object.
-            </summary>
-        </member>
-        <member name="M:CMS.SalesForce.Mapper.#ctor(CMS.SalesForce.AttributeValueConverterFactory,CMS.SalesForce.Mapping,CMS.SalesForce.EntityModel,CMS.FormEngine.FormInfo)">
-            <summary>
-            Initializes a new instance of the ContactMapper class.
-            </summary>
-            <param name="attributeValueConverterFactory">A factory that creates instances of entity attribute value converters.</param>
-            <param name="mapping">A mapping of CMS objects to SalesForce entities.</param>
-            <param name="entityModel">A model of SalesForce entity.</param>
-            <param name="formInfo">A form info of CMS object.</param>
-        </member>
-        <member name="M:CMS.SalesForce.Mapper.Map(CMS.DataEngine.BaseInfo)">
-            <summary>
-            Creates a new instance of the SalesForce entity from the specified CMS object, and returns it.
-            </summary>
-            <param name="baseInfo">The object to transform.</param>
-            <returns>A new instance of the SalesForce entity.</returns>
-        </member>
-        <member name="M:CMS.SalesForce.Mapper.MapMetaField(CMS.SalesForce.MappingItem,CMS.DataEngine.BaseInfo,CMS.SalesForce.Entity)">
-            <summary>
-            Maps meta property of CMS object to SalesForce entity field.
-            </summary>
-            <param name="item">An item that maps meta property of CMS object.</param>
-            <param name="baseInfo">The object to transform.</param>
-            <param name="entity">The SalesForce entity to update.</param>
-        </member>
         <member name="M:CMS.SalesForce.ContactMapper.#ctor(CMS.SalesForce.AttributeValueConverterFactory,CMS.SalesForce.Mapping,CMS.SalesForce.EntityModel,CMS.FormEngine.FormInfo,System.String,System.String)">
             <summary>
             Initializes a new instance of the ContactMapper class.
@@ -2311,16 +2244,6 @@
         <member name="T:CMS.SalesForce.LeadReplicationEngine">
             <summary>
             Replicates contacts to SalesForce leads.
-            </summary>
-        </member>
-        <member name="T:CMS.SalesForce.IRunnable">
-            <summary>
-            Represents an operation that could be executed.
-            </summary>
-        </member>
-        <member name="M:CMS.SalesForce.IRunnable.Run">
-            <summary>
-            Executes the operation.
             </summary>
         </member>
         <member name="M:CMS.SalesForce.LeadReplicationEngine.#ctor(CMS.SalesForce.ISalesForceClientProvider,CMS.SalesForce.LeadReplicationContext,CMS.Core.IEventLogService)">
@@ -2445,6 +2368,21 @@
             Represents a mapping of CMS objects to SalesForce entities.
             </summary>
         </member>
+        <member name="P:CMS.SalesForce.Mapping.ExternalIdentifierAttributeName">
+            <summary>
+            Gets or sets a name of the SalesForce entity attribute that contains the identifier of the bound CMS object.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.Mapping.ExternalIdentifierAttributeLabel">
+            <summary>
+            Gets or sets a label of the SalesForce entity attribute that contains the identifier of the bound CMS object.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.Mapping.Items">
+            <summary>
+            Gets a collection of mapping items.
+            </summary>
+        </member>
         <member name="M:CMS.SalesForce.Mapping.#ctor">
             <summary>
             Initializes a new instance of the Mapping class.
@@ -2471,44 +2409,10 @@
             <param name="attributeName">The entity attribute name.</param>
             <returns>A mapping item with the specified entity attribute name, if found; otherwise, null.</returns>
         </member>
-        <member name="P:CMS.SalesForce.Mapping.ExternalIdentifierAttributeName">
-            <summary>
-            Gets or sets a name of the SalesForce entity attribute that contains the identifier of the bound CMS object.
-            </summary>
-        </member>
-        <member name="P:CMS.SalesForce.Mapping.ExternalIdentifierAttributeLabel">
-            <summary>
-            Gets or sets a label of the SalesForce entity attribute that contains the identifier of the bound CMS object.
-            </summary>
-        </member>
-        <member name="P:CMS.SalesForce.Mapping.Items">
-            <summary>
-            Gets a collection of mapping items.
-            </summary>
-        </member>
         <member name="T:CMS.SalesForce.MappingItem">
             <summary>
             Represents an item of the mapping of CMS objects to SalesForce entities.
             </summary>
-        </member>
-        <member name="M:CMS.SalesForce.MappingItem.#ctor(CMS.SalesForce.EntityAttributeModel,System.String,System.String,CMS.SalesForce.MappingItemSourceTypeEnum)">
-            <summary>
-            Initializes a new instance of the MappingItem class.
-            </summary>
-            <param name="attributeModel">The SalesForce entity attribute model.</param>
-            <param name="sourceName">The name of the mapping item source.</param>
-            <param name="sourceLabel">The label of the mapping item source.</param>
-            <param name="sourceType">The type of the mapping item source.</param>
-        </member>
-        <member name="M:CMS.SalesForce.MappingItem.#ctor(System.String,System.String,System.String,System.String,CMS.SalesForce.MappingItemSourceTypeEnum)">
-            <summary>
-            Initializes a new instance of the MappingItem class.
-            </summary>
-            <param name="attributeName">The name of the SalesForce entity attribute.</param>
-            <param name="attributeLabel">The label of the SalesForce entity attribute.</param>
-            <param name="sourceName">The name of the mapping item source.</param>
-            <param name="sourceLabel">The label of the mapping item source.</param>
-            <param name="sourceType">The type of the mapping item source.</param>
         </member>
         <member name="P:CMS.SalesForce.MappingItem.AttributeName">
             <summary>
@@ -2534,6 +2438,25 @@
             <summary>
             Gets the type of the mapping item source.
             </summary>
+        </member>
+        <member name="M:CMS.SalesForce.MappingItem.#ctor(CMS.SalesForce.EntityAttributeModel,System.String,System.String,CMS.SalesForce.MappingItemSourceTypeEnum)">
+            <summary>
+            Initializes a new instance of the MappingItem class.
+            </summary>
+            <param name="attributeModel">The SalesForce entity attribute model.</param>
+            <param name="sourceName">The name of the mapping item source.</param>
+            <param name="sourceLabel">The label of the mapping item source.</param>
+            <param name="sourceType">The type of the mapping item source.</param>
+        </member>
+        <member name="M:CMS.SalesForce.MappingItem.#ctor(System.String,System.String,System.String,System.String,CMS.SalesForce.MappingItemSourceTypeEnum)">
+            <summary>
+            Initializes a new instance of the MappingItem class.
+            </summary>
+            <param name="attributeName">The name of the SalesForce entity attribute.</param>
+            <param name="attributeLabel">The label of the SalesForce entity attribute.</param>
+            <param name="sourceName">The name of the mapping item source.</param>
+            <param name="sourceLabel">The label of the mapping item source.</param>
+            <param name="sourceType">The type of the mapping item source.</param>
         </member>
         <member name="T:CMS.SalesForce.MappingItemSourceTypeEnum">
             <summary>
@@ -2589,6 +2512,16 @@
             Initializes the module.
             </summary>
         </member>
+        <member name="T:CMS.SalesForce.IRunnable">
+            <summary>
+            Represents an operation that could be executed.
+            </summary>
+        </member>
+        <member name="M:CMS.SalesForce.IRunnable.Run">
+            <summary>
+            Executes the operation.
+            </summary>
+        </member>
         <member name="T:CMS.SalesForce.ISalesForceClientProvider">
             <summary>
             Provides instances of SalesForce client.
@@ -2600,9 +2533,63 @@
             </summary>
             <returns>A new instance of the SalesForce client.</returns>
         </member>
+        <member name="T:CMS.SalesForce.Mapper">
+            <summary>
+            Provides transformation of CMS objects to SalesForce entities using the specified mapping.
+            </summary>
+        </member>
+        <member name="F:CMS.SalesForce.Mapper.mAttributeValueConverterFactory">
+            <summary>
+            A factory that creates instances of entity attribute value converters.
+            </summary>
+        </member>
+        <member name="F:CMS.SalesForce.Mapper.mMapping">
+            <summary>
+            A mapping of CMS objects to SalesForce entities.
+            </summary>
+        </member>
+        <member name="F:CMS.SalesForce.Mapper.mEntityModel">
+            <summary>
+            A model of SalesForce entity.
+            </summary>
+        </member>
+        <member name="F:CMS.SalesForce.Mapper.mFormInfo">
+            <summary>
+            A form info of CMS object.
+            </summary>
+        </member>
+        <member name="M:CMS.SalesForce.Mapper.#ctor(CMS.SalesForce.AttributeValueConverterFactory,CMS.SalesForce.Mapping,CMS.SalesForce.EntityModel,CMS.FormEngine.FormInfo)">
+            <summary>
+            Initializes a new instance of the ContactMapper class.
+            </summary>
+            <param name="attributeValueConverterFactory">A factory that creates instances of entity attribute value converters.</param>
+            <param name="mapping">A mapping of CMS objects to SalesForce entities.</param>
+            <param name="entityModel">A model of SalesForce entity.</param>
+            <param name="formInfo">A form info of CMS object.</param>
+        </member>
+        <member name="M:CMS.SalesForce.Mapper.Map(CMS.DataEngine.BaseInfo)">
+            <summary>
+            Creates a new instance of the SalesForce entity from the specified CMS object, and returns it.
+            </summary>
+            <param name="baseInfo">The object to transform.</param>
+            <returns>A new instance of the SalesForce entity.</returns>
+        </member>
+        <member name="M:CMS.SalesForce.Mapper.MapMetaField(CMS.SalesForce.MappingItem,CMS.DataEngine.BaseInfo,CMS.SalesForce.Entity)">
+            <summary>
+            Maps meta property of CMS object to SalesForce entity field.
+            </summary>
+            <param name="item">An item that maps meta property of CMS object.</param>
+            <param name="baseInfo">The object to transform.</param>
+            <param name="entity">The SalesForce entity to update.</param>
+        </member>
         <member name="T:CMS.SalesForce.SalesForceReplicationException">
             <summary>
             Represents a replication exception that aggregates multiple errors.
+            </summary>
+        </member>
+        <member name="P:CMS.SalesForce.SalesForceReplicationException.Errors">
+            <summary>
+            Gets an enumerable collection of replication errors.
             </summary>
         </member>
         <member name="M:CMS.SalesForce.SalesForceReplicationException.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String})">
@@ -2611,11 +2598,6 @@
             </summary>
             <param name="message">The exception message.</param>
             <param name="errors">The enumerable collection of replication errors.</param>
-        </member>
-        <member name="P:CMS.SalesForce.SalesForceReplicationException.Errors">
-            <summary>
-            Gets an enumerable collection of replication errors.
-            </summary>
         </member>
         <member name="T:CMS.SalesForce.SingletonScopeSalesForceClientProvider">
             <summary>
@@ -2724,6 +2706,24 @@
             REST API.
             </summary>
         </member>
+        <member name="T:CMS.SalesForce.SalesForceException">
+            <summary>
+            Represents a general SalesForce exception.
+            </summary>
+        </member>
+        <member name="M:CMS.SalesForce.SalesForceException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the SalesForce exception.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:CMS.SalesForce.SalesForceException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the SalesForce exception.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
         <member name="T:CMS.SalesForce.SalesForceReplicationTask">
             <summary>
             Task that executes SalesForce replication.
@@ -2753,6 +2753,11 @@
             Settings keys which are logged.
             </summary>
         </member>
+        <member name="P:CMS.SalesForce.SalesForceUsageDataSource.Name">
+            <summary>
+            Get the data source name.
+            </summary>
+        </member>
         <member name="M:CMS.SalesForce.SalesForceUsageDataSource.GetData">
             <summary>
             Get all module statistical data.
@@ -2763,11 +2768,6 @@
             Returns how many times is specific setting used with value which is not same as default value. 
             Only settings on running sites (if <paramref name="global"/> is true), not hidden and not custom are retrieved.
             Only global settings when <paramref name="global"/> is false.
-            </summary>
-        </member>
-        <member name="P:CMS.SalesForce.SalesForceUsageDataSource.Name">
-            <summary>
-            Get the data source name.
             </summary>
         </member>
         <member name="T:CMS.SalesForce.WebServiceClient.LoginFault">

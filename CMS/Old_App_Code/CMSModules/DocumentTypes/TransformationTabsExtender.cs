@@ -74,18 +74,18 @@ public class TransformationTabsExtender : UITabsExtender
         base.OnInit();
 
         // Check for selector ID
-        string selector = QueryHelper.GetControlClientId("selectorid", string.Empty);
+        string selector = QueryHelper.GetControlClientId("selectorid", String.Empty);
 
         if (!string.IsNullOrEmpty(selector))
         {
             ScriptHelper.RegisterWOpenerScript(Control.Page);
 
             // Add selector refresh
-            string script = string.Format(@"
+            string script = $@"
 if (wopener) {{ 
-    wopener.US_SelectNewValue_{0}('{1}'); 
+    wopener.US_SelectNewValue_{selector}('{TransInfo.TransformationFullName}'); 
 }}
-", selector, TransInfo.TransformationFullName);
+";
 
             ScriptHelper.RegisterStartupScript(Control.Page, GetType(), "UpdateSelector", script, true);
         }
@@ -111,12 +111,10 @@ if (wopener) {{
         var tab = e.Tab;
         var element = e.UIElement;
 
-        var elementName = element.ElementName.ToLower();
-
         var ti = TransInfo;
         var hier = (ti != null) && ti.TransformationIsHierarchical;
 
-        switch (elementName)
+        switch (element.ElementName.ToLowerInvariant())
         {
             case "transformation.transformations":
                 if (!hier)

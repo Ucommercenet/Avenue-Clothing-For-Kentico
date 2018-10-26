@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,15 +12,13 @@ using CMS.CustomTables;
 using CMS.DataEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
-using CMS.IO;
 using CMS.MacroEngine;
 using CMS.Membership;
 using CMS.PortalEngine;
 using CMS.UIControls;
 
+using StreamWriter = CMS.IO.StreamWriter;
 using TreeNode = CMS.DocumentEngine.TreeNode;
-
-using SystemIO = System.IO;
 
 public partial class CMSFormControls_Layouts_TransformationCode : FormEngineUserControl, IPostBackEventHandler
 {
@@ -233,12 +232,14 @@ public partial class CMSFormControls_Layouts_TransformationCode : FormEngineUser
     protected string XMLValidator(string xmlText)
     {
         // Creates memory stream from transformation text
-        using (SystemIO.MemoryStream stream = new SystemIO.MemoryStream())
+        using (MemoryStream stream = new MemoryStream())
         using (StreamWriter writer = StreamWriter.New(stream))
         {
             writer.Write(xmlText);
             writer.Flush();
-            stream.Seek(0, SystemIO.SeekOrigin.Begin);
+#pragma warning disable BH1014 // Do not use System.IO
+            stream.Seek(0, SeekOrigin.Begin);
+#pragma warning restore BH1014 // Do not use System.IO
 
             // New xml text reader from the stream
             using (XmlTextReader tr = new XmlTextReader(stream))

@@ -12,6 +12,8 @@
 <%@ Register Src="~/CMSFormControls/System/CodeName.ascx" TagName="CodeName" TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/Inputs/EmailInput.ascx" TagName="EmailInput"
     TagPrefix="cms" %>
+<%@ Register Src="~/CMSAdminControls/UI/UniSelector/UniSelector.ascx" TagName="UniSelector"
+    TagPrefix="cms" %>
 
 <asp:Content ContentPlaceHolderID="plcContent" ID="content" runat="server">
     <%-- General config --%>
@@ -142,20 +144,25 @@
         </div>
     </asp:Panel>
     <%-- Template based config --%>
-    <asp:PlaceHolder ID="plcTemplate" runat="server">
+    <asp:PlaceHolder ID="plcTemplates" runat="server">
         <cms:LocalizedHeading runat="server" Level="4" ResourceString="newsletter_configuration.templatebased" />
-        <asp:Panel ID="pnlTemplate" runat="server">
+        <asp:Panel ID="pnlTemplates" runat="server">
             <div class="form-horizontal">
-                <asp:Panel CssClass="form-group" EnableViewState="false" ID="pnlNewsletterIssueTemplate" runat="server">
+                <asp:Panel CssClass="form-group" EnableViewState="false" ID="pnlUsTemplates" runat="server">
                     <div class="editing-form-label-cell">
-                        <cms:LocalizedLabel CssClass="control-label" runat="server" ID="lblIssueTemplate" EnableViewState="false" ShowRequiredMark="True"
-                            ResourceString="Newsletter_Edit.NewsletterTemplate" DisplayColon="true" AssociatedControlID="issueTemplate" />
+                        <cms:LocalizedLabel CssClass="control-label" ID="lblUsTemplates" runat="server" EnableViewState="false" ResourceString="newsletter_configuration.templatebased"
+                            DisplayColon="true" AssociatedControlID="usTemplates" ShowRequiredMark="True"/>
                     </div>
                     <div class="editing-form-value-cell">
-                        <cms:NewsletterTemplateSelector ID="issueTemplate" runat="server" />
+                        <cms:CMSUpdatePanel runat="server" ID="pnlAvailability">
+                            <ContentTemplate>
+                                <cms:UniSelector ID="usTemplates" runat="server" IsLiveSite="false" ObjectType="newsletter.emailtemplate"
+                                    SelectionMode="Multiple" ResourcePrefix="templatesselect" />
+                            </ContentTemplate>
+                        </cms:CMSUpdatePanel>
                     </div>
                 </asp:Panel>
-            </div>
+             </div>
         </asp:Panel>
     </asp:PlaceHolder>
     <%-- Dynamic config --%>

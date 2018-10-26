@@ -507,15 +507,6 @@ public partial class CMSInstall_install {
     protected global::System.Web.UI.WebControls.HiddenField hdnState;
     
     /// <summary>
-    /// hdnAdvanced control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.HiddenField hdnAdvanced;
-    
-    /// <summary>
     /// ltlInstallScript control.
     /// </summary>
     /// <remarks>
@@ -523,13 +514,4 @@ public partial class CMSInstall_install {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Literal ltlInstallScript;
-    
-    /// <summary>
-    /// ltlAdvanced control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal ltlAdvanced;
 }

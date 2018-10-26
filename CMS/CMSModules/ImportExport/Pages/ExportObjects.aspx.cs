@@ -5,7 +5,7 @@ using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.UIControls;
 
-
+[Title("ExportSettings.ExportSiteSetings")]
 [UIElement(ModuleName.CMS, "Export")]
 public partial class CMSModules_ImportExport_Pages_ExportObjects : CMSImportExportPage
 {
@@ -17,18 +17,7 @@ public partial class CMSModules_ImportExport_Pages_ExportObjects : CMSImportExpo
             wzdExport.SiteId = siteID;
         }
 
-        // Initialize PageTitle
-        ptExportSiteSettings.Breadcrumbs.AddBreadcrumb(new BreadcrumbItem()
-        {
-            Text = GetString("general.sites"),
-            RedirectUrl = UIContextHelper.GetElementUrl(ModuleName.CMS, "Sites", false),
-            Target = "cmsdesktop"
-        });
-        ptExportSiteSettings.Breadcrumbs.AddBreadcrumb(new BreadcrumbItem()
-        {
-            Text = GetString("ExportSettings.ExportSiteSetings")
-        });
-
-        ptExportSiteSettings.TitleText = GetString("ExportSettings.ExportSiteSetings");
+        SetBreadcrumb(0, GetString("general.sites"), UIContextHelper.GetElementUrl(ModuleName.CMS, "sites", false), null, null);
+        SetBreadcrumb(1, GetString("ExportSettings.ExportSiteSetings"), string.Empty, null, null);
     }
 }

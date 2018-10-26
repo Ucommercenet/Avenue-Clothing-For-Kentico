@@ -67,11 +67,6 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_BBLinkProper
         {
             urlSelectElem.LinkURL = item.Url;
             urlSelectElem.LinkText = item.Name;
-
-            if (item.MediaType == MediaTypeEnum.Flash)
-            {
-                urlSelectElem.LinkURL = URLHelper.UpdateParameterInUrl(item.Url, "ext", "." + item.Extension.TrimStart('.'));
-            }
         }
         SaveSession();
     }

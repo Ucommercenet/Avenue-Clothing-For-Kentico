@@ -35,7 +35,7 @@ public partial class CMSModules_MessageBoards_CMSPages_Message_Edit : CMSLiveMod
         // initializes page title control		
         PageTitle.TitleText = GetString(mMessageId > 0 ? "Board.MessageEdit.title" : "Board.MessageNew.title");
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             messageEditElem.ReloadData();
         }

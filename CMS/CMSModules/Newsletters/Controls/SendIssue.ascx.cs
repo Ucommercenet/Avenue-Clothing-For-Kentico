@@ -163,7 +163,7 @@ public partial class CMSModules_Newsletters_Controls_SendIssue : IssueSenderCont
         }
         else
         {
-            Service<IIssueSender>.Entry().SendAsync(IssueInfoProvider.GetIssueInfo(IssueID), draftEmails);
+            Service.Resolve<IDraftSender>().SendAsync(IssueInfoProvider.GetIssueInfo(IssueID), draftEmails);
         }
 
         return String.IsNullOrEmpty(ErrorMessage);

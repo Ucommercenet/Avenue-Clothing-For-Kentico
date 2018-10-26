@@ -1,34 +1,27 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 
-using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.ActionsConfig;
 using CMS.DataEngine;
 using CMS.EmailEngine;
 using CMS.Helpers;
 using CMS.UIControls;
+using CMS.Core;
 
-
-public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
+[UIElement(ModuleName.CMS, "E-mailQueue")]
+public partial class CMSModules_EmailQueue_EmailQueue : EmailQueuePage
 {
-    #region "Variables"
-
-    protected int siteId;
-
-    #endregion
-
-
     #region "Page events"
 
     protected void Page_Load(object sender, EventArgs e)
     {
         Title = GetString("emailqueue.queue.title");
-        siteId = QueryHelper.GetInteger("siteid", -1);
 
         // Load drop-down lists
         if (!RequestHelper.IsPostBack())
         {
+            pnlBodyFilter.Visible = UserIsAdmin;
             InitializeFilterDropdowns();
 
             btnShowFilter.Text = icShowFilter.AlternativeText = GetString("emailqueue.displayfilter");
@@ -55,7 +48,7 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
     /// </summary>
     protected void InitializeActionMenu()
     {
-        bool sending = EmailHelper.Queue.SendingInProgess;
+        bool enabled = !EmailHelper.Queue.SendingInProgess && UserHasModify;
 
         HeaderActions actions = CurrentMaster.HeaderActions;
         actions.ActionsList.Clear();
@@ -66,9 +59,9 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
         HeaderAction resendAction = new HeaderAction
         {
             Text = GetString("emailqueue.queue.resendfailed"),
-            OnClientClick = !sending ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.ResendAllFailedConfirmation"))) : null,
+            OnClientClick = enabled ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.ResendAllFailedConfirmation"))) : null,
             CommandName = "resendallfailed",
-            Enabled = !sending
+            Enabled = enabled
         };
         actions.ActionsList.Add(resendAction);
 
@@ -76,27 +69,27 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
         resendAction.AlternativeActions.Add(new HeaderAction
         {
             Text = GetString("emailqueue.queue.resendselected"),
-            OnClientClick = !sending ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.ResendSelectedConfirmation"))) : null,
+            OnClientClick = enabled ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.ResendSelectedConfirmation"))) : null,
             CommandName = "resendselected",
-            Enabled = !sending
+            Enabled = enabled
         });
 
         // Resend all
         resendAction.AlternativeActions.Add(new HeaderAction
         {
             Text = GetString("emailqueue.queue.resend"),
-            OnClientClick = !sending ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.ResendAllConfirmation"))) : null,
+            OnClientClick = enabled ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.ResendAllConfirmation"))) : null,
             CommandName = "resendall",
-            Enabled = !sending
+            Enabled = enabled
         });
         
         // Delete all failed
         HeaderAction deleteAction = new HeaderAction
         {
             Text = GetString("emailqueue.queue.deletefailed"),
-            OnClientClick = !sending ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.DeleteAllFailedConfirmation"))) : null,
+            OnClientClick = enabled ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.DeleteAllFailedConfirmation"))) : null,
             CommandName = "deleteallfailed",
-            Enabled = !sending
+            Enabled = enabled
         };
         actions.ActionsList.Add(deleteAction);
 
@@ -104,27 +97,27 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
         deleteAction.AlternativeActions.Add(new HeaderAction
         {
             Text = GetString("emailqueue.queue.deleteselected"),
-            OnClientClick = !sending ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.DeleteSelectedConfirmation"))) : null,
+            OnClientClick = enabled ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.DeleteSelectedConfirmation"))) : null,
             CommandName = "deleteselected",
-            Enabled = !sending
+            Enabled = enabled
         });
 
         // Delete all
         deleteAction.AlternativeActions.Add(new HeaderAction
         {
             Text = GetString("emailqueue.queue.delete"),
-            OnClientClick = !sending ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.DeleteAllConfirmation"))) : null,
+            OnClientClick = enabled ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.DeleteAllConfirmation"))) : null,
             CommandName = "deleteall",
-            Enabled = !sending
+            Enabled = enabled
         });
 
         // Stop send
         actions.ActionsList.Add(new HeaderAction
         {
             Text = GetString("emailqueue.queue.stop"),
-            OnClientClick = sending ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.StopConfirmation"))) : null,
+            OnClientClick = !enabled ? string.Format(confirmScript, ScriptHelper.GetString(GetString("EmailQueue.StopConfirmation"))) : null,
             CommandName = "stop",
-            Enabled = sending
+            Enabled = !enabled
         });
 
         // Refresh
@@ -193,12 +186,30 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
 
     private void HeaderActions_ActionPerformed(object sender, CommandEventArgs e)
     {
+        var commandName = e.CommandName.ToLowerInvariant();
         bool reloaded = true;
 
-        switch (e.CommandName.ToLowerCSafe())
+        if (commandName.Equals("refresh", StringComparison.InvariantCulture))
+        {
+            reloaded = false;
+        }
+
+        if (!UserHasModify)
+        {
+            RedirectToAccessDenied(ModuleName.EMAILENGINE, MODIFY_PERMISSION);
+        }
+
+        switch (commandName)
         {
             case "resendallfailed":
-                EmailHelper.Queue.SendAllFailed();
+                if (SiteId == UniSelector.US_GLOBAL_RECORD)
+                {
+                    EmailHelper.Queue.SendAllFailed();
+                }
+                else
+                {
+                    EmailHelper.Queue.SendAllFailed(SiteId);
+                }
                 ShowInformation(GetString("emailqueue.sendingemails"));
                 break;
 
@@ -210,13 +221,20 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
                 break;
 
             case "resendall":
-                EmailHelper.Queue.SendAll();
+                if (SiteId == UniSelector.US_GLOBAL_RECORD)
+                {
+                    EmailHelper.Queue.SendAll();
+                }
+                else
+                {
+                    EmailHelper.Queue.SendAll(SiteId);
+                }
                 ShowInformation(GetString("emailqueue.sendingemails"));
 
                 break;
 
             case "deleteallfailed":
-                EmailHelper.Queue.DeleteAllFailed(siteId);
+                EmailHelper.Queue.DeleteAllFailed(SiteId);
                 break;
 
             case "deleteselected":
@@ -225,15 +243,10 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
                 break;
 
             case "deleteall":
-                EmailHelper.Queue.DeleteAll(siteId);
+                EmailHelper.Queue.DeleteAll(SiteId);
                 break;
-
             case "stop":
                 EmailHelper.Queue.CancelSending();
-                break;
-
-            case "refresh":
-                reloaded = false;
                 break;
         }
 
@@ -259,9 +272,13 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
     {
         string where = string.Empty;
 
+        if (UserIsAdmin)
+        {
+            where = SqlHelper.AddWhereCondition(where, fltBody.GetCondition());
+        }
+
         where = SqlHelper.AddWhereCondition(where, fltFrom.GetCondition());
         where = SqlHelper.AddWhereCondition(where, fltSubject.GetCondition());
-        where = SqlHelper.AddWhereCondition(where, fltBody.GetCondition());
         where = SqlHelper.AddWhereCondition(where, fltLastResult.GetCondition());
 
         // EmailTo condition
@@ -319,15 +336,15 @@ public partial class CMSModules_EmailQueue_EmailQueue : GlobalAdminPage
             where += " AND ";
         }
         where += string.Format("(NOT EmailStatus = {0:D})", EmailStatusEnum.Archived);
-
-        if (siteId == UniSelector.US_GLOBAL_RECORD)
+        
+        if (SiteId == UniSelector.US_GLOBAL_RECORD)
         {
             // Global
             where += " AND (EmailSiteID IS NULL OR  EmailSiteID = 0)";
         }
-        else if (siteId > 0)
+        else if (SiteId > 0)
         {
-            where += string.Format(" AND (EmailSiteID = {0})", siteId);
+            where += string.Format(" AND (EmailSiteID = {0})", SiteId);
         }
 
         return where;

@@ -151,7 +151,7 @@ public partial class CMSModules_Content_Controls_WebPartToolbar : CMSAbstractPor
         // Setups the web part toolbar control
         SetupControl();
 
-        if (URLHelper.IsPostback())
+        if (RequestHelper.IsPostBack())
         {
             // Add the search text to the current url
             RequestContext.CurrentURL = URLHelper.AddParameterToUrl(RequestContext.CurrentURL, SEARCH_TEXT_CODE, HttpUtility.UrlEncode(txtSearch.Text));
@@ -529,7 +529,7 @@ END))
         pnlCue.Style.Add("display", "none");
         pnlCue.Style.Add("position", "absolute");
 
-        pnlLoader.Controls.Add(new LiteralControl(ScriptHelper.GetLoaderInlineHtml(Page)));
+        pnlLoader.Controls.Add(new LiteralControl(ScriptHelper.GetLoaderInlineHtml()));
     }
 
 

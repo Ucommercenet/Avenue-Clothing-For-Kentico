@@ -1925,6 +1925,12 @@ var CodeMirror = (function () {
             var popup = new Popup(this);
             popup.createInsertMacroWindow();
         }
+
+        instance.createInsertImageWindow = function () {
+            this.name = this.getOption("name");
+            var popup = new Popup(this);
+            popup.createInsertImageWindow();
+        };
         /* CMS end */
 
         for (var ext in extensions)
@@ -1950,6 +1956,8 @@ var CodeMirror = (function () {
         allowFullscreen: true,
         dynamicHeight: false,
         showInsertMacro: false,
+        showInsertImage: false,
+        insertImageDialogUrl: '',
         isMacroMixedMode: true,
         resolverSessionKey: "",
         singleLineMode: false,
@@ -3166,6 +3174,11 @@ function Toolbar(editor) {
         makeButton(getLocalizedString("InsertMacro"), "insertMacro", readOnly);
     }
 
+    if (editor.getOption("showInsertImage")) {
+        makeSeparator();
+        makeButton(getLocalizedString("InsertImage"), "insertImage", readOnly);
+    }
+
     /* CMS end */
 
     // Set if line numbers button toggled on/off depending if the line numbers are displayed
@@ -3350,7 +3363,7 @@ Toolbar.prototype = {
         if (this.editor.fullScreen) {
             scroller.style.height = scroller.oldHeight;
             elem.style.position = elem.oldPosition;
-            
+
             if (elem.oldTop != null) {
                 elem.style.top = elem.oldTop;
             }
@@ -3361,7 +3374,7 @@ Toolbar.prototype = {
 
             elem.className = elem.className.substring(0, elem.className.length - fsClass.length);
         }
-        // Fullscreen
+            // Fullscreen
         else {
             scroller.oldHeight = scroller.style.height;
             scroller.style.height = '';
@@ -3468,6 +3481,10 @@ Toolbar.prototype = {
     insertMacro: function () {
         this.popup.insertMacro();
     },
+
+    insertImage: function () {
+        this.popup.insertImage();
+    }
     /*** CMS END ***/
 };
 
@@ -3669,6 +3686,7 @@ function Popup(editor) {
     this.createSourceWindow = createSourceWindow;
     /*** CMS ***/
     this.createInsertMacroWindow = createInsertMacroWindow;
+    this.createInsertImageWindow = createInsertImageWindow;
     /*** CMS END ***/
 
     // Popup dialogs are located in the codemirror's root dir
@@ -3715,6 +3733,15 @@ function Popup(editor) {
     function createInsertMacroWindow() {
         var wnd = createWindow(this.dialogPath + "InsertMacro/Tab_InsertMacroTree.aspx?editorName=" + this.editor.name + "&resolversessionkey=" + this.editor.getOption("resolverSessionKey") + "&ismixedmode=" + this.editor.getOption("isMacroMixedMode"), "InsertMacro", 800, 600, 'resizable=yes');
     }
+
+    function createInsertImageWindow() {
+        var url = editor.getOption("insertImageDialogUrl");
+
+        if (url) {
+            var wnd = createWindow(url, "InsertImage", '90%', '85%', 'resizable=yes');
+        }
+    }
+
     /*** CMS END ***/
 }
 
@@ -3735,6 +3762,10 @@ Popup.prototype = {
     /*** CMS ***/
     insertMacro: function () {
         this.createInsertMacroWindow();
+    },
+
+    insertImage: function () {
+        this.createInsertImageWindow();
     }
     /*** CMS END ***/
 };
@@ -3796,10 +3827,26 @@ function CM_RefreshAll() {
 CodeMirror.WP_CHAR = "□";
 CodeMirror.WPR_CHAR = "▫";
 
-CodeMirror.commands.find = function (ed) { setTimeout(function () { ed.toolbar.popup.search(); }, 1); };
-CodeMirror.commands.replace = function (ed) { setTimeout(function () { ed.toolbar.popup.replace(); }, 1); };
-CodeMirror.commands.bookmarks = function (ed) { ed.bookmarks.toggle(); };
-CodeMirror.commands.fullscreen = function (ed) { ed.toolbar.fitWindow(); };
-CodeMirror.commands.linenumbers = function (ed) { ed.toolbar.toggleLineNumbers(); };
-CodeMirror.commands.save = function (ed) { ed.save(); };
+CodeMirror.commands.find = function (ed) {
+    setTimeout(function () {
+        ed.toolbar.popup.search();
+    }, 1);
+};
+CodeMirror.commands.replace = function (ed) {
+    setTimeout(function () {
+        ed.toolbar.popup.replace();
+    }, 1);
+};
+CodeMirror.commands.bookmarks = function (ed) {
+    ed.bookmarks.toggle();
+};
+CodeMirror.commands.fullscreen = function (ed) {
+    ed.toolbar.fitWindow();
+};
+CodeMirror.commands.linenumbers = function (ed) {
+    ed.toolbar.toggleLineNumbers();
+};
+CodeMirror.commands.save = function (ed) {
+    ed.save();
+};
 /* CMS end */

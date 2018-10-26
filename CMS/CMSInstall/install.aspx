@@ -205,9 +205,7 @@
             <cms:WarningPanel ID="pnlWarning" runat="server" />
         </asp:Panel>
         <asp:HiddenField ID="hdnState" runat="server" />
-        <asp:HiddenField ID="hdnAdvanced" runat="server" />
         <asp:Literal ID="ltlInstallScript" runat="server" EnableViewState="false" />
-        <asp:Literal ID="ltlAdvanced" runat="server" EnableViewState="false" />
     </form>
 </body>
 </html>

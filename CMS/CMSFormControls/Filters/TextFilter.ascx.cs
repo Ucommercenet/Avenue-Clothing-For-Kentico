@@ -1,10 +1,8 @@
 ﻿using CMS.Base.Web.UI;
-using CMS.UIControls;
+using CMS.FormEngine.Web.UI;
 
 public partial class CMSFormControls_Filters_TextFilter : TextFilterControl
 {
-    #region "Properties"
-    
     /// <summary>
     /// Text box control
     /// </summary>
@@ -27,6 +25,4 @@ public partial class CMSFormControls_Filters_TextFilter : TextFilterControl
             return drpOperator;
         }
     }
-
-    #endregion
 }

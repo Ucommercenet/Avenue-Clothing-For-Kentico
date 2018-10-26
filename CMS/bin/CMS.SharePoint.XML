@@ -32,37 +32,6 @@
             <seealso cref="P:CMS.SharePoint.SharePointConnectionData.SharePointConnectionDomain"/>
             <seealso cref="P:CMS.SharePoint.SharePointConnectionData.SharePointConnectionPassword"/>
         </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionData.#ctor">
-            <summary>
-            Creates new empty SharePoint connection data.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionData.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
-            <summary>
-            Creates new SharePoint connection data filled with connectionData.
-            </summary>
-            <param name="connectionData">Connection data</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionData.GetSharePointConnectionDataItem(System.String)">
-            <summary>
-            Gets connection data item for given name.
-            </summary>
-            <param name="name">Name of the item</param>
-            <returns>Item value, or null if not present</returns>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionData.SetSharePointConnectionDataItem(System.String,System.Object)">
-            <summary>
-            Sets connection data item for given name.
-            </summary>
-            <param name="name">Name of the item</param>
-            <param name="value">Item value</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionData.Clone">
-            <summary>
-            Returns clone of SharePoint connection data.
-            </summary>
-            <returns>Clone of SharePoint connection data.</returns>
-        </member>
         <member name="P:CMS.SharePoint.SharePointConnectionData.SharePointConnectionName">
             <summary>
             Gets or sets SharePointConnectionName.
@@ -114,6 +83,37 @@
             Gets list of connection item names.
             </summary>
         </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionData.#ctor">
+            <summary>
+            Creates new empty SharePoint connection data.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionData.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates new SharePoint connection data filled with connectionData.
+            </summary>
+            <param name="connectionData">Connection data</param>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionData.GetSharePointConnectionDataItem(System.String)">
+            <summary>
+            Gets connection data item for given name.
+            </summary>
+            <param name="name">Name of the item</param>
+            <returns>Item value, or null if not present</returns>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionData.SetSharePointConnectionDataItem(System.String,System.Object)">
+            <summary>
+            Sets connection data item for given name.
+            </summary>
+            <param name="name">Name of the item</param>
+            <param name="value">Item value</param>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionData.Clone">
+            <summary>
+            Returns clone of SharePoint connection data.
+            </summary>
+            <returns>Clone of SharePoint connection data.</returns>
+        </member>
         <member name="T:CMS.SharePoint.SharePointVersion">
             <summary>
             Contains known SharePoint version constants.
@@ -127,6 +127,11 @@
         <member name="F:CMS.SharePoint.SharePointVersion.SHAREPOINT_2013">
             <summary>
             Specifies SharePoint 2013.
+            </summary>
+        </member>
+        <member name="F:CMS.SharePoint.SharePointVersion.SHAREPOINT_2016">
+            <summary>
+            Specifies SharePoint 2016.
             </summary>
         </member>
         <member name="F:CMS.SharePoint.SharePointVersion.SHAREPOINT_ONLINE">
@@ -184,70 +189,6 @@
         <member name="T:CMS.SharePoint.SharePointAbstractFileService">
             <summary>
             Provides common methods suitable for SharePoint services handling files.
-            </summary>
-        </member>
-        <member name="T:CMS.SharePoint.SharePointAbstractService">
-            <summary>
-            Provides common methods suitable for all SharePoint services.
-            </summary>
-        </member>
-        <member name="T:CMS.SharePoint.ISharePointService">
-            <summary>
-            Specifies common SharePoint service properties.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.ISharePointService.IsConnectionSupported">
-            <summary>
-            Tells you whether connection parameters can be used by instantiated SharePoint service implementation (eg. the authentication mode might not be supported).
-            </summary>
-            <returns>True if connection parameters can be used by current implementation, false otherwise.</returns>
-        </member>
-        <member name="F:CMS.SharePoint.SharePointAbstractService.SHAREPOINT_CCSDK_IDCRL_LIB">
-            <summary>
-            Identity client runtime library name. Needed for SharePoint Online connectivity if SharePointOnlineCredentials are being used.
-            </summary>
-        </member>
-        <member name="F:CMS.SharePoint.SharePointAbstractService.ERROR_CODE_INVALID_CREDENTIALS">
-            <summary>
-            Error code of <see cref="T:Microsoft.SharePoint.Client.IdcrlException"/> thrown when the credentials are not valid.
-            The corresponding exception message is: The sign-in name or password does not match one in the Microsoft account system.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointAbstractService.IsConnectionSupported">
-            <summary>
-            Tells you whether provided ConnectionData can be used (eg. the authentication mode is supported and site URL is in correct format).
-            </summary>
-            <returns>True if ConnectionData can be used by this implementation, false otherwise.</returns>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointAbstractService.CreateClientContext">
-            <summary>
-            Create a new ClientContext for SharePoint 2010 based on ConnectionData.
-            </summary>
-            <returns>ClientContext</returns>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
-            <remarks>
-            If you encounter problems regarding the missing library "msoidcliL.dll", make sure the SharePoint Client Components SDK is installed.
-            </remarks>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointAbstractService.ExecuteQuery(Microsoft.SharePoint.Client.ClientContext)">
-            <summary>
-            Executes query on SharePoint server. Serves as an adapter for different versions.
-            </summary>
-            <param name="clientContext">Client context on which to perform query execution.</param>
-            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointAbstractService.#ctor(CMS.SharePoint.SharePointConnectionData)">
-            <summary>
-            Initializes SharePoint connection for any service built on this abstract service.
-            </summary>
-            <param name="connectionData">Connection data</param>
-        </member>
-        <member name="P:CMS.SharePoint.SharePointAbstractService.ConnectionData">
-            <summary>
-            Connection data used by service instance.
             </summary>
         </member>
         <member name="F:CMS.SharePoint.SharePointAbstractFileService.FILE_ALREADY_EXISTS_SHAREPOINT_EXCEPTION_MESSAGE">
@@ -365,40 +306,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Constructor for de-serialization.
-            </summary>
-            <param name="info">Serialization info</param>
-            <param name="context">Streaming context</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SharePointFileInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SharePointFileInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfo.ToSharePointFile">
-            <summary>
-            Gets <see cref="T:CMS.SharePoint.SharePointFile"/> representing this object.
-            </summary>
-            <returns>This object as SharePointFile.</returns>
-        </member>
         <member name="P:CMS.SharePoint.SharePointFileInfo.SharePointFileID">
             <summary>
             SharePoint file ID
@@ -458,6 +365,40 @@
             <summary>
             SharePoint file SharePoint library ID
             </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFileInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFileInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFileInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFileInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SharePointFileInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFileInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SharePointFileInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFileInfo.ToSharePointFile">
+            <summary>
+            Gets <see cref="T:CMS.SharePoint.SharePointFile"/> representing this object.
+            </summary>
+            <returns>This object as SharePointFile.</returns>
         </member>
         <member name="T:CMS.SharePoint.SharePointFileInfoProvider">
             <summary>
@@ -579,18 +520,6 @@
             </summary>
             <param name="guid">SharePointFileInfo GUID</param>
             <param name="getBinary">If false, no binary data is returned for the SharePoint file.</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfoProvider.SetSharePointFileInfoInternal(CMS.SharePoint.SharePointFileInfo)">
-            <summary>
-            Sets (updates or inserts) specified SharePointFileInfo.
-            </summary>
-            <param name="infoObj">SharePointFileInfo to be set</param>        
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFileInfoProvider.DeleteSharePointFileInfoInternal(CMS.SharePoint.SharePointFileInfo)">
-            <summary>
-            Deletes specified SharePointFileInfo.
-            </summary>
-            <param name="infoObj">SharePointFileInfo to be deleted</param>        
         </member>
         <member name="M:CMS.SharePoint.SharePointFileInfoProvider.GetSharePointFilesInternal(System.Int32,System.Boolean)">
             <summary>
@@ -939,34 +868,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Constructor for de-serialization.
-            </summary>
-            <param name="info">Serialization info</param>
-            <param name="context">Streaming context</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SharePointLibraryInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SharePointLibraryInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
         <member name="P:CMS.SharePoint.SharePointLibraryInfo.SharePointLibraryID">
             <summary>
             SharePoint library ID
@@ -1016,6 +917,34 @@
             <summary>
             SharePoint library synchronization period in number of minutes
             </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointLibraryInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointLibraryInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointLibraryInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointLibraryInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SharePointLibraryInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointLibraryInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SharePointLibraryInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
         </member>
         <member name="T:CMS.SharePoint.SharePointLibraryInfoProvider">
             <summary>
@@ -1082,35 +1011,17 @@
             <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="libraryInfo"/> is null.</exception>
             <exception cref="T:System.InvalidOperationException">Thrown when the library can not be scheduled for synchronization (the scheduler's task is missing).</exception>
         </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.GetSharePointLibrariesInternal">
+        <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.SetInfo(CMS.SharePoint.SharePointLibraryInfo)">
             <summary>
-            Returns a query for all the SharePointLibraryInfo objects.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.GetSharePointLibraryInfoInternal(System.Int32)">
+        <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.DeleteInfo(CMS.SharePoint.SharePointLibraryInfo)">
             <summary>
-            Returns SharePointLibraryInfo with specified ID.
+            Deletes the object to the database.
             </summary>
-            <param name="id">SharePointLibraryInfo ID</param>        
-        </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.GetSharePointLibraryInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Returns SharePointLibraryInfo with specified name.
-            </summary>
-            <param name="name">SharePointLibraryInfo name</param>     
-            <param name="siteId">SharePointLibraryInfo's site identifier</param>   
-        </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.SetSharePointLibraryInfoInternal(CMS.SharePoint.SharePointLibraryInfo)">
-            <summary>
-            Sets (updates or inserts) specified SharePointLibraryInfo.
-            </summary>
-            <param name="infoObj">SharePointLibraryInfo to be set</param>        
-        </member>
-        <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.DeleteSharePointLibraryInfoInternal(CMS.SharePoint.SharePointLibraryInfo)">
-            <summary>
-            Deletes specified SharePointLibraryInfo.
-            </summary>
-            <param name="infoObj">SharePointLibraryInfo to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SharePoint.SharePointLibraryInfoProvider.GetSharePointLibrarySynchronizationStateInternal(CMS.SharePoint.SharePointLibraryInfo)">
             <summary>
@@ -1158,14 +1069,6 @@
             State of the SharePoint library synchronization.
             </summary>
         </member>
-        <member name="M:CMS.SharePoint.SharePointLibrarySynchronizationState.#ctor(System.Nullable{System.DateTime},System.String,System.Nullable{System.DateTime})">
-            <summary>
-            Creates a new state of SharePoint library synchronization.
-            </summary>
-            <param name="lastRunTime">Last time the synchronization was run.</param>
-            <param name="lastResult">Result of the last synchronization (if error condition was met), null otherwise.</param>
-            <param name="nextRunTime">Next time the synchronization is scheduled for run. Null means the synchronization is currently running.</param>
-        </member>
         <member name="P:CMS.SharePoint.SharePointLibrarySynchronizationState.IsRunning">
             <summary>
             True if the synchronization is currently being performed.
@@ -1187,6 +1090,14 @@
             is waiting for the scheduler to execute it.
             Gets null if the synchronization is currently running (<see cref="P:CMS.SharePoint.SharePointLibrarySynchronizationState.IsRunning"/> is set).
             </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointLibrarySynchronizationState.#ctor(System.Nullable{System.DateTime},System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Creates a new state of SharePoint library synchronization.
+            </summary>
+            <param name="lastRunTime">Last time the synchronization was run.</param>
+            <param name="lastResult">Result of the last synchronization (if error condition was met), null otherwise.</param>
+            <param name="nextRunTime">Next time the synchronization is scheduled for run. Null means the synchronization is currently running.</param>
         </member>
         <member name="T:CMS.SharePoint.SharePointLibrarySynchronizationTask">
             <summary>
@@ -1273,6 +1184,18 @@
             The registration is performed on current SharePoint service factory provider.
             </summary>
         </member>
+        <member name="P:CMS.SharePoint.RegisterSharePointServiceFactoryAttribute.MarkedType">
+            <summary>
+            SharePoint service factory.
+            </summary>
+            <exception cref="T:CMS.SharePoint.SharePointServiceFactoryNotSupportedException">Thrown when MarkedType does not implement ISharePointServiceFactory.</exception>
+        </member>
+        <member name="P:CMS.SharePoint.RegisterSharePointServiceFactoryAttribute.SharePointVersion">
+            <summary>
+            SharePoint version.
+            </summary>
+            <exception cref="T:System.NullReferenceException">Thrown when sharePointVersion is null.</exception>
+        </member>
         <member name="M:CMS.SharePoint.RegisterSharePointServiceFactoryAttribute.#ctor(System.String,System.Type)">
             <summary>
             Registers new implementation of ISharePointServiceFactory for given SharePoint version.
@@ -1286,18 +1209,6 @@
             <summary>
             Registers SharePoint service factory in current service factory provider.
             </summary>
-        </member>
-        <member name="P:CMS.SharePoint.RegisterSharePointServiceFactoryAttribute.MarkedType">
-            <summary>
-            SharePoint service factory.
-            </summary>
-            <exception cref="T:CMS.SharePoint.SharePointServiceFactoryNotSupportedException">Thrown when MarkedType does not implement ISharePointServiceFactory.</exception>
-        </member>
-        <member name="P:CMS.SharePoint.RegisterSharePointServiceFactoryAttribute.SharePointVersion">
-            <summary>
-            SharePoint version.
-            </summary>
-            <exception cref="T:System.NullReferenceException">Thrown when sharePointVersion is null.</exception>
         </member>
         <member name="T:CMS.SharePoint.SharePointServiceFactoryNotSupportedException">
             <summary>
@@ -1332,6 +1243,12 @@
             Dictionary mapping SharePoint versions to ISharePointServiceFactory implementations.
             </summary>
         </member>
+        <member name="P:CMS.SharePoint.SharePointServiceFactoryProvider.Current">
+            <summary>
+            Gets instance of current implementation of ISharePointServiceFactory.
+            </summary>
+            <returns>ISharePointServiceFactory implementation</returns>
+        </member>
         <member name="M:CMS.SharePoint.SharePointServiceFactoryProvider.RegisterFactory``1(System.String)">
             <summary>
             Registers new implementation of ISharePointServiceFactory for given SharePoint version.
@@ -1356,12 +1273,6 @@
             <param name="sharePointVersion">SharePoint version for which to get service factory</param>
             <returns>ISharePointServiceFactory instance</returns>
             <exception cref="T:CMS.SharePoint.SharePointServiceFactoryNotSupportedException">Thrown when no service factory for sharePointVersion found.</exception>
-        </member>
-        <member name="P:CMS.SharePoint.SharePointServiceFactoryProvider.Current">
-            <summary>
-            Gets instance of current implementation of ISharePointServiceFactory.
-            </summary>
-            <returns>ISharePointServiceFactory implementation</returns>
         </member>
         <member name="T:CMS.SharePoint.SharePointServices">
             <summary>
@@ -1406,7 +1317,7 @@
         </member>
         <member name="P:CMS.SharePoint.SharePointView.Attributes">
             <summary>
-            Provides access to the collection of &lt;View&gt; element attributes.
+            Provides access to the collection of &lt;View> element attributes.
             Attributes which are not contained in the collection have their default meaning.
             Access to some attributes is provided via short hand properties.
             </summary>
@@ -1445,30 +1356,6 @@
             Represents version independent SharePoint file.
             The file or its properties may be loaded eagerly or lazily (depends on implementation).
             </summary>
-        </member>
-        <member name="M:CMS.SharePoint.ISharePointFile.GetContentBytes">
-            <summary>
-            Gets the file's content as an array of bytes.
-            </summary>
-            <returns>Array of bytes containing SharePoint file's binary data</returns>
-            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
-            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
-            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
-        </member>
-        <member name="M:CMS.SharePoint.ISharePointFile.GetContentStream">
-            <summary>
-            Gets the file's content as a stream.
-            </summary>
-            <returns>Stream providing SharePoint file's binary data</returns>
-            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
-            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
-            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
         </member>
         <member name="P:CMS.SharePoint.ISharePointFile.ETag">
             <summary>
@@ -1566,28 +1453,34 @@
             <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
             <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
         </member>
-        <member name="T:CMS.SharePoint.SharePointFile">
-            <summary>
-            Represents general SharePoint file.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFile.#ctor(System.Byte[])">
-            <summary>
-            Initializes a new SharePointFile instance.
-            </summary>
-            <param name="contentBytes">File content.</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointFile.GetContentBytes">
+        <member name="M:CMS.SharePoint.ISharePointFile.GetContentBytes">
             <summary>
             Gets the file's content as an array of bytes.
             </summary>
             <returns>Array of bytes containing SharePoint file's binary data</returns>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
+            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
+            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
         </member>
-        <member name="M:CMS.SharePoint.SharePointFile.GetContentStream">
+        <member name="M:CMS.SharePoint.ISharePointFile.GetContentStream">
             <summary>
             Gets the file's content as a stream.
             </summary>
             <returns>Stream providing SharePoint file's binary data</returns>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
+            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
+            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
+        </member>
+        <member name="T:CMS.SharePoint.SharePointFile">
+            <summary>
+            Represents general SharePoint file.
+            </summary>
         </member>
         <member name="P:CMS.SharePoint.SharePointFile.ETag">
             <summary>
@@ -1639,6 +1532,24 @@
             File's title from SharePoint server.
             </summary>
         </member>
+        <member name="M:CMS.SharePoint.SharePointFile.#ctor(System.Byte[])">
+            <summary>
+            Initializes a new SharePointFile instance.
+            </summary>
+            <param name="contentBytes">File content.</param>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFile.GetContentBytes">
+            <summary>
+            Gets the file's content as an array of bytes.
+            </summary>
+            <returns>Array of bytes containing SharePoint file's binary data</returns>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointFile.GetContentStream">
+            <summary>
+            Gets the file's content as a stream.
+            </summary>
+            <returns>Stream providing SharePoint file's binary data</returns>
+        </member>
         <member name="T:CMS.SharePoint.AbstractGetSharePointFileHandler">
             <summary>
             Abstract SharePoint handler that serves SharePoint files.
@@ -1672,6 +1583,46 @@
         <member name="F:CMS.SharePoint.AbstractGetSharePointFileHandler.FORCE_DOWNLOAD_MIMETYPE">
             <summary>
             Mime type that forces browsers to download the file
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.CacheItemName">
+            <summary>
+            Gets the cahe item name for currently requested file that will be used when composing the cahe key.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.CacheMinutes">
+            <summary>
+            Number of minutes the file will be cached. Zero means the file won't be cahed.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.CacheFileSizeLimit">
+            <summary>
+            Maximum size of the file that will be cached (bytes).
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.AllowCache">
+            <summary>
+            Returns true if the process allows cache.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.ForceDownload">
+            <summary>
+            Indicates whether file forced to be saved on client
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.Width">
+            <summary>
+            Image width.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.Height">
+            <summary>
+            Image height.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.MaxSideSize">
+            <summary>
+            Image maximum side size.
             </summary>
         </member>
         <member name="M:CMS.SharePoint.AbstractGetSharePointFileHandler.GetSharePointFile">
@@ -1715,49 +1666,24 @@
             Returns true on success.
             </summary>
         </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.CacheItemName">
+        <member name="T:CMS.SharePoint.GetLocalSharePointFileHandler">
             <summary>
-            Gets the cahe item name for currently requested file that will be used when composing the cahe key.
+            Handler that serves SharePoint files from local storage.
             </summary>
         </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.CacheMinutes">
+        <member name="P:CMS.SharePoint.GetLocalSharePointFileHandler.FileID">
             <summary>
-            Number of minutes the file will be cached. Zero means the file won't be cahed.
+            SharePointFileInfo identifier.
             </summary>
         </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.CacheFileSizeLimit">
-            <summary>
-            Maximum size of the file that will be cached (bytes).
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.AllowCache">
-            <summary>
-            Returns true if the process allows cache.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.ForceDownload">
+        <member name="P:CMS.SharePoint.GetLocalSharePointFileHandler.ForceDownload">
             <summary>
             Indicates whether file forced to be saved on client
             </summary>
         </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.Width">
+        <member name="P:CMS.SharePoint.GetLocalSharePointFileHandler.CacheItemName">
             <summary>
-            Image width.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.Height">
-            <summary>
-            Image height.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.AbstractGetSharePointFileHandler.MaxSideSize">
-            <summary>
-            Image maximum side size.
-            </summary>
-        </member>
-        <member name="T:CMS.SharePoint.GetLocalSharePointFileHandler">
-            <summary>
-            Handler that serves SharePoint files from local storage.
+            Gets the cahe item name for currently requested file that will be used when composing the cahe key.
             </summary>
         </member>
         <member name="M:CMS.SharePoint.GetLocalSharePointFileHandler.GetSharePointFileUrl(System.String,System.Int32,System.Boolean)">
@@ -1783,24 +1709,24 @@
             Returns true on success.
             </summary>
         </member>
-        <member name="P:CMS.SharePoint.GetLocalSharePointFileHandler.FileID">
-            <summary>
-            SharePointFileInfo identifier.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.GetLocalSharePointFileHandler.ForceDownload">
-            <summary>
-            Indicates whether file forced to be saved on client
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.GetLocalSharePointFileHandler.CacheItemName">
-            <summary>
-            Gets the cahe item name for currently requested file that will be used when composing the cahe key.
-            </summary>
-        </member>
         <member name="T:CMS.SharePoint.GetSharePointFileHandler">
             <summary>
             Handler that serves SharePoint files directly from SharePoint server.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.GetSharePointFileHandler.FilePath">
+            <summary>
+            SharePoint file path.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.GetSharePointFileHandler.SharePointConnection">
+            <summary>
+            SharePoint connection info.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.GetSharePointFileHandler.CacheItemName">
+            <summary>
+            Gets the cahe item name for currently requested file that will be used when composing the cahe key.
             </summary>
         </member>
         <member name="M:CMS.SharePoint.GetSharePointFileHandler.GetSharePointFile">
@@ -1825,21 +1751,6 @@
             <exception cref="T:CMS.SharePoint.SharePointServiceFactoryNotSupportedException">Thrown when no service factory for specified SharePoint version found.</exception>
             <exception cref="T:CMS.SharePoint.SharePointServiceNotSupportedException">Thrown when IService implementation is not available.</exception>
             <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when available service implementation does not support given connectionData.</exception>
-        </member>
-        <member name="P:CMS.SharePoint.GetSharePointFileHandler.FilePath">
-            <summary>
-            SharePoint file path.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.GetSharePointFileHandler.SharePointConnection">
-            <summary>
-            SharePoint connection info.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.GetSharePointFileHandler.CacheItemName">
-            <summary>
-            Gets the cahe item name for currently requested file that will be used when composing the cahe key.
-            </summary>
         </member>
         <member name="T:CMS.SharePoint.ISharePointFileService">
             <summary>
@@ -1947,11 +1858,11 @@
             <para>
             The <paramref name="listItemsSelection"/> parameter is provided just for comfortability reason and produces a query similar to the following
             <pre>
-            &lt;Query&gt;
-                &lt;And&gt;
-                    <see cref="P:CMS.SharePoint.SharePointView.QueryInnerXml"/> &lt;Eq&gt;&lt;FieldRef Name="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldName"/>" /&gt;&lt;Value Type="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldType"/>"&gt;<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldValue"/>&lt;/Value&gt;&lt;/Eq&gt;
-                &lt;/And&gt;
-            &lt;/Query&gt;
+            &lt;Query>
+                &lt;And>
+                    <see cref="P:CMS.SharePoint.SharePointView.QueryInnerXml"/> &lt;Eq>&lt;FieldRef Name="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldName"/>" />&lt;Value Type="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldType"/>"><see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldValue"/>&lt;/Value>&lt;/Eq>
+                &lt;/And>
+            &lt;/Query>
             </pre>
             </para>
             <para>
@@ -1973,6 +1884,17 @@
             check the <em>FSObjType</em> column's value equality to <strong>1</strong>.
             </remarks>
         </member>
+        <member name="T:CMS.SharePoint.ISharePointService">
+            <summary>
+            Specifies common SharePoint service properties.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.ISharePointService.IsConnectionSupported">
+            <summary>
+            Tells you whether connection parameters can be used by instantiated SharePoint service implementation (eg. the authentication mode might not be supported).
+            </summary>
+            <returns>True if connection parameters can be used by current implementation, false otherwise.</returns>
+        </member>
         <member name="T:CMS.SharePoint.ISharePointSiteService">
             <summary>
             Provides access to information about SharePoint site.
@@ -1991,26 +1913,13 @@
         <member name="T:CMS.SharePoint.SharePointListItemsSelection">
             <summary>
             <para>
-            Holds a triplet for list items selection specification. The triplet is semantically equivalent to following SharePoint Query expression<br/>
-            &lt;FieldRef Name="FieldName" /&gt;&lt;Value Type="FieldType"&gt;FieldValue&lt;/Value&gt;<br/>
+            Holds a triplet for list items selection specification. The triplet is semantically equivalent to following SharePoint Query expression<br />
+            &lt;FieldRef Name="FieldName" />&lt;Value Type="FieldType">FieldValue&lt;/Value><br />
             </para>
             <para>
             In order for the selection to be valid the <see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldName"/>, <see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldType"/> and <see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldValue"/> should be provided.
             </para>
             </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointListItemsSelection.#ctor">
-            <summary>
-            Creates a new list items selection with no parameters.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointListItemsSelection.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Creates a new list items selection with selection parameters specified.
-            </summary>
-            <param name="fieldName">Field name (internal name) on which to perform selection.</param>
-            <param name="fieldType">Field type on which the selection is performed.</param>
-            <param name="fieldValue">Field value which is looked up in the list.</param>
         </member>
         <member name="P:CMS.SharePoint.SharePointListItemsSelection.FieldName">
             <summary>
@@ -2026,6 +1935,19 @@
             <summary>
             Field value which is looked up in the list.
             </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointListItemsSelection.#ctor">
+            <summary>
+            Creates a new list items selection with no parameters.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointListItemsSelection.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new list items selection with selection parameters specified.
+            </summary>
+            <param name="fieldName">Field name (internal name) on which to perform selection.</param>
+            <param name="fieldType">Field type on which the selection is performed.</param>
+            <param name="fieldValue">Field value which is looked up in the list.</param>
         </member>
         <member name="T:CMS.SharePoint.SharePointCCSDKException">
             <summary>
@@ -2178,33 +2100,6 @@
             Helps building Collaborative Application Markup Language (CAML) queries.
             </summary>
         </member>
-        <member name="M:CMS.SharePoint.CamlQueryBuilder.GetViewXmlAsString(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            Gets CAML suitable for <see cref="P:Microsoft.SharePoint.Client.CamlQuery.ViewXml"/> property (including &lt;View&gt; element).
-            </summary>
-            <param name="viewAttributes">Collection of view element attributes.</param>
-            <returns>View XML.</returns>
-            <seealso cref="P:Microsoft.SharePoint.Client.CamlQuery.ViewXml"/>
-        </member>
-        <member name="M:CMS.SharePoint.CamlQueryBuilder.GetItemSelectionXml">
-            <summary>
-            Gets CAML for item selection. Something like
-            &lt;Eq&gt;&lt;FieldRef Name="ItemSelectionFieldName" /&gt;&lt;Value Type="ItemSelectionFieldType"&gt;ItemSelectionFieldValue&lt;/Value&gt;&lt;/Eq&gt;
-            </summary>
-            <returns>CAML for item selection, or null if <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldName"/>, <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldType"/> or <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldValue"/> are not provided.</returns>
-        </member>
-        <member name="M:CMS.SharePoint.CamlQueryBuilder.CreateViewDocument(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            Creates a new document with &lt;View> as a root and optionally with attributes.
-            </summary>
-            <param name="viewAttributes">Attributes for &lt;View> element</param>
-            <returns>Document with View element and its attributes</returns>
-        </member>
-        <member name="M:CMS.SharePoint.CamlQueryBuilder.#ctor">
-            <summary>
-            Creates a new CAML query builder.
-            </summary>
-        </member>
         <member name="P:CMS.SharePoint.CamlQueryBuilder.QueryInnerXml">
             <summary>
             Gets or sets the inner XML of CAML Query element.
@@ -2236,8 +2131,8 @@
             Field name (internal name) for selection of certain item(s) in which the <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldValue"/> is being searched (using equality operator).
             The field is usually some unique field but it is not a must.
             The selection is made from elements satisfying the <see cref="P:CMS.SharePoint.CamlQueryBuilder.Query"/>.
-            The selection part of query will look like the following<br/>
-            &lt;Eq&gt;&lt;FieldRef Name="ItemSelectionFieldName" /&gt;&lt;Value Type="ItemSelectionFieldType"&gt;ItemSelectionFieldValue&lt;/Value&gt;&lt;/Eq&gt;
+            The selection part of query will look like the following<br />
+            &lt;Eq>&lt;FieldRef Name="ItemSelectionFieldName" />&lt;Value Type="ItemSelectionFieldType">ItemSelectionFieldValue&lt;/Value>&lt;/Eq>
             </summary>
         </member>
         <member name="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldType">
@@ -2249,8 +2144,35 @@
             <summary>
             Searched value of <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldName"/> for selection of certain item(s).
             The selection is made from elements satisfying the <see cref="P:CMS.SharePoint.CamlQueryBuilder.Query"/>.
-            The selection part of query will look like the following<br/>
-            &lt;Eq&gt;&lt;FieldRef Name="ItemSelectionFieldName" /&gt;&lt;Value Type="ItemSelectionFieldType"&gt;ItemSelectionFieldValue&lt;/Value&gt;&lt;/Eq&gt;
+            The selection part of query will look like the following<br />
+            &lt;Eq>&lt;FieldRef Name="ItemSelectionFieldName" />&lt;Value Type="ItemSelectionFieldType">ItemSelectionFieldValue&lt;/Value>&lt;/Eq>
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.CamlQueryBuilder.GetViewXmlAsString(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Gets CAML suitable for <see cref="P:Microsoft.SharePoint.Client.CamlQuery.ViewXml"/> property (including &lt;View> element).
+            </summary>
+            <param name="viewAttributes">Collection of view element attributes.</param>
+            <returns>View XML.</returns>
+            <seealso cref="P:Microsoft.SharePoint.Client.CamlQuery.ViewXml"/>
+        </member>
+        <member name="M:CMS.SharePoint.CamlQueryBuilder.GetItemSelectionXml">
+            <summary>
+            Gets CAML for item selection. Something like
+            &lt;Eq>&lt;FieldRef Name="ItemSelectionFieldName" />&lt;Value Type="ItemSelectionFieldType">ItemSelectionFieldValue&lt;/Value>&lt;/Eq>
+            </summary>
+            <returns>CAML for item selection, or null if <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldName"/>, <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldType"/> or <see cref="P:CMS.SharePoint.CamlQueryBuilder.ItemSelectionFieldValue"/> are not provided.</returns>
+        </member>
+        <member name="M:CMS.SharePoint.CamlQueryBuilder.CreateViewDocument(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Creates a new document with &lt;View> as a root and optionally with attributes.
+            </summary>
+            <param name="viewAttributes">Attributes for &lt;View> element</param>
+            <returns>Document with View element and its attributes</returns>
+        </member>
+        <member name="M:CMS.SharePoint.CamlQueryBuilder.#ctor">
+            <summary>
+            Creates a new CAML query builder.
             </summary>
         </member>
         <member name="T:CMS.SharePoint.SharePoint2010File">
@@ -2268,45 +2190,6 @@
             <summary>
             Indicates whether metadata has been loaded from SharePoint server.
             </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePoint2010File.GetContentBytes">
-            <summary>
-            Gets the file's content as an array of bytes.
-            </summary>
-            <returns>Array of bytes containing SharePoint file's binary data, or null if ServerRelativeUrl is null.</returns>
-            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
-            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
-        </member>
-        <member name="M:CMS.SharePoint.SharePoint2010File.GetContentStream">
-            <summary>
-            Gets the file's content as a stream.
-            </summary>
-            <returns>Stream providing SharePoint file's binary data, or null if ServerRelativeUrl is null.</returns>
-            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
-            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
-        </member>
-        <member name="M:CMS.SharePoint.SharePoint2010File.EnsureMetadata">
-            <summary>
-            Ensures file's metadata are loaded from SharePoint server.
-            </summary>
-            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
-            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
-        </member>
-        <member name="M:CMS.SharePoint.SharePoint2010File.#ctor(CMS.SharePoint.SharePointAbstractService,System.String)">
-            <summary>
-            Creates a new SharePoint2010File instance linked to originating SharePoint2010FileService.
-            </summary>
-            <param name="fileService">SharePoint service this instance came from.</param>
-            <param name="serverRelativeUrl">Server relative URL of the file.</param>
         </member>
         <member name="P:CMS.SharePoint.SharePoint2010File.ETag">
             <summary>
@@ -2396,6 +2279,45 @@
             <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
             <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
         </member>
+        <member name="M:CMS.SharePoint.SharePoint2010File.GetContentBytes">
+            <summary>
+            Gets the file's content as an array of bytes.
+            </summary>
+            <returns>Array of bytes containing SharePoint file's binary data, or null if ServerRelativeUrl is null.</returns>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
+            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
+        </member>
+        <member name="M:CMS.SharePoint.SharePoint2010File.GetContentStream">
+            <summary>
+            Gets the file's content as a stream.
+            </summary>
+            <returns>Stream providing SharePoint file's binary data, or null if ServerRelativeUrl is null.</returns>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
+            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
+        </member>
+        <member name="M:CMS.SharePoint.SharePoint2010File.EnsureMetadata">
+            <summary>
+            Ensures file's metadata are loaded from SharePoint server.
+            </summary>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
+            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
+        </member>
+        <member name="M:CMS.SharePoint.SharePoint2010File.#ctor(CMS.SharePoint.SharePointAbstractService,System.String)">
+            <summary>
+            Creates a new SharePoint2010File instance linked to originating SharePoint2010FileService.
+            </summary>
+            <param name="fileService">SharePoint service this instance came from.</param>
+            <param name="serverRelativeUrl">Server relative URL of the file.</param>
+        </member>
         <member name="T:CMS.SharePoint.SharePoint2010FileService">
             <summary>
             Provides access to SharePoint files.
@@ -2455,11 +2377,11 @@
             <para>
             The <paramref name="listItemsSelection"/> parameter is provided just for comfortability reason and produces a query similar to the following
             <pre>
-            &lt;Query&gt;
-                &lt;And&gt;
-                    <see cref="P:CMS.SharePoint.SharePointView.QueryInnerXml"/> &lt;Eq&gt;&lt;FieldRef Name="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldName"/>" /&gt;&lt;Value Type="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldType"/>"&gt;<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldValue"/>&lt;/Value&gt;&lt;/Eq&gt;
-                &lt;/And&gt;
-            &lt;/Query&gt;
+            &lt;Query>
+                &lt;And>
+                    <see cref="P:CMS.SharePoint.SharePointView.QueryInnerXml"/> &lt;Eq>&lt;FieldRef Name="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldName"/>" />&lt;Value Type="<see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldType"/>"><see cref="P:CMS.SharePoint.SharePointListItemsSelection.FieldValue"/>&lt;/Value>&lt;/Eq>
+                &lt;/And>
+            &lt;/Query>
             </pre>
             </para>
             <para>
@@ -2544,24 +2466,6 @@
             </summary>
             <remarks>The inheritance of SharePoint2010File class is purely for the reason of code reuse and must not be relied on. The only guarantee is the implementation of ISharePointFile.</remarks>
         </member>
-        <member name="M:CMS.SharePoint.SharePoint2013File.EnsureMetadata">
-            <summary>
-            Ensures file's metadata are loaded from SharePoint server.
-            </summary>
-            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
-            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
-            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
-            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
-        </member>
-        <member name="M:CMS.SharePoint.SharePoint2013File.#ctor(CMS.SharePoint.SharePoint2013FileService,System.String)">
-            <summary>
-            Creates a new SharePoint2013File instance linked to originating SharePoint2013FileService.
-            </summary>
-            <param name="fileService">File service this instance came from.</param>
-            <param name="serverRelativeUrl">Server relative URL of the file.</param>
-        </member>
         <member name="P:CMS.SharePoint.SharePoint2013File.Length">
             <summary>
             Length of the file's binary content.
@@ -2579,6 +2483,24 @@
             Tells you whether <see cref="P:CMS.SharePoint.SharePoint2013File.Length"/> property is supported.
             The support is SharePoint version dependent.
             </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePoint2013File.EnsureMetadata">
+            <summary>
+            Ensures file's metadata are loaded from SharePoint server.
+            </summary>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown when requested file is not present at SharePoint server.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointServerException">Thrown whenever server error occurs.</exception>
+            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
+            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
+        </member>
+        <member name="M:CMS.SharePoint.SharePoint2013File.#ctor(CMS.SharePoint.SharePoint2013FileService,System.String)">
+            <summary>
+            Creates a new SharePoint2013File instance linked to originating SharePoint2013FileService.
+            </summary>
+            <param name="fileService">File service this instance came from.</param>
+            <param name="serverRelativeUrl">Server relative URL of the file.</param>
         </member>
         <member name="T:CMS.SharePoint.SharePoint2013FileService">
             <summary>
@@ -2644,40 +2566,6 @@
             Properties to be skipped when transforming to SharePointConnectionData
             </summary>
         </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfo.ToSharePointConnectionData">
-            <summary>
-            Gets <see cref="T:CMS.SharePoint.SharePointConnectionData"/> representing this object.
-            </summary>
-            <returns>This object as SharePointConnectionData</returns>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Constructor for de-serialization.
-            </summary>
-            <param name="info">Serialization info</param>
-            <param name="context">Streaming context</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SharePointConnectionInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SharePointConnectionInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
         <member name="P:CMS.SharePoint.SharePointConnectionInfo.SharePointConnectionDisplayName">
             <summary>
             Name under which the object appears in the user interface
@@ -2738,6 +2626,40 @@
             Share point connection last modified
             </summary>
         </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionInfo.ToSharePointConnectionData">
+            <summary>
+            Gets <see cref="T:CMS.SharePoint.SharePointConnectionData"/> representing this object.
+            </summary>
+            <returns>This object as SharePointConnectionData</returns>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionInfo.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for de-serialization.
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SharePointConnectionInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointConnectionInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SharePointConnectionInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
         <member name="T:CMS.SharePoint.SharePointConnectionInfoProvider">
             <summary>
             Class providing SharePointConnectionInfo management.
@@ -2790,53 +2712,11 @@
             </summary>
             <param name="id">SharePointConnectionInfo ID</param>
         </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
         <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.GetSharePointConnections(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
             Returns a query for all the SharePointConnectionInfo objects of a specified site.
             </summary>
             <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.GetSharePointConnectionsInternal">
-            <summary>
-            Returns a query for all the SharePointConnectionInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.GetSharePointConnectionInfoInternal(System.Int32)">
-            <summary>
-            Returns SharePointConnectionInfo with specified ID.
-            </summary>
-            <param name="id">SharePointConnectionInfo ID</param>        
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.GetSharePointConnectionInfoInternal(System.String,CMS.DataEngine.SiteInfoIdentifier)">
-            <summary>
-            Returns SharePointConnectionInfo with specified name.
-            </summary>
-            <param name="name">SharePointConnectionInfo name</param>                
-            <param name="siteName">Site name</param>         
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.GetSharePointConnectionInfoInternal(System.Guid)">
-            <summary>
-            Returns SharePointConnectionInfo with specified GUID.
-            </summary>
-            <param name="guid">SharePointConnectionInfo GUID</param>
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.SetSharePointConnectionInfoInternal(CMS.SharePoint.SharePointConnectionInfo)">
-            <summary>
-            Sets (updates or inserts) specified SharePointConnectionInfo.
-            </summary>
-            <param name="infoObj">SharePointConnectionInfo to be set</param>        
-        </member>
-        <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.DeleteSharePointConnectionInfoInternal(CMS.SharePoint.SharePointConnectionInfo)">
-            <summary>
-            Deletes specified SharePointConnectionInfo.
-            </summary>
-            <param name="infoObj">SharePointConnectionInfo to be deleted</param>        
         </member>
         <member name="M:CMS.SharePoint.SharePointConnectionInfoProvider.GetSharePointConnectionsInternal(CMS.DataEngine.SiteInfoIdentifier)">
             <summary>
@@ -2863,6 +2743,59 @@
             <returns>Service implementation</returns>
             <exception cref="T:CMS.SharePoint.SharePointServiceNotSupportedException">Thrown when IService implementation is not available.</exception>
             <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when available service implementation does not support given connectionData.</exception>
+        </member>
+        <member name="T:CMS.SharePoint.SharePointAbstractService">
+            <summary>
+            Provides common methods suitable for all SharePoint services.
+            </summary>
+        </member>
+        <member name="F:CMS.SharePoint.SharePointAbstractService.SHAREPOINT_CCSDK_IDCRL_LIB">
+            <summary>
+            Identity client runtime library name. Needed for SharePoint Online connectivity if SharePointOnlineCredentials are being used.
+            </summary>
+        </member>
+        <member name="F:CMS.SharePoint.SharePointAbstractService.ERROR_CODE_INVALID_CREDENTIALS">
+            <summary>
+            Error code of <see cref="T:Microsoft.SharePoint.Client.IdcrlException"/> thrown when the credentials are not valid.
+            The corresponding exception message is: The sign-in name or password does not match one in the Microsoft account system.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.SharePointAbstractService.ConnectionData">
+            <summary>
+            Connection data used by service instance.
+            </summary>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointAbstractService.IsConnectionSupported">
+            <summary>
+            Tells you whether provided ConnectionData can be used (eg. the authentication mode is supported and site URL is in correct format).
+            </summary>
+            <returns>True if ConnectionData can be used by this implementation, false otherwise.</returns>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointAbstractService.CreateClientContext">
+            <summary>
+            Create a new ClientContext for SharePoint 2010 based on ConnectionData.
+            </summary>
+            <returns>ClientContext</returns>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointCCSDKException">Thrown when identity client library "msoidcliL.dll" needed for SharePoint Online authentication is missing. See documentation for details.</exception>
+            <remarks>
+            If you encounter problems regarding the missing library "msoidcliL.dll", make sure the SharePoint Client Components SDK is installed.
+            </remarks>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointAbstractService.ExecuteQuery(Microsoft.SharePoint.Client.ClientContext)">
+            <summary>
+            Executes query on SharePoint server. Serves as an adapter for different versions.
+            </summary>
+            <param name="clientContext">Client context on which to perform query execution.</param>
+            <exception cref="T:System.Net.WebException">Thrown when error related to network or protocol occurs.</exception>
+            <exception cref="T:CMS.SharePoint.SharePointConnectionNotSupportedException">Thrown when given connectionData contains unsupported authentication mode or invalid URL.</exception>
+            <exception cref="T:System.Exception">Thrown in case of unexpected error condition.</exception>
+        </member>
+        <member name="M:CMS.SharePoint.SharePointAbstractService.#ctor(CMS.SharePoint.SharePointConnectionData)">
+            <summary>
+            Initializes SharePoint connection for any service built on this abstract service.
+            </summary>
+            <param name="connectionData">Connection data</param>
         </member>
     </members>
 </doc>

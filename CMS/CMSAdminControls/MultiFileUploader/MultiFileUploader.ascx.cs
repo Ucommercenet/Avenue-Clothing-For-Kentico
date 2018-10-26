@@ -14,7 +14,7 @@ using CMS.IO;
 using CMS.Localization;
 using CMS.SiteProvider;
 using CMS.UIControls;
-
+using CMS.Membership;
 
 public partial class CMSAdminControls_MultiFileUploader_MultiFileUploader : CMSUserControl, IUploadHandler
 {
@@ -354,7 +354,7 @@ public partial class CMSAdminControls_MultiFileUploader_MultiFileUploader : CMSU
 
     /// <summary>
     /// Gets or sets the Upload handler's URL
-    /// If not set or set to null automatic value according to uploader mode. is provided.
+    /// If not set or set to null, automatic value according to uploader mode is provided.
     /// Set to override automatic handler selection.
     /// </summary>
     public string UploadHandlerUrl
@@ -365,22 +365,25 @@ public partial class CMSAdminControls_MultiFileUploader_MultiFileUploader : CMSU
             {
                 return URLHelper.GetAbsoluteUrl(mUploadHandlerUrl);
             }
+
             string url;
+            
+            // Using different path for authenticated user to enforce authentication under AD
+            var authenticatedHandlerPath = MembershipContext.AuthenticatedUser.IsPublic() ? "" : "/Authenticated";
+
             if (MediaLibraryID > 0)
             {
-                url = "~/CMSModules/MediaLibrary/CMSPages/MultiFileUploader.ashx";
+                url = $"~/CMSModules/MediaLibrary/CMSPages{authenticatedHandlerPath}/MultiFileUploader.ashx";
+            }
+            else if(PostForumID > 0)    
+            {
+                url = "~/CMSModules/Forums/CMSPages/MultiFileUploader.ashx";
             }
             else
             {
-                if (PostForumID > 0)
-                {
-                    url = "~/CMSModules/Forums/CMSPages/MultiFileUploader.ashx";
-                }
-                else
-                {
-                    url = "~/CMSModules/Content/CMSPages/MultiFileUploader.ashx";
-                }
+                url = $"~/CMSModules/Content/CMSPages{authenticatedHandlerPath}/MultiFileUploader.ashx";
             }
+            
             return URLHelper.GetAbsoluteUrl(url);
         }
         set

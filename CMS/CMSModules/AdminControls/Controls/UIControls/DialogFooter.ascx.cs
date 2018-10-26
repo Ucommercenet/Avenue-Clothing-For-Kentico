@@ -1,11 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Web.UI;
+﻿using System.Web.UI;
 
 using CMS.UIControls;
 
-
+#pragma warning disable BH3501 // Should inherit from some abstract CMS UI WebPart.
 public partial class CMSModules_AdminControls_Controls_UIControls_DialogFooter : CMSUserControl, IDialogFooter
+#pragma warning restore BH3501 // Should inherit from some abstract CMS UI WebPart.
 {
     /// <summary>
     /// Hides cancel button

@@ -29,7 +29,10 @@ public partial class CMSModules_AdminControls_Controls_Class_FormBuilder_FormCom
         // Try to retrieve data from the cache
         if (!CacheHelper.TryGetItem(CACHE_KEY, out value))
         {
-            var controls = FormUserControlInfoProvider.GetFormUserControls("UserControlDisplayName,UserControlCodeName,UserControlDescription,UserControlThumbnailGUID", "UserControlShowInBizForms = 1 AND UserControlPriority = 100", "UserControlDisplayName");
+            var controls = FormUserControlInfoProvider.GetFormUserControls()
+                                                      .Columns("UserControlDisplayName,UserControlCodeName,UserControlDescription,UserControlThumbnailGUID")
+                                                      .WhereEquals("UserControlShowInBizForms", 1).WhereEquals("UserControlPriority", 100).OrderBy("UserControlDisplayName");
+
             StringBuilder content = new StringBuilder();
 
             foreach (var control in controls)

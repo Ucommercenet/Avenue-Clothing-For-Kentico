@@ -207,7 +207,7 @@ public partial class CMSWebParts_Membership_Registration_RegistrationForm {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSFormControls_Captcha_SecurityCode scCaptcha;
+    protected global::CMS.FormEngine.Web.UI.SecurityCode scCaptcha;
     
     /// <summary>
     /// btnOk control.

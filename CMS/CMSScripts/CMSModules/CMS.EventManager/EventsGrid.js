@@ -7,6 +7,7 @@
                 gridActions;
 
             this.pagesApplicationHash = data.pagesApplicationHash;
+            this.eventsApplicationHash = data.eventsApplicationHash;
             this.eventDetailUrl = data.eventDetailURL;
 
             gridActions = new GridActions({
@@ -28,6 +29,11 @@
 
     EventsGrid.prototype.viewEventDetail = function (eventId) {
         if (this.eventDetailUrl) {
+            // Change the application hash to events application when viewing from dashboards
+            if (window.top.location.hash !== this.eventsApplicationHash) {
+                window.top.history.pushState(null, null, this.eventsApplicationHash);
+            }
+
             window.location.replace(this.eventDetailUrl + '&eventId=' + eventId + '&objectid=' + eventId);
         }
     };

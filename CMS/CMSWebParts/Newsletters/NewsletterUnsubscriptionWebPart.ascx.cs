@@ -83,9 +83,9 @@ public partial class CMSWebParts_Newsletters_NewsletterUnsubscriptionWebPart : C
             return;
         }
 
-        var subscriptionService = Service<ISubscriptionService>.Entry();
-        var unsubscriptionProvider = Service<IUnsubscriptionProvider>.Entry();
-        var emailHashValidator = Service<IEmailHashValidator>.Entry();
+        var subscriptionService = Service.Resolve<ISubscriptionService>();
+        var unsubscriptionProvider = Service.Resolve<IUnsubscriptionProvider>();
+        var emailHashValidator = Service.Resolve<IEmailHashValidator>();
 
         int siteId = SiteContext.CurrentSiteID;
 
@@ -173,7 +173,7 @@ public partial class CMSWebParts_Newsletters_NewsletterUnsubscriptionWebPart : C
     /// </summary>
     private static string GetSubscriberEmail(SubscriberInfo subscriber, int contactID = 0)
     {
-        var subscriberEmailRetriever = Service<ISubscriberEmailRetriever>.Entry();
+        var subscriberEmailRetriever = Service.Resolve<ISubscriberEmailRetriever>();
         string subscriberEmail = null;
 
         // Subscriber can be null for example when it was deleted.

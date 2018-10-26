@@ -1,18 +1,14 @@
 ﻿using System;
-
-using CMS.Base;
-using CMS.Helpers;
-
 using System.Text;
 using System.Web.UI;
 
 using CMS.Base.Web.UI;
 using CMS.DocumentEngine;
 using CMS.FormEngine.Web.UI;
+using CMS.Helpers;
 using CMS.MacroEngine;
 using CMS.Membership;
 using CMS.SiteProvider;
-
 
 public partial class CMSModules_Content_FormControls_Documents_SelectPath : FormEngineUserControl, ICallbackEventHandler, IPostBackEventHandler
 {
@@ -397,7 +393,7 @@ public partial class CMSModules_Content_FormControls_Documents_SelectPath : Form
         // Hide hidden textbox for node ID
         txtNodeId.Style.Add(HtmlTextWriterStyle.Display, "none");
 
-        if (URLHelper.IsPostback() && DependsOnAnotherField)
+        if (RequestHelper.IsPostBack() && DependsOnAnotherField)
         {
             if (siteNameIsAll)
             {
@@ -578,7 +574,7 @@ function ChangeState_", ClientID, @"(state) {",
         }
 
         // Recreate correct hash string to secure input
-        string query = CMSDialogHelper.EncodeQueryString(URLHelper.GetQuery(url));
+        string query = URLHelper.UrlEncodeQueryString(url);
         url = URLHelper.AddParameterToUrl(url, "hash", QueryHelper.GetHash(query));
 
         return url;
@@ -602,7 +598,7 @@ function ChangeState_", ClientID, @"(state) {",
         return url;
     }
 
-
+    
     /// <summary>
     /// Sets the site name if the SiteName field is available in the form.
     /// The outcome of this method is used for the configuration of the "Config" property
@@ -613,7 +609,7 @@ function ChangeState_", ClientID, @"(state) {",
         {
             string siteName = ValidationHelper.GetString(Form.GetFieldValue("SiteName"), "");
 
-            if (siteName.EqualsCSafe(string.Empty, true) || siteName.EqualsCSafe("##all##", true))
+            if (string.IsNullOrEmpty(siteName) || siteName.Equals("##all##", StringComparison.OrdinalIgnoreCase))
             {
                 selectedSiteName = string.Empty;
                 siteNameIsAll = true;
@@ -664,11 +660,11 @@ function ChangeState_", ClientID, @"(state) {",
     /// <param name="eventArgument">Event argument</param>
     public void RaisePostBackEvent(string eventArgument)
     {
-        if (eventArgument.EqualsCSafe("refresh", true))
+        if (eventArgument.Equals("refresh", StringComparison.OrdinalIgnoreCase))
         {
             RaiseOnChanged();
         }
-        else if (eventArgument.StartsWithCSafe("changestate"))
+        else if (eventArgument.StartsWith("changestate", StringComparison.OrdinalIgnoreCase))
         {
             string[] pars = eventArgument.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
             if (pars.Length == 2)

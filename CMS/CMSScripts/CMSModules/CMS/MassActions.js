@@ -12,7 +12,6 @@
  * @param {string} data.noActionSelectedMessage - message which will be displayed when no action is selected
  */
 cmsdefine(["CMS/WebFormCaller", "Underscore", "jQuery"], function(webFormCaller, _, $) {
-    "use strict";
 
     // External underscore dependency
     var MassActions = function (data) {

@@ -1,11 +1,9 @@
 ﻿using System;
-
-using CMS.Base.Web.UI;
-
 using System.Text;
 using System.Web.UI;
 
 using CMS.Base;
+using CMS.Base.Web.UI;
 using CMS.Core;
 using CMS.DataEngine;
 using CMS.Helpers;
@@ -23,6 +21,9 @@ public partial class CMSAdminControls_UI_Header : CMSUserControl, ICallbackEvent
 
     protected const string SESSION_KEY_TECH_PREVIEW = "WRNShowTechPreview";
     protected const string SESSION_KEY_TRIAL = "WRNShowTrial";
+    private const string KENTICO_LICENSE_URL = "https://www.kentico.com/purchase/configure-your-license";
+    private const string KENTICO_EMS_QUERY = "?edition=ems#editions";
+    private const string KENTICO_ULTIMATE_QUERY = "?edition=ultimate#editions";
 
     #endregion
 
@@ -47,6 +48,7 @@ public partial class CMSAdminControls_UI_Header : CMSUserControl, ICallbackEvent
         EnsureHideMessageCallback();
 
         CheckTrial();
+        CheckEcommerceLicenseLimitations();
 
         // Display the techPreview info if there is a key in the web.config
         pnlTechPreview.Visible = ValidationHelper.GetBoolean(SettingsHelper.AppSettings["CMSUseTechnicalPreview"], false) && CheckWarningMessage(SESSION_KEY_TECH_PREVIEW);
@@ -210,6 +212,22 @@ function CheckChanges() {
     }
 
 
+    private void CheckEcommerceLicenseLimitations()
+    {     
+        if (ModuleEntryManager.IsModuleLoaded(ModuleName.ECOMMERCE))
+        {
+            int skuCount;
+            int maxSKUCount;
+            bool licenseOK = LicenseHelper.CheckLicenseLimitations(FeatureEnum.Ecommerce, out skuCount, out maxSKUCount);
+
+            var kenticoUrl = KENTICO_LICENSE_URL + (LicenseHelper.CurrentEdition < ProductEditionEnum.UltimateV7 ? KENTICO_ULTIMATE_QUERY : KENTICO_EMS_QUERY);
+
+            ltlLicenseLimitations.Text = String.Format(GetString("header.ecommercefeatureexceeded"), skuCount, maxSKUCount, kenticoUrl);
+            pnlLicenseLimitations.Visible = !licenseOK;
+        }
+    }
+
+
     /// <summary>
     /// Checks if warning message should be displayed.
     /// </summary>
@@ -225,10 +243,9 @@ function CheckChanges() {
     /// </summary>
     private void EnsureHideMessageCallback()
     {
-        ClientScriptManager cm = Page.ClientScript;
-        String cbReference = cm.GetCallbackEventReference(this, "arg", "ReceiveMessage", "");
+        String cbReference = Page.ClientScript.GetCallbackEventReference(this, "arg", "ReceiveMessage", "");
         String callbackScript = "function HideMessage(arg, context) {" + cbReference + "; }";
-        cm.RegisterClientScriptBlock(GetType(), "SetSessionFlag", callbackScript, true);
+        ScriptHelper.RegisterClientScriptBlock(Page, GetType(), "SetSessionFlag", callbackScript, true);
     }
 
 

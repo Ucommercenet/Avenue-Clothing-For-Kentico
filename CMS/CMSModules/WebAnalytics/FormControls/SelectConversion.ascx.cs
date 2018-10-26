@@ -217,7 +217,7 @@ public partial class CMSModules_WebAnalytics_FormControls_SelectConversion : For
 
     protected override void OnPreRender(EventArgs e)
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Reload data
             ReloadData(false);

@@ -226,22 +226,6 @@ public partial class CMSModules_Content_Controls_UserContributions_ContributionL
         }
     }
 
-
-    /// <summary>
-    /// Gets or sets the columns to retrieve from DB.
-    /// </summary>
-    public string Columns
-    {
-        get
-        {
-            return ValidationHelper.GetString(GetValue("Columns"), null);
-        }
-        set
-        {
-            SetValue("Columns", value);
-        }
-    }
-
     #endregion
 
 
@@ -512,6 +496,24 @@ public partial class CMSModules_Content_Controls_UserContributions_ContributionL
         }
     }
 
+
+    /// <summary>
+    /// Indicates if the control should perform the operations.
+    /// </summary>
+    public override bool StopProcessing
+    {
+        get
+        {
+            return base.StopProcessing;
+        }
+        set
+        {
+            base.StopProcessing = value;
+
+            editDoc.StopProcessing = value;
+        }
+    }
+
     #endregion
 
 
@@ -585,47 +587,6 @@ public partial class CMSModules_Content_Controls_UserContributions_ContributionL
     }
 
 
-    /// <summary>
-    /// Checks if columns list contains required columns.
-    /// </summary>
-    private string EnsureColumns()
-    {
-        string currentColumns = Columns;
-        string requiredColumns = SqlHelper.MergeColumns("DocumentName, DocumentModifiedWhen, DocumentWorkflowStepID", DocumentColumnLists.GETDOCUMENTS_REQUIRED_COLUMNS);
-
-        if (CheckPermissions)
-        {
-            requiredColumns = SqlHelper.MergeColumns(requiredColumns, "ClassName, NodeACLID, NodeSiteID, NodeOwner");
-        }
-
-        if (!String.IsNullOrEmpty(currentColumns))
-        {
-            currentColumns = "," + currentColumns.Replace(" ", String.Empty) + ",";
-
-            if (currentColumns.Length > 2)
-            {
-                StringBuilder required = new StringBuilder();
-                foreach (string col in requiredColumns.Split(','))
-                {
-                    if (currentColumns.IndexOfCSafe("," + col + ",", 0, true) == -1)
-                    {
-                        required.Append(col);
-                        required.Append(",");
-                    }
-                }
-                currentColumns += required.ToString();
-                currentColumns = currentColumns.Trim(',');
-            }
-            else
-            {
-                currentColumns = null;
-            }
-        }
-
-        return currentColumns;
-    }
-
-
     private void ReloadData()
     {
         if (StopProcessing)
@@ -672,9 +633,6 @@ public partial class CMSModules_Content_Controls_UserContributions_ContributionL
                         condition.WhereEquals("NodeOwner", MembershipContext.AuthenticatedUser.UserID);
                     }
 
-                    // Ensure that required columns are included in "Columns" list
-                    string columns = EnsureColumns();
-
                     // Get the documents
                     var query =
                         DocumentHelper.GetDocuments()
@@ -683,7 +641,6 @@ public partial class CMSModules_Content_Controls_UserContributions_ContributionL
                             .Where(condition)
                             .OrderBy(OrderBy)
                             .Published(SelectOnlyPublished)
-                            .Columns(columns)
                             .NestingLevel(MaxRelativeLevel)
                             .CheckPermissions(CheckPermissions);
 

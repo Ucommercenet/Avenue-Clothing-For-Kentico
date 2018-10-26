@@ -9,7 +9,6 @@
  * EventHub.publish('click');
  */
 cmsdefine(['Underscore', 'CMS/Application'], function (underscore, cmsapp) {
-//    'use strict';
 
     var top = window.top,
         _ = window._,

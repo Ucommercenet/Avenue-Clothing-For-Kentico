@@ -15,7 +15,6 @@
     </column>
   </columns>
   <pager>
-    <key name="ShowFirstLastButtons" value="false" />
     <key name="ShowDirectPageControl" value="false" />
     <key name="DefaultPageSize" value="10" />
   </pager>

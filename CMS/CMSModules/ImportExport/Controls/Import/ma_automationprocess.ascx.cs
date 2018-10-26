@@ -38,6 +38,13 @@ public partial class CMSModules_ImportExport_Controls_Import_ma_automationproces
     protected void Page_Load(object sender, EventArgs e)
     {
         chkObject.Text = GetString("CMSImport_Processes.ImportWorkFlowTriggers");
+    }
+
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        base.OnPreRender(e);
+
         Visible = ((SiteImportSettings)Settings).SiteIsIncluded;
     }
 

@@ -19,12 +19,9 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
 {
     #region "Private variables"
 
-    private UserInfo currentUserInfo;
-    private SiteInfo currentSiteInfo;
     private string mOrderBy = "EventDate DESC";
     private string mItemsPerPage = String.Empty;
     private string mEventScope = "all";
-    private string mSiteName = String.Empty;
     private string mGMTTooltip;
 
 
@@ -75,22 +72,6 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
     {
         get;
         set;
-    }
-
-
-    /// <summary>
-    /// Site name filter.
-    /// </summary>
-    public string SiteName
-    {
-        get
-        {
-            return mSiteName;
-        }
-        set
-        {
-            mSiteName = value;
-        }
     }
 
 
@@ -168,6 +149,24 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
         }
     }
 
+
+    private SiteInfo CurrentSiteInfo
+    {
+        get
+        {
+            return SiteContext.CurrentSite;
+        }
+    }
+
+
+    private UserInfo CurrentUserInfo
+    {
+        get
+        {
+            return MembershipContext.AuthenticatedUser;
+        }
+    }
+
     #endregion
 
 
@@ -175,7 +174,7 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             drpEventScope.Items.Add(new ListItem(GetString("general.selectall"), "all"));
             drpEventScope.Items.Add(new ListItem(GetString("eventmanager.eventscopeupcoming"), "upcoming"));
@@ -213,6 +212,7 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
         {
             GridSelector = "#" + gridElem.ClientID,
             PagesApplicationHash = ApplicationUrlHelper.GetApplicationHash("cms.content", "content"),
+            EventsApplicationHash = ApplicationUrlHelper.GetApplicationHash("CMS.EventManager", "EventManager"),
             EventDetailURL = UIContextHelper.GetElementUrl("CMS.EventManager", "DetailsEvent")
         });
     }
@@ -238,22 +238,7 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
         // Check existence of CMS.BookingEvent dataclass
         if (DataClassInfoProvider.GetDataClassInfo("CMS.BookingEvent") != null)
         {
-            // Filter site name            
-            string siteName = SiteName;
-            if (siteName == String.Empty)
-            {
-                siteName = SiteContext.CurrentSiteName;
-            }
-
-            // If not show all
-            if (siteName != TreeProvider.ALL_SITES)
-            {
-                gridElem.WhereCondition = "(NodeLinkedNodeID IS NULL AND NodeSiteID = " + SiteInfoProvider.GetSiteID(siteName) + ")";
-            }
-            else
-            {
-                gridElem.WhereCondition = "NodeLinkedNodeID IS NULL";
-            }
+            gridElem.WhereCondition = "(NodeLinkedNodeID IS NULL AND NodeSiteID = " + CurrentSiteInfo.SiteID + ")";
 
             // Filter time interval
             if (EventScope == "all")
@@ -325,17 +310,11 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
                     string culture = ValidationHelper.GetString(data["DocumentCulture"], String.Empty);
                     int nodeID = ValidationHelper.GetInteger(data["NodeID"], 0);
 
-                    SiteInfo si = SiteInfoProvider.GetSiteInfo(data["NodeSiteID"].ToInteger(0));
-                    if (si != null)
-                    {
-                        return "<a class=\"js-unigrid-action js-edit\" " +
-                               "href=\"javascript:void(0)\" " +
-                               "data-node-id=\"" + nodeID + "\" " +
-                               "data-document-culture=\"" + culture + "\" >" + HTMLHelper.HTMLEncode(documentName) + "</a>";
-                    }
+                    return "<a class=\"js-unigrid-action js-edit\" " +
+                           "href=\"javascript:void(0)\" " +
+                           "data-node-id=\"" + nodeID + "\" " +
+                           "data-document-culture=\"" + culture + "\" >" + HTMLHelper.HTMLEncode(documentName) + "</a>";
                 }
-                return HTMLHelper.HTMLEncode(parameter.ToString());
-
             case "eventtooltip":
                 data = (DataRowView)parameter;
                 return UniGridFunctions.DocumentNameTooltip(data);
@@ -348,22 +327,13 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
             case "eventopentotooltip":
                 if (!String.IsNullOrEmpty(parameter.ToString()))
                 {
-                    if (currentUserInfo == null)
-                    {
-                        currentUserInfo = MembershipContext.AuthenticatedUser;
-                    }
-                    if (currentSiteInfo == null)
-                    {
-                        currentSiteInfo = SiteContext.CurrentSite;
-                    }
-
                     if (sourceName.EndsWithCSafe("tooltip"))
                     {
-                        return mGMTTooltip ?? (mGMTTooltip = TimeZoneHelper.GetUTCLongStringOffset(currentUserInfo, currentSiteInfo));
+                        return mGMTTooltip ?? (mGMTTooltip = TimeZoneHelper.GetUTCLongStringOffset(CurrentUserInfo, CurrentSiteInfo));
                     }
 
                     DateTime time = ValidationHelper.GetDateTime(parameter, DateTimeHelper.ZERO_TIME);
-                    return TimeZoneHelper.ConvertToUserTimeZone(time, true, currentUserInfo, currentSiteInfo);
+                    return TimeZoneHelper.ConvertToUserTimeZone(time, true, CurrentUserInfo, CurrentSiteInfo);
                 }
                 return result;
             case "eventenddate":
@@ -380,22 +350,13 @@ public partial class CMSModules_EventManager_Controls_EventList : CMSAdminContro
 
                 if ((parameter != null) && !String.IsNullOrEmpty(parameter.ToString()))
                 {
-                    if (currentUserInfo == null)
-                    {
-                        currentUserInfo = MembershipContext.AuthenticatedUser;
-                    }
-                    if (currentSiteInfo == null)
-                    {
-                        currentSiteInfo = SiteContext.CurrentSite;
-                    }
-
                     if (sourceName.EndsWithCSafe("tooltip"))
                     {
-                        return mGMTTooltip ?? (mGMTTooltip = TimeZoneHelper.GetUTCLongStringOffset(currentUserInfo, currentSiteInfo));
+                        return mGMTTooltip ?? (mGMTTooltip = TimeZoneHelper.GetUTCLongStringOffset(CurrentUserInfo, CurrentSiteInfo));
                     }
 
                     DateTime time = ValidationHelper.GetDateTime(parameter, DateTimeHelper.ZERO_TIME);
-                    return TimeZoneHelper.ConvertToUserTimeZone(time, true, currentUserInfo, currentSiteInfo);
+                    return TimeZoneHelper.ConvertToUserTimeZone(time, true, CurrentUserInfo, CurrentSiteInfo);
                 }
                 return result;
         }

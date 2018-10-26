@@ -223,7 +223,7 @@ public partial class CMSModules_Modules_Controls_Settings_Category_SettingsCateg
         InitControls();
 
         // Load the form data
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             LoadData();
         }
@@ -304,7 +304,7 @@ public partial class CMSModules_Modules_Controls_Settings_Category_SettingsCateg
 
         if (SystemContext.DevelopmentMode)
         {
-            ucSelectModule.Value = (SettingsCategoryObj == null) ? moduleId : (!URLHelper.IsPostback()) ? SettingsCategoryObj.CategoryResourceID : ucSelectModule.Value;
+            ucSelectModule.Value = (SettingsCategoryObj == null) ? moduleId : (!RequestHelper.IsPostBack()) ? SettingsCategoryObj.CategoryResourceID : ucSelectModule.Value;
         }
 
         // Set the root category

@@ -319,22 +319,6 @@ public partial class CMSWebParts_Maps_Documents_BingMaps : CMSAbstractWebPart
 
 
     /// <summary>
-    /// Gets or sets the value that indicates whether the keyboard shortcuts are enabled.
-    /// </summary>
-    public bool EnableKeyboardShortcuts
-    {
-        get
-        {
-            return ValidationHelper.GetBoolean(GetValue("EnableKeyboardShortcuts"), true);
-        }
-        set
-        {
-            SetValue("EnableKeyboardShortcuts", value);
-        }
-    }
-
-
-    /// <summary>
     /// Gets or sets the initial map type. 
     /// Road - The road map style. 
     /// Shaded - The shaded map style, which is a road map with shaded contours. 
@@ -880,7 +864,6 @@ public partial class CMSWebParts_Maps_Documents_BingMaps : CMSAbstractWebPart
 
             // Set BasicBingMaps control
             CMSMapProperties mp = new CMSMapProperties();
-            mp.EnableKeyboardShortcuts = EnableKeyboardShortcuts;
             mp.EnableMapDragging = EnableMapDragging;
             mp.EnableServerProcessing = EnableServerProcessing;
             mp.Height = Height;

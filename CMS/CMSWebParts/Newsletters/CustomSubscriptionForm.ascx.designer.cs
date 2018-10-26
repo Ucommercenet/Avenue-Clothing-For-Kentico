@@ -39,13 +39,22 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm {
     protected global::System.Web.UI.WebControls.Panel pnlSubscription;
     
     /// <summary>
+    /// plcMess control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.MessagesPlaceHolder plcMess;
+    
+    /// <summary>
     /// formElem control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMS.FormEngine.Web.UI.DataForm formElem;
+    protected global::CMS.FormEngine.Web.UI.BasicForm formElem;
     
     /// <summary>
     /// plcNwsList control.
@@ -90,7 +99,7 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSFormControls_Captcha_SecurityCode scCaptcha;
+    protected global::CMS.FormEngine.Web.UI.SecurityCode scCaptcha;
     
     /// <summary>
     /// pnlButtonSubmit control.

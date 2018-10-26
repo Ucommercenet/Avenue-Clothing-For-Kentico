@@ -31,13 +31,13 @@
                     <table cellspacing="0" cellpadding="0" border="0">
                         <tr>
                             <td style="vertical-align: middle;">
-                                <%#PortalHelper.GetIconHtml(EvalGuid(ThumbnailGUIDColumn), ValidationHelper.GetString(Eval(IconClassColumn), PortalHelper.DefaultPageTemplateIconClass), mPreviewWidth)%>
+                                <%#PortalHelper.GetIconHtml(EvalGuid(ThumbnailGUIDColumn), DataHelper.GetNotEmpty(Eval(IconClassColumn), DefaulIconClass), mPreviewWidth)%>
                             </td>
                             <td style="vertical-align: top;">
                                 <div>
                                     <cms:LocalizedHeading runat="server" Level="3" Text="<%#HTMLHelper.HTMLEncode(Eval(DisplayNameColumn).ToString())%>" EnableViewState="false" />
                                     <div>
-                                        <%# ResHelper.LocalizeString(HTMLHelper.RemoveScripts(Eval(DescriptionColumn).ToString()))%>
+                                        <%# ResHelper.LocalizeString(HTMLHelper.HTMLEncode(Eval(DescriptionColumn).ToString()))%>
                                     </div>
                                 </div>
                             </td>

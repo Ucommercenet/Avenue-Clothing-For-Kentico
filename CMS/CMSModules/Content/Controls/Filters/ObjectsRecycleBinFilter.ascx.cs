@@ -221,7 +221,9 @@ public partial class CMSModules_Content_Controls_Filters_ObjectsRecycleBinFilter
         string objType = ValidationHelper.GetString(objTypeSelector.Value, "");
         if (!String.IsNullOrEmpty(objType))
         {
+#pragma warning disable BH2000 // Method 'WhereLike()' or 'WhereNotLike()' should not be used used.
             where.WhereLike("VersionObjectType", objType);
+#pragma warning restore BH2000 // Method 'WhereLike()' or 'WhereNotLike()' should not be used used.
         }
 
         int userId = ValidationHelper.GetInteger(userSelector.Value, 0);

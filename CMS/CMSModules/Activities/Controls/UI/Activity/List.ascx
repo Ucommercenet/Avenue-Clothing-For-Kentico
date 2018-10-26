@@ -6,7 +6,7 @@
 
 <asp:Panel ID="pnlUpdate" runat="server">
     <cms:UniGrid runat="server" ID="gridElem" IsLiveSite="false" HideFilterButton="true" Query="om.activity.selectactivitylist" ObjectType="om.activity"
-        Columns="ActivityID,ContactFullNameJoined,ActivityTitle,ActivityType,ActivityCreated,ActivityIPAddress,ActivitySiteID" RememberStateByParam="issitemanager">
+        Columns="ActivityID,ContactFullNameJoined,ActivityTitle,ActivityType,ActivityCreated,ActivitySiteID" RememberStateByParam="issitemanager">
         <GridActions Parameters="ActivityID">
             <ug:Action Name="view" ExternalSourceName="view" Caption="$General.Edit$" FontIconClass="icon-edit" FontIconStyle="Allow" />
             <ug:Action Name="#delete" ExternalSourceName="delete" CommandArgument="ActivityID"
@@ -22,8 +22,6 @@
             <ug:Column Source="ContactFullNameJoined" Caption="$om.activity.contactname$" Wrap="false"
                 Name="contactname">
             </ug:Column>
-            <ug:Column Source="ActivityIPAddress" Caption="$om.activity.ipaddress$" Wrap="false"
-                Name="ipaddress" />
             <ug:Column Source="ActivityCreated" Caption="$om.activity.activitytime$" Wrap="false" />
             <ug:Column Source="ActivitySiteID" ExternalSourceName="#sitenameorglobal" AllowSorting="false"
                 Caption="$general.sitename$" Wrap="false" Name="sitename" Localize="true">

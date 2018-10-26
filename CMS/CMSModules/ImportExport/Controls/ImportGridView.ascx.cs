@@ -133,7 +133,7 @@ public partial class CMSModules_ImportExport_Controls_ImportGridView : ImportExp
 
                 foreach (string codeName in available)
                 {
-                    string name = Request.Form.AllKeys.FirstOrDefault(x => (x != null) && x.EndsWith(GetCheckBoxName(codeName), StringComparison.Ordinal)) ?? string.Empty;
+                    string name = Request.Form.AllKeys.FirstOrDefault(x => x?.EndsWith(GetCheckBoxName(codeName), StringComparison.Ordinal) ?? false) ?? string.Empty;
                     if (Request.Form[name] == null)
                     {
                         // Unchecked

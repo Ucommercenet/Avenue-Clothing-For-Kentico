@@ -1,9 +1,11 @@
 ﻿using System;
 
 using CMS.Base;
+using CMS.DataEngine;
 using CMS.FormEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
+using CMS.MacroEngine;
 using CMS.Membership;
 using CMS.SiteProvider;
 using CMS.UIControls;
@@ -54,8 +56,6 @@ public partial class CMSModules_Membership_Pages_Users_User_New : CMSUsersPage
             RedirectToAccessDenied("CMS.Users", "Modify");
         }
 
-        RequiredFieldValidatorFullName.ErrorMessage = GetString("Administration-User_New.RequiresFullName");
-
         if (!RequestHelper.IsPostBack())
         {
             chkEnabled.Checked = true;
@@ -64,6 +64,7 @@ public partial class CMSModules_Membership_Pages_Users_User_New : CMSUsersPage
             {
                 // Remove global and site admin options for non global admins
                 drpPrivilegeLevel.ExcludedValues = (int)UserPrivilegeLevelEnum.GlobalAdmin + ";" + (int)UserPrivilegeLevelEnum.Admin;
+                plcMacroIdentity.Visible = false;
             }
 
             drpPrivilegeLevel.Value = (int)UserPrivilegeLevelEnum.Editor;
@@ -103,12 +104,6 @@ public partial class CMSModules_Membership_Pages_Users_User_New : CMSUsersPage
         if (!ucUserName.IsValid())
         {
             result = ucUserName.ValidationError;
-        }
-
-        // Additional validation
-        if (String.IsNullOrEmpty(result))
-        {
-            result = new Validator().NotEmpty(txtFullName.Text, GetString("Administration-User_New.RequiresFullName")).Result;
         }
 
         userName = ValidationHelper.GetString(ucUserName.Value, String.Empty).Trim();
@@ -201,7 +196,8 @@ public partial class CMSModules_Membership_Pages_Users_User_New : CMSUsersPage
 
         // Set privilege level, global admin may set all levels, rest only editor
         UserPrivilegeLevelEnum privilegeLevel = (UserPrivilegeLevelEnum)drpPrivilegeLevel.Value.ToInteger(0);
-        if (CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin)
+        var isCurrentUserGlobalAdmin = CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin);
+        if (isCurrentUserGlobalAdmin
             || (privilegeLevel == UserPrivilegeLevelEnum.None) || (privilegeLevel == UserPrivilegeLevelEnum.Editor))
         {
             ui.SiteIndependentPrivilegeLevel = privilegeLevel;
@@ -236,15 +232,24 @@ public partial class CMSModules_Membership_Pages_Users_User_New : CMSUsersPage
 
         if (!error)
         {
-            // Set password and save object
-            UserInfoProvider.SetPassword(ui, passStrength.Text);
-
-            // Add user to current site
-            if ((SiteID > 0) || assignUserToSite)
+            using (var transaction = new CMSLateBoundTransaction())
             {
-                UserInfoProvider.AddUserToSite(ui.UserName, siteName);
-            }
+                // Set password and save object
+                UserInfoProvider.SetPassword(ui, passStrength.Text);
 
+                if (isCurrentUserGlobalAdmin)
+                {
+                    UserMacroIdentityHelper.SetMacroIdentity(ui, drpMacroIdentity.Value.ToInteger(0));
+                }
+
+                // Add user to current site
+                if ((SiteID > 0) || assignUserToSite)
+                {
+                    UserInfoProvider.AddUserToSite(ui.UserName, siteName);
+                }
+
+                transaction.Commit();
+            }
             return ui.UserID;
         }
 

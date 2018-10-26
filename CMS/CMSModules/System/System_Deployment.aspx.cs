@@ -186,7 +186,7 @@ public partial class CMSModules_System_System_Deployment : GlobalAdminPage
     #region "Helper methods"
 
     /// <summary>
-    /// Gets the parameters obejct for current controls
+    /// Gets the parameters object for current controls
     /// </summary>
     private DeploymentParameters GetParameters()
     {

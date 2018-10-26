@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Filter.ascx.cs" Inherits="CMSModules_ContactManagement_Controls_UI_Contact_Filter" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="Filter.ascx.cs" Inherits="CMSModules_ContactManagement_Controls_UI_Contact_Filter" %>
 <%@ Register Src="~/CMSAdminControls/UI/UniGrid/Filters/TextSimpleFilter.ascx" TagName="TextSimpleFilter"
     TagPrefix="cms" %>
 <%@ Register Src="~/CMSModules/ContactManagement/FormControls/ContactStatusSelector.ascx"
@@ -109,16 +109,13 @@
         </asp:PlaceHolder>
         <div class="form-group form-group-buttons">
             <div class="filter-form-label-cell">
-                <asp:Panel ID="pnlAdvanced" runat="server" Visible="true">
-                    <asp:LinkButton ID="lnkShowSimpleFilter" runat="server" OnClick="lnkShowSimpleFilter_Click" CssClass="simple-advanced-link" />
-                </asp:Panel>
-                <asp:Panel ID="pnlSimple" runat="server" Visible="false">
-                    <asp:LinkButton ID="lnkShowAdvancedFilter" runat="server" OnClick="lnkShowAdvancedFilter_Click" CssClass="simple-advanced-link" />
+                <asp:Panel ID="pnlToggleFilter" runat="server" Visible="true">
+                    <asp:LinkButton ID="lnkToggleFilter" runat="server" CssClass="simple-advanced-link" />
                 </asp:Panel>
             </div>
             <div class="filter-form-buttons-cell-wide-with-link">
-                <cms:LocalizedButton ID="btnReset" runat="server" ButtonStyle="Default" EnableViewState="false" />
-                <cms:LocalizedButton ID="btnSearch" runat="server" ButtonStyle="Primary" ResourceString="general.filter" />
+                <cms:LocalizedButton ID="btnReset" runat="server" ButtonStyle="Default" ResourceString="general.reset" OnClick="btnReset_Click" EnableViewState="false" />
+                <cms:LocalizedButton ID="btnSearch" runat="server" ButtonStyle="Primary" ResourceString="general.filter" OnClick="btnSearch_Click" EnableViewState="false" />
             </div>
         </div>
     </div>

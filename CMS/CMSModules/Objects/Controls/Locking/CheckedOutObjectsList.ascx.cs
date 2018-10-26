@@ -83,7 +83,7 @@ public partial class CMSModules_Objects_Controls_Locking_CheckedOutObjectsList :
             tmpObjectSettings = ObjectSettingsInfoProvider.GetObjectSettingsInfo(objectSettingsId);
             if (tmpObjectSettings != null)
             {
-                tmpInfo = BaseAbstractInfoProvider.GetInfoById(tmpObjectSettings.ObjectSettingsObjectType, tmpObjectSettings.ObjectSettingsObjectID);
+                tmpInfo = ProviderHelper.GetInfoById(tmpObjectSettings.ObjectSettingsObjectType, tmpObjectSettings.ObjectSettingsObjectID);
             }
         }
 
@@ -209,6 +209,6 @@ public partial class CMSModules_Objects_Controls_Locking_CheckedOutObjectsList :
         var objectType = ValidationHelper.GetString(hdnObjectType.Value, null);
         var objectId = ValidationHelper.GetInteger(hdnObjectId.Value, 0);
 
-        return BaseAbstractInfoProvider.GetInfoById(objectType, objectId);
+        return ProviderHelper.GetInfoById(objectType, objectId);
     }
 }

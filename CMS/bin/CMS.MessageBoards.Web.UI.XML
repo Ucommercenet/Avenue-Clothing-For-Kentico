@@ -9,12 +9,12 @@
              Summary description for BoardMessageDetail
              </summary>
         </member>
-        <member name="M:CMS.MessageBoards.Web.UI.BoardMessageActions.FireOnBoardMessageAction(System.String,System.Object)">
+        <member name="T:CMS.MessageBoards.Web.UI.BoardMessageActions.OnBoardMessageAction">
             <summary>
-             Fires action on control action link button click
-             </summary>
-             <param name="actionName">String representation of action</param>
-             <param name="argument">Parameter related to the action</param>
+            References to the method called when some message action is fired.
+            </summary>
+            <param name="actionName">Name of the action fired</param>
+            <param name="argument">Argument related to the action</param>
         </member>
         <member name="E:CMS.MessageBoards.Web.UI.BoardMessageActions.OnMessageAction">
             <summary>
@@ -51,12 +51,12 @@
             Board message ID.
             </summary>
         </member>
-        <member name="T:CMS.MessageBoards.Web.UI.BoardMessageActions.OnBoardMessageAction">
+        <member name="M:CMS.MessageBoards.Web.UI.BoardMessageActions.FireOnBoardMessageAction(System.String,System.Object)">
             <summary>
-            References to the method called when some message action is fired.
-            </summary>
-            <param name="actionName">Name of the action fired</param>
-            <param name="argument">Argument related to the action</param>
+             Fires action on control action link button click
+             </summary>
+             <param name="actionName">String representation of action</param>
+             <param name="argument">Parameter related to the action</param>
         </member>
         <member name="T:CMS.MessageBoards.Web.UI.OnAfterMessageSavedEventHandler">
             <summary>
@@ -87,33 +87,6 @@
         <member name="F:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.mProperties">
             <summary>
             Data properties variable.
-            </summary>
-        </member>
-        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.#ctor">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.PropagateProperties(CMS.DocumentEngine.Web.UI.ICMSDataProperties)">
-            <summary>
-            Propagates given settings
-            </summary>
-            <param name="properties">Settings</param>
-        </member>
-        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.GetDataSourceFromDB">
-            <summary>
-            Gets datasource from DB.
-            </summary>
-            <returns>Dataset as object</returns>
-        </member>
-        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.GetDefaultCacheDependencies">
-            <summary>
-            Gets the default cache dependencies for the data source.
-            </summary>
-        </member>
-        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.GetDefaultCacheKey">
-            <summary>
-            Gets cache key.
             </summary>
         </member>
         <member name="P:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.Properties">
@@ -176,6 +149,33 @@
             Gets or sets max relative level for board documents.
             </summary>
         </member>
+        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.PropagateProperties(CMS.DocumentEngine.Web.UI.ICMSDataProperties)">
+            <summary>
+            Propagates given settings
+            </summary>
+            <param name="properties">Settings</param>
+        </member>
+        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.GetDataSourceFromDB">
+            <summary>
+            Gets datasource from DB.
+            </summary>
+            <returns>Dataset as object</returns>
+        </member>
+        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.GetDefaultCacheDependencies">
+            <summary>
+            Gets the default cache dependencies for the data source.
+            </summary>
+        </member>
+        <member name="M:CMS.MessageBoards.Web.UI.BoardMessagesDataSource.GetDefaultCacheKey">
+            <summary>
+            Gets cache key.
+            </summary>
+        </member>
         <member name="T:CMS.MessageBoards.Web.UI.MessageBoardMethods">
             <summary>
             Message board methods - wrapping methods for macro resolver.
@@ -229,6 +229,16 @@
             Base page for CMS Message boards - Boards pages.
             </summary>
         </member>
+        <member name="M:CMS.MessageBoards.Web.UI.CMSMessageBoardBoardsPage.CheckMessageBoardSiteID(System.Int32)">
+            <summary>
+            Checks whether supplied siteId corresponds to current site ID and sets EditedObject to null if not.
+            </summary>
+        </member>
+        <member name="T:CMS.MessageBoards.Web.UI.CMSMessageBoardMessagesPage">
+            <summary>
+            Base page for CMS Message boards - Messages pages.
+            </summary>
+        </member>
         <member name="T:CMS.MessageBoards.Web.UI.CMSMessageBoardPage">
             <summary>
             Base page for the CMS Message board pages to apply global settings to the pages.
@@ -239,16 +249,6 @@
             Page OnInit event.
             </summary>
             <param name="e">Event args</param>
-        </member>
-        <member name="M:CMS.MessageBoards.Web.UI.CMSMessageBoardBoardsPage.CheckMessageBoardSiteID(System.Int32)">
-            <summary>
-            Checks whether supplied siteId corresponds to current site ID and sets EditedObject to null if not.
-            </summary>
-        </member>
-        <member name="T:CMS.MessageBoards.Web.UI.CMSMessageBoardMessagesPage">
-            <summary>
-            Base page for CMS Message boards - Messages pages.
-            </summary>
         </member>
     </members>
 </doc>

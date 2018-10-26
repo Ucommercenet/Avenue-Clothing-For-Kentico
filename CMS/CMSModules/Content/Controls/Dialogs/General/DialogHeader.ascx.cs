@@ -308,10 +308,6 @@ public partial class CMSModules_Content_Controls_Dialogs_General_DialogHeader : 
             {
                 result = GetString("dialogs.header.title.selectimage");
             }
-            else if (SelectableContent == SelectableContentEnum.OnlyFlash)
-            {
-                result = GetString("dialogs.header.title.selectflash");
-            }
             else if (SelectableContent == SelectableContentEnum.AllFiles)
             {
                 result = GetString("dialogs.header.title.selectimagemedia");
@@ -357,10 +353,6 @@ public partial class CMSModules_Content_Controls_Dialogs_General_DialogHeader : 
 
                 case SelectableContentEnum.AllFiles:
                     result = GetString("dialogs.header.title.allfiles");
-                    break;
-
-                case SelectableContentEnum.OnlyFlash:
-                    result = GetString("dialogs.header.title.flash");
                     break;
             }
         }

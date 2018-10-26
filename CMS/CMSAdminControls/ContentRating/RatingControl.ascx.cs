@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Web.UI;
 
-using CMS.Activities;
 using CMS.Base;
 using CMS.Base.Web.UI;
-using CMS.Core;
 using CMS.DocumentEngine;
 using CMS.EventLog;
 using CMS.Helpers;
@@ -14,24 +12,15 @@ using CMS.SiteProvider;
 using CMS.UIControls;
 
 
+/// <summary>
+/// Rating control used for web part and transformations. 
+/// </summary>
 public partial class CMSAdminControls_ContentRating_RatingControl : CMSUserControl
 {
     #region "Private variables"
 
-    private AbstractRatingControl usrControl = null;
-    private int mMaxRatingValue = 5;
+    private AbstractRatingControl usrControl;
     private double mExternalValue = -1.0;
-    private string mRatingType = "Stars";
-    private bool mShowResultMessage = false;
-    private string mResultMessage = null;
-    private string mErrorMessage = null;
-    private string mMessageAfterRating = null;
-    private bool mAllowForPublic = true;
-    private bool mCheckIfUserRated = true;
-    private bool mHideToUnauthorized = false;
-    private bool mCheckPermissions = true;
-    private bool mAllowZeroValue = true;
-    private bool mEnabled = true;
     private bool loaded = false;
 
     #endregion
@@ -42,33 +31,13 @@ public partial class CMSAdminControls_ContentRating_RatingControl : CMSUserContr
     /// <summary>
     /// Gets or sets max value of scale.
     /// </summary>
-    public int MaxRatingValue
-    {
-        get
-        {
-            return mMaxRatingValue;
-        }
-        set
-        {
-            mMaxRatingValue = value;
-        }
-    }
+    public int MaxRatingValue { get; set; } = 5;
 
 
     /// <summary>
     /// Gets or sets value that indicates whether unrated value is allowed.
     /// </summary>
-    public bool AllowZeroValue
-    {
-        get
-        {
-            return mAllowZeroValue;
-        }
-        set
-        {
-            mAllowZeroValue = value;
-        }
-    }
+    public bool AllowZeroValue { get; set; } = true; 
 
 
     /// <summary>
@@ -91,7 +60,6 @@ public partial class CMSAdminControls_ContentRating_RatingControl : CMSUserContr
 
                 if (loaded)
                 {
-                    // Reload data
                     ReloadData(true);
                 }
             }
@@ -102,162 +70,62 @@ public partial class CMSAdminControls_ContentRating_RatingControl : CMSUserContr
     /// <summary>
     /// Code name of form control that manages rating scale.
     /// </summary>
-    public string RatingType
-    {
-        get
-        {
-            return mRatingType;
-        }
-        set
-        {
-            mRatingType = value;
-        }
-    }
+    public string RatingType { get; set; } = "Stars";
 
 
     /// <summary>
     /// If true the brief result info is shown.
     /// </summary>
-    public bool ShowResultMessage
-    {
-        get
-        {
-            return mShowResultMessage;
-        }
-        set
-        {
-            mShowResultMessage = value;
-        }
-    }
+    public bool ShowResultMessage { get; set; }
 
 
     /// <summary>
     /// Gets or sets result info message that is displayed after rating.
     /// </summary>
-    public string ResultMessage
-    {
-        get
-        {
-            return mResultMessage;
-        }
-        set
-        {
-            mResultMessage = value;
-        }
-    }
+    public string ResultMessage { get; set; }
 
 
     /// <summary>
     /// Gets or sets message that is displayed after rating.
     /// </summary>
-    public string MessageAfterRating
-    {
-        get
-        {
-            return mMessageAfterRating;
-        }
-        set
-        {
-            mMessageAfterRating = value;
-        }
-    }
+    public string MessageAfterRating { get; set; }
 
 
     /// <summary>
     /// Gets or sets message that is displayed when user forgot to rate.
     /// </summary>
-    public string ErrorMessage
-    {
-        get
-        {
-            return mErrorMessage;
-        }
-        set
-        {
-            mErrorMessage = value;
-        }
-    }
+    public string ErrorMessage { get; set; }
 
 
     /// <summary>
     /// Gets or sets value that indicates whether rating is allowed for public users.
     /// </summary>
-    public bool AllowForPublic
-    {
-        get
-        {
-            return mAllowForPublic;
-        }
-        set
-        {
-            mAllowForPublic = value;
-        }
-    }
+    public bool AllowForPublic { get; set; } = true;
 
 
     /// <summary>
     /// Enables/disables checking if user voted.
     /// </summary>
-    public bool CheckIfUserRated
-    {
-        get
-        {
-            return mCheckIfUserRated;
-        }
-        set
-        {
-            mCheckIfUserRated = value;
-        }
-    }
+    public bool CheckIfUserRated { get; set; } = true;
 
 
     /// <summary>
     /// If true, the control hides when user is not authorized.
     /// </summary>
-    public bool HideToUnauthorizedUsers
-    {
-        get
-        {
-            return mHideToUnauthorized;
-        }
-        set
-        {
-            mHideToUnauthorized = value;
-        }
-    }
+    public bool HideToUnauthorizedUsers { get; set; }
 
 
     /// <summary>
     /// Gets or sets the value that indicates whether permissions are checked.
     /// </summary>
-    public bool CheckPermissions
-    {
-        get
-        {
-            return mCheckPermissions;
-        }
-        set
-        {
-            mCheckPermissions = value;
-        }
-    }
+    public bool CheckPermissions { get; set; } = true;
 
 
     /// <summary>
     /// Enables/disables rating control 
     /// </summary>
-    public bool Enabled
-    {
-        get
-        {
-            return mEnabled;
-        }
-        set
-        {
-            mEnabled = value;
-        }
-    }
-
+    public bool Enabled { get; set; } = true;
+    
     #endregion
 
 
@@ -270,7 +138,7 @@ public partial class CMSAdminControls_ContentRating_RatingControl : CMSUserContr
 
 
     /// <summary>
-    /// Occures on rating event.
+    /// Occurs on rating event.
     /// </summary>
     protected void usrControl_RatingEvent(AbstractRatingControl sender)
     {
@@ -385,13 +253,11 @@ public partial class CMSAdminControls_ContentRating_RatingControl : CMSUserContr
                 rating = mExternalValue;
             }
 
-            // Check allowed interval 0.0-1.0
             if ((rating < 0.0) || (rating > 1.0))
             {
                 rating = 0.0;
             }
 
-            // Init values
             usrControl.ID = "RatingControl";
             usrControl.MaxRating = MaxRatingValue;
             usrControl.CurrentRating = rating;
@@ -404,7 +270,6 @@ public partial class CMSAdminControls_ContentRating_RatingControl : CMSUserContr
             pnlRating.Controls.Clear();
             pnlRating.Controls.Add(usrControl);
 
-            // Set 'loaded' flag
             loaded = true;
         }
     }

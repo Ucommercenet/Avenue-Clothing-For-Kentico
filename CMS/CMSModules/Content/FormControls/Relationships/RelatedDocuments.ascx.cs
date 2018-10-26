@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
+using CMS.DataEngine.Query;
 using CMS.DocumentEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
@@ -373,7 +374,7 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
             InitFilterVisibility();
 
             UniGridRelationship.WhereCondition = condition.ToString(true);
-      
+
             if (ShowAddRelation)
             {
                 btnNewRelationship.OnClientClick = GetAddRelatedDocumentScript() + " return false;";
@@ -445,7 +446,7 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
             ShowMessage(MessageTypeEnum.Information, String.Format(GetString("relationship.pagelimit.info"), RelatedPagesLimit), null, null, true);
         }
     }
-    
+
 
     /// <summary>
     /// Initializes the filter visibility
@@ -500,7 +501,7 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
         {
             zeroRowsText = zeroRowsText + " " + String.Format(GetString("relationship.pagelimit.info"), RelatedPagesLimit);
         }
-         
+
         // Set unigrid
         UniGridRelationship.OnExternalDataBound += UniGridRelationship_OnExternalDataBound;
         UniGridRelationship.OnBeforeDataReload += UniGridRelationship_OnBeforeDataReload;
@@ -600,17 +601,17 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
         if (!IsAdHocRelationship)
         {
             // Hide ordering actions if relationship is not ad hoc and does not support ordering
-            actionsToRemove = new []{"#move", "#moveup", "#movedown"};
+            actionsToRemove = new[] { "#move", "#moveup", "#movedown" };
         }
         else
-        { 
+        {
             if (IsLiveSite)
             {
-                actionsToRemove = new []{"#move"};
+                actionsToRemove = new[] { "#move" };
             }
             else
             {
-                actionsToRemove = new []{"#moveup", "#movedown"};
+                actionsToRemove = new[] { "#moveup", "#movedown" };
             }
         }
 
@@ -725,7 +726,7 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
         }
     }
 
-    
+
     /// <summary>
     /// Returns Javascript used for invoking 'add related document' dialog.
     /// </summary>
@@ -739,7 +740,7 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
             // Register javascript 'postback' function
             string script = "function RefreshRelatedPanel(elementId) { if (elementId != null) { __doPostBack(elementId, '" + postbackArgument + "'); } } \n";
             ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "RefreshRelatedPanel", ScriptHelper.GetScript(script));
-          
+
             // Dialog 'Select document'
             Config.EditorClientID = pnlUpdate.ClientID + ";" + hdnSelectedNodeId.ClientID;
 
@@ -786,7 +787,7 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
             return string.Format("modalDialog('{0}', 'AddRelatedDocument', '900', '315');", url);
         }
     }
-    
+
 
     private int GetRelationshipNameId()
     {
@@ -804,8 +805,10 @@ public partial class CMSModules_Content_FormControls_Relationships_RelatedDocume
 
     private int GetRelationshipCount()
     {
-        return RelationshipInfoProvider.GetCount(query => query.WhereEquals("RelationshipNameID", GetRelationshipNameId()));
+        return RelationshipInfoProvider.GetRelationships()
+                                       .WhereEquals("RelationshipNameID", GetRelationshipNameId())
+                                       .WhereEquals("LeftNodeID", TreeNode.NodeID).GetCount();
     }
-    
+
     #endregion
 }

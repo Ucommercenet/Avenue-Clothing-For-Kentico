@@ -1,9 +1,6 @@
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="CMSMasterPages_UI_Tree"  Codebehind="Tree.master.cs" %>
 
 <%@ Register Src="~/CMSAdminControls/UI/Trees/TreeBorder.ascx" TagName="TreeBorder" TagPrefix="cms" %>
-<%@ Register Src="~/CMSAdminControls/UI/Development/DevTools.ascx" TagName="DevTools"
-    TagPrefix="cms" %>
-
 <!DOCTYPE html>
 <html>
 <head runat="server" enableviewstate="false">
@@ -30,7 +27,6 @@
                 </div>
             </div>
         </asp:Panel>
-        <cms:DevTools ID="devElem" runat="server" />
     </form>
     <asp:PlaceHolder runat="server" ID="plcAfterForm"></asp:PlaceHolder>
 </body>

@@ -21,22 +21,22 @@ public partial class CMSModules_AdminControls_Controls_Class_FieldEditor_Categor
     protected global::System.Web.UI.WebControls.Panel pnlCategory;
     
     /// <summary>
-    /// lblCategoryName control.
+    /// lblCategoryCaption control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedLabel lblCategoryName;
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblCategoryCaption;
     
     /// <summary>
-    /// txtCategoryName control.
+    /// txtCategoryCaption control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMS.FormEngine.Web.UI.EditingFormControl txtCategoryName;
+    protected global::CMS.FormEngine.Web.UI.EditingFormControl txtCategoryCaption;
     
     /// <summary>
     /// lblCollapsible control.

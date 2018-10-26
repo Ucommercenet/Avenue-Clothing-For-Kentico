@@ -10,7 +10,7 @@
     <asp:PlaceHolder ID="plcParentButton" runat="server">
         <div class="FloatLeft">
             <cms:LocalizedButton ID="btnParent" runat="server" ButtonStyle="Default" ResourceString="dialogs.mediaview.gotoparent" />
-            <asp:HiddenField ID="hdnLastNodeParentID" runat="server" />
+            <asp:HiddenField ID="hdnLastNodeParentPath" runat="server" />
         </div>
     </asp:PlaceHolder>
     <div class="RightAlign">

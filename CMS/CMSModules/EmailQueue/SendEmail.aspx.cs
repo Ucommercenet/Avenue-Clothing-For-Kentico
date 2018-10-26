@@ -11,9 +11,10 @@ using CMS.EventLog;
 using CMS.Helpers;
 using CMS.SiteProvider;
 using CMS.UIControls;
+using CMS.Core;
 
-
-public partial class CMSModules_EmailQueue_SendEmail : GlobalAdminPage
+[UIElement(ModuleName.CMS, "SendE-mail")]
+public partial class CMSModules_EmailQueue_SendEmail : EmailQueuePage
 {
     private string siteName = null;
     private const string SEND_CMND_NAME = "send";
@@ -150,13 +151,13 @@ public partial class CMSModules_EmailQueue_SendEmail : GlobalAdminPage
     protected void SendEmail()
     {
         EmailMessage msg = new EmailMessage
-                               {
-                                   From = txtFrom.Text,
-                                   Recipients = txtTo.Text,
-                                   CcRecipients = txtCc.Text,
-                                   BccRecipients = txtBcc.Text,
-                                   Subject = txtSubject.Text
-                               };
+        {
+            From = txtFrom.Text,
+            Recipients = txtTo.Text,
+            CcRecipients = txtCc.Text,
+            BccRecipients = txtBcc.Text,
+            Subject = txtSubject.Text
+        };
 
         if (plcText.Visible)
         {

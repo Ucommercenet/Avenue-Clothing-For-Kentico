@@ -4,7 +4,6 @@
  * NOTE: The page or control must call ScriptHelper.EnsurePostbackMethods in order to use this module, otherwise, the ASP.NET JS functions may not be available.
  */
 cmsdefine([], function() {
-    'use strict';
 
     var
         /**

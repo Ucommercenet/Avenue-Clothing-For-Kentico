@@ -26,7 +26,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Subscri
     private const string REMOVE = "REMOVE";
 
     private NewsletterInfo mNewsletter;
-    private readonly ISubscriptionService mSubscriptionService = Service<ISubscriptionService>.Entry();
+    private readonly ISubscriptionService mSubscriptionService = Service.Resolve<ISubscriptionService>();
     private ObjectTransformationDataProvider mStatusDataProvider;
 
 
