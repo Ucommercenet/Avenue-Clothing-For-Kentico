@@ -80,10 +80,15 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
             Product product = SiteContext.Current.CatalogContext.CurrentProduct;
             Category lastCategory = SiteContext.Current.CatalogContext.CurrentCategory;
 
-            if (lastCategory == null)
+            if (lastCategory == null && CurrentDocument.NodeAlias == "Catalog")
             {
                 lastCategory = SiteContext.Current.CatalogContext.CurrentCatalog.Categories.FirstOrDefault(x=>x.DisplayOnSite && !x.Deleted);
                 SiteContext.Current.CatalogContext.CurrentCategories.Add(lastCategory);
+            }
+
+            if (lastCategory == null && product == null && CurrentDocument.NodeAlias == "Product")
+            {
+                product = Product.FirstOrDefault(x=>x.DisplayOnSite);
             }
 
             if (SiteContext.Current.CatalogContext.CurrentCategories.Any())
