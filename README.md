@@ -50,6 +50,7 @@ Troubleshooting:
 
 * We have made a small modification to the **logon.aspx.cs** file, which the upgrade tool will mark as custom modified. This change is simply made to automatically prefill the backoffice login credentials. If this happens you can remove the old **logon.aspx.cs** file and remove the '.new' extension from the **logon.aspx.cs.new** file.
 * It is possible that when requesting the website, you will get a white page saying that the website is offline. This is done by the upgrade tool for the duration of the upgrade. If you encounter this, and you have done all the above-mentioned steps, you can simply navigate to your **CMS** folder and delete the **App_Offline.htm** file.
+* You may get a NuGet error while trying to upgrade the Kentico.Libraries package to version 11.0.0 as described above due to the targeted .NET Framework version. In this case you should manually update the "Target Framework" property on both projects to at least 4.6.1.
 
 
 ### Running the site as an IIS application ###
