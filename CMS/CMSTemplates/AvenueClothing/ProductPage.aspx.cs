@@ -28,6 +28,11 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 return;
             }
 
+            if (SiteContext.Current.CatalogContext.CurrentProduct == null)
+            {
+                SiteContext.Current.CatalogContext.CurrentProduct = Product.FirstOrDefault(x=>x.DisplayOnSite);
+            }
+
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
             SetupProduct(currentProduct);
