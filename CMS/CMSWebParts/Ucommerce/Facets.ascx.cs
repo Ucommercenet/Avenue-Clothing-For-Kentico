@@ -48,6 +48,13 @@ public partial class CMSWebParts_Ucommerce_Facets : CMSAbstractWebPart
         {
             var category = SiteContext.Current.CatalogContext.CurrentCategory;
             var product = SiteContext.Current.CatalogContext.CurrentProduct;
+
+            if (category == null && product == null)
+            {
+                category = SiteContext.Current.CatalogContext.CurrentCatalog.Categories.FirstOrDefault(x =>
+                    !x.Deleted && x.DisplayOnSite);
+            }
+
             if (category == null || product != null)
             {
                 return;
