@@ -28,10 +28,7 @@ namespace CMSApp.CMSWebParts.Ucommerce.Services
         /// <returns></returns>
         public virtual Category GetDefaultCategory()
         {
-            var currentCatalogGroup = CatalogContext.CurrentCatalogGroup;
-            var defaultCatalog = currentCatalogGroup.ProductCatalogs.First();
-
-            return defaultCatalog.Categories.FirstOrDefault(x => x.DisplayOnSite && !x.Deleted && x.Products.Any());
+            return GetDefaultProductCatalog().Categories.FirstOrDefault(x => x.DisplayOnSite && !x.Deleted && x.Products.Any());
         }
 
         /// <summary>
