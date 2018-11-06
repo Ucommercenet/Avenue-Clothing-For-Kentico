@@ -2,60 +2,12 @@
 using System.Collections.Generic;
 
 using CMS.Base.Web.UI;
-using CMS.Membership;
+using CMS.Helpers;
 using CMS.UIControls;
 
 
-public partial class CMSAdminControls_UI_SmartTip : CMSUserControl
+public partial class CMSAdminControls_UI_SmartTip : SmartTipControl
 {
-
-    private readonly UserSmartTipDismissalManager mUserSmartTipManager = new UserSmartTipDismissalManager(MembershipContext.AuthenticatedUser);
-
-
-
-    /// <summary>
-    /// Gets or sets the identifier of the smart tip used for storing the collapsed state. If multiple smart tips with the same
-    /// identifier are created, closing one will result in closing all of them.
-    /// </summary>
-    public string CollapsedStateIdentifier
-    {
-        get;
-        set;
-    }
-    
-
-    /// <summary>
-    /// Sets the expanded header of the smart tip.
-    /// Use plain text.
-    /// </summary>
-    public string ExpandedHeader
-    {
-        get;
-        set;
-    }
-
-
-    /// <summary>
-    /// Sets the collapsed header of the smart tip.
-    /// Use plain text.
-    /// </summary>
-    public string CollapsedHeader
-    {
-        get;
-        set;
-    }
-
-
-    /// <summary>
-    /// Sets the content of the smart tip.
-    /// Use HTML.
-    /// </summary>
-    public string Content
-    {
-        get;
-        set;
-    }
-
     protected void Page_PreRender(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(CollapsedStateIdentifier))
@@ -80,15 +32,18 @@ public partial class CMSAdminControls_UI_SmartTip : CMSUserControl
             ExpandedHeader = CollapsedHeader;
         }
 
-        ScriptHelper.RegisterModule(this, "CMS/SmartTips/SmartTip", new
+        if (!RequestHelper.IsAsyncPostback())
         {
-            selector = "#" + pnlTooltip.ClientID,
-            expandedHeader = ExpandedHeader,
-            collapsedHeader = CollapsedHeader,
-            content = Content,
-            isCollapsed = mUserSmartTipManager.IsSmartTipDismissed(CollapsedStateIdentifier),
-            identifier = CollapsedStateIdentifier,
-            resources = resources
-        });
+            ScriptHelper.RegisterModule(this, "CMS/SmartTips/SmartTip", new
+            {
+                selector = "#" + pnlTooltip.ClientID,
+                expandedHeader = ResHelper.LocalizeString(ExpandedHeader),
+                collapsedHeader = ResHelper.LocalizeString(CollapsedHeader),
+                content = ResHelper.LocalizeString(Content),
+                isCollapsed = UserSmartTipManager.IsSmartTipDismissed(CollapsedStateIdentifier),
+                identifier = CollapsedStateIdentifier,
+                resources
+            });
+        }
     }
 }

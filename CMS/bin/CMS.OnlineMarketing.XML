@@ -101,41 +101,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ABTestInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ABTestInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
-            <summary>
-            Removes dependencies from the specified AB test.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the AB Test object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
         <member name="P:CMS.OnlineMarketing.ABTestInfo.ABTestGUID">
             <summary>
             Unique test identifier.
@@ -215,6 +180,41 @@
             Available objects are Contact, User and Visitor. 
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.ABTestInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABTestInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABTestInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ABTestInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABTestInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ABTestInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABTestInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
+            <summary>
+            Removes dependencies from the specified AB test.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABTestInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the AB Test object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.OnlineMarketing.ABTestInfoProvider">
             <summary>
             Class providing ABTestInfo management.
@@ -280,35 +280,17 @@
             <param name="siteName">Site name</param>
             <param name="abTestName">Test name</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.GetABTestInfoInternal(System.Int32)">
+        <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.SetInfo(CMS.OnlineMarketing.ABTestInfo)">
             <summary>
-            Returns AB test with specified ID.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="abTestId">AB test ID</param>        
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.GetABTestInfoInternal(System.String,System.String)">
+        <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.DeleteInfo(CMS.OnlineMarketing.ABTestInfo)">
             <summary>
-            Returns AB test with specified name.
+            Deletes the object to the database.
             </summary>
-            <param name="abTestName">AB test name</param>                
-            <param name="siteName">Site name</param>         
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.GetABTestsInternal">
-            <summary>
-            Returns query of all AB tests.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.SetABTestInfoInternal(CMS.OnlineMarketing.ABTestInfo)">
-            <summary>
-            Sets (updates or inserts) specified AB test.
-            </summary>
-            <param name="abTestObj">AB test to be set</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.DeleteABTestInfoInternal(CMS.OnlineMarketing.ABTestInfo)">
-            <summary>
-            Deletes specified AB test.
-            </summary>
-            <param name="abTestObj">AB test to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.OnlineMarketing.ABTestInfoProvider.GetABTestIDInternal(System.String,System.String)">
             <summary>
@@ -341,6 +323,11 @@
             Settings keys which are logged.
             </summary>
         </member>
+        <member name="P:CMS.OnlineMarketing.ABTestUsageDataSource.Name">
+            <summary>
+            Get the data source name.
+            </summary>
+        </member>
         <member name="M:CMS.OnlineMarketing.ABTestUsageDataSource.GetData">
             <summary>
             Get all module statistical data.
@@ -351,11 +338,6 @@
             Returns how many times is specific setting used with value which is not same as default value. 
             Only settings on running sites (if <paramref name="global"/> is true), not hidden and not custom are retrieved.
             Only global settings when <paramref name="global"/> is false.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.ABTestUsageDataSource.Name">
-            <summary>
-            Get the data source name.
             </summary>
         </member>
         <member name="T:CMS.OnlineMarketing.ABVariantInfo">
@@ -372,27 +354,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ABVariantInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ABVariantInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
         </member>
         <member name="P:CMS.OnlineMarketing.ABVariantInfo.ABVariantPath">
             <summary>
@@ -434,6 +395,27 @@
             Site ID of test variant.
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.ABVariantInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABVariantInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABVariantInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ABVariantInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABVariantInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ABVariantInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
         <member name="T:CMS.OnlineMarketing.ABVariantInfoProvider">
             <summary>
             Class providing ABVariantInfo management.
@@ -452,6 +434,16 @@
         <member name="F:CMS.OnlineMarketing.ABVariantInfoProvider.tableLock">
             <summary>
             Table lock for loading.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.ABVariantInfoProvider.VariantsById">
+            <summary>
+            Variants indexed by ABVariantID.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.ABVariantInfoProvider.VariantsByNameSiteTest">
+            <summary>
+            Variants indexed by key in format [ABVariantName]_[ABVariantSiteID]_[ABVariantTestID].
             </summary>
         </member>
         <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.GetVariantsForTest(CMS.OnlineMarketing.ABTestInfo)">
@@ -506,12 +498,6 @@
             </summary>
             <param name="variantId">Variant ID</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears the hashtables.
-            </summary>
-            <param name="logTasks">If true, the clear tasks are logged</param>
-        </member>
         <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.GetVariantsWithMissingTranslations(CMS.OnlineMarketing.ABTestInfo)">
             <summary>
             Returns list of variants which do not have translations into all cultures for multi-cultural test or specific translation for single culture test.
@@ -548,22 +534,17 @@
             <param name="variantName">Variant name</param>                
             <param name="siteName">Site name</param>         
         </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.GetVariantsInternal">
+        <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.SetInfo(CMS.OnlineMarketing.ABVariantInfo)">
             <summary>
-            Returns a query for all the variants.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.SetABVariantInfoInternal(CMS.OnlineMarketing.ABVariantInfo)">
+        <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.DeleteInfo(CMS.OnlineMarketing.ABVariantInfo)">
             <summary>
-            Sets (updates or inserts) specified Variant.
+            Deletes the object to the database.
             </summary>
-            <param name="variantObj">Variant to be set</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.DeleteABVariantInfoInternal(CMS.OnlineMarketing.ABVariantInfo)">
-            <summary>
-            Deletes specified Variant.
-            </summary>
-            <param name="variantObj">Variant to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.OnlineMarketing.ABVariantInfoProvider.GetVariantsForTestInternal(CMS.OnlineMarketing.ABTestInfo)">
             <summary>
@@ -603,16 +584,6 @@
             Checks for code name change and renames statistics if so.
             </summary>
             <param name="variantObj">AB Variant</param>
-        </member>
-        <member name="P:CMS.OnlineMarketing.ABVariantInfoProvider.VariantsById">
-            <summary>
-            Variants indexed by ABVariantID.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.ABVariantInfoProvider.VariantsByNameSiteTest">
-            <summary>
-            Variants indexed by key in format [ABVariantName]_[ABVariantSiteID]_[ABVariantTestID].
-            </summary>
         </member>
         <member name="T:CMS.OnlineMarketing.ABTestStatusEnum">
             <summary>
@@ -718,6 +689,11 @@
             thread-safe.
             </summary>
         </member>
+        <member name="P:CMS.OnlineMarketing.StaticRandom.Instance">
+            <summary>
+            Gets instance for generator. Differs for each thread.
+            </summary>
+        </member>
         <member name="M:CMS.OnlineMarketing.StaticRandom.Next(System.Int32)">
             <summary>
             Returns a nonnegative random number less than the specified maximum.
@@ -738,67 +714,16 @@
             <param name="minValue">The inclusive lower bound of the random number returned. </param><param name="maxValue">The exclusive upper bound of the random number returned. <paramref name="maxValue"/> must be greater than or equal to <paramref name="minValue"/>. </param>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="minValue"/> is greater than <paramref name="maxValue"/>. </exception>
         </member>
-        <member name="P:CMS.OnlineMarketing.StaticRandom.Instance">
+        <member name="T:CMS.OnlineMarketing.ContactProcessingCheckerActivityLogFilter">
             <summary>
-            Gets instance for generator. Differs for each thread.
+            Filters out logging when processing of contacts (and therefore the activities) cannot continue.
             </summary>
         </member>
-        <member name="T:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator">
-            <summary>
-            Class generating and deleting sample statistics for A/B tests and campaigns.
-            </summary>
-            <exclude />
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator.#ctor(CMS.SiteProvider.SiteInfo)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="site">Site to generate data for</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator.Generate">
-            <summary>
-            Generates statistics for AB tests on the current site.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator.ClearStatisticsData">
-            <summary>
-            Removes all previously logged data related to the Dancing Goat default A/B test and Campaign.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator.LogABConversionHits(System.Int32,System.DateTime)">
-            <summary>
-            Performs logging of A/B conversion hits.
-            </summary>
-            <param name="daysFromStart">Determines for which day should be the logging performed (selects correct values from the data arrays)</param>
-            <param name="logDate">Date the hit is assigned to</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator.LogABVisitHits(System.Int32,System.DateTime)">
-            <summary>
-            Performs logging of A/B visit hits.
-            </summary>
-            <param name="daysFromStart">Determines for which day should be the logging performed (selects correct values from the data arrays)</param>
-            <param name="logDate">Date the hit is assigned to</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator.GetABHitCodename(System.String,CMS.OnlineMarketing.ABTestInfo,CMS.OnlineMarketing.ABVariantInfo)">
-            <summary>
-            Constructs proper statistics code name for the A/B hit.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.ABTestAndConversionDataGenerator.LogHit(System.String,System.Int32,System.Int32,System.DateTime,System.String)">
-            <summary>
-            Performs logging of the hit.
-            </summary>
-        </member>
-        <member name="T:CMS.OnlineMarketing.CrawlerCheckerActivityLogFilter">
+        <member name="M:CMS.OnlineMarketing.ContactProcessingCheckerActivityLogFilter.IsDenied">
             <summary>
             Filters out logging for crawlers.
             </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.CrawlerCheckerActivityLogFilter.IsDenied">
-            <summary>
-            Filters out logging for crawlers.
-            </summary>
-            <returns>Returns <c>true</c> if logging should be filtered out, because current request was made by crawler. Otherwise returns <c>false</c>.</returns>
+            <returns>Returns <c>true</c> if logging should be filtered out, because processing of contacts cannot continue. Otherwise returns <c>false</c>.</returns>
         </member>
         <member name="T:CMS.OnlineMarketing.CurrentUserEnabledTrackingFilter">
             <summary>
@@ -832,6 +757,11 @@
             Settings keys which are logged.
             </summary>
         </member>
+        <member name="P:CMS.OnlineMarketing.ContentPersonalizationUsageDataSource.Name">
+            <summary>
+            Get the data source name.
+            </summary>
+        </member>
         <member name="M:CMS.OnlineMarketing.ContentPersonalizationUsageDataSource.GetData">
             <summary>
             Get all module statistical data.
@@ -842,109 +772,6 @@
             Returns how many times is specific setting used with value which is not same as default value. 
             Only settings on running sites (if <paramref name="global"/> is true), not hidden and not custom are retrieved.
             Only global settings when <paramref name="global"/> is false.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.ContentPersonalizationUsageDataSource.Name">
-            <summary>
-            Get the data source name.
-            </summary>
-        </member>
-        <member name="T:CMS.OnlineMarketing.ContactGroupSubscribersDataGenerator">
-            <summary>
-            Contains methods for generating sample data for the Contact groups module.
-            </summary>
-            <exclude />
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContactGroupSubscribersDataGenerator.#ctor(CMS.SiteProvider.SiteInfo)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="site">Site the newsletters data will be generated for</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContactGroupSubscribersDataGenerator.Generate">
-            <summary>
-            Performs contact group sample data generation.
-            </summary>
-        </member>
-        <member name="T:CMS.OnlineMarketing.NewslettersDataGenerator">
-            <summary>
-            Contains methods for generating sample data for the Newsletters module.
-            </summary>
-            <exclude />
-        </member>
-        <member name="F:CMS.OnlineMarketing.NewslettersDataGenerator.NEWSLETTER_COLOMBIA_COFFEE_PROMOTION">
-            <summary>
-            Code name of Colombia coffee promotion newsletter.
-            </summary>
-        </member>
-        <member name="F:CMS.OnlineMarketing.NewslettersDataGenerator.NEWSLETTER_COLOMBIA_COFFEE_PROMOTION_SAMPLE">
-            <summary>
-            Code name of Colombia coffee promotion sample newsletter.
-            </summary>
-        </member>
-        <member name="F:CMS.OnlineMarketing.NewslettersDataGenerator.NEWSLETTER_COFFEE_CLUB_MEMBERSHIP">
-            <summary>
-            Code name of Coffee club membership newsletter.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.NewslettersDataGenerator.#ctor(CMS.SiteProvider.SiteInfo)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="site">Site the newsletters data will be generated for</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.NewslettersDataGenerator.Generate">
-            <summary>
-            Performs newsletters sample data generation.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.NewslettersDataGenerator.GenerateClickedLinksToIssue(System.Int32,System.String,System.Int32,System.Int32,System.Collections.Generic.IList{System.String})">
-            <summary>
-            Total clicks value must not be higher then the count of subscribers.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.NewslettersDataGenerator.GenerateOpenedEmailToIssue(System.Int32,System.Int32,System.Collections.Generic.IList{System.String})">
-            <summary>
-            Unique opens value must not be higher then the count of subscribers.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.NewslettersDataGenerator.GenerateUnsubscriptionsFromIssue(System.Int32,System.Int32,System.Int32,System.Collections.Generic.IList{CMS.Newsletters.SubscriberInfo})">
-            <summary>
-            Unsubscribed value must not be higher then the count of subscribers.
-            </summary>
-        </member>
-        <member name="T:CMS.OnlineMarketing.OnlineMarketingDataGenerator">
-            <summary>
-            Contains methods for generating sample contacts with activities data.
-            </summary>
-            <exclude />
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingDataGenerator.#ctor(CMS.SiteProvider.SiteInfo)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="site">Site data will be generated for</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingDataGenerator.Generate">
-            <summary>
-            Performs contacts and activities generation.
-            </summary>
-        </member>
-        <member name="T:CMS.ContactManagement.ScoringWithRulesGenerator">
-            <summary>
-            Contains methods for generating sample scoring objects with rules of various types.
-            </summary>
-            <exclude />
-        </member>
-        <member name="M:CMS.ContactManagement.ScoringWithRulesGenerator.#ctor(CMS.SiteProvider.SiteInfo)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="site">Site that will contain generated objects</param>
-        </member>
-        <member name="M:CMS.ContactManagement.ScoringWithRulesGenerator.Generate">
-            <summary>
-            Performs scoring objects and rules generation.
             </summary>
         </member>
         <member name="T:CMS.OnlineMarketing.ActivityInfoMethods">
@@ -985,36 +812,6 @@
             </summary>
             <param name="state">Automation state</param>
         </member>
-        <member name="T:CMS.MarketingAutomation.MarketingAutomationUsageDataSource">
-            <summary>
-            Provides statistical information about module.
-            </summary>
-        </member>
-        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetData">
-            <summary>
-            Get all module statistical data.
-            </summary>
-        </member>
-        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetNumberOfEnabledMarketingAutomationProcesses(System.Collections.Generic.IEnumerable{CMS.WorkflowEngine.WorkflowInfo})">
-            <summary>
-            Returns number of enabled marketing automation processes.
-            </summary>
-        </member>
-        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetNumberOfDisabledMarketingAutomationProcesses(System.Collections.Generic.IEnumerable{CMS.WorkflowEngine.WorkflowInfo})">
-            <summary>
-            Returns number of disabled marketing automation processes.
-            </summary>
-        </member>
-        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetNumberOfContactsWithinEachProcess">
-            <summary>
-            Returns number of contacts within each process.
-            </summary>
-        </member>
-        <member name="P:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.Name">
-            <summary>
-            Get the data source name.
-            </summary>
-        </member>
         <member name="T:CMS.OnlineMarketing.MVTContext">
             <summary>
             MVT Test context
@@ -1040,6 +837,11 @@
             Settings keys which are logged.
             </summary>
         </member>
+        <member name="P:CMS.OnlineMarketing.MVTestUsageDataSource.Name">
+            <summary>
+            Get the data source name.
+            </summary>
+        </member>
         <member name="M:CMS.OnlineMarketing.MVTestUsageDataSource.GetData">
             <summary>
             Get all module statistical data.
@@ -1050,11 +852,6 @@
             Returns how many times is specific setting used with value which is not same as default value. 
             Only settings on running sites (if <paramref name="global"/> is true), not hidden and not custom are retrieved.
             Only global settings when <paramref name="global"/> is false.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.MVTestUsageDataSource.Name">
-            <summary>
-            Get the data source name.
             </summary>
         </member>
         <member name="T:CMS.OnlineMarketing.VariantTypeEnum">
@@ -1104,6 +901,11 @@
             Settings keys which are logged.
             </summary>
         </member>
+        <member name="P:CMS.OnlineMarketing.OnlineMarketingUsageDataSource.Name">
+            <summary>
+            Get the data source name.
+            </summary>
+        </member>
         <member name="M:CMS.OnlineMarketing.OnlineMarketingUsageDataSource.GetData">
             <summary>
             Get all module statistical data.
@@ -1120,40 +922,6 @@
             Only settings on running sites (if <paramref name="global"/> is true), not hidden and not custom are retrieved.
             Only global settings when <paramref name="global"/> is false.
             </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.OnlineMarketingUsageDataSource.Name">
-            <summary>
-            Get the data source name.
-            </summary>
-        </member>
-        <member name="T:CMS.OnlineMarketing.Internal.DancingGoatSampleDataGenerator">
-            <summary>
-            Sample online marketing data generator providing sample data for Dancing Goat demo site.
-            </summary>
-        </member>
-        <member name="F:CMS.OnlineMarketing.Internal.DancingGoatSampleDataGenerator.CONTACT_FIRST_NAME_PREFIX">
-            <summary>
-            First name prefix of contacts generated for sample campaigns.
-            </summary>
-        </member>
-        <member name="F:CMS.OnlineMarketing.Internal.DancingGoatSampleDataGenerator.CONTACT_LAST_NAME_PREFIX">
-            <summary>
-            Last name prefix of contacts generated for sample campaigns.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.DancingGoatSampleDataGenerator.Generate(System.Int32)">
-            <summary>
-            Generates sample online marketing data. Suitable only for Dancing Goat demo site.
-            </summary>
-            <param name="siteID">ID of the site to generate sample data for.</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Internal.DancingGoatSampleDataGenerator.GenerateWithReflection(System.String,System.String,CMS.SiteProvider.SiteInfo)">
-            <summary>
-            Invokes generator using reflection to avoid build errors when required modules are not loaded.
-            </summary>
-            <param name="assembly">Assembly containing the generator</param>
-            <param name="typeName">Full name of the generator type</param>
-            <param name="site">Site used in constructor of the generator</param>
         </member>
         <member name="M:CMS.OnlineMarketing.WebPartsStructuredData.LoadFromXmlElement(System.Xml.XmlElement)">
             <summary>
@@ -1288,14 +1056,6 @@
             Class that holds AB variant's statistics data.
             </summary>
         </member>
-        <member name="M:CMS.OnlineMarketing.ABVariantStatisticsData.#ctor(System.Int32,System.Double,System.Int32)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="conversionsCount">Conversions count</param>
-            <param name="conversionsValue">Conversions value</param>
-            <param name="visits">Visits count</param>
-        </member>
         <member name="P:CMS.OnlineMarketing.ABVariantStatisticsData.ConversionsCount">
             <summary>
             Gets conversions count.
@@ -1320,6 +1080,14 @@
             <summary>
             Gets average conversion value.
             </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABVariantStatisticsData.#ctor(System.Int32,System.Double,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="conversionsCount">Conversions count</param>
+            <param name="conversionsValue">Conversions value</param>
+            <param name="visits">Visits count</param>
         </member>
         <member name="T:CMS.OnlineMarketing.ABTestValidator">
             <summary>
@@ -1369,6 +1137,16 @@
         <member name="F:CMS.OnlineMarketing.ABUserStateManager.ABCOOKIE_PREFIX">
             <summary>
             Prefix of AB test cookie names.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.ABUserStateManager.CookieValue">
+            <summary>
+            Gets or sets cached cookie value.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.ABUserStateManager.IsExcluded">
+            <summary>
+            Indicates whether is visitor included in AB test or not.
             </summary>
         </member>
         <member name="M:CMS.OnlineMarketing.ABUserStateManager.#ctor(System.String)">
@@ -1462,24 +1240,9 @@
             <param name="cookieValue">Object to serialize to the cookie</param>
             <param name="expiration">Expiration of the cookie</param>
         </member>
-        <member name="P:CMS.OnlineMarketing.ABUserStateManager.CookieValue">
-            <summary>
-            Gets or sets cached cookie value.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.ABUserStateManager.IsExcluded">
-            <summary>
-            Indicates whether is visitor included in AB test or not.
-            </summary>
-        </member>
         <member name="T:CMS.OnlineMarketing.ABCookieValue">
             <summary>
             Class representing deserialized permanent AB cookie value.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABCookieValue.#ctor">
-            <summary>
-            Constructor. Sets properties to empty values.
             </summary>
         </member>
         <member name="P:CMS.OnlineMarketing.ABCookieValue.VariantName">
@@ -1498,21 +1261,14 @@
             Conversions performed during this test.
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.ABCookieValue.#ctor">
+            <summary>
+            Constructor. Sets properties to empty values.
+            </summary>
+        </member>
         <member name="T:CMS.OnlineMarketing.ABConversionRateInterval">
             <summary>
             Class encapsulating conversion rate interval data.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABConversionRateInterval.#ctor(System.Double,System.Double)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="conversionRateLowerBound">Conversion rate lower bound. Argument must be larger than 0 and lower than 1.</param>
-            <param name="conversionRateUpperBound">Conversion rate upper bound. Argument must be larger than 0 and lower than 1.</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ABConversionRateInterval.ToString">
-            <summary>
-            Returns formatted interval as X % +- Y %.
             </summary>
         </member>
         <member name="P:CMS.OnlineMarketing.ABConversionRateInterval.ConversionRateLowerBound">
@@ -1533,6 +1289,18 @@
         <member name="P:CMS.OnlineMarketing.ABConversionRateInterval.EstimatedConversionRateVariance">
             <summary>
             Returns estimated conversion rate variance.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABConversionRateInterval.#ctor(System.Double,System.Double)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="conversionRateLowerBound">Conversion rate lower bound. Argument must be larger than 0 and lower than 1.</param>
+            <param name="conversionRateUpperBound">Conversion rate upper bound. Argument must be larger than 0 and lower than 1.</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ABConversionRateInterval.ToString">
+            <summary>
+            Returns formatted interval as X % +- Y %.
             </summary>
         </member>
         <member name="T:CMS.OnlineMarketing.ABTestModule">
@@ -1579,40 +1347,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.GetAutomaticCodeName">
-            <summary>
-            Gets the automatic code name for the object.
-            </summary>
-            <remarks>
-            There are many cases where the codename has to or has not to be unique. To avoid necessary complexity and prevent further defects, GUID is used for the code name instead.
-            </remarks>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.SetObjectOrderPostprocessing">
-            <summary>
-            Method which is called after the order of the object was changed. Generates staging tasks and webfarm tasks by default.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ContentPersonalizationVariant object.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ContentPersonalizationVariant object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="P:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.VariantInstanceGUID">
             <summary>
@@ -1699,6 +1433,40 @@
             Type information.
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.GetAutomaticCodeName">
+            <summary>
+            Gets the automatic code name for the object.
+            </summary>
+            <remarks>
+            There are many cases where the codename has to or has not to be unique. To avoid necessary complexity and prevent further defects, GUID is used for the code name instead.
+            </remarks>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.SetObjectOrderPostprocessing">
+            <summary>
+            Method which is called after the order of the object was changed. Generates staging tasks and webfarm tasks by default.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ContentPersonalizationVariant object.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ContentPersonalizationVariant object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
         <member name="T:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider">
             <summary>
             Class providing ContentPersonalizationVariant management.
@@ -1749,12 +1517,6 @@
             Deletes content personalization variant with specified ID.
             </summary>
             <param name="variantId">Content personalization variant ID.</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hash tables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged.</param>
         </member>
         <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.CombineWithPersonalization(CMS.DocumentEngine.PageInfo,CMS.PortalEngine.PageTemplateInstance,CMS.PortalEngine.ViewModeEnum)">
             <summary>
@@ -1837,13 +1599,14 @@
             </summary>
             <param name="variantId">The variant id</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.LoadContentPersonalizationVariants(System.Object,System.Boolean)">
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.LoadContentPersonalizationVariants(System.Object,System.Boolean,System.Int32)">
             <summary>
             Loads the Content personalization variants for the specified instance (web part/zone/widget).
             Return true, if the variants were successfully loaded.
             </summary>
-            <param name="instance">The instance</param>
+            <param name="instance">The zone instance of web part instance</param>
             <param name="isZone">Indicates if the parameter instance object is a zone</param>
+            <param name="documentId">Document ID if the instance holds a widget</param>
             <returns>True, if the variants were successfully loaded. False, if it was not possible to load variants, for example due to missing information in the instance.</returns>
         </member>
         <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.CloneTemplateVariants(System.Int32,System.Int32)">
@@ -1853,34 +1616,17 @@
             <param name="originalTemplateId">The original template id</param>
             <param name="newTemplateId">The new template id</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.GetContentPersonalizationVariantsInternal">
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.SetInfo(CMS.OnlineMarketing.ContentPersonalizationVariantInfo)">
             <summary>
-            Returns a query for all the ContentPersonalizationVariantInfo objects.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.GetContentPersonalizationVariantInternal(System.Int32)">
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.DeleteInfo(CMS.OnlineMarketing.ContentPersonalizationVariantInfo)">
             <summary>
-            Returns content personalization variant with specified ID.
+            Deletes the object to the database.
             </summary>
-            <param name="variantId">Content personalization variant ID</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.GetContentPersonalizationVariantInternal(System.String)">
-            <summary>
-            Returns content personalization variant with specified name.
-            </summary>
-            <param name="variantName">Content personalization variant name.</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.SetContentPersonalizationVariantInternal(CMS.OnlineMarketing.ContentPersonalizationVariantInfo)">
-            <summary>
-            Sets (updates or inserts) specified content personalization variant.
-            </summary>
-            <param name="variantObj">Content personalization variant to be set.</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.DeleteContentPersonalizationVariantInternal(CMS.OnlineMarketing.ContentPersonalizationVariantInfo)">
-            <summary>
-            Deletes specified content personalization variant.
-            </summary>
-            <param name="variantObj">Content personalization variant to be deleted.</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.CombineWithPersonalizationInternal(CMS.DocumentEngine.PageInfo,CMS.PortalEngine.PageTemplateInstance,CMS.PortalEngine.ViewModeEnum)">
             <summary>
@@ -1981,13 +1727,14 @@
             <param name="viewMode">The view mode</param>
             <param name="chosenVariants">The hash table containing chosen variants</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.LoadContentPersonalizationVariantsInternal(System.Object,System.Boolean)">
+        <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.LoadContentPersonalizationVariantsInternal(System.Object,System.Boolean,System.Int32)">
             <summary>
-            Loads the Content personalization variants for the specified instance (web part/zone/widget).
+            Loads the Content personalization variants for the specified instance (web part/zone/widget) running in the current <see cref="T:CMS.DocumentEngine.DocumentContext"/>.
             Return true, if the variants were successfully loaded.
             </summary>
-            <param name="instance">The instance</param>
+            <param name="instance">The zone instance of web part instance</param>
             <param name="isZone">Indicates if the parameter instance object is a zone</param>
+            <param name="documentId">Document ID if the instance holds a widget</param>
             <returns>True, if the variants were successfully loaded. False, if it was not possible to load variants, for example due to missing information in the instance.</returns>
         </member>
         <member name="M:CMS.OnlineMarketing.ContentPersonalizationVariantInfoProvider.CloneTemplateVariantsInternal(System.Int32,System.Int32)">
@@ -2251,18 +1998,24 @@
             Event raised when variants are to be deleted.
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.MVTHandlers.ChangeLayoutZoneId(System.Object,CMS.PortalEngine.ChangeLayoutZoneIdArgs)">
+            <summary>
+            Updates web parts variants after their parent layout zone id is changed
+            </summary>
+        </member>
         <member name="T:CMS.OnlineMarketing.MVTHelper">
             <summary>
             Helper class for MVTests
             </summary>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTHelper.LoadVariants(System.Boolean,CMS.PortalEngine.VariantModeEnum,CMS.PortalEngine.WebPartInstance)">
+        <member name="M:CMS.OnlineMarketing.MVTHelper.LoadVariants(System.Boolean,CMS.PortalEngine.VariantModeEnum,CMS.PortalEngine.WebPartInstance,System.Int32)">
             <summary>
             Loads all the MVT/Content personalization variants for this web part instance.
             </summary>
             <param name="forceLoad">Indicates if already loaded variants should be reloaded</param>
             <param name="variantMode">Specifies which variants should be loaded (MVT/ContentPersonalization/None - means both MVT+CP variants should try to load)</param>
             <param name="wpInstance">Web part's instance</param>
+            <param name="documentId">Document ID if the instance holds a widget</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTHelper.LoadZoneVariants(System.Boolean,CMS.PortalEngine.VariantModeEnum,CMS.PortalEngine.WebPartZoneInstance)">
             <summary>
@@ -2355,27 +2108,6 @@
             Type information (Combinations containing widgets).
             </summary>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty MVTCombinationInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new MVTCombinationInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
         <member name="P:CMS.OnlineMarketing.MVTCombinationInfo.MVTCombinationConversions">
             <summary>
             Number of conversions of the current combination
@@ -2436,6 +2168,27 @@
             Type information.
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty MVTCombinationInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTCombinationInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new MVTCombinationInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
         <member name="T:CMS.OnlineMarketing.MVTCombinationInfoProvider">
             <summary>
             Class providing MVTCombinationInfo management.
@@ -2454,6 +2207,16 @@
         <member name="F:CMS.OnlineMarketing.MVTCombinationInfoProvider.mTemplateCombinations">
             <summary>
             Dictionary containing combination infos with keys: templateID_combinationName 
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.MVTCombinationInfoProvider.TemplateCombinations">
+            <summary>
+            Dictionary containing combination infos with keys: templateID_combinationName 
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.MVTCombinationInfoProvider.RandomGenerator">
+            <summary>
+            Gets random generator for choosing a combination.
             </summary>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.#ctor">
@@ -2517,12 +2280,6 @@
             Deletes MVT combinations using the specified condition.
             </summary>
             <param name="whereCondition">Where condition</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.IsMVTCombinationValid(System.String,System.String,System.String,System.String)">
             <summary>
@@ -2617,28 +2374,17 @@
             </summary>
             <param name="combinationNumber">The number used in the formated combination name</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.GetMVTCombinationsInternal">
+        <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.SetInfo(CMS.OnlineMarketing.MVTCombinationInfo)">
             <summary>
-            Returns a query for all the MVTCombinationInfo objects.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.GetMVTCombinationInfoInternal(System.Int32)">
+        <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.DeleteInfo(CMS.OnlineMarketing.MVTCombinationInfo)">
             <summary>
-            Returns MVT combination with specified ID.
+            Deletes the object to the database.
             </summary>
-            <param name="combinationId">MVT combination ID</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.SetMVTCombinationInfoInternal(CMS.OnlineMarketing.MVTCombinationInfo)">
-            <summary>
-            Sets (updates or inserts) specified MVT combination.
-            </summary>
-            <param name="combinationObj">MVT combination to be set</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.DeleteMVTCombinationInfoInternal(CMS.OnlineMarketing.MVTCombinationInfo)">
-            <summary>
-            Deletes specified MVT combination.
-            </summary>
-            <param name="combinationObj">MVT combination to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTCombinationInfoProvider.DeleteMVTCombinationInfoInternal(System.String)">
             <summary>
@@ -2785,16 +2531,6 @@
             </summary>
             <param name="combinationNumber">The number used in the formated combination name</param>
         </member>
-        <member name="P:CMS.OnlineMarketing.MVTCombinationInfoProvider.TemplateCombinations">
-            <summary>
-            Dictionary containing combination infos with keys: templateID_combinationName 
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.MVTCombinationInfoProvider.RandomGenerator">
-            <summary>
-            Gets random generator for choosing a combination.
-            </summary>
-        </member>
         <member name="T:CMS.OnlineMarketing.MVTCombinationVariationInfo">
             <summary>
             MVTCombinationVariationInfo data container class.
@@ -2808,6 +2544,16 @@
         <member name="F:CMS.OnlineMarketing.MVTCombinationVariationInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.MVTCombinationVariationInfo.MVTCombinationID">
+            <summary>
+            MVT combination ID.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineMarketing.MVTCombinationVariationInfo.MVTVariantID">
+            <summary>
+            MVT variant ID.
             </summary>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTCombinationVariationInfo.DeleteObject">
@@ -2830,16 +2576,6 @@
             Constructor - Creates a new MVTCombinationVariationInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.OnlineMarketing.MVTCombinationVariationInfo.MVTCombinationID">
-            <summary>
-            MVT combination ID.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineMarketing.MVTCombinationVariationInfo.MVTVariantID">
-            <summary>
-            MVT variant ID.
-            </summary>
         </member>
         <member name="T:CMS.OnlineMarketing.MVTCombinationVariationInfoProvider">
             <summary>
@@ -2890,12 +2626,6 @@
             <param name="combinationId">MVT combination ID</param>
             <param name="variantId">MVT variant ID</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationVariationInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
         <member name="M:CMS.OnlineMarketing.MVTCombinationVariationInfoProvider.CombineCombinationVariants(System.Int32,System.Int32,System.Int32)">
             <summary>
             Combines a new variant with existing combinations.
@@ -2910,23 +2640,6 @@
             </summary>
             <param name="combinationId">MVT combination ID</param>
             <param name="variantId">MVT variant ID</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationVariationInfoProvider.GetCombinationVariationsInternal">
-            <summary>
-            Returns query of all relationships between MVT combinations and MVT variants.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationVariationInfoProvider.SetMVTCombinationVariationInfoInternal(CMS.OnlineMarketing.MVTCombinationVariationInfo)">
-            <summary>
-            Sets relationship between specified MVT combination and MVT variant.
-            </summary>
-            <param name="infoObj">MVT combination - MVT variant relationship to be set</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTCombinationVariationInfoProvider.DeleteMVTCombinationVariationInfoInternal(CMS.OnlineMarketing.MVTCombinationVariationInfo)">
-            <summary>
-            Deletes relationship between specified MVT combination and MVT variant.
-            </summary>
-            <param name="infoObj">MVT combination - MVT variant relationship to be deleted</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTCombinationVariationInfoProvider.DeleteMVTCombinationVariationInfoInternal(System.String)">
             <summary>
@@ -2960,46 +2673,6 @@
         <member name="F:CMS.OnlineMarketing.MVTestInfo.mOriginalCulture">
             <summary>
             Original culture of the multivariate test.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty MVTestInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new MVTestInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfo.LoadDefaultData">
-            <summary>
-            Loads the default data to the object.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the MVT Test object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
-            <summary>
-            Removes dependencies from the specified MVTest.
             </summary>
         </member>
         <member name="P:CMS.OnlineMarketing.MVTestInfo.MVTestTargetConversionType">
@@ -3082,6 +2755,46 @@
             Gets or sets the original culture of the test.
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.MVTestInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTestInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTestInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty MVTestInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTestInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new MVTestInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTestInfo.LoadDefaultData">
+            <summary>
+            Loads the default data to the object.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTestInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the MVT Test object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTestInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
+            <summary>
+            Removes dependencies from the specified MVTest.
+            </summary>
+        </member>
         <member name="T:CMS.OnlineMarketing.MVTestInfoProvider">
             <summary>
             Class providing MVTestInfo management.
@@ -3127,12 +2840,6 @@
             Deletes multivariate test with specified ID.
             </summary>
             <param name="testId">The multivariate test ID</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.ClearHashtables(System.Boolean)">
             <summary>
@@ -3247,17 +2954,6 @@
             <param name="testPage">The test page</param>
             <param name="siteId">The site id</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.GetMVTestsInternal">
-            <summary>
-            Returns a query for all the MVTestInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.GetMVTestInfoInternal(System.Int32)">
-            <summary>
-            Returns multivariate test with specified ID.
-            </summary>
-            <param name="testId">The multivariate test ID</param>        
-        </member>
         <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.GetMVTestInfoInternal(System.String,System.String)">
             <summary>
             Returns multivariate with specified name.
@@ -3270,17 +2966,17 @@
             Returns all conflicting tests (tests running in the same time interval on same page with same culture and are enabled).
             </summary>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.SetMVTestInfoInternal(CMS.OnlineMarketing.MVTestInfo)">
+        <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.SetInfo(CMS.OnlineMarketing.MVTestInfo)">
             <summary>
-            Sets (updates or inserts) specified multivariate test.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="testObj">The multivariate test to be set</param>        
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.DeleteMVTestInfoInternal(CMS.OnlineMarketing.MVTestInfo)">
+        <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.DeleteInfo(CMS.OnlineMarketing.MVTestInfo)">
             <summary>
-            Deletes specified multivariate test.
+            Deletes the object to the database.
             </summary>
-            <param name="testObj">The multivariate test to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTestInfoProvider.GetTestTemplates(CMS.OnlineMarketing.MVTestInfo)">
             <summary>
@@ -3452,42 +3148,6 @@
             Original value indicating whether the variant is enabled.
             </summary>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.CheckUniqueValues(System.String[])">
-            <summary>
-            Checks if a record with the same column values already exists in the database. Returns true if the set of values is unique.
-            </summary>
-            <param name="columns">Columns to check</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty MVTVariantInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new MVTVariantInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the MVT Variant object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
         <member name="P:CMS.OnlineMarketing.MVTVariantInfo.MVTVariantID">
             <summary>
             MVT variant ID.
@@ -3568,6 +3228,42 @@
             Type information.
             </summary>
         </member>
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.CheckUniqueValues(System.String[])">
+            <summary>
+            Checks if a record with the same column values already exists in the database. Returns true if the set of values is unique.
+            </summary>
+            <param name="columns">Columns to check</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty MVTVariantInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new MVTVariantInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the MVT Variant object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.OnlineMarketing.MVTVariantInfoProvider">
             <summary>
             Class providing MVTVariantInfo management.
@@ -3624,12 +3320,6 @@
             Deletes MVT variant with specified ID.
             </summary>
             <param name="variantGuid">The MVT variant GUID</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hash tables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.GetMVTVariants(System.Int32,System.Int32)">
             <summary>
@@ -3706,14 +3396,17 @@
             <param name="instanceGuid">The instance GUID</param>
             <param name="documentId">The document id</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.LoadMVTVariants(System.Object,System.Boolean)">
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.LoadMVTVariants(System.Object,System.Boolean,System.Int32)">
             <summary>
             Loads the MVT variants for the specified instance (web part/zone/widget).
             Return true, if the variants were successfully loaded.
             </summary>
-            <param name="instance">The instance</param>
+            <param name="instance">The zone instance of web part instance</param>
             <param name="isZone">Indicates if the parameter instance object is a zone</param>
-            <returns>True, if the variants were successfully loaded. False, if it was not possible to load variants, for example due to missing information in the instance.</returns>
+            <param name="documentId">Document ID if the instance holds a widget</param>
+            <returns>
+            True, if the variants were successfully loaded. False, if it was not possible to load variants, for example due to missing information in the instance.
+            </returns>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.GetMVTVariantId(System.Int32,System.String)">
             <summary>
@@ -3729,40 +3422,17 @@
             <param name="originalTemplateId">The original template id</param>
             <param name="newTemplateId">The new template id</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.GetMVTVariantsInternal">
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.SetInfo(CMS.OnlineMarketing.MVTVariantInfo)">
             <summary>
-            Returns a query for all the MVTVariantInfo objects.
+            Inserts or Updates the object to the database.
             </summary>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.GetMVTVariantInfoInternal(System.Int32)">
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.DeleteInfo(CMS.OnlineMarketing.MVTVariantInfo)">
             <summary>
-            Returns MVT variant with specified ID.
+            Deletes the object to the database.
             </summary>
-            <param name="variantId">MVT variant ID</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.GetMVTVariantInfoInternal(System.Guid)">
-            <summary>
-            Returns MVT variant with specified ID.
-            </summary>
-            <param name="variantGuid">The MVT variant GUID</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.GetMVTVariantInfoInternal(System.String)">
-            <summary>
-            Returns MVT variant with specified name.
-            </summary>
-            <param name="variantName">MVT variant name</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.SetMVTVariantInfoInternal(CMS.OnlineMarketing.MVTVariantInfo)">
-            <summary>
-            Sets (updates or inserts) specified MVT variant.
-            </summary>
-            <param name="variantObj">MVT variant to be set</param>        
-        </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.DeleteMVTVariantInfoInternal(CMS.OnlineMarketing.MVTVariantInfo)">
-            <summary>
-            Deletes specified MVT variant and MVT combination dependencies.
-            </summary>
-            <param name="variantObj">MVT variant to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.GetMVTVariantsInternal(System.Int32,System.Int32)">
             <summary>
@@ -3861,14 +3531,17 @@
             <param name="pageTemplateId">The page template id</param>
             <param name="variantName">The variant code name</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.LoadMVTVariantsInternal(System.Object,System.Boolean)">
+        <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.LoadMVTVariantsInternal(System.Object,System.Boolean,System.Int32)">
             <summary>
             Loads the MVT variants for the specified instance (web part/zone/widget).
-            Return true, if the variants were successfully loaded. 
+            Return true, if the variants were successfully loaded.
             </summary>
-            <param name="instance">The instance</param>
+            <param name="instance">The zone instance of web part instance</param>
             <param name="isZone">Indicates if the parameter instance object is a zone</param>
-            <returns>True, if the variants were successfully loaded. False, if it was not possible to load variants, for example due to missing information in the instance.</returns>
+            <param name="documentId">Document ID if the instance holds a widget</param>
+            <returns>
+            True, if the variants were successfully loaded. False, if it was not possible to load variants, for example due to missing information in the instance.
+            </returns>
         </member>
         <member name="M:CMS.OnlineMarketing.MVTVariantInfoProvider.CloneTemplateVariantsInternal(System.Int32,System.Int32)">
             <summary>
@@ -3928,11 +3601,6 @@
             Represents the On-line Marketing module.
             </summary>
         </member>
-        <member name="F:CMS.OnlineMarketing.OnlineMarketingModule.SCORING_EMAIL_TEMPLATE_TYPE_NAME">
-            <summary>
-            Name of email template type for scoring.
-            </summary>
-        </member>
         <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.#ctor">
             <summary>
             Default constructor
@@ -3989,59 +3657,9 @@
             </summary>
             <param name="parameters">Parameters array</param>
         </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.AddContactBounceByEmail(System.Object[])">
-            <summary>
-            Increments number of bounces by one for all contacts with specified email address across all sites
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.AddContactBounce(System.Object[])">
-            <summary>
-            Increments number of bounces by one for specified contact
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.GetContactForNewsletters(System.Object[])">
-            <summary>
-            Returns dataset with basic data of a contact specified by ID; the contact has to have a valid email address.
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.GetContacts(System.Object[])">
-            <summary>
-            Returns dataset with basic data of contacts specified by where condition.
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.GetContactGroupMembers(System.Object[])">
-            <summary>
-            Returns all (or top N) contact IDs in a given contact group for newsletters.
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.GetContactGroupName(System.Object[])">
-            <summary>
-            Returns display name of a contact group specified by ID
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
         <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.CreateRelation(System.Object[])">
             <summary>
             Creates the contact relation
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.UpdateContactFromExternalSource(System.Object[])">
-            <summary>
-            Updates specific contact values
-            </summary>
-            <param name="parameters">Parameters array</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.UpdateContactFromExternalData(System.Object[])">
-            <summary>
-            Updates contact information from various sources (bizform record, user, customer, subscriber)
-            parameters: source (bizform, user, customer, etc.); overwrite flag (true = contact data will be overwritten;
-            false = only blank values will be filled; null = flag from class info will be used); contact ID
             </summary>
             <param name="parameters">Parameters array</param>
         </member>
@@ -4063,6 +3681,41 @@
             Returns contact ID for specified user
             </summary>
             <param name="parameters">Parameters array</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.OnlineMarketingModule.GetTruncatedName(System.String)">
+            <summary>
+            Returns name trimmed to 100 chars. If the string is shorter, returns the same string.
+            </summary>
+        </member>
+        <member name="T:CMS.MarketingAutomation.MarketingAutomationUsageDataSource">
+            <summary>
+            Provides statistical information about module.
+            </summary>
+        </member>
+        <member name="P:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.Name">
+            <summary>
+            Get the data source name.
+            </summary>
+        </member>
+        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetData">
+            <summary>
+            Get all module statistical data.
+            </summary>
+        </member>
+        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetNumberOfEnabledMarketingAutomationProcesses(System.Collections.Generic.IEnumerable{CMS.WorkflowEngine.WorkflowInfo})">
+            <summary>
+            Returns number of enabled marketing automation processes.
+            </summary>
+        </member>
+        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetNumberOfDisabledMarketingAutomationProcesses(System.Collections.Generic.IEnumerable{CMS.WorkflowEngine.WorkflowInfo})">
+            <summary>
+            Returns number of disabled marketing automation processes.
+            </summary>
+        </member>
+        <member name="M:CMS.MarketingAutomation.MarketingAutomationUsageDataSource.GetNumberOfContactsWithinEachProcess">
+            <summary>
+            Returns number of contacts within each process.
+            </summary>
         </member>
     </members>
 </doc>

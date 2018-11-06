@@ -38,7 +38,7 @@ public partial class CMSModules_Forums_Controls_Layouts_Tree_Forums : ForumViewe
         }
 
         listForums.OuterData = ForumContext.CurrentGroup;
-        listForums.DataSource = ForumInfoProvider.GetForums(where, "ForumOrder ASC, ForumName ASC", 0, null);
+        listForums.DataSource = ForumInfoProvider.GetForums().Where(where).OrderBy("ForumOrder ASC, ForumName ASC");
         listForums.DataBind();
     }
 }

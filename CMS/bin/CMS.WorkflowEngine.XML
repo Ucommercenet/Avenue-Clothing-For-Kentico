@@ -19,66 +19,6 @@
             General base class for workflow actions.
             </summary>
         </member>
-        <member name="T:CMS.WorkflowEngine.IWorkflowAction">
-            <summary>
-            Interface for workflow actions.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.IWorkflowAction.Execute">
-            <summary>
-            Executes action.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.IWorkflowAction.Process(CMS.WorkflowEngine.IWorkflowActionEventArgs)">
-            <summary>
-            Processes action.
-            </summary>
-            <param name="args">Arguments of action</param>
-        </member>
-        <member name="P:CMS.WorkflowEngine.IWorkflowAction.Arguments">
-            <summary>
-            Action arguments
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.Execute">
-            <summary>
-            Executes action. You can use parameters to allow users to modify the behavior.
-            </summary>
-            <example>
-            To access the values of parameters, you can use this code.
-            <code>
-            GetResolvedParameter("StringParameterName", string.Empty);
-            GetResolvedParameter("BooleanParameterName", false);
-            </code>
-            </example>
-        </member>
-        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.GetDefaultMacroResolver">
-            <summary>
-            Prepares macro resolver for usage.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.GetResolvedParameter``1(System.String,``0)">
-            <summary>
-            Gets resolved value of parameter.
-            </summary>
-            <param name="parameterName">Parameter name</param>
-            <param name="defaultValue">Default value</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.Process(CMS.WorkflowEngine.IWorkflowActionEventArgs)">
-            <summary>
-            Processes action.
-            </summary>
-            <param name="args">Arguments of action</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.LogMessage(System.String,System.String,System.String,`0)">
-            <summary>
-            Logs message to event log.
-            </summary>
-            <param name="eventType">Type of the event. Please use predefined constants from EventLogProvider</param>
-            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
-            <param name="message">Message</param>
-            <param name="infoObj">Info object</param>
-        </member>
         <member name="P:CMS.WorkflowEngine.BaseWorkflowAction`3.Arguments">
             <summary>
             Action arguments
@@ -149,6 +89,45 @@
             Macro resolver for action.
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.Execute">
+            <summary>
+            Executes action. You can use parameters to allow users to modify the behavior.
+            </summary>
+            <example>
+            To access the values of parameters, you can use this code.
+            <code>
+            GetResolvedParameter("StringParameterName", string.Empty);
+            GetResolvedParameter("BooleanParameterName", false);
+            </code>
+            </example>
+        </member>
+        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.GetDefaultMacroResolver">
+            <summary>
+            Prepares macro resolver for usage.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.GetResolvedParameter``1(System.String,``0)">
+            <summary>
+            Gets resolved value of parameter.
+            </summary>
+            <param name="parameterName">Parameter name</param>
+            <param name="defaultValue">Default value</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.Process(CMS.WorkflowEngine.IWorkflowActionEventArgs)">
+            <summary>
+            Processes action.
+            </summary>
+            <param name="args">Arguments of action</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.BaseWorkflowAction`3.LogMessage(System.String,System.String,System.String,`0)">
+            <summary>
+            Logs message to event log.
+            </summary>
+            <param name="eventType">Type of the event. Please use predefined constants from EventLogProvider</param>
+            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
+            <param name="message">Message</param>
+            <param name="infoObj">Info object</param>
+        </member>
         <member name="T:CMS.WorkflowEngine.IWorkflowActionEventArgs">
             <summary>
             Interface for workflow action arguments.
@@ -199,14 +178,30 @@
             Indicates if the process should be stopped. Process is not moved to the next step.
             </summary>
         </member>
+        <member name="T:CMS.WorkflowEngine.IWorkflowAction">
+            <summary>
+            Interface for workflow actions.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.IWorkflowAction.Arguments">
+            <summary>
+            Action arguments
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.IWorkflowAction.Execute">
+            <summary>
+            Executes action.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.IWorkflowAction.Process(CMS.WorkflowEngine.IWorkflowActionEventArgs)">
+            <summary>
+            Processes action.
+            </summary>
+            <param name="args">Arguments of action</param>
+        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowActionEventArgs`3">
             <summary>
             Workflow action event arguments
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionEventArgs`3.#ctor">
-            <summary>
-            Constructor
             </summary>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowActionEventArgs`3.Manager">
@@ -267,6 +262,11 @@
         <member name="P:CMS.WorkflowEngine.WorkflowActionEventArgs`3.StopProcessing">
             <summary>
             Indicates if the process should be stopped. Process is not moved to the next step.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowActionEventArgs`3.#ctor">
+            <summary>
+            Constructor
             </summary>
         </member>
         <member name="T:CMS.WorkflowEngine.ExportSpecialActions">
@@ -339,11 +339,6 @@
             Indicates if the workflow actions should be processed asynchronously (in new thread).
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionContext.RestoreOriginalValues">
-            <summary>
-            Restores the original values to the context
-            </summary>
-        </member>
         <member name="P:CMS.WorkflowEngine.WorkflowActionContext.CheckStepPermissions">
             <summary>
             Indicates if step permissions should be checked.
@@ -364,6 +359,11 @@
             Indicates if the workflow actions should be processed asynchronously (in new thread).
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowActionContext.RestoreOriginalValues">
+            <summary>
+            Restores the original values to the context
+            </summary>
+        </member>
         <member name="T:CMS.WorkflowEngine.Factories.StepTypeDependencyInjector`1">
             <summary>
             Abstract class for creating settings containers based on step type.
@@ -373,6 +373,11 @@
         <member name="F:CMS.WorkflowEngine.Factories.StepTypeDependencyInjector`1.mFactory">
             <summary>
             Private property factory.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.Factories.StepTypeDependencyInjector`1.Factory">
+            <summary>
+            Setting property executing the creation.
             </summary>
         </member>
         <member name="M:CMS.WorkflowEngine.Factories.StepTypeDependencyInjector`1.GetSettingsObject(CMS.DataEngine.WorkflowStepTypeEnum)">
@@ -470,11 +475,6 @@
             Injects dependencies for step type default. 
             </summary>
             <returns>Generic data type</returns>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Factories.StepTypeDependencyInjector`1.Factory">
-            <summary>
-            Setting property executing the creation.
-            </summary>
         </member>
         <member name="T:CMS.WorkflowEngine.Factories.StepTypeWorkflowNode">
             <summary>
@@ -731,14 +731,66 @@
             Class handling initial values for user choice source point.
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.CaseSourcePoint.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.CaseSourcePoint.#ctor(System.Int32)">
+            <summary>
+            Constructor ensuring numbered default labels
+            </summary>
+            <param name="order">Number to be added to label</param>
+        </member>
+        <member name="T:CMS.WorkflowEngine.Definitions.ChoiceSourcePoint">
+            <summary>
+            Class handling initial values for user choice source point.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.ChoiceSourcePoint.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.ChoiceSourcePoint.#ctor(System.Int32)">
+            <summary>
+            Constructor ensuring numbered default labels
+            </summary>
+            <param name="order">Number to be added to label</param>
+        </member>
+        <member name="T:CMS.WorkflowEngine.Definitions.ConditionSourcePoint">
+            <summary>
+            Class handling initial values for condition source point.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.ConditionSourcePoint.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:CMS.WorkflowEngine.Definitions.TimeoutSourcePoint">
+            <summary>
+            Class handling initial values for timeout source point.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.TimeoutSourcePoint.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:CMS.WorkflowEngine.Definitions.ElseSourcePoint">
+            <summary>
+            Class handling initial values for else source point.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.ElseSourcePoint.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
         <member name="T:CMS.WorkflowEngine.Definitions.SourcePoint">
             <summary>
             Class to hold the workflow step source point definition.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.SourcePoint.#ctor">
-            <summary>
-            Constructor
             </summary>
         </member>
         <member name="P:CMS.WorkflowEngine.Definitions.SourcePoint.Guid">
@@ -796,61 +848,66 @@
             Indicates if all step security settings are inherited
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.CaseSourcePoint.#ctor">
+        <member name="M:CMS.WorkflowEngine.Definitions.SourcePoint.#ctor">
             <summary>
-            Default constructor
+            Constructor
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.CaseSourcePoint.#ctor(System.Int32)">
+        <member name="T:CMS.WorkflowEngine.Definitions.Step">
             <summary>
-            Constructor ensuring numbered default labels
-            </summary>
-            <param name="order">Number to be added to label</param>
-        </member>
-        <member name="T:CMS.WorkflowEngine.Definitions.ChoiceSourcePoint">
-            <summary>
-            Class handling initial values for user choice source point.
+            Class to hold the workflow step definition.
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.ChoiceSourcePoint.#ctor">
+        <member name="P:CMS.WorkflowEngine.Definitions.Step.TimeoutEnabled">
             <summary>
-            Default constructor
+            Indicates whether timeout is enabled for the step.
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.ChoiceSourcePoint.#ctor(System.Int32)">
+        <member name="P:CMS.WorkflowEngine.Definitions.Step.TimeoutInterval">
             <summary>
-            Constructor ensuring numbered default labels
-            </summary>
-            <param name="order">Number to be added to label</param>
-        </member>
-        <member name="T:CMS.WorkflowEngine.Definitions.ConditionSourcePoint">
-            <summary>
-            Class handling initial values for condition source point.
+            Timeout interval of the step
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.ConditionSourcePoint.#ctor">
+        <member name="P:CMS.WorkflowEngine.Definitions.Step.TimeoutTarget">
             <summary>
-            Default constructor
+            GUID of target transition to use after timeout
             </summary>
         </member>
-        <member name="T:CMS.WorkflowEngine.Definitions.TimeoutSourcePoint">
+        <member name="P:CMS.WorkflowEngine.Definitions.Step.SourcePoints">
             <summary>
-            Class handling initial values for timeout source point.
+            List of source points for transitions
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.TimeoutSourcePoint.#ctor">
+        <member name="P:CMS.WorkflowEngine.Definitions.Step.DefinitionPoint">
             <summary>
-            Default constructor
+            Source point with additional definitions
             </summary>
         </member>
-        <member name="T:CMS.WorkflowEngine.Definitions.ElseSourcePoint">
+        <member name="P:CMS.WorkflowEngine.Definitions.Step.Position">
             <summary>
-            Class handling initial values for else source point.
+            Position of the step
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.ElseSourcePoint.#ctor">
+        <member name="M:CMS.WorkflowEngine.Definitions.Step.#ctor">
             <summary>
-            Default constructor
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.Step.LoadData(System.String,CMS.DataEngine.WorkflowStepTypeEnum)">
+            <summary>
+            Loads data from string
+            </summary>
+            <param name="data">Xml data to load</param>
+            <param name="stepType">Step type</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.Step.GetData">
+            <summary>
+            Gets XML node representation
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.Definitions.Step.Clear">
+            <summary>
+            Clears data
             </summary>
         </member>
         <member name="T:CMS.WorkflowEngine.ProcessInstanceStatusEnum">
@@ -1018,27 +1075,6 @@
             Type information for automation action.
             </summary>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty WorkflowActionInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new WorkflowActionInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.WorkflowEngine.WorkflowActionInfo.TypeInfo">
             <summary>
             Type information.
@@ -1134,6 +1170,27 @@
             Object full name if defined
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty WorkflowActionInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowActionInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new WorkflowActionInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowActionInfoProvider">
             <summary>
             Class providing WorkflowActionInfo management.
@@ -1148,27 +1205,6 @@
             <summary>
             Returns all workflow actions.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetAllWorkflowActions">
-            <summary>
-            Returns DataSet with all workflows.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActions(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all workflow actions matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="topN">Number of records to be selected</param>        
-            <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActions(System.String,System.String)">
-            <summary>
-            Returns dataset of all workflow actions matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActionInfo(System.Int32)">
             <summary>
@@ -1223,17 +1259,6 @@
             <param name="columns">Columns to be selected</param>
             <returns>Data set with actions</returns>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clear hash tables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActionsInternal">
-            <summary>
-            Returns all workflow actions.
-            </summary>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActionsInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
             Returns dataset of all workflow actions matching the specified parameters.
@@ -1243,36 +1268,12 @@
             <param name="topN">Number of records to be selected</param>        
             <param name="columns">Columns to be selected</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActionInfoInternal(System.Int32)">
-            <summary>
-            Returns workflow action with specified ID.
-            </summary>
-            <param name="actionId">Workflow action ID</param>        
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActionInfoInternal(System.String,CMS.WorkflowEngine.WorkflowTypeEnum)">
             <summary>
             Returns workflow action with specified name.
             </summary>
             <param name="actionName">Workflow action name</param>
             <param name="type">Workflow type</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetWorkflowActionInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.SetWorkflowActionInfoInternal(CMS.WorkflowEngine.WorkflowActionInfo)">
-            <summary>
-            Sets (updates or inserts) specified workflow action.
-            </summary>
-            <param name="actionObj">Workflow action to be set</param>        
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.DeleteWorkflowActionInfoInternal(CMS.WorkflowEngine.WorkflowActionInfo)">
-            <summary>
-            Deletes specified workflow action.
-            </summary>
-            <param name="actionObj">Workflow action to be deleted</param>        
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowActionInfoProvider.GetFullNameDictionary">
             <summary>
@@ -1300,6 +1301,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowUserInfo.WorkflowID">
+            <summary>
+            Workflow ID.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowUserInfo.UserID">
+            <summary>
+            User ID.
+            </summary>
+        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowUserInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -1318,16 +1329,6 @@
         <member name="M:CMS.WorkflowEngine.WorkflowUserInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new WorkflowUserInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowUserInfo.WorkflowID">
-            <summary>
-            Workflow ID.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowUserInfo.UserID">
-            <summary>
-            User ID.
             </summary>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowUserInfoProvider">
@@ -1382,11 +1383,6 @@
             <param name="topN">Number of items that should be returned (all if 0)</param>
             <param name="columns">Column names</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowUserInfoProvider.GetWorkflowUsersInternal">
-            <summary>
-            Returns all workflow users.
-            </summary>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowUserInfoProvider.GetWorkflowUserInfoInternal(System.Int32,System.Int32)">
             <summary>
             Returns the WorkflowUserInfo structure for the specified workflowUser.
@@ -1403,18 +1399,6 @@
             <param name="topN">Number of items that should be returned (all if 0)</param>
             <param name="columns">Column names</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowUserInfoProvider.SetWorkflowUserInfoInternal(CMS.WorkflowEngine.WorkflowUserInfo)">
-            <summary>
-            Sets (updates or inserts) specified workflowUser.
-            </summary>
-            <param name="workflowUser">WorkflowUser to set</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowUserInfoProvider.DeleteWorkflowUserInfoInternal(CMS.WorkflowEngine.WorkflowUserInfo)">
-            <summary>
-            Deletes specified workflowUser.
-            </summary>
-            <param name="workflowUser">WorkflowUser object</param>
-        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowStepUserInfo">
             <summary>
             WorkflowStepUserInfo data container class.
@@ -1428,6 +1412,26 @@
         <member name="F:CMS.WorkflowEngine.WorkflowStepUserInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.WorkflowStepUserID">
+            <summary>
+            WorkflowStepUser ID.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.StepID">
+            <summary>
+            Step ID.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.UserID">
+            <summary>
+            User ID.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.StepSourcePointGUID">
+            <summary>
+            Step source point GUID.
             </summary>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepUserInfo.DeleteObject">
@@ -1459,26 +1463,6 @@
         <member name="M:CMS.WorkflowEngine.WorkflowStepUserInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new WorkflowStepUserInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.WorkflowStepUserID">
-            <summary>
-            WorkflowStepUser ID.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.StepID">
-            <summary>
-            Step ID.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.UserID">
-            <summary>
-            User ID.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepUserInfo.StepSourcePointGUID">
-            <summary>
-            Step source point GUID.
             </summary>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowStepUserInfoProvider">
@@ -1557,11 +1541,6 @@
             <param name="topN">Number of items that should be returned (all if 0)</param>
             <param name="columns">Column names</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepUserInfoProvider.GetWorkflowStepUsersInternal">
-            <summary>
-            Returns workflow step users.
-            </summary>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepUserInfoProvider.GetWorkflowStepUserInfoInternal(System.Int32,System.Int32,System.Guid)">
             <summary>
             Returns the WorkflowStepUserInfo structure for the specified workflowStepUser.
@@ -1579,18 +1558,6 @@
             <param name="topN">Number of items that should be returned (all if 0)</param>
             <param name="columns">Column names</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepUserInfoProvider.SetWorkflowStepUserInfoInternal(CMS.WorkflowEngine.WorkflowStepUserInfo)">
-            <summary>
-            Sets (updates or inserts) specified workflowStepUser.
-            </summary>
-            <param name="workflowStepUser">WorkflowStepUser to set</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepUserInfoProvider.DeleteWorkflowStepUserInfoInternal(CMS.WorkflowEngine.WorkflowStepUserInfo)">
-            <summary>
-            Deletes specified workflowStepUser.
-            </summary>
-            <param name="workflowStepUser">WorkflowStepUser object</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepUserInfoProvider.DeleteWorkflowStepUserInfos(CMS.DataEngine.IWhereCondition)">
             <summary>
             Deletes the workflow step users in the database based on the given where condition.
@@ -1606,12 +1573,6 @@
             <summary>
             Class for workflow e-mail sending settings.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowEmailSettings.#ctor(CMS.Membership.UserInfo)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="user">User</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowEmailSettings.Resolver">
             <summary>
@@ -1663,6 +1624,12 @@
             Indicates if errors should be logged to event log
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowEmailSettings.#ctor(CMS.Membership.UserInfo)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="user">User</param>
+        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowTransitionTypeEnum">
             <summary>
             Workflow transition type enumeration.
@@ -1692,32 +1659,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.GetExistingWhereCondition">
-            <summary>
-            Returns the existing object based on current object data.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty WorkflowTransitionInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new WorkflowTransitionInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowTransitionInfo.TransitionID">
             <summary>
@@ -1758,6 +1699,32 @@
             <summary>
             Start point definition of the transition (dynamically loaded)
             </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.GetExistingWhereCondition">
+            <summary>
+            Returns the existing object based on current object data.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty WorkflowTransitionInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new WorkflowTransitionInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowTransitionInfoProvider">
             <summary>
@@ -1836,12 +1803,6 @@
             </summary>
             <param name="transitionId">Workflow transition ID.</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged.</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.GetStepTransitions(CMS.WorkflowEngine.WorkflowStepInfo,System.String)">
             <summary>
             Gets workflow step transitions
@@ -1856,11 +1817,6 @@
             <param name="where">Where condition for selection all transitions to be updated.</param>
             <param name="endStepID">Desired transition end step ID</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.GetWorkflowTransitionsInternal">
-            <summary>
-            Returns all workflow transitions.
-            </summary>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.GetWorkflowTransitionsInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
             Returns dataset of all workflow transitions matching the specified parameters.
@@ -1870,29 +1826,11 @@
             <param name="topN">Number of records to be selected.</param>        
             <param name="columns">Columns to be selected.</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.GetWorkflowTransitionInfoInternal(System.Int32)">
+        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.SetInfo(CMS.WorkflowEngine.WorkflowTransitionInfo)">
             <summary>
-            Returns workflow transition with specified ID.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="transitionId">Workflow transition ID.</param>        
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.GetWorkflowTransitionInfoInternal(System.Guid)">
-            <summary>
-            Returns workflow transition with specified GUID.
-            </summary>
-            <param name="transitionGuid">Workflow transition GUID.</param>                                 
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.SetWorkflowTransitionInfoInternal(CMS.WorkflowEngine.WorkflowTransitionInfo)">
-            <summary>
-            Sets (updates or inserts) specified workflow transition.
-            </summary>
-            <param name="transitionObj">Workflow transition to be set.</param>        
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.DeleteWorkflowTransitionInfoInternal(CMS.WorkflowEngine.WorkflowTransitionInfo)">
-            <summary>
-            Deletes specified workflow transition.
-            </summary>
-            <param name="transitionObj">Workflow transition to be deleted.</param>        
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowTransitionInfoProvider.DeleteWorkflowTransitionInfos(CMS.DataEngine.IWhereCondition)">
             <summary>
@@ -1974,6 +1912,11 @@
             Action status - running action
             </summary>
         </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowHelper.MaxStepsHopsCount">
+            <summary>
+            Maximum number of allowed step hops (to prevent endless cycles)
+            </summary>
+        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHelper.GetResolverName(CMS.WorkflowEngine.WorkflowInfo)">
             <summary>
             Gets macro resolver name for given workflow
@@ -2035,22 +1978,10 @@
             </summary>
             <param name="processStatus">Process status</param>
         </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowHelper.MaxStepsHopsCount">
-            <summary>
-            Maximum number of allowed step hops (to prevent endless cycles)
-            </summary>
-        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowLogSettings">
             <summary>
             Class for workflow history log settings.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowLogSettings.#ctor(System.String,System.Int32)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="objectType">Object type</param>
-            <param name="objectId">Object ID</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowLogSettings.VersionHistoryId">
             <summary>
@@ -2102,6 +2033,13 @@
             Transition type
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowLogSettings.#ctor(System.String,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="objectType">Object type</param>
+            <param name="objectId">Object ID</param>
+        </member>
         <member name="T:CMS.WorkflowEngine.AbstractWorkflowManager`3">
             <summary>
             Abstract class for managing the workflow procedure.
@@ -2125,6 +2063,41 @@
         <member name="F:CMS.WorkflowEngine.AbstractWorkflowManager`3.mCheckStepPermissions">
             <summary>
             Indicates if step permissions should be checked when the step is moved.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.CheckPermissions">
+            <summary>
+            Indicates if step permissions should be checked when the step is moved.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.EventLogSource">
+            <summary>
+            Event log source name.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.MacroResolver">
+            <summary>
+            Macro resolver instance.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.SendEmails">
+            <summary>
+            Indicates if notification e-mails should be sent
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.SendEmailToModerator">
+            <summary>
+            Returns whether the e-mails should be sent to the current moderator (reflects the CMSWorkflowSendEmailToModerator web.config settings).
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.ApplicationUrl">
+            <summary>
+            Application URL for macro resolver
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.CurrentHops">
+            <summary>
+            Number of currently processed hops
             </summary>
         </member>
         <member name="M:CMS.WorkflowEngine.AbstractWorkflowManager`3.#cctor">
@@ -2416,41 +2389,6 @@
             <param name="step">Workflow step</param>
             <param name="where">Where condition</param>
         </member>
-        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.CheckPermissions">
-            <summary>
-            Indicates if step permissions should be checked when the step is moved.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.EventLogSource">
-            <summary>
-            Event log source name.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.MacroResolver">
-            <summary>
-            Macro resolver instance.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.SendEmails">
-            <summary>
-            Indicates if notification e-mails should be sent
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.SendEmailToModerator">
-            <summary>
-            Returns whether the e-mails should be sent to the current moderator (reflects the CMSWorkflowSendEmailToModerator web.config settings).
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.ApplicationUrl">
-            <summary>
-            Application URL for macro resolver
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.AbstractWorkflowManager`3.CurrentHops">
-            <summary>
-            Number of currently processed hops
-            </summary>
-        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowModule">
             <summary>
             Represents the Workflow module.
@@ -2510,36 +2448,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty WorkflowInfo structure.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates the WorkflowInfo object from the given DataRow data.
-            </summary>
-            <param name="dr">Datarow with the workflow info data</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowHistoryInfo.WorkflowHistoryID">
             <summary>
@@ -2636,6 +2544,36 @@
             Type of the transition.
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty WorkflowInfo structure.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates the WorkflowInfo object from the given DataRow data.
+            </summary>
+            <param name="dr">Datarow with the workflow info data</param>
+        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowActionEnum">
             <summary>
             Workflow action enumeration.
@@ -2683,125 +2621,61 @@
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetWorkflowHistoryInfo(System.Int32)">
             <summary>
-            Returns the WorkflowHistoryInfo structure for the specified workflowHistory.
+            Returns the WorkflowHistoryInfo structure for the specified workflow history.
             </summary>
-            <param name="workflowHistoryId">WorkflowHistory ID</param>
+            <param name="workflowHistoryId">History ID.</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.SetWorkflowHistoryInfo(CMS.WorkflowEngine.WorkflowHistoryInfo)">
             <summary>
-            Sets (updates or inserts) specified workflowHistory.
+            Sets (updates or inserts) specified workflow history.
             </summary>
-            <param name="workflowHistory">WorkflowHistory to set</param>
+            <param name="workflowHistory">History to set.</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.DeleteWorkflowHistoryInfo(CMS.WorkflowEngine.WorkflowHistoryInfo)">
             <summary>
-            Deletes specified workflowHistory.
+            Deletes specified workflow history.
             </summary>
-            <param name="workflowHistory">WorkflowHistory object</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetWorkflowHistories(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all workflow histories.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
+            <param name="workflowHistory">History to delete.</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetLastApprovalActionFromStep(System.Int32,System.String,System.Int32)">
             <summary>
-            Gets last approval action from given step
+            Gets last approval action from given step.
             </summary>
-            <param name="stepId">Step ID</param>
-            <param name="objectType">Object type</param>
-            <param name="objectId">Object ID</param>
+            <param name="stepId">Step ID.</param>
+            <param name="objectType">Object type.</param>
+            <param name="objectId">Object ID.</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetLastApprovalActionToStep(System.Int32,System.String,System.Int32)">
             <summary>
-            Gets last approval action to given step
+            Gets last approval action to given step for advanced workflow only.
             </summary>
-            <param name="stepId">Step ID</param>
-            <param name="objectType">Object type</param>
-            <param name="objectId">Object ID</param>
+            <param name="stepId">Step ID.</param>
+            <param name="objectType">Object type.</param>
+            <param name="objectId">Object ID.</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetLastApprovalActionFromFirstStep(System.String,System.Int32)">
             <summary>
-            Gets last approval action from first step
+            Gets last approval action from first step for advanced workflow only.
             </summary>
-            <param name="objectType">Object type</param>
-            <param name="objectId">Object ID</param>
+            <param name="objectType">Object type.</param>
+            <param name="objectId">Object ID.</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.ChangeDocument(System.Int32,System.Int32)">
             <summary>
-            Changes document ID for workflow histories
+            Changes document ID for workflow histories.
             </summary>
-            <param name="originalDocumentId">Original document ID</param>
-            <param name="newDocumentId">New document ID</param>
+            <param name="originalDocumentId">Original document ID.</param>
+            <param name="newDocumentId">New document ID.</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.MarkRejected(System.Int32,System.Int32,System.Int32,System.String,System.Int32)">
             <summary>
             Marks workflow histories as used when rejecting to specific step.
             </summary>
-            <param name="startHistoryId">Start history ID</param>
-            <param name="endHistoryId">End history ID</param>
-            <param name="workflowId">Workflow ID</param>
-            <param name="objectType">Object type</param>
-            <param name="objectId">Object ID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetWorkflowHistoriesInternal">
-            <summary>
-            Returns all workflow historiess.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetWorkflowHistoryInfoInternal(System.Int32)">
-            <summary>
-            Returns the WorkflowHistoryInfo structure for the specified workflowHistory.
-            </summary>
-            <param name="workflowHistoryId">WorkflowHistory ID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.SetWorkflowHistoryInfoInternal(CMS.WorkflowEngine.WorkflowHistoryInfo)">
-            <summary>
-            Sets (updates or inserts) specified workflowHistory.
-            </summary>
-            <param name="workflowHistory">WorkflowHistory to set</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.DeleteWorkflowHistoryInfoInternal(CMS.WorkflowEngine.WorkflowHistoryInfo)">
-            <summary>
-            Deletes specified workflowHistory.
-            </summary>
-            <param name="workflowHistory">WorkflowHistory object</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetWorkflowHistoriesInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all workflow histories.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetLastApprovalActionInternal(System.Int32,System.String,System.Int32,System.Boolean)">
-            <summary>
-            Gets last approval action to/from given step
-            </summary>
-            <param name="stepId">Step ID</param>
-            <param name="objectType">Object type</param>
-            <param name="objectId">Object ID</param>
-            <param name="startStep">Indicates if given step is start step</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.GetLastApprovalActionFromFirstStepInternal(System.String,System.Int32)">
-            <summary>
-            Gets last approval action from first step
-            </summary>
-            <param name="objectType">Object type</param>
-            <param name="objectId">Object ID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowHistoryInfoProvider.ChangeDocumentInternal(System.Int32,System.Int32)">
-            <summary>
-            Changes document ID for workflow histories
-            </summary>
-            <param name="originalDocumentId">Original document ID</param>
-            <param name="newDocumentId">New document ID</param>
+            <param name="startHistoryId">Start history ID.</param>
+            <param name="endHistoryId">End history ID.</param>
+            <param name="workflowId">Workflow ID.</param>
+            <param name="objectType">Object type.</param>
+            <param name="objectId">Object ID.</param>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowInfo">
             <summary>
@@ -2827,68 +2701,6 @@
             <summary>
             Type information for automation process.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty WorkflowInfo structure.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates the WorkflowInfo object from the given DataRow data.
-            </summary>
-            <param name="dr">Datarow with the workflow info data</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Clones workflow transitions objects (has to be done after the whole process because it needs the steps already created).
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.RegisterProperties">
-            <summary>
-            Registers the properties of this object
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.UseCheckInCheckOut(System.String)">
-            <summary>
-            Indicates if current workflow uses check-in/check-out functionality
-            </summary>
-            <param name="siteName">Site name</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.SendEmails(System.String,CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
-            <summary>
-            Indicates if notification e-mails should be sent for current workflow
-            </summary>
-            <param name="siteName">Site name</param>
-            <param name="emailType">Type of workflow e-mail</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfo.GetEmailTemplateName(CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
-            <summary>
-            Gets e-mail template to be used.
-            </summary>
-            <param name="emailType">Type of workflow e-mail</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowInfo.WorkflowName">
             <summary>
@@ -3015,6 +2827,25 @@
             Type information.
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="P:CMS.WorkflowEngine.WorkflowInfo.IsDocumentWorkflow">
             <summary>
             Indicates if workflow is document approval workflow
@@ -3039,6 +2870,54 @@
             <summary>
             Indicates if workflow is automation workflow
             </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty WorkflowInfo structure.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates the WorkflowInfo object from the given DataRow data.
+            </summary>
+            <param name="dr">Datarow with the workflow info data</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Clones workflow transitions objects (has to be done after the whole process because it needs the steps already created).
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.RegisterProperties">
+            <summary>
+            Registers the properties of this object
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.LoadDefaultData">
+            <summary>
+            Loads the default data to the object.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.UseCheckInCheckOut(System.String)">
+            <summary>
+            Indicates if current workflow uses check-in/check-out functionality
+            </summary>
+            <param name="siteName">Site name</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.SendEmails(System.String,CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
+            <summary>
+            Indicates if notification e-mails should be sent for current workflow
+            </summary>
+            <param name="siteName">Site name</param>
+            <param name="emailType">Type of workflow e-mail</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowInfo.GetEmailTemplateName(CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
+            <summary>
+            Gets e-mail template to be used.
+            </summary>
+            <param name="emailType">Type of workflow e-mail</param>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowInfoProvider">
             <summary>
@@ -3098,22 +2977,6 @@
             </summary>
             <param name="workflowId">Workflow ID to delete</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.GetAllWorkflows">
-            <summary>
-            Returns DataSet with all workflows.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clear hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.RemoveFromHash(System.String)">
-            <summary>
-            Remove from hash table.
-            </summary>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.CheckDependencies(System.Int32)">
             <summary>
             Check dependencies, return true if is depend.
@@ -3126,15 +2989,6 @@
             </summary>
             <param name="workflowId">Workflow ID</param>
             <param name="documentNames">List of document names which use given workflow</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.GetWorkflows(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all workflows.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.IsCustomStepAllowed">
             <summary>
@@ -3166,17 +3020,6 @@
             </summary>
             <param name="workflowId">workflow ID</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.GetWorkflowsInternal">
-            <summary>
-            Returns all workflows.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.SetWorkflowInfoInternal(CMS.WorkflowEngine.WorkflowInfo)">
-            <summary>
-            Sets the specified workflow data.
-            </summary>
-            <param name="infoObj">Workflow data object</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.GetWorkflowInfoInternal(System.String,CMS.WorkflowEngine.WorkflowTypeEnum)">
             <summary>
             Returns the WorkflowInfo structure of specified type for the specified workflow name.
@@ -3184,32 +3027,11 @@
             <param name="workflowName">Workflow name to use for retrieving the data</param>
             <param name="type">Workflow type</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.GetWorkflowInfoInternal(System.Int32)">
+        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.DeleteInfo(CMS.WorkflowEngine.WorkflowInfo)">
             <summary>
-            Returns the WorkflowInfo structure for the specified workflow ID.
+            Deletes the object to the database.
             </summary>
-            <param name="workflowId">ID of the workflow to retrieve</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.GetWorkflowInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.DeleteWorkflowInfoInternal(CMS.WorkflowEngine.WorkflowInfo)">
-            <summary>
-            Deletes the specified workflow.
-            </summary>
-            <param name="wi">Workflow object to delete</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.GetWorkflowsInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all workflows.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowInfoProvider.ConvertToAdvancedWorkflowInternal(System.Int32)">
             <summary>
@@ -3242,50 +3064,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.UpdateData">
-            <summary>
-            Updates the object.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.InsertData">
-            <summary>
-            Inserts the object.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.DeleteData">
-            <summary>
-            Deletes the object.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty WorkflowScopeInfo structure.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates the WorkflowScopeInfo object from the given DataRow data.
-            </summary>
-            <param name="dr">Datarow with the workflow scope info data</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowScopeInfo.ScopeMacroCondition">
             <summary>
@@ -3341,6 +3119,50 @@
             <summary>
             Indicates if the scope is used to exclude the workflow.
             </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.UpdateData">
+            <summary>
+            Updates the object.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.InsertData">
+            <summary>
+            Inserts the object.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.DeleteData">
+            <summary>
+            Deletes the object.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty WorkflowScopeInfo structure.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates the WorkflowScopeInfo object from the given DataRow data.
+            </summary>
+            <param name="dr">Datarow with the workflow scope info data</param>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowScopeInfoProvider">
             <summary>
@@ -3417,51 +3239,11 @@
             </summary>
             <param name="wfsi">Scope info to check</param>        
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfoProvider.GetWorkflowScopesInternal">
-            <summary>
-            Returns all workflow scopes.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfoProvider.GetWorkflowScopeInfoInternal(System.Guid,System.Int32)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-            <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfoProvider.SetWorkflowScopeInfoInternal(CMS.WorkflowEngine.WorkflowScopeInfo)">
-            <summary>
-            Sets the specified workflow scope data.
-            </summary>
-            <param name="infoObj">Workflow scope data object</param>
-            <exception cref="T:System.Exception">Throws exception if license limitation are not fulfilled</exception>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfoProvider.GetWorkflowScopeInfoInternal(System.Int32)">
-            <summary>
-            Returns the WorkflowScopeInfo structure for the specified workflow scope ID.
-            </summary>
-            <param name="scopeId">ID of the workflow scope to retrieve</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfoProvider.DeleteWorkflowScopeInfoInternal(CMS.WorkflowEngine.WorkflowScopeInfo)">
-            <summary>
-            Deletes the specified workflow scope.
-            </summary>
-            <param name="wsi">Workflow scope object to delete</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowScopeInfoProvider.DeleteWorkflowScopesInternal(System.Int32)">
             <summary>
             Deletes the scopes of specified workflow.
             </summary>
             <param name="workflowId">Workflow ID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowScopeInfoProvider.GetWorkflowScopesInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all workflow scopes.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowStepInfo">
             <summary>
@@ -3487,155 +3269,6 @@
             <summary>
             Type information for automation step.
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Clones workflow transitions objects (has to be done after the whole process because it needs the steps already created).
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetSiblingsWhereCondition">
-            <summary>
-            Creates where condition according to Parent, Group and Site settings.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetLastObjectOrder(System.String)">
-            <summary>
-            Returns number which will be the last order within all the other items (according to Parent, Group and Site settings).
-            I.e. returns largest existing order + 1.
-            </summary>
-            <param name="orderColumn">Name of the order column. If null, OrderColumn from TypeInfo is taken</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.InitObjectsOrderPostprocessing">
-            <summary>
-            Method called after the InitObjectOrder method is called. Override this to do further actions after order initialization. Does nothing by default.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.RegisterProperties">
-            <summary>
-            Registers the properties of this object
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty WorkflowStepInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new WorkflowStepInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the data</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.#ctor(CMS.WorkflowEngine.WorkflowStepInfo,System.Boolean)">
-            <summary>
-            Constructor - Creates a new WorkflowStepInfo object from the given DataClass.
-            </summary>
-            <param name="si">Source site info</param>
-            <param name="keepSourceData">If true, source data are kept</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.LoadDefaultData">
-            <summary>
-            Loads the default object data
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.TryGetValue(System.String,System.Object@)">
-            <summary>
-            Returns value of column.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">Returns the value</param>
-            <returns>Returns true if the operation was successful (the value was present)</returns>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.SetValue(System.String,System.Object)">
-            <summary>
-            Sets value of the specified node column.
-            </summary>
-            <param name="columnName">Column name</param>
-            <param name="value">Value</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.SendEmails(System.String,CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
-            <summary>
-            Indicates if notification e-mails should be sent when moving to this step
-            </summary>
-            <param name="siteName">Site name</param>
-            <param name="emailType">Type of workflow e-mail</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetEmailTemplateName(CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
-            <summary>
-            Gets e-mail template to be used.
-            </summary>
-            <param name="emailType">Type of workflow e-mail</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetStepConnectionType(System.Guid)">
-            <summary>
-            Returns default transition type for transitions starting in this step.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.ConnectTo(System.Guid,CMS.WorkflowEngine.WorkflowStepInfo)">
-            <summary>
-            Connects step with target step.
-            </summary>
-            <param name="sourcePoint">Start step source point</param>
-            <param name="targetStep">Target step</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.EnsureDefaultDefinition">
-            <summary>
-            Ensures default step definition
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetSourcePoint(System.Guid)">
-            <summary>
-            Gets source point
-            </summary>
-            <param name="sourcePointGuid">Source point GUID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.AddSourcePoint">
-            <summary>
-            Adds source point with default definition.
-            </summary>
-            <returns>Potential error message</returns>
-            <remarks>Throws exception if database operation fails.</remarks>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.AddSourcePoint(CMS.WorkflowEngine.Definitions.SourcePoint)">
-            <summary>
-            Adds source point.
-            </summary>
-            <param name="sourcePoint">Source point to be added</param>
-            <returns>Potential error message</returns>
-            <remarks>Throws exception if database operation fails.</remarks>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.RemoveSourcePoint(System.Guid)">
-            <summary>
-            Removes specified source point.
-            </summary>
-            <param name="sourcePointGuid">Source point GUID</param>
-            <returns>Potential error message</returns>
-            <remarks>Throws exception if database operation fails.</remarks>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.MoveSourcePointUp(System.Guid)">
-            <summary>
-            Moves source point up.
-            </summary>
-            <param name="sourcePointGuid">Source point GUID</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.MoveSourcePointDown(System.Guid)">
-            <summary>
-            Moves source point down.
-            </summary>
-            <param name="sourcePointGuid">Source point GUID</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowStepInfo.StepName">
             <summary>
@@ -3749,12 +3382,12 @@
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowStepInfo.RelatedTransition">
             <summary>
-            Related transition which leads to this step (This property is initialized only when deciding the next steps)
+            Related transition which leads to this step. (This property is initialized only when deciding the next steps.)
             </summary>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowStepInfo.RelatedHistoryID">
             <summary>
-            Related workflow history ID to which the step belong to (This property is initialized only when deciding the previous steps)
+            Related workflow history ID to which the step belongs to in context of reject action. (This property is initialized only when deciding the previous steps.)
             </summary>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowStepInfo.StepFullName">
@@ -3846,6 +3479,148 @@
             <summary>
             Type information.
             </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Clones workflow transitions objects (has to be done after the whole process because it needs the steps already created).
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetSiblingsWhereCondition">
+            <summary>
+            Creates where condition according to Parent, Group and Site settings.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetLastObjectOrder(System.String)">
+            <summary>
+            Returns number which will be the last order within all the other items (according to Parent, Group and Site settings).
+            I.e. returns largest existing order + 1.
+            </summary>
+            <param name="orderColumn">Name of the order column. If null, OrderColumn from TypeInfo is taken</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.InitObjectsOrderPostprocessing">
+            <summary>
+            Method called after the InitObjectOrder method is called. Override this to do further actions after order initialization. Does nothing by default.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.RegisterProperties">
+            <summary>
+            Registers the properties of this object
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty WorkflowStepInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new WorkflowStepInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the data</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.LoadDefaultData">
+            <summary>
+            Loads the default object data
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.TryGetValue(System.String,System.Object@)">
+            <summary>
+            Returns value of column.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">Returns the value</param>
+            <returns>Returns true if the operation was successful (the value was present)</returns>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.SetValue(System.String,System.Object)">
+            <summary>
+            Sets value of the specified node column.
+            </summary>
+            <param name="columnName">Column name</param>
+            <param name="value">Value</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.SendEmails(System.String,CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
+            <summary>
+            Indicates if notification e-mails should be sent when moving to this step
+            </summary>
+            <param name="siteName">Site name</param>
+            <param name="emailType">Type of workflow e-mail</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetEmailTemplateName(CMS.WorkflowEngine.WorkflowEmailTypeEnum)">
+            <summary>
+            Gets e-mail template to be used.
+            </summary>
+            <param name="emailType">Type of workflow e-mail</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetStepConnectionType(System.Guid)">
+            <summary>
+            Returns default transition type for transitions starting in this step.
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.ConnectTo(System.Guid,CMS.WorkflowEngine.WorkflowStepInfo)">
+            <summary>
+            Connects step with target step.
+            </summary>
+            <param name="sourcePoint">Start step source point</param>
+            <param name="targetStep">Target step</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.EnsureDefaultDefinition">
+            <summary>
+            Ensures default step definition
+            </summary>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.GetSourcePoint(System.Guid)">
+            <summary>
+            Gets source point
+            </summary>
+            <param name="sourcePointGuid">Source point GUID</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.AddSourcePoint">
+            <summary>
+            Adds source point with default definition.
+            </summary>
+            <returns>Potential error message</returns>
+            <remarks>Throws exception if database operation fails.</remarks>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.AddSourcePoint(CMS.WorkflowEngine.Definitions.SourcePoint)">
+            <summary>
+            Adds source point.
+            </summary>
+            <param name="sourcePoint">Source point to be added</param>
+            <returns>Potential error message</returns>
+            <remarks>Throws exception if database operation fails.</remarks>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.RemoveSourcePoint(System.Guid)">
+            <summary>
+            Removes specified source point.
+            </summary>
+            <param name="sourcePointGuid">Source point GUID</param>
+            <returns>Potential error message</returns>
+            <remarks>Throws exception if database operation fails.</remarks>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.MoveSourcePointUp(System.Guid)">
+            <summary>
+            Moves source point up.
+            </summary>
+            <param name="sourcePointGuid">Source point GUID</param>
+        </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfo.MoveSourcePointDown(System.Guid)">
+            <summary>
+            Moves source point down.
+            </summary>
+            <param name="sourcePointGuid">Source point GUID</param>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowStepInfoProvider">
             <summary>
@@ -3971,12 +3746,6 @@
             </summary>
             <param name="workflowId">Workflow ID</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clear hashtables.
-            </summary>
-            <param name="logTask">Log web farm tasks for this action</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.LicenseVersionCheck(CMS.WorkflowEngine.WorkflowStepInfo)">
             <summary>
             Checks if WorkFlowStep fulfill license limitations.
@@ -4069,49 +3838,24 @@
             <param name="startStep">Start step</param>
             <param name="sourcePointGuid">Start step source point GUID</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.GetWorkflowStepsInternal">
-            <summary>
-            Returns the query for all workflow steps.
-            </summary>        
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.GetWorkflowStepInfoInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.SetWorkflowStepInfoInternal(CMS.WorkflowEngine.WorkflowStepInfo)">
             <summary>
             Sets the specified workflow step data.
             </summary>
             <param name="infoObj">Workflow step data object</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.GetWorkflowStepInfoInternal(System.Int32)">
-            <summary>
-            Returns the WorkflowStepInfo structure for the specified workflow step ID.
-            </summary>
-            <param name="stepId">ID of the workflow step to retrieve</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.GetWorkflowStepInfoInternal(System.String,System.Int32,System.Boolean)">
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.GetWorkflowStepInfoInternal(System.String,System.Int32)">
             <summary>
             Returns the WorkflowStepInfo structure for the specified workflow step name and workflow.
             </summary>
             <param name="stepName">Step name to retrieve</param>
             <param name="workflowId">Workflow id of the step</param>
-            <param name="useHashtable">If true, the object is taken through the hashtable</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.GetWorkflowStepInfoInternal(System.String,System.Int32)">
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.DeleteInfo(CMS.WorkflowEngine.WorkflowStepInfo)">
             <summary>
-            Returns the WorkflowStepInfo structure for the specified workflow step name and workflow from database.
+            Deletes the object to the database.
             </summary>
-            <param name="stepName">Step name to retrieve</param>
-            <param name="workflowId">Workflow ID of the step</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.DeleteWorkflowStepInfoInternal(CMS.WorkflowEngine.WorkflowStepInfo)">
-            <summary>
-            Deletes the specified workflow step.
-            </summary>
-            <param name="wsi">Workflow step object to delete</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.InitStepOrdersInternal(CMS.WorkflowEngine.WorkflowInfo)">
             <summary>
@@ -4267,24 +4011,6 @@
             <param name="sourcePointGuid">Source point GUID</param>
             <param name="siteId">Site ID</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.RegisterObjectInHashtables(CMS.WorkflowEngine.WorkflowStepInfo)">
-            <summary>
-            Registers the object instance within the hashtables.
-            </summary>
-            <param name="infoObj">Object to register</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.DeleteObjectFromHashtables(CMS.WorkflowEngine.WorkflowStepInfo)">
-            <summary>
-            Removes the object instance from the hashtables.
-            </summary>
-            <param name="infoObj">Object to remove</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.UpdateObjectInHashtables(CMS.WorkflowEngine.WorkflowStepInfo)">
-            <summary>
-            Updates the object instance in the hashtables.
-            </summary>
-            <param name="infoObj">Object to update</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.ConnectStepsInternal(CMS.WorkflowEngine.WorkflowStepInfo,System.Guid,CMS.WorkflowEngine.WorkflowStepInfo)">
             <summary>
             Connects two steps.
@@ -4304,13 +4030,6 @@
             <summary>
             Class for evaluation security settings
             </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.SecuritySettings.#ctor(CMS.WorkflowEngine.WorkflowStepInfo,CMS.WorkflowEngine.Definitions.SourcePoint)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="step">Workflow step</param>
-            <param name="sourcePoint">Source point</param>
         </member>
         <member name="P:CMS.WorkflowEngine.WorkflowStepInfoProvider.SecuritySettings.Step">
             <summary>
@@ -4352,6 +4071,13 @@
             Indicates if roles should be evaluated if users match (AND operator)
             </summary>
         </member>
+        <member name="M:CMS.WorkflowEngine.WorkflowStepInfoProvider.SecuritySettings.#ctor(CMS.WorkflowEngine.WorkflowStepInfo,CMS.WorkflowEngine.Definitions.SourcePoint)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="step">Workflow step</param>
+            <param name="sourcePoint">Source point</param>
+        </member>
         <member name="T:CMS.WorkflowEngine.WorkflowStepRoleInfo">
             <summary>
             WorkflowStepRoleInfo data container class.
@@ -4365,6 +4091,26 @@
         <member name="F:CMS.WorkflowEngine.WorkflowStepRoleInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.WorkflowStepRoleID">
+            <summary>
+            WorkflowStepRole ID.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.StepID">
+            <summary>
+            Step ID.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.RoleID">
+            <summary>
+            Role ID.
+            </summary>
+        </member>
+        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.StepSourcePointGUID">
+            <summary>
+            Step source point GUID.
             </summary>
         </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepRoleInfo.DeleteObject">
@@ -4396,26 +4142,6 @@
         <member name="M:CMS.WorkflowEngine.WorkflowStepRoleInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new WorkflowStepRoleInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.WorkflowStepRoleID">
-            <summary>
-            WorkflowStepRole ID.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.StepID">
-            <summary>
-            Step ID.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.RoleID">
-            <summary>
-            Role ID.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.WorkflowStepRoleInfo.StepSourcePointGUID">
-            <summary>
-            Step source point GUID.
             </summary>
         </member>
         <member name="T:CMS.WorkflowEngine.WorkflowStepRoleInfoProvider">
@@ -4494,11 +4220,6 @@
             <param name="topN">Number of items that should be returned (all if 0)</param>
             <param name="columns">Column names</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepRoleInfoProvider.GetWorkflowStepRolesInternal">
-            <summary>
-            Returns workflow step roles.
-            </summary>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepRoleInfoProvider.GetWorkflowStepRoleInfoInternal(System.Int32,System.Int32,System.Guid)">
             <summary>
             Returns the WorkflowStepRoleInfo structure for the specified workflowStepRole.
@@ -4516,80 +4237,11 @@
             <param name="topN">Number of items that should be returned (all if 0)</param>
             <param name="columns">Column names</param>
         </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepRoleInfoProvider.SetWorkflowStepRoleInfoInternal(CMS.WorkflowEngine.WorkflowStepRoleInfo)">
-            <summary>
-            Sets (updates or inserts) specified workflowStepRole.
-            </summary>
-            <param name="workflowStepRole">WorkflowStepRole to set</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.WorkflowStepRoleInfoProvider.DeleteWorkflowStepRoleInfoInternal(CMS.WorkflowEngine.WorkflowStepRoleInfo)">
-            <summary>
-            Deletes specified workflowStepRole.
-            </summary>
-            <param name="workflowStepRole">WorkflowStepRole object</param>
-        </member>
         <member name="M:CMS.WorkflowEngine.WorkflowStepRoleInfoProvider.DeleteWorkflowStepRoleInfos(CMS.DataEngine.IWhereCondition)">
             <summary>
             Deletes the workflow step roles in the database based on the given where condition.
             </summary>
             <param name="where">Where condition to filter data</param>
-        </member>
-        <member name="T:CMS.WorkflowEngine.Definitions.Step">
-            <summary>
-            Class to hold the workflow step definition.
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.Step.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.Step.LoadData(System.String,CMS.DataEngine.WorkflowStepTypeEnum)">
-            <summary>
-            Loads data from string
-            </summary>
-            <param name="data">Xml data to load</param>
-            <param name="stepType">Step type</param>
-        </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.Step.GetData">
-            <summary>
-            Gets XML node representation
-            </summary>
-        </member>
-        <member name="M:CMS.WorkflowEngine.Definitions.Step.Clear">
-            <summary>
-            Clears data
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Definitions.Step.TimeoutEnabled">
-            <summary>
-            Indicates whether timeout is enabled for the step.
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Definitions.Step.TimeoutInterval">
-            <summary>
-            Timeout interval of the step
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Definitions.Step.TimeoutTarget">
-            <summary>
-            GUID of target transition to use after timeout
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Definitions.Step.SourcePoints">
-            <summary>
-            List of source points for transitions
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Definitions.Step.DefinitionPoint">
-            <summary>
-            Source point with additional definitions
-            </summary>
-        </member>
-        <member name="P:CMS.WorkflowEngine.Definitions.Step.Position">
-            <summary>
-            Position of the step
-            </summary>
         </member>
     </members>
 </doc>

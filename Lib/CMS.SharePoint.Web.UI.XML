@@ -34,6 +34,16 @@
             Holds prepared formatting string for individual delete action scripts.
             </summary>
         </member>
+        <member name="P:CMS.SharePoint.Web.UI.SharePointFileGridExtender.UIPage">
+            <summary>
+            Gets extended UI page.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.SharePointFileGridExtender.Library">
+            <summary>
+            Gets edited library.
+            </summary>
+        </member>
         <member name="M:CMS.SharePoint.Web.UI.SharePointFileGridExtender.OnInit">
             <summary>
             Initializes the page
@@ -134,16 +144,6 @@
             </summary>
             <param name="synchronizationState">Synchronization state of the library</param>
         </member>
-        <member name="P:CMS.SharePoint.Web.UI.SharePointFileGridExtender.UIPage">
-            <summary>
-            Gets extended UI page.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.SharePointFileGridExtender.Library">
-            <summary>
-            Gets edited library.
-            </summary>
-        </member>
         <member name="T:CMS.SharePoint.Web.UI.SharePointLibrariesPageExtender">
             <summary>
             SharePoint libraries listing page extender
@@ -182,6 +182,26 @@
         <member name="F:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.mResponse">
             <summary>
             String containing the response
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.IsReusable">
+            <summary>
+            Gets a value indicating whether another request can use the System.Web.IHttpHandler instance.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointLibraryID">
+            <summary>
+            Gets the SharePointLibraryID from additional parameters
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointFileID">
+            <summary>
+            Gets the SharePointLibraryID from additional parameters
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointLibrary">
+            <summary>
+            Gets the SharePointLibrary based on <see cref="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointLibraryID"/>
             </summary>
         </member>
         <member name="M:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.ProcessRequest(System.Web.HttpContext)">
@@ -237,35 +257,36 @@
         </member>
         <member name="M:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SendResponse(System.Web.HttpResponse)">
             <summary>
-            Sends the response (if any) stored in <see cref="F:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.mResponse"/>.
+            Sends the response (if any) stored in <see cref="F:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.mResponse" />.
             </summary>
             <param name="httpResponse">Instance of HttpResponse to send the response to.</param>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.IsReusable">
-            <summary>
-            Gets a value indicating whether another request can use the System.Web.IHttpHandler instance.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointLibraryID">
-            <summary>
-            Gets the SharePointLibraryID from additional parameters
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointFileID">
-            <summary>
-            Gets the SharePointLibraryID from additional parameters
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointLibrary">
-            <summary>
-            Gets the SharePointLibrary based on <see cref="P:CMS.SharePoint.Web.UI.SharePointMultiFileUploader.SharePointLibraryID"/>
-            </summary>
         </member>
         <member name="T:CMS.SharePoint.Web.UI.DirectUploaderWebControl">
             <summary>
             This control is only a means of having Uploader in the place of a button.
             None of the <see cref="T:CMS.Base.Web.UI.CMSWebControl"/> properties are taken into account use only <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader"/>, <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavaScriptModuleName"/>, <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavascriptModuleParameters"/>,
             <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Enabled"/>
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader">
+            <summary>
+            Gets the actual uploader that will be rendered on the page
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavaScriptModuleName">
+            <summary>
+            Gets or sets ID/Name of the JavaScriptModule to be registered on the page.
+            The Upload handler referenced in <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader"/> might need a javascript module.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavascriptModuleParameters">
+            <summary>
+            <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavaScriptModuleName"/>'s server data object.
+            </summary>
+        </member>
+        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Enabled">
+            <summary>
+            Gets or sets the enabled flag of the <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader"/>
             </summary>
         </member>
         <member name="M:CMS.SharePoint.Web.UI.DirectUploaderWebControl.#ctor(CMS.UIControls.CMSPage)">
@@ -291,27 +312,6 @@
             Renders the <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader"/> if visible.
             </summary>
             <param name="writer">Output writer</param>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader">
-            <summary>
-            Gets the actual uploader that will be rendered on the page
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavaScriptModuleName">
-            <summary>
-            Gets or sets ID/Name of the JavaScriptModule to be registered on the page.
-            The Upload handler referenced in <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader"/> might need a javascript module.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavascriptModuleParameters">
-            <summary>
-            <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.JavaScriptModuleName"/>'s server data object.
-            </summary>
-        </member>
-        <member name="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Enabled">
-            <summary>
-            Gets or sets the enabled flag of the <see cref="P:CMS.SharePoint.Web.UI.DirectUploaderWebControl.Uploader"/>
-            </summary>
         </member>
     </members>
 </doc>

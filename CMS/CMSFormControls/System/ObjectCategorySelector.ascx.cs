@@ -504,7 +504,7 @@ public partial class CMSFormControls_System_ObjectCategorySelector : FormEngineU
 
         // Save selected value for select correct value after reload items. 
         // This workaround is used because of viewstate that doesn't store item attributes such as CSSStyle
-        if (URLHelper.IsPostback() && !String.IsNullOrEmpty(drpCategory.SelectedValue))
+        if (RequestHelper.IsPostBack() && !String.IsNullOrEmpty(drpCategory.SelectedValue))
         {
             mSelectedValue = drpCategory.SelectedValue;
         }

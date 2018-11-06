@@ -3,8 +3,10 @@ cmsdefine(['amcharts'], function(chart) {
         themeName: "CMSTheme",
 
         AmChart: {
+            fontSize: 13,
             color: "#262524",
-            backgroundColor: "#FFFFFF"
+            backgroundColor: "#FFFFFF",
+            fontFamily: "'Segoe UI', Helvetica, Verdana, Arial, sans-serif"
         },
 
         AmCoordinateChart: {
@@ -87,6 +89,18 @@ cmsdefine(['amcharts'], function(chart) {
         TrendLine: {
             lineColor: "#c03246",
             lineAlpha: 0.8
+        },
+
+        // ammap
+        AreasSettings: {
+            unlistedAreasColor: '#f7f7f7',
+            selectedColor: '#403e3d',
+            rollOverOutlineColor: '#bdbbbb',
+            rollOverColor: '#403e3d',
+            outlineColor: '#bdbbbb',
+            color:'#d0e8ed',
+            colorSolid:'#1175ae',
+            outlineThickness: 1
         }
     };
 });

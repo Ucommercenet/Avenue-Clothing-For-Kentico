@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Web.UI.WebControls;
 
+using CMS.PortalEngine.Web.UI;
 using CMS.UIControls;
 
 using MenuItem = CMS.UIControls.UniMenuConfig.Item;
@@ -28,9 +28,9 @@ public partial class CMSAdminControls_UI_UniMenu_OnSiteEdit_OtherMenu : CMSUserC
                 highlightItem.ImageAlign = ImageAlign.Top;
                 highlightItem.IconClass = "icon-square-dashed-line";
                 highlightItem.OnClientClick = "OEHighlightToggle(event, this);";
-                highlightItem.Text = GetString("onsiteedit.highlight");
-                highlightItem.Tooltip = GetString("onsiteedit.highlighttooltip");
-                highlightItem.ImageAltText = GetString("onsiteedit.highlight");
+                highlightItem.Text = PortalHelper.LocalizeStringForUI("onsiteedit.highlight");
+                highlightItem.Tooltip = PortalHelper.LocalizeStringForUI("onsiteedit.highlighttooltip");
+                highlightItem.ImageAltText = PortalHelper.LocalizeStringForUI("onsiteedit.highlight");
 
                 otherMenu.Buttons.Add(highlightItem);
             }
@@ -42,9 +42,9 @@ public partial class CMSAdminControls_UI_UniMenu_OnSiteEdit_OtherMenu : CMSUserC
                 hiddenItem.CssClass = "BigButton OnSiteHiddenButton";
                 hiddenItem.ImageAlign = ImageAlign.Top;
                 hiddenItem.IconClass = "icon-eye-slash";
-                hiddenItem.Text = GetString("general.hidden");
-                hiddenItem.Tooltip = GetString("onsiteedit.hiddentooltip");
-                hiddenItem.ImageAltText = GetString("general.hidden");
+                hiddenItem.Text = PortalHelper.LocalizeStringForUI("general.hidden");
+                hiddenItem.Tooltip = PortalHelper.LocalizeStringForUI("onsiteedit.hiddentooltip");
+                hiddenItem.ImageAltText = PortalHelper.LocalizeStringForUI("general.hidden");
 
                 // Add temporary empty sub menu item to ensure generating of the sub menu functions
                 SubMenuItem epmtyItem = new SubMenuItem();

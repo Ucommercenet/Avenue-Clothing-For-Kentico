@@ -27,8 +27,8 @@
                 color: @pagination-text-color;
                 z-index: @zindex-pagination;
             }
-            // First item
-            &:first-child {
+            // Navigation buttons
+            &.pagination-list-navigation {
                 > a,
                 > span {
                     margin-left: 0;
@@ -41,29 +41,15 @@
                     display: block;
                 }
             }
-            // Last item
-            &:last-child {
-                > a,
-                > span {
-                    margin-right: 0;
-                    padding: @pagination-padding-first-last;
-                    // Font icon height
-                    height: @pagination-height-first-last;
-                }
-
-                i {
-                    display: block;
-                }
+        }
+        // Non active item hover and focus
+        > li > a,
+        > li > span {
+            &:hover,
+            &:focus {
+                background-color: @pagination-hover-bg;
             }
         }
-            // Non active item hover and focus
-            > li > a,
-            > li > span {
-                &:hover,
-                &:focus {
-                    background-color: @pagination-hover-bg;
-                }
-            }
         // Active item hover and focus
         > .active > a,
         > .active > span {

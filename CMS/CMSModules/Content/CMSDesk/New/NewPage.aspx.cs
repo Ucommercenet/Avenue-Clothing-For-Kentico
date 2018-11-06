@@ -106,7 +106,7 @@ public partial class CMSModules_Content_CMSDesk_New_NewPage : CMSContentPage
         DataClassInfo dci = NewNodeClass;
         if (dci != null)
         {
-            selTemplate.RootCategory = dci.ClassPageTemplateCategoryID;
+            selTemplate.RootCategoryID = dci.ClassPageTemplateCategoryID;
             if (!RequestHelper.IsPostBack() && (dci.ClassDefaultPageTemplateID > 0))
             {
                 selTemplate.SetDefaultTemplate(dci.ClassDefaultPageTemplateID);
@@ -254,21 +254,6 @@ function ValidateNewPage(){{
                     pageTemplateInfo.PageTemplateNodeGUID = node.NodeGUID;
                     PageTemplateInfoProvider.SetPageTemplateInfo(pageTemplateInfo);
                 }
-            }
-
-            // Create default SKU if configured
-            if (ModuleManager.CheckModuleLicense(ModuleName.ECOMMERCE, RequestContext.CurrentDomain, FeatureEnum.Ecommerce, ObjectActionEnum.Insert))
-            {
-                bool? skuCreated = node.CreateDefaultSKU();
-                if (skuCreated.HasValue && !skuCreated.Value)
-                {
-                    AddError(GetString("com.CreateDefaultSKU.Error"));
-                }
-            }
-
-            if (node.NodeSKUID > 0)
-            {
-                DocumentManager.UpdateDocument(true);
             }
         }
         else

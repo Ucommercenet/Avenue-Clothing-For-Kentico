@@ -7,10 +7,10 @@
 		<asp:TextBox runat="server" id="NameTextBox" cssclass="bigInput fontSize"/>
 	</div>
     <div>
-   		<asp:RequiredFieldValidator id="NameRequiredFieldValidator" ControlToValidate="NameTextBox" runat="server" ErrorMessage="*" CssClass="validationMessage" Display="Dynamic" />
-		<asp:CustomValidator id="UniqueNameServerValidator" OnServerValidate="UniqueName_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="UniqueName" ErrorMessage="Name already exists*" CssClass="validationMessage" Display="Dynamic" />
-		<asp:CustomValidator id="UniqueSkuServerValidator" OnServerValidate="UniqueSku_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="UniqueSku" ErrorMessage="SKU already exists*" CssClass="validationMessage" Display="Dynamic" />
-		<asp:CustomValidator id="SkuLengthValidator" OnServerValidate="SkuLength_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="SkuLength" ErrorMessage="SKU already exists*" CssClass="validationMessage" Display="Dynamic" />
+   		<asp:RequiredFieldValidator id="NameRequiredFieldValidator" ControlToValidate="NameTextBox" runat="server" ErrorMessage="*" CssClass="validationMessage validator" Display="Dynamic" />
+		<asp:CustomValidator id="UniqueNameServerValidator" OnServerValidate="UniqueName_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="UniqueName" ErrorMessage="Name already exists*" CssClass="validationMessage validator" Display="Dynamic" />
+		<asp:CustomValidator id="UniqueSkuServerValidator" OnServerValidate="UniqueSku_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="UniqueSku" ErrorMessage="SKU already exists*" CssClass="validationMessage validator" Display="Dynamic" />
+		<asp:CustomValidator id="SkuLengthValidator" OnServerValidate="SkuLength_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="SkuLength" ErrorMessage="SKU already exists*" CssClass="validationMessage validator" Display="Dynamic" />
 
     </div>
 </div>
@@ -29,7 +29,7 @@
 </div>
 
 <div style="clear: both">
-    <asp:RequiredFieldValidator runat="server" ControlToValidate="CreateType" Display="Dynamic" ErrorMessage="No type selected" CssClass="validationMessage"  />
+    <asp:RequiredFieldValidator runat="server" ControlToValidate="CreateType" Display="Dynamic" ErrorMessage="No type selected" CssClass="validationMessage validator"  />
 </div>
 
 <div style="padding-top: 25px">

@@ -9,14 +9,14 @@
             Module usage data for site provider.
             </summary>
         </member>
-        <member name="M:CMS.SiteProvider.SiteProviderUsageDataSource.GetData">
-            <summary>
-            Get site provider usage data.
-            </summary>
-        </member>
         <member name="P:CMS.SiteProvider.SiteProviderUsageDataSource.Name">
             <summary>
             Site provider data source name.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteProviderUsageDataSource.GetData">
+            <summary>
+            Get site provider usage data.
             </summary>
         </member>
         <member name="T:CMS.SiteProvider.SiteHandlers">
@@ -65,11 +65,6 @@
             Site deletion settings configuration
             </summary>
         </member>
-        <member name="M:CMS.SiteProvider.SiteDeletionSettings.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
         <member name="P:CMS.SiteProvider.SiteDeletionSettings.DeleteMetaFiles">
             <summary>
             Indicates if meta files should be deleted.
@@ -88,6 +83,11 @@
         <member name="P:CMS.SiteProvider.SiteDeletionSettings.Site">
             <summary>
             Deleted site.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteDeletionSettings.#ctor">
+            <summary>
+            Constructor
             </summary>
         </member>
         <member name="T:CMS.SiteProvider.SiteDeletionEventArgs">
@@ -120,6 +120,16 @@
         <member name="T:CMS.SiteProvider.SiteDeletionLog">
             <summary>
             Site deletion object for logging messages to the async control
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.SiteDeletionLog.DeletionLog">
+            <summary>
+            Keep information about deletion progress.
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.SiteDeletionLog.PersistentLogKey">
+            <summary>
+            Persistent key to store the log.
             </summary>
         </member>
         <member name="M:CMS.SiteProvider.SiteDeletionLog.Report(CMS.SiteProvider.SiteDeletionStatusMessage)">
@@ -162,16 +172,6 @@
         <member name="M:CMS.SiteProvider.SiteDeletionLog.#ctor">
             <summary>
             Constructor
-            </summary>
-        </member>
-        <member name="P:CMS.SiteProvider.SiteDeletionLog.DeletionLog">
-            <summary>
-            Keep information about deletion progress.
-            </summary>
-        </member>
-        <member name="P:CMS.SiteProvider.SiteDeletionLog.PersistentLogKey">
-            <summary>
-            Persistent key to store the log.
             </summary>
         </member>
         <member name="T:CMS.SiteProvider.SiteDeletionStatusMessage">
@@ -299,6 +299,21 @@
         <member name="F:CMS.SiteProvider.CultureSiteInfoProvider.tableLock">
             <summary>
             Table lock for loading.
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.CultureSiteInfoProvider.SiteCultures">
+            <summary>
+            Cultures per site - DataSet indexed by siteName. [siteName -> TypedDataSet]
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.CultureSiteInfoProvider.SiteCultureCodes">
+            <summary>
+            Culture codes per site - ArrayList indexed by siteName. [siteName -> List[string]]
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.CultureSiteInfoProvider.SiteCultureCount">
+            <summary>
+            Cultures count per site - int indexed by domain name. [domainName -> int]
             </summary>
         </member>
         <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.GetCultureSites">
@@ -462,18 +477,6 @@
             <param name="siteId">The site id of the site. If specified the license check is not using cache tables per domain</param>
             <returns>True if license includes the feature, otherwise false</returns>
         </member>
-        <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.IsAnyDocument(System.String,System.String)">
-            <summary>
-            Returns true if exist any document with selected culture on site.
-            </summary>
-            <param name="siteName">Site name</param>
-            <param name="cultureCode">Culture code</param>
-        </member>
-        <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.GetCultureSitesInternal">
-            <summary>
-            Returns all bindings between cultures and sites.
-            </summary>
-        </member>
         <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.GetCultureSiteInfoInternal(System.Int32,System.Int32)">
             <summary>
             Returns the CultureSiteInfo structure for the specified cultureSite.
@@ -487,23 +490,16 @@
             </summary>
             <param name="cultureSite">CultureSite to set</param>
         </member>
-        <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.DeleteCultureSiteInfoInternal(CMS.SiteProvider.CultureSiteInfo)">
+        <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.DeleteInfo(CMS.SiteProvider.CultureSiteInfo)">
             <summary>
-            Deletes specified cultureSite.
+            Deletes the object to the database.
             </summary>
-            <param name="infoObj">CultureSite object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.GetCultureSitesInternal(System.String)">
             <summary>
             Returns the dataset containing the sites of the specified culture.
             </summary>
-            <param name="cultureCode">Culture code</param>
-        </member>
-        <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.IsAnyDocumentInternal(System.String,System.String)">
-            <summary>
-            Returns true if exist any document with selected culture on site.
-            </summary>
-            <param name="siteName">Site name</param>
             <param name="cultureCode">Culture code</param>
         </member>
         <member name="M:CMS.SiteProvider.CultureSiteInfoProvider.LoadSiteCulturesInternal(System.Int32)">
@@ -520,21 +516,6 @@
             <param name="data">Custom data</param>
             <param name="binary">Binary data</param>
         </member>
-        <member name="P:CMS.SiteProvider.CultureSiteInfoProvider.SiteCultures">
-            <summary>
-            Cultures per site - DataSet indexed by siteName. [siteName -> TypedDataSet]
-            </summary>
-        </member>
-        <member name="P:CMS.SiteProvider.CultureSiteInfoProvider.SiteCultureCodes">
-            <summary>
-            Culture codes per site - ArrayList indexed by siteName. [siteName -> List[string]]
-            </summary>
-        </member>
-        <member name="P:CMS.SiteProvider.CultureSiteInfoProvider.SiteCultureCount">
-            <summary>
-            Cultures count per site - int indexed by domain name. [domainName -> int]
-            </summary>
-        </member>
         <member name="T:CMS.SiteProvider.CultureSiteInfo">
             <summary>
             CultureSiteInfo data container class.
@@ -548,6 +529,16 @@
         <member name="F:CMS.SiteProvider.CultureSiteInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.CultureSiteInfo.SiteID">
+            <summary>
+            Site ID.
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.CultureSiteInfo.CultureID">
+            <summary>
+            Culture ID.
             </summary>
         </member>
         <member name="M:CMS.SiteProvider.CultureSiteInfo.DeleteObject">
@@ -570,29 +561,9 @@
             Constructor - Creates a new CultureSiteInfo object from the given DataRow.
             </summary>
         </member>
-        <member name="P:CMS.SiteProvider.CultureSiteInfo.SiteID">
-            <summary>
-            Site ID.
-            </summary>
-        </member>
-        <member name="P:CMS.SiteProvider.CultureSiteInfo.CultureID">
-            <summary>
-            Culture ID.
-            </summary>
-        </member>
         <member name="T:CMS.SiteProvider.SiteContext">
             <summary>
             Site related context methods and variables.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteContext.GetCurrentSite">
-            <summary>
-            Returns the current site.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteContext.GetCurrentSiteByDomain">
-            <summary>
-            Gets the current site object based on current context
             </summary>
         </member>
         <member name="P:CMS.SiteProvider.SiteContext.CurrentCategory">
@@ -616,9 +587,24 @@
             Returns the current site info.
             </summary>
         </member>
+        <member name="M:CMS.SiteProvider.SiteContext.GetCurrentSite">
+            <summary>
+            Returns the current site.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteContext.GetCurrentSiteByDomain">
+            <summary>
+            Gets the current site object based on current context
+            </summary>
+        </member>
         <member name="T:CMS.SiteProvider.SiteNameOnDemand">
             <summary>
             Encapsulates the site name but doesn't request it until it is demanded by Value.
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.SiteNameOnDemand.Value">
+            <summary>
+            Value.
             </summary>
         </member>
         <member name="M:CMS.SiteProvider.SiteNameOnDemand.op_Implicit(CMS.SiteProvider.SiteNameOnDemand)~System.String">
@@ -626,11 +612,6 @@
             Converts the site name to its string representation
             </summary>
             <param name="siteName">Site name</param>
-        </member>
-        <member name="P:CMS.SiteProvider.SiteNameOnDemand.Value">
-            <summary>
-            Value.
-            </summary>
         </member>
         <member name="T:CMS.SiteProvider.SiteDomainAliasInfo">
             <summary>
@@ -645,26 +626,6 @@
         <member name="F:CMS.SiteProvider.SiteDomainAliasInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SiteDomainAlias object.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SiteDomainAlias object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.SiteProvider.SiteDomainAliasInfo.SiteDomainAliasID">
@@ -705,6 +666,26 @@
         <member name="P:CMS.SiteProvider.SiteDomainAliasInfo.SiteDomainRedirectUrl">
             <summary>
             Object Redirect URL.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SiteDomainAlias object.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteDomainAliasInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SiteDomainAlias object from the given DataRow.
             </summary>
         </member>
         <member name="T:CMS.SiteProvider.SiteDomainAliasInfoProvider">
@@ -792,14 +773,9 @@
             </summary>
             <param name="siteId">Site ID</param>
         </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.Clear">
+        <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.RemoveFromStaticCollection(System.Int32)">
             <summary>
-            Clear hashtables.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.RemoveFromHash(System.Int32)">
-            <summary>
-            Remove domain aliases from hash.
+            Removes domain aliases for specified site from cached collection
             </summary>
         </member>
         <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.ClearHashtables(System.Boolean)">
@@ -810,7 +786,12 @@
         </member>
         <member name="F:CMS.SiteProvider.SiteDomainAliasInfoProvider.mDomainAliasesBySiteId">
             <summary>
-            Table of the domain aliases DataSets indexed by site ID. [siteId -> TypedDataSet]
+            Table of the domain aliases DataSets indexed by site ID. [siteId -> InfoDataSet]
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.SiteDomainAliasInfoProvider.DomainAliasesBySiteId">
+            <summary>
+            Table of the domain aliases DataSets indexed by site ID. [siteId -> InfoDataSet]
             </summary>
         </member>
         <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.GetSiteDomainAliasInfoByGUIDInternal(System.Guid,System.Int32)">
@@ -819,12 +800,6 @@
             </summary>
             <param name="guid">Object GUID</param>
             <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.GetSiteDomainAliasInfoInternal(System.Int32)">
-            <summary>
-            Returns the SiteDomainAliasInfo structure for the specified site domain alias ID.
-            </summary>
-            <param name="domainAliasId">Site domain alias id</param>
         </member>
         <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.GetSiteDomainAliasInfoInternal(System.String,System.Int32)">
             <summary>
@@ -840,27 +815,17 @@
             <param name="siteDomain">SiteDomainAliasInfo object to set</param>
             <param name="originalDomainAlias">Original domain alias name</param>
         </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.DeleteSiteDomainAliasInfoInternal(CMS.SiteProvider.SiteDomainAliasInfo)">
+        <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.DeleteInfo(CMS.SiteProvider.SiteDomainAliasInfo)">
             <summary>
-            Deletes specified site domain alias.
+            Deletes the object to the database.
             </summary>
-            <param name="siteDomainObj">Site domain alias object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.GetDomainAliasesInternal(System.Int32)">
             <summary>
             Returns all site domain aliases assigned to the selected site.
             </summary>
             <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteDomainAliasInfoProvider.GetDomainAliasesInternal">
-            <summary>
-            Returns all domain aliases.
-            </summary>
-        </member>
-        <member name="P:CMS.SiteProvider.SiteDomainAliasInfoProvider.DomainAliasesBySiteId">
-            <summary>
-            Table of the domain aliases DataSets indexed by site ID. [siteId -> TypedDataSet]
-            </summary>
         </member>
         <member name="T:CMS.SiteProvider.SiteStatusEnum">
             <summary>
@@ -896,71 +861,6 @@
             <summary>
             Hash table contains domain aliases of current site [alias.ToLowerCSafe()] -> [DomainAliasInfo]
             </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.LoadDefaultData">
-            <summary>
-            Loads the default data to the object.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty SiteInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new SiteInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.#ctor(CMS.SiteProvider.SiteInfo,System.Boolean)">
-            <summary>
-            Constructor - Creates a new SiteInfo object from the given DataClass.
-            </summary>
-            <param name="si">Source site info</param>
-            <param name="keepSourceData">If true, source data are kept in the object</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.CreateDomainAliasesTable(System.Data.DataSet)">
-            <summary>
-            Creates hashtable from given dataset.
-            </summary>
-            <param name="ds">Dataset contains with document aliases</param>
-            <returns>Created hashtable.</returns>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.ConvertServerDateTime(System.DateTime)">
-            <summary>
-            Returns server date time in dependence on site time zone.
-            </summary>
-            <param name="dateTime">Date time</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.ConvertSiteDateTime(System.DateTime)">
-            <summary>
-            Returns site date time in dependence on site time zone.
-            </summary>
-            <param name="dateTime">Date time</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfo.GetDomainName(System.String)">
-            <summary>
-            Returns domain name of the given URL.
-            </summary>
-            <param name="url">Relative or absolute URL</param>
         </member>
         <member name="P:CMS.SiteProvider.SiteInfo.CombineWithDefaultCulture">
             <summary>
@@ -1044,7 +944,7 @@
         </member>
         <member name="P:CMS.SiteProvider.SiteInfo.SiteDomainAliases">
             <summary>
-            Hash table contains site's domain aliases. [alias.ToLowerCSafe()] -> [DomainAliasInfo]
+            Hash table contains site's domain aliases. [alias.ToLowerInvariant()] -> [DomainAliasInfo]
             </summary>
         </member>
         <member name="P:CMS.SiteProvider.SiteInfo.SiteTimeZone">
@@ -1072,19 +972,84 @@
             Indicates whether the site is used only for storing content and is not responsible for live site presentation.
             </summary>
         </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.LoadDefaultData">
+            <summary>
+            Loads the default data to the object.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty SiteInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new SiteInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.#ctor(CMS.SiteProvider.SiteInfo,System.Boolean)">
+            <summary>
+            Constructor - Creates a new SiteInfo object from the given DataClass.
+            </summary>
+            <param name="si">Source site info</param>
+            <param name="keepSourceData">If true, source data are kept in the object</param>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.CreateDomainAliasesTable(System.Data.DataSet)">
+            <summary>
+            Creates hashtable from given dataset.
+            </summary>
+            <param name="ds">Dataset contains with document aliases</param>
+            <returns>Created hashtable.</returns>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.ConvertServerDateTime(System.DateTime)">
+            <summary>
+            Returns server date time in dependence on site time zone.
+            </summary>
+            <param name="dateTime">Date time</param>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.ConvertSiteDateTime(System.DateTime)">
+            <summary>
+            Returns site date time in dependence on site time zone.
+            </summary>
+            <param name="dateTime">Date time</param>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.SiteProvider.SiteInfo.GetDomainName(System.String)">
+            <summary>
+            Returns domain name of the given URL.
+            </summary>
+            <param name="url">Relative or absolute URL</param>
+        </member>
         <member name="T:CMS.SiteProvider.SiteInfoProvider">
             <summary>
             Class to provide the Site management.
             </summary>
         </member>
-        <member name="F:CMS.SiteProvider.SiteInfoProvider.mRunningSites">
-            <summary>
-            Table of the running site infos indexed by the domain names. [domainName -> SiteInfo]
-            </summary>
-        </member>
-        <member name="F:CMS.SiteProvider.SiteInfoProvider.mEmptySite">
+        <member name="P:CMS.SiteProvider.SiteInfoProvider.EmptySite">
             <summary>
             Empty site info
+            </summary>
+        </member>
+        <member name="P:CMS.SiteProvider.SiteInfoProvider.RunningSites">
+            <summary>
+            Table of the running site infos indexed by the domain names. [domainName -> SiteInfo]
             </summary>
         </member>
         <member name="M:CMS.SiteProvider.SiteInfoProvider.#ctor">
@@ -1244,47 +1209,12 @@
             </summary>
             <param name="domainName">Domain name</param>
         </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSitesInternal">
-            <summary>
-            Returns all site records.
-            </summary>
-        </member>
         <member name="M:CMS.SiteProvider.SiteInfoProvider.GetDomainForCultureInternal(System.String,System.String)">
             <summary>
             Returns domain for specified culture
             </summary>
             <param name="siteName">Current site name</param>
             <param name="docCulture">Required culture</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSiteInfoInternal(System.Int32)">
-            <summary>
-            Returns the site info object with specified ID.
-            </summary>
-            <param name="siteId">Site ID for that retrieve the info structure</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSiteInfoByGUIDInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSiteInfoInternal(System.String)">
-            <summary>
-            Returns the SiteInfo structure for a specified site.
-            </summary>
-            <param name="siteName">Site name for that retrieve the data</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSiteInfoFromDBInternal(System.Int32)">
-            <summary>
-            Returns the SiteInfo structure for the specified site from database.
-            </summary>
-            <param name="siteId">Site id</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSiteInfoFromDBInternal(System.String)">
-            <summary>
-            Returns the SiteInfo structure for the specified site from database.
-            </summary>
-            <param name="siteName">Site name</param>
         </member>
         <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSiteIDInternal(System.String)">
             <summary>
@@ -1307,17 +1237,17 @@
             <param name="siteIDColumn">Site ID column name</param>
             <param name="siteName">Site name</param>
         </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.SetSiteInfoInternal(CMS.SiteProvider.SiteInfo)">
+        <member name="M:CMS.SiteProvider.SiteInfoProvider.SetInfo(CMS.SiteProvider.SiteInfo)">
             <summary>
-            Sets the specified site data.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="siteInfoObj">New site info data</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.DeleteSiteInfoInternal(CMS.SiteProvider.SiteInfo)">
+        <member name="M:CMS.SiteProvider.SiteInfoProvider.DeleteInfo(CMS.SiteProvider.SiteInfo)">
             <summary>
-            Deletes the specified site without all dependent object.
+            Deletes the object to the database.
             </summary>
-            <param name="site">Site object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.SiteProvider.SiteInfoProvider.DeleteSiteInfoInternal(CMS.SiteProvider.SiteDeletionSettings,System.IProgress{CMS.SiteProvider.SiteDeletionStatusMessage})">
             <summary>
@@ -1325,15 +1255,6 @@
             </summary>
             <param name="siteDeletionSettings">Site deletion settings</param>
             <param name="progressLog">Progress log</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.GetSitesInternal(System.String,System.String,System.String,System.Int32)">
-            <summary>
-            Returns the DataSet of all the site records.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="columns">Select only specified columns</param>
-            <param name="topN">Specifies number of returned records</param>
         </member>
         <member name="M:CMS.SiteProvider.SiteInfoProvider.RunSiteInternal(System.String)">
             <summary>
@@ -1352,12 +1273,6 @@
             Returns dataSet with document type classes of specified site.
             </summary>
             <param name="siteId">ID of site</param>
-        </member>
-        <member name="M:CMS.SiteProvider.SiteInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears all the provider hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
         <member name="M:CMS.SiteProvider.SiteInfoProvider.ClearHashtables(System.Boolean)">
             <summary>
@@ -1380,16 +1295,6 @@
             <param name="actionName">Action name</param>
             <param name="data">Custom data</param>
             <param name="binary">Binary data</param>
-        </member>
-        <member name="P:CMS.SiteProvider.SiteInfoProvider.EmptySite">
-            <summary>
-            Empty site info
-            </summary>
-        </member>
-        <member name="P:CMS.SiteProvider.SiteInfoProvider.RunningSites">
-            <summary>
-            Table of the running site infos indexed by the domain names. [domainName -> SiteInfo]
-            </summary>
         </member>
     </members>
 </doc>

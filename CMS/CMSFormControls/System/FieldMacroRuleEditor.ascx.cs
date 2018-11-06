@@ -297,7 +297,7 @@ public partial class CMSFormControls_System_FieldMacroRuleEditor : FormEngineUse
             if (!MacroSecurityProcessor.IsSimpleMacro(macroRule))
             {
                 // Sign complex macros
-                macroRule = MacroSecurityProcessor.AddMacroSecurityParams(macroRule, MembershipContext.AuthenticatedUser.UserName);
+                macroRule = MacroSecurityProcessor.AddMacroSecurityParams(macroRule, MacroIdentityOption.FromUserInfo(MembershipContext.AuthenticatedUser));
             }
 
             fmr = new FieldMacroRule();

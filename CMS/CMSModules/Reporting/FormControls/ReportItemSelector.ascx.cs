@@ -195,18 +195,6 @@ public partial class CMSModules_Reporting_FormControls_ReportItemSelector : Form
         }
     }
 
-
-    /// <summary>
-    /// Underlying form control, if provided, the form control automatically redirects all properties to that control
-    /// </summary>
-    protected override FormEngineUserControl UnderlyingFormControl
-    {
-        get
-        {
-            return usItems;
-        }
-    }
-
     #endregion
 
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
 using System.Web;
 using CMS.PortalEngine;
 using CMS.UIControls;
@@ -78,8 +80,15 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
         public void btnContinue_Click(object sender, EventArgs e)
         {
-            TransactionLibrary.RequestPayments();
-            HttpContext.Current.Response.Redirect("~/Basket/Confirmation");
+            var payment = TransactionLibrary.GetBasket().PurchaseOrder.Payments.First();
+            if (payment.PaymentMethod.PaymentMethodServiceName == null)
+            {
+                HttpContext.Current.Response.Redirect("~/Basket/Confirmation");
+            }
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            string paymentUrl = TransactionLibrary.GetPaymentPageUrl(payment);
+            HttpContext.Current.Response.Redirect(paymentUrl);
         }
     }
 }

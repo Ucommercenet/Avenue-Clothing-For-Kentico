@@ -7,6 +7,7 @@ using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.IO;
 using CMS.PortalEngine;
+using CMS.PortalEngine.Web.UI;
 using CMS.UIControls;
 
 
@@ -14,6 +15,18 @@ public partial class CMSModules_PortalEngine_UI_WebParts_Development_WebPart_New
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Disable "Generate new files" option on azure / precompiled environment
+        if (SystemContext.IsPrecompiledWebsite || SystemContext.IsRunningOnAzure)
+        {
+            radNewFile.Enabled = false;
+            radNewFile.Checked = false;
+            radNewFile.ToolTipResourceString = "webpart.edit.precompiledsite";
+
+            radExistingFile.Checked = true;
+            plcSelectFile.Visible = true;
+            plcFileName.Visible = false;
+        }
+
         // Setup page title text and image
         PageTitle.TitleText = GetString("Development-WebPart_Edit.TitleNew");
         // Initialize
@@ -147,6 +160,7 @@ public partial class CMSModules_PortalEngine_UI_WebParts_Development_WebPart_New
             wi.WebPartDefaultValues = "<form></form>";
             // Initialize WebPartType - fill it with the default value
             wi.WebPartType = wi.WebPartType;
+            wi.WebPartIconClass = PortalHelper.DefaultWebPartIconClass;
 
             // Inherited web part
             if (radInherited.Checked)
@@ -165,6 +179,7 @@ public partial class CMSModules_PortalEngine_UI_WebParts_Development_WebPart_New
                     wi.WebPartType = parent.WebPartType;
                     wi.WebPartResourceID = parent.WebPartResourceID;
                     wi.WebPartSkipInsertProperties = parent.WebPartSkipInsertProperties;
+                    wi.WebPartIconClass = parent.WebPartIconClass;
                 }
 
                 wi.WebPartParentID = parentId;
@@ -193,30 +208,26 @@ public partial class CMSModules_PortalEngine_UI_WebParts_Development_WebPart_New
                 string physicalFile = WebPartInfoProvider.GetFullPhysicalPath(wi);
                 if (!File.Exists(physicalFile))
                 {
-                    string ascx;
-                    string code;
-                    string designer;
-
                     // Write the files
                     try
                     {
-                        WebPartInfoProvider.GenerateWebPartCode(wi, null, out ascx, out code, out designer);
+                        var generator = new WebPartCodeGenerator();
+                        var result = generator.GenerateWebPartCode(wi);
 
                         string folder = Path.GetDirectoryName(physicalFile);
 
-                        // Ensure the folder
                         if (!Directory.Exists(folder))
                         {
                             Directory.CreateDirectory(folder);
                         }
 
-                        File.WriteAllText(physicalFile, ascx);
-                        File.WriteAllText(physicalFile + ".cs", code);
+                        File.WriteAllText(physicalFile, result.Markup);
+                        File.WriteAllText(physicalFile + ".cs", result.Code);
 
                         // Designer file
-                        if (!String.IsNullOrEmpty(designer))
+                        if (!String.IsNullOrEmpty(result.Designer))
                         {
-                            File.WriteAllText(physicalFile + ".designer.cs", designer);
+                            File.WriteAllText(physicalFile + ".designer.cs", result.Designer);
                         }
 
                     }

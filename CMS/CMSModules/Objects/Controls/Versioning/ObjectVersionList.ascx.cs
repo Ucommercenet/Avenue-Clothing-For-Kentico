@@ -87,7 +87,7 @@ public partial class CMSModules_Objects_Controls_Versioning_ObjectVersionList : 
             {
                 if (!String.IsNullOrEmpty(ObjectType) && (ObjectID > 0))
                 {
-                    mObject = BaseAbstractInfoProvider.GetInfoById(ObjectType, ObjectID);
+                    mObject = ProviderHelper.GetInfoById(ObjectType, ObjectID);
                     if (mObject != null)
                     {
                         UIContext.EditedObject = mObject;

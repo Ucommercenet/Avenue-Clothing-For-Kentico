@@ -3,16 +3,13 @@ using System.Data;
 using System.Globalization;
 
 using CMS.Base;
-
-using System.Linq;
-
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.ActionsConfig;
 using CMS.ContactManagement;
+using CMS.DataEngine;
 using CMS.Helpers;
 using CMS.Scheduler;
 using CMS.UIControls;
-
 
 public partial class CMSModules_Scoring_Controls_UI_Rule_List : CMSAdminListControl
 {
@@ -88,10 +85,9 @@ public partial class CMSModules_Scoring_Controls_UI_Rule_List : CMSAdminListCont
 
 
     /// <summary>
-    /// If set, overrides default "modify" permission check. True means that user is allowed to edit
-    /// rules. False means he is not allowed and null means that default check should be performed.
+    /// Gets or sets the module name for checking permissions.
     /// </summary>
-    public bool? ModifyPermissions
+    public string ModuleNameForPermissionCheck
     {
         get;
         set;
@@ -195,6 +191,10 @@ public partial class CMSModules_Scoring_Controls_UI_Rule_List : CMSAdminListCont
         gridElem.WhereCondition = "RuleScoreID = " + ScoreId;
         InitHeaderActions();
         InitWarnings(ScoreId);
+        
+        var deleteAction = gridElem.GridActions.GetAction("#delete");
+        deleteAction.ModuleName = ModuleNameForPermissionCheck;
+        deleteAction.Permissions = PermissionsEnum.Modify.ToString();
     }
 
 
@@ -218,9 +218,9 @@ public partial class CMSModules_Scoring_Controls_UI_Rule_List : CMSAdminListCont
                 name += Enum.GetName(typeof (RuleTypeEnum), parameter);
                 return GetString(name);
             case "delete":
-                if ((ModifyPermissions != null) && !ModifyPermissions.Value)
+                if(!CurrentUser.IsAuthorizedPerResource(ModuleNameForPermissionCheck, PermissionsEnum.Modify.ToString()))
                 {
-                    CMSGridActionButton imgDel = (CMSGridActionButton)sender;
+                    var imgDel = (CMSGridActionButton)sender;
 
                     imgDel.Enabled = false;
                     imgDel.Style.Add("cursor", "default");
@@ -328,7 +328,7 @@ public partial class CMSModules_Scoring_Controls_UI_Rule_List : CMSAdminListCont
                 throw new Exception("[RuleList.InitInformation]: Score status not specified.");
         }
 
-        if ((ModifyPermissions != null) && !ModifyPermissions.Value)
+        if (!CurrentUser.IsAuthorizedPerResource(ModuleNameForPermissionCheck, PermissionsEnum.Modify.ToString()))
         {
             mButtonRecalculate.Enabled = false;
             mButtonRecalculate.Tooltip = GetString("general.modifynotallowed");

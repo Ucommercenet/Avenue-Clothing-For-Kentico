@@ -61,6 +61,14 @@
         <asp:Literal ID="ltlText" runat="server" EnableViewState="false" />
         <a href="#" class="alert-link" onclick="HideWarning('<%= pnlTrial.ClientID %>', '<% = SESSION_KEY_TRIAL %>'); return false;"><%= GetString("general.close") %></a>
     </asp:Panel>
+    <asp:Panel runat="server" ID="pnlLicenseLimitations" CssClass="message-panel alert-error" Visible="False">
+        <span class="alert-icon">
+            <i aria-hidden="true" class="icon-exclamation-triangle cms-icon-150"></i>
+        </span>
+        <div class="alert-label">
+            <asp:Literal  ID="ltlLicenseLimitations" runat="server" EnableViewState="false" />
+        </div>  
+    </asp:Panel>
     <asp:Panel runat="server" ID="pnlPwdExp" CssClass="message-panel alert-warning">
         <cms:passwordexpiration id="pwdExpiration" runat="server" enableviewstate="false"
             islivesite="false" />

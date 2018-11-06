@@ -48,7 +48,7 @@ public partial class CMSModules_TimeZones_Pages_TimeZone_Edit : GlobalAdminPage
                     LoadData(timeZoneObj);
 
                     // Show that the timeZone was created or updated successfully
-                    if (QueryHelper.GetBoolean("saved", false) && !URLHelper.IsPostback())
+                    if (QueryHelper.GetBoolean("saved", false) && !RequestHelper.IsPostBack())
                     {
                         ShowChangesSaved();
                     }

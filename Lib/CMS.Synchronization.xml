@@ -34,17 +34,17 @@
             Interface for SyncClient
             </summary>
         </member>
+        <member name="P:CMS.Synchronization.ISyncClient.Server">
+            <summary>
+            Synchronization server.
+            </summary>
+        </member>
         <member name="M:CMS.Synchronization.ISyncClient.RunTask(CMS.Synchronization.StagingTaskInfo)">
             <summary>
             Runs the synchronization task.
             </summary>
             <param name="taskObj">Task object</param>
             <returns>Returns error message</returns>
-        </member>
-        <member name="P:CMS.Synchronization.ISyncClient.Server">
-            <summary>
-            Synchronization server.
-            </summary>
         </member>
         <member name="T:CMS.Synchronization.IntegrationTaskEventArgs">
             <summary>
@@ -120,6 +120,11 @@
             Staging event arguments
             </summary>
         </member>
+        <member name="P:CMS.Synchronization.StagingLogTaskEventArgs.Object">
+            <summary>
+            Task object
+            </summary>
+        </member>
         <member name="T:CMS.Synchronization.StagingTaskEventArgs">
             <summary>
             Event arguments for the staging task event
@@ -128,11 +133,6 @@
         <member name="P:CMS.Synchronization.StagingTaskEventArgs.Task">
             <summary>
             Synchronization task
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.StagingLogTaskEventArgs.Object">
-            <summary>
-            Task object
             </summary>
         </member>
         <member name="T:CMS.Synchronization.StagingTaskHandler">
@@ -216,13 +216,6 @@
             Interface for SyncManager
             </summary>
         </member>
-        <member name="M:CMS.Synchronization.ISyncManager.ProceedWithTranslations(CMS.DataEngine.TranslationHelper)">
-            <summary>
-            Determines whether to continue with translation operations.
-            </summary>
-            <param name="th">Current translation helper object</param>
-            <returns>TRUE if OperationType is other than Integration. When OperationType is  Integration there also have to be some translations present.</returns>
-        </member>
         <member name="P:CMS.Synchronization.ISyncManager.LogTasks">
             <summary>
             Indicates if logging staging tasks is enabled.
@@ -238,14 +231,16 @@
             Gets site ID.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.ISyncManager.ProceedWithTranslations(CMS.DataEngine.TranslationHelper)">
+            <summary>
+            Determines whether to continue with translation operations.
+            </summary>
+            <param name="th">Current translation helper object</param>
+            <returns>TRUE if OperationType is other than Integration. When OperationType is  Integration there also have to be some translations present.</returns>
+        </member>
         <member name="T:CMS.Synchronization.StagingUsageDataSource">
             <summary>
             Module usage tracking data source for staging.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingUsageDataSource.GetData">
-            <summary>
-            Get module usage data.
             </summary>
         </member>
         <member name="P:CMS.Synchronization.StagingUsageDataSource.Name">
@@ -253,19 +248,24 @@
             Staging data source name.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.StagingUsageDataSource.GetData">
+            <summary>
+            Get module usage data.
+            </summary>
+        </member>
         <member name="T:CMS.Synchronization.VersioningUsageDataSource">
             <summary>
             Module usage tracking data source for staging.
             </summary>
         </member>
-        <member name="M:CMS.Synchronization.VersioningUsageDataSource.GetData">
-            <summary>
-            Get module usage data.
-            </summary>
-        </member>
         <member name="P:CMS.Synchronization.VersioningUsageDataSource.Name">
             <summary>
             Staging data source name.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.VersioningUsageDataSource.GetData">
+            <summary>
+            Get module usage data.
             </summary>
         </member>
         <member name="T:CMS.Synchronization.Synchronization">
@@ -384,7 +384,7 @@
             <summary>
             Returns XML representation of given instance of info object.
             Caches the object XML for the given settings in current thread/request.
-            Use <see cref="M:CMS.Helpers.AbstractStockHelper`1.ExecuteWithEmptyStorage(System.Action,System.String,System.Boolean)"/> wrapper to execute a block of code with its own cache.
+            Use <see cref="M:CMS.Helpers.AbstractStockHelper`1.ExecuteWithEmptyStorage(System.Action,System.String,System.Boolean)" /> wrapper to execute a block of code with its own cache.
             </summary>
             <param name="settings">Export settings</param>
             <param name="infoObj">Info object to export</param>
@@ -417,6 +417,21 @@
         <member name="T:CMS.Synchronization.ObjectXmlWriter">
             <summary>
             Writes the given object and its hierarchy to the output as XML
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ObjectXmlWriter.Settings">
+            <summary>
+            Synchronization settings
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ObjectXmlWriter.Writer">
+            <summary>
+            Writer for the output
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ObjectXmlWriter.TranslationWriter">
+            <summary>
+            Translation XML writer instance
             </summary>
         </member>
         <member name="M:CMS.Synchronization.ObjectXmlWriter.#ctor(CMS.IO.StreamWriter,CMS.DataEngine.SynchronizationObjectSettings)">
@@ -534,21 +549,6 @@
             <param name="idColumns">ID columns separated with semicolon</param>
             <param name="infoObj">Object to get ID from</param>
         </member>
-        <member name="P:CMS.Synchronization.ObjectXmlWriter.Settings">
-            <summary>
-            Synchronization settings
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.ObjectXmlWriter.Writer">
-            <summary>
-            Writer for the output
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.ObjectXmlWriter.TranslationWriter">
-            <summary>
-            Translation XML writer instance
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.TaskGroupUserInfo">
             <summary>
             TaskGroupUserInfo data container class.
@@ -562,6 +562,21 @@
         <member name="F:CMS.Synchronization.TaskGroupUserInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupUserInfo.TaskGroupUserID">
+            <summary>
+            Task group user ID
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupUserInfo.TaskGroupID">
+            <summary>
+            Task group ID
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupUserInfo.UserID">
+            <summary>
+            User ID
             </summary>
         </member>
         <member name="M:CMS.Synchronization.TaskGroupUserInfo.DeleteObject">
@@ -591,21 +606,6 @@
             Constructor - Creates a new TaskGroupUserInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupUserInfo.TaskGroupUserID">
-            <summary>
-            Task group user ID
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupUserInfo.TaskGroupID">
-            <summary>
-            Task group ID
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupUserInfo.UserID">
-            <summary>
-            User ID
-            </summary>
         </member>
         <member name="T:CMS.Synchronization.TaskGroupUserInfoProvider">
             <summary>
@@ -658,18 +658,6 @@
             <param name="taskgroupId">Task group ID</param>
             <param name="userId">User ID</param>  
         </member>
-        <member name="M:CMS.Synchronization.TaskGroupUserInfoProvider.SetTaskGroupUserInfoInternal(CMS.Synchronization.TaskGroupUserInfo)">
-            <summary>
-            Sets specified TaskGroupUserInfo binding.
-            </summary>
-            <param name="infoObj">TaskGroupUserInfo object</param>
-        </member>
-        <member name="M:CMS.Synchronization.TaskGroupUserInfoProvider.DeleteTaskGroupUserInfoInternal(CMS.Synchronization.TaskGroupUserInfo)">
-            <summary>
-            Deletes specified TaskGroupUserInfo.
-            </summary>
-            <param name="infoObj">TaskGroupUserInfo object</param>
-        </member>
         <member name="M:CMS.Synchronization.TaskGroupUserInfoProvider.RemoveTaskGroupFromUserInternal(System.Int32,System.Int32)">
             <summary>
             Deletes TaskGroupUserInfo binding.
@@ -699,6 +687,21 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Synchronization.StagingTaskUserInfo.TaskUserID">
+            <summary>
+            Identifies binding between StagingTaskInfo and UserInfo.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.StagingTaskUserInfo.TaskID">
+            <summary>
+            Identifies StagingTaskInfo in binding.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.StagingTaskUserInfo.UserID">
+            <summary>
+            Identifies UserInfo in binding.
+            </summary>
+        </member>
         <member name="M:CMS.Synchronization.StagingTaskUserInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -726,21 +729,6 @@
             Creates a new TaskUserInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.Synchronization.StagingTaskUserInfo.TaskUserID">
-            <summary>
-            Identifies binding between StagingTaskInfo and UserInfo.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.StagingTaskUserInfo.TaskID">
-            <summary>
-            Identifies StagingTaskInfo in binding.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.StagingTaskUserInfo.UserID">
-            <summary>
-            Identifies UserInfo in binding.
-            </summary>
         </member>
         <member name="T:CMS.Synchronization.StagingTaskUserInfoProvider">
             <summary>
@@ -785,12 +773,6 @@
             <param name="taskId">StagingTaskInfo ID</param>
             <param name="userId">UserInfo ID</param>   
         </member>
-        <member name="M:CMS.Synchronization.StagingTaskUserInfoProvider.DeleteStagingTaskUserInfos(CMS.DataEngine.IWhereCondition)">
-            <summary>
-            Deletes all <see cref="T:CMS.Synchronization.StagingTaskUserInfo"/> bindings that satisfy where condition.
-            </summary>
-            <param name="where">Where condition to which <see cref="T:CMS.Synchronization.StagingTaskUserInfo"/> bindings to delete</param>
-        </member>
         <member name="M:CMS.Synchronization.StagingTaskUserInfoProvider.UpdateStagingTaskUsers(CMS.DataEngine.IWhereCondition,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
             <summary>
             Updates staging tasks user bindings for given where condition with values.
@@ -805,18 +787,6 @@
             </summary>
             <param name="taskId">StagingTaskInfo ID</param>
             <param name="userId">UserInfo ID</param>  
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskUserInfoProvider.SetStagingTaskUserInfoInternal(CMS.Synchronization.StagingTaskUserInfo)">
-            <summary>
-            Sets specified <see cref="T:CMS.Synchronization.StagingTaskUserInfo"/> binding.
-            </summary>
-            <param name="infoObj"><see cref="T:CMS.Synchronization.StagingTaskUserInfo"/> object</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskUserInfoProvider.DeleteStagingTaskUserInfoInternal(CMS.Synchronization.StagingTaskUserInfo)">
-            <summary>
-            Deletes specified <see cref="T:CMS.Synchronization.StagingTaskUserInfo"/>.
-            </summary>
-            <param name="infoObj"><see cref="T:CMS.Synchronization.StagingTaskUserInfo"/> object</param>
         </member>
         <member name="M:CMS.Synchronization.StagingTaskUserInfoProvider.RemoveStagingTaskFromUserInternal(System.Int32,System.Int32)">
             <summary>
@@ -836,12 +806,6 @@
             <summary>
             Interface for objects that are used for sending staging task to target server.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IStagingTaskData.Serialize">
-            <summary>
-            Serializes current IStagingTaskData.
-            </summary>
-            <returns>String serialized IStagingTaskData</returns>
         </member>
         <member name="P:CMS.Synchronization.IStagingTaskData.TaskType">
             <summary>
@@ -893,51 +857,16 @@
             Cannot be a generic collection since the SOAP serializer doesn't support those.
             </remarks>
         </member>
+        <member name="M:CMS.Synchronization.IStagingTaskData.Serialize">
+            <summary>
+            Serializes current IStagingTaskData.
+            </summary>
+            <returns>String serialized IStagingTaskData</returns>
+        </member>
         <member name="T:CMS.Synchronization.StagingTaskData">
             <summary>
             Object that implements IStagingTaskData and is used for sending staging task related data from source server to target.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskData.#ctor">
-            <summary>
-            Parameterless constructor, for creating StagingTaskData.
-            No properties are initialized except SystemVersion.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskData.#ctor(System.String)">
-            <summary>
-            Creates StagingTaskData from serialized StagingTaskData.
-            Should be used on target server.
-            All properties are initialized from serialized StagingTaskData.
-            </summary>
-            <param name="serializedStagingTaskData">Serialized StagingTaskData from which this object will be initialized</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskData.#ctor(CMS.Synchronization.StagingTaskInfo)">
-            <summary>
-            Creates StagingTaskData from serialized StagingTaskInfo.
-            Should be used before sending data from source to target.
-            All properties are initialized, UserName and UserGuid are equal to CurrentUser.
-            </summary>
-            <param name="sti">StagingTaskInfo from which this object will be initialized</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskData.Serialize">
-            <summary>
-            Serializes current StagingTaskData to string, for sending via staging.
-            </summary>
-            <returns>Serializesd current StagingTaskData</returns>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskData.Deserialize(System.String)">
-            <summary>
-            Deserializes string, to fill properties of this StagingTaskData.
-            </summary>
-            <param name="serializedStagingTaskData">Serialized StagingTaskData</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskData.SetCurrentUser(CMS.Base.IUserInfo)">
-            <summary>
-            Sets the current user's guid and username to <see cref="P:CMS.Synchronization.StagingTaskData.UserGuid"/> and <see cref="P:CMS.Synchronization.StagingTaskData.UserName"/>
-            of current StagingTaskData instance.
-            </summary>
-            <param name="user">User to be set, if null <see cref="P:CMS.Base.CMSActionContext.CurrentUser"/> will be used</param>
         </member>
         <member name="P:CMS.Synchronization.StagingTaskData.TaskType">
             <summary>
@@ -986,10 +915,93 @@
             Work labels under which object encapsulated within staging task got modified.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.StagingTaskData.#ctor">
+            <summary>
+            Parameterless constructor, for creating StagingTaskData.
+            No properties are initialized except SystemVersion.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskData.#ctor(System.String)">
+            <summary>
+            Creates StagingTaskData from serialized StagingTaskData.
+            Should be used on target server.
+            All properties are initialized from serialized StagingTaskData.
+            </summary>
+            <param name="serializedStagingTaskData">Serialized StagingTaskData from which this object will be initialized</param>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskData.#ctor(CMS.Synchronization.StagingTaskInfo)">
+            <summary>
+            Creates StagingTaskData from serialized StagingTaskInfo.
+            Should be used before sending data from source to target.
+            All properties are initialized, UserName and UserGuid are equal to CurrentUser.
+            </summary>
+            <param name="sti">StagingTaskInfo from which this object will be initialized</param>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskData.Serialize">
+            <summary>
+            Serializes current StagingTaskData to string, for sending via staging.
+            </summary>
+            <returns>Serializesd current StagingTaskData</returns>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskData.Deserialize(System.String)">
+            <summary>
+            Deserializes string, to fill properties of this StagingTaskData.
+            </summary>
+            <param name="serializedStagingTaskData">Serialized StagingTaskData</param>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskData.SetCurrentUser(CMS.Base.IUserInfo)">
+            <summary>
+            Sets the current user's guid and username to <see cref="P:CMS.Synchronization.StagingTaskData.UserGuid"/> and <see cref="P:CMS.Synchronization.StagingTaskData.UserName"/>
+            of current StagingTaskData instance.
+            </summary>
+            <param name="user">User to be set, if null <see cref="P:CMS.Base.CMSActionContext.CurrentUser"/> will be used</param>
+        </member>
         <member name="T:CMS.Synchronization.SynchronizationActionContext">
             <summary>
             Context for synchronization and task processing.
             </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationActionContext.CurrentTaskGroups">
+            <summary>
+            Gets task group collection for current user context.
+            </summary>
+            <remarks>
+            The same task group collection is used for all users if collection of task groups is set through <see cref="P:CMS.Synchronization.SynchronizationActionContext.TaskGroups"/> property.  
+            </remarks>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationActionContext.CurrentLogUserWithTask">
+            <summary>
+            Indicates whether user should be logged within the task creation.
+            </summary>
+            <remarks>
+            By default tasks are logged with information about the current user.
+            </remarks>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationActionContext.TaskGroups">
+            <summary>
+            Sets the collection of tasks used within the current task processing.
+            </summary>
+            <remarks>
+            The collection of task groups defined in <see cref="P:CMS.Synchronization.SynchronizationActionContext.CurrentTaskGroups"/> property is returning currently  set value for all users.
+            </remarks>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationActionContext.LogUserWithTask">
+            <summary>
+            Sets the value that indicates whether user should be logged  within the task creation. 
+            </summary>
+            <remarks>
+            By default tasks are logged with and information about user.
+            If disabled, task are not logged with information about user.
+            </remarks>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationActionContext.UserTaskGroups">
+            <summary>
+            Sets the value that indicates whether user should be logged  within the task creation. 
+            </summary>
+            <remarks>
+            By default tasks are logged with and information about user.
+            If disabled, task are not logged with information about user.
+            </remarks>
         </member>
         <member name="M:CMS.Synchronization.SynchronizationActionContext.#ctor">
             <summary>
@@ -1036,48 +1048,6 @@
             Returns collection of <see cref="T:CMS.Synchronization.TaskGroupInfo"/> objects for current user.
             </summary>
         </member>
-        <member name="P:CMS.Synchronization.SynchronizationActionContext.CurrentTaskGroups">
-            <summary>
-            Gets task group collection for current user context.
-            </summary>
-            <remarks>
-            The same task group collection is used for all users if collection of task groups is set through <see cref="P:CMS.Synchronization.SynchronizationActionContext.TaskGroups"/> property.  
-            </remarks>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationActionContext.CurrentLogUserWithTask">
-            <summary>
-            Indicates whether user should be logged within the task creation.
-            </summary>
-            <remarks>
-            By default tasks are logged with information about the current user.
-            </remarks>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationActionContext.TaskGroups">
-            <summary>
-            Sets the collection of tasks used within the current task processing.
-            </summary>
-            <remarks>
-            The collection of task groups defined in <see cref="P:CMS.Synchronization.SynchronizationActionContext.CurrentTaskGroups"/> property is returning currently  set value for all users.
-            </remarks>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationActionContext.LogUserWithTask">
-            <summary>
-            Sets the value that indicates whether user should be logged  within the task creation. 
-            </summary>
-            <remarks>
-            By default tasks are logged with and information about user.
-            If disabled, task are not logged with information about user.
-            </remarks>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationActionContext.UserTaskGroups">
-            <summary>
-            Sets the value that indicates whether user should be logged  within the task creation. 
-            </summary>
-            <remarks>
-            By default tasks are logged with and information about user.
-            If disabled, task are not logged with information about user.
-            </remarks>
-        </member>
         <member name="T:CMS.Synchronization.SynchronizationActionManager">
             <summary>
             Manager for registered synchronization actions.
@@ -1113,13 +1083,6 @@
             Base class for the exceptions raised during versioning methods (check in/out, etc.).
             </summary>
         </member>
-        <member name="M:CMS.Synchronization.ObjectVersioningException.#ctor(CMS.DataEngine.ObjectSettingsInfo,System.String)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="settings">Object settings</param>
-            <param name="operation">Operation processed</param>
-        </member>
         <member name="P:CMS.Synchronization.ObjectVersioningException.Settings">
             <summary>
             Gets or sets the object settings info.
@@ -1130,11 +1093,78 @@
             Gets or sets the name of the operation.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.ObjectVersioningException.#ctor(CMS.DataEngine.ObjectSettingsInfo,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="settings">Object settings</param>
+            <param name="operation">Operation processed</param>
+        </member>
         <member name="T:CMS.Synchronization.AbstractIntegrationConnector">
             <summary>
             Class that needs to be inherited during implementing custom integration connector.
             Several members have to be implemented in order to achieve desired functionality.
             </summary>
+        </member>
+        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorName">
+            <summary>
+            Name of the connector.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorInfo">
+            <summary>
+            Gets integration connector info object.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorID">
+            <summary>
+            Gets integration connector identifier.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorEnabled">
+            <summary>
+            Gets a value that indicates if the connector is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingInternalTasks">
+            <summary>
+            Indicates whether the thread for processing outgoing tasks is already running.
+            </summary>
+            <seealso cref="M:CMS.Synchronization.AbstractIntegrationConnector.SetProcessingInternalTasks"/>
+            <seealso cref="M:CMS.Synchronization.AbstractIntegrationConnector.ClearProcessingInternalTasks"/>
+        </member>
+        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingExternalTasks">
+            <summary>
+            Indicates whether the thread for processing incoming tasks is already running.
+            </summary>
+            <seealso cref="M:CMS.Synchronization.AbstractIntegrationConnector.SetProcessingExternalTasks"/>
+            <seealso cref="M:CMS.Synchronization.AbstractIntegrationConnector.ClearProcessingExternalTasks"/>
+        </member>
+        <member name="M:CMS.Synchronization.AbstractIntegrationConnector.SetProcessingInternalTasks">
+            <summary>
+            Sets the <see cref="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingInternalTasks"/> flag to true, if not already set and returns a value indicating whether the flag was set by the current call.
+            To ensure mutual exclusion, only the thread successfully setting the flag can process internal tasks.
+            </summary>
+            <returns>Returns true if the <see cref="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingInternalTasks"/> flag was set by the current call.</returns>
+        </member>
+        <member name="M:CMS.Synchronization.AbstractIntegrationConnector.ClearProcessingInternalTasks">
+            <summary>
+            Clears the "<see cref="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingInternalTasks"/>"/> flag. The flag can be cleared only after it has been previously set by a <see cref="M:CMS.Synchronization.AbstractIntegrationConnector.SetProcessingInternalTasks"/> call.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown when clearing an already clear flag. Such exception indicates possible multi-threaded access and violation of the mutual exclusion.</exception>
+        </member>
+        <member name="M:CMS.Synchronization.AbstractIntegrationConnector.SetProcessingExternalTasks">
+            <summary>
+            Sets the <see cref="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingExternalTasks"/> flag to true, if not already set and returns a value indicating whether the flag was set by the current call.
+            To ensure mutual exclusion, only the thread successfully setting the flag can process internal tasks.
+            </summary>
+            <returns>Returns true if the <see cref="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingExternalTasks"/> flag was set by the current call.</returns>
+        </member>
+        <member name="M:CMS.Synchronization.AbstractIntegrationConnector.ClearProcessingExternalTasks">
+            <summary>
+            Clears the "<see cref="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingExternalTasks"/>"/> flag. The flag can be cleared only after it has been previously set by a <see cref="M:CMS.Synchronization.AbstractIntegrationConnector.SetProcessingExternalTasks"/> call.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown when clearing an already clear flag. Such exception indicates possible multi-threaded access and violation of the mutual exclusion.</exception>
         </member>
         <member name="M:CMS.Synchronization.AbstractIntegrationConnector.Init">
             <summary>
@@ -1184,36 +1214,6 @@
             Repeatedly fetches incoming tasks from oldest to newest and processes them.
             </summary>
         </member>
-        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorName">
-            <summary>
-            Name of the connector.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorInfo">
-            <summary>
-            Gets integration connector info object.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorID">
-            <summary>
-            Gets integration connector identifier.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ConnectorEnabled">
-            <summary>
-            Gets a value that indicates if the connector is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingInternalTasks">
-            <summary>
-            Indicates whether the thread for processing outgoing tasks is already running.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.AbstractIntegrationConnector.ProcessingExternalTasks">
-            <summary>
-            Indicates whether the thread for processing incoming tasks is already running.
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.AbstractIntegrationSubscription">
             <summary>
             Class representing generic subscription object.
@@ -1222,6 +1222,11 @@
         <member name="F:CMS.Synchronization.AbstractIntegrationSubscription.GLOBAL_OBJECTS">
             <summary>
             Used for subscribing to global objects.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.AbstractIntegrationSubscription.ConnectorName">
+            <summary>
+            Name of connector the subscription is attached to
             </summary>
         </member>
         <member name="M:CMS.Synchronization.AbstractIntegrationSubscription.IsMatch(CMS.Base.ICMSObject,CMS.DataEngine.TaskTypeEnum,CMS.Synchronization.TaskProcessTypeEnum@)">
@@ -1233,19 +1238,43 @@
             <param name="taskProcessType">Returns type of task processing</param>
             <returns>TRUE if the info object and task correspond with subscription settings</returns>
         </member>
-        <member name="P:CMS.Synchronization.AbstractIntegrationSubscription.ConnectorName">
-            <summary>
-            Name of connector the subscription is attached to
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.IntegrationHelper">
             <summary>
             Class covering functionality shared across the integration module.
             </summary>
         </member>
-        <member name="F:CMS.Synchronization.IntegrationHelper.TOUCHED_CONNECTOR_NAMES">
+        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationEnabled">
             <summary>
-            Item name for storing connector names in request stock.
+            Indicates if system integration is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationIsDisabled">
+            <summary>
+            Indicates if system integration is disabled in web.config.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationProcessExternal">
+            <summary>
+            Indicates if processing of integration tasks for inbound direction is enabled.
+            Reflects also IntegrationEnabled setting.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationProcessInternal">
+            <summary>
+            Indicates if processing of integration tasks for outbound direction is enabled.
+            Reflects also IntegrationEnabled setting.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationLogExternal">
+            <summary>
+            Indicates if logging of integration tasks for inbound direction is enabled.
+            Reflects also IntegrationEnabled setting.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationLogInternal">
+            <summary>
+            Indicates if logging of integration tasks for outbound direction is enabled.
+            Reflects also IntegrationEnabled setting.
             </summary>
         </member>
         <member name="F:CMS.Synchronization.IntegrationHelper.connectorLock">
@@ -1253,9 +1282,24 @@
             Lock for connector loading.
             </summary>
         </member>
+        <member name="F:CMS.Synchronization.IntegrationHelper.TOUCHED_CONNECTOR_NAMES">
+            <summary>
+            Item name for storing connector names in request stock.
+            </summary>
+        </member>
         <member name="F:CMS.Synchronization.IntegrationHelper.mConnectors">
             <summary>
             Inner connector storage
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.Connectors">
+            <summary>
+            List of enabled (and initialized) connectors
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.TouchedConnectorNames">
+            <summary>
+            List of connector names for which the task was logged
             </summary>
         </member>
         <member name="M:CMS.Synchronization.IntegrationHelper.Init">
@@ -1296,6 +1340,11 @@
         <member name="F:CMS.Synchronization.IntegrationHelper.mSubscriptions">
             <summary>
             Inner subscription storage
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationHelper.Subscriptions">
+            <summary>
+            List of subscriptions for all connectors
             </summary>
         </member>
         <member name="M:CMS.Synchronization.IntegrationHelper.SubscribeTo(CMS.Synchronization.AbstractIntegrationSubscription)">
@@ -1465,55 +1514,6 @@
             <param name="taskProcessType">Task process type value</param>
             <returns>Task data type</returns>
         </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationEnabled">
-            <summary>
-            Indicates if system integration is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationIsDisabled">
-            <summary>
-            Indicates if system integration is disabled in web.config.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationProcessExternal">
-            <summary>
-            Indicates if processing of integration tasks for inbound direction is enabled.
-            Reflects also IntegrationEnabled setting.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationProcessInternal">
-            <summary>
-            Indicates if processing of integration tasks for outbound direction is enabled.
-            Reflects also IntegrationEnabled setting.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationLogExternal">
-            <summary>
-            Indicates if logging of integration tasks for inbound direction is enabled.
-            Reflects also IntegrationEnabled setting.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.IntegrationLogInternal">
-            <summary>
-            Indicates if logging of integration tasks for outbound direction is enabled.
-            Reflects also IntegrationEnabled setting.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.Connectors">
-            <summary>
-            List of enabled (and initialized) connectors
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.TouchedConnectorNames">
-            <summary>
-            List of connector names for which the task was logged
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationHelper.Subscriptions">
-            <summary>
-            List of subscriptions for all connectors
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.IntegrationProcessTypeEnum">
             <summary>
             Says how the CMS should process the task.
@@ -1579,6 +1579,16 @@
             Class for asynchronous task processing.
             </summary>
         </member>
+        <member name="P:CMS.Synchronization.IntegrationTasksWorker.Connector">
+            <summary>
+            Connector info object
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationTasksWorker.InternalTasks">
+            <summary>
+            Determines whether to process internal or external tasks
+            </summary>
+        </member>
         <member name="M:CMS.Synchronization.IntegrationTasksWorker.#ctor">
             <summary>
             Default constructor.
@@ -1606,16 +1616,6 @@
             Processes external tasks.
             </summary>
         </member>
-        <member name="P:CMS.Synchronization.IntegrationTasksWorker.Connector">
-            <summary>
-            Connector info object
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationTasksWorker.InternalTasks">
-            <summary>
-            Determines whether to process internal or external tasks
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.IntegrationConnectorInfo">
             <summary>
             IntegrationConnectorInfo data container class.
@@ -1630,27 +1630,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty IntegrationConnectorInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new IntegrationConnectorInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
         </member>
         <member name="P:CMS.Synchronization.IntegrationConnectorInfo.ConnectorAssemblyName">
             <summary>
@@ -1687,6 +1666,27 @@
             Connector last modified time stamp.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty IntegrationConnectorInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationConnectorInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new IntegrationConnectorInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
         <member name="T:CMS.Synchronization.IntegrationConnectorInfoProvider">
             <summary>
             Class providing IntegrationConnectorInfo management.
@@ -1710,13 +1710,6 @@
             <param name="orderBy">Order by expression.</param>
             <param name="topN">Number of records to be selected.</param>        
             <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.GetIntegrationConnectors(System.String,System.String)">
-            <summary>
-            Returns dataset of all integration connectors matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
         </member>
         <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.GetIntegrationConnectorInfo(System.Int32)">
             <summary>
@@ -1748,22 +1741,11 @@
             </summary>
             <param name="connectorId">Integration connector ID.</param>
         </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged.</param>
-        </member>
         <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.ClearHashtables(System.Boolean)">
             <summary>
             Clear hashtables.
             </summary>
             <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.GetIntegrationConnectorsInternal">
-            <summary>
-            Returns all integration connectors.
-            </summary>
         </member>
         <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.GetIntegrationConnectorsInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -1774,29 +1756,17 @@
             <param name="topN">Number of records to be selected.</param>        
             <param name="columns">Columns to be selected.</param>
         </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.GetIntegrationConnectorInfoInternal(System.Int32)">
+        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.SetInfo(CMS.Synchronization.IntegrationConnectorInfo)">
             <summary>
-            Returns integration connector with specified ID.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="connectorId">Integration connector ID.</param>        
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.GetIntegrationConnectorInfoInternal(System.String)">
+        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.DeleteInfo(CMS.Synchronization.IntegrationConnectorInfo)">
             <summary>
-            Returns integration connector with specified name.
+            Deletes the object to the database.
             </summary>
-            <param name="connectorName">Integration connector name.</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.SetIntegrationConnectorInfoInternal(CMS.Synchronization.IntegrationConnectorInfo)">
-            <summary>
-            Sets (updates or inserts) specified integration connector.
-            </summary>
-            <param name="connectorObj">Integration connector to be set.</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.DeleteIntegrationConnectorInfoInternal(CMS.Synchronization.IntegrationConnectorInfo)">
-            <summary>
-            Deletes specified integration connector.
-            </summary>
-            <param name="connectorObj">Integration connector to be deleted.</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Synchronization.IntegrationConnectorInfoProvider.ProcessWebFarmTask(System.String,System.String,System.Byte[])">
             <summary>
@@ -1820,27 +1790,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty IntegrationSynchronizationInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new IntegrationSynchronizationInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
         </member>
         <member name="P:CMS.Synchronization.IntegrationSynchronizationInfo.SynchronizationErrorMessage">
             <summary>
@@ -1872,6 +1821,27 @@
             Whether the synchronization of the related task is running.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty IntegrationSynchronizationInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new IntegrationSynchronizationInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
         <member name="T:CMS.Synchronization.IntegrationSynchronizationInfoProvider">
             <summary>
             Class providing IntegrationSynchronizationInfo management.
@@ -1881,22 +1851,6 @@
             <summary>
             Returns all integration synchronization records.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.GetIntegrationSynchronizations(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all integration synchronizations matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="topN">Number of records to be selected</param>        
-            <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.GetIntegrationSynchronizations(System.String,System.String)">
-            <summary>
-            Returns dataset of all integration synchronizations matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
         </member>
         <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.GetIntegrationSynchronizationInfo(System.Int32)">
             <summary>
@@ -1943,38 +1897,11 @@
             <param name="taskId">Task identifier</param>
             <param name="isRunning">Flag indicating that task is being processed</param>
         </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.GetIntegrationSynchronizationsInternal">
+        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.DeleteInfo(CMS.Synchronization.IntegrationSynchronizationInfo)">
             <summary>
-            Returns all integration synchronization records.
+            Deletes the object to the database.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.GetIntegrationSynchronizationsInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all integration synchronizations matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="topN">Number of records to be selected</param>        
-            <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.GetIntegrationSynchronizationInfoInternal(System.Int32)">
-            <summary>
-            Returns integration synchronization with specified ID.
-            </summary>
-            <param name="synchronizationId">Integration synchronization ID</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.SetIntegrationSynchronizationInfoInternal(CMS.Synchronization.IntegrationSynchronizationInfo)">
-            <summary>
-            Sets (updates or inserts) specified integration synchronization.
-            </summary>
-            <param name="synchronizationObj">Integration synchronization to be set</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSynchronizationInfoProvider.DeleteIntegrationSynchronizationInfoInternal(CMS.Synchronization.IntegrationSynchronizationInfo)">
-            <summary>
-            Deletes specified integration synchronization.
-            Deletes also task if deleted synchronization is the last one.
-            </summary>
-            <param name="synchronizationObj">Integration synchronization to be deleted</param>        
+            <param name="info">Object to delete</param>
         </member>
         <member name="T:CMS.Synchronization.IntegrationSyncLogInfo">
             <summary>
@@ -1989,6 +1916,26 @@
         <member name="F:CMS.Synchronization.IntegrationSyncLogInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogID">
+            <summary>
+            Synchronization log identifier.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogErrorMessage">
+            <summary>
+            Error message (stored when synchronization fails).
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogSynchronizationID">
+            <summary>
+            Synchronization identifier which is the synchronization log bound to.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogTime">
+            <summary>
+            Time of synchronization log event.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.IntegrationSyncLogInfo.DeleteObject">
@@ -2012,26 +1959,6 @@
             </summary>
             <param name="dr">DataRow with the object data</param>
         </member>
-        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogID">
-            <summary>
-            Synchronization log identifier.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogErrorMessage">
-            <summary>
-            Error message (stored when synchronization fails).
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogSynchronizationID">
-            <summary>
-            Synchronization identifier which is the synchronization log bound to.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.IntegrationSyncLogInfo.SyncLogTime">
-            <summary>
-            Time of synchronization log event.
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.IntegrationSyncLogInfoProvider">
             <summary>
             Class providing IntegrationSyncLogInfo management.
@@ -2041,22 +1968,6 @@
             <summary>
             Returns all integration synchronization logs.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.GetIntegrationSynchronizationLogs(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all integration synchronization logs matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="topN">Number of records to be selected</param>        
-            <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.GetIntegrationSynchronizationLogs(System.String,System.String)">
-            <summary>
-            Returns dataset of all integration synchronization logs matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
         </member>
         <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.GetIntegrationSyncLogInfo(System.Int32)">
             <summary>
@@ -2088,38 +1999,6 @@
             </summary>
             <param name="synchronizationId">Synchronization identifier</param>
         </member>
-        <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.GetIntegrationSynchronizationLogsInternal">
-            <summary>
-            Returns all integration synchronization logs.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.GetIntegrationSynchronizationLogsInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all integration synchronization logs matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="topN">Number of records to be selected</param>        
-            <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.GetIntegrationSyncLogInfoInternal(System.Int32)">
-            <summary>
-            Returns integration synchronization log with specified ID.
-            </summary>
-            <param name="logId">Integration synchronization log ID</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.SetIntegrationSyncLogInfoInternal(CMS.Synchronization.IntegrationSyncLogInfo)">
-            <summary>
-            Sets (updates or inserts) specified integration synchronization log.
-            </summary>
-            <param name="logObj">Integration synchronization log to be set</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.DeleteIntegrationSyncLogInfoInternal(CMS.Synchronization.IntegrationSyncLogInfo)">
-            <summary>
-            Deletes specified integration synchronization log.
-            </summary>
-            <param name="logObj">Integration synchronization log to be deleted</param>        
-        </member>
         <member name="M:CMS.Synchronization.IntegrationSyncLogInfoProvider.DeleteIntegrationSyncLogsInternal(System.Int32)">
             <summary>
             Deletes integration synchronization log specified by task and connector identifiers.
@@ -2131,26 +2010,6 @@
             IntegrationTaskInfo data container class.
             </summary>
         </member>
-        <member name="T:CMS.Synchronization.ISynchronizationTask">
-            <summary>
-            Represents generic synchronization task.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.ISynchronizationTask.TaskID">
-            <summary>
-            Task identifier.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.ISynchronizationTask.TaskTitle">
-            <summary>
-            Caption of the task.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.ISynchronizationTask.TaskData">
-            <summary>
-            Data of the task. (Usually XML)
-            </summary>
-        </member>
         <member name="F:CMS.Synchronization.IntegrationTaskInfo.OBJECT_TYPE">
             <summary>
             Object type
@@ -2160,27 +2019,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty IntegrationTaskInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new IntegrationTaskInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
         </member>
         <member name="P:CMS.Synchronization.IntegrationTaskInfo.TaskType">
             <summary>
@@ -2252,6 +2090,27 @@
             Task data.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.IntegrationTaskInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationTaskInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationTaskInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty IntegrationTaskInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.IntegrationTaskInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new IntegrationTaskInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
         <member name="T:CMS.Synchronization.IntegrationTaskInfoProvider">
             <summary>
             Class providing IntegrationTaskInfo management.
@@ -2261,22 +2120,6 @@
             <summary>
             Returns all integration tasks.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.GetIntegrationTasks(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all integration tasks matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="topN">Number of records to be selected</param>        
-            <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.GetIntegrationTasks(System.String,System.String)">
-            <summary>
-            Returns dataset of all integration tasks matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
         </member>
         <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.GetIntegrationTaskInfo(System.Int32)">
             <summary>
@@ -2357,38 +2200,6 @@
             </summary>
             <param name="connectorName">Name of connector</param>
             <param name="taskInfo">Task info object</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.GetIntegrationTasksInternal">
-            <summary>
-            Returns all integration tasks.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.GetIntegrationTasksInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all integration tasks matching the specified parameters.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by expression</param>
-            <param name="topN">Number of records to be selected</param>        
-            <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.GetIntegrationTaskInfoInternal(System.Int32)">
-            <summary>
-            Returns integration task with specified ID.
-            </summary>
-            <param name="taskId">Integration task ID</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.SetIntegrationTaskInfoInternal(CMS.Synchronization.IntegrationTaskInfo)">
-            <summary>
-            Sets (updates or inserts) specified integration task.
-            </summary>
-            <param name="taskObj">Integration task to be set</param>        
-        </member>
-        <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.DeleteIntegrationTaskInfoInternal(CMS.Synchronization.IntegrationTaskInfo)">
-            <summary>
-            Deletes specified integration task.
-            </summary>
-            <param name="taskObj">Integration task to be deleted</param>        
         </member>
         <member name="M:CMS.Synchronization.IntegrationTaskInfoProvider.GetIntegrationTasksViewInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -2547,6 +2358,26 @@
             </summary>
             <param name="items">Worker queue.</param>
         </member>
+        <member name="T:CMS.Synchronization.ISynchronizationTask">
+            <summary>
+            Represents generic synchronization task.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ISynchronizationTask.TaskID">
+            <summary>
+            Task identifier.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ISynchronizationTask.TaskTitle">
+            <summary>
+            Caption of the task.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.ISynchronizationTask.TaskData">
+            <summary>
+            Data of the task. (Usually XML)
+            </summary>
+        </member>
         <member name="T:CMS.Synchronization.SynchronizationModuleMetadata">
             <summary>
             Represents the Synchronization module metadata.
@@ -2610,6 +2441,11 @@
         <member name="T:CMS.Synchronization.SynchronizationHelper">
             <summary>
             Class providing management for the synchronization.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationHelper.UseCheckinCheckout">
+            <summary>
+            Indicates whether object locking is enabled within the system.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.SynchronizationHelper.GetExcludedSettingKeys">
@@ -2864,11 +2700,6 @@
             <param name="objectRow">Object DataRow</param>
             <param name="objectType">Object type</param>
         </member>
-        <member name="P:CMS.Synchronization.SynchronizationHelper.UseCheckinCheckout">
-            <summary>
-            Indicates whether object locking is enabled within the system.
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.SynchronizationModule">
             <summary>
             Represents the Synchronization module.
@@ -2912,49 +2743,6 @@
         <member name="F:CMS.Synchronization.ServerInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
-            <summary>
-            Removes object dependencies. First tries to execute removedependencies query, if not found, automatic process is executed.
-            </summary>
-            <param name="deleteAll">If false, only required dependencies are deleted, dependencies with default value are replaced with default value and nullable values are replaced with null</param>
-            <param name="clearHashtables">If true, hashtables of all objecttypes which were potentionally modified are cleared</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
-            <summary>
-            Checks the object license. Returns true if the licensing conditions for this object were matched.
-            </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, uses current domain</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ServerInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ServerInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Synchronization.ServerInfo.ServerSiteID">
@@ -3022,6 +2810,49 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.ServerInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.ServerInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.ServerInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.Synchronization.ServerInfo.RemoveObjectDependencies(System.Boolean,System.Boolean)">
+            <summary>
+            Removes object dependencies. First tries to execute removedependencies query, if not found, automatic process is executed.
+            </summary>
+            <param name="deleteAll">If false, only required dependencies are deleted, dependencies with default value are replaced with default value and nullable values are replaced with null</param>
+            <param name="clearHashtables">If true, hashtables of all objecttypes which were potentionally modified are cleared</param>
+        </member>
+        <member name="M:CMS.Synchronization.ServerInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+            <summary>
+            Checks the object license. Returns true if the licensing conditions for this object were matched.
+            </summary>
+            <param name="action">Object action</param>
+            <param name="domainName">Domain name, if not set, uses current domain</param>
+        </member>
+        <member name="M:CMS.Synchronization.ServerInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ServerInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.ServerInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ServerInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Synchronization.ServerInfoProvider">
             <summary>
             Class providing ServerInfo management.
@@ -3075,94 +2906,11 @@
             </summary>
             <param name="serverId">Server id</param>
         </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetServers(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all servers filtered out by where condition and ordered by given expresion.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetSiteServers(System.Int32,System.String,System.String,System.Int32,System.String,System.Boolean)">
-            <summary>
-            Returns DataSet of the servers for the specified site.
-            </summary>
-            <param name="siteId">Site id</param>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
-            <param name="allRecord">If true, (all) record is also returned</param>
-        </member>
         <member name="M:CMS.Synchronization.ServerInfoProvider.IsEnabledServer(System.Int32)">
             <summary>
             Indicates if there is at least one enabled staging server.
             </summary>
             <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clear hashtable.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetServersInternal">
-            <summary>
-            Returns all servers.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetServerInfoInternal(System.Guid,System.Int32)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-            <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetServerInfoInternal(System.Int32)">
-            <summary>
-            Returns the ServerInfo structure for the specified server.
-            </summary>
-            <param name="serverId">Server id</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetServerInfoInternal(System.String,System.Int32)">
-            <summary>
-            Returns the ServerInfo structure for the specified server.
-            </summary>
-            <param name="serverName">Server name</param>
-            <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.SetServerInfoInternal(CMS.Synchronization.ServerInfo)">
-            <summary>
-            Sets (updates or inserts) specified server.
-            </summary>
-            <param name="serverObj">Server to set</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.DeleteServerInfoInternal(CMS.Synchronization.ServerInfo)">
-            <summary>
-            Deletes specified server.
-            </summary>
-            <param name="serverObj">Server object</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetServersInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Gets all servers filtered out by where condition and ordered by given expression.
-            </summary>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
-        </member>
-        <member name="M:CMS.Synchronization.ServerInfoProvider.GetSiteServersInternal(System.Int32,System.String,System.String,System.Int32,System.String,System.Boolean)">
-            <summary>
-            Returns DataSet of the servers for the specified site.
-            </summary>
-            <param name="siteId">Site id</param>
-            <param name="where">Where condition</param>
-            <param name="orderBy">Order by clause</param>
-            <param name="topN">Number of records to return</param>
-            <param name="columns">Columns to select, null or empty returns all columns</param>
-            <param name="allRecord">If true, (all) record is also returned</param>
         </member>
         <member name="M:CMS.Synchronization.ServerInfoProvider.FilterEnabledServers(System.Collections.Generic.List{System.Int32})">
             <summary>
@@ -3183,6 +2931,31 @@
         <member name="F:CMS.Synchronization.SynchronizationInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationID">
+            <summary>
+            Synchronization ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationErrorMessage">
+            <summary>
+            Synchronization error message.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationLastRun">
+            <summary>
+            Synchronization last run.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationTaskID">
+            <summary>
+            Synchronization task ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationServerID">
+            <summary>
+            Synchronization server ID.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.SynchronizationInfo.DeleteObject">
@@ -3212,31 +2985,6 @@
         <member name="M:CMS.Synchronization.SynchronizationInfo.#ctor(System.Data.DataRow)">
             <summary>
             Constructor - Creates a new SynchronizationInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationID">
-            <summary>
-            Synchronization ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationErrorMessage">
-            <summary>
-            Synchronization error message.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationLastRun">
-            <summary>
-            Synchronization last run.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationTaskID">
-            <summary>
-            Synchronization task ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationInfo.SynchronizationServerID">
-            <summary>
-            Synchronization server ID.
             </summary>
         </member>
         <member name="T:CMS.Synchronization.SynchronizationInfoProvider">
@@ -3312,29 +3060,6 @@
             <param name="siteId">Site ID</param>
             <param name="deleteTask">When true and after delete there are no synchronization records with same task left, the task will be deleted as well.</param>
         </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.CreateSynchronizationInfo(CMS.Synchronization.StagingTaskInfo,System.Collections.Generic.List{System.Int32},System.Boolean)">
-            <summary>
-            Creates synchronization record for all server that belongs to given any of the given sites.
-            </summary>
-            <param name="task">Synchronization task</param>
-            <param name="siteIDs">Site IDs</param>
-            <param name="enabledServers">Create info only for enabled servers</param>
-        </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.CreateSynchronizationInfo(CMS.Synchronization.StagingTaskInfo,System.Int32,System.Int32)">
-            <summary>
-            Creates synchronization record for specified server or for all enabled servers.
-            </summary>
-            <param name="task">Synchronization task</param>
-            <param name="siteId">Site ID</param>
-            <param name="serverId">Server ID</param>
-        </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.CreateSynchronizationInfo(CMS.Synchronization.StagingTaskInfo,CMS.DataEngine.WhereCondition)">
-            <summary>
-            Creates synchronization record for all servers that satisfies the where condition.
-            </summary>
-            <param name="task">Synchronization task</param>
-            <param name="where">Where condition for the servers</param>
-        </member>
         <member name="M:CMS.Synchronization.SynchronizationInfoProvider.DeleteInstanceGlobalTasks(System.Collections.Generic.ICollection{System.Int32},CMS.Synchronization.ServerInfo)">
             <summary>
              Deletes all synchronizations records for given server (instance) name except the given server.
@@ -3345,11 +3070,12 @@
             <param name="taskIds">Task identifier</param>
             <param name="server">Server on which the tasks were processed</param>
         </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.GetSynchronizationInfoInternal(System.Int32)">
+        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.CreateSynchronizationRecords(System.Int32,System.Collections.Generic.IEnumerable{System.Int32})">
             <summary>
-            Returns the SynchronizationInfo structure for the specified synchronization.
+            Creates synchronization records for given task and servers.
             </summary>
-            <param name="synchronizationId">Synchronization id</param>
+            <param name="taskId">Task ID.</param>
+            <param name="serverIds">Server IDs</param>
         </member>
         <member name="M:CMS.Synchronization.SynchronizationInfoProvider.GetTaskSynchronizationInternal(System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -3370,12 +3096,6 @@
             <param name="taskIds">Task IDs</param>
             <param name="serverId">Server ID</param>
             <param name="siteId">Site ID</param>
-        </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.SetSynchronizationInfoInternal(CMS.Synchronization.SynchronizationInfo)">
-            <summary>
-            Sets (updates or inserts) specified synchronization.
-            </summary>
-            <param name="synchronization">Synchronization to set</param>
         </member>
         <member name="M:CMS.Synchronization.SynchronizationInfoProvider.DeleteSynchronizationInfoInternal(CMS.Synchronization.SynchronizationInfo,System.Boolean)">
             <summary>
@@ -3412,29 +3132,6 @@
             <param name="serverId">Server ID</param>
             <param name="siteId">Site ID</param>
             <param name="deleteTask">When true and after delete there are no synchronization records with same task left, the task will be deleted as well.</param>
-        </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.CreateSynchronizationInfoInternal(CMS.Synchronization.StagingTaskInfo,System.Collections.Generic.List{System.Int32},System.Boolean)">
-            <summary>
-            Creates synchronization record for all server that belongs to given any of the given sites.
-            </summary>
-            <param name="task">Synchronization task</param>
-            <param name="siteIDs">Site IDs</param>
-            <param name="enabledServers">Create info only for enabled servers</param>
-        </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.CreateSynchronizationInfoInternal(CMS.Synchronization.StagingTaskInfo,System.Int32,System.Int32)">
-            <summary>
-            Creates synchronization record for specified server or for all enabled servers.
-            </summary>
-            <param name="task">Synchronization task</param>
-            <param name="siteId">Site ID</param>
-            <param name="serverId">Server ID</param>
-        </member>
-        <member name="M:CMS.Synchronization.SynchronizationInfoProvider.CreateSynchronizationInfoInternal(CMS.Synchronization.StagingTaskInfo,CMS.DataEngine.WhereCondition)">
-            <summary>
-            Creates synchronization record for all servers that satisfies the where condition.
-            </summary>
-            <param name="task">Synchronization task</param>
-            <param name="where">Where condition for the servers</param>
         </member>
         <member name="M:CMS.Synchronization.SynchronizationInfoProvider.DeleteInstanceGlobalTasksInternal(System.Collections.Generic.ICollection{System.Int32},CMS.Synchronization.ServerInfo)">
             <summary>
@@ -3480,41 +3177,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty TaskInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new TaskInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfo.WasProcessed(System.String)">
-            <summary>
-            Indicates if task was already processed by particular server.
-            </summary>
-            <param name="serverName">Server name to be checked</param>
         </member>
         <member name="P:CMS.Synchronization.StagingTaskInfo.TaskNodeAliasPath">
             <summary>
@@ -3581,6 +3243,41 @@
             List of tasks servers separated by ';', eg. ';server1;server2;server3;'.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty TaskInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new TaskInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfo.WasProcessed(System.String)">
+            <summary>
+            Indicates if task was already processed by particular server.
+            </summary>
+            <param name="serverName">Server name to be checked</param>
+        </member>
         <member name="T:CMS.Synchronization.StagingTaskInfoProvider">
             <summary>
             Class providing TaskInfo management.
@@ -3614,6 +3311,16 @@
         <member name="F:CMS.Synchronization.StagingTaskInfoProvider.ServerName">
             <summary>
             Current server name.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.StagingTaskInfoProvider.ObjectTree">
+            <summary>
+            Object tree.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.StagingTaskInfoProvider.TaskServerList">
+            <summary>
+            Task server list.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.StagingTaskInfoProvider.LogObjectChanges(System.String)">
@@ -3832,30 +3539,20 @@
             <param name="infoObj">Info object</param>
             <param name="th">Translation helper</param>
         </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfoProvider.GetServerIdsToLogTaskTo(CMS.Synchronization.StagingTaskInfo,System.Int32,System.Int32)">
+            <summary>
+            Gets the list of server IDs for which the staging task should be logged.
+            </summary>
+            <param name="task">Synchronization task.</param>
+            <param name="siteId">Site ID.</param>
+            <param name="serverId">Server ID.</param>
+        </member>
         <member name="M:CMS.Synchronization.StagingTaskInfoProvider.DeleteOrphanedTasksInternal(System.Collections.Generic.ICollection{System.Int32})">
             <summary>
             Deletes old orphaned tasks.
             </summary>
             <remarks>Orphaned task is task that does NOT have any <see cref="T:CMS.Synchronization.SynchronizationInfo"/> bindings.</remarks>
             <param name="taskIds">IDs from which the orphaned tasks should be removed.</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfoProvider.GetTaskInfoInternal(System.Int32)">
-            <summary>
-            Returns the TaskInfo structure for the specified task.
-            </summary>
-            <param name="taskId">Task id</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfoProvider.SetTaskInfoInternal(CMS.Synchronization.StagingTaskInfo)">
-            <summary>
-            Sets (updates or inserts) specified task.
-            </summary>
-            <param name="task">Task to set</param>
-        </member>
-        <member name="M:CMS.Synchronization.StagingTaskInfoProvider.DeleteTaskInfoInternal(CMS.Synchronization.StagingTaskInfo)">
-            <summary>
-            Deletes specified task.
-            </summary>
-            <param name="taskObj">Task object</param>
         </member>
         <member name="M:CMS.Synchronization.StagingTaskInfoProvider.DeleteRedundantTasksInternal">
             <summary>
@@ -3931,6 +3628,22 @@
             <param name="infoObj">Info object</param>
             <param name="th">Translation helper</param>
         </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfoProvider.GetServerIdsToLogTaskToInternal(CMS.Synchronization.StagingTaskInfo,System.Int32,System.Int32)">
+            <summary>
+            Gets the list of server IDs for which the staging task should be logged.
+            </summary>
+            <param name="task">Synchronization task.</param>
+            <param name="siteId">Site ID.</param>
+            <param name="serverId">Server ID.</param>
+        </member>
+        <member name="M:CMS.Synchronization.StagingTaskInfoProvider.GetServerIdsToLogTaskTo(CMS.Synchronization.StagingTaskInfo,System.Collections.Generic.IList{System.Int32},System.Boolean)">
+            <summary>
+            Gets the list of server IDs for which the staging task should be logged.
+            </summary>
+            <param name="task">Synchronization task.</param>
+            <param name="siteIds">List of site IDs to limit the set of staging servers to.</param>
+            <param name="enabledServers">Indicates if only enabled servers should be included.</param>
+        </member>
         <member name="M:CMS.Synchronization.StagingTaskInfoProvider.AssociateOriginalTaskGroupsWithNewTask(CMS.Synchronization.StagingTaskInfo,CMS.DataEngine.WhereCondition)">
             <summary>
             Updates <see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/> binding, by switching old task ID to a newly created task that replaces the old one.
@@ -3945,16 +3658,6 @@
             <param name="taskObj">New staging task</param>
             <param name="oldTasksWhere">Where condition for old tasks that will be deleted, e.g. UpdateObj is deleted when DeleteObj task is created for same object</param>
         </member>
-        <member name="P:CMS.Synchronization.StagingTaskInfoProvider.ObjectTree">
-            <summary>
-            Object tree.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.StagingTaskInfoProvider.TaskServerList">
-            <summary>
-            Task server list.
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.TaskParameters">
             <summary>
             Class to provide staging task parameters.
@@ -3968,6 +3671,16 @@
         <member name="F:CMS.Synchronization.TaskParameters.mReguestStockKey">
             <summary>
             Key for request stock helper caching.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskParameters.ParametersTable">
+            <summary>
+            Returns task parameter table.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskParameters.RequestStockKey">
+            <summary>
+            Returns key for request stock helper caching.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.TaskParameters.#ctor">
@@ -4013,67 +3726,24 @@
             <param name="key">Identification key</param>
             <returns>Particular DataRow</returns>
         </member>
-        <member name="P:CMS.Synchronization.TaskParameters.ParametersTable">
-            <summary>
-            Returns task parameter table.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskParameters.RequestStockKey">
-            <summary>
-            Returns key for request stock helper caching.
-            </summary>
-        </member>
-        <member name="T:CMS.Base.TaskHelper">
-            <summary>
-            Task management methods.
-            </summary>
-        </member>
-        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_CONTENT">
-            <summary>
-            Enum category in TaskTypeEnum to select content related task types.
-            </summary>
-        </member>
-        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_OBJECTS">
-            <summary>
-            Enum category in TaskTypeEnum to select objects and data related task types.
-            </summary>
-        </member>
-        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_DATA">
-            <summary>
-            Enum category in TaskTypeEnum to select general task types.
-            </summary>
-        </member>
-        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_GENERAL">
-            <summary>
-            Enum category in TaskTypeEnum to select general task types.
-            </summary>
-        </member>
-        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_RESOURCE_STRING_PREFIX">
-            <summary>
-            Prefix for resource strings that localize TaskTypeEnum
-            </summary>
-        </member>
-        <member name="M:CMS.Base.TaskHelper.GetTaskTypeString(CMS.DataEngine.TaskTypeEnum)">
-            <summary>
-            Returns the task type string.
-            </summary>
-            <param name="taskType">Task type</param>
-        </member>
-        <member name="M:CMS.Base.TaskHelper.GetTaskTypeEnum(System.String)">
-            <summary>
-            Returns the task type enumeration value.
-            </summary>
-            <param name="taskType">String task type representation</param>
-        </member>
-        <member name="M:CMS.Base.TaskHelper.IsExcludedAsyncTask(CMS.DataEngine.TaskTypeEnum)">
-            <summary>
-            Indicates if the task type shouldn't be processed asynchronously.
-            </summary>
-            <param name="taskType">Task type</param>
-        </member>
         <member name="T:CMS.Synchronization.TranslationXmlWriter">
             <summary>
             Writes registered translations in XML format
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TranslationXmlWriter.Translations">
+            <summary>
+            Recorded translations to be included to the output
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TranslationXmlWriter.TranslationHelper">
+            <summary>
+            Translation helper instance
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TranslationXmlWriter.Writer">
+            <summary>
+            Output writer
             </summary>
         </member>
         <member name="M:CMS.Synchronization.TranslationXmlWriter.#ctor(CMS.IO.StreamWriter,CMS.DataEngine.TranslationHelper)">
@@ -4115,21 +3785,6 @@
             <param name="obj">Object (TreeNode / InfoObject) to export</param>
             <param name="columnName">Column name of the dependency</param>
             <param name="objectType">Object type of the dependency</param>
-        </member>
-        <member name="P:CMS.Synchronization.TranslationXmlWriter.Translations">
-            <summary>
-            Recorded translations to be included to the output
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TranslationXmlWriter.TranslationHelper">
-            <summary>
-            Translation helper instance
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TranslationXmlWriter.Writer">
-            <summary>
-            Output writer
-            </summary>
         </member>
         <member name="T:CMS.Synchronization.VersionHistorySettingsHelper">
             <summary>
@@ -4186,34 +3841,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ObjectVersionHistoryInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ObjectVersionHistoryInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
-            <summary>
-            Checks the object license. Returns true if the licensing conditions for this object were matched
-            </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, uses current domain</param>
         </member>
         <member name="P:CMS.Synchronization.ObjectVersionHistoryInfo.VersionObjectSiteID">
             <summary>
@@ -4285,6 +3912,34 @@
             ID of the user who created the version.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ObjectVersionHistoryInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ObjectVersionHistoryInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data</param>
+        </member>
+        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+            <summary>
+            Checks the object license. Returns true if the licensing conditions for this object were matched
+            </summary>
+            <param name="action">Object action</param>
+            <param name="domainName">Domain name, if not set, uses current domain</param>
+        </member>
         <member name="T:CMS.Synchronization.ObjectVersionHistoryInfoProvider">
             <summary>
             Class providing ObjectVersionHistoryInfo management.
@@ -4355,11 +4010,6 @@
             <param name="columns">Select only specified columns</param>
             <returns>Recycle bin for specified user</returns>
         </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfoProvider.GetVersionHistoriesInternal">
-            <summary>
-            Returns all object version histories.
-            </summary>
-        </member>
         <member name="M:CMS.Synchronization.ObjectVersionHistoryInfoProvider.GetVersionHistoriesInternal(System.String,System.String,System.Int32,System.String)">
             <summary>
             Returns dataset of all object version histories matching the specified parameters.
@@ -4368,24 +4018,6 @@
             <param name="orderBy">Order by expression</param>
             <param name="topN">Number of records to be selected</param>        
             <param name="columns">Columns to be selected</param>
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfoProvider.GetVersionHistoryInfoInternal(System.Int32)">
-            <summary>
-            Returns object version history with specified ID.
-            </summary>
-            <param name="historyId">Object version history ID</param>        
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfoProvider.SetVersionHistoryInfoInternal(CMS.Synchronization.ObjectVersionHistoryInfo)">
-            <summary>
-            Sets (updates or inserts) specified object version history.
-            </summary>
-            <param name="historyObj">Object version history to be set</param>        
-        </member>
-        <member name="M:CMS.Synchronization.ObjectVersionHistoryInfoProvider.DeleteVersionHistoryInfoInternal(CMS.Synchronization.ObjectVersionHistoryInfo)">
-            <summary>
-            Deletes specified object version history.
-            </summary>
-            <param name="historyObj">Object version history to be deleted</param>        
         </member>
         <member name="M:CMS.Synchronization.ObjectVersionHistoryInfoProvider.DeleteVersionHistoriesInternal(System.String)">
             <summary>
@@ -4671,6 +4303,17 @@
             <param name="isMajorVersion">If true, the version number is considered major</param>
             <returns>New version number</returns>
         </member>
+        <member name="M:CMS.Synchronization.ObjectVersionManager.ProcessVersioningSynchronizationTask(System.String,System.String,System.String,System.Boolean,System.Int32)">
+            <summary>
+            Process versioning synchronization task of object with given parameters.
+            </summary>
+            <param name="objectType">Type of object associated with task</param>
+            <param name="data">Data of object associated with this task</param>
+            <param name="binaryData">Binary data of object associated with this task</param>
+            <param name="processChilds">Whether to process childs of object associated with this task</param>
+            <param name="siteId">Site ID of object associated with this task</param>
+            <returns>Resulting <see cref="T:CMS.Base.ICMSObject"/>.></returns>
+        </member>
         <member name="M:CMS.Synchronization.ObjectVersionManager.FixVersionXML(CMS.Synchronization.ObjectVersionHistoryInfo)">
             <summary>
             Corrects object ID in the version's object data. If the object was restored from recycle bin before and has new ID, this method ensures that VersionXML will contain current VersionObjectID.
@@ -4728,6 +4371,16 @@
             Synchronization action implementation
             </summary>
         </member>
+        <member name="P:CMS.Synchronization.SynchronizationAction.Condition">
+            <summary>
+            Condition which must be met in order to execute action
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.SynchronizationAction.Execute">
+            <summary>
+            Action which should be executed
+            </summary>
+        </member>
         <member name="M:CMS.Synchronization.SynchronizationAction.#ctor(System.Func{CMS.DataEngine.LogObjectChangeSettings,System.Collections.Generic.IEnumerable{CMS.Synchronization.ISynchronizationTask}},System.Func{CMS.DataEngine.LogObjectChangeSettings,System.Boolean})">
             <summary>
             Constructor
@@ -4747,16 +4400,6 @@
             </summary>
             <param name="settings">Action settings</param>
         </member>
-        <member name="P:CMS.Synchronization.SynchronizationAction.Condition">
-            <summary>
-            Condition which must be met in order to execute action
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.SynchronizationAction.Execute">
-            <summary>
-            Action which should be executed
-            </summary>
-        </member>
         <member name="T:CMS.Synchronization.TaskGroupInfo">
             <summary>
             TaskGroupInfo data container class.
@@ -4775,6 +4418,26 @@
         <member name="F:CMS.Synchronization.TaskGroupInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupID">
+            <summary>
+            Task group ID
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupDescription">
+            <summary>
+            Task group description
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupCodeName">
+            <summary>
+            Task group code name
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupGuid">
+            <summary>
+            Task group guid
             </summary>
         </member>
         <member name="M:CMS.Synchronization.TaskGroupInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
@@ -4813,26 +4476,6 @@
             Constructor - Creates a new TaskGroupInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupID">
-            <summary>
-            Task group ID
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupDescription">
-            <summary>
-            Task group description
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupCodeName">
-            <summary>
-            Task group code name
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupInfo.TaskGroupGuid">
-            <summary>
-            Task group guid
-            </summary>
         </member>
         <member name="T:CMS.Synchronization.TaskGroupInfoProvider">
             <summary>
@@ -4904,41 +4547,6 @@
             For example, a suitable way to call the method is in the logic of a custom interface that allows users to set their task group.
             </remarks>
         </member>
-        <member name="M:CMS.Synchronization.TaskGroupInfoProvider.GetTaskGroupsInternal">
-            <summary>
-            Returns a query for all the TaskGroupInfo objects.
-            </summary>
-        </member>
-        <member name="M:CMS.Synchronization.TaskGroupInfoProvider.GetTaskGroupInfoInternal(System.Int32)">
-            <summary>
-            Returns TaskGroupInfo with specified ID.
-            </summary>
-            <param name="id">TaskGroupInfo ID</param>        
-        </member>
-        <member name="M:CMS.Synchronization.TaskGroupInfoProvider.GetTaskGroupInfoInternal(System.String)">
-            <summary>
-            Returns TaskGroupInfo with specified name.
-            </summary>
-            <param name="name">TaskGroupInfo name</param>        
-        </member>
-        <member name="M:CMS.Synchronization.TaskGroupInfoProvider.GetTaskGroupInfoInternal(System.Guid)">
-            <summary>
-            Returns TaskGroupInfo with specified GUID.
-            </summary>
-            <param name="guid">TaskGroupInfo GUID</param>
-        </member>
-        <member name="M:CMS.Synchronization.TaskGroupInfoProvider.SetTaskGroupInfoInternal(CMS.Synchronization.TaskGroupInfo)">
-            <summary>
-            Sets (updates or inserts) specified TaskGroupInfo.
-            </summary>
-            <param name="infoObj">TaskGroupInfo to be set</param>        
-        </member>
-        <member name="M:CMS.Synchronization.TaskGroupInfoProvider.DeleteTaskGroupInfoInternal(CMS.Synchronization.TaskGroupInfo)">
-            <summary>
-            Deletes specified TaskGroupInfo.
-            </summary>
-            <param name="infoObj">TaskGroupInfo to be deleted</param>        
-        </member>
         <member name="M:CMS.Synchronization.TaskGroupInfoProvider.GetUserTaskGroupInfoInternal(System.Int32)">
             <summary>
             Get TaskGroupInfo for user or null.
@@ -4973,6 +4581,21 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Synchronization.TaskGroupTaskInfo.TaskGroupTaskID">
+            <summary>
+            Task group task ID
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupTaskInfo.TaskGroupID">
+            <summary>
+            Task group ID
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.TaskGroupTaskInfo.TaskID">
+            <summary>
+            Task ID
+            </summary>
+        </member>
         <member name="M:CMS.Synchronization.TaskGroupTaskInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -5000,21 +4623,6 @@
             Constructor - Creates a new TaskGroupTaskInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data</param>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupTaskInfo.TaskGroupTaskID">
-            <summary>
-            Task group task ID
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupTaskInfo.TaskGroupID">
-            <summary>
-            Task group ID
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.TaskGroupTaskInfo.TaskID">
-            <summary>
-            Task ID
-            </summary>
         </member>
         <member name="T:CMS.Synchronization.TaskGroupTaskInfoProvider">
             <summary>
@@ -5074,18 +4682,6 @@
             <param name="taskGroupId">Task group ID</param>
             <param name="taskId">Staging task ID</param>  
         </member>
-        <member name="M:CMS.Synchronization.TaskGroupTaskInfoProvider.SetTaskGroupTaskInternal(CMS.Synchronization.TaskGroupTaskInfo)">
-            <summary>
-            Sets specified <see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/> binding.
-            </summary>
-            <param name="infoObj"><see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/> object</param>
-        </member>
-        <member name="M:CMS.Synchronization.TaskGroupTaskInfoProvider.DeleteTaskGroupTaskInternal(CMS.Synchronization.TaskGroupTaskInfo)">
-            <summary>
-            Deletes specified <see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/>.
-            </summary>
-            <param name="infoObj"><see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/> object</param>
-        </member>
         <member name="M:CMS.Synchronization.TaskGroupTaskInfoProvider.RemovetaskGroupFromTaskInternal(System.Int32,System.Int32)">
             <summary>
             Deletes <see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/> binding.
@@ -5105,6 +4701,54 @@
             Deletes all <see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/> bindings that satisfy where condition.
             </summary>
             <param name="where">Where condition to which <see cref="T:CMS.Synchronization.TaskGroupTaskInfo"/> bindings to delete</param>
+        </member>
+        <member name="T:CMS.Base.TaskHelper">
+            <summary>
+            Task management methods.
+            </summary>
+        </member>
+        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_CONTENT">
+            <summary>
+            Enum category in TaskTypeEnum to select content related task types.
+            </summary>
+        </member>
+        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_OBJECTS">
+            <summary>
+            Enum category in TaskTypeEnum to select objects and data related task types.
+            </summary>
+        </member>
+        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_DATA">
+            <summary>
+            Enum category in TaskTypeEnum to select general task types.
+            </summary>
+        </member>
+        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_CATEGORY_GENERAL">
+            <summary>
+            Enum category in TaskTypeEnum to select general task types.
+            </summary>
+        </member>
+        <member name="F:CMS.Base.TaskHelper.TASK_TYPE_RESOURCE_STRING_PREFIX">
+            <summary>
+            Prefix for resource strings that localize TaskTypeEnum
+            </summary>
+        </member>
+        <member name="M:CMS.Base.TaskHelper.GetTaskTypeString(CMS.DataEngine.TaskTypeEnum)">
+            <summary>
+            Returns the task type string.
+            </summary>
+            <param name="taskType">Task type</param>
+        </member>
+        <member name="M:CMS.Base.TaskHelper.GetTaskTypeEnum(System.String)">
+            <summary>
+            Returns the task type enumeration value.
+            </summary>
+            <param name="taskType">String task type representation</param>
+        </member>
+        <member name="M:CMS.Base.TaskHelper.IsExcludedAsyncTask(CMS.DataEngine.TaskTypeEnum)">
+            <summary>
+            Indicates if the task type shouldn't be processed asynchronously.
+            </summary>
+            <param name="taskType">Task type</param>
         </member>
     </members>
 </doc>

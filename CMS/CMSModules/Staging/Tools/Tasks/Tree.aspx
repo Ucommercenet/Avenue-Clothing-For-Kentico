@@ -52,19 +52,27 @@
                 var selectDocuments = parent.frames['tasksContent'].selectDocuments;
                 var completeObj = parent.frames['tasksContent'].document.getElementById('pnlComplete');
                 if (selectDocuments || selectMore) {
-                    parent.frames['tasksContent'].SelectDocNode(parent.frames['tasksContent'].currentServerId, nodeId);
-                    parent.frames['tasksContent'].selectDocuments = true;
+                    if (IsLogContentChangesEnabled()) {
+                        parent.frames['tasksContent'].SelectDocNode(parent.frames['tasksContent'].currentServerId, nodeId);
+                        parent.frames['tasksContent'].selectDocuments = true;
+                    }
                     if (completeObj != null) {
                         completeObj.style.display = 'none';
                     }
                 }
                 else {
-                    parent.frames['tasksContent'].SelectNode(parent.frames['tasksContent'].currentServerId, nodeId);
+                    if (IsLogContentChangesEnabled()) {
+                        parent.frames['tasksContent'].SelectNode(parent.frames['tasksContent'].currentServerId, nodeId);
+                    }
                     if (completeObj != null) {
                         completeObj.style.display = 'block';
                     }
                 }
                 currentNodeId = nodeId;
+            }
+
+            function IsLogContentChangesEnabled() {
+                return parent.frames['tasksContent'].SelectDocNode && parent.frames['tasksContent'].SelectNode;
             }
             //]]>
         </script>

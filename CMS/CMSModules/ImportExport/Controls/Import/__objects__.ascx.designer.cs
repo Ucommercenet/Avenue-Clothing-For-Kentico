@@ -111,6 +111,51 @@ public partial class CMSModules_ImportExport_Controls_Import___objects__ {
     protected global::CMS.Base.Web.UI.CMSButton lnkSelectNone;
     
     /// <summary>
+    /// pnlMacroResigning control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Panel pnlMacroResigning;
+    
+    /// <summary>
+    /// headMacroResigning control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedHeading headMacroResigning;
+    
+    /// <summary>
+    /// lblMacroResigning control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblMacroResigning;
+    
+    /// <summary>
+    /// lblMacroResigningUser control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblMacroResigningUser;
+    
+    /// <summary>
+    /// userSelectorMacroResigningUser control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMSModules_Membership_FormControls_Users_SelectUser userSelectorMacroResigningUser;
+    
+    /// <summary>
     /// pnlCheck control.
     /// </summary>
     /// <remarks>

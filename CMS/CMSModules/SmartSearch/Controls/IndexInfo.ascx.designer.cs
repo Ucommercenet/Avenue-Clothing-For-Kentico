@@ -21,15 +21,6 @@ public partial class CMSModules_SmartSearch_Controls_IndexInfo {
     protected global::System.Web.UI.WebControls.Panel pnlInfo;
     
     /// <summary>
-    /// headElem control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedHeading headElem;
-    
-    /// <summary>
     /// lblItemCount control.
     /// </summary>
     /// <remarks>
@@ -64,6 +55,15 @@ public partial class CMSModules_SmartSearch_Controls_IndexInfo {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Literal ltlStatus;
+    
+    /// <summary>
+    /// plcOptimized control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.PlaceHolder plcOptimized;
     
     /// <summary>
     /// lblIsOptimized control.

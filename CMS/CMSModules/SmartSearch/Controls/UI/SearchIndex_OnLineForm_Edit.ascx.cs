@@ -58,6 +58,11 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_OnLineForm_E
     {
         base.OnLoad(e);
 
+        if (StopProcessing)
+        {
+            return;
+        }
+
         // Set events and default values for site selector
         selSite.UniSelector.OnSelectionChanged += UniSelector_OnSelectionChanged;
         selSite.PostbackOnDropDownChange = true;

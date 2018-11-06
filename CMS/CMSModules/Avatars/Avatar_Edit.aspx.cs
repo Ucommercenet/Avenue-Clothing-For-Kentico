@@ -31,7 +31,7 @@ public partial class CMSModules_Avatars_Avatar_Edit : GlobalAdminPage, IPostBack
 
         avatarId = QueryHelper.GetInteger("avatarid", 0);
 
-        if ((QueryHelper.GetInteger("saved", 0) == 1) && !URLHelper.IsPostback())
+        if ((QueryHelper.GetInteger("saved", 0) == 1) && !RequestHelper.IsPostBack())
         {
             ShowChangesSaved();
         }
@@ -96,7 +96,7 @@ public partial class CMSModules_Avatars_Avatar_Edit : GlobalAdminPage, IPostBack
                 }
 
                 imgAvatar.Visible = true;
-                imgAvatar.ImageUrl = ResolveUrl("~/CMSPages/GetAvatar.aspx?maxsidesize=250&avatarguid=" + ai.AvatarGUID);
+                imgAvatar.ImageUrl = GetAvatarImageUrl(ai.AvatarGUID);
 
                 // Display default avatar options, only for global avatars
                 if (!ai.AvatarIsCustom)
@@ -226,7 +226,7 @@ public partial class CMSModules_Avatars_Avatar_Edit : GlobalAdminPage, IPostBack
                 ai.AvatarName = newAvatarName;
 
                 imgAvatar.Visible = true;
-                imgAvatar.ImageUrl = ResolveUrl("~/CMSPages/GetAvatar.aspx?maxsidesize=250&avatarguid=" + ai.AvatarGUID);
+                imgAvatar.ImageUrl = GetAvatarImageUrl(ai.AvatarGUID);
 
                 // Set new type
                 ai.AvatarType = drpAvatarType.SelectedValue;
@@ -286,6 +286,18 @@ public partial class CMSModules_Avatars_Avatar_Edit : GlobalAdminPage, IPostBack
                 }
             }
         }
+    }
+
+
+    /// <summary>
+    /// Returns image URL of avatar given by <paramref name="avatarGuid"/>. 
+    /// </summary>
+    /// <param name="avatarGuid">Avatar GUID</param>
+    /// <param name="maxSideSize">Maximal side size of avatar image</param>
+    private string GetAvatarImageUrl(Guid avatarGuid, int maxSideSize = 250)
+    {
+        // Include random chset query string parameter to the URL to enforce Internet Explorer/EDGE to reload the image.
+        return ResolveUrl($"~/CMSPages/GetAvatar.aspx?maxsidesize={maxSideSize}&avatarguid={avatarGuid}&chset={Guid.NewGuid()}");
     }
 
     #endregion

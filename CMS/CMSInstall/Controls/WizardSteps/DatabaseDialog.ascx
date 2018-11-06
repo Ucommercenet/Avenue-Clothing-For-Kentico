@@ -54,28 +54,6 @@
                 </td>
             </tr>
         </asp:PlaceHolder>
-        <asp:PlaceHolder ID="plcAdvanced" runat="server" Visible="false">
-            <tr>
-                <td style="width: 25px;">&nbsp;
-                </td>
-                <td nowrap="nowrap" align="left" style="width: 140px;" colspan="2">
-                    <asp:HyperLink ID="lblAdvanced" AssociatedControlID="txtExistingDatabaseName" runat="server"
-                        Style="cursor: pointer;" />
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 25px;">&nbsp;
-                </td>
-                <td nowrap="nowrap" align="left" style="width: 140px;">
-                    <asp:Label ID="lblSchema" AssociatedControlID="txtSchema" runat="server" Style="display: none;"
-                        EnableViewState="False" />
-                </td>
-                <td>
-                    <cms:CMSTextBox ID="txtSchema" runat="server" Style="display: none;"
-                        Text="dbo" ReadOnly="true" Enabled="false" />
-                </td>
-            </tr>
-        </asp:PlaceHolder>
         <asp:PlaceHolder ID="plcRunningTasks" runat="server" Visible="False">
             <asp:PlaceHolder ID="plcEmptyLine" runat="server">
                 <tr>

@@ -41,42 +41,9 @@
             REST service to access and manage documents.
             </summary>
         </member>
-        <member name="T:CMS.DocumentWebServices.IDocumentRESTService">
+        <member name="P:CMS.DocumentWebServices.DocumentRESTService.AllowedDocumentTypes">
             <summary>
-            REST service interface for documents
-            </summary>
-        </member>
-        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.GetDocument(System.String)">
-            <summary>
-            Selects tree node(s) according to provided parameters and returns them as dataset. 
-            Three oprations are supported: document (= select single document), all (= select documents), childrenof (= all children of given node)
-            If classNames not specified, the result does not contain coupled data.
-            </summary>
-            <param name="operation">Operation to perform with document</param>
-        </member>
-        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.UpdateDocument(System.String,System.IO.Stream)">
-            <summary>
-            Processes given document.
-            </summary>
-            <param name="operation">Operation to perform with document</param>
-            <param name="stream">Stream with document data</param>
-        </member>
-        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.CreateDocument(System.String,System.IO.Stream)">
-            <summary>
-            Creates new document.
-            </summary>
-            <param name="operation">Operation to perform with document</param>
-            <param name="stream">Stream with document data</param>
-        </member>
-        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.DeleteDocument(System.String)">
-            <summary>
-            Deletes specified document.
-            </summary>
-            <param name="operation">Operation to perform with document</param>
-        </member>
-        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.Translate(System.IO.Stream)">
-            <summary>
-            Gateway for submiting an XLIFF document.
+            Gets the list of allowed document types separated by semicolon. Empty string means all document types are allowed.
             </summary>
         </member>
         <member name="F:CMS.DocumentWebServices.DocumentRESTService.mTreeProvider">
@@ -188,9 +155,42 @@
             <param name="nodes">TreeNode objects which were created/updated/deleted</param>
             <param name="settings">Export settings</param>
         </member>
-        <member name="P:CMS.DocumentWebServices.DocumentRESTService.AllowedDocumentTypes">
+        <member name="T:CMS.DocumentWebServices.IDocumentRESTService">
             <summary>
-            Gets the list of allowed document types separated by semicolon. Empty string means all document types are allowed.
+            REST service interface for documents
+            </summary>
+        </member>
+        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.GetDocument(System.String)">
+            <summary>
+            Selects tree node(s) according to provided parameters and returns them as dataset. 
+            Three oprations are supported: document (= select single document), all (= select documents), childrenof (= all children of given node)
+            If classNames not specified, the result does not contain coupled data.
+            </summary>
+            <param name="operation">Operation to perform with document</param>
+        </member>
+        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.UpdateDocument(System.String,System.IO.Stream)">
+            <summary>
+            Processes given document.
+            </summary>
+            <param name="operation">Operation to perform with document</param>
+            <param name="stream">Stream with document data</param>
+        </member>
+        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.CreateDocument(System.String,System.IO.Stream)">
+            <summary>
+            Creates new document.
+            </summary>
+            <param name="operation">Operation to perform with document</param>
+            <param name="stream">Stream with document data</param>
+        </member>
+        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.DeleteDocument(System.String)">
+            <summary>
+            Deletes specified document.
+            </summary>
+            <param name="operation">Operation to perform with document</param>
+        </member>
+        <member name="M:CMS.DocumentWebServices.IDocumentRESTService.Translate(System.IO.Stream)">
+            <summary>
+            Gateway for submiting an XLIFF document.
             </summary>
         </member>
     </members>

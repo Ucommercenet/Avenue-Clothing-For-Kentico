@@ -1,15 +1,21 @@
 var enableSearchLogo = false;
-var infoHeight = 126;
-var infoWidth = 256;
+var _mapInitializers = [];
+
 function addBingMarker(map, latitude, longtitude, title, content, iconURL) {
-    var offset = new MM.Point(0, 5);
+    var offset = new Microsoft.Maps.Point(0, 5);
     if (iconURL) {
-        var pushpinOptions = { icon: iconURL, width: 30, height: 50, textOffset: offset };
+        var pushpinOptions = {
+            icon: iconURL,
+            textOffset: offset
+        };
     }
     else {
-        var pushpinOptions = { textOffset: offset };
+        var pushpinOptions = {
+            textOffset: offset
+        };
     }
-    var pushpin = new MM.Pushpin(new Microsoft.Maps.Location(latitude, longtitude), pushpinOptions);
+
+    var pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latitude, longtitude), pushpinOptions);
     pushpin.description = content;
     map.entities.push(pushpin);
     pushpin.title = title;
@@ -17,24 +23,40 @@ function addBingMarker(map, latitude, longtitude, title, content, iconURL) {
 }
 function showInfo(map, pushpin, zoom) {
     var location = pushpin.getLocation();
-    var infoboxOptions = { width: infoWidth, height: infoHeight, title: pushpin.title, description: pushpin.description, offset: new MM.Point(0, pushpin.getHeight()) };
-    var infobox = new MM.Infobox(location, infoboxOptions);
-    map.setView({ zoom: zoom, center: new MM.Location(location.latitude, location.longitude) });
-    map.entities.push(infobox);
+    var infoboxOptions = {
+        title: pushpin.title, description: pushpin.description
+    };
+    var infobox = new Microsoft.Maps.Infobox(location, infoboxOptions);
+    infobox.setMap(map);
+    map.setView({
+        zoom: zoom,
+        center: location
+    });
 }
-function customKeyDown(e) {
-    e.handled = true;
-}
+
 function callBingService(url) {
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
     script.setAttribute("src", url);
     document.body.appendChild(script);
 }
+
 function replaceContent(className, expression, replacement) {
     var selHTMLTags = new Array();
     var selHTMLTags = document.getElementsByClassName(className);
     for (i = 0; i < selHTMLTags.length; i++) {
         selHTMLTags[i].innerHTML = selHTMLTags[i].innerHTML.replace(expression, replacement);
     }
+}
+
+function registerMapInitializer(initializer) {
+    _mapInitializers.push(initializer);
+}
+
+function loadMaps() {
+    _mapInitializers.forEach(function(mapInit) {
+        if (typeof mapInit === 'function') {
+            mapInit();
+        }
+    });
 }

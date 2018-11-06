@@ -275,7 +275,7 @@ public partial class CMSModules_Forums_FormControls_ForumSelector : FormEngineUs
 
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        if (URLHelper.IsPostback()
+        if (RequestHelper.IsPostBack()
             && DependsOnAnotherField)
         {
             SetupWhereCondition();

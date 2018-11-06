@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CMS.DocumentEngine;
 using CMS.Membership;
 using UCommerce.EntitiesV2;
 using UCommerce.EntitiesV2.Factories;
+using UCommerce.Extensions;
 using UCommerce.Infrastructure;
 using UCommerce.Security;
 
@@ -157,7 +155,7 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
 
             foreach (var content in emailType.EmailProfile.EmailContents)
             {
-               content.ContentId = emailContent.NodeID.ToString();
+                content.ContentId = emailContent.NodeID.ToString();
                 content.Save();
             }
         }
@@ -205,6 +203,17 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
         {
             var paymentMethod = PaymentMethod.SingleOrDefault(x => x.Name == name) ?? new PaymentMethodFactory().NewWithDefaults(name);
             paymentMethod.Deleted = false;
+
+            var defaultPaymentMethodService = Definition.SingleOrDefault(x => x.Name == "Default Payment Method Service");
+            if (defaultPaymentMethodService != null)
+            {
+                paymentMethod.Definition = defaultPaymentMethodService;
+                var acceptUrl = paymentMethod.GetProperty("AcceptUrl");
+
+                if (acceptUrl != null)
+                    acceptUrl.SetValue("/Basket/Confirmation");
+            }
+
             paymentMethod.FeePercent = feePercentage;
 
             var method = paymentMethod.PaymentMethodFees.FirstOrDefault(p => p.Currency.ISOCode == currency.ISOCode);
@@ -215,7 +224,6 @@ namespace AvenueClothing.Installer.uCommerce.Install.Helpers
             }
             method.Fee = fee;
             method.PriceGroup = priceGroup;
-            method.Save();
 
             paymentMethod.ClearEligibleCountries();
             foreach (var country in _countries)

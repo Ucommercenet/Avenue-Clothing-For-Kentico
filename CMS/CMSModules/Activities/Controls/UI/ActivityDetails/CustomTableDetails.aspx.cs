@@ -3,6 +3,8 @@
 using CMS.Core;
 using CMS.DataEngine;
 using CMS.Helpers;
+using CMS.Membership;
+using CMS.SiteProvider;
 using CMS.UIControls;
 
 
@@ -24,17 +26,26 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_CustomTab
         int tableID = QueryHelper.GetInteger("tableid", 0);
         int itemID = QueryHelper.GetInteger("itemid", 0);
 
-        if ((tableID > 0) && (itemID > 0))
+        if ((tableID <= 0) || (itemID <= 0))
         {
-            var customTable = DataClassInfoProvider.GetDataClassInfo(tableID);
-            if (customTable == null)
-            {
-                return;
-            }
-
-            form.CustomTableId = tableID;
-            form.ItemID = itemID;
+            return;
         }
+
+        var customTable = DataClassInfoProvider.GetDataClassInfo(tableID);
+        if (customTable == null)
+        {
+            return;
+        }
+
+        if (!customTable.CheckPermissions(PermissionsEnum.Read, SiteContext.CurrentSiteName, MembershipContext.AuthenticatedUser))
+        {
+            // Insufficient permissions to read item data
+            ShowError(string.Format(ResHelper.GetString("customtable.permissiondenied.read"), customTable.ClassName));
+            return;
+        }
+
+        form.CustomTableId = tableID;
+        form.ItemID = itemID;
     }
 
 

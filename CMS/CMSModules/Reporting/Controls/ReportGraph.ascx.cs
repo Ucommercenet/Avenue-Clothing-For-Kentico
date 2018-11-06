@@ -195,15 +195,10 @@ public partial class CMSModules_Reporting_Controls_ReportGraph : AbstractReportC
 
         // If hidden field contains information about width - add to request for multiple charts on one page
         int width = ValidationHelper.GetInteger(Request.Params[hdnValues.UniqueID], 0);
-        if (URLHelper.IsPostback() && (width != 0))
+        if (RequestHelper.IsPostBack() && (width != 0))
         {
             // Fix the position to page with slider
             ComputedWidth = width - 17;
-
-            if (BrowserHelper.IsIE7())
-            {
-                ComputedWidth -= 7;
-            }
         }
 
         base.OnLoad(e);

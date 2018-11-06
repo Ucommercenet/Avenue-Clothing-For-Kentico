@@ -12,7 +12,7 @@ public partial class CMSModules_Workflows_Controls_UI_Workflow_Emails : CMSUserC
 {
     #region "Variables"
 
-    private WorkflowInfo mWorkflow = null;
+    private WorkflowInfo mWorkflow;
     protected string currentUsers = string.Empty;
 
     #endregion
@@ -33,18 +33,7 @@ public partial class CMSModules_Workflows_Controls_UI_Workflow_Emails : CMSUserC
     /// <summary>
     /// Workflow
     /// </summary>
-    public WorkflowInfo Workflow
-    { 
-        get
-        {
-            if (mWorkflow == null)
-            {
-                mWorkflow = WorkflowInfoProvider.GetWorkflowInfo(WorkflowID);
-            }
-
-            return mWorkflow;
-        }
-    }
+    public WorkflowInfo Workflow => mWorkflow ?? (mWorkflow = WorkflowInfoProvider.GetWorkflowInfo(WorkflowID));
 
 
     /// <summary>
@@ -123,7 +112,10 @@ public partial class CMSModules_Workflows_Controls_UI_Workflow_Emails : CMSUserC
         ucNotif.TemplateType = WorkflowModule.WORKFLOW_EMAIL_TEMPLATE_TYPE_NAME;
 
         // Get the active users for this site
-        var users = WorkflowUserInfoProvider.GetWorkflowUsers("WorkflowID = " + WorkflowID, null, 0, "UserID").Select<WorkflowUserInfo, string>(u => u.UserID.ToString());
+        var users = WorkflowUserInfoProvider.GetWorkflowUsers()
+            .WhereEquals("WorkflowID", WorkflowID)
+            .Column("UserID")
+            .GetListResult<int>();
         currentUsers = string.Join(";", users.ToArray());
 
         chkEmails.NotSetChoice.Text = GetString("general.usesitesettings") + " (##DEFAULT##)";
@@ -253,19 +245,17 @@ public partial class CMSModules_Workflows_Controls_UI_Workflow_Emails : CMSUserC
         string items = DataHelper.GetNewItemsInList(newValues, currentUsers);
         if (!String.IsNullOrEmpty(items))
         {
-            string[] newItems = items.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            if (newItems != null)
+            string[] newItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            // Add all new items to site
+            foreach (string item in newItems)
             {
-                // Add all new items to site
-                foreach (string item in newItems)
+                int userId = ValidationHelper.GetInteger(item, 0);
+                // If user is authorized, remove it
+                WorkflowUserInfo wsu = WorkflowUserInfoProvider.GetWorkflowUserInfo(WorkflowID, userId);
+                if (wsu != null)
                 {
-                    int userId = ValidationHelper.GetInteger(item, 0);
-                    // If user is authorized, remove it
-                    WorkflowUserInfo wsu = WorkflowUserInfoProvider.GetWorkflowUserInfo(WorkflowID, userId);
-                    if (wsu != null)
-                    {
-                        WorkflowUserInfoProvider.DeleteWorkflowUserInfo(wsu);
-                    }
+                    WorkflowUserInfoProvider.DeleteWorkflowUserInfo(wsu);
                 }
             }
         }
@@ -274,19 +264,17 @@ public partial class CMSModules_Workflows_Controls_UI_Workflow_Emails : CMSUserC
         items = DataHelper.GetNewItemsInList(currentUsers, newValues);
         if (!String.IsNullOrEmpty(items))
         {
-            string[] newItems = items.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            if (newItems != null)
+            string[] newItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            // Add all new items to site
+            foreach (string item in newItems)
             {
-                // Add all new items to site
-                foreach (string item in newItems)
-                {
-                    int userId = ValidationHelper.GetInteger(item, 0);
+                int userId = ValidationHelper.GetInteger(item, 0);
 
-                    // If user is not authorized, authorize it
-                    if (WorkflowUserInfoProvider.GetWorkflowUserInfo(WorkflowID, userId) == null)
-                    {
-                        WorkflowUserInfoProvider.AddUserToWorkflow(WorkflowID, userId);
-                    }
+                // If user is not authorized, authorize it
+                if (WorkflowUserInfoProvider.GetWorkflowUserInfo(WorkflowID, userId) == null)
+                {
+                    WorkflowUserInfoProvider.AddUserToWorkflow(WorkflowID, userId);
                 }
             }
         }

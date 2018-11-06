@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -254,29 +255,29 @@ public partial class CMSAdminControls_UI_UIProfiles_UIElementCheckBoxTree : CMSU
         // Register scripts only if enabled
         if (Enabled)
         {
-            string script = string.Format(@"
+            string script = $@"
 function SelectAllSubelements(elem, id, hasChkBox) {{
-    if ((hasChkBox ? confirm('{0}') : confirm('{1}'))) {{
+    if ((hasChkBox ? confirm('{selectString}') : confirm('{noChkSelectString}'))) {{
         hdnValue.value = 's;' + id + ';' + (hasChkBox? 1 : 0);
         var tab = elem.parents('table');
-        tab.find('input:enabled[type=checkbox]').attr('checked', 'checked');
+        tab.find('input:enabled[type=checkbox]').prop('checked', true);
         var node = tab.next();
         if ((node.length > 0)&&(node[0].nodeName.toLowerCase() == 'div')) {{
-            node.find('input:enabled[type=checkbox]').attr('checked', 'checked');
+            node.find('input:enabled[type=checkbox]').prop('checked', true);
         }}
     }}
 }}
 function DeselectAllSubelements(elem, id, hasChkBox) {{
-    if ((hasChkBox ? confirm('{2}') : confirm('{3}'))) {{
+    if ((hasChkBox ? confirm('{deselectString}') : confirm('{noChkDeselectString}'))) {{
         hdnValue.value = 'd;' + id + ';' + (hasChkBox? 1 : 0);
         var tab = elem.parents('table');
-        tab.find('input:enabled[type=checkbox]').removeAttr('checked');
+        tab.find('input:enabled[type=checkbox]').prop('checked', false);
         var node = tab.next();
         if ((node.length > 0)&&(node[0].nodeName.toLowerCase() == 'div')) {{
-            node.find('input:enabled[type=checkbox]').removeAttr('checked');
+            node.find('input:enabled[type=checkbox]').prop('checked', false);
         }}
     }}
-}}", selectString, noChkSelectString, deselectString, noChkDeselectString);
+}}";
             ScriptHelper.RegisterClientScriptBlock(Page, typeof(Page), "UITreeSelectScripts", ScriptHelper.GetScript(script));
         }
     }
@@ -291,7 +292,7 @@ function DeselectAllSubelements(elem, id, hasChkBox) {{
             int childCount = ValidationHelper.GetInteger(itemData["ElementChildCount"], 0);
             bool selected = ValidationHelper.GetBoolean(itemData["ElementSelected"], false);
             string displayName = HTMLHelper.HTMLEncode(ResHelper.LocalizeString(ValidationHelper.GetString(itemData["ElementDisplayName"], string.Empty)));
-            string elementName = ValidationHelper.GetString(itemData["ElementName"], string.Empty).ToLowerCSafe();
+            string elementName = ValidationHelper.GetString(itemData["ElementName"], string.Empty);
             int parentID = ValidationHelper.GetInteger(itemData["ElementParentID"], 0);
             int resourceID = ValidationHelper.GetInteger(itemData["ElementResourceID"], 0);
             string nodePath = ValidationHelper.GetString(itemData["ElementIDPath"], string.Empty);
@@ -305,8 +306,7 @@ function DeselectAllSubelements(elem, id, hasChkBox) {{
             {
                 defaultNode.Expanded = true;
             }
-
-            string[] paths = treeElem.ExpandPath.ToLowerCSafe().Split(';');
+           
             if (!nodePath.EndsWith("/", StringComparison.Ordinal))
             {
                 nodePath += "/";
@@ -319,33 +319,28 @@ function DeselectAllSubelements(elem, id, hasChkBox) {{
                 bool isChild = false;
                 bool isParent = false;
 
+                var paths = treeElem.ExpandPath
+                    .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                    // Add slash - select only children
+                    .Select(path => path.EndsWith("/", StringComparison.Ordinal) ? path : path + "/");
+
                 // Check expanded paths
-                for (int i = 0; i < paths.Length; i++)
+                foreach (var path in paths)
                 {
-                    String path = paths[i];
-                    if (path != String.Empty)
+                    if (!isChild)
                     {
-                        // Add slash - select only children
-                        if (!path.EndsWith("/", StringComparison.Ordinal))
-                        {
-                            path += "/";
-                        }
+                        isChild = nodePath.StartsWith(path, StringComparison.InvariantCultureIgnoreCase);
+                    }
 
-                        if (!isChild)
-                        {
-                            isChild = nodePath.StartsWith(path, StringComparison.InvariantCulture);
-                        }
+                    // Module node is same node as specified in paths collection
+                    isEndItem = path.Equals(nodePath, StringComparison.InvariantCultureIgnoreCase);
 
-                        // Module node is same node as specified in paths collection
-                        isEndItem = (path == nodePath);
-
-                        // Test for parent - expand
-                        if (path.StartsWithCSafe(nodePath))
-                        {
-                            defaultNode.Expanded = true;
-                            isParent = true;
-                            break;
-                        }
+                    // Test for parent - expand
+                    if (path.StartsWith(nodePath, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        defaultNode.Expanded = true;
+                        isParent = true;
+                        break;
                     }
                 }
 
@@ -375,24 +370,23 @@ function DeselectAllSubelements(elem, id, hasChkBox) {{
             string links = null;
 
             string nodeText;
-            if (!String.IsNullOrEmpty(GroupPreffix) && elementName.ToLowerCSafe().StartsWithCSafe(GroupPreffix.ToLowerCSafe()))
+            if (!String.IsNullOrEmpty(GroupPreffix) && elementName.StartsWith(GroupPreffix, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (childCount > 0 && chkEnabled)
                 {
                     links = string.Format(SELECT_DESELECT_LINKS, id, "false", CallbackRef, GetString("uiprofile.selectall"), GetString("uiprofile.deselectall"));
                 }
-                nodeText = string.Format("<span class='{0}'>{1}</span>{2}", itemClass, displayName, links);
+                nodeText = $"<span class='{itemClass}'>{displayName}</span>{links}";
             }
             else
             {
                 string warning = string.Empty;
 
-                if (SiteName != null)
+                if ((SiteName != null) && !ResourceSiteInfoProvider.IsResourceOnSite(ApplicationUrlHelper.GetResourceName(resourceID), SiteName))
                 {
-                    if (!ResourceSiteInfoProvider.IsResourceOnSite(ApplicationUrlHelper.GetResourceName(resourceID), SiteName))
-                    {
-                        warning = UIHelper.GetAccessibleIconTag("icon-exclamation-triangle", String.Format(GetString("uiprofile.warningmodule"), "cms." + elementName), additionalClass: "color-orange-80");
-                    }
+                    warning = UIHelper.GetAccessibleIconTag("icon-exclamation-triangle",
+                        String.Format(GetString("uiprofile.warningmodule"), "cms." + elementName.ToLowerInvariant()),
+                        additionalClass: "color-orange-80");
                 }
 
                 if (childCount > 0 && chkEnabled)
@@ -425,24 +419,21 @@ function DeselectAllSubelements(elem, id, hasChkBox) {{
     /// </summary>
     public void ReloadData()
     {
-        // Prepare the parameters
-        QueryDataParameters parameters = new QueryDataParameters();
-        parameters.Add("@RoleID", RoleID);
-
-        // Create and set UIElements provider
-        UniTreeProvider elementProvider = new UniTreeProvider();
-        elementProvider.QueryName = "cms.uielement.selecttree";
-        elementProvider.DisplayNameColumn = "ElementDisplayName";
-        elementProvider.IDColumn = "ElementID";
-        elementProvider.LevelColumn = "ElementLevel";
-        elementProvider.OrderColumn = "ElementOrder";
-        elementProvider.ParentIDColumn = "ElementParentID";
-        elementProvider.PathColumn = "ElementIDPath";
-        elementProvider.ValueColumn = "ElementID";
-        elementProvider.ChildCountColumn = "ElementChildCount";
-        elementProvider.ImageColumn = "ElementIconPath";
-        elementProvider.Parameters = parameters;
-        elementProvider.IconClassColumn = "ElementIconClass";
+        var elementProvider = new UniTreeProvider
+        {
+            QueryName = "cms.uielement.selecttree",
+            DisplayNameColumn = "ElementDisplayName",
+            IDColumn = "ElementID",
+            LevelColumn = "ElementLevel",
+            OrderColumn = "ElementOrder",
+            ParentIDColumn = "ElementParentID",
+            PathColumn = "ElementIDPath",
+            ValueColumn = "ElementID",
+            ChildCountColumn = "ElementChildCount",
+            ImageColumn = "ElementIconPath",
+            Parameters = new QueryDataParameters { { "@RoleID", RoleID } },
+            IconClassColumn = "ElementIconClass"
+        };
 
         treeElem.ExpandTooltip = GetString("general.expand");
         treeElem.CollapseTooltip = GetString("general.collapse");
@@ -478,21 +469,22 @@ function DeselectAllSubelements(elem, id, hasChkBox) {{
         {
             if (ModuleID > 0)
             {
-                String where = String.Format(@"ElementResourceID = {0} AND (ElementParentID IS NULL OR ElementParentID NOT IN (SELECT ElementID FROM CMS_UIElement WHERE ElementResourceID={0})) 
-                                                AND (NOT EXISTS (SELECT  ElementIDPath FROM CMS_UIElement AS u WHERE CMS_UIElement.ElementIDPath LIKE u.ElementIDPath + '%' AND ElementResourceID = {0}
-                                                AND u.ElementIDPath != CMS_UIElement.ElementIDPath))", ModuleID);
-                DataSet ds = UIElementInfoProvider.GetUIElements(where, "ElementLevel ASC");
-                String expandedPath = String.Empty;
-                if (!DataHelper.DataSourceIsEmpty(ds))
+                var where = $@"ElementResourceID = {ModuleID} AND (ElementParentID IS NULL OR ElementParentID NOT IN (SELECT ElementID FROM CMS_UIElement WHERE ElementResourceID={ModuleID})) 
+    AND (NOT EXISTS (SELECT  ElementIDPath FROM CMS_UIElement AS u WHERE CMS_UIElement.ElementIDPath LIKE u.ElementIDPath + '%' AND ElementResourceID = {ModuleID}
+    AND u.ElementIDPath != CMS_UIElement.ElementIDPath))";
+
+                var idPaths = UIElementInfoProvider.GetUIElements()
+                    .Where(where)
+                    .WhereNotEmpty("ElementIDPath")
+                    .Columns("ElementIDPath")
+                    .OrderByAscending("ElementLevel")
+                    .GetListResult<string>();
+
+                var expandedPath = String.Empty;
+
+                if (idPaths.Any())
                 {
-                    foreach (DataRow dr in ds.Tables[0].Rows)
-                    {
-                        String path = ValidationHelper.GetString(dr["ElementIDPath"], String.Empty);
-                        if (path != String.Empty)
-                        {
-                            expandedPath += path + ";";
-                        }
-                    }
+                    expandedPath = String.Join(";", idPaths) + ";";
                 }
 
                 treeElem.ExpandPath = expandedPath;
@@ -537,29 +529,26 @@ function DeselectAllSubelements(elem, id, hasChkBox) {{
             // Many updates caused deadlocks with CMS_Role table, disable touch parent of the role
             context.TouchParent = false;
 
-            DataSet ds = UIElementInfoProvider.GetUIElements(where, null, 0, "ElementID");
-            if (!DataHelper.DataSourceIsEmpty(ds))
+            var elementIds = UIElementInfoProvider.GetUIElements()
+                .Where(where)
+                .Columns("ElementID")
+                .GetListResult<int>();
+
+            foreach (var id in elementIds)
             {
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                if (select)
                 {
-                    int id = ValidationHelper.GetInteger(dr["ElementID"], 0);
-                    if (select)
-                    {
-                        RoleUIElementInfoProvider.AddRoleUIElementInfo(RoleID, id);
-                    }
-                    else
-                    {
-                        RoleUIElementInfoProvider.DeleteRoleUIElementInfo(RoleID, id);
-                    }
+                    RoleUIElementInfoProvider.AddRoleUIElementInfo(RoleID, id);
+                }
+                else
+                {
+                    RoleUIElementInfoProvider.DeleteRoleUIElementInfo(RoleID, id);
                 }
             }
 
             // Explicitly touch the role only once
-            var role = RoleInfoProvider.GetRoleInfo(RoleID);
-            if (role != null)
-            {
-                role.Update();
-            }
+            RoleInfoProvider.GetRoleInfo(RoleID)
+                ?.Update();
         }
     }
 

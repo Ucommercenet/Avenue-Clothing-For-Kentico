@@ -28,7 +28,7 @@ public partial class CMSModules_MediaLibrary_Controls_LiveControls_MediaFilePrev
     #region "Properties"
 
     /// <summary>
-    /// Output object width (image/video/flash)
+    /// Output object width (image/video)
     /// </summary>
     public int Width
     {
@@ -38,7 +38,7 @@ public partial class CMSModules_MediaLibrary_Controls_LiveControls_MediaFilePrev
 
 
     /// <summary>
-    /// Output object height (image/video/flash)
+    /// Output object height (image/video)
     /// </summary>
     public int Height
     {
@@ -162,41 +162,18 @@ public partial class CMSModules_MediaLibrary_Controls_LiveControls_MediaFilePrev
 
                         ltlOutput.Text = MediaHelper.GetImage(imgParams);
                     }
-                    else if (MediaHelper.IsFlash(mfi.FileExtension))
-                    {
-                        // Initialize flash parameters
-                        FlashParameters flashParams = new FlashParameters();
-                        flashParams.Url = url;
-                        flashParams.Width = Width;
-                        flashParams.Height = Height;
-
-                        ltlOutput.Text = MediaHelper.GetFlash(flashParams);
-                    }
-                    else if (MediaHelper.IsAudio(mfi.FileExtension))
+                    else if (MediaHelper.IsAudioVideo(mfi.FileExtension))
                     {
                         // Initialize audio/video parameters
-                        AudioVideoParameters audioParams = new AudioVideoParameters();
+                        AudioVideoParameters audioVideoParams = new AudioVideoParameters();
 
-                        audioParams.SiteName = SiteContext.CurrentSiteName;
-                        audioParams.Url = url;
-                        audioParams.Width = Width;
-                        audioParams.Height = Height;
-                        audioParams.Extension = mfi.FileExtension;
+                        audioVideoParams.SiteName = SiteContext.CurrentSiteName;
+                        audioVideoParams.Url = url;
+                        audioVideoParams.Width = Width;
+                        audioVideoParams.Height = Height;
+                        audioVideoParams.Extension = mfi.FileExtension;
 
-                        ltlOutput.Text = MediaHelper.GetAudioVideo(audioParams);
-                    }
-                    else if (MediaHelper.IsVideo(mfi.FileExtension))
-                    {
-                        // Initialize audio/video parameters
-                        AudioVideoParameters videoParams = new AudioVideoParameters();
-
-                        videoParams.SiteName = SiteContext.CurrentSiteName;
-                        videoParams.Url = url;
-                        videoParams.Width = Width;
-                        videoParams.Height = Height;
-                        videoParams.Extension = mfi.FileExtension;
-
-                        ltlOutput.Text = MediaHelper.GetAudioVideo(videoParams);
+                        ltlOutput.Text = MediaHelper.GetAudioVideo(audioVideoParams);
                     }
                     else
                     {

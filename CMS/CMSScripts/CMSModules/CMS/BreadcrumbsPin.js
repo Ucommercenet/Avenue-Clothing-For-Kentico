@@ -2,7 +2,6 @@
  * Pin module for pinning objects or applications to dashboard.
  */
 cmsdefine(['CMS/EventHub', 'CMS/Application', 'jQuery'], function (hub, application, $) {
-    'use strict';
 
     var BreadcrumbPin = function (data) {
         var that = this;

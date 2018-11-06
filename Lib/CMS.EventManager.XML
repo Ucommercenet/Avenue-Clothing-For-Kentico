@@ -106,26 +106,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty EventAttendeeInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new EventAttendeeInfo object from the given DataRow.
-            </summary>
-        </member>
         <member name="P:CMS.EventManager.EventAttendeeInfo.AttendeeID">
             <summary>
             ID of the attendee.
@@ -164,6 +144,26 @@
         <member name="P:CMS.EventManager.EventAttendeeInfo.AttendeeLastModified">
             <summary>
             Object last modified.
+            </summary>
+        </member>
+        <member name="M:CMS.EventManager.EventAttendeeInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.EventManager.EventAttendeeInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.EventManager.EventAttendeeInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty EventAttendeeInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.EventManager.EventAttendeeInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new EventAttendeeInfo object from the given DataRow.
             </summary>
         </member>
         <member name="T:CMS.EventManager.EventAttendeeInfoProvider">
@@ -226,34 +226,11 @@
             <param name="eventNodeId">Event node</param>
             <param name="attendeeEmail">Attendee's e-mail</param>
         </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfoProvider.GetEventAttendeeInfoInternal(System.Int32)">
+        <member name="M:CMS.EventManager.EventAttendeeInfoProvider.DeleteInfo(CMS.EventManager.EventAttendeeInfo)">
             <summary>
-            Returns the EventAttendeeInfo structure for the specified eventAttendee.
+            Deletes the object to the database.
             </summary>
-            <param name="attendeeId">EventAttendee id</param>
-        </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfoProvider.GetEventAttendeeInfoByGUIDInternal(System.Guid)">
-            <summary>
-            Returns the EventAttendeeInfo structure for the specified eventAttendee.
-            </summary>
-            <param name="attendeeGuid">EventAttendee guid</param>
-        </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfoProvider.SetEventAttendeeInfoInternal(CMS.EventManager.EventAttendeeInfo)">
-            <summary>
-            Sets (updates or inserts) specified eventAttendee.
-            </summary>
-            <param name="eventAttendee">EventAttendee to set</param>
-        </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfoProvider.DeleteEventAttendeeInfoInternal(CMS.EventManager.EventAttendeeInfo)">
-            <summary>
-            Deletes specified eventAttendee.
-            </summary>
-            <param name="eventAttendeeObj">EventAttendee object</param>
-        </member>
-        <member name="M:CMS.EventManager.EventAttendeeInfoProvider.GetEventAttendeesInternal">
-            <summary>
-            Provides ObjectQuery access to EventAttendees
-            </summary>
+            <param name="info">Object to delete</param>
         </member>
         <member name="T:CMS.EventManager.EventManagerModuleMetadata">
             <summary>

@@ -14,9 +14,10 @@
 								  ValidationGroup="PercentOffShippingTotal"
 								  Type="Double"
 								  MinimumValue="-100"
-								  MaximumValue="100" />
+								  MaximumValue="100" 
+                                  CssClass="validator"/>
 				<asp:RequiredFieldValidator id="RequiredValidator" runat="server" ValidationGroup="PercentOffShippingTotal"
-								ControlToValidate="PercentOffShippingTotalText" Display="Dynamic" />
+								ControlToValidate="PercentOffShippingTotalText" Display="Dynamic" CssClass="validator"/>
 			</asp:PlaceHolder>
 		</td>
 		<td style="width:50px; text-align:right; vertical-align:top;">

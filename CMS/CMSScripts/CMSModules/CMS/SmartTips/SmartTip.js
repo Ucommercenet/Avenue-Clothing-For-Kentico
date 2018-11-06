@@ -1,7 +1,5 @@
 ﻿cmsdefine(['CMS/Application', 'jQuery', 'Underscore'], function (app, $, _) {
 
-    'use strict';
-
     var SmartTip = function (data, onSmartTipReady) {
 
         $(function() {

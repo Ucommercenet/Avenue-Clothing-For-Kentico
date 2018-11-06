@@ -182,7 +182,7 @@ public partial class CMSModules_WebAnalytics_Controls_SelectGraphTypeAndPeriod :
     protected void Page_Load(object sender, EventArgs e)
     {
         // Defualt settings
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             ucGraphType.SelectedValue = HitsIntervalEnum.Day;
         }
@@ -217,7 +217,7 @@ public partial class CMSModules_WebAnalytics_Controls_SelectGraphTypeAndPeriod :
         var noTimeSet = false;
 
         // If no values are set in first load 
-        if (((toDate == DateTimeHelper.ZERO_TIME) || (fromDate == DateTimeHelper.ZERO_TIME)) && !URLHelper.IsPostback())
+        if (((toDate == DateTimeHelper.ZERO_TIME) || (fromDate == DateTimeHelper.ZERO_TIME)) && !RequestHelper.IsPostBack())
         {
             noTimeSet = true;
 

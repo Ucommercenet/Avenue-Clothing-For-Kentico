@@ -33,9 +33,6 @@ public partial class CMSFormControls_Classes_AssemblyClassSelector : FormEngineU
     {
         get
         {
-            // Ensure data
-            EnsureData();
-
             return AssemblyName;
         }
         set
@@ -249,8 +246,27 @@ public partial class CMSFormControls_Classes_AssemblyClassSelector : FormEngineU
                 BaseClassNames = BaseClassNames,
                 ShowClasses = ShowClasses,
                 ShowEnumerations = ShowEnumerations,
-                ShowInterfaces = ShowInterfaces
+                ShowInterfaces = ShowInterfaces,
+                CheckAutoCreation = CheckAutoCreation
             });
+        }
+    }
+
+
+    /// <summary>
+    /// Indicates whether automatic type creation by system should be checked.
+    /// </summary>
+    /// <seealso cref="ClassTypeSettings.CheckAutoCreation"/>
+    public bool CheckAutoCreation
+    {
+        get
+        {
+            return GetValue("CheckAutoCreation", false);
+        }
+        set
+        {
+            SetValue("CheckAutoCreation", value);
+            Settings.CheckAutoCreation = value;
         }
     }
 
@@ -401,10 +417,7 @@ public partial class CMSFormControls_Classes_AssemblyClassSelector : FormEngineU
     /// </summary>
     private void EnsureAssemblyData()
     {
-        if (drpAssemblyName.DropDownList.Items.Count == 0)
-        {
-            FillAssemblySelector();
-        }
+        FillAssemblySelector();
     }
 
 
@@ -413,10 +426,7 @@ public partial class CMSFormControls_Classes_AssemblyClassSelector : FormEngineU
     /// </summary>
     private void EnsureClassData()
     {
-        if (drpClassName.DropDownList.Items.Count == 0)
-        {
-            FillClassNameSelector(AssemblyName);
-        }
+        FillClassNameSelector(AssemblyName);
     }
 
 
@@ -436,7 +446,7 @@ public partial class CMSFormControls_Classes_AssemblyClassSelector : FormEngineU
     private void SetupControl()
     {
         EnsureData();
-        
+
         // Register scripts
         ScriptHelper.RegisterJQueryUI(Page);
         StringBuilder sb = new StringBuilder();

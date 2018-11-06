@@ -23,7 +23,7 @@
 			<div class="propertyItemContent">
 				
 	<asp:CheckboxList runat="server" id="ParentDefinitionCheckboxList" />
-				<asp:customvalidator id="InheritanceServerValidator" onservervalidate="Inheritance_ServerValidator" runat="server" meta:resourcekey="UniqueSku" errormessage="SKU already exists*" cssclass="validationMessage" display="Dynamic" />
+				<asp:customvalidator id="InheritanceServerValidator" onservervalidate="Inheritance_ServerValidator" runat="server" meta:resourcekey="UniqueSku" errormessage="SKU already exists*" cssclass="validationMessage validator" display="Dynamic" />
 			</div>
 		</div>
 		<div class="propertyPaneFooter"></div>

@@ -63,19 +63,6 @@ public partial class CMSModules_Membership_Pages_Users_General_User_Kicked : CMS
     #region "Unigrid"
 
     /// <summary>
-    /// Sets where condition before data binding.
-    /// </summary>
-    protected void gridElem_OnBeforeDataReload()
-    {
-        if (gridElem.QueryParameters == null)
-        {
-            gridElem.QueryParameters = new QueryDataParameters();
-        }
-        gridElem.QueryParameters.Add("@Now", DateTime.Now);
-    }
-
-
-    /// <summary>
     ///  On action event.
     /// </summary>
     private void gridElem_OnAction(string actionName, object actionArgument)
@@ -193,7 +180,6 @@ public partial class CMSModules_Membership_Pages_Users_General_User_Kicked : CMS
 
         // Setup unigrid events
         gridElem.OnAction += gridElem_OnAction;
-        gridElem.OnBeforeDataReload += gridElem_OnBeforeDataReload;
         gridElem.OnExternalDataBound += gridElem_OnExternalDataBound;
         gridElem.ZeroRowsText = GetString("general.nodatafound");
         gridElem.OnLoadColumns += gridElem_OnLoadColumns;

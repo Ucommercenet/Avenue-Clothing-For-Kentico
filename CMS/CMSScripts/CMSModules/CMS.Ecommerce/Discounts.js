@@ -1,5 +1,4 @@
 ﻿cmsdefine(['jQuery'], function ($) {
-    'use strict';
 
     var Module = function () {
 
@@ -12,12 +11,15 @@
             }
         }
 
+        function ensureRedirectionMessage() {
+            if ($('.discountUsesCouponsValue input[type=hidden]').val() === 'false') {
+                displayRedirectionMessage();
+            }
+        }
+
         var init = function () {
-            $('#CouponCheckBox input[type=checkbox]').change(function () {
-                if ($('.discountUsesCouponsValue input[type=hidden]').val() === 'false') {
-                    displayRedirectionMessage();
-                }
-            });
+            ensureRedirectionMessage();
+            $('#CouponCheckBox input[type=checkbox]').change(ensureRedirectionMessage);
         };
 
         init();

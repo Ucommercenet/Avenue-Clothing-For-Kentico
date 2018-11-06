@@ -48,15 +48,6 @@ public partial class CMSModules_Membership_Pages_Users_User_New {
     protected global::CMS.Base.Web.UI.CMSTextBox txtFullName;
     
     /// <summary>
-    /// RequiredFieldValidatorFullName control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.CMSRequiredFieldValidator RequiredFieldValidatorFullName;
-    
-    /// <summary>
     /// lblEmail control.
     /// </summary>
     /// <remarks>
@@ -109,6 +100,33 @@ public partial class CMSModules_Membership_Pages_Users_User_New {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMSFormControls_System_EnumSelector drpPrivilegeLevel;
+    
+    /// <summary>
+    /// plcMacroIdentity control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.PlaceHolder plcMacroIdentity;
+    
+    /// <summary>
+    /// lblMacroIdentity control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMS.Base.Web.UI.LocalizedLabel lblMacroIdentity;
+    
+    /// <summary>
+    /// drpMacroIdentity control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMSAdminControls_UI_UniSelector_UniSelector drpMacroIdentity;
     
     /// <summary>
     /// lblPassword control.

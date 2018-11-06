@@ -224,7 +224,7 @@ public partial class CMSAdminControls_UI_StagingTaskGroupMenu : CMSUserControl, 
     /// <param name="CurrentStagingTaskGroup">Current task group</param>
     private static string GetUrlTostagingTaskGroup(TaskGroupInfo CurrentStagingTaskGroup)
     {
-        return UrlResolver.ResolveUrl(Service<IUILinkProvider>.Entry().GetSingleObjectLink(StagingTaskInfo.TYPEINFO.ModuleName, STAGINGTASKGROUP_EDIT_ELEMENT, new ObjectDetailLinkParameters
+        return UrlResolver.ResolveUrl(Service.Resolve<IUILinkProvider>().GetSingleObjectLink(StagingTaskInfo.TYPEINFO.ModuleName, STAGINGTASKGROUP_EDIT_ELEMENT, new ObjectDetailLinkParameters
         {
             ObjectIdentifier = CurrentStagingTaskGroup.TaskGroupID,
             ParentTabName = STAGINGTASKGROUP_PARENT_TABS,
@@ -346,7 +346,7 @@ public partial class CMSAdminControls_UI_StagingTaskGroupMenu : CMSUserControl, 
         else
         {
             // There is no such task group or (none) is selected so we will redirect to staging application
-            callbackResult.Add("stagingTaskGroupUrl", UrlResolver.ResolveUrl(Service<IUILinkProvider>.Entry().GetSingleObjectLink(StagingTaskInfo.TYPEINFO.ModuleName, STAGING_APPLICATION)));
+            callbackResult.Add("stagingTaskGroupUrl", UrlResolver.ResolveUrl(Service.Resolve<IUILinkProvider>().GetSingleObjectLink(StagingTaskInfo.TYPEINFO.ModuleName, STAGING_APPLICATION)));
         }
     }
 

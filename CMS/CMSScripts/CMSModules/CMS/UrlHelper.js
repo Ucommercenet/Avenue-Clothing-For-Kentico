@@ -4,7 +4,6 @@
  */
 
 cmsdefine(['Underscore'], function (_) {
-    'use strict';
     
         /**
          * Gets value of query parameter from given query string.

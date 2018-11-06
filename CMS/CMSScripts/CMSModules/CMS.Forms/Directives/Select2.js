@@ -15,8 +15,7 @@
  *      showAdditionalOption - Indicates whether the additional option with zero ID can be selectable (e.g. 'none' option).
  *      additionalOptionText - Sets the text of the additional option.
  */
-cmsdefine(['Underscore', 'select2'], function (_) {
-    'use strict';
+cmsdefine(['Underscore', 'jQuery', 'select2'], function (_, $) {
 
     var select2Link = function ($timeout, resourceFilter) {
 
@@ -49,7 +48,7 @@ cmsdefine(['Underscore', 'select2'], function (_) {
                         dropdownParent = $('#' + dropdownParentId);
                         if (!dropdownParent || !dropdownParent.length) {
                             // Try top frame if element not found
-                            dropdownParent = $('#' + dropdownParentId, window.top.document);
+                            dropdownParent = $('#' +dropdownParentId, window.top.document);
                         }
                     }
                     return dropdownParent;
@@ -199,7 +198,7 @@ cmsdefine(['Underscore', 'select2'], function (_) {
                  * Initialize select2 plugin and select2 configuration.
                  */
                 initSelect2 = function () {
-                    $hiddenSelectElement = element;
+                    $hiddenSelectElement = $(element);
                     resolveFilter = resourceFilter;
                     additionalOption.text = scope.additionalOptionText || resolveFilter('general.empty');
 

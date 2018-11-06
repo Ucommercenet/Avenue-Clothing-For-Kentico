@@ -9,19 +9,29 @@
             Form control for the friendship status selection.
             </summary>
         </member>
-        <member name="M:CMS.Community.Web.UI.FriendshipStatusSelector.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
         <member name="P:CMS.Community.Web.UI.FriendshipStatusSelector.FriendshipStatusID">
             <summary>
             Gets or sets the FriendshipStatus ID.
             </summary>
         </member>
+        <member name="M:CMS.Community.Web.UI.FriendshipStatusSelector.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="T:CMS.Community.Web.UI.FriendsDataSource">
             <summary>
             Friends data source server control.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.Web.UI.FriendsDataSource.UserID">
+            <summary>
+            Gets or sets UserID for which friends should be loaded.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.Web.UI.FriendsDataSource.FriendStatus">
+            <summary>
+            Gets or sets friend status condition.
             </summary>
         </member>
         <member name="M:CMS.Community.Web.UI.FriendsDataSource.GetDataSourceFromDB">
@@ -40,19 +50,14 @@
             Gets cache key.
             </summary>
         </member>
-        <member name="P:CMS.Community.Web.UI.FriendsDataSource.UserID">
-            <summary>
-            Gets or sets UserID for which friends should be loaded.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.Web.UI.FriendsDataSource.FriendStatus">
-            <summary>
-            Gets or sets friend status condition.
-            </summary>
-        </member>
         <member name="T:CMS.Community.Web.UI.GroupsDataSource">
             <summary>
             Groups data source server control.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.Web.UI.GroupsDataSource.SelectOnlyApproved">
+            <summary>
+            Gets or sets Select only approved condition.
             </summary>
         </member>
         <member name="M:CMS.Community.Web.UI.GroupsDataSource.GetDataSourceFromDB">
@@ -71,14 +76,19 @@
             Gets cache key.
             </summary>
         </member>
-        <member name="P:CMS.Community.Web.UI.GroupsDataSource.SelectOnlyApproved">
-            <summary>
-            Gets or sets Select only approved condition.
-            </summary>
-        </member>
         <member name="T:CMS.Community.Web.UI.MembersDataSource">
             <summary>
             Members data source server control.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.Web.UI.MembersDataSource.SelectOnlyApproved">
+            <summary>
+            Gets or sets select only approved property.
+            </summary>
+        </member>
+        <member name="P:CMS.Community.Web.UI.MembersDataSource.GroupName">
+            <summary>
+            Gets or sets group name to specify group members.
             </summary>
         </member>
         <member name="M:CMS.Community.Web.UI.MembersDataSource.GetDataSourceFromDB">
@@ -95,16 +105,6 @@
         <member name="M:CMS.Community.Web.UI.MembersDataSource.GetDefaultCacheDependencies">
             <summary>
             Gets the default cache dependencies for the data source.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.Web.UI.MembersDataSource.SelectOnlyApproved">
-            <summary>
-            Gets or sets select only approved property.
-            </summary>
-        </member>
-        <member name="P:CMS.Community.Web.UI.MembersDataSource.GroupName">
-            <summary>
-            Gets or sets group name to specify group members.
             </summary>
         </member>
         <member name="T:CMS.Community.Web.UI.GroupSelector">
@@ -132,14 +132,14 @@
             Form control for view group avatar.
             </summary>
         </member>
-        <member name="M:CMS.Community.Web.UI.ViewGroupAvatar.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
         <member name="P:CMS.Community.Web.UI.ViewGroupAvatar.MaxSideSize">
             <summary>
             Gets or sets max side size of avatar image.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.Web.UI.ViewGroupAvatar.#ctor">
+            <summary>
+            Constructor
             </summary>
         </member>
         <member name="T:CMS.Community.Web.UI.FriendsActionControl">
@@ -151,29 +151,6 @@
             <summary>
             Current user.
             </summary>
-        </member>
-        <member name="M:CMS.Community.Web.UI.FriendsActionControl.PerformAction(CMS.Community.FriendsActionEnum)">
-            <summary>
-            Performes selected action based on parameter.
-            </summary>
-            <param name="action">Action to perform</param>
-        </member>
-        <member name="M:CMS.Community.Web.UI.FriendsActionControl.CanApprove">
-            <summary>
-            Indicates if current user can automatically approve friendship.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.Web.UI.FriendsActionControl.GetFormattedUserName(System.String,System.String,System.String)">
-            <summary>
-            Virtual method for get formatted user name.
-            Override if you want to format sender and recipients usernames.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.Web.UI.FriendsActionControl.OnLoad(System.EventArgs)">
-            <summary>
-            OnLoad event.
-            </summary>
-            <param name="e">Event arguments</param>
         </member>
         <member name="P:CMS.Community.Web.UI.FriendsActionControl.AutomaticApprovment">
             <summary>
@@ -210,6 +187,29 @@
             Gets and sets action comment.
             </summary>
         </member>
+        <member name="M:CMS.Community.Web.UI.FriendsActionControl.PerformAction(CMS.Community.FriendsActionEnum)">
+            <summary>
+            Performes selected action based on parameter.
+            </summary>
+            <param name="action">Action to perform</param>
+        </member>
+        <member name="M:CMS.Community.Web.UI.FriendsActionControl.CanApprove">
+            <summary>
+            Indicates if current user can automatically approve friendship.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.Web.UI.FriendsActionControl.GetFormattedUserName(System.String,System.String,System.String)">
+            <summary>
+            Virtual method for get formatted user name.
+            Override if you want to format sender and recipients usernames.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.Web.UI.FriendsActionControl.OnLoad(System.EventArgs)">
+            <summary>
+            OnLoad event.
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
         <member name="T:CMS.Community.Web.UI.GroupEditTabsExtender">
             <summary>
             Extender for edit group horizontal tabs
@@ -242,24 +242,6 @@
             Base page for forums under groups pages.
             </summary>
         </member>
-        <member name="T:CMS.Community.Web.UI.CMSGroupPage">
-            <summary>
-             Base page for the CMS Group pages to apply global settings to the pages.
-            </summary>
-        </member>
-        <member name="M:CMS.Community.Web.UI.CMSGroupPage.OnInit(System.EventArgs)">
-            <summary>
-            Page OnInit event.
-            </summary>
-            <param name="e">Event args</param>
-        </member>
-        <member name="M:CMS.Community.Web.UI.CMSGroupPage.CheckPermissions(System.Int32,System.String)">
-            <summary>
-            Check whether user is group administrator or has manage permission.
-            </summary>
-            <param name="groupId">Community group ID</param>
-            <param name="permissionName">Permission name</param>
-        </member>
         <member name="M:CMS.Community.Web.UI.CMSGroupForumPage.OnInit(System.EventArgs)">
             <summary>
             Page OnInit event.
@@ -287,6 +269,24 @@
             Page OnInit event.
             </summary>
             <param name="e">Event args</param>
+        </member>
+        <member name="T:CMS.Community.Web.UI.CMSGroupPage">
+            <summary>
+             Base page for the CMS Group pages to apply global settings to the pages.
+            </summary>
+        </member>
+        <member name="M:CMS.Community.Web.UI.CMSGroupPage.OnInit(System.EventArgs)">
+            <summary>
+            Page OnInit event.
+            </summary>
+            <param name="e">Event args</param>
+        </member>
+        <member name="M:CMS.Community.Web.UI.CMSGroupPage.CheckPermissions(System.Int32,System.String)">
+            <summary>
+            Check whether user is group administrator or has manage permission.
+            </summary>
+            <param name="groupId">Community group ID</param>
+            <param name="permissionName">Permission name</param>
         </member>
         <member name="T:CMS.Community.Web.UI.CMSGroupPollsPage">
             <summary>

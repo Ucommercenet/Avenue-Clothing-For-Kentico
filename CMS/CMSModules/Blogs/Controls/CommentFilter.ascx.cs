@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Web;
 using System.Web.UI.WebControls;
 
 using CMS.Base;
@@ -178,7 +179,7 @@ public partial class CMSModules_Blogs_Controls_CommentFilter : CMSUserControl
     {
         get
         {
-            return "&blog=" + URLHelper.URLEncode(ValidationHelper.GetString(uniSelector.Value, String.Empty)) +
+            return "&blog=" + HttpUtility.UrlEncode(ValidationHelper.GetString(uniSelector.Value, String.Empty)) +
                     "&user=" + HTMLHelper.HTMLEncode(txtUserName.Text) +
                    "&comment=" + HTMLHelper.HTMLEncode(txtComment.Text) +
                    "&approved=" + drpApproved.SelectedItem.Value +
@@ -382,7 +383,7 @@ public partial class CMSModules_Blogs_Controls_CommentFilter : CMSUserControl
 
         if (!String.IsNullOrEmpty(blog))
         {
-            uniSelector.Value = URLHelper.URLDecode(blog);
+            uniSelector.Value = HttpUtility.UrlDecode(blog);
         }
     }
 }

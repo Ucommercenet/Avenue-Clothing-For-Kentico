@@ -7,7 +7,7 @@
     </div>
 
     <ajaxToolkit:AutoCompleteExtender runat="server" ID="autoComplete" TargetControlID="txtTags"
-        ServiceMethod="TagsAutoComplete" ServicePath="TagSelectorService.asmx" MinimumPrefixLength="1"
+        ServiceMethod="TagsAutoComplete" ServicePath="~/CMSModules/Content/FormControls/Tags/TagSelectorService.asmx" MinimumPrefixLength="1"
         CompletionInterval="1000" EnableCaching="true" CompletionSetCount="20" DelimiterCharacters=", "
         UseContextKey="true" CompletionListCssClass="autocomplete_completionListElement"
         CompletionListItemCssClass="autocomplete_listItem" CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem"

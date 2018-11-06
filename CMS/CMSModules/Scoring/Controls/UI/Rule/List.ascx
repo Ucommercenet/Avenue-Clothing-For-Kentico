@@ -7,7 +7,6 @@
     }
 
     (function () {
-        "use strict";
         var RequestStatus, RequestStatusUntilReady;
         RequestStatus = function (callback) {
             $cmsj.ajax({
@@ -46,8 +45,7 @@
     <GridActions Parameters="RuleID">
         <ug:Action Name="edit" Caption="$General.Edit$" FontIconClass="icon-edit" FontIconStyle="Allow" />
         <ug:Action Name="#delete" ExternalSourceName="delete" Caption="$General.Delete$"
-            FontIconClass="icon-bin" FontIconStyle="Critical" Confirmation="$General.ConfirmDelete$" ModuleName="CMS.Scoring"
-            Permissions="Modify" />
+            FontIconClass="icon-bin" FontIconStyle="Critical" Confirmation="$General.ConfirmDelete$" />
     </GridActions>
     <GridColumns>
         <ug:Column ID="colRuleDisplayName" runat="server" Source="RuleDisplayName" Localize="true" Caption="$om.rule.displayname$" Wrap="false">

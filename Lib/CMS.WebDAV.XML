@@ -9,156 +9,14 @@
             Base class for attachment and content resource.
             </summary>
         </member>
-        <member name="T:CMS.WebDAV.HierarchyItem">
+        <member name="P:CMS.WebDAV.BaseAttachmentResource.BinaryData">
             <summary>
-            Base class for resource or folder.
+            Gets binary data.
             </summary>
         </member>
-        <member name="F:CMS.WebDAV.HierarchyItem.BUFFER_SIZE">
+        <member name="P:CMS.WebDAV.BaseAttachmentResource.InputStream">
             <summary>
-            Buffer size.
-            </summary>
-        </member>
-        <member name="F:CMS.WebDAV.HierarchyItem.mUrlParser">
-            <summary>
-            Url parser.
-            </summary>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.#ctor(System.String,System.String,System.DateTime,System.DateTime,CMS.WebDAV.UrlParser,CMS.WebDAV.WebDAVEngine,ITHit.WebDAV.Server.IFolder)">
-            <summary>
-            Initializes hierarchy item.
-            </summary>
-            <param name="path">Path</param>
-            <param name="name">Name</param>
-            <param name="created">Creation date</param>
-            <param name="modified">Modification date</param>
-            <param name="urlParser">Url parser</param>
-            <param name="engine">WebDAV engine</param>
-            <param name="parent">Parent item</param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.CopyTo(ITHit.WebDAV.Server.IFolder,System.String,System.Boolean)">
-            <summary>
-            Creates a copy of this item with a new name in the destination folder.
-            </summary>
-            <param name="folder">Destination folder</param>
-            <param name="destName">Name of the destination item</param>
-            <param name="deep">Indicates whether to copy entire subtree</param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.MoveTo(ITHit.WebDAV.Server.IFolder,System.String)">
-            <summary>
-            Moves this item to the destination folder under a new name.
-            </summary>
-            <param name="folder">Destination folder</param>
-            <param name="destName">Name of the destination item</param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.Delete">
-            <summary>
-            Deletes this item.
-            </summary>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.GetProperties(ITHit.WebDAV.Server.Property[]@)">
-            <summary>
-            Gets values of all properties or selected properties for this item.
-            </summary>
-            <param name="props">Array of properties</param>
-            <returns>WebDAV response</returns>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])">
-            <summary>
-            Modifies and removes properties for this item.
-            </summary>
-            <param name="setProps">Array of properties to be set</param>
-            <param name="delProps">Array of properties to be removed. Value field is ignored.
-            Specifying the removal of a property that does not exist is not an error. </param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.GetPropertyNames(ITHit.WebDAV.Server.Property[]@)">
-            <summary>
-            Gets names of all properties for this item.
-            </summary>
-            <param name="props">New array of properties must be created
-            and returned through this parameter. </param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.Lock(ITHit.WebDAV.Server.LockInfo@)">
-            <summary>
-            Locks this item.
-            </summary>
-            <param name="lockInfo">Describes a lock on this item</param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.RefreshLock(ITHit.WebDAV.Server.LockInfo@)">
-            <summary>
-            Updates lock timeout information on this item.
-            </summary>
-            <param name="lockInfo">Describes a lock on this item</param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.Unlock(System.String)">
-            <summary>
-            Removes lock with the specified token from this item or deletes lock-null item.
-            </summary>
-            <param name="lockToken">Lock with this token should be removed from the item</param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.WriteFile(System.IO.Stream,System.Int64,System.Int64,System.String)">
-            <summary>
-            Streams the data file to the response.
-            </summary>
-            <param name="output">Output stream</param>
-            <param name="byteStart">The zero-based byte offset in resource content at which to begin
-            copying bytes to the output stream.</param>
-            <param name="count">The number of bytes to be written to the output stream</param>
-            <param name="filePath">File path</param>
-        </member>
-        <member name="M:CMS.WebDAV.HierarchyItem.WriteBytes(System.IO.Stream,System.Int64,System.Int64,System.Byte[])">
-            <summary>
-            Streams the byte array to the response.
-            </summary>
-            <param name="output">Output stream</param>
-            <param name="byteStart">The zero-based byte offset in resource content at which to begin
-            copying bytes to the output stream.</param>
-            <param name="count">The number of bytes to be written to the output stream</param>
-            <param name="data">Data to write</param>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.Engine">
-            <summary>
-            Gets engine.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.WorkflowManager">
-            <summary>
-            Gets workflow manager.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.UrlParser">
-            <summary>
-            Gets URL parser.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.Name">
-            <summary>
-            Gets the name of the item in repository.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.Created">
-            <summary>
-            Gets the creation date of the item in repository.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.Modified">
-            <summary>
-            Gets the last modification date of the item in repository.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.Parent">
-            <summary>
-            Gets the parent folder of the item in repository (null for the root of the repository).
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.Path">
-            <summary>
-            Unique item path in the repository relative to storage root.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.HierarchyItem.ActiveLocks">
-            <summary>
-            Gets the array of all locks for this item.
+            File input stream of attachment.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.BaseAttachmentResource.#ctor(System.String,System.String,System.String,System.Int64,System.DateTime,System.DateTime,CMS.WebDAV.UrlParser,CMS.WebDAV.WebDAVEngine,ITHit.WebDAV.Server.IFolder)">
@@ -174,6 +32,16 @@
             <param name="urlParser">URL parser</param>
             <param name="engine">WebDAV engine</param>
             <param name="parent">Parent folder</param>
+        </member>
+        <member name="P:CMS.WebDAV.BaseAttachmentResource.ContentType">
+            <summary>
+            Gets the media type of the resource.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.BaseAttachmentResource.ContentLength">
+            <summary>
+            Gets the size of the resource content in bytes.
+            </summary>
         </member>
         <member name="M:CMS.WebDAV.BaseAttachmentResource.WriteToStream(System.IO.Stream,System.Int64,System.Int64)">
             <summary>
@@ -246,26 +114,6 @@
             <param name="originalFileName">Original (unsafe) file name of media file</param>
             <param name="filePath">File path of media directory</param>
             <returns>Returns True if media file was stored</returns>
-        </member>
-        <member name="P:CMS.WebDAV.BaseAttachmentResource.BinaryData">
-            <summary>
-            Gets binary data.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.BaseAttachmentResource.InputStream">
-            <summary>
-            File input stream of attachment.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.BaseAttachmentResource.ContentType">
-            <summary>
-            Gets the media type of the resource.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.BaseAttachmentResource.ContentLength">
-            <summary>
-            Gets the size of the resource content in bytes.
-            </summary>
         </member>
         <member name="T:CMS.WebDAV.BaseFolder">
             <summary>
@@ -367,6 +215,11 @@
             </summary>
             <param name="lockInfo">Describes a lock on this item</param>
         </member>
+        <member name="P:CMS.WebDAV.EmptyHierarchyItem.Children">
+            <summary>
+            Gets the array of this folder's children.
+            </summary>
+        </member>
         <member name="M:CMS.WebDAV.EmptyHierarchyItem.CreateResource(System.String)">
             <summary>
             Creates new WebDAV resource with the specified name in this folder. 
@@ -389,11 +242,6 @@
             <param name="lockInfo">Describes a lock on the new item</param>
             <returns>WebDAV response</returns>
         </member>
-        <member name="P:CMS.WebDAV.EmptyHierarchyItem.Children">
-            <summary>
-            Gets the array of this folder's children.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.Folder">
             <summary>
             Class that represents general folder.
@@ -410,6 +258,11 @@
             <param name="urlParser">Url parser</param>
             <param name="engine">WebDAV engine</param>
             <param name="parent">Parent folder</param>
+        </member>
+        <member name="P:CMS.WebDAV.Folder.Children">
+            <summary>
+            Gets the array of this folder's children.
+            </summary>
         </member>
         <member name="M:CMS.WebDAV.Folder.CreateResource(System.String)">
             <summary>
@@ -444,10 +297,157 @@
             </summary>
             <param name="childrenItems">List of folders</param>
         </member>
-        <member name="P:CMS.WebDAV.Folder.Children">
+        <member name="T:CMS.WebDAV.HierarchyItem">
             <summary>
-            Gets the array of this folder's children.
+            Base class for resource or folder.
             </summary>
+        </member>
+        <member name="F:CMS.WebDAV.HierarchyItem.BUFFER_SIZE">
+            <summary>
+            Buffer size.
+            </summary>
+        </member>
+        <member name="F:CMS.WebDAV.HierarchyItem.mUrlParser">
+            <summary>
+            Url parser.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.Engine">
+            <summary>
+            Gets engine.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.WorkflowManager">
+            <summary>
+            Gets workflow manager.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.UrlParser">
+            <summary>
+            Gets URL parser.
+            </summary>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.#ctor(System.String,System.String,System.DateTime,System.DateTime,CMS.WebDAV.UrlParser,CMS.WebDAV.WebDAVEngine,ITHit.WebDAV.Server.IFolder)">
+            <summary>
+            Initializes hierarchy item.
+            </summary>
+            <param name="path">Path</param>
+            <param name="name">Name</param>
+            <param name="created">Creation date</param>
+            <param name="modified">Modification date</param>
+            <param name="urlParser">Url parser</param>
+            <param name="engine">WebDAV engine</param>
+            <param name="parent">Parent item</param>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.Name">
+            <summary>
+            Gets the name of the item in repository.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.Created">
+            <summary>
+            Gets the creation date of the item in repository.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.Modified">
+            <summary>
+            Gets the last modification date of the item in repository.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.Parent">
+            <summary>
+            Gets the parent folder of the item in repository (null for the root of the repository).
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.Path">
+            <summary>
+            Unique item path in the repository relative to storage root.
+            </summary>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.CopyTo(ITHit.WebDAV.Server.IFolder,System.String,System.Boolean)">
+            <summary>
+            Creates a copy of this item with a new name in the destination folder.
+            </summary>
+            <param name="folder">Destination folder</param>
+            <param name="destName">Name of the destination item</param>
+            <param name="deep">Indicates whether to copy entire subtree</param>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.MoveTo(ITHit.WebDAV.Server.IFolder,System.String)">
+            <summary>
+            Moves this item to the destination folder under a new name.
+            </summary>
+            <param name="folder">Destination folder</param>
+            <param name="destName">Name of the destination item</param>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.Delete">
+            <summary>
+            Deletes this item.
+            </summary>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.GetProperties(ITHit.WebDAV.Server.Property[]@)">
+            <summary>
+            Gets values of all properties or selected properties for this item.
+            </summary>
+            <param name="props">Array of properties</param>
+            <returns>WebDAV response</returns>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])">
+            <summary>
+            Modifies and removes properties for this item.
+            </summary>
+            <param name="setProps">Array of properties to be set</param>
+            <param name="delProps">Array of properties to be removed. Value field is ignored.
+            Specifying the removal of a property that does not exist is not an error. </param>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.GetPropertyNames(ITHit.WebDAV.Server.Property[]@)">
+            <summary>
+            Gets names of all properties for this item.
+            </summary>
+            <param name="props">New array of properties must be created
+            and returned through this parameter. </param>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.Lock(ITHit.WebDAV.Server.LockInfo@)">
+            <summary>
+            Locks this item.
+            </summary>
+            <param name="lockInfo">Describes a lock on this item</param>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.RefreshLock(ITHit.WebDAV.Server.LockInfo@)">
+            <summary>
+            Updates lock timeout information on this item.
+            </summary>
+            <param name="lockInfo">Describes a lock on this item</param>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.Unlock(System.String)">
+            <summary>
+            Removes lock with the specified token from this item or deletes lock-null item.
+            </summary>
+            <param name="lockToken">Lock with this token should be removed from the item</param>
+        </member>
+        <member name="P:CMS.WebDAV.HierarchyItem.ActiveLocks">
+            <summary>
+            Gets the array of all locks for this item.
+            </summary>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.WriteFile(System.IO.Stream,System.Int64,System.Int64,System.String)">
+            <summary>
+            Streams the data file to the response.
+            </summary>
+            <param name="output">Output stream</param>
+            <param name="byteStart">The zero-based byte offset in resource content at which to begin
+            copying bytes to the output stream.</param>
+            <param name="count">The number of bytes to be written to the output stream</param>
+            <param name="filePath">File path</param>
+        </member>
+        <member name="M:CMS.WebDAV.HierarchyItem.WriteBytes(System.IO.Stream,System.Int64,System.Int64,System.Byte[])">
+            <summary>
+            Streams the byte array to the response.
+            </summary>
+            <param name="output">Output stream</param>
+            <param name="byteStart">The zero-based byte offset in resource content at which to begin
+            copying bytes to the output stream.</param>
+            <param name="count">The number of bytes to be written to the output stream</param>
+            <param name="data">Data to write</param>
         </member>
         <member name="T:CMS.WebDAV.ContentFolder">
             <summary>
@@ -465,6 +465,11 @@
             <param name="urlParser">Url parser</param>
             <param name="engine">WebDAV engine</param>
             <param name="parent">Parent folder</param>
+        </member>
+        <member name="P:CMS.WebDAV.ContentFolder.Children">
+            <summary>
+            Gets the array of this folder's children.
+            </summary>
         </member>
         <member name="M:CMS.WebDAV.ContentFolder.CreateResource(System.String)">
             <summary>
@@ -585,14 +590,14 @@
             <param name="tree">Tree provider</param>
             <param name="safeFileName">Safe file name</param>
         </member>
-        <member name="P:CMS.WebDAV.ContentFolder.Children">
-            <summary>
-            Gets the array of this folder's children.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.ContentResource">
             <summary>
             Class that represents the CMS file.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.ContentResource.BinaryData">
+            <summary>
+            Gets binary data of CMS file.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.ContentResource.#ctor(System.String,System.String,System.String,System.Int64,System.DateTime,System.DateTime,CMS.WebDAV.UrlParser,CMS.WebDAV.WebDAVEngine,ITHit.WebDAV.Server.IFolder)">
@@ -710,21 +715,10 @@
             </summary>
             <param name="lockToken">Lock with this token should be removed from the item</param>
         </member>
-        <member name="P:CMS.WebDAV.ContentResource.BinaryData">
-            <summary>
-            Gets binary data of CMS file.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.WebDAVHandler">
             <summary>
             WebDAV handler.
             </summary>
-        </member>
-        <member name="M:CMS.WebDAV.WebDAVHandler.ProcessRequest(System.Web.HttpContext)">
-            <summary>
-            Processes WebDAV request.
-            </summary>
-            <param name="context">HTTP context to work with</param>
         </member>
         <member name="P:CMS.WebDAV.WebDAVHandler.LogFilePath">
             <summary>
@@ -735,6 +729,12 @@
             <summary>
             Gets log level.
             </summary>
+        </member>
+        <member name="M:CMS.WebDAV.WebDAVHandler.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            Processes WebDAV request.
+            </summary>
+            <param name="context">HTTP context to work with</param>
         </member>
         <member name="P:CMS.WebDAV.WebDAVHandler.IsReusable">
             <summary>
@@ -833,6 +833,11 @@
             <param name="engine">WebDAV engine</param>
             <param name="parent">Parent media folder</param>
         </member>
+        <member name="P:CMS.WebDAV.MediaFolder.Children">
+            <summary>
+            Gets the array of this folder's children.
+            </summary>
+        </member>
         <member name="M:CMS.WebDAV.MediaFolder.CreateResource(System.String)">
             <summary>
             Creates new WebDAV resource with the specified name in this folder. 
@@ -869,11 +874,6 @@
             <param name="path">Path to examine</param>
             <returns>Index determining start of media folder name in given path</returns>
         </member>
-        <member name="P:CMS.WebDAV.MediaFolder.Children">
-            <summary>
-            Gets the array of this folder's children.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.MediaFileResource">
             <summary>
             Class that represents the media file.
@@ -892,6 +892,21 @@
             <param name="urlParser">Url parser</param>
             <param name="engine">WebDAV engine</param>
             <param name="parent">Parent folder</param>
+        </member>
+        <member name="P:CMS.WebDAV.MediaFileResource.InputStream">
+            <summary>
+            File input stream of media file.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.MediaFileResource.ContentType">
+            <summary>
+            Gets the media type of the resource.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.MediaFileResource.ContentLength">
+            <summary>
+            Gets the size of the resource content in bytes.
+            </summary>
         </member>
         <member name="M:CMS.WebDAV.MediaFileResource.WriteToStream(System.IO.Stream,System.Int64,System.Int64)">
             <summary>
@@ -991,24 +1006,14 @@
             </summary>
             <param name="lockInfo">Describes a lock on this item</param>
         </member>
-        <member name="P:CMS.WebDAV.MediaFileResource.InputStream">
-            <summary>
-            File input stream of media file.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.MediaFileResource.ContentType">
-            <summary>
-            Gets the media type of the resource.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.MediaFileResource.ContentLength">
-            <summary>
-            Gets the size of the resource content in bytes.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.MetaFileResource">
             <summary>
             Class that represents the meta file.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.MetaFileResource.BinaryData">
+            <summary>
+            Gets binary data of meta file.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.MetaFileResource.#ctor(System.String,System.String,System.String,System.Int64,System.DateTime,System.DateTime,CMS.WebDAV.UrlParser,CMS.WebDAV.WebDAVEngine,ITHit.WebDAV.Server.IFolder)">
@@ -1024,6 +1029,16 @@
             <param name="urlParser">Url parser</param>
             <param name="engine">WebDAV engine</param>
             <param name="parent">Parent folder</param>
+        </member>
+        <member name="P:CMS.WebDAV.MetaFileResource.ContentType">
+            <summary>
+            Gets the media type of the resource.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.MetaFileResource.ContentLength">
+            <summary>
+            Gets the size of the resource content in bytes.
+            </summary>
         </member>
         <member name="M:CMS.WebDAV.MetaFileResource.WriteToStream(System.IO.Stream,System.Int64,System.Int64)">
             <summary>
@@ -1071,21 +1086,6 @@
             Locks this item.
             </summary>
             <param name="lockInfo">Describes a lock on this item</param>
-        </member>
-        <member name="P:CMS.WebDAV.MetaFileResource.BinaryData">
-            <summary>
-            Gets binary data of meta file.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.MetaFileResource.ContentType">
-            <summary>
-            Gets the media type of the resource.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.MetaFileResource.ContentLength">
-            <summary>
-            Gets the size of the resource content in bytes.
-            </summary>
         </member>
         <member name="T:CMS.WebDAV.ItemTypeEnum">
             <summary>
@@ -1234,6 +1234,11 @@
             <param name="engine">WebDAV engine</param>
             <param name="parent">Parent folder</param>
         </member>
+        <member name="P:CMS.WebDAV.AttachmentFolder.Children">
+            <summary>
+            Gets the array of this folder's children.
+            </summary>
+        </member>
         <member name="M:CMS.WebDAV.AttachmentFolder.CreateResource(System.String)">
             <summary>
             Creates new WebDAV resource with the specified name in this folder. 
@@ -1255,14 +1260,14 @@
             <param name="itemList">Children list</param>
             <param name="attDataSet">Dataset attachment info (contains only specified columns)</param>
         </member>
-        <member name="P:CMS.WebDAV.AttachmentFolder.Children">
-            <summary>
-            Gets the array of this folder's children.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.GetHandler">
             <summary>
             Gets handler.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.GetHandler.OriginalHandler">
+            <summary>
+            Sets original handler.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.GetHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)">
@@ -1273,14 +1278,14 @@
             <param name="response">HTTP response</param>
             <param name="item">Hierarchy item</param>
         </member>
-        <member name="P:CMS.WebDAV.GetHandler.OriginalHandler">
-            <summary>
-            Sets original handler.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.PutHandler">
             <summary>
             PUT handler.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.PutHandler.OriginalHandler">
+            <summary>
+            Sets original PUT handler.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.PutHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)">
@@ -1290,11 +1295,6 @@
             <param name="request">HTTP request</param>
             <param name="response">HTTP response</param>
             <param name="item">Hierarchy item</param>
-        </member>
-        <member name="P:CMS.WebDAV.PutHandler.OriginalHandler">
-            <summary>
-            Sets original PUT handler.
-            </summary>
         </member>
         <member name="T:CMS.WebDAV.WebDAVHandlers">
             <summary>
@@ -1314,6 +1314,11 @@
         <member name="T:CMS.WebDAV.AttachmentResource">
             <summary>
             Class that represents the attachment file.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.AttachmentResource.BinaryData">
+            <summary>
+            Gets binary data of attachment.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.AttachmentResource.#ctor(System.String,System.String,System.String,System.Int64,System.DateTime,System.DateTime,CMS.WebDAV.UrlParser,CMS.WebDAV.WebDAVEngine,ITHit.WebDAV.Server.IFolder)">
@@ -1427,58 +1432,10 @@
             </summary>
             <param name="lockToken">Lock with this token should be removed from the item</param>
         </member>
-        <member name="P:CMS.WebDAV.AttachmentResource.BinaryData">
-            <summary>
-            Gets binary data of attachment.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.UrlParser">
             <summary>
             URL parser.
             </summary>
-        </member>
-        <member name="M:CMS.WebDAV.UrlParser.#ctor(System.String)">
-            <summary>
-            Initializes object and parses URL path.
-            </summary>
-            <param name="path">URL path</param>
-        </member>
-        <member name="M:CMS.WebDAV.UrlParser.GetAllowedName(System.String)">
-            <summary>
-            Gets allowed name from name. Allowed name can not contain certain characters.
-            </summary>
-            <param name="name">Name to be transformed into allowed name</param>
-            <returns>Allowed name</returns>
-        </member>
-        <member name="M:CMS.WebDAV.UrlParser.Parse(System.String)">
-            <summary>
-            Parses URL path.
-            </summary>
-            <param name="path">URL path</param>
-        </member>
-        <member name="M:CMS.WebDAV.UrlParser.ParseAttachments(System.String)">
-            <summary>
-            Parses URL of attachment.
-            </summary>
-            <param name="path">Attachment URL</param>
-        </member>
-        <member name="M:CMS.WebDAV.UrlParser.ParseMedia(System.String)">
-            <summary>
-            Parses URL of media file.
-            </summary>
-            <param name="path">Media URL path</param>
-        </member>
-        <member name="M:CMS.WebDAV.UrlParser.ParseMetaFiles(System.String)">
-            <summary>
-            Parses URL of meta file.
-            </summary>
-            <param name="path">Meta file URL path</param>
-        </member>
-        <member name="M:CMS.WebDAV.UrlParser.ParseContent(System.String)">
-            <summary>
-            Parses URL of content.
-            </summary>
-            <param name="path">Content URL path</param>
         </member>
         <member name="P:CMS.WebDAV.UrlParser.Path">
             <summary>
@@ -1580,9 +1537,57 @@
             Gets file info (media file in file system).
             </summary>
         </member>
+        <member name="M:CMS.WebDAV.UrlParser.#ctor(System.String)">
+            <summary>
+            Initializes object and parses URL path.
+            </summary>
+            <param name="path">URL path</param>
+        </member>
+        <member name="M:CMS.WebDAV.UrlParser.GetAllowedName(System.String)">
+            <summary>
+            Gets allowed name from name. Allowed name can not contain certain characters.
+            </summary>
+            <param name="name">Name to be transformed into allowed name</param>
+            <returns>Allowed name</returns>
+        </member>
+        <member name="M:CMS.WebDAV.UrlParser.Parse(System.String)">
+            <summary>
+            Parses URL path.
+            </summary>
+            <param name="path">URL path</param>
+        </member>
+        <member name="M:CMS.WebDAV.UrlParser.ParseAttachments(System.String)">
+            <summary>
+            Parses URL of attachment.
+            </summary>
+            <param name="path">Attachment URL</param>
+        </member>
+        <member name="M:CMS.WebDAV.UrlParser.ParseMedia(System.String)">
+            <summary>
+            Parses URL of media file.
+            </summary>
+            <param name="path">Media URL path</param>
+        </member>
+        <member name="M:CMS.WebDAV.UrlParser.ParseMetaFiles(System.String)">
+            <summary>
+            Parses URL of meta file.
+            </summary>
+            <param name="path">Meta file URL path</param>
+        </member>
+        <member name="M:CMS.WebDAV.UrlParser.ParseContent(System.String)">
+            <summary>
+            Parses URL of content.
+            </summary>
+            <param name="path">Content URL path</param>
+        </member>
         <member name="T:CMS.WebDAV.WebDAVEngine">
             <summary>
             CMS WebDav engine.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.WebDAVEngine.UrlParser">
+            <summary>
+            Gets URL parser.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.WebDAVEngine.GetHierarchyItem(System.String)">
@@ -1665,11 +1670,6 @@
             <param name="permission">Node permission to check</param>
             <returns>AttachmentFolder instance</returns>
         </member>
-        <member name="P:CMS.WebDAV.WebDAVEngine.UrlParser">
-            <summary>
-            Gets URL parser.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.WebDAVHelper">
             <summary>
             WebDAV helper.
@@ -1698,6 +1698,21 @@
         <member name="F:CMS.WebDAV.WebDAVHelper.TEMPORARY_FILE_PREFIX">
             <summary>
             Prefix of temporary file.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.WebDAVHelper.CulturesCodes">
+            <summary>
+            Gets culture codes of site.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.WebDAVHelper.IsMediaLibraryModuleLoaded">
+            <summary>
+            Indicates if module 'Media Library' is loaded.
+            </summary>
+        </member>
+        <member name="P:CMS.WebDAV.WebDAVHelper.IsCommunityModuleLoaded">
+            <summary>
+            Indicates if module 'Community' is loaded.
             </summary>
         </member>
         <member name="M:CMS.WebDAV.WebDAVHelper.IsWebDAVExtensionEnabled(System.String,System.String)">
@@ -2024,21 +2039,6 @@
             </summary>
             <param name="node">Document</param>
         </member>
-        <member name="P:CMS.WebDAV.WebDAVHelper.CulturesCodes">
-            <summary>
-            Gets culture codes of site.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.WebDAVHelper.IsMediaLibraryModuleLoaded">
-            <summary>
-            Indicates if module 'Media Library' is loaded.
-            </summary>
-        </member>
-        <member name="P:CMS.WebDAV.WebDAVHelper.IsCommunityModuleLoaded">
-            <summary>
-            Indicates if module 'Community' is loaded.
-            </summary>
-        </member>
         <member name="T:CMS.WebDAV.WebDAVModule">
             <summary>
             Represents the WebDAV module.
@@ -2068,39 +2068,6 @@
             <summary>
             WebDAV settings class.
             </summary>
-        </member>
-        <member name="F:CMS.WebDAV.WebDAVSettings.ALIASPATH_ROOT">
-            <summary>
-            Replacement for root node alias path.
-            </summary>
-        </member>
-        <member name="F:CMS.WebDAV.WebDAVSettings.WIDTH">
-            <summary>
-            Image resize width.
-            </summary>
-        </member>
-        <member name="F:CMS.WebDAV.WebDAVSettings.HEIGHT">
-            <summary>
-            Image resize height.
-            </summary>
-        </member>
-        <member name="F:CMS.WebDAV.WebDAVSettings.MAX_SIDE_SIZE">
-            <summary>
-            Image resize maximum side size.
-            </summary>
-        </member>
-        <member name="M:CMS.WebDAV.WebDAVSettings.GetAllowedExtensions(System.String)">
-            <summary>
-            Gets allowed file extensions supported by WebDAV for given site.
-            </summary>
-            <param name="siteName">Site name</param>
-        </member>
-        <member name="M:CMS.WebDAV.WebDAVSettings.IsExtensionAllowedForEditMode(System.String,System.String)">
-            <summary>
-            Checks if file extension is allowed for edit mode.
-            </summary>
-            <param name="extension">File extension</param>
-            <param name="siteName">Site name</param>
         </member>
         <member name="P:CMS.WebDAV.WebDAVSettings.RootFolder">
             <summary>
@@ -2171,6 +2138,39 @@
             <summary>
             Gets base groups path.
             </summary>
+        </member>
+        <member name="F:CMS.WebDAV.WebDAVSettings.ALIASPATH_ROOT">
+            <summary>
+            Replacement for root node alias path.
+            </summary>
+        </member>
+        <member name="F:CMS.WebDAV.WebDAVSettings.WIDTH">
+            <summary>
+            Image resize width.
+            </summary>
+        </member>
+        <member name="F:CMS.WebDAV.WebDAVSettings.HEIGHT">
+            <summary>
+            Image resize height.
+            </summary>
+        </member>
+        <member name="F:CMS.WebDAV.WebDAVSettings.MAX_SIDE_SIZE">
+            <summary>
+            Image resize maximum side size.
+            </summary>
+        </member>
+        <member name="M:CMS.WebDAV.WebDAVSettings.GetAllowedExtensions(System.String)">
+            <summary>
+            Gets allowed file extensions supported by WebDAV for given site.
+            </summary>
+            <param name="siteName">Site name</param>
+        </member>
+        <member name="M:CMS.WebDAV.WebDAVSettings.IsExtensionAllowedForEditMode(System.String,System.String)">
+            <summary>
+            Checks if file extension is allowed for edit mode.
+            </summary>
+            <param name="extension">File extension</param>
+            <param name="siteName">Site name</param>
         </member>
     </members>
 </doc>

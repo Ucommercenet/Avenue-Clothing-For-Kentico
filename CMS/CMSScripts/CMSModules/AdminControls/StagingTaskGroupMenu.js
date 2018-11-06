@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/EventHub', 'jQuery'], function (EventHub, $cmsj) {
-    'use strict';
 
     // Create function constructor
     var Module = function (serverData) {

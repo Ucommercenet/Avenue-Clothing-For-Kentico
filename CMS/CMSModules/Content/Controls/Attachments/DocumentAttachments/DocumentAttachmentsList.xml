@@ -11,9 +11,6 @@
     <column source="##ALL##" externalsourcename="attachment" caption="$general.name$" wrap="false" cssclass="main-column-100" />
     <column source="##ALL##" externalsourcename="attachmentsize" caption="$general.size$" wrap="false" />
   </columns>
-  <pager>
-    <key name="ShowFirstLastButtons" value="false" />
-  </pager>
   <options>
     <key name="DisplayFilter" value="false" />
   </options>

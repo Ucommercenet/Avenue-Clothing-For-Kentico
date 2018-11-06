@@ -374,7 +374,6 @@ function InitializeDesign() {
 
     // Ensure preview box size
     $cmsj('a[href$=tabImageGeneral]').click(SetPreviewBox);
-    $cmsj('a[href$=tabFlashGeneral]').click(SetPreviewBox);
     $cmsj('a[href$=tabVideoGeneral]').click(SetPreviewBox);
 }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.UI;
 
-using CMS.Activities;
 using CMS.Base.Web.UI;
 using CMS.Blogs;
 using CMS.ContactManagement;
@@ -212,7 +211,7 @@ public partial class CMSModules_Blogs_Controls_SubscriptionApproval : CMSUserCon
         {
             try
             {
-                datetime = DateTime.ParseExact(requestTime, SecurityHelper.EMAIL_CONFIRMATION_DATETIME_FORMAT, null);
+                datetime = DateTimeUrlFormatter.Parse(requestTime);
             }
             catch
             {
@@ -222,7 +221,7 @@ public partial class CMSModules_Blogs_Controls_SubscriptionApproval : CMSUserCon
         }
 
         // Initialize opt-in result
-        OptInApprovalResultEnum result = OptInApprovalResultEnum.NotFound;
+        OptInApprovalResultEnum result;
 
         // Check only data consistency
         if (checkOnly)
@@ -249,7 +248,7 @@ public partial class CMSModules_Blogs_Controls_SubscriptionApproval : CMSUserCon
                 {
                     ShowInfo(DataHelper.GetNotEmpty(SuccessfulConfirmationText, GetString("general.subscription_approval")));
 
-                    Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(SubscriptionObject.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                    Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(SubscriptionObject.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                     var blogsActivityLogger = new BlogsActivityLogger();
                     blogsActivityLogger.LogBlogPostSubscriptionActivity(SubscriptionObject, QueryHelper.GetInteger("cid", 0), QueryHelper.GetInteger("siteid", 0), QueryHelper.GetText("camp", ""));
                 }
@@ -267,7 +266,6 @@ public partial class CMSModules_Blogs_Controls_SubscriptionApproval : CMSUserCon
 
             // Subscription not found
             default:
-            case OptInApprovalResultEnum.NotFound:
                 DisplayError(DataHelper.GetNotEmpty(UnsuccessfulConfirmationText, GetString("general.subscription_invalid")));
                 break;
         }

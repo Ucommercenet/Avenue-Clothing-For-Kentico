@@ -108,26 +108,27 @@
 		var first = true;
 		var preSelectedValues = $scope.getPreSelectedValues();
 		var preSelectedValuesString = '';
-		for (n in preSelectedValues) {
-			if (first) {
-				first = false;
-				preSelectedValuesString += preSelectedValues[n];
-			} else {
-				preSelectedValuesString += ',';
-				preSelectedValuesString += preSelectedValues[n];
-			}
-		}
+	    preSelectedValues.forEach(function(element, index) {
+	        if (first) {
+	            first = false;
+                preSelectedValuesString += element;
+	        } else {
+	            preSelectedValuesString += ',';
+                preSelectedValuesString += element;
+	        }
+	    });
 
 		uCommerceContentService.getNodes($scope.hasCheckboxFor, preSelectedValuesString).then(function(response) {
 			var data = response.data;
-			for (n in data) {
-				$scope.selectedNodes.push({
-					id: data[n].id,
-					name: data[n].name,
-					nodeType: data[n].nodeType,
-					icon: data[n].icon
-				});
-			}
+            data.forEach(function(element, index) {
+		        $scope.selectedNodes.push({
+                    id: element.id,
+                    name: element.name,
+                    nodeType: element.nodeType,
+                    icon: element.icon
+		        });
+            });
+            
 			$scope.updatePreselectedValues();
 		});
 	}
@@ -175,7 +176,19 @@
 						'padding-left': '16px'
 					};
 				}
-			}
+            }
+		    if (UCommerceClientMgr.Shell == 'Sitefinity') {
+		        if ($scope.iconFolder == 'uCommerce') {
+		            var object = {
+		                'background-image': 'url("' + UCommerceClientMgr.BaseUCommerceUrl + 'shell/content/images/ui/' + icon + '")'
+		            };
+		            return object;
+		        } else {
+		            return {
+		                'background-image': 'url("' + icon + '")'
+		            };
+		        }
+		    }
 		}
 	}
 }

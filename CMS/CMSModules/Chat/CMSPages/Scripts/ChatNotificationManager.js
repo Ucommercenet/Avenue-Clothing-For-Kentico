@@ -71,7 +71,7 @@
         soundManager.setup({
             url: window.ChatNotificationManagerSettings.SwfFolder,
             debugMode: false,
-            preferFlash: true,
+            preferFlash: false,
             onready: function () {
                 isSoundReady = true;
             },

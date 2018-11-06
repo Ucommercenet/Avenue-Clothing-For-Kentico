@@ -3,7 +3,6 @@
  */
 
 cmsdefine([], function () {
-    'use strict';
 
     /**
      * Gets characters that represent new line in the given text.

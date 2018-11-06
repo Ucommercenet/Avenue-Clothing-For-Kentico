@@ -181,10 +181,10 @@ public partial class CMSModules_CustomTables_CustomTable_Edit_Fields : CMSCustom
             QueryInfoProvider.ClearDefaultQueries(dci, true, false);
 
             // Clear the object type hashtable
-            ProviderStringDictionary.ReloadDictionaries(className, true);
+            AbstractProviderDictionary.ReloadDictionaries(className, true);
 
             // Clear the classes hashtable
-            ProviderStringDictionary.ReloadDictionaries("cms.class", true);
+            AbstractProviderDictionary.ReloadDictionaries("cms.class", true);
 
             // Clear class strucures
             ClassStructureInfo.Remove(className, true);

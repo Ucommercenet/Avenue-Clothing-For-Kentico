@@ -65,7 +65,7 @@ public partial class CMSModules_Notifications_Controls_TemplateTextEdit : Templa
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // If ID�s not specified return 
+        // If ID's not specified return 
         if ((TemplateID == 0) || (GatewayID == 0))
         {
             return;
@@ -112,7 +112,7 @@ public partial class CMSModules_Notifications_Controls_TemplateTextEdit : Templa
         EditedObject = ntti;
 
         // Setup properties
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             TemplateSubject = ntti.TemplateSubject;
             TemplateHTMLText = ntti.TemplateHTMLText;

@@ -47,9 +47,28 @@
     transition: opacity 0.15s linear;
 }
 
+
+#ucommerceModal {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    z-index: 120000;
+    display: flex;
+    justify-content: center;
+    pointer-events: none
+}
+
+
 #ucommerceModal > .modal {
-    top: 10% !important;
-    left: 46% !important;
+    position: relative;
+    top: initial;
+    left: initial;
+    right: initial;
+    bottom: initial;
+    margin: auto;
+    pointer-events: all;
 }
 
 .cms-bootstrap .hide {
@@ -810,6 +829,11 @@ input[type="submit"].btn {
     color: #468847;
     background-color: #dff0d8;
     border-color: #d6e9c6;
+}
+
+#AlertControllerContainer .alert-success {
+    position: relative !important;
+    padding: 8px 35px 8px 14px;
 }
 
     .alert-success h4 {

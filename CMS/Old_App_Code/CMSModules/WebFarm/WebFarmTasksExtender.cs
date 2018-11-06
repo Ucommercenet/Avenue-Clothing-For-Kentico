@@ -102,7 +102,7 @@ public class WebFarmTasksExtender : ControlExtender<UniGrid>
         // Add header actions
         InitHeaderActions();
 
-        if ((WebFarmLicenseHelper.ServerCount > 1) && !WebFarmLicenseHelper.LicenseIsValid)
+        if (!WebFarmLicenseHelper.LicenseIsValid)
         {
             Control.ShowError(ResHelper.GetString("webfarm.unsufficientdomainlicense"));
         }

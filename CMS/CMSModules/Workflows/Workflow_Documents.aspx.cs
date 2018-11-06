@@ -26,8 +26,8 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
 {
     #region "Private variables & enumerations"
 
-    private CurrentUserInfo currentUser;
-    private string currentCulture = CultureHelper.DefaultUICultureCode;
+    private CurrentUserInfo mCurrentUser;
+    private string mCurrentCulture = CultureHelper.DefaultUICultureCode;
 
     private const string GET_WORKFLOW_DOCS_WHERE = "DocumentWorkflowStepID IN (SELECT StepID FROM CMS_WorkflowStep WHERE StepWorkflowID = {0})";
 
@@ -44,7 +44,7 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
         AllDocuments = 1
     }
 
-    private What currentWhat = default(What);
+    private What mCurrentWhat = default(What);
 
     #endregion
 
@@ -105,13 +105,10 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        currentUser = MembershipContext.AuthenticatedUser;
-        currentCulture = CultureHelper.PreferredUICultureCode;
+        mCurrentUser = MembershipContext.AuthenticatedUser;
+        mCurrentCulture = CultureHelper.PreferredUICultureCode;
 
-        // Initialize events
-        ctlAsyncLog.OnFinished += ctlAsyncLog_OnFinished;
-        ctlAsyncLog.OnError += ctlAsyncLog_OnError;
-        ctlAsyncLog.OnCancel += ctlAsyncLog_OnCancel;
+        RegisterEventHandlers();
 
         if (!RequestHelper.IsCallback())
         {
@@ -119,69 +116,26 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
             pnlContent.Visible = true;
             pnlLog.Visible = false;
 
-            // Initialize unigrid
-            docElem.ZeroRowsText = GetString(filterDocuments.FilterIsSet ? "unigrid.filteredzerorowstext" : "workflowdocuments.nodata");
-            docElem.UniGrid.OnAfterDataReload += UniGrid_OnAfterDataReload;
-            docElem.UniGrid.OnBeforeDataReload += UniGrid_OnBeforeDataReload;
-            docElem.Tree = Tree;
+            InitializeUniGrid();
 
-            // Create action script
-            StringBuilder actionScript = new StringBuilder();
-            actionScript.AppendLine("function PerformAction(selectionFunction, selectionField, dropId)");
-            actionScript.AppendLine("{");
-            actionScript.AppendLine("   var selectionFieldElem = document.getElementById(selectionField);");
-            actionScript.AppendLine("   var label = document.getElementById('" + lblValidation.ClientID + "');");
-            actionScript.AppendLine("   var items = selectionFieldElem.value;");
-            actionScript.AppendLine("   var whatDrp = document.getElementById('" + drpWhat.ClientID + "');");
-            actionScript.AppendLine("   var action = document.getElementById(dropId).value;");
-            actionScript.AppendLine("   if (action == '" + (int)Action.SelectAction + "')");
-            actionScript.AppendLine("   {");
-            actionScript.AppendLine("       label.innerHTML = " + ScriptHelper.GetLocalizedString("massaction.selectsomeaction") + ";");
-            actionScript.AppendLine("       return false;");
-            actionScript.AppendLine("   }");
-            actionScript.AppendLine("   if(!eval(selectionFunction) || whatDrp.value == '" + (int)What.AllDocuments + "')");
-            actionScript.AppendLine("   {");
-            actionScript.AppendLine("       var confirmed = false;");
-            actionScript.AppendLine("       var confMessage = '';");
-            actionScript.AppendLine("       switch(action)");
-            actionScript.AppendLine("       {");
-            actionScript.AppendLine("           case '" + (int)Action.PublishAndFinish + "':");
-            actionScript.AppendLine("               confMessage = " + ScriptHelper.GetLocalizedString("workflowdocuments.confrimpublish") + ";");
-            actionScript.AppendLine("               break;");
-            actionScript.AppendLine("           case '" + (int)Action.RemoveWorkflow + "':");
-            actionScript.AppendLine("               confMessage = " + ScriptHelper.GetLocalizedString("workflowdocuments.confirmremove") + ";");
-            actionScript.AppendLine("               break;");
-            actionScript.AppendLine("       }");
-            actionScript.AppendLine("       return confirm(confMessage);");
-            actionScript.AppendLine("   }");
-            actionScript.AppendLine("   else");
-            actionScript.AppendLine("   {");
-            actionScript.AppendLine("       label.innerHTML = " + ScriptHelper.GetLocalizedString("documents.selectdocuments") + ";");
-            actionScript.AppendLine("       return false;");
-            actionScript.AppendLine("   }");
-            actionScript.AppendLine("}");
-            ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "actionScript", ScriptHelper.GetScript(actionScript.ToString()));
+            RegisterPerformActionScript();
 
-            // Add action to button
-            btnOk.OnClientClick = "return PerformAction('" + docElem.UniGrid.GetCheckSelectionScript() + "','" + docElem.UniGrid.GetSelectionFieldClientID() + "','" + drpAction.ClientID + "');";
+            AssignPerformActionScriptToBtnOkOnclick();
 
             // Initialize dropdown list with actions
             if (!RequestHelper.IsPostBack())
             {
-                if (currentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin) || currentUser.IsAuthorizedPerResource("CMS.Content", "manageworkflow"))
+                if (mCurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin) || mCurrentUser.IsAuthorizedPerResource("CMS.Content", "manageworkflow"))
                 {
-                    drpAction.Items.Add(new ListItem(ResHelper.GetString("general." + Action.SelectAction), Convert.ToInt32(Action.SelectAction).ToString()));
-                    drpAction.Items.Add(new ListItem(ResHelper.GetString("workflowdocuments." + Action.PublishAndFinish), Convert.ToInt32(Action.PublishAndFinish).ToString()));
-                    drpAction.Items.Add(new ListItem(ResHelper.GetString("workflowdocuments." + Action.RemoveWorkflow), Convert.ToInt32(Action.RemoveWorkflow).ToString()));
+                    PopulateActionDropDown();
                 }
 
-                drpWhat.Items.Add(new ListItem(ResHelper.GetString("contentlisting." + What.SelectedDocuments), Convert.ToInt32(What.SelectedDocuments).ToString()));
-                drpWhat.Items.Add(new ListItem(ResHelper.GetString("contentlisting." + What.AllDocuments), Convert.ToInt32(What.AllDocuments).ToString()));
+                PopulateWhatSelectionDropDown();
             }
         }
         docElem.SiteName = filterDocuments.SelectedSite;
     }
-
+    
     #endregion
 
 
@@ -217,7 +171,7 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
         Action action = (Action)actionValue;
 
         int whatValue = ValidationHelper.GetInteger(drpWhat.SelectedValue, 0);
-        currentWhat = (What)whatValue;
+        mCurrentWhat = (What)whatValue;
 
         ctlAsyncLog.Parameter = GetCurrentWhere();
         switch (action)
@@ -245,11 +199,11 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
     {
         TreeNode node = null;
         Tree.AllowAsyncActions = false;
-        CanceledString = ResHelper.GetString("content.publishcanceled", currentCulture);
+        CanceledString = ResHelper.GetString("content.publishcanceled", mCurrentCulture);
         try
         {
             // Begin log
-            AddLog(ResHelper.GetString("content.preparingdocuments", currentCulture));
+            AddLog(ResHelper.GetString("content.preparingdocuments", mCurrentCulture));
 
             string where = parameter as string;
 
@@ -262,7 +216,7 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
                 WorkflowManager wm = WorkflowManager.GetInstance(Tree);
 
                 // Begin publishing
-                AddLog(ResHelper.GetString("content.publishingdocuments", currentCulture));
+                AddLog(ResHelper.GetString("content.publishingdocuments", mCurrentCulture));
                 foreach (DataTable classTable in documents.Tables)
                 {
                     foreach (DataRow nodeRow in classTable.Rows)
@@ -287,7 +241,7 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
             }
             else
             {
-                AddError(ResHelper.GetString("content.nothingtopublish", currentCulture));
+                AddError(ResHelper.GetString("content.nothingtopublish", mCurrentCulture));
             }
         }
         catch (ThreadAbortException ex)
@@ -320,11 +274,11 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
         // Custom logging
         Tree.LogEvents = false;
         Tree.AllowAsyncActions = false;
-        CanceledString = ResHelper.GetString("workflowdocuments.removingcanceled", currentCulture);
+        CanceledString = ResHelper.GetString("workflowdocuments.removingcanceled", mCurrentCulture);
         try
         {
             // Begin log
-            AddLog(ResHelper.GetString("content.preparingdocuments", currentCulture));
+            AddLog(ResHelper.GetString("content.preparingdocuments", mCurrentCulture));
 
             string where = parameter as string;
 
@@ -334,7 +288,7 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
             if (!DataHelper.DataSourceIsEmpty(documents))
             {
                 // Begin log
-                AddLog(ResHelper.GetString("workflowdocuments.removingwf", currentCulture));
+                AddLog(ResHelper.GetString("workflowdocuments.removingwf", mCurrentCulture));
 
                 foreach (DataTable classTable in documents.Tables)
                 {
@@ -364,14 +318,14 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
                         AddLog(encodedAliasPath);
 
                         // Add record to eventlog
-                        LogContext.LogEventToCurrent(EventType.INFORMATION, "Content", "REMOVEDOCWORKFLOW", string.Format(GetString("workflowdocuments.removeworkflowsuccess"), encodedAliasPath), RequestContext.RawURL, currentUser.UserID, currentUser.UserName, node.NodeID, node.GetDocumentName(), RequestContext.UserHostAddress, node.NodeSiteID, SystemContext.MachineName, RequestContext.URLReferrer, RequestContext.UserAgent, DateTime.Now);
+                        LogContext.LogEventToCurrent(EventType.INFORMATION, "Content", "REMOVEDOCWORKFLOW", string.Format(GetString("workflowdocuments.removeworkflowsuccess"), encodedAliasPath), RequestContext.RawURL, mCurrentUser.UserID, mCurrentUser.UserName, node.NodeID, node.GetDocumentName(), RequestContext.UserHostAddress, node.NodeSiteID, SystemContext.MachineName, RequestContext.URLReferrer, RequestContext.UserAgent, DateTime.Now);
                     }
                 }
                 CurrentInfo = GetString("workflowdocuments.removecomplete");
             }
             else
             {
-                AddError(ResHelper.GetString("workflowdocuments.nodocumentstoclear", currentCulture));
+                AddError(ResHelper.GetString("workflowdocuments.nodocumentstoclear", mCurrentCulture));
             }
         }
         catch (ThreadAbortException ex)
@@ -401,6 +355,85 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
 
     #region "Private methods"
 
+    private void RegisterEventHandlers()
+    {
+        ctlAsyncLog.OnFinished += ctlAsyncLog_OnFinished;
+        ctlAsyncLog.OnError += ctlAsyncLog_OnError;
+        ctlAsyncLog.OnCancel += ctlAsyncLog_OnCancel;
+    }
+
+
+    private void InitializeUniGrid()
+    {
+        docElem.ZeroRowsText = GetString(filterDocuments.FilterIsSet ? "unigrid.filteredzerorowstext" : "workflowdocuments.nodata");
+        docElem.UniGrid.OnAfterDataReload += UniGrid_OnAfterDataReload;
+        docElem.UniGrid.OnBeforeDataReload += UniGrid_OnBeforeDataReload;
+        docElem.Tree = Tree;
+    }
+
+
+    private void RegisterPerformActionScript()
+    {
+        var actionScript = new StringBuilder();
+        actionScript.AppendLine("function PerformAction(selectionFunction, selectionField, dropId)");
+        actionScript.AppendLine("{");
+        actionScript.AppendLine("   var selectionFieldElem = document.getElementById(selectionField);");
+        actionScript.AppendLine("   var label = document.getElementById('" + lblValidation.ClientID + "');");
+        actionScript.AppendLine("   var items = selectionFieldElem.value;");
+        actionScript.AppendLine("   var whatDrp = document.getElementById('" + drpWhat.ClientID + "');");
+        actionScript.AppendLine("   var action = document.getElementById(dropId).value;");
+        actionScript.AppendLine("   if (action == '" + (int)Action.SelectAction + "')");
+        actionScript.AppendLine("   {");
+        actionScript.AppendLine("       label.innerHTML = " + ScriptHelper.GetLocalizedString("massaction.selectsomeaction") + ";");
+        actionScript.AppendLine("       return false;");
+        actionScript.AppendLine("   }");
+        actionScript.AppendLine("   if(!eval(selectionFunction) || whatDrp.value == '" + (int)What.AllDocuments + "')");
+        actionScript.AppendLine("   {");
+        actionScript.AppendLine("       var confirmed = false;");
+        actionScript.AppendLine("       var confMessage = '';");
+        actionScript.AppendLine("       switch(action)");
+        actionScript.AppendLine("       {");
+        actionScript.AppendLine("           case '" + (int)Action.PublishAndFinish + "':");
+        actionScript.AppendLine("               confMessage = " + ScriptHelper.GetLocalizedString("workflowdocuments.confrimpublish") + ";");
+        actionScript.AppendLine("               break;");
+        actionScript.AppendLine("           case '" + (int)Action.RemoveWorkflow + "':");
+        actionScript.AppendLine("               confMessage = " + ScriptHelper.GetLocalizedString("workflowdocuments.confirmremove") + ";");
+        actionScript.AppendLine("               break;");
+        actionScript.AppendLine("       }");
+        actionScript.AppendLine("       return confirm(confMessage);");
+        actionScript.AppendLine("   }");
+        actionScript.AppendLine("   else");
+        actionScript.AppendLine("   {");
+        actionScript.AppendLine("       label.innerHTML = " + ScriptHelper.GetLocalizedString("documents.selectdocuments") + ";");
+        actionScript.AppendLine("       return false;");
+        actionScript.AppendLine("   }");
+        actionScript.AppendLine("}");
+        ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "actionScript", ScriptHelper.GetScript(actionScript.ToString()));
+    }
+
+
+    private void AssignPerformActionScriptToBtnOkOnclick()
+    {
+        // Add action to button
+        btnOk.OnClientClick = "return PerformAction('" + docElem.UniGrid.GetCheckSelectionScript() + "','" + docElem.UniGrid.GetSelectionFieldClientID() + "','" + drpAction.ClientID + "');";
+    }
+
+
+    private void PopulateActionDropDown()
+    {
+        drpAction.Items.Add(new ListItem(ResHelper.GetString("general." + Action.SelectAction), Convert.ToInt32(Action.SelectAction).ToString()));
+        drpAction.Items.Add(new ListItem(ResHelper.GetString("workflowdocuments." + Action.PublishAndFinish), Convert.ToInt32(Action.PublishAndFinish).ToString()));
+        drpAction.Items.Add(new ListItem(ResHelper.GetString("workflowdocuments." + Action.RemoveWorkflow), Convert.ToInt32(Action.RemoveWorkflow).ToString()));
+    }
+
+
+    private void PopulateWhatSelectionDropDown()
+    {
+        drpWhat.Items.Add(new ListItem(ResHelper.GetString("contentlisting." + What.SelectedDocuments), Convert.ToInt32(What.SelectedDocuments).ToString()));
+        drpWhat.Items.Add(new ListItem(ResHelper.GetString("contentlisting." + What.AllDocuments), Convert.ToInt32(What.AllDocuments).ToString()));
+    }
+
+
     /// <summary>
     /// Gets a set of documents to be processed.
     /// </summary>
@@ -423,7 +456,7 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
         // Prepare the where condition
         var condition = new WhereCondition();
 
-        if (currentWhat == What.SelectedDocuments)
+        if (mCurrentWhat == What.SelectedDocuments)
         {
             // Get where for selected documents
             condition.WhereIn("DocumentID", documentIds.ToList());
@@ -452,8 +485,8 @@ public partial class CMSModules_Workflows_Workflow_Documents : CMSWorkflowPage
     /// <param name="siteId">ID of site</param>
     private void LogExceptionToEventLog(string eventCode, string errorTitle, Exception ex, int siteId)
     {
-        AddError(ResHelper.GetString(errorTitle, currentCulture) + ": " + ex.Message);
-        LogContext.LogEventToCurrent(EventType.ERROR, "Content", eventCode, EventLogProvider.GetExceptionLogMessage(ex), RequestContext.RawURL, currentUser.UserID, currentUser.UserName, 0, null, RequestContext.UserHostAddress, siteId, SystemContext.MachineName, RequestContext.URLReferrer, RequestContext.UserAgent, DateTime.Now);
+        AddError(ResHelper.GetString(errorTitle, mCurrentCulture) + ": " + ex.Message);
+        LogContext.LogEventToCurrent(EventType.ERROR, "Content", eventCode, EventLogProvider.GetExceptionLogMessage(ex), RequestContext.RawURL, mCurrentUser.UserID, mCurrentUser.UserName, 0, null, RequestContext.UserHostAddress, siteId, SystemContext.MachineName, RequestContext.URLReferrer, RequestContext.UserAgent, DateTime.Now);
     }
 
 

@@ -221,7 +221,7 @@
 	}
 
 	$scope.initGridster = function (editMode) {
-
+	    $('body').addClass('ucommerce-dashboard');
 		if ($scope.grid) {
 			$scope.grid.destroy();
 		}

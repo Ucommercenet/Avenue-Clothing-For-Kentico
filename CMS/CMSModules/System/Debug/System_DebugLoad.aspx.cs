@@ -145,7 +145,7 @@ public partial class CMSModules_System_Debug_System_DebugLoad : CMSDebugPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             if ((Settings.CurrentThreads > 0) || (Settings.SuccessRequests > 0) || (Settings.Errors > 0))
             {

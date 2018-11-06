@@ -20,7 +20,6 @@ public partial class CMSModules_CssStyleSheets_Controls_General : CMSPreviewCont
     protected bool startWithFullScreen = true;
     private CssStylesheetInfo si = null;
     private int previewState = 0;
-    private int cssStylesheetId = 0;
     private FormEngineUserControl mStylesheetText = null;
     private ExtendedTextArea mEditor = null;
     private bool languageChangeProceeded = false;
@@ -148,23 +147,6 @@ public partial class CMSModules_CssStyleSheets_Controls_General : CMSPreviewCont
 
         if (e.ActionName == ComponentEvents.SAVE)
         {
-            if (isDialog)
-            {
-                string script = String.Empty;
-                string selector = QueryHelper.GetString("selectorid", string.Empty);
-                if (!string.IsNullOrEmpty(selector))
-                {
-                    // Selects newly created container in the UniSelector
-                    script = string.Format(@"if (wopener && wopener.US_SelectNewValue_{0}) {{ wopener.US_SelectNewValue_{0}('{1}'); }}",
-                        ScriptHelper.GetString(selector, false), QueryHelper.GetInteger("cssstylesheetid", -1));
-                }
-
-                if (script != String.Empty)
-                {
-                    ScriptHelper.RegisterStartupScript(Page, typeof(string), "UpdateSelector", ScriptHelper.GetScript(script));
-                }
-            }
-
             if ((Editor != null) && Editor.ShowBookmarks)
             {
                 // Refresh bookmarks 
@@ -607,15 +589,6 @@ public partial class CMSModules_CssStyleSheets_Controls_General : CMSPreviewCont
         editMenuElem.ObjectEditMenu.AddExtraAction(preview);
         editMenuElem.ObjectEditMenu.PreviewMode = true;
         editMenuElem.MenuPanel.CssClass = "PreviewMenu";
-
-        if ((si != null) && (si.StylesheetID != 0))
-        {
-            cssStylesheetId = si.StylesheetID;
-        }
-        else
-        {
-            cssStylesheetId = QueryHelper.GetInteger("cssstylesheetid", 0);
-        }
 
         bool hide = !(BrowserHelper.IsSafari() || BrowserHelper.IsChrome());
         if (hide)

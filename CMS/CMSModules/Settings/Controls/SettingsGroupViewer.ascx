@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true"  Codebehind="SettingsGroupViewer.ascx.cs" Inherits="CMSModules_Settings_Controls_SettingsGroupViewer" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false"  Codebehind="SettingsGroupViewer.ascx.cs" Inherits="CMSModules_Settings_Controls_SettingsGroupViewer" %>
 <cms:LocalizedLabel ID="lblNoData" runat="server" CssClass="InfoLabel" EnableViewState="false" Visible="false" ResourceString="settingskey.nodata" />
 <div class="form-horizontal">
     <script type="text/javascript">

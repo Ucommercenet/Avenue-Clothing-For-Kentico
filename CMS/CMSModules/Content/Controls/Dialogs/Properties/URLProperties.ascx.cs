@@ -187,7 +187,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_URLPropertie
 
 
     /// <summary>
-    /// Indicates whether the current item is audio/video/flash.
+    /// Indicates whether the current item is audio/video.
     /// </summary>
     private bool CurrentIsMedia
     {
@@ -313,7 +313,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_URLPropertie
             plcAltText.Visible = false;
         }
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             widthHeightElem.Locked = true;
             
@@ -336,8 +336,8 @@ if (wopener) {
         widthHeightElem.CustomRefreshCode = ControlsHelper.GetPostBackEventReference(btnHiddenSize, "") + "; return false;";
         widthHeightElem.ShowActions = ShowSizeControls;
 
-        bool isLink = ((Config.OutputFormat == OutputFormatEnum.BBLink) || (Config.OutputFormat == OutputFormatEnum.HTMLLink) ||
-                       ((Config.OutputFormat == OutputFormatEnum.URL) && ((Config.SelectableContent == SelectableContentEnum.AllContent) || (Config.SelectableContent == SelectableContentEnum.OnlyFlash))));
+        bool isLink = Config.OutputFormat == OutputFormatEnum.BBLink || Config.OutputFormat == OutputFormatEnum.HTMLLink ||
+                       (Config.OutputFormat == OutputFormatEnum.URL && Config.SelectableContent == SelectableContentEnum.AllContent);
 
         DisplaySizeSelector(ShowSizeControls && !isLink);
 
@@ -533,11 +533,7 @@ if (wopener) {
                 widthHeightElem.Height = GetDefaultAVHeight(ext);
             }
 
-            if (MediaHelper.IsFlash(ext))
-            {
-                mediaPreview.AutoPlay = true;
-            }
-            else if (MediaHelper.IsAudioVideo(ext))
+            if (MediaHelper.IsAudioVideo(ext))
             {
                 mediaPreview.AVControls = true;
             }
@@ -619,16 +615,11 @@ if (wopener) {
                 properties[DialogParameters.IMG_ORIGINALWIDTH] = item.Width;
                 properties[DialogParameters.IMG_ORIGINALHEIGHT] = item.Height;
                 break;
+
             case MediaTypeEnum.AudioVideo:
                 properties[DialogParameters.AV_WIDTH] = 400;
                 properties[DialogParameters.AV_HEIGHT] = 300;
                 properties[DialogParameters.AV_CONTROLS] = true;
-                break;
-            case MediaTypeEnum.Flash:
-                properties[DialogParameters.FLASH_WIDTH] = item.Width;
-                properties[DialogParameters.FLASH_HEIGHT] = item.Height;
-                properties[DialogParameters.FLASH_AUTOPLAY] = true;
-                url = URLHelper.UpdateParameterInUrl(url, "ext", "." + item.Extension.TrimStart('.'));
                 break;
         }
 
@@ -681,7 +672,7 @@ if (wopener) {
             // Display size selector only if required or image
             string ext = ValidationHelper.GetString(properties[DialogParameters.URL_EXT], "");
             CurrentIsImage = ImageHelper.IsImage(ext);
-            CurrentIsMedia = !CurrentIsImage && (MediaHelper.IsAudioVideo(ext) || MediaHelper.IsFlash(ext));
+            CurrentIsMedia = !CurrentIsImage && MediaHelper.IsAudioVideo(ext);
             ShowSizeControls = DisplaySizeSelector();
 
             if (tabImageGeneral.Visible)
@@ -845,11 +836,7 @@ if (wopener) {
             // Exception for MediaSelector control (it can't be resolved)
             url = (resolveUrl ? UrlResolver.ResolveUrl(url) : url);
 
-            if (MediaHelper.IsFlash(ext))
-            {
-                retval[DialogParameters.FLASH_URL] = txtUrl.Text.Trim();
-            }
-            else if (MediaHelper.IsAudioVideo(ext))
+            if (MediaHelper.IsAudioVideo(ext))
             {
                 retval[DialogParameters.AV_URL] = txtUrl.Text.Trim();
             }

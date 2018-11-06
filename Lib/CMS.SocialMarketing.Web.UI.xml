@@ -355,15 +355,6 @@
             Helper methods for serializing and deserializing data used for social network posting - it is used for backward compatibility only.
             </summary>
         </member>
-        <member name="M:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.DeserializePublishingElement(System.String)">
-            <summary>
-            Deserializes the passed string with XML into SocialMarketingPublishingElement and returns it. 
-            Throws exception if it is not possible to deserialize publishing element from given XML.
-            </summary>
-            <param name="serializedElement">String with SocialMarketingPublishingElement serialized to XML.</param>
-            <exception cref="T:System.Exception">When it is not possible to deserialize publishing element from given XML.</exception>
-            <returns>Deserialized SocialMarketingPublishingElement.</returns>
-        </member>
         <member name="T:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.SocialMarketingPublishingElement">
             <summary>
             Carries data needed for publishing info about documents on social network. It is used for backward compatibility only.
@@ -384,7 +375,17 @@
             Indicates whether item should be automatically sent to social network after publishing.
             </summary>
         </member>
+        <member name="P:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.SocialMarketingPublishingElement.AutoPostAfterPublishing">
+            <summary>
+            Indicates whether item should be automatically sent to social network after publishing.
+            </summary>
+        </member>
         <member name="F:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.SocialMarketingPublishingElement.IsPublishedString">
+            <summary>
+            Indicates whether item is already published.
+            </summary>
+        </member>
+        <member name="P:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.SocialMarketingPublishingElement.IsPublished">
             <summary>
             Indicates whether item is already published.
             </summary>
@@ -394,15 +395,14 @@
             Url to item posted on desired social networking service.
             </summary>
         </member>
-        <member name="P:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.SocialMarketingPublishingElement.AutoPostAfterPublishing">
+        <member name="M:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.DeserializePublishingElement(System.String)">
             <summary>
-            Indicates whether item should be automatically sent to social network after publishing.
+            Deserializes the passed string with XML into SocialMarketingPublishingElement and returns it. 
+            Throws exception if it is not possible to deserialize publishing element from given XML.
             </summary>
-        </member>
-        <member name="P:CMS.SocialMarketing.Web.UI.SocialMarketingBackCompatibilityHelper.SocialMarketingPublishingElement.IsPublished">
-            <summary>
-            Indicates whether item is already published.
-            </summary>
+            <param name="serializedElement">String with SocialMarketingPublishingElement serialized to XML.</param>
+            <exception cref="T:System.Exception">When it is not possible to deserialize publishing element from given XML.</exception>
+            <returns>Deserialized SocialMarketingPublishingElement.</returns>
         </member>
     </members>
 </doc>

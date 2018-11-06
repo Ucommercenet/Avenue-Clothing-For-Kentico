@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Globalization;
-using System.Threading;
 
 using CMS.Helpers;
 using CMS.Reporting;
@@ -16,8 +14,7 @@ public partial class CMSModules_Reporting_Tools_Report_Print : CMSReportingModal
 
         // Set cultures
         SetCulture();
-        CultureInfo currentCulture = CultureHelper.GetCultureInfo(Thread.CurrentThread.CurrentUICulture.IetfLanguageTag);
-
+        
         // Get report info
         int reportId = QueryHelper.GetInteger("reportid", 0);
         ReportInfo report = ReportInfoProvider.GetReportInfo(reportId);
@@ -26,7 +23,7 @@ public partial class CMSModules_Reporting_Tools_Report_Print : CMSReportingModal
         {
             // Get report parameters
             string parameters = QueryHelper.GetString("parameters", string.Empty);
-            DataRow reportParameters = ReportHelper.GetReportParameters(report, parameters, null, CultureHelper.EnglishCulture, currentCulture);
+            DataRow reportParameters = ReportHelper.GetReportParameters(report, parameters, null, CultureHelper.EnglishCulture);
 
             // Init report
             if (reportParameters != null)
@@ -45,6 +42,8 @@ public partial class CMSModules_Reporting_Tools_Report_Print : CMSReportingModal
 
     protected override void OnLoad(EventArgs e)
     {
+        base.OnLoad(e);
+
         ManagersContainer = pnlManager;
     }
 }

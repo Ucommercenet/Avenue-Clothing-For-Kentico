@@ -447,7 +447,7 @@ public partial class CMSModules_Membership_FormControls_Avatars_UserPictureEdit 
             rdbMode.Visible = (EditedUser != null);
 
             // First request
-            if (!URLHelper.IsPostback() || String.IsNullOrEmpty(rdbMode.SelectedValue))
+            if (!RequestHelper.IsPostBack() || String.IsNullOrEmpty(rdbMode.SelectedValue))
             {
                 avatarType = (EditedUser != null) ? EditedUser.UserSettings.UserAvatarType : AvatarInfoProvider.AVATAR;
 
@@ -530,7 +530,7 @@ public partial class CMSModules_Membership_FormControls_Avatars_UserPictureEdit 
         }
 
         // Changes must be preserved after postback
-        if (URLHelper.IsPostback() && (rdbMode.SelectedValue == AvatarInfoProvider.AVATAR))
+        if (RequestHelper.IsPostBack() && (rdbMode.SelectedValue == AvatarInfoProvider.AVATAR))
         {
             // Predefined avatar was selected by user so it has to be shown
             if (!String.IsNullOrEmpty(hiddenAvatarGuid.Value))

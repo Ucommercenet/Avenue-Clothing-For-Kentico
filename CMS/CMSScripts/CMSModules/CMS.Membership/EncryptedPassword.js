@@ -1,5 +1,4 @@
 ﻿cmsdefine(['jQuery'], function ($) {
-    'use strict';
 
     var Module = function (serverData) {
         // Select the whole password (placeholder) on focus and prevent immediate deselection.

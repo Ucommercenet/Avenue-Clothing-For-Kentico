@@ -10,8 +10,8 @@
         <div class="propertyItemHeader"><asp:Localize ID="Localize1" runat="server" meta:resourceKey="Sku" /></div>
         <div class="propertyItemContent">
             <asp:TextBox runat="server" ID="SkuTextBox" CssClass="propertyText" Text="<%# View.Product.Sku %>" MaxLength="30"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="SkuTextBox" Display="Static" Text="*" ErrorMessage='<%# GetLocalResourceObject("Sku.Text") %>' CssClass="validator" />
-            <asp:CustomValidator ID="UniqueSkuValildator" runat="server" ControlToValidate="SkuTextBox" Display="Dynamic" Text="A product with the SKU already exists*" ErrorMessage='<%# GetLocalResourceObject("Sku.Text") %>' meta:resourceKey="UniqueSkuValildator" OnServerValidate="UniqueSkuValidator_ServerValidate"></asp:CustomValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="SkuTextBox" Display="Dynamic" Text="*" ErrorMessage='<%# GetLocalResourceObject("Sku.Text") %>' CssClass="validator" />
+            <asp:CustomValidator ID="UniqueSkuValildator" runat="server" CssClass="validator" ControlToValidate="SkuTextBox" Display="Dynamic" Text="A product with the SKU already exists*" ErrorMessage='<%# GetLocalResourceObject("Sku.Text") %>' meta:resourceKey="UniqueSkuValildator" OnServerValidate="UniqueSkuValidator_ServerValidate"></asp:CustomValidator>
         </div>
     </div>
 	<div class="propertyItem">

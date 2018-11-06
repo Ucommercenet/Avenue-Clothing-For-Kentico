@@ -13,7 +13,7 @@
 								Style="color:Red;" ValidationExpression="^(\d|-)?(\d|,)*\.?\d*$" ValidationGroup="AmountOffOrderLines"
 								Display="Dynamic" />
 				<asp:RequiredFieldValidator id="RequiredValidator" runat="server" ValidationGroup="AmountOffOrderLines"
-								ControlToValidate="AmountOffOrderLinesText" Display="Dynamic" />
+								ControlToValidate="AmountOffOrderLinesText" Display="Dynamic" CssClass="validator"/>
 			</asp:PlaceHolder>
 		</td>
 		<td style="width:50px; text-align:right; vertical-align:top;">

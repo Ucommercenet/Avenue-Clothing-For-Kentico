@@ -36,20 +36,26 @@ public partial class CMSModules_SmartSearch_Controls_IndexInfo : CMSUserControl
         {
             return;
         }
+        var isAzureIndex = IsAzureIndex();
+        if (isAzureIndex)
+        {
+            SearchIndex.InvalidateIndexStatistics();
+        }
 
-        var isInAction = SearchIndex.IndexFilesStatus == IndexStatusEnum.REBUILDING || SearchIndex.IndexFilesStatus == IndexStatusEnum.OPTIMIZING;
-        var isNotReady = !isInAction && SearchIndex.IndexFilesStatus != IndexStatusEnum.READY;
+        var indexStatus = SearchIndexInfoProvider.GetIndexStatus(SearchIndex);
+        var isInAction = indexStatus == IndexStatusEnum.REBUILDING || indexStatus == IndexStatusEnum.OPTIMIZING;
+        var isNotReady = !isInAction && indexStatus != IndexStatusEnum.READY;
 
         // Items count
-        lblItemCount.Text = ValidationHelper.GetString(SearchIndex.NumberOfIndexedItems, "0");
+        lblItemCount.Text = SearchIndex.IndexDocumentCount.HasValue ? SearchIndex.IndexDocumentCount.ToString() : GetString("general.notavailable");
 
         // File size
-        lblFileSize.Text = DataHelper.GetSizeString(SearchIndex.IndexFileSize);
+        lblFileSize.Text = SearchIndex.IndexSize.HasValue ? DataHelper.GetSizeString(SearchIndex.IndexSize.Value) : GetString("general.notavailable");
 
         // Status
-        var statusString = (SearchIndex.IndexFilesStatus == IndexStatusEnum.READY) && SearchIndex.IndexIsOutdated
+        var statusString = (indexStatus == IndexStatusEnum.READY) && SearchIndex.IndexIsOutdated
                         ? "srch.status.readybutoutdated"
-                        : "srch.status." + SearchIndex.IndexFilesStatus;
+                        : "srch.status." + indexStatus;
 
         string statusName = GetString(statusString);
 
@@ -68,7 +74,7 @@ public partial class CMSModules_SmartSearch_Controls_IndexInfo : CMSUserControl
                 statusText = "<a href=\"javascript:void(0)\" onclick=\"modalDialog('" + url + "', 'ThreadProgress', '1000', '700');\" >" + statusName + "</a>";
             }
 
-            ltlStatus.Text = ScriptHelper.GetLoaderInlineHtml(Page, statusText, "form-control-text");
+            ltlStatus.Text = ScriptHelper.GetLoaderInlineHtml(statusText, "form-control-text");
             ltlStatus.Visible = true;
             lblStatus.Visible = false;
         }
@@ -83,7 +89,7 @@ public partial class CMSModules_SmartSearch_Controls_IndexInfo : CMSUserControl
             {
                 cssClass = "StatusDisabled";
             }
-            else if (SearchIndex.IndexFilesStatus == IndexStatusEnum.READY)
+            else if (indexStatus == IndexStatusEnum.READY)
             {
                 cssClass = SearchIndex.IndexIsOutdated ? "color-orange-80" : "StatusEnabled";
             }
@@ -91,12 +97,20 @@ public partial class CMSModules_SmartSearch_Controls_IndexInfo : CMSUserControl
             lblStatus.CssClass += " " + cssClass;
         }
 
-        // Is optimized
-        lblIsOptimized.Text = UniGridFunctions.ColoredSpanYesNo(SearchIndex.IsOptimized());
-
+        // Is optimized visible only if the search index is Azure based
+        DateTime lastFileUpdate = DateTimeHelper.ZERO_TIME;
+        if (isAzureIndex)
+        {
+            plcOptimized.Visible = false;
+        }
+        else
+        {
+            lblIsOptimized.Text = UniGridFunctions.ColoredSpanYesNo(SearchIndex.IsOptimized());
+            lastFileUpdate = SearchIndex.IndexFilesLastUpdate;
+        }
+        
         // Last update
         var lastUpdate = SearchIndex.IndexLastModified;
-        var lastFileUpdate = SearchIndex.IndexFilesLastUpdate;
         if (lastFileUpdate > lastUpdate)
         {
             lastUpdate = lastFileUpdate;
@@ -108,5 +122,11 @@ public partial class CMSModules_SmartSearch_Controls_IndexInfo : CMSUserControl
         lblLastRebuild.Text = SearchIndex.IndexLastRebuildTime != DateTimeHelper.ZERO_TIME 
             ? ValidationHelper.GetString(SearchIndex.IndexLastRebuildTime, "") 
             : GetString("general.notavailable");
+    }
+
+
+    private bool IsAzureIndex()
+    {
+        return SearchIndex.IndexProvider.Equals(SearchIndexInfo.AZURE_SEARCH_PROVIDER, StringComparison.OrdinalIgnoreCase);
     }
 }

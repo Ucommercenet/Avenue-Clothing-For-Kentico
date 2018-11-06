@@ -72,7 +72,7 @@ public partial class CMSWebParts_BannerManagement_BannerRotator : CMSAbstractWeb
             return;
         }
 
-        if (URLHelper.IsPostback() && KeepPreviousBannerOnPostBack && BannerIDViewState.HasValue)
+        if (RequestHelper.IsPostBack() && KeepPreviousBannerOnPostBack && BannerIDViewState.HasValue)
         {
             bannerReused = true;
             banner = BannerInfoProvider.GetBannerInfo(BannerIDViewState.Value);

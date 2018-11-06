@@ -38,7 +38,7 @@
         <div class="propertyItemHeader"><asp:Localize ID="Localize7" runat="server" meta:resourceKey="IndexForFaceted" /></div>
         <div class="propertyItemContent">
             <asp:CheckBox runat="server" ID="IndexForFacetedSearchCheckBox" Checked="<%# View.ProductDefinitionField.Facet %>" />
-			<asp:CustomValidator runat="server" id="FacetedSearchLicenseValidator" OnServerValidate="FacetedSearchLicenseValidator_Validate" meta:resourcekey="FacetedSearchLicenseValidator" Text="*" ErrorMessage="Faceted search not availble with current license.(*)"></asp:CustomValidator>
+			<asp:CustomValidator runat="server" CssClass="validator" id="FacetedSearchLicenseValidator" OnServerValidate="FacetedSearchLicenseValidator_Validate" meta:resourcekey="FacetedSearchLicenseValidator" Text="*" ErrorMessage="Faceted search not availble with current license.(*)"></asp:CustomValidator>
         </div>
     </div>
     <div class="propertyPaneFooter"></div>

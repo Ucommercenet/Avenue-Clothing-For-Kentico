@@ -123,7 +123,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_DocCopyMoveP
         string nodeIdsString = QueryHelper.GetString("sourcenodeids", string.Empty);
 
         // Load node IDs to session for the first time
-        if (!URLHelper.IsPostback() && !String.IsNullOrEmpty(nodeIdsString))
+        if (!RequestHelper.IsPostBack() && !String.IsNullOrEmpty(nodeIdsString))
         {
             StringBuilder aliasPaths = new StringBuilder();
             TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
@@ -211,7 +211,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_DocCopyMoveP
             properties = new Hashtable();
         }
 
-        string url = item.MediaType == MediaTypeEnum.Flash ? URLHelper.UpdateParameterInUrl(item.Url, "ext", "." + item.Extension.TrimStart('.')) : item.Url;
+        string url = item.Url;
 
         properties[DialogParameters.DOC_NODEALIASPATH] = item.AliasPath;
         properties[DialogParameters.DOC_TARGETNODEID] = item.NodeID;

@@ -566,7 +566,7 @@ var GraphControlHandler = $class({
             var width = targetJQ.parent().innerWidth() - 11;
             var position = targetJQ.position();
             var textboxJQ = $cmsj("<textarea class='LabelEdit' style='width:" + width + "px;height:" + height + "px;top:" + position.top + "px'>");
-            textboxJQ.attr("value", targetJQ.text());
+            textboxJQ.val(targetJQ.text());
             targetJQ.css("color", "transparent");
 
             targetJQ.prepend(textboxJQ);
@@ -594,10 +594,10 @@ var GraphControlHandler = $class({
     */
     ensureLabelMaxLength: function (event) {
         var target = $cmsj(event.target);
-        var text = target.attr("value");
+        var text = target.val();
         var textLength = text.length;
         if (textLength > 450) {
-            target.attr("value", text.substring(0, 450));
+            target.val(text.substring(0, 450));
         }
     },
 
@@ -628,14 +628,14 @@ var GraphControlHandler = $class({
             graphControlHandler.ensureLabelMaxLength(event);
             var inputJQ = $cmsj(event.target);
             var targetJQ = inputJQ.parent();
-            var text = $cmsj.trim(inputJQ.attr("value"));
+            var text = $cmsj.trim(inputJQ.val());
             var node = targetJQ.parents(".Node").data("nodeObject");
             var originalPosition = node.nodeJQ.position();
 
             if (text.length > 0) {
                 node.nodeJQ.css("top", -500);
                 node.nodeJQ.css("left", -500);
-                graphControlHandler.saveLabelChange(targetJQ, inputJQ.attr("value"));
+                graphControlHandler.saveLabelChange(targetJQ, inputJQ.val());
                 node.setPosition(originalPosition);
             }
             targetJQ.children(".LabelEdit").remove();
@@ -698,7 +698,7 @@ var GraphControlHandler = $class({
     */
     editSwitchCaseHandler: function (event) {
         var node = $cmsj(event.target).parents(".Node").data('nodeObject');
-        var caseId = $cmsj(event.currentTarget).parents(".Case").andSelf().filter(".Case").data('id');
+        var caseId = $cmsj(event.currentTarget).parents(".Case").addBack().filter(".Case").data('id');
         node.openEditModalDialog(caseId);
     },
 
@@ -707,7 +707,7 @@ var GraphControlHandler = $class({
     *   Handler for editing node.  
     */
     editNodeHandler: function (event) {
-        var node = $cmsj(event.target).parents(".Node").andSelf().filter(".Node").data("nodeObject");
+        var node = $cmsj(event.target).parents(".Node").addBack().filter(".Node").data("nodeObject");
         node.openEditModalDialog();
     },
 

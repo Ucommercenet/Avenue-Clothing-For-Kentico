@@ -3,7 +3,6 @@
  */
 
 cmsdefine([], function () {
-    'use strict';
 
     /**
      * Replaces {X} wildcards in first argument with values of the subsequent arguments.

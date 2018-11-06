@@ -18,10 +18,10 @@
 	</tr>
 </table>
 
-<asp:RequiredFieldValidator runat="server" ControlToValidate="NameTextBox" CssClass="validationMessage" ErrorMessage="Please enter a name" Width="100%" meta:ResourceKey="RequiredNameValidator" Display="Dynamic"/>
-<asp:CustomValidator runat="server" ErrorMessage="The name is already in use" OnServerValidate="NameValidator_ServerValidate" meta:ResourceKey="UniqueNameValidator" Display="Dynamic"/>
+<asp:RequiredFieldValidator runat="server" ControlToValidate="NameTextBox" CssClass="validationMessage validator" ErrorMessage="Please enter a name" Width="100%" meta:ResourceKey="RequiredNameValidator" Display="Dynamic"/>
+<asp:CustomValidator runat="server" CssClass="validationMessage validator" ErrorMessage="The name is already in use" OnServerValidate="NameValidator_ServerValidate" meta:ResourceKey="UniqueNameValidator" Display="Dynamic"/>
 <asp:CustomValidator runat="server" ID="PriceGroupCountLicenseValidator"
-    CssClass="validationMessage" 
+    CssClass="validationMessage validator" 
     Display="Dynamic"
     ErrorMessage="Your license does not allow you to create any more"
     Width="100%"
@@ -29,7 +29,7 @@
 	meta:ResourceKey="LicenseCheckValidator"
 	></asp:CustomValidator>
 <asp:CustomValidator runat="server" ID="DifferentialPricingLicenseValidator"
-    CssClass="validationMessage" 
+    CssClass="validationMessage validator" 
     Display="Dynamic"
     ErrorMessage="Your license does not allow you to create any more"
     Width="100%"

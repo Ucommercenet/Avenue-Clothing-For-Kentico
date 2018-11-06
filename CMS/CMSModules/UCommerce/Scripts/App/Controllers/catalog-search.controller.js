@@ -1,129 +1,134 @@
-﻿function uc_catalogSearchController($scope, $http, $rootScope, $timeout) {
+﻿function uc_catalogSearchController ($scope, $http, $rootScope, $timeout) {
+  $scope.baseCommerceImagesUrl =
+    UCommerceClientMgr.BaseUCommerceUrl + 'images/ui/'
+  $scope.searchTerm = ''
+  $scope.nrOfResults = 0
+  $scope.message = ''
+  $scope.result = []
+  $scope.showSpinner = false
+  var serviceUrl =
+    UCommerceClientMgr.BaseServiceUrl + 'ProductCatalogSearch/ByName'
+  var _debounce
+  $scope.initiateProductSearch = function () {
+    if (!$scope.searchTerm.length) {
+      $scope.nrOfResults = -1
+      $scope.showSpinner = false
+      return
+    }
+    $rootScope.$broadcast('startSearch')
+    $scope.showSpinner = true
+    if (_debounce) {
+      // if there is already a timeout in process cancel it
+      $timeout.cancel(_debounce)
+    }
 
-    $scope.baseCommerceImagesUrl = UCommerceClientMgr.BaseUCommerceUrl + 'images/ui/';
-    $scope.searchTerm = "";
-    $scope.nrOfResults = 0;
-    $scope.message = "";
-    $scope.result = [];
-    $scope.showSpinner = false;
-    var serviceUrl = UCommerceClientMgr.BaseServiceUrl + 'ProductCatalogSearch/ByName';
-    var _debounce;
-    $scope.initiateProductSearch = function () {
+    _debounce = $timeout(function () {
+      var result = $http.post(
+        serviceUrl,
+        {
+          SearchTerm: $scope.searchTerm,
+          SelectableTypes: $scope.hasCheckboxFor
+        },
+        {
+          dataType: 'application/json'
+        }
+      )
+
+      result.then(function (response) {
         if (!$scope.searchTerm.length) {
-            $scope.nrOfResults = -1;
-            $scope.showSpinner = false;
-            return;
+          $scope.nrOfResults = -1
+          return
         }
-        $rootScope.$broadcast('startSearch');
-        $scope.showSpinner = true;
-        if (_debounce) { // if there is already a timeout in process cancel it
-            $timeout.cancel(_debounce);
+        $scope.result = response.data.result
+        var i = $scope.result.length
+        while (i--) {
+          if (!$scope.showCheckBoxForNode($scope.result[i])) {
+            $scope.result.splice(i, 1)
+          }
         }
 
-        _debounce = $timeout(function () {
-            var result = $http.post(
-                serviceUrl,
-                {
-                    SearchTerm: $scope.searchTerm,
-                    SelectableTypes: $scope.hasCheckboxFor
-                },
-                {
-                    dataType: "application/json"
-                }
-            );
+        $scope.showSpinner = false
+        $scope.nrOfResults = response.data.result.length
 
-            result.then(function (response) {
-                if (!$scope.searchTerm.length) {
-                    $scope.nrOfResults = -1;
-                    return;
-                }
-                $scope.result = response.data.result;
-                var i = $scope.result.length;
-                while (i--) {
-                    if (!$scope.showCheckBoxForNode($scope.result[i])) {
-                        $scope.result.splice(i, 1);
-                    }
-                }
+        if ($scope.nrOfResults == 0) {
+          $scope.message = 'No results found'
+        }
 
-                $scope.showSpinner = false;
-                $scope.nrOfResults = response.data.result.length;
+        if (response.data.error) {
+          $scope.message = response.data.description
+        }
+      })
+    }, 500)
+  }
 
-                if ($scope.nrOfResults == 0) {
-                    $scope.message = "No results found";
-                }
+  $scope.clearTextBox = function () {
+    $scope.searchTerm = ''
+  }
 
-                if (response.data.error) {
-                    $scope.message = response.data.description;
-                }
-            });
-        }, 500);
+  $scope.$watch('searchTerm', function (newValue, oldValue) {
+    if (!newValue.length) {
+      $rootScope.$broadcast('stopSearch')
+      $scope.nrOfResults = -1
+    }
+  })
 
+  $scope.checkIfEscapeKeyWasPressed = function ($event) {
+    var keyCode = $event.which || $event.keyCode
+    if (keyCode === 27) {
+      $scope.searchTerm = ''
+      $scope.nrOfResults = -1
     }
 
-    $scope.clearTextBox = function () {
-        $scope.searchTerm = "";
+    if (keyCode === 13) {
+      $event.preventDefault()
+    }
+  }
+
+  $scope.showSearch = function () {
+    if ($scope.pickertype == 'ProductCatalogGroup') {
+      return false
+    }
+    if ($scope.pickertype == 'ProductCatalog') {
+      return false
     }
 
-    $scope.$watch('searchTerm', function (newValue, oldValue) {
-        if (!newValue.length) {
-            $rootScope.$broadcast('stopSearch');
-            $scope.nrOfResults = -1;
-        }
-    });
+    return true
+  }
 
-    $scope.checkIfEscapeKeyWasPressed = function ($event) {
-        var keyCode = $event.which || $event.keyCode;
-        if (keyCode === 27) {
-            $scope.searchTerm = "";
-            $scope.nrOfResults = -1;
-        }
-
-        if (keyCode === 13) {
-            $event.preventDefault();
-        }
-    }
-       
-    $scope.showSearch = function () {
-        if ($scope.pickertype == 'ProductCatalogGroup') {
-            return false;
-        }
-        if ($scope.pickertype == 'ProductCatalog') {
-            return false;
-        }
-        
-        return true;
-    }
-
-    $scope.showCheckBoxForNode = function (node) {
-        if (node) {
-            if ($scope.hasCheckboxFor && node.nodeType != null && node.nodeType != '') {
-                var checkBoxTypes = $scope.hasCheckboxFor.split(",");
-                var nodeTypes = node.nodeType.split(",");
-                for (i in nodeTypes) {
-                    for (n in checkBoxTypes) {
-                        if (checkBoxTypes[n].toLowerCase() == nodeTypes[i].toLowerCase()) {
-                            return true;
-                        }
-                    }
-                }
+  $scope.showCheckBoxForNode = function (node) {
+    if (node) {
+      if (
+        $scope.hasCheckboxFor &&
+        node.nodeType != null &&
+        node.nodeType != ''
+      ) {
+        var checkBoxTypes = $scope.hasCheckboxFor.split(',')
+        var nodeTypes = node.nodeType.split(',')
+        for (i in nodeTypes) {
+          for (n in checkBoxTypes) {
+            if (checkBoxTypes[n].toLowerCase() == nodeTypes[i].toLowerCase()) {
+              return true
             }
+          }
         }
-        return false;
-    };
-
-    $scope.searchResultClick = function (node) {
-        if ($scope.showCheckBoxForNode(node)) {
-            $rootScope.$broadcast('toggleSelectedNode', node);
-        }
+      }
     }
+    return false
+  }
 
-    $scope.isSelectedCheckbox = function (node) {
-        if (node) {
-            if ($scope.preSelectedValues) {
-                var val = "," + $scope.preSelectedValues + ",";
-                return val.indexOf("," + node.id + ",") > -1;
-            }
-        }
-        return false;
-    };
+  $scope.searchResultClick = function (node) {
+    if ($scope.showCheckBoxForNode(node)) {
+      $rootScope.$broadcast('toggleSelectedNode', node)
+    }
+  }
+
+  $scope.isSelectedCheckbox = function (node) {
+    if (node) {
+      if ($scope.preSelectedValues) {
+        var val = ',' + $scope.preSelectedValues + ','
+        return val.indexOf(',' + node.id + ',') > -1
+      }
+    }
+    return false
+  }
 }

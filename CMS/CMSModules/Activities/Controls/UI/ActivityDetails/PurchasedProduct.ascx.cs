@@ -26,7 +26,7 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_Purchased
                 return false;
         }
 
-        GeneralizedInfo sku = BaseAbstractInfoProvider.GetInfoById(PredefinedObjectType.SKU, ai.ActivityItemID);
+        GeneralizedInfo sku = ProviderHelper.GetInfoById(PredefinedObjectType.SKU, ai.ActivityItemID);
         if (sku != null)
         {
             string productName = ValidationHelper.GetString(sku.GetValue("SKUName"), null);

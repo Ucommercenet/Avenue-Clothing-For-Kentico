@@ -5,7 +5,6 @@
  * and renders this data into header as breadcrumb items
  */
 cmsdefine(['CMS/EventHub', 'CMS/UrlHelper', 'CMS/NavigationBlocker', 'Underscore', 'jQuery'], function (hub, urlhelper, NavigationBlocker, _, $) {
-    'use strict';
 
     var breadcrumbsRightSpace = 30, // Empty space after last breadcrumb
         navigationBlocker = new NavigationBlocker(),
@@ -194,7 +193,8 @@ cmsdefine(['CMS/EventHub', 'CMS/UrlHelper', 'CMS/NavigationBlocker', 'Underscore
                 $bc = breadcrumbs[i];
 
                 $breadcrumbLink = $bc.children();
-                breadcrumbEvents = $breadcrumbLink.data('events');
+                // Get events data from private data object
+                breadcrumbEvents = $breadcrumbLink.get(0) && $._data($breadcrumbLink.get(0), "events");
 
                 if (breadcrumbEvents && breadcrumbEvents.click) {
                     if ((p.sender == null) || ($bc.breadcrumbData.frame == p.sender)) {

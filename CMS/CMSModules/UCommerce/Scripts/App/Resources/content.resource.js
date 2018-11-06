@@ -1,18 +1,30 @@
 ﻿var uc_content_resource = function ($http) {
     function getVirtualAppPath() {
+
+        if (UCommerceClientMgr != null) {
+            if (UCommerceClientMgr.UseBaseServiceUrlExplicit === true) {
+                return UCommerceClientMgr.BaseServiceUrl;
+            }
+        }
+
         var path = '/' + location.pathname.split('/')[1];
         if (path === "/CMSModules") path = "";
         if (path === "/Sitecore%20Modules") path = "";
         if (path === "/sitecore%20modules") path = "";
         if (path === "/umbraco") path = "";
         if (path === "/Umbraco") path = "";
+        if (path === "/ucommerce") path = "";
 
         return path;
     }
 
     var virtualAppPath = getVirtualAppPath();
-
     var serviceUrl = virtualAppPath + '/ucommerceapi/';
+    if (UCommerceClientMgr != null) {
+        if (UCommerceClientMgr.UseBaseServiceUrlExplicit === true) {
+            serviceUrl = UCommerceClientMgr.BaseServiceUrl;
+        }
+    }
 
     return {
         getImageUrl: function (id) {

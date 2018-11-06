@@ -31,7 +31,9 @@
                     currentNode.className = 'ContentTreeItem';
                 }
 
-                parent.frames['tasksContent'].SelectNode(parent.frames['tasksContent'].currentServerId, nodeId, siteId);
+                if (parent.frames['tasksContent'].SelectNode) {
+                    parent.frames['tasksContent'].SelectNode(parent.frames['tasksContent'].currentServerId, nodeId, siteId);
+                }
                 currentNodeId = nodeId;
                 currentSiteId = siteId;
 

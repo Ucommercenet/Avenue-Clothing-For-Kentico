@@ -7,8 +7,7 @@
 <%@ Register Src="~/CMSModules/Newsletters/Controls/VariantMailout.ascx" TagPrefix="cms"
     TagName="VariantMailout" %>
 
-<cms:LocalizedLabel runat="server" ID="lblTestGroup" ResourceString="newsletterissue_send.sizeoftestgroup"
-    EnableViewState="false" CssClass="control-label" />
+<cms:LocalizedHeading runat="server" Level="4" ResourceString="newsletterissue_send.sizeoftestgroup"></cms:LocalizedHeading>
 <asp:Panel runat="server" ID="pnlSlider" CssClass="content-block">
     <cms:GroupSlider ID="ucGroupSlider" runat="server" />
 </asp:Panel>

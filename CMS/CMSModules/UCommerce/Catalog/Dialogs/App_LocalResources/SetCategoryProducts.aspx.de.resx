@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header.Text" xml:space="preserve">
-    <value>Set Produkte für Kategorie</value>
+    <value>Set Produkte für </value>
   </data>
   <data name="SubHeader.Text" xml:space="preserve">
     <value>Wählen oder Produkte zu entfernen aus der Liste unten</value>

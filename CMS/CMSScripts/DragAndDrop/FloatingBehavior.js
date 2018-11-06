@@ -239,6 +239,7 @@ CMSExtendedControls.FloatingBehavior = function (element) {
         var el = this.get_element();
 
         // Get the location before making the element absolute
+        // Double negation ensures passing false value when 'window.ddNotScroll = undefined'
         _location = Sys.UI.DomElement.getLocation(el, false, true, !!window.ddNotScroll);
 
         setBodyHeightToContentHeight();

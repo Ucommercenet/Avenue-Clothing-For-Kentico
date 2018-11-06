@@ -10,8 +10,9 @@ using CMS.Helpers;
 using CMS.PortalEngine;
 using CMS.UIControls;
 
-
+#pragma warning disable BH3501 // Should inherit from some abstract CMS UI WebPart.
 public partial class CMSModules_AdminControls_Controls_UIControls_WebPartSystemProperties : CMSUserControl
+#pragma warning restore BH3501 // Should inherit from some abstract CMS UI WebPart.
 {
     #region "Variables"
 

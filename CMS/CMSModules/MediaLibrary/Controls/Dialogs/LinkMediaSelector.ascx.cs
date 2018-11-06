@@ -404,7 +404,7 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_LinkMediaSelector 
 
             InitializeDesignScripts();
 
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 InitializeControls();
 
@@ -795,9 +795,9 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_LinkMediaSelector 
     /// <param name="path">File path to get full path for</param>
     private string GetFullFilePath(string path)
     {
-        if (path != null)
+        if (LibraryInfo != null && path != null)
         {
-            return (String.Format("{0}/{1}", LibraryInfo.LibraryFolder, path)).TrimEnd('/');
+            return Path.EnsureSlashes(String.Format("{0}/{1}", LibraryInfo.LibraryFolder, path), true);
         }
 
         return string.Empty;
@@ -1191,14 +1191,14 @@ public partial class CMSModules_MediaLibrary_Controls_Dialogs_LinkMediaSelector 
             }
 
             // Check path of the edited item
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 string editedPath = ValidationHelper.GetString(RequestStockHelper.GetItem(LINK_MEDIA_SELECTOR_STORAGE_KEY, "FolderPath"), String.Empty);
                 folderPath = (editedPath != string.Empty) ? editedPath : folderPath;
             }
 
             string closeLink = String.Format("<span class=\"ListingClose\" style=\"cursor: pointer;\" onclick=\"SetAction('closelisting', ''); RaiseHiddenPostBack(); return false;\">{0}</span>", GetString("general.close"));
-            string docNamePath = String.Format("<span class=\"ListingPath\">{0}</span>", Path.EnsureSlashes(GetFullFilePath(folderPath)));
+            string docNamePath = String.Format("<span class=\"ListingPath\">{0}</span>", GetFullFilePath(folderPath));
 
             string listingMsg = string.Format(GetString("media.libraryui.listingInfo"), docNamePath, closeLink);
             mediaView.DisplayListingInfo(listingMsg);
@@ -1933,7 +1933,7 @@ function imageEdit_Refresh(guid){{
         LibraryChanged = true;
 
         // Do not clear item info when editing
-        if (URLHelper.IsPostback())
+        if (RequestHelper.IsPostBack())
         {
             ItemToColorize = Guid.Empty;
         }
@@ -1944,7 +1944,7 @@ function imageEdit_Refresh(guid){{
             SelectLibrary();
 
             // Select folder tree path obtained from the configuration
-            string fullPath = !URLHelper.IsPostback() ? ValidationHelper.GetString(RequestStockHelper.GetItem(LINK_MEDIA_SELECTOR_STORAGE_KEY, "FolderPath"), String.Empty) : GetCompletePath(FolderPath);
+            string fullPath = !RequestHelper.IsPostBack() ? ValidationHelper.GetString(RequestStockHelper.GetItem(LINK_MEDIA_SELECTOR_STORAGE_KEY, "FolderPath"), String.Empty) : GetCompletePath(FolderPath);
 
             if (fullPath.StartsWith(LibraryInfo.LibraryFolder, StringComparison.Ordinal))
             {
@@ -1964,7 +1964,7 @@ function imageEdit_Refresh(guid){{
             HandleFolderAction(fullPath, false, true);
 
             // Clear properties if library changed
-            if (URLHelper.IsPostback())
+            if (RequestHelper.IsPostBack())
             {
                 ItemProperties.ClearProperties(true);
             }

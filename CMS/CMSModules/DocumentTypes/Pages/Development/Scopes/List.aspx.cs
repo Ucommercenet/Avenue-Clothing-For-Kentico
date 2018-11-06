@@ -25,7 +25,7 @@ public partial class CMSModules_DocumentTypes_Pages_Development_Scopes_List : Gl
     /// </summary>
     protected void Page_Load(object sender, EventArgs e)
     {
-        siteID = URLHelper.IsPostback() ? ValidationHelper.GetInteger(selectSite.Value, UniSelector.US_ALL_RECORDS) : QueryHelper.GetInteger("siteid", SiteContext.CurrentSiteID);
+        siteID = RequestHelper.IsPostBack() ? ValidationHelper.GetInteger(selectSite.Value, UniSelector.US_ALL_RECORDS) : QueryHelper.GetInteger("siteid", SiteContext.CurrentSiteID);
 
         // Ensure default site value for (all) option
         if (siteID == 0)

@@ -298,14 +298,13 @@ public partial class CMSAdminControls_UI_ScreenLock_ScreenLockDialog : CMSUserCo
     /// <param name="user">User info.</param>
     public string GeneratePasscode(UserInfo user)
     {
-        // Fire MultifactorAuthenticate event
         MFAuthenticationHelper.IssuePasscode(user.UserName);
-        if (MembershipContext.MFAuthenticationTokenNotInitialized && MFAuthenticationHelper.DisplayTokenID)
+        if (MembershipContext.MFAuthenticationTokenNotInitialized && MFAuthenticationHelper.DisplaySetupCode)
         {
             var sb = new StringBuilder("missingToken|");
             sb.Append(GetString("mfauthentication.isRequired"), " ", GetString("mfauthentication.token.get"),
                 ARGUMENTS_SEPARATOR, GetString("mfauthentication.label.token"), ARGUMENTS_SEPARATOR,
-                MFAuthenticationHelper.GetTokenIDForUser(user.UserName));
+                MFAuthenticationHelper.GetSetupCodeForUser(user.UserName));
 
             return sb.ToString();
         }

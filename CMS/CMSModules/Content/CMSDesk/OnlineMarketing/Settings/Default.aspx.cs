@@ -43,7 +43,7 @@ public partial class CMSModules_Content_CMSDesk_OnlineMarketing_Settings_Default
             CurrentMaster.HeaderActions.Enabled = false;
         }
 
-        if ((Node != null) && !URLHelper.IsPostback())
+        if ((Node != null) && !RequestHelper.IsPostBack())
         {
             ReloadData();
         }

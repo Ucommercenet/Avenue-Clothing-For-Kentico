@@ -786,7 +786,7 @@ public partial class CMSWebParts_Layouts_Wizard_Wizard : CMSAbstractLayoutWebPar
 
             // Handle the next button display
             string finishUrl = String.IsNullOrEmpty(args.FinalStepUrl) ? FinishRedirectUrl : args.FinalStepUrl;
-            if ((args.Steps == current) && String.IsNullOrEmpty(FinishRedirectUrl))
+            if ((args.Steps == current) && String.IsNullOrEmpty(finishUrl))
             {
                 args.HideNextButton = true;
             }

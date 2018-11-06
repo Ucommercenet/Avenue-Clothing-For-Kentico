@@ -11,10 +11,10 @@
 			<asp:PlaceHolder runat="server" id="EditModePlaceHolder"  visible="false">
 				<asp:TextBox runat="server" id="MinOrderAmountText" /><br />
 				<asp:RegularExpressionValidator id="DecimalValidator" runat="server" ControlToValidate="MinOrderAmountText" 
-								Style="color:Red;" ValidationExpression="^(\d|-)?(\d|,)*\.?\d*$" ValidationGroup="MinOrderAmountGroup"
-								Display="Dynamic" />
+								ValidationExpression="^(\d|-)?(\d|,)*\.?\d*$" ValidationGroup="MinOrderAmountGroup"
+								Display="Dynamic" CssClass="validator" />
 				<asp:RequiredFieldValidator id="RequiredValidator" runat="server" ValidationGroup="MinOrderAmountGroup"
-								ControlToValidate="MinOrderAmountText" Display="Dynamic" />
+								ControlToValidate="MinOrderAmountText" Display="Dynamic" CssClass="validator"/>
 			</asp:PlaceHolder>
 		</td>
 		<td style="width:50px; text-align:right; vertical-align:top;">

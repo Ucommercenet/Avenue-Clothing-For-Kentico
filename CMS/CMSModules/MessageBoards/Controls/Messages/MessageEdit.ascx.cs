@@ -192,7 +192,7 @@ public partial class CMSModules_MessageBoards_Controls_Messages_MessageEdit : CM
         SetupControls();
 
         // Reload data if necessary
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             ReloadData();
         }
@@ -418,7 +418,7 @@ public partial class CMSModules_MessageBoards_Controls_Messages_MessageEdit : CM
                             if (bsi.SubscriptionApproved)
                             {
                                 ShowConfirmation(GetString("board.subscription.beensubscribed"));
-                                Service<ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
+                                Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(bsi.SubscriptionEmail, MembershipContext.AuthenticatedUser);
                                 LogSubscribingActivity(bsi, boardInfo);
                             }
                             else
@@ -444,7 +444,7 @@ public partial class CMSModules_MessageBoards_Controls_Messages_MessageEdit : CM
                         {
                             // Save message info
                             BoardMessageInfoProvider.SetBoardMessageInfo(message);
-                            Service< ICurrentContactMergeService>.Entry().UpdateCurrentContactEmail(message.MessageEmail, MembershipContext.AuthenticatedUser);
+                            Service.Resolve<ICurrentContactMergeService>().UpdateCurrentContactEmail(message.MessageEmail, MembershipContext.AuthenticatedUser);
                             LogCommentActivity(message, boardInfo);
 
                             if (BoardProperties.EnableContentRating && (ratingControl != null) && (ratingControl.GetCurrentRating() > 0))

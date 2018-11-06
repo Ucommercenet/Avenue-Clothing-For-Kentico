@@ -16,7 +16,7 @@ var PASSWORDSTRENGTH = (function () {
 
     return {
         getPassword: function (passwordID) {
-            if (passwordID != null) {
+            if (passwordID !== null) {
                 return document.getElementById(passwordID);
             }
             // Used in tests
@@ -30,7 +30,7 @@ var PASSWORDSTRENGTH = (function () {
         },
 
 
-        //Compute and show password stregth
+        //Compute and show password strength
         ShowStrength: function (passwordID, minLength, preferedLength, minNonAlphaNumChars, preferedNonAlphaNumChars, regularExpression, passwordLabelID, policyStrings, classPrefix, usePolicy, indicatorPanelID, useStylesForStrenghtIndicator) {
             var strings = policyStrings.split(';');
             var passElem = this.getPassword(passwordID);
@@ -40,7 +40,7 @@ var PASSWORDSTRENGTH = (function () {
 
             var passwordValue = passElem.value;
             var passwordLength = passwordValue.length;
-            if (usePolicy == 'True') {
+            if (usePolicy === 'True') {
                 labelElem.cls = classPrefix + 'not-acceptable';
                 indicatorElem.cls = indicatorClassPrefix + 'not-acceptable';
                 handleUi(labelElem, passwordLabelID, indicatorElem, indicatorPanelID);
@@ -53,7 +53,7 @@ var PASSWORDSTRENGTH = (function () {
 
             // Minimal length
             if (minLength) {
-                if (passwordLength == 0) {
+                if (passwordLength === 0) {
                     indicatorElem.cls = '';
                     labelElem.innerHTML = '';
                     handleUi(labelElem, passwordLabelID, indicatorElem, indicatorPanelID);
@@ -70,7 +70,7 @@ var PASSWORDSTRENGTH = (function () {
             var nonAlphaNum = 0;
             if (minNonAlphaNumChars) {
                 var nonAlphaNum = getNumberNonAlfaNum(passwordValue, passwordLength)
-                if ((usePolicy == 'True') && (nonAlphaNum < parseInt(minNonAlphaNumChars))) {
+                if ((usePolicy === 'True') && (nonAlphaNum < parseInt(minNonAlphaNumChars))) {
                     labelElem.innerHTML = strings[0];
                     handleUi(labelElem, passwordLabelID, indicatorElem, indicatorPanelID)
                     return NOT_ENOUGH_ALFA_NUMERIC;
@@ -135,7 +135,7 @@ var PASSWORDSTRENGTH = (function () {
 
 
     function handleUi(labelElem, passwordLabelID, indicatorElem, indicatorPanelID) {
-        //Handle UI - password label and password strongth indicator.
+        //Handle UI - password label and password strength indicator.
         var passwordLabelElemnt = null;
         var indicatorElement = null;
 
@@ -148,14 +148,13 @@ var PASSWORDSTRENGTH = (function () {
 
             indicatorElement.setAttribute('class', indicatorElem.cls);
         }
-        //Exception is fired in test-scenario (elements aren't presented).
         catch (ex) {
-
+            //Exception is fired in test-scenario (elements aren't presented).
         };
     }
 
 
-    // Count number of non alfa num characters
+    // Count number of non alpha-numeric characters
     function getNumberNonAlfaNum(passwordValue, passwordLength) {
         var nonAlphaNum = 0;
         for (var i = 0; i < passwordLength; i++) {
@@ -182,7 +181,7 @@ var PASSWORDSTRENGTH = (function () {
 
     // Returns whether character is alpha numeric 
     function isAlphaNum(param) {
-        if (alphaNum.indexOf(param, 0) == -1) {
+        if (alphaNum.indexOf(param, 0) === -1) {
             return false;
         }
         return true;

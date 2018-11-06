@@ -16,6 +16,8 @@ using CMS.UIControls;
 
 public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_General : CMSAdminEditControl, IPostBackEventHandler
 {
+    // Code name of the editation alternative form for Azure Search index
+    private const string AZURE_INDEX_EDIT_FORM = "EditAzureSearchIndexForm";
     private const string REBUILD = "rebuild";
     private const string OPTIMIZE = "optimize";
     private const string REBUILD_REQUIRED = "rebuildrequired";
@@ -42,7 +44,7 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_General : CM
     {
         get
         {
-            return mSearchIndex ?? (mSearchIndex = form.EditedObject as SearchIndexInfo);
+            return mSearchIndex ?? (mSearchIndex = UIContext.EditedObject as SearchIndexInfo);
         }
     }
 
@@ -54,6 +56,11 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_General : CM
         base.OnInit(e);
 
         InitFormEvents();
+
+        if (IsSearchIndexAzureBased())
+        {
+            form.AlternativeFormName = AZURE_INDEX_EDIT_FORM;
+        }
     }
 
 
@@ -94,15 +101,18 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_General : CM
 
         ComponentEvents.RequestEvents.RegisterForEvent(REBUILD, (sender, args) => { Rebuild(); });
 
-        // Add optimize action
-        AddHeaderAction(new HeaderAction()
+        // Add optimize action if the search index is not Azure based
+        if (!IsSearchIndexAzureBased())
         {
-            Text = GetString("srch.index.optimize"),
-            OnClientClick = "return confirm(" + ScriptHelper.GetString(GetString("srch.index.confirmoptimize")) + ");",
-            CommandName = OPTIMIZE
-        });
+            AddHeaderAction(new HeaderAction()
+            {
+                Text = GetString("srch.index.optimize"),
+                OnClientClick = "return confirm(" + ScriptHelper.GetString(GetString("srch.index.confirmoptimize")) + ");",
+                CommandName = OPTIMIZE
+            });
 
-        ComponentEvents.RequestEvents.RegisterForEvent(OPTIMIZE, (sender, args) => { Optimize(); });
+            ComponentEvents.RequestEvents.RegisterForEvent(OPTIMIZE, (sender, args) => { Optimize(); });
+        }
     }
 
     #endregion
@@ -206,20 +216,25 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_General : CM
     /// </summary>
     private void Rebuild()
     {
-        // Check culture for document index
-        if ((SearchIndex.IndexType.ToLowerCSafe() == TreeNode.OBJECT_TYPE) || (SearchIndex.IndexType == SearchHelper.DOCUMENTS_CRAWLER_INDEX))
+        // Extra check for document index
+        if ((SearchIndex.IndexType.Equals(TreeNode.OBJECT_TYPE, StringComparison.OrdinalIgnoreCase) || (SearchIndex.IndexType == SearchHelper.DOCUMENTS_CRAWLER_INDEX)))
         {
-            var ds = SearchIndexCultureInfoProvider.GetSearchIndexCultures("IndexID = " + SearchIndex.IndexID, null, 0, "IndexID, IndexCultureID");
-            if (DataHelper.DataSourceIsEmpty(ds))
+            // Check if there is at least one site assigned
+            if (!SearchIndexSiteInfoProvider.SearchIndexHasAnySite(SearchIndex.IndexID))
+            {
+                ShowError(GetString("index.nosite"));
+                return;
+            }
+
+            // Check if there is any culture assigned
+            if (!SearchIndexCultureInfoProvider.SearchIndexHasAnyCulture(SearchIndex.IndexID))
             {
                 ShowError(GetString("index.noculture"));
                 return;
             }
         }
 
-        var taskCreated = SearchHelper.CreateRebuildTask(SearchIndex.IndexID);
-
-        if (!taskCreated)
+        if (!SearchHelper.CreateRebuildTask(SearchIndex.IndexID))
         {
             ShowError(GetString("index.nocontent"));
             return;
@@ -259,4 +274,13 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_General : CM
     }
 
     #endregion
+
+
+    /// <summary>
+    /// Returns true if the search index is Azure based.
+    /// </summary>
+    private bool IsSearchIndexAzureBased()
+    {
+        return SearchIndex.IndexProvider.Equals(SearchIndexInfo.AZURE_SEARCH_PROVIDER, StringComparison.OrdinalIgnoreCase);
+    }
 }

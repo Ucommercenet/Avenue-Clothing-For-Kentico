@@ -275,13 +275,13 @@ public partial class CMSModules_SocialMarketing_FormControls_FacebookAutoPost : 
 
         if ((PostInfo != null) && !PostInfo.IsEditable)
         {
-            if (mPublishedWhileEditing || (URLHelper.IsPostback() && !FormDataEqualsPostInfo(PostInfo)))
+            if (mPublishedWhileEditing || (RequestHelper.IsPostBack() && !FormDataEqualsPostInfo(PostInfo)))
             {
                 // Data in form has changed, but post can not be modified
                 AddWarning(GetString("sm.facebook.autopost.publishedwhileediting"));
                 LoadPostDataIntoControl(PostInfo);
             }
-            else if (!URLHelper.IsPostback() && PostInfo.IsFaulty)
+            else if (!RequestHelper.IsPostBack() && PostInfo.IsFaulty)
             {
                 // Show error on first load. This must be done on PagePreRender, 
                 // because errors added on PageInit event are ignored.

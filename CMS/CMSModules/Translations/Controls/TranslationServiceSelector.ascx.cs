@@ -334,7 +334,7 @@ public partial class CMSModules_Translations_Controls_TranslationServiceSelector
             return;
         }
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Preselect default values
             dtDeadline.SelectedDateTime = DateTime.Now.AddDays(7);

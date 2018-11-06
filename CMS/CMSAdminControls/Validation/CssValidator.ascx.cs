@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-
-using CMS.Base;
-
 using System.Linq;
 using System.Net;
 using System.Security.Principal;
@@ -13,13 +10,14 @@ using System.Threading;
 using System.Web;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.ActionsConfig;
 using CMS.DataEngine;
-using CMS.DocumentEngine;
 using CMS.Helpers;
 using CMS.IO;
 using CMS.Membership;
+using CMS.PortalEngine.Web.UI;
 using CMS.SiteProvider;
 using CMS.UIControls;
 
@@ -43,7 +41,7 @@ public partial class CMSAdminControls_Validation_CssValidator : DocumentValidato
 
     private const string DEFAULT_VALIDATOR_URL = "http://jigsaw.w3.org/css-validator/validator";
     private const int VALIDATION_DELAY = 1500;
-    private const string EXCLUDED_CSS = ";designmode.css;bootstrap.css;bootstrap-additional.css;";
+    private const string EXCLUDED_CSS = ";designmode.css;bootstrap.css;";
 
     #endregion
 
@@ -63,7 +61,7 @@ public partial class CMSAdminControls_Validation_CssValidator : DocumentValidato
 
 
     #region "Properties"
-    
+
     /// <summary>
     /// URL to which validator requests will be sent
     /// </summary>
@@ -395,7 +393,7 @@ public partial class CMSAdminControls_Validation_CssValidator : DocumentValidato
         pnlGrid.Visible = false;
 
         CurrentError = string.Empty;
-        
+
         // Get the full domain
         ctlAsyncLog.EnsureLog();
         ctlAsyncLog.Parameter = RequestContext.FullDomain + ";" + URLHelper.GetFullApplicationUrl() + ";" + URLHelper.RemoveProtocolAndDomain(Url);
@@ -791,18 +789,18 @@ public partial class CMSAdminControls_Validation_CssValidator : DocumentValidato
     {
         ctlAsyncLog.Parameter = null;
         AddError(ResHelper.GetString("validation.validationcanceled"));
-        
+
         ScriptHelper.RegisterStartupScript(this, typeof(string), "CancelLog", ScriptHelper.GetScript("var __pendingCallbacks = new Array();"));
-        
+
         const string SEPARATOR = "<br />";
-        int error = CurrentError.IndexOf(SEPARATOR);
-        
+        int error = CurrentError.IndexOf(SEPARATOR, StringComparison.OrdinalIgnoreCase);
+
         mInfoText = CurrentError.Substring(0, error);
         mErrorText = CurrentError.Substring(error + SEPARATOR.Length);
-        
+
         pnlLog.Visible = false;
         pnlGrid.Visible = true;
-        
+
         Data.PostProcessingRequired = true;
     }
 

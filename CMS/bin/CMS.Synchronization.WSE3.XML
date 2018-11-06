@@ -122,26 +122,6 @@
             Synchronization client.
             </summary>
         </member>
-        <member name="M:CMS.Synchronization.WSE3.SyncClient.GetFullServerUrl(System.String)">
-            <summary>
-            Returns full path of the SyncServer.asmx server from the starting path of target server instance.
-            If the full path in the old format comes, the suffix /CMSPages/SyncServer.asmx is trimmed and replaced by the current location.
-            </summary>
-            <param name="serverServiceBaseUrl">Synchronization server base URL</param>
-        </member>
-        <member name="M:CMS.Synchronization.WSE3.SyncClient.RunTask(CMS.Synchronization.StagingTaskInfo)">
-            <summary>
-            Runs the synchronization task.
-            </summary>
-            <param name="taskObj">Task object</param>
-            <returns>Returns error message</returns>
-        </member>
-        <member name="M:CMS.Synchronization.WSE3.SyncClient.GetError(System.String)">
-            <summary>
-            Returns the full error message.
-            </summary>
-            <param name="errorMessage">Error message</param>
-        </member>
         <member name="P:CMS.Synchronization.WSE3.SyncClient.Timeout">
             <summary>
             Gets timeout for staging service.
@@ -167,9 +147,34 @@
             Synchronization server.
             </summary>
         </member>
+        <member name="M:CMS.Synchronization.WSE3.SyncClient.GetFullServerUrl(System.String)">
+            <summary>
+            Returns full path of the SyncServer.asmx server from the starting path of target server instance.
+            If the full path in the old format comes, the suffix /CMSPages/SyncServer.asmx is trimmed and replaced by the current location.
+            </summary>
+            <param name="serverServiceBaseUrl">Synchronization server base URL</param>
+        </member>
+        <member name="M:CMS.Synchronization.WSE3.SyncClient.RunTask(CMS.Synchronization.StagingTaskInfo)">
+            <summary>
+            Runs the synchronization task.
+            </summary>
+            <param name="taskObj">Task object</param>
+            <returns>Returns error message</returns>
+        </member>
+        <member name="M:CMS.Synchronization.WSE3.SyncClient.GetError(System.String)">
+            <summary>
+            Returns the full error message.
+            </summary>
+            <param name="errorMessage">Error message</param>
+        </member>
         <member name="T:CMS.Synchronization.WSE3.SyncServer">
             <summary>
             Content staging service.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.WSE3.SyncServer.LogTasks">
+            <summary>
+            Indicates if logging staging task is enabled.
             </summary>
         </member>
         <member name="F:CMS.Synchronization.WSE3.SyncServer.UseTreeCustomHandlers">
@@ -180,6 +185,11 @@
         <member name="F:CMS.Synchronization.WSE3.SyncServer.UseAutomaticOrdering">
             <summary>
             Indicates if automatic ordering for documents should be used on target server.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.WSE3.SyncServer.SyncManager">
+            <summary>
+            SyncHelper instance.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.WSE3.SyncServer.ProcessSynchronizationTaskData(System.String)">
@@ -197,16 +207,6 @@
         <member name="M:CMS.Synchronization.WSE3.SyncServer.GetError(System.String)">
             <summary>
             Returns the full error message.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.WSE3.SyncServer.LogTasks">
-            <summary>
-            Indicates if logging staging task is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.WSE3.SyncServer.SyncManager">
-            <summary>
-            SyncHelper instance.
             </summary>
         </member>
         <member name="T:CMS.Synchronization.WSE3.WebServiceAuthorization">
@@ -231,6 +231,16 @@
         <member name="T:CMS.Synchronization.WSE3.X509ClientAssertion">
             <summary>
             X509 Security assertion.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.WSE3.X509ClientAssertion.ClientKeyId">
+            <summary>
+            Client certificate key ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Synchronization.WSE3.X509ClientAssertion.ServerKeyId">
+            <summary>
+            Server certificate key ID.
             </summary>
         </member>
         <member name="M:CMS.Synchronization.WSE3.X509ClientAssertion.#ctor(System.String,System.String)">
@@ -258,16 +268,6 @@
         <member name="M:CMS.Synchronization.WSE3.X509ClientAssertion.CreateServiceOutputFilter(Microsoft.Web.Services3.Design.FilterCreationContext)">
             <summary>
             No service output filter.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.WSE3.X509ClientAssertion.ClientKeyId">
-            <summary>
-            Client certificate key ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Synchronization.WSE3.X509ClientAssertion.ServerKeyId">
-            <summary>
-            Server certificate key ID.
             </summary>
         </member>
         <member name="T:CMS.Synchronization.WSE3.X509ClientOutputFilter">

@@ -429,7 +429,7 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_MetaDataEdit : 
                 break;
         }
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             InitializeForm();
         }

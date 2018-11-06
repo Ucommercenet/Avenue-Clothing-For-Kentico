@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/EventHub', 'jQuery', 'jQueryJScrollPane'], function (EventHub, $) {
-    'use strict';
 
     var ScrollPane = function (options) {
         if (!options || !options.selector) {

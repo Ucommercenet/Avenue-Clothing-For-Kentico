@@ -5,5 +5,4 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderLabel" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentArea" runat="server">
-    <h1>Hello world!</h1>
 </asp:Content>

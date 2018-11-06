@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 
 using CMS.Base;
 using CMS.Base.Web.UI;
@@ -25,13 +24,13 @@ public partial class CMSModules_Content_CMSDesk_Properties_Template : CMSPropert
 
     private TreeNode node;
 
-    private CurrentUserInfo currentUser = null;
+    private CurrentUserInfo currentUser;
 
-    private bool hasModifyPermission = false;
+    private bool hasModifyPermission;
 
     private bool selectorEnabled = true;
 
-    private PageTemplateInfo pageTemplateInfo = null;
+    private PageTemplateInfo pageTemplateInfo;
 
     private ICMSDocumentManager mDocumentManager;
 
@@ -402,20 +401,6 @@ function OnSelectPageTemplate(templateId, selectorId) {
         else
         {
             inheritElem.Value = Node.NodeInheritPageLevels;
-
-            // Try get info whether exist linked document in path
-            DataSet ds = DocumentManager.Tree.SelectNodes(SiteContext.CurrentSiteName, "/%", node.DocumentCulture, false, null, "NodeLinkedNodeID IS NOT NULL AND (N'" + SqlHelper.EscapeQuotes(Node.NodeAliasPath) + "' LIKE NodeAliasPath + '%')", null, -1, false, 1, "Count(*) AS NumOfDocs");
-
-            // If node is not link or none of parent documents is not linked document use document name path
-            if (!node.IsLink && DataHelper.GetIntValue(ds.Tables[0].Rows[0], "NumOfDocs") == 0)
-            {
-                inheritElem.TreePath = TreePathUtils.GetParentPath("/" + Node.DocumentNamePath);
-            }
-            else
-            {
-                // Otherwise use alias path
-                inheritElem.TreePath = TreePathUtils.GetParentPath("/" + Node.NodeAliasPath);
-            }
         }
 
         if (node.NodeInheritPageTemplate)

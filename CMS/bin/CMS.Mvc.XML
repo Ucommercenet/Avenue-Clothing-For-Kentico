@@ -27,17 +27,17 @@
             <param name="values">The values</param>
             <param name="routeDefaults">The route defaults</param>
         </member>
+        <member name="P:CMS.Mvc.IMvcAdapter.OptionalUrlParameter">
+            <summary>
+            Gets the "Optional URL parameter" type.
+            </summary>
+        </member>
         <member name="M:CMS.Mvc.IMvcAdapter.GetControllerType(System.Web.Routing.RequestContext,System.String)">
             <summary>
             Gets the type of the controller.
             </summary>
             <param name="context">The context</param>
             <param name="controllerName">Name of the controller</param>
-        </member>
-        <member name="P:CMS.Mvc.IMvcAdapter.OptionalUrlParameter">
-            <summary>
-            Gets the "Optional URL parameter" type.
-            </summary>
         </member>
     </members>
 </doc>

@@ -54,7 +54,7 @@ public partial class CMSModules_PortalEngine_Controls_WebParts_WebPartEditCSS : 
 
         wpi = UIContext.EditedObject as WebPartInfo;
 
-        if ((wpi != null) && !URLHelper.IsPostback())
+        if ((wpi != null) && !RequestHelper.IsPostBack())
         {
             etaCSS.Text = wpi.WebPartCSS;
         }

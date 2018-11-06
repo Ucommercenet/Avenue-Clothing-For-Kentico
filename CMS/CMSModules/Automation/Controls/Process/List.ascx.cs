@@ -91,7 +91,7 @@ public partial class CMSModules_Automation_Controls_Process_List : CMSUserContro
             case "delete":
                 int stateId = ValidationHelper.GetInteger(actionArgument, 0);
 
-                var obj = BaseAbstractInfoProvider.GetInfoById(ObjectType, ObjectID);
+                var obj = ProviderHelper.GetInfoById(ObjectType, ObjectID);
                 var state = AutomationStateInfoProvider.GetAutomationStateInfo(stateId);
 
                 if (!CurrentUser.IsAuthorizedPerResource(ModuleName.ONLINEMARKETING, "RemoveProcess", SiteInfoProvider.GetSiteName(state.StateSiteID)))

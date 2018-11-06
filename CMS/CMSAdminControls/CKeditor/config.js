@@ -64,22 +64,6 @@ CKEDITOR.editorConfig = function( config ) {
 	    ['Bold', 'Italic', '-', 'InsertLink', 'InsertUrl', 'InsertImageOrMedia', 'InsertImage', 'InsertQuote', '-', 'NumberedList', 'BulletedList', '-', 'TextColor', 'BGColor']
     ];
 
-    config.toolbar_Newsletter = [
-	    ['Source', '-'],
-	    ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-'],
-	    ['Undo', 'Redo', 'Find', 'Replace', 'RemoveFormat', '-'],
-	    ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-'],
-	    ['NumberedList', 'BulletedList', 'Outdent', 'Indent', '-'],
-	    ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-'],
-	    ['InsertLink', 'Unlink', 'Anchor', '-'],
-	    ['InsertImageOrMedia', 'QuicklyInsertImage', 'Table', 'HorizontalRule', 'SpecialChar', '-'],
-        ['InsertStrandsRecommender', '-'],
-	    ['Styles', 'Format', 'Font', 'FontSize'],
-	    ['TextColor', 'BGColor', '-'],
-        ['InsertMacro', '-'],
-	    ['Maximize']
-    ];
-
     config.toolbar_Reporting = [
 	    ['Source', '-'],
 	    ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-'],
@@ -131,6 +115,20 @@ CKEDITOR.editorConfig = function( config ) {
 	    ['Format', 'Font', 'FontSize'],
 	    ['TextColor', 'BGColor']
     ];
+	
+	config.toolbar_EmailWidgets = [
+        ['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', '-', 'PasteText', 'PasteFromWord', '-', 'InsertMacro', '-']
+	];
+
+	config.toolbar_Consents_ShortText = [
+        ['Source', '-', 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'InsertLink', 'Unlink', '-', 'PasteText', 'PasteFromWord']
+	];
+
+	config.toolbar_Consents_FullText = [
+        ['Source', '-', 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'InsertLink', 'Unlink', '-', 'PasteText', 'PasteFromWord'],
+        ['Styles', 'Format', 'Font', 'FontSize'],
+        ['TextColor', 'BGColor', '-']
+	];
 
     config.toolbar_Disabled = [
         ['Maximize']

@@ -55,7 +55,7 @@ public partial class CMSModules_Sites_Pages_CultureChange : CMSModalGlobalAdminP
 
 
             currentCulture = CultureHelper.GetDefaultCultureCode(si.SiteName);
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 cultureSelector.Value = currentCulture;
             }

@@ -1,13 +1,14 @@
 ﻿using System;
 
-using CMS.Base;
 using CMS.Base.Web.UI;
+using CMS.Core;
 using CMS.DocumentEngine;
 using CMS.Helpers;
-using CMS.PortalEngine.Web.UI;
 using CMS.PortalEngine;
+using CMS.PortalEngine.Web.UI;
 using CMS.SiteProvider;
 using CMS.WebAnalytics;
+
 
 public partial class CMSWebParts_WebAnalytics_AnalyticsBrowserCapabilities : CMSAbstractWebPart
 {
@@ -128,15 +129,13 @@ public partial class CMSWebParts_WebAnalytics_AnalyticsBrowserCapabilities : CMS
     /// </summary>
     protected void SetupControl()
     {
-        if (!StopProcessing && AnalyticsHelper.IsLoggingEnabled(SiteContext.CurrentSiteName, DocumentContext.CurrentAliasPath))
+        if (!StopProcessing && AnalyticsHelper.IsLoggingEnabled(SiteContext.CurrentSiteName, DocumentContext.CurrentAliasPath) && Service.Resolve<IAnalyticsConsentProvider>().HasConsentForLogging())
         {
             // If already in session or livesite .. do not register info calling
             if ((SessionHelper.GetValue("BrowserCapatibilities") == null) && ViewMode.IsLiveSite())
             {
                 Guid checkGuid = Guid.NewGuid();
-                String parameters = String.Format("{0},{1},{2},{3},{4},{5},'{6}','{7}'", LogResolution.ToString().ToLowerCSafe(), LogColorDepth.ToString().ToLowerCSafe(),
-                                                  LogOperatingSystem.ToString().ToLowerCSafe(), LogSilverlight.ToString().ToLowerCSafe(), LogJava.ToString().ToLowerCSafe(), LogFlash.ToString().ToLowerCSafe()
-                                                  , ResolveUrl("~/CMSModules/WebAnalytics/Pages/Content/AnalyticsLog.aspx"), checkGuid.ToString());
+                String parameters = $"{LogResolution.ToString().ToLowerInvariant()},{LogColorDepth.ToString().ToLowerInvariant()},{LogOperatingSystem.ToString().ToLowerInvariant()},{LogSilverlight.ToString().ToLowerInvariant()},{LogJava.ToString().ToLowerInvariant()},{LogFlash.ToString().ToLowerInvariant()},'{ResolveUrl("~/CMSModules/WebAnalytics/Pages/Content/AnalyticsLog.aspx")}','{checkGuid.ToString()}'";
 
                 ScriptHelper.RegisterStartupScript(this, typeof(string), "BrowserCapatibilitiesInit", ScriptHelper.GetScript("collectBrowserData(" + parameters + ")"));
                 ScriptHelper.RegisterScriptFile(Page, "~/CMSScripts/BrowserCapabilities.js");

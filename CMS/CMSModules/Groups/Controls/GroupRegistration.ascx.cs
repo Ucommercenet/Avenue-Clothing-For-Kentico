@@ -827,6 +827,7 @@ public partial class CMSModules_Groups_Controls_GroupRegistration : CMSUserContr
             sii.IndexAnalyzerType = SearchAnalyzerTypeEnum.StandardAnalyzer;
             sii.IndexType = TreeNode.OBJECT_TYPE;
             sii.IndexIsCommunityGroup = false;
+            sii.IndexProvider = SearchIndexInfo.LUCENE_SEARCH_PROVIDER;
 
             // Create search index settings info
             SearchIndexSettingsInfo sisi = new SearchIndexSettingsInfo();
@@ -879,6 +880,7 @@ public partial class CMSModules_Groups_Controls_GroupRegistration : CMSUserContr
             sii.IndexAnalyzerType = SearchAnalyzerTypeEnum.StandardAnalyzer;
             sii.IndexType = PredefinedObjectType.FORUM;
             sii.IndexIsCommunityGroup = false;
+            sii.IndexProvider = SearchIndexInfo.LUCENE_SEARCH_PROVIDER;
 
             // Create search index settings info
             SearchIndexSettingsInfo sisi = new SearchIndexSettingsInfo();

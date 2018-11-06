@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 
-using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.ActionsConfig;
 using CMS.Helpers;
@@ -25,13 +24,7 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
     /// <summary>
     /// Messages placeholder
     /// </summary>
-    public override MessagesPlaceHolder MessagesPlaceHolder
-    {
-        get
-        {
-            return plcMess;
-        }
-    }
+    public override MessagesPlaceHolder MessagesPlaceHolder => plcMess;
 
 
     /// <summary>
@@ -213,7 +206,7 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
             selectModule.UniSelector.OnSelectionChanged += selectModule_OnSelectionChanged;
             selectModule.DropDownSingleSelect.AutoPostBack = true;
             lblModule.AssociatedControlClientID = selectModule.DropDownSingleSelect.ClientID;
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 // Module preselection from query string
                 string selectedModule = QueryHelper.GetString("module", null);
@@ -246,7 +239,7 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
             lblSite.AssociatedControlClientID = selectSite.DropDownSingleSelect.ClientID;
         }
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Site selector in direct UI personalization
             if (SiteID <= 0)
@@ -335,7 +328,7 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
 
     protected void actionsElem_ActionPerformed(object sender, CommandEventArgs e)
     {
-        switch (e.CommandName.ToLowerCSafe())
+        switch (e.CommandName.ToLowerInvariant())
         {
             case "expandall":
                 treeElem.CollapseAll = false;
@@ -347,6 +340,7 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
                 treeElem.ExpandAll = false;
                 break;
         }
+
         ReloadTree();
     }
 
@@ -395,8 +389,9 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
     private void ReloadModules()
     {
         selectModule.DisplayOnlyForGivenSite = !globalRoles;
-        selectModule.SiteID = globalRoles ? 0 : CurrentSiteID;        
+        selectModule.SiteID = globalRoles ? 0 : CurrentSiteID;
         selectModule.ReloadData(true);
+        selectModule.Enabled = selectModule.UniSelector.HasData;
     }
 
 
@@ -407,16 +402,10 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
     {
         treeElem.SiteID = globalRoles ? 0 : CurrentSiteID;
 
-        // Use gievn RoleID if explicitly given
+        // Use given RoleID if explicitly given
         treeElem.RoleID = RoleID > 0 ? RoleID : ValidationHelper.GetInteger(selectRole.Value, 0);
-        if (ResourceID > 0)
-        {
-            treeElem.ModuleID = ResourceID;
-        }
-        else
-        {
-            treeElem.ModuleID = ValidationHelper.GetInteger(selectModule.Value, 0);
-        }
+        treeElem.ModuleID = ResourceID > 0 ? ResourceID : ValidationHelper.GetInteger(selectModule.Value, 0);
+
         if (treeElem.RoleID > 0)
         {
             treeElem.ReloadData();
@@ -433,10 +422,8 @@ public partial class CMSModules_UIPersonalization_Controls_UIPersonalization : C
         {
             return SiteID;
         }
-        else
-        {
-            return (URLHelper.IsPostback() ? selectSite.SiteID : SiteContext.CurrentSiteID);
-        }
+
+        return RequestHelper.IsPostBack() ? selectSite.SiteID : SiteContext.CurrentSiteID;
     }
 
     #endregion

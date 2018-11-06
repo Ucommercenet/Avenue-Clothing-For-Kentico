@@ -552,6 +552,19 @@ public partial class CMSModules_Reporting_Controls_DisplayReport : AbstractRepor
                 return 0;
             }
 
+            // Check 'SaveReports' permission
+            if (!CurrentUser.IsAuthorizedPerResource("cms.reporting", "SaveReports"))
+            {
+                Visible = false;
+                return 0;
+            }
+
+            // Validate report parameters
+            if (!formParameters.ValidateData())
+            {
+                return 0;
+            }
+
             try
             {
                 // Save saved report info object
@@ -596,7 +609,7 @@ public partial class CMSModules_Reporting_Controls_DisplayReport : AbstractRepor
                 mSaveMode = false;
 
                 // When no 'read' for reporting - reload data with mSaveMode set to false. This will prevent GetReportGraph.aspx to stop rendering graph.
-                if (!MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("cms.reporting", "read"))
+                if (!CurrentUser.IsAuthorizedPerResource("cms.reporting", "read"))
                 {
                     ReloadData(true);
                 }

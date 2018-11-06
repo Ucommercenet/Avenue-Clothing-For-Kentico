@@ -36,7 +36,7 @@ public partial class CMSModules_PortalEngine_UI_PageTemplates_Scopes_PageTemplat
         }
 
         // Show changes saved message
-        if (QueryHelper.GetInteger("saved", 0) == 1 && !URLHelper.IsPostback())
+        if (QueryHelper.GetInteger("saved", 0) == 1 && !RequestHelper.IsPostBack())
         {
             ShowChangesSaved();
         }

@@ -45,7 +45,7 @@ public partial class _Default {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.ToolkitScriptManager manScript;
+    protected global::System.Web.UI.ScriptManager manScript;
     
     /// <summary>
     /// manPortal control.

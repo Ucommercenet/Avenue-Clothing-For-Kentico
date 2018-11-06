@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CatalogSetName.Text" xml:space="preserve">
+  <data name="Ucommerce_CatalogSetName.Text" xml:space="preserve">
     <value>Gruppe</value>
   </data>
-  <data name="CompletedDate.Text" xml:space="preserve">
+  <data name="Ucommerce_CompletedDate.Text" xml:space="preserve">
     <value>Gennemført</value>
   </data>
-  <data name="Currency.Text" xml:space="preserve">
+  <data name="Ucommerce_Currency.Text" xml:space="preserve">
     <value>Valuta</value>
   </data>
-  <data name="CustomerName.Text" xml:space="preserve">
+  <data name="Ucommerce_CustomerName.Text" xml:space="preserve">
     <value>Kunde</value>
   </data>
-  <data name="Ordernumber.Text" xml:space="preserve">
+  <data name="Ucommerce_Ordernumber.Text" xml:space="preserve">
     <value>Ordrenummer</value>
   </data>
-  <data name="OrderTotal.Text" xml:space="preserve">
+  <data name="Ucommerce_OrderTotal.Text" xml:space="preserve">
     <value>Ordretotal</value>
   </data>
-  <data name="Status.Text" xml:space="preserve">
+  <data name="Ucommerce_Status.Text" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="OrderHeader.Text" xml:space="preserve">

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 
 using CMS.Base;
 using CMS.Base.Web.UI;
@@ -222,7 +222,7 @@ public partial class CMSModules_Friends_Controls_Friends_Request : FriendsAction
                     Comment = txtComment.Text;
                     SendMail = chkSendEmail.Checked;
                     SendMessage = chkSendMessage.Checked;
-                    SelectedFriends = new ArrayList();
+                    SelectedFriends = new List<int>();
                     SelectedFriends.Add(RequestedUserID);
                     AutomaticApprovment = chkAutomaticApprove.Checked;
 

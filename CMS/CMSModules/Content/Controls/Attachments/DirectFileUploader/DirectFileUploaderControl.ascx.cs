@@ -416,15 +416,6 @@ public partial class CMSModules_Content_Controls_Attachments_DirectFileUploader_
                             obj[DialogParameters.IMG_WIDTH] = newAttachment.AttachmentImageWidth;
                             obj[DialogParameters.IMG_HEIGHT] = newAttachment.AttachmentImageHeight;
                         }
-                        else if (MediaHelper.IsFlash(newAttachment.AttachmentExtension))
-                        {
-                            obj[DialogParameters.OBJECT_TYPE] = "flash";
-                            obj[DialogParameters.FLASH_URL] = url;
-                            obj[DialogParameters.FLASH_EXT] = newAttachment.AttachmentExtension;
-                            obj[DialogParameters.FLASH_TITLE] = newAttachment.AttachmentName;
-                            obj[DialogParameters.FLASH_WIDTH] = DEFAULT_OBJECT_WIDTH;
-                            obj[DialogParameters.FLASH_HEIGHT] = DEFAULT_OBJECT_HEIGHT;
-                        }
                         else if (MediaHelper.IsAudioVideo(newAttachment.AttachmentExtension))
                         {
                             obj[DialogParameters.OBJECT_TYPE] = "audiovideo";
@@ -612,12 +603,6 @@ if ((window.parent != null) && (/parentelemid={0}/i.test(window.location.href)) 
 
             // Add the file
             DocumentHelper.AddAttachment(node, "FileAttachment", ucFileUpload.PostedFile, ResizeToWidth, ResizeToHeight, ResizeToMaxSideSize);
-
-            // Create default SKU if configured
-            if (ModuleManager.CheckModuleLicense(ModuleName.ECOMMERCE, RequestContext.CurrentDomain, FeatureEnum.Ecommerce, ObjectActionEnum.Insert))
-            {
-                node.CreateDefaultSKU();
-            }
 
             // Update the document
             DocumentHelper.UpdateDocument(node, TreeProvider);

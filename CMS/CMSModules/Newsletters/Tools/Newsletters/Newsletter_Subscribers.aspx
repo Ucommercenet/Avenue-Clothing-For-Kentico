@@ -21,7 +21,7 @@
                 <asp:Literal runat="server" ID="ltlTotalRecipientsCount" />
             </h4>
             <cms:UniGrid ID="UniGridSubscribers" runat="server" ShortID="g" OrderBy="SubscriberFullName"
-                IsLiveSite="false" ShowObjectMenu="false" ObjectType="newsletter.subscribernewsletterlist" Columns="SubscriberID, NewsletterID, SubscriberFullName, SubscriberEmail, SubscriptionApproved, SubscriberType, SubscriberBounces, SubscriberRelatedID, SubscriberNewsletterID">
+                IsLiveSite="false" ShowObjectMenu="false" ObjectType="newsletter.subscribernewsletterlist" Columns="SubscriberID, NewsletterID, SubscriberFullName, SubscriberEmail, SubscriptionApproved, SubscriberType, SubscriberRelatedID, SubscriberNewsletterID">
                 <GridActions>
                     <ug:Action Name="remove" Caption="$newsletter.deletesubscription$" FontIconClass="icon-bin" FontIconStyle="Critical"
                         Confirmation="$Unigrid.Subscribers.Actions.RemoveSubscription.Confirmation$" />

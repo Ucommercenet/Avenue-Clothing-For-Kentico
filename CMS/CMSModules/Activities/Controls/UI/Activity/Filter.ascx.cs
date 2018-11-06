@@ -132,7 +132,6 @@ public partial class CMSModules_Activities_Controls_UI_Activity_Filter : CMSAbst
         fltTimeBetween.Clear();
         fltContact.ResetFilter();
         fltName.ResetFilter();
-        fltIP.ResetFilter();
         siteSelector.Value = UniSelector.US_ALL_RECORDS;
     }
 
@@ -192,7 +191,6 @@ public partial class CMSModules_Activities_Controls_UI_Activity_Filter : CMSAbst
             whereCond = SqlHelper.AddWhereCondition(whereCond, fltContact.GetCondition());
         }
 
-        whereCond = SqlHelper.AddWhereCondition(whereCond, fltIP.GetCondition());
         whereCond = SqlHelper.AddWhereCondition(whereCond, fltName.GetCondition());
         whereCond = SqlHelper.AddWhereCondition(whereCond, fltTimeBetween.GetCondition());
 

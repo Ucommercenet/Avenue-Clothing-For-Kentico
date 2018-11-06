@@ -21,6 +21,8 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
 {
     #region "Constants"
 
+    private const string ONLINE_USERS_MODE = "online";
+
     private const string GROUP_SELECTOR_PATH = "~/CMSModules/Groups/FormControls/MembershipGroupSelector.ascx";
     private const string SCORE_SELECTOR_PATH = "~/CMSModules/Scoring/FormControls/SelectScore.ascx";
 
@@ -219,21 +221,6 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
 
 
     /// <summary>
-    /// Gets button used to toggle filter's advanced mode.
-    /// </summary>
-    public override IButtonControl ToggleAdvancedModeButton
-    {
-        get
-        {
-            SetCorrectFilterMode();
-
-            // Advanced mode has already been switched this postback.
-            return mIsAdvancedMode ? lnkShowAdvancedFilter : lnkShowSimpleFilter;
-        }
-    }
-
-
-    /// <summary>
     /// Indicates if contacts can be displayed.
     /// </summary>
     public bool DisplayContacts
@@ -273,10 +260,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     protected void btnReset_Click(object sender, EventArgs e)
     {
         UniGrid grid = FilteredControl as UniGrid;
-        if (grid != null)
-        {
-            grid.Reset();
-        }
+        grid?.Reset();
     }
 
 
@@ -286,10 +270,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         UniGrid grid = FilteredControl as UniGrid;
-        if (grid != null)
-        {
-            grid.ApplyFilter(sender, e);
-        }
+        grid?.ApplyFilter(sender, e);
     }
 
     #endregion
@@ -306,7 +287,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
 
         // Do not allow other than current site ID out of global scope.
         var uiContext = UIContextHelper.GetUIContext(this);
-        SiteID = ApplicationUIHelper.IsInGlobalApplicationScope(uiContext.UIElement) ? querySiteID : SiteContext.CurrentSiteID;
+        SiteID = ApplicationUIHelper.IsAccessibleOnlyByGlobalAdministrator(uiContext.UIElement) ? querySiteID : SiteContext.CurrentSiteID;
 
         if (ModuleEntryManager.IsModuleLoaded(ModuleName.COMMUNITY))
         {
@@ -375,7 +356,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
         // Score selector is not null only if DisplayScore is true
         if (mScoreSelector != null)
         {
-            if ((CurrentMode == "online") && DisplayContacts)
+            if (IsOnlineUsersUI() && DisplayContacts)
             {
                 plcScore.Visible = true;
 
@@ -572,12 +553,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     /// </summary>
     private static bool ShowPrivilegeLevelFilter(UniGrid grid)
     {
-        if ((grid == null) || (grid.InfoObject == null) || (grid.InfoObject.TypeInfo == null))
-        {
-            return false;
-        }
-
-        return (grid.InfoObject.TypeInfo.OriginalObjectType == PredefinedObjectType.USER);
+        return (grid?.InfoObject?.TypeInfo?.OriginalObjectType == PredefinedObjectType.USER);
     }
 
 
@@ -641,8 +617,6 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     private void InitializeForm()
     {
         // General UI
-        lnkShowAdvancedFilter.Text = GetString("general.displayadvancedfilter");
-        lnkShowSimpleFilter.Text = GetString("general.displaysimplefilter");
         pnlSimpleFilter.Visible = !mIsAdvancedMode;
         pnlAdvancedFilter.Visible = mIsAdvancedMode;
 
@@ -669,7 +643,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     /// </summary>
     private void SetCorrectFilterMode()
     {
-        if (URLHelper.IsPostback())
+        if (RequestHelper.IsPostBack())
         {
             // Get current event target
             string uniqieId = ValidationHelper.GetString(Request.Params[Page.postEventSourceID], String.Empty);
@@ -697,6 +671,8 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     /// </summary>
     protected void lnkShowAdvancedFilter_Click(object sender, EventArgs e)
     {
+        UniGrid grid = FilteredControl as UniGrid;
+        grid?.Reset();
         SetFilterMode(true);
     }
 
@@ -706,6 +682,8 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     /// </summary>
     protected void lnkShowSimpleFilter_Click(object sender, EventArgs e)
     {
+        UniGrid grid = FilteredControl as UniGrid;
+        grid?.Reset();
         SetFilterMode(false);
     }
 
@@ -726,7 +704,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     /// <summary>
     /// Generates where condition for advanced filter.
     /// </summary>
-    public WhereCondition AdvancedSearch()
+    private WhereCondition GetAdvancedSearchCondition()
     {
         var whereCondition = new WhereCondition()
             .Where(fltUserName.GetCondition())
@@ -750,7 +728,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     /// <summary>
     /// Generates where condition for simple filter.
     /// </summary>
-    public WhereCondition SimpleSearch()
+    private WhereCondition GetSimpleSearchCondition()
     {
         if (txtSearch.Text == String.Empty)
         {
@@ -790,7 +768,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
                 searchExpression = searchExpression.Trim('"');
                 break;
             case QueryOperator.Like:
-                searchExpression = String.Format("%{0}%", SqlHelper.EscapeLikeText(searchExpression));
+                searchExpression = $"%{SqlHelper.EscapeLikeText(searchExpression)}%";
                 break;
         }
 
@@ -824,7 +802,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
         SetCorrectFilterMode();
 
         // Create first where condition depending on mode
-        WhereCondition whereCondition = mIsAdvancedMode ? AdvancedSearch() : SimpleSearch();
+        WhereCondition whereCondition = mIsAdvancedMode ? GetAdvancedSearchCondition() : GetSimpleSearchCondition();
 
         int siteId = SiteID;
         if (SelectedSite > 0)
@@ -834,7 +812,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
 
         if (SessionInsteadOfUser)
         {
-            AddSessionCondition(whereCondition, siteId);
+            AddSessionCondition(ref whereCondition);
         }
         else
         {
@@ -848,25 +826,29 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     /// <summary>
     /// Adds session condition to given <see paramref="whereCondition"/>.
     /// </summary>
-    private void AddSessionCondition(WhereCondition whereCondition, int siteID)
+    private void AddSessionCondition(ref WhereCondition whereCondition)
     {
-        if (siteID > 0)
+        var sessionCondition = new WhereCondition();
+
+        if (SelectedSite > 0 && IncludeSiteCondition())
         {
-            whereCondition.WhereEquals("SessionSiteID", siteID);
+            sessionCondition.WhereEquals("SessionSiteID", SelectedSite);
         }
 
         if (!DisplayGuests)
         {
-            whereCondition.WhereGreaterThan("SessionUserID", 0);
+            sessionCondition.WhereGreaterThan("SessionUserID", 0);
         }
 
         if (chkDisplayHidden.Visible && !chkDisplayHidden.Checked)
         {
-            whereCondition.Where(new WhereCondition()
+            sessionCondition.Where(new WhereCondition()
                 .WhereEquals("SessionUserIsHidden", 0)
                 .Or()
                 .WhereNull("SessionUserID"));
         }
+
+        whereCondition = new WhereCondition(whereCondition, sessionCondition);
     }
 
 
@@ -877,7 +859,7 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
     {
         whereCondition.WhereGreaterThan("UserID", 0);
 
-        if (siteID > 0)
+        if (siteID > 0 && IncludeSiteCondition())
         {
             whereCondition.WhereIn("UserID", UserSiteInfoProvider.GetUserSites()
                 .Column("UserID")
@@ -1094,6 +1076,32 @@ public partial class CMSModules_Membership_Controls_Users_UserFilter : CMSAbstra
         return new WhereCondition().WhereIn(userIdColumn, query);
     }
 
+
+    #endregion
+
+
+    #region "Private methods"
+
+    /// <summary>
+    /// Returns true, if site condition should be included in the filter.
+    /// Site condition should not be applied, if the user is global admin as well as the filter is placed 
+    /// in online marketing UI within 'Users' application with 'sharing site accounts amongst sites' setting turned on.
+    /// </summary>
+    private bool IncludeSiteCondition()
+    {
+        return !(IsOnlineUsersUI() &&
+                (CMSActionContext.CurrentUser?.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin) ?? false) &&
+                SettingsKeyInfoProvider.GetBoolValue("CMSSiteSharedAccounts"));
+    }
+
+
+    /// <summary>
+    /// Returns true, if the filter is placed in Online Users UI.
+    /// </summary>
+    private bool IsOnlineUsersUI()
+    {
+        return ONLINE_USERS_MODE.Equals(CurrentMode, StringComparison.OrdinalIgnoreCase);
+    }
 
     #endregion
 }

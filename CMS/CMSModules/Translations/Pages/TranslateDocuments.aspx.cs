@@ -36,13 +36,8 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
     private string[] nodeIdsArr;
     private int cancelNodeId;
     private CurrentUserInfo currentUser;
-    private SiteInfo currentSite;
 
     private Hashtable mParameters;
-
-    private readonly string defaultCulture = CultureHelper.GetDefaultCultureCode(SiteContext.CurrentSiteName);
-    private readonly string currentUICulture = CultureHelper.PreferredUICultureCode;
-    private readonly string currentCulture = LocalizationContext.CurrentCulture.CultureCode;
 
     private bool allowTranslate = true;
 
@@ -213,8 +208,6 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
 
         // Initialize current user
         currentUser = MembershipContext.AuthenticatedUser;
-        // Initialize current site
-        currentSite = SiteContext.CurrentSite;
 
         // Initialize events
         ctlAsyncLog.OnFinished += ctlAsyncLog_OnFinished;
@@ -229,6 +222,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
             translationElem.DisplayMachineServices = false;
         }
 
+        var currentCulture = LocalizationContext.CurrentCulture.CultureCode;
         var displayTargetLanguage = !IsDialog || isSelect;
         translationElem.DisplayTargetlanguage = displayTargetLanguage;
 
@@ -240,7 +234,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
         settings.TargetLanguages.AddRange(targetCultures);
 
         var useCurrentAsDefault = QueryHelper.GetBoolean("currentastargetdefault", false);
-        if (!currentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin) && currentUser.UserHasAllowedCultures && !currentUser.IsCultureAllowed(currentCulture, SiteContext.CurrentSiteName))
+        if (!currentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.Admin) && currentUser.UserHasAllowedCultures && !currentUser.IsCultureAllowed(currentCulture, CurrentSiteName))
         {
             // Do not use current culture as default if user has no permissions to edit it
             useCurrentAsDefault = false;
@@ -249,6 +243,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
         translationElem.UseCurrentCultureAsDefaultTarget = useCurrentAsDefault;
 
         // Do not include default culture if it is current one
+        string defaultCulture = CultureHelper.GetDefaultCultureCode(CurrentSiteName);
         if (useCurrentAsDefault && !string.Equals(currentCulture, defaultCulture, StringComparison.InvariantCultureIgnoreCase) && !RequestHelper.IsPostBack())
         {
             settings.TargetLanguages.Add(currentCulture);
@@ -314,7 +309,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
                 var where = new WhereCondition(WhereCondition)
                     .WhereNotEquals("ClassName", SystemDocumentTypes.Root);
 
-                allDocs = tree.SelectNodes(currentSite.SiteName, parentAliasPath.TrimEnd(new[] { '/' }) + "/%",
+                allDocs = tree.SelectNodes(CurrentSiteName, parentAliasPath.TrimEnd(new[] { '/' }) + "/%",
                     TreeProvider.ALL_CULTURES, true, ClassID > 0 ? DataClassInfoProvider.GetClassName(ClassID) : TreeProvider.ALL_CLASSNAMES, where.ToString(true),
                     "DocumentName", AllLevels ? TreeProvider.ALL_LEVELS : 1, false, 0,
                     DocumentColumnLists.SELECTNODES_REQUIRED_COLUMNS + ",DocumentName,NodeParentID,NodeSiteID,NodeAliasPath");
@@ -334,7 +329,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
             if (nodeIds.Count > 0)
             {
                 var where = new WhereCondition().WhereIn("NodeID", nodeIds).ToString(true);
-                DataSet ds = allDocs ?? tree.SelectNodes(currentSite.SiteName, "/%", TreeProvider.ALL_CULTURES, true, null, where, "DocumentName", TreeProvider.ALL_LEVELS, false);
+                DataSet ds = allDocs ?? tree.SelectNodes(CurrentSiteName, "/%", TreeProvider.ALL_CULTURES, true, null, where, "DocumentName", TreeProvider.ALL_LEVELS, false);
 
                 if (!DataHelper.DataSourceIsEmpty(ds))
                 {
@@ -342,7 +337,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
 
                     cancelNodeId = string.IsNullOrEmpty(parentAliasPath)
                         ? DataHelper.GetIntValue(ds.Tables[0].Rows[0], "NodeParentID")
-                        : TreePathUtils.GetNodeIdByAliasPath(currentSite.SiteName, parentAliasPath);
+                        : TreePathUtils.GetNodeIdByAliasPath(CurrentSiteName, parentAliasPath);
 
                     foreach (DataTable table in ds.Tables)
                     {
@@ -493,7 +488,14 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
 
         CurrentError = string.Empty;
 
-        ctlAsyncLog.RunAsync(p => Translate(AllLevels), WindowsIdentity.GetCurrent());
+        var parameters = new AsyncParameters
+        {
+            IsDialog = IsDialog,
+            AllLevels = AllLevels,
+            UICulture = CultureHelper.PreferredUICultureCode
+        };
+
+        ctlAsyncLog.RunAsync(p => Translate(parameters), WindowsIdentity.GetCurrent());
     }
 
     #endregion
@@ -506,7 +508,8 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
     /// </summary>
     private void Translate(object parameter)
     {
-        if ((parameter == null) || nodeIds.Count < 1)
+        var parameters = parameter as AsyncParameters;
+        if ((parameters == null) || nodeIds.Count < 1)
         {
             return;
         }
@@ -530,7 +533,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
         try
         {
             // Begin log
-            AddLog(ResHelper.GetString("contentrequest.starttranslate", currentUICulture));
+            AddLog(ResHelper.GetString("contentrequest.starttranslate", parameters.UICulture));
 
             // Prepare translation settings
             var settings = PrepareTranslationSettings();
@@ -568,7 +571,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
                                .Published(false)
                                .Culture(settings.SourceLanguage)
                                .WhereIn("NodeID", nodeIds)
-                               .OnSite(SiteContext.CurrentSiteName)
+                               .OnSite(CurrentSiteName)
                                .OrderBy("NodeLevel, NodeAliasPath")
                                .Column("NodeID");
 
@@ -598,7 +601,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
                         if ((submission == null) && (humanService != null))
                         {
                             // Create new submission if not exists for human translation service
-                            submission = TranslationServiceHelper.CreateSubmissionInfo(settings, service, MembershipContext.AuthenticatedUser.UserID, SiteContext.CurrentSiteID, node.GetDocumentName());
+                            submission = TranslationServiceHelper.CreateSubmissionInfo(settings, service, MembershipContext.AuthenticatedUser.UserID, SiteInfoProvider.GetSiteID(CurrentSiteName), node.GetDocumentName());
                         }
 
                         // Handle duplicities
@@ -697,12 +700,12 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
                 }
                 else
                 {
-                    AddError(ResHelper.GetString("TranslateDocument.NoSourceDocuments", currentUICulture));
+                    AddError(ResHelper.GetString("TranslateDocument.NoSourceDocuments", parameters.UICulture));
                 }
             }
             else
             {
-                AddError(ResHelper.GetString("TranslateDocument.TranslationServiceNotFound", currentUICulture));
+                AddError(ResHelper.GetString("TranslateDocument.TranslationServiceNotFound", parameters.UICulture));
             }
         }
         catch (ThreadAbortException ex)
@@ -710,18 +713,18 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
             if (CMSThread.Stopped(ex))
             {
                 // When canceled
-                AddError(ResHelper.GetString("TranslateDocument.TranslationCanceled", currentUICulture));
+                AddError(ResHelper.GetString("TranslateDocument.TranslationCanceled", parameters.UICulture));
             }
             else
             {
                 // Log error
-                LogExceptionToEventLog(ex);
+                LogExceptionToEventLog(ex, parameters.UICulture);
             }
         }
         catch (Exception ex)
         {
             // Log error
-            LogExceptionToEventLog(ex);
+            LogExceptionToEventLog(ex, parameters.UICulture);
         }
         finally
         {
@@ -760,10 +763,10 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
 
             if (showAllAlreadyTranslatedError)
             {
-                AddError(ResHelper.GetString("TranslateDocument.DocumentsAlreadyTranslated", currentUICulture));
+                AddError(ResHelper.GetString("TranslateDocument.DocumentsAlreadyTranslated", parameters.UICulture));
             }
 
-            if (IsDialog)
+            if (parameters.IsDialog)
             {
                 ctlAsyncLog.Parameter = "wopener.location.replace(wopener.location); CloseDialog(); if (wopener.RefreshTree) { wopener.RefreshTree(null, null);}";
             }
@@ -772,7 +775,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
                 if (string.IsNullOrEmpty(CurrentError))
                 {
                     // Overwrite refreshId variable if sub-levels are visible
-                    if (ValidationHelper.GetBoolean(parameter, false) && Parameters.ContainsKey("refreshnodeid"))
+                    if (parameters.AllLevels && Parameters.ContainsKey("refreshnodeid"))
                     {
                         refreshId = ValidationHelper.GetInteger(Parameters["refreshnodeid"], 0);
                     }
@@ -822,7 +825,7 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
     {
         var settings = new TranslationSettings
         {
-            TranslateWebpartProperties = SettingsKeyInfoProvider.GetBoolValue(SiteContext.CurrentSiteName + ".CMSTranslateWebpartProperties"),
+            TranslateWebpartProperties = SettingsKeyInfoProvider.GetBoolValue(CurrentSiteName + ".CMSTranslateWebpartProperties"),
             SourceLanguage = translationElem.FromLanguage,
             Instructions = translationElem.Instructions,
             Priority = translationElem.Priority,
@@ -873,9 +876,6 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
 
     #region "Help methods"
 
-    /// <summary>
-    /// Hides UI
-    /// </summary>
     private void HideUI()
     {
         pnlButtons.Visible = false;
@@ -885,22 +885,14 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
     }
 
 
-    /// <summary>
-    /// When exception occurs, log it to event log.
-    /// </summary>
-    /// <param name="ex">Exception to log</param>
-    private void LogExceptionToEventLog(Exception ex)
+    private void LogExceptionToEventLog(Exception ex, string uiCulture)
     {
-        EventLogProvider.LogEvent(EventType.ERROR, "Content", "TRANSLATEDOC", EventLogProvider.GetExceptionLogMessage(ex), RequestContext.RawURL, currentUser.UserID, currentUser.UserName, 0, null, RequestContext.UserHostAddress, currentSite.SiteID);
+        EventLogProvider.LogEvent(EventType.ERROR, "Content", "TRANSLATEDOC", EventLogProvider.GetExceptionLogMessage(ex), RequestContext.RawURL, currentUser.UserID, currentUser.UserName, 0, null, RequestContext.UserHostAddress, SiteInfoProvider.GetSiteID(CurrentSiteName));
 
-        AddError(ResHelper.GetString("ContentRequest.TranslationFailed", currentUICulture) + ex.Message);
+        AddError(ResHelper.GetString("ContentRequest.TranslationFailed", uiCulture) + ex.Message);
     }
 
 
-    /// <summary>
-    /// Adds the script to the output request window.
-    /// </summary>
-    /// <param name="script">Script to add</param>
     public override void AddScript(string script)
     {
         ltlScript.Text += ScriptHelper.GetScript(script);
@@ -974,4 +966,28 @@ public partial class CMSModules_Translations_Pages_TranslateDocuments : CMSTrans
     }
 
     #endregion
+
+
+    private class AsyncParameters
+    {
+        public bool IsDialog
+        {
+            get;
+            set;
+        }
+
+
+        public bool AllLevels
+        {
+            get;
+            set;
+        }
+
+
+        public string UICulture
+        {
+            get;
+            set;
+        }
+    }
 }

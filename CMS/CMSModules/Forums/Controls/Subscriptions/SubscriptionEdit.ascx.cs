@@ -165,7 +165,7 @@ public partial class CMSModules_Forums_Controls_Subscriptions_SubscriptionEdit :
             chkSendConfirmationEmail.Checked = false;
         }
 
-        if (saved && !URLHelper.IsPostback())
+        if (saved && !RequestHelper.IsPostBack())
         {
             ShowChangesSaved();
         }

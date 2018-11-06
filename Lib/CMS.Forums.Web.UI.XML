@@ -53,22 +53,6 @@
             Forum posts data source server control.
             </summary>
         </member>
-        <member name="M:CMS.Forums.Web.UI.ForumPostsDataSource.GetDataSourceFromDB">
-            <summary>
-            Gets datasource from DB.
-            </summary>
-            <returns>Dataset as object</returns>
-        </member>
-        <member name="M:CMS.Forums.Web.UI.ForumPostsDataSource.GetDefaultCacheKey">
-            <summary>
-            Gets the default cache key.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.Web.UI.ForumPostsDataSource.GetDefaultCacheDependencies">
-            <summary>
-            Gets the default cache dependencies for the data source.
-            </summary>
-        </member>
         <member name="P:CMS.Forums.Web.UI.ForumPostsDataSource.SelectOnlyApproved">
             <summary>
             Gets or sets select only approved property.
@@ -99,9 +83,40 @@
             Indicates whether distinct keyword should be used.
             </summary>
         </member>
+        <member name="M:CMS.Forums.Web.UI.ForumPostsDataSource.GetDataSourceFromDB">
+            <summary>
+            Gets datasource from DB.
+            </summary>
+            <returns>Dataset as object</returns>
+        </member>
+        <member name="M:CMS.Forums.Web.UI.ForumPostsDataSource.GetDefaultCacheKey">
+            <summary>
+            Gets the default cache key.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.Web.UI.ForumPostsDataSource.GetDefaultCacheDependencies">
+            <summary>
+            Gets the default cache dependencies for the data source.
+            </summary>
+        </member>
         <member name="T:CMS.Forums.Web.UI.ForumPostTreeNode">
             <summary>
             Tree node definition for the forum post tree.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumPostTreeNode.TreeNode">
+            <summary>
+            Property to get and set the inner TreeNode.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumPostTreeNode.ItemData">
+            <summary>
+            Property to get and set the inner object.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumPostTreeNode.ChildNodesLoaded">
+            <summary>
+            Flag saying whether the child nodes are already loaded to the node.
             </summary>
         </member>
         <member name="M:CMS.Forums.Web.UI.ForumPostTreeNode.#ctor(System.Web.SiteMapProvider,System.String)">
@@ -138,21 +153,6 @@
             <param name="title">Node title</param>
             <param name="description">Node description</param>
         </member>
-        <member name="P:CMS.Forums.Web.UI.ForumPostTreeNode.TreeNode">
-            <summary>
-            Property to get and set the inner TreeNode.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumPostTreeNode.ItemData">
-            <summary>
-            Property to get and set the inner object.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumPostTreeNode.ChildNodesLoaded">
-            <summary>
-            Flag saying whether the child nodes are already loaded to the node.
-            </summary>
-        </member>
         <member name="T:CMS.Forums.Web.UI.ForumPostTreeProvider">
             <summary>
             Forum posts tree provider.
@@ -161,27 +161,6 @@
         <member name="F:CMS.Forums.Web.UI.ForumPostTreeProvider.ALL_LEVELS">
             <summary>
             All relative levels.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.GetRootNodeCore">
-            <summary>
-            Returns the root sitemap node.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.BuildSiteMap">
-            <summary>
-            Performs the sitemap build.
-            </summary>
-        </member>
-        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.GetNodeById(System.Int32)">
-            <summary>
-            Returns the node specified by given Node ID.
-            </summary>
-            <param name="nodeId">Node ID to retrieve</param>
-        </member>
-        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.GetChildNodes(System.Int32,System.Boolean)">
-            <summary>
-            Returns the set of child nodes for the specified node.
             </summary>
         </member>
         <member name="P:CMS.Forums.Web.UI.ForumPostTreeProvider.ForumID">
@@ -250,6 +229,27 @@
             Property to get Sitemap root node.
             </summary>
         </member>
+        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.GetRootNodeCore">
+            <summary>
+            Returns the root sitemap node.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.BuildSiteMap">
+            <summary>
+            Performs the sitemap build.
+            </summary>
+        </member>
+        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.GetNodeById(System.Int32)">
+            <summary>
+            Returns the node specified by given Node ID.
+            </summary>
+            <param name="nodeId">Node ID to retrieve</param>
+        </member>
+        <member name="M:CMS.Forums.Web.UI.ForumPostTreeProvider.GetChildNodes(System.Int32,System.Boolean)">
+            <summary>
+            Returns the set of child nodes for the specified node.
+            </summary>
+        </member>
         <member name="T:CMS.Forums.Web.UI.ForumViewer">
             <summary>
             Summary description for ForumViewer.
@@ -268,6 +268,260 @@
         <member name="F:CMS.Forums.Web.UI.ForumViewer.mSiteId">
             <summary>
             Current site id.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.SiteName">
+            <summary>
+            Gets or sets the site name which should be used for current control.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.SiteID">
+            <summary>
+            Gets or sets the site id which should be used for current control.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.AbuseReportRoles">
+            <summary>
+            Gets or sets the roles split by semicolon, which roles can report abuse, requires  security access state authorize roles.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.AbuseReportAccess">
+            <summary>
+            Gets or sets the security access enum to abuse report (Authenticated users by default).
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableSubscription">
+            <summary>
+            Gets or sets the value that indicates whether subscription is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableOnSiteManagement">
+            <summary>
+            Gets or sets the value that indicates whether onsite management is allowed.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.GenerateActionScripts">
+            <summary>
+            Gets or sets the value that indicates whether action scripts should be generated.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.WhereCondition">
+            <summary>
+            Gets or sets the where condition.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.CommunityGroupID">
+            <summary>
+            Gets or sets the community group id.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.RedirectToUserProfile">
+            <summary>
+            Gets or sets the value that indicates whether username is link to user profile.
+            User profile path must be defined in site settings
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.DisplayBadgeInfo">
+            <summary>
+            Gets or sets the value that indicates whether badge info should be displayed.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.MaxRelativeLevel">
+            <summary>
+            Gets or sets the maximal nesting level of posts.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchNoResults">
+            <summary>
+            Gets or sets the text which should be displayed if no result found.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchInGroups">
+            <summary>
+            Gets or sets the groups names in which should be search proceeded, use semicolon like separator.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchInForums">
+            <summary>
+            Gets or sets the forums in which should be search performed.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchInThreads">
+            <summary>
+            Gets or sets the threads where search should be performed.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableFavorites">
+            <summary>
+            Indicates whether user can add the posts to his favorites.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableSignature">
+            <summary>
+            Indicates whether user signature should be displayed.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ExpandTree">
+            <summary>
+            Gets or sets the value that indicates whether forum with tree layout should be expanded.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ShowMode">
+            <summary>
+            Gets or sets the tree forum show mode.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.PostsPageSize">
+            <summary>
+            Gets or sets the size of posts page size.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnablePostsPaging">
+            <summary>
+            Gets or sets the value that indicates whether paging should be used on posts list page.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ThreadPageSize">
+            <summary>
+            Gets or sets the size of thread list page.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableThreadPaging">
+            <summary>
+            Gets or sets the value that indicates whether paging should be used on thread list page.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.LogonPageURL">
+            <summary>
+            Gets or sets the logon page URL.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.AccessDeniedPageURL">
+            <summary>
+            Gets or sets the access denied page URL (URL where the user is redirected when 
+            trying to access forum for which the user is unauthorized).
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.RedirectUnauthorized">
+            <summary>
+            Gets or sets the value that indicates whether use should be redirected to logon page
+            if he hasn't appropriate permissions to the requested action.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.HideForumForUnauthorized">
+            <summary>
+            Gets or sets the value that indicates whether the forums for which the user has no permissions
+            are visible in the list of forums in forum group.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.DisplayAttachmentImage">
+            <summary>
+            Gets or sets the value that indicates whether image attachment should be displayed like an image.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ForumViewMode">
+            <summary>
+            Gets or sets the thread view mode.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.AvatarMaxSideSize">
+            <summary>
+            Gets or sets the max side size of avatar image.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableAvatars">
+            <summary>
+            Gets or sets the value that indicates whether avatars should be displayed.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableMessaging">
+            <summary>
+            Gets or sets the value that indicates whether private messaging is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableFriendship">
+            <summary>
+            Gets or sets the value that indicates whether friendship request is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.UseFriendlyURL">
+            <summary>
+            Gets or sets the value that indicates whether forums should generate friendly URLs.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.FriendlyURLExtension">
+            <summary>
+            Gets or sets the friendly URL extension.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.UnsubscriptionURL">
+            <summary>
+            Gets or sets the unsubscription URL.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.BaseURL">
+            <summary>
+            Gets or sets the forum base URL.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.FriendlyBaseURL">
+            <summary>
+            Gets or sets base URL for forum which use friendly URLs, if URL is not set URL is set from current document.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.UseRedirectAfterAction">
+            <summary>
+            Gets or sets the value that indicates whether after action should be used redirect.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ForumLayout">
+            <summary>
+            Gets or sets the forum layout.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.IsAdHocForum">
+            <summary>
+            Gets or sets the value that indicates whether current forum is AdHoc.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ViewMode">
+            <summary>
+            Gets or sets the thread view mode.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ThreadOrderBy">
+            <summary>
+            Gets order by expression with dependence on current view mode.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.AttachmentImageMaxSideSize">
+            <summary>
+            Gets or sets the maximum side size of image shown in post attachment list.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.LogActivity">
+            <summary>
+            Gets or sets value that indicates whether logging activity is performed.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.GroupID">
+            <summary>
+            Gets or sets the group id based on current settings.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ForumID">
+            <summary>
+            Gets or sets the forum id base on current url or settings.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.ThreadID">
+            <summary>
+            Gets or sets the thread id based on current url or settings.
+            </summary>
+        </member>
+        <member name="P:CMS.Forums.Web.UI.ForumViewer.TextGroupsRegExp">
+            <summary>
+            Groups ("sometext") from within the text regular expression.
             </summary>
         </member>
         <member name="M:CMS.Forums.Web.UI.ForumViewer.#ctor">
@@ -575,260 +829,6 @@
             OnPreRender override.
             </summary>
             <param name="e">EventArgs</param>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.SiteName">
-            <summary>
-            Gets or sets the site name which should be used for current control.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.SiteID">
-            <summary>
-            Gets or sets the site id which should be used for current control.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.AbuseReportRoles">
-            <summary>
-            Gets or sets the roles split by semicolon, which roles can report abuse, requires  security access state authorize roles.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.AbuseReportAccess">
-            <summary>
-            Gets or sets the security access enum to abuse report (Authenticated users by default).
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableSubscription">
-            <summary>
-            Gets or sets the value that indicates whether subscription is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableOnSiteManagement">
-            <summary>
-            Gets or sets the value that indicates whether onsite management is allowed.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.GenerateActionScripts">
-            <summary>
-            Gets or sets the value that indicates whether action scripts should be generated.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.WhereCondition">
-            <summary>
-            Gets or sets the where condition.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.CommunityGroupID">
-            <summary>
-            Gets or sets the community group id.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.RedirectToUserProfile">
-            <summary>
-            Gets or sets the value that indicates whether username is link to user profile.
-            User profile path must be defined in site settings
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.DisplayBadgeInfo">
-            <summary>
-            Gets or sets the value that indicates whether badge info should be displayed.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.MaxRelativeLevel">
-            <summary>
-            Gets or sets the maximal nesting level of posts.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchNoResults">
-            <summary>
-            Gets or sets the text which should be displayed if no result found.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchInGroups">
-            <summary>
-            Gets or sets the groups names in which should be search proceeded, use semicolon like separator.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchInForums">
-            <summary>
-            Gets or sets the forums in which should be search performed.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.SearchInThreads">
-            <summary>
-            Gets or sets the threads where search should be performed.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableFavorites">
-            <summary>
-            Indicates whether user can add the posts to his favorites.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableSignature">
-            <summary>
-            Indicates whether user signature should be displayed.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ExpandTree">
-            <summary>
-            Gets or sets the value that indicates whether forum with tree layout should be expanded.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ShowMode">
-            <summary>
-            Gets or sets the tree forum show mode.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.PostsPageSize">
-            <summary>
-            Gets or sets the size of posts page size.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnablePostsPaging">
-            <summary>
-            Gets or sets the value that indicates whether paging should be used on posts list page.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ThreadPageSize">
-            <summary>
-            Gets or sets the size of thread list page.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableThreadPaging">
-            <summary>
-            Gets or sets the value that indicates whether paging should be used on thread list page.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.LogonPageURL">
-            <summary>
-            Gets or sets the logon page URL.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.AccessDeniedPageURL">
-            <summary>
-            Gets or sets the access denied page URL (URL where the user is redirected when 
-            trying to access forum for which the user is unauthorized).
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.RedirectUnauthorized">
-            <summary>
-            Gets or sets the value that indicates whether use should be redirected to logon page
-            if he hasn't appropriate permissions to the requested action.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.HideForumForUnauthorized">
-            <summary>
-            Gets or sets the value that indicates whether the forums for which the user has no permissions
-            are visible in the list of forums in forum group.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.DisplayAttachmentImage">
-            <summary>
-            Gets or sets the value that indicates whether image attachment should be displayed like an image.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ForumViewMode">
-            <summary>
-            Gets or sets the thread view mode.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.AvatarMaxSideSize">
-            <summary>
-            Gets or sets the max side size of avatar image.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableAvatars">
-            <summary>
-            Gets or sets the value that indicates whether avatars should be displayed.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableMessaging">
-            <summary>
-            Gets or sets the value that indicates whether private messaging is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.EnableFriendship">
-            <summary>
-            Gets or sets the value that indicates whether friendship request is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.UseFriendlyURL">
-            <summary>
-            Gets or sets the value that indicates whether forums should generate friendly URLs.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.FriendlyURLExtension">
-            <summary>
-            Gets or sets the friendly URL extension.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.UnsubscriptionURL">
-            <summary>
-            Gets or sets the unsubscription URL.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.BaseURL">
-            <summary>
-            Gets or sets the forum base URL.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.FriendlyBaseURL">
-            <summary>
-            Gets or sets base URL for forum which use friendly URLs, if URL is not set URL is set from current document.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.UseRedirectAfterAction">
-            <summary>
-            Gets or sets the value that indicates whether after action should be used redirect.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ForumLayout">
-            <summary>
-            Gets or sets the forum layout.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.IsAdHocForum">
-            <summary>
-            Gets or sets the value that indicates whether current forum is AdHoc.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ViewMode">
-            <summary>
-            Gets or sets the thread view mode.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ThreadOrderBy">
-            <summary>
-            Gets order by expression with dependence on current view mode.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.AttachmentImageMaxSideSize">
-            <summary>
-            Gets or sets the maximum side size of image shown in post attachment list.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.LogActivity">
-            <summary>
-            Gets or sets value that indicates whether logging activity is performed.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.GroupID">
-            <summary>
-            Gets or sets the group id based on current settings.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ForumID">
-            <summary>
-            Gets or sets the forum id base on current url or settings.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.ThreadID">
-            <summary>
-            Gets or sets the thread id based on current url or settings.
-            </summary>
-        </member>
-        <member name="P:CMS.Forums.Web.UI.ForumViewer.TextGroupsRegExp">
-            <summary>
-            Groups ("sometext") from within the text regular expression.
-            </summary>
         </member>
         <member name="T:CMS.Forums.Web.UI.ForumMethods">
             <summary>

@@ -21,9 +21,6 @@
     <column source="RightNodeID" caption="$Unigrid.Relationship.Columns.RightDocumentType$" wrap="false" externalsourcename="#transform: cms.node.nodeclassid #classname" columnname="RightClassID">
     </column>
   </columns>
-  <pager>
-    <key name="ShowFirstLastButtons" value="false" />
-  </pager>
   <options>
     <key name="DisplayFilter" value="true" />
     <key name="AllowSorting" value="false" />

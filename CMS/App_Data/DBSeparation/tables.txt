@@ -20,3 +20,7 @@ Newsletter_Link
 Newsletter_ClickedLink
 Newsletter_IssueContactGroup
 Personas_Persona
+Personas_PersonaContactHistory
+CMS_Consent
+CMS_ConsentArchive
+CMS_ConsentAgreement

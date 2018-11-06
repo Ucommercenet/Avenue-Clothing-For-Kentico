@@ -21,15 +21,6 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
     protected global::CMS.Base.Web.UI.CMSUpdatePanel pnlU;
     
     /// <summary>
-    /// lblInfo control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.AlertLabel lblInfo;
-    
-    /// <summary>
     /// plcMess control.
     /// </summary>
     /// <remarks>
@@ -73,4 +64,13 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMSModules_Newsletters_Controls_SendVariantIssue sendVariant;
+    
+    /// <summary>
+    /// stChecklist control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CMSAdminControls_UI_SmartTip stChecklist;
 }

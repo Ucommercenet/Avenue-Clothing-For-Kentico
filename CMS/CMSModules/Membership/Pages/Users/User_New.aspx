@@ -8,6 +8,7 @@
     TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/Inputs/EmailInput.ascx" TagName="EmailInput"
     TagPrefix="cms" %>
+<%@ Register Src="~/CMSAdminControls/UI/UniSelector/UniSelector.ascx" TagPrefix="cms" TagName="UniSelector" %>
 
 <asp:Content ID="cntBody" runat="server" ContentPlaceHolderID="plcContent">
     <div class="form-horizontal">
@@ -22,12 +23,11 @@
         </div>
         <div class="form-group">
             <div class="editing-form-label-cell">
-                <cms:LocalizedLabel AssociatedControlID="txtFullName" CssClass="control-label" ID="lblFullName" runat="server" EnableViewState="false" ResourceString="Administration-User_New.FullName" DisplayColon="true" ShowRequiredMark="true" />
+                <cms:LocalizedLabel AssociatedControlID="txtFullName" CssClass="control-label" ID="lblFullName" runat="server" EnableViewState="false" ResourceString="Administration-User_New.FullName"
+                    DisplayColon="true" />
             </div>
             <div class="editing-form-value-cell">
                 <cms:CMSTextBox ID="txtFullName" runat="server" MaxLength="200" />
-                <cms:CMSRequiredFieldValidator ID="RequiredFieldValidatorFullName" runat="server" EnableViewState="false"
-                    ControlToValidate="txtFullName" Display="dynamic" />
             </div>
         </div>
         <div class="form-group">
@@ -56,6 +56,17 @@
                 <cms:PrivilegeLevel runat="server" ID="drpPrivilegeLevel" AssemblyName="CMS.Base" TypeName="CMS.Base.UserPrivilegeLevelEnum" />
             </div>
         </div>
+        <asp:PlaceHolder ID="plcMacroIdentity" runat="server">
+            <div class="form-group">
+                <div class="editing-form-label-cell">
+                    <cms:LocalizedLabel AssociatedControlID="drpMacroIdentity" CssClass="control-label" ID="lblMacroIdentity" runat="server" EnableViewState="false" ResourceString="user.macroidentity" ToolTipResourceString="user.macroidentity.tooltip"
+                        DisplayColon="true" />
+                </div>
+                <div class="editing-form-value-cell">
+                    <cms:UniSelector ID="drpMacroIdentity" runat="server" SelectionMode="SingleDropDownList" ObjectType="CMS.MacroIdentity" ReturnColumnName="MacroIdentityID" OrderBy="MacroIdentityName" />
+                </div>
+            </div>
+        </asp:PlaceHolder>
         <div class="form-group">
             <div class="editing-form-label-cell">
                 <cms:LocalizedLabel CssClass="control-label" ID="lblPassword" ResourceString="Administration-User_New.Password" AssociatedControlID="passStrength"  runat="server" EnableViewState="false" />
