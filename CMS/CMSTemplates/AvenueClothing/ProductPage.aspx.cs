@@ -7,6 +7,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using CMS.PortalEngine;
 using CMS.UIControls;
+using CMSApp.CMSWebParts.Ucommerce.Services;
 using UCommerce.Runtime;
 using UCommerce.EntitiesV2;
 using UCommerce.Api;
@@ -30,7 +31,8 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             if (SiteContext.Current.CatalogContext.CurrentProduct == null)
             {
-                SiteContext.Current.CatalogContext.CurrentProduct = Product.FirstOrDefault(x=>x.DisplayOnSite);
+                var defaultCatalogDataProvider = ObjectFactory.Instance.Resolve<IDefaultCatalogDataProvider>();
+                SiteContext.Current.CatalogContext.CurrentProduct = defaultCatalogDataProvider.GetDefaultProduct();
             }
 
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;

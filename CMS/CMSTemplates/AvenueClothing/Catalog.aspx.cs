@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Linq;
 using CMS.UIControls;
 using UCommerce.Extensions;
 using UCommerce.Infrastructure;
-using UCommerce.Kentico.Content;
 using UCommerce.Runtime;
 using CMS.PortalEngine;
+using CMSApp.CMSWebParts.Ucommerce.Services;
 using UCommerce.Content;
-using UCommerce.EntitiesV2;
 
 namespace CMSApp.CMSTemplates.AvenueClothing
 {
@@ -25,7 +23,9 @@ namespace CMSApp.CMSTemplates.AvenueClothing
 
             if (catalogContext.CurrentCategory == null)
             {
-                catalogContext.CurrentCategory = catalogContext.CurrentCatalog.Categories.FirstOrDefault(x => x.DisplayOnSite && !x.Deleted);
+                var defaultCatalogDataProvider = ObjectFactory.Instance.Resolve<IDefaultCatalogDataProvider>();
+
+                catalogContext.CurrentCategory = defaultCatalogDataProvider.GetDefaultCategory();
             }
 
             CategoryImage.ImageUrl = imageService.GetImage(catalogContext.CurrentCategory.ImageMediaId).Url;
