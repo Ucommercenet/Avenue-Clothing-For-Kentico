@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Data;
 
-using CMS.DataEngine;
 using CMS.DocumentEngine;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.PortalEngine;
+using CMS.DocumentEngine.Internal;
 using CMS.SiteProvider;
 
 
@@ -13,7 +12,7 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_PageTemp
 {
     #region "Variables"
 
-    private TreeNode mNode = null;
+    private TreeNode mNode;
 
     #endregion
 
@@ -99,12 +98,7 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_PageTemp
     {
         get
         {
-            if (mNode == null)
-            {
-                mNode = DocumentManager.Node;
-            }
-
-            return mNode;
+            return mNode ?? (mNode = DocumentManager.Node);
         }
         set
         {
@@ -129,25 +123,13 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_PageTemp
         treeElem.Level = Level;
         if (Node != null)
         {
-            // Try get info whether exist linked document in path
-            DataSet ds = DocumentManager.Tree.SelectNodes(SiteContext.CurrentSiteName, "/%", Node.DocumentCulture, false, null, "NodeLinkedNodeID IS NOT NULL AND (N'" + SqlHelper.EscapeQuotes(Node.NodeAliasPath) + "' LIKE NodeAliasPath + '%')", null, -1, false, 1, "Count(*) AS NumOfDocs");
-
-            // If node is not link or none of parent documents is not linked document use document name path
-            if (!Node.IsLink && DataHelper.GetIntValue(ds.Tables[0].Rows[0], "NumOfDocs") == 0)
-            {
-                TreePath = TreePathUtils.GetParentPath("/" + Node.DocumentNamePath);
-            }
-            else
-            {
-                // Otherwise use alias path
-                TreePath = TreePathUtils.GetParentPath("/" + Node.NodeAliasPath);
-            }
+            TreePath = GetTreePath();
 
             radInheritAll.Text = GetString("InheritLevels.UseTemplateSettigns");
             PageTemplateInfo template = PageTemplateInfoProvider.GetPageTemplateInfo(Node.DocumentPageTemplateID);
             if (template != null)
             {
-                string resString = String.Empty;
+                string resString;
                 string levels = String.Empty;
                 switch (template.InheritPageLevels)
                 {
@@ -164,7 +146,7 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_PageTemp
                         resString = "InheritLevels.SelectedLevels";
 
                         // Format page levels
-                        levels = template.InheritPageLevels.Trim(new[] { '}', '{', '/' });
+                        levels = template.InheritPageLevels.Trim('}', '{', '/');
                         levels = levels.Replace("}/{", ", ");
                         break;
                 }
@@ -181,6 +163,22 @@ public partial class CMSModules_PortalEngine_FormControls_PageTemplates_PageTemp
             radInheritAll.Text = GetString("InheritLevels.InheritAll");
             radSelect.Text = GetString("InheritLevels.SelectTemplate");
         }
+    }
+
+
+    private string GetTreePath()
+    {
+        // Try get info whether exist linked document in path
+        var documentPathContainsLink = DocumentNodeDataInfoProvider.GetDocumentNodes()
+                                                                   .OnSite(SiteContext.CurrentSiteID)
+                                                                   .WhereNotNull("NodeLinkedNodeID")
+                                                                   .Where(TreePathUtils.GetNodesOnPathWhereCondition(Node.NodeAliasPath, false, false))
+                                                                   .Count > 0;
+
+        // If node is not link or none of parent documents is not linked document use document name path
+        var treePath = Node.IsLink || documentPathContainsLink ? Node.NodeAliasPath : Node.DocumentNamePath;
+
+        return TreePathUtils.GetParentPath($"/{treePath}");
     }
 
 

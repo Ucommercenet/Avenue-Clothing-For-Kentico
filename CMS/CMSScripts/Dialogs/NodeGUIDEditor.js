@@ -13,9 +13,6 @@ function InsertSelectedItem(obj){
 				else if ((obj.av_url) && (obj.av_url != '')) {
 					url = obj.av_url;
 				}
-				else if ((obj.flash_url) && (obj.flash_url != '')) {
-					url = obj.flash_url;
-				}
 				else if ((obj.url_url) && (obj.url_url != '')) {
 					url = obj.url_url;
 					guid = (obj.url_guid ? obj.url_guid : null);

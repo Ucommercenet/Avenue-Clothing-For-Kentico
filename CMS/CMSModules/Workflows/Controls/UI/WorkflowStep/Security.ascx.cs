@@ -1,7 +1,4 @@
 ﻿using System;
-
-using CMS.Base;
-
 using System.Linq;
 
 using CMS.Base.Web.UI;
@@ -61,18 +58,7 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
     /// <summary>
     /// Workflow step
     /// </summary>
-    public WorkflowStepInfo WorkflowStep
-    {
-        get
-        {
-            if (mWorkflowStep == null)
-            {
-                mWorkflowStep = WorkflowStepInfoProvider.GetWorkflowStepInfo(WorkflowStepID);
-            }
-
-            return mWorkflowStep;
-        }
-    }
+    public WorkflowStepInfo WorkflowStep => mWorkflowStep ?? (mWorkflowStep = WorkflowStepInfoProvider.GetWorkflowStepInfo(WorkflowStepID));
 
 
     /// <summary>
@@ -82,7 +68,7 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
     {
         get
         {
-            if ((mWorkflow == null) && (WorkflowStep != null))
+            if (mWorkflow == null && WorkflowStep != null)
             {
                 mWorkflow = WorkflowInfoProvider.GetWorkflowInfo(WorkflowStep.StepWorkflowID);
             }
@@ -157,10 +143,8 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
             {
                 return WorkflowStep.StepRolesSecurity;
             }
-            else
-            {
-                return (CurrentSourcePoint != null) ? CurrentSourcePoint.StepRolesSecurity : WorkflowStepSecurityEnum.Default;
-            }
+
+            return CurrentSourcePoint?.StepRolesSecurity ?? WorkflowStepSecurityEnum.Default;
         }
         set
         {
@@ -190,10 +174,8 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
             {
                 return WorkflowStep.StepUsersSecurity;
             }
-            else
-            {
-                return CurrentSourcePoint != null ? CurrentSourcePoint.StepUsersSecurity : WorkflowStepSecurityEnum.Default;
-            }
+
+            return CurrentSourcePoint?.StepUsersSecurity ?? WorkflowStepSecurityEnum.Default;
         }
         set
         {
@@ -292,17 +274,23 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
         usUsers.WhereCondition = "(UserIsHidden = 0 OR UserIsHidden IS NULL)";
 
         // Get the active roles for this site
-        string where = String.Format("[StepID] = {0} AND [StepSourcePointGuid] {1}", WorkflowStepID, (SourcePointGuid == null ? "IS NULL" : String.Format("= '{0}'", SourcePointGuid.ToString())));
+        string where = $"[StepID] = {WorkflowStepID} AND [StepSourcePointGuid] {(SourcePointGuid == null ? "IS NULL" : $"= '{SourcePointGuid}'")}";
 
-        var roles = WorkflowStepRoleInfoProvider.GetWorkflowStepRoles(where, null, 0, "RoleID").Select<WorkflowStepRoleInfo, string>(r => r.RoleID.ToString());
+        var roles = WorkflowStepRoleInfoProvider.GetWorkflowStepRoles()
+            .Where(where)
+            .Column("RoleID")
+            .GetListResult<int>();
         currentRoles = string.Join(";", roles.ToArray());
 
         // Get the active users for this site
-        var users = WorkflowStepUserInfoProvider.GetWorkflowStepUsers(where, null, 0, "UserID").Select<WorkflowStepUserInfo, string>(u => u.UserID.ToString());
+        var users = WorkflowStepUserInfoProvider.GetWorkflowStepUsers()
+            .Where(where)
+            .Column("UserID")
+            .GetListResult<int>();
         currentUsers = string.Join(";", users.ToArray());
 
         // Init lists when security type changes
-        if (!RequestHelper.IsPostBack() || ControlsHelper.GetPostBackControlID(Page).StartsWithCSafe(rbRoleType.UniqueID) || ControlsHelper.GetPostBackControlID(Page).StartsWithCSafe(rbUserType.UniqueID))
+        if (!RequestHelper.IsPostBack() || ControlsHelper.GetPostBackControlID(Page).StartsWith(rbRoleType.UniqueID, StringComparison.Ordinal) || ControlsHelper.GetPostBackControlID(Page).StartsWith(rbUserType.UniqueID, StringComparison.Ordinal))
         {
             usRoles.Value = currentRoles;
             usUsers.Value = currentUsers;
@@ -316,9 +304,9 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
 
         if (WorkflowStepID > 0)
         {
-            usRoles.Visible = (RolesSecurity != WorkflowStepSecurityEnum.Default);
+            usRoles.Visible = RolesSecurity != WorkflowStepSecurityEnum.Default;
             plcRolesBox.Visible = usRoles.Visible;
-            usUsers.Visible = (UsersSecurity != WorkflowStepSecurityEnum.Default);
+            usUsers.Visible = UsersSecurity != WorkflowStepSecurityEnum.Default;
         }
     }
 
@@ -372,7 +360,7 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
     /// </summary>
     private void SaveRolesData()
     {
-        Guid stepSourcePointGuid = (SourcePointGuid == null) ? Guid.Empty : SourcePointGuid.Value;
+        Guid stepSourcePointGuid = SourcePointGuid ?? Guid.Empty;
 
         // Remove old items
         string newValues = ValidationHelper.GetString(usRoles.Value, null);
@@ -387,10 +375,7 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
                 int roleId = ValidationHelper.GetInteger(item, 0);
                 // If role is authorized, remove it
                 WorkflowStepRoleInfo wsr = WorkflowStepRoleInfoProvider.GetWorkflowStepRoleInfo(WorkflowStepID, roleId, stepSourcePointGuid);
-                if (wsr != null)
-                {
-                    wsr.Delete();
-                }
+                wsr?.Delete();
             }
         }
 
@@ -422,7 +407,7 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
     /// </summary>
     private void SaveUsersData()
     {
-        Guid stepSourcePointGuid = (SourcePointGuid == null) ? Guid.Empty : SourcePointGuid.Value;
+        Guid stepSourcePointGuid = SourcePointGuid ?? Guid.Empty;
 
         // Remove old items
         string newValues = ValidationHelper.GetString(usUsers.Value, null);
@@ -437,10 +422,7 @@ public partial class CMSModules_Workflows_Controls_UI_WorkflowStep_Security : CM
                 int userId = ValidationHelper.GetInteger(item, 0);
                 // If user is authorized, remove it
                 WorkflowStepUserInfo wsu = WorkflowStepUserInfoProvider.GetWorkflowStepUserInfo(WorkflowStepID, userId, stepSourcePointGuid);
-                if (wsu != null)
-                {
-                    wsu.Delete();
-                }
+                wsu?.Delete();
             }
         }
 

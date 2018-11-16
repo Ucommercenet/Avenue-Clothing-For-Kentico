@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/EventHub', 'AdminControls/MultipartUploader'], function (EventHub, MultipartUploader) {
-    'use strict';
 
     var multipartUploader = new MultipartUploader();
     var MultiFileUploader = function (data) {

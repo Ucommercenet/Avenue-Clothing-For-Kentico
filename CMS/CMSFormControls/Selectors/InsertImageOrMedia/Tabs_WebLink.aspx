@@ -18,7 +18,7 @@
 </head>
 <body class="<%=mBodyClass%>">
     <form id="form1" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="scriptManager" runat="server" />
+    <asp:ScriptManager ID="scriptManager" runat="server" />
     <cms:WebLinkSelector ID="webLinkSelector" runat="server" IsLiveSite="false" />
     <asp:Literal ID="ltlScript" runat="server" EnableViewState="false" />
     </form>

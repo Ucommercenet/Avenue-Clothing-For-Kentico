@@ -1,5 +1,6 @@
 ﻿using System;
 
+using CMS.Core;
 using CMS.CustomTables;
 using CMS.DataEngine;
 using CMS.Helpers;
@@ -176,15 +177,37 @@ public partial class CMSWebParts_CustomTables_CustomTableForm : CMSAbstractWebPa
         else
         {
             DataClassInfo customTable = DataClassInfoProvider.GetDataClassInfo(CustomTable);
-            if (customTable != null)
+            if (customTable == null)
             {
-                form.CustomTableId = customTable.ClassID;
-                form.UseColonBehindLabel = UseColonBehindLabel;
-                form.ValidationErrorMessage = ValidationErrorMessage;
-                form.AlternativeFormFullName = AlternativeFormName;
-                form.ItemID = QueryHelper.GetInteger(ItemKeyName, 0);
+                return;
+            }
+
+            form.CustomTableId = customTable.ClassID;
+            form.UseColonBehindLabel = UseColonBehindLabel;
+            form.ValidationErrorMessage = ValidationErrorMessage;
+            form.AlternativeFormFullName = AlternativeFormName;
+            form.ItemID = QueryHelper.GetInteger(ItemKeyName, 0);
+
+            if (form.ItemID > 0)
+            {
+                CheckReadPermissions(customTable);
             }
         }
+    }
+
+
+    private void CheckReadPermissions(DataClassInfo customTable)
+    {
+        // Check 'Read' permission
+        if (customTable.CheckPermissions(PermissionsEnum.Read, SiteContext.CurrentSiteName, MembershipContext.AuthenticatedUser))
+        {
+            return;
+        }
+
+        // Show error message
+        form.MessagesPlaceHolder.ClearLabels();
+        form.ShowError(String.Format(GetString("customtable.permissiondenied.read"), customTable.ClassName));
+        form.StopProcessing = true;
     }
 
 
@@ -208,7 +231,7 @@ public partial class CMSWebParts_CustomTables_CustomTableForm : CMSAbstractWebPa
             {
                 string siteName = SiteContext.CurrentSiteName;
 
-                if (AnalyticsHelper.AnalyticsEnabled(siteName) && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
+                if (AnalyticsHelper.AnalyticsEnabled(siteName) && Service.Resolve<IAnalyticsConsentProvider>().HasConsentForLogging() && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
                 {
                     HitLogProvider.LogConversions(SiteContext.CurrentSiteName, LocalizationContext.PreferredCultureCode, TrackConversionName, 0, ConversionValue);
                 }

@@ -95,7 +95,7 @@ public partial class CMSWebParts_OnlineMarketing_MyAccounts : CMSAbstractWebPart
             string colName;
             if (!String.IsNullOrEmpty(colName = gridElem.GridColumns.Columns[i].Name))
             {
-                if (visibleCols.IndexOfCSafe("|" + colName + "|", StringComparison.Ordinal) == -1)
+                if (visibleCols.IndexOf("|" + colName + "|", StringComparison.Ordinal) == -1)
                 {
                     gridElem.GridColumns.Columns[i].Visible = false;
                     gridElem.GridColumns.Columns[i].Filter = null;
@@ -111,7 +111,7 @@ public partial class CMSWebParts_OnlineMarketing_MyAccounts : CMSAbstractWebPart
 
     private object gridElem_OnExternalDataBound(object sender, string sourceName, object parameter)
     {
-        switch (sourceName.ToLowerCSafe())
+        switch (sourceName.ToLowerInvariant())
         {
             case "edit":
                 var btn = ((CMSGridActionButton)sender);

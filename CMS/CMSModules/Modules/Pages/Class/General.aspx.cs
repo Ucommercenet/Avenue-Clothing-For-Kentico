@@ -39,7 +39,7 @@ public partial class CMSModules_Modules_Pages_Class_General : GlobalAdminPage
     {
         get
         {
-            if ((!URLHelper.IsPostback()) && (!String.IsNullOrEmpty(QueryHelper.GetString("tablechanged", string.Empty))))
+            if ((!RequestHelper.IsPostBack()) && (!String.IsNullOrEmpty(QueryHelper.GetString("tablechanged", string.Empty))))
             {
                 return true;
             }
@@ -92,7 +92,7 @@ public partial class CMSModules_Modules_Pages_Class_General : GlobalAdminPage
         }
         else
         {
-            if (!URLHelper.IsPostback() && TableNameChanged)
+            if (!RequestHelper.IsPostBack() && TableNameChanged)
             {
                 // Display important information on table name change
                 ShowInformation(GetString("sysdev.class_edit_general.tablechanged"));

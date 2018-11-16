@@ -564,7 +564,7 @@ function GetCurrentFolderID() {
     if (currentFolderId != 0) {
         return currentFolderId;
     } else {
-        return $cmsj('#", hdnPath.ClientID, @"').attr('value');
+        return $cmsj('#", hdnPath.ClientID, @"').val();
     }
 }
 

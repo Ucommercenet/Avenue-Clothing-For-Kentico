@@ -51,7 +51,7 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Filter : C
     {
         get
         {
-            return IsAdvancedMode ? lnkShowSimpleFilter : lnkShowAdvancedFilter;
+            return lnkToggleFilter;
         }
     }
 
@@ -80,10 +80,9 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Filter : C
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
+
         fltPhone.Columns = new [] { "ContactMobilePhone", "ContactBusinessPhone" };
-        btnReset.Text = GetString("general.reset");
-        btnReset.Click += btnReset_Click;
-        btnSearch.Click += btnSearch_Click;
+        
         HideUiPartsNotRelevantInLowerEditions();
         if (!RequestHelper.IsPostBack())
         {
@@ -96,14 +95,19 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Filter : C
     }
 
 
-    private void HideUiPartsNotRelevantInLowerEditions()
+    protected override void OnLoad(EventArgs e)
     {
-        var isFullContactManagementAvailable = LicenseKeyInfoProvider.IsFeatureAvailable(RequestContext.CurrentDomain, FeatureEnum.FullContactManagement);
-        fltContactStatus.StopProcessing = !isFullContactManagementAvailable;
-        plcFullContactProfile.Visible = isFullContactManagementAvailable;
-        plcMiddleFullContactProfile.Visible = isFullContactManagementAvailable;
-        plcAdvancedFullContactProfile.Visible = isFullContactManagementAvailable;
-        plcMiddle.Visible = isFullContactManagementAvailable;
+        base.OnLoad(e);
+
+        ShowFilterElements();
+    }
+
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        base.OnPreRender(e);
+
+        EnsureCorrectToggleFilterText();
     }
 
 
@@ -133,16 +137,12 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Filter : C
     }
 
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected override void ToggleAdvancedModeButton_Click(object sender, EventArgs e)
     {
-        // General UI
-        lnkShowAdvancedFilter.Text = GetString("general.displayadvancedfilter");
-        lnkShowSimpleFilter.Text = GetString("general.displaysimplefilter");
-        plcAdvancedSearch.Visible = IsAdvancedMode;
-        pnlAdvanced.Visible = IsAdvancedMode;
-        plcMiddle.Visible = IsAdvancedMode;
-        pnlSimple.Visible = !IsAdvancedMode;
-        plcAdvancedSearch.Visible = plcMiddle.Visible = IsAdvancedMode;
+        IsAdvancedMode = !IsAdvancedMode;
+        ShowFilterElements();
+
+        base.ToggleAdvancedModeButton_Click(sender, e);
     }
 
     #endregion
@@ -150,35 +150,30 @@ public partial class CMSModules_ContactManagement_Controls_UI_Contact_Filter : C
 
     #region "UI methods"
 
+    private void HideUiPartsNotRelevantInLowerEditions()
+    {
+        var isFullContactManagementAvailable = LicenseKeyInfoProvider.IsFeatureAvailable(RequestContext.CurrentDomain, FeatureEnum.FullContactManagement);
+        fltContactStatus.StopProcessing = !isFullContactManagementAvailable;
+        plcFullContactProfile.Visible = isFullContactManagementAvailable;
+        plcMiddleFullContactProfile.Visible = isFullContactManagementAvailable;
+        plcAdvancedFullContactProfile.Visible = isFullContactManagementAvailable;
+        plcMiddle.Visible = isFullContactManagementAvailable;
+    }
+
+
+    private void EnsureCorrectToggleFilterText()
+    {
+        lnkToggleFilter.Text = IsAdvancedMode ? GetString("general.displaysimplefilter") : GetString("general.displayadvancedfilter");
+    }
+
+
     /// <summary>
     /// Shows/hides all elements for advanced or simple mode.
     /// </summary>
-    private void ShowFilterElements(bool showAdvanced)
+    private void ShowFilterElements()
     {
-        plcAdvancedSearch.Visible = showAdvanced;
-        pnlAdvanced.Visible = showAdvanced;
-        plcMiddle.Visible = showAdvanced;
-        pnlSimple.Visible = !showAdvanced;
-    }
-
-
-    /// <summary>
-    /// Sets the advanced mode.
-    /// </summary>
-    protected void lnkShowAdvancedFilter_Click(object sender, EventArgs e)
-    {
-        IsAdvancedMode = true;
-        ShowFilterElements(true);
-    }
-
-
-    /// <summary>
-    /// Sets the simple mode.
-    /// </summary>
-    protected void lnkShowSimpleFilter_Click(object sender, EventArgs e)
-    {
-        IsAdvancedMode = false;
-        ShowFilterElements(false);
+        plcAdvancedSearch.Visible = IsAdvancedMode;
+        plcMiddle.Visible = IsAdvancedMode;
     }
 
     #endregion

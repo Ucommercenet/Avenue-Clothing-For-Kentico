@@ -8,9 +8,6 @@ function InsertSelectedItem(obj) {
         else if ((obj.av_url) && (obj.av_url != '')) {
             url = createUrl(obj.av_url, obj.av_ext, obj.av_width, obj.av_height);
         }
-        else if ((obj.flash_url) && (obj.flash_url != '')) {
-            url = createUrl(obj.flash_url, obj.flash_ext, obj.flash_width, obj.flash_height);
-        }
         else if ((obj.url_url) && (obj.url_url != '')) {
             url = createUrl(obj.url_url, obj.url_ext, obj.url_width, obj.url_height);
         }
@@ -37,7 +34,7 @@ function InsertSelectedItem(obj) {
             window.wopener.SetUrl(url, obj.url_width, obj.url_height);
         }
         // Insert url to default CKEDITOR dialog by FileBrowser API
-	    // Used in Image, Link and Flash dialogs 
+	    // Used in Image and Link dialogs 
         // http://docs.ckeditor.com/#!/guide/dev_file_browser_api
         else if (window.wopener.CKEDITOR) {
         	var funcNum = getUrlParam('CKEditorFuncNum');

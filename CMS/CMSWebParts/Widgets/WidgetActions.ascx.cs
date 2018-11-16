@@ -355,7 +355,7 @@ public partial class CMSWebParts_Widgets_WidgetActions : CMSAbstractWebPart, IPo
                     // Add confirmation if required
                     if (ResetConfirmationRequired)
                     {
-                        btnReset.Attributes.Add("onclick", "if (!confirm(" + ScriptHelper.GetLocalizedString("widgets.resetzoneconfirmtext") + ")) return false;");
+                        btnReset.Attributes.Add("onclick", "if (!confirm(" + ScriptHelper.GetString(PortalHelper.LocalizeStringForUI("widgets.resetzoneconfirmtext")) + ")) return false;");
                     }
                 }
 
@@ -636,7 +636,7 @@ public partial class CMSWebParts_Widgets_WidgetActions : CMSAbstractWebPart, IPo
                         Enabled = WidgetActionsEnabled,
                         Text = GetAddWidgetButtonText(),
                         OnClientClick = addScript,
-                        Tooltip = GetString("addwidget.tooltip"),
+                        Tooltip = PortalHelper.LocalizeStringForUI("addwidget.tooltip"),
                         GenerateSeparatorBeforeAction = true,
                         ButtonStyle = ButtonStyle.Default
                     };
@@ -652,8 +652,8 @@ public partial class CMSWebParts_Widgets_WidgetActions : CMSAbstractWebPart, IPo
                     {
                         Enabled = WidgetActionsEnabled,
                         Text = GetResetButtonText(),
-                        OnClientClick = "if (!confirm(" + ScriptHelper.GetLocalizedString("widgets.resetzoneconfirmtext") + ")) { return false; } else { " + ControlsHelper.GetPostBackEventReference(this, "reset") + " }",
-                        Tooltip = GetString("resetwidget.tooltip"),
+                        OnClientClick = "if (!confirm(" + ScriptHelper.GetString(PortalHelper.LocalizeStringForUI("widgets.resetzoneconfirmtext")) + ")) { return false; } else { " + ControlsHelper.GetPostBackEventReference(this, "reset") + " }",
+                        Tooltip = PortalHelper.LocalizeStringForUI("resetwidget.tooltip"),
                         GenerateSeparatorBeforeAction = !DisplayAddButton,
                         ButtonStyle = ButtonStyle.Default
                     };
@@ -675,8 +675,7 @@ public partial class CMSWebParts_Widgets_WidgetActions : CMSAbstractWebPart, IPo
     /// <returns></returns>
     private string GetAddWidgetButtonText()
     {
-        String culture = ((PortalContext.ViewMode == ViewModeEnum.EditLive) || (PortalContext.ViewMode == ViewModeEnum.LiveSite)) ? DocumentContext.CurrentDocumentCulture.CultureCode : CultureHelper.PreferredUICultureCode;
-        return DataHelper.GetNotEmpty(AddButtonText, GetString("widgets.addwidget", culture));
+        return DataHelper.GetNotEmpty(AddButtonText, PortalHelper.LocalizeStringForUI("widgets.addwidget"));
     }
 
 
@@ -686,8 +685,7 @@ public partial class CMSWebParts_Widgets_WidgetActions : CMSAbstractWebPart, IPo
     /// <returns></returns>
     private string GetResetButtonText()
     {
-        String culture = ((PortalContext.ViewMode == ViewModeEnum.EditLive) || (PortalContext.ViewMode == ViewModeEnum.LiveSite)) ? DocumentContext.CurrentDocumentCulture.CultureCode : CultureHelper.PreferredUICultureCode;
-        return DataHelper.GetNotEmpty(ResetButtonText, GetString("widgets.resettodefault", culture));
+        return DataHelper.GetNotEmpty(ResetButtonText, PortalHelper.LocalizeStringForUI("widgets.resettodefault"));
     }
 
     #endregion

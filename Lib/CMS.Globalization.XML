@@ -14,6 +14,17 @@
             Names of the countries in the system.
             </summary>
         </member>
+        <member name="P:CMS.Globalization.CountriesMacroContainer.CountryNames">
+            <summary>
+            Names of the countries in the system.
+            </summary>
+        </member>
+        <member name="P:CMS.Globalization.CountriesMacroContainer.CMS#Base#ISimpleDataContainer#Item(System.String)">
+            <summary>
+            Gets a country of specified name if exists. Setter is not implemented.
+            </summary>
+            <param name="columnName">Column name</param>
+        </member>
         <member name="M:CMS.Globalization.CountriesMacroContainer.CMS#Base#ISimpleDataContainer#GetValue(System.String)">
             <summary>
             Returns country of specified name if exists.
@@ -27,6 +38,11 @@
             <param name="columnName">Column name</param>
             <param name="value">New value</param>
         </member>
+        <member name="P:CMS.Globalization.CountriesMacroContainer.ColumnNames">
+            <summary>
+            Returns list of all countries.
+            </summary>
+        </member>
         <member name="M:CMS.Globalization.CountriesMacroContainer.TryGetValue(System.String,System.Object@)">
             <summary>
             Returns country of specified name if exists.
@@ -37,22 +53,6 @@
         <member name="M:CMS.Globalization.CountriesMacroContainer.ContainsColumn(System.String)">
             <summary>
             Returns true if country of specified name exists.
-            </summary>
-        </member>
-        <member name="P:CMS.Globalization.CountriesMacroContainer.CountryNames">
-            <summary>
-            Names of the countries in the system.
-            </summary>
-        </member>
-        <member name="P:CMS.Globalization.CountriesMacroContainer.CMS#Base#ISimpleDataContainer#Item(System.String)">
-            <summary>
-            Gets a country of specified name if exists. Setter is not implemented.
-            </summary>
-            <param name="columnName">Column name</param>
-        </member>
-        <member name="P:CMS.Globalization.CountriesMacroContainer.ColumnNames">
-            <summary>
-            Returns list of all countries.
             </summary>
         </member>
         <member name="T:CMS.Globalization.CountryInfo">
@@ -69,34 +69,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Globalization.CountryInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.CountryInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.CountryInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty CountryInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.CountryInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new CountryInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.CountryInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
         </member>
         <member name="P:CMS.Globalization.CountryInfo.CountryID">
             <summary>
@@ -133,6 +105,34 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Globalization.CountryInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.CountryInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.CountryInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty CountryInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.CountryInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new CountryInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.CountryInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
         <member name="T:CMS.Globalization.CountryInfoProvider">
             <summary>
             Class providing management of the countries.
@@ -156,6 +156,16 @@
         <member name="F:CMS.Globalization.CountryInfoProvider.tableLock">
             <summary>
             Table lock for loading.
+            </summary>
+        </member>
+        <member name="P:CMS.Globalization.CountryInfoProvider.CountryInfosByTwoLetterCode">
+            <summary>
+            Countries indexed by two-letter country code.
+            </summary>
+        </member>
+        <member name="P:CMS.Globalization.CountryInfoProvider.CountryInfosByThreeLetterCode">
+            <summary>
+            Countries indexed by three-letter country code.
             </summary>
         </member>
         <member name="M:CMS.Globalization.CountryInfoProvider.GetCountryInfo(System.Int32)">
@@ -215,29 +225,11 @@
             </summary>
             <param name="countryId">Country ID</param>
         </member>
-        <member name="M:CMS.Globalization.CountryInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged.</param>
-        </member>
         <member name="M:CMS.Globalization.CountryInfoProvider.ClearHashtables(System.Boolean)">
             <summary>
             Clear hashtables.
             </summary>
             <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.Globalization.CountryInfoProvider.GetCountryInfoInternal(System.Int32)">
-            <summary>
-            Returns the CountryInfo structure for the specified country.
-            </summary>
-            <param name="countryId">Country id</param>
-        </member>
-        <member name="M:CMS.Globalization.CountryInfoProvider.GetCountryInfoInternal(System.String)">
-            <summary>
-            Returns the CountryInfo structure for the specified country.
-            </summary>
-            <param name="countryName">Country name</param>
         </member>
         <member name="M:CMS.Globalization.CountryInfoProvider.GetCountryInfoByCodeInternal(System.String)">
             <summary>
@@ -273,16 +265,6 @@
             Loads countries to hashtables.
             </summary>
         </member>
-        <member name="P:CMS.Globalization.CountryInfoProvider.CountryInfosByTwoLetterCode">
-            <summary>
-            Countries indexed by two-letter country code.
-            </summary>
-        </member>
-        <member name="P:CMS.Globalization.CountryInfoProvider.CountryInfosByThreeLetterCode">
-            <summary>
-            Countries indexed by three-letter country code.
-            </summary>
-        </member>
         <member name="T:CMS.Globalization.StateInfo">
             <summary>
             StateInfo data container class.
@@ -296,26 +278,6 @@
         <member name="F:CMS.Globalization.StateInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.StateInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.StateInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.StateInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty StateInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.StateInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new StateInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Globalization.StateInfo.StateName">
@@ -353,6 +315,26 @@
             Object last modified.
             </summary>
         </member>
+        <member name="M:CMS.Globalization.StateInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.StateInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.StateInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty StateInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.StateInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new StateInfo object from the given DataRow.
+            </summary>
+        </member>
         <member name="T:CMS.Globalization.StateInfoProvider">
             <summary>
             Class providing StateInfo management.
@@ -371,6 +353,11 @@
         <member name="F:CMS.Globalization.StateInfoProvider.tableLock">
             <summary>
             Table lock for loading.
+            </summary>
+        </member>
+        <member name="P:CMS.Globalization.StateInfoProvider.StateInfosByCode">
+            <summary>
+            States indexed by state code.
             </summary>
         </member>
         <member name="M:CMS.Globalization.StateInfoProvider.GetStateInfo(System.Int32)">
@@ -432,29 +419,11 @@
             </summary>
             <param name="countryId">Country ID</param>
         </member>
-        <member name="M:CMS.Globalization.StateInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged.</param>
-        </member>
         <member name="M:CMS.Globalization.StateInfoProvider.ClearHashtables(System.Boolean)">
             <summary>
             Clear hashtables.
             </summary>
             <param name="logTasks">If true, web farm tasks are logged</param>
-        </member>
-        <member name="M:CMS.Globalization.StateInfoProvider.GetStateInfoInternal(System.Int32)">
-            <summary>
-            Returns the StateInfo structure for the specified state.
-            </summary>
-            <param name="stateId">State id</param>
-        </member>
-        <member name="M:CMS.Globalization.StateInfoProvider.GetStateInfoInternal(System.String)">
-            <summary>
-            Returns the StateInfo structure for the specified state.
-            </summary>
-            <param name="stateName">StateName</param>
         </member>
         <member name="M:CMS.Globalization.StateInfoProvider.GetCountryStatesInternal(System.Int32)">
             <summary>
@@ -480,20 +449,9 @@
             </summary>
             <param name="stateObj">State object</param>
         </member>
-        <member name="M:CMS.Globalization.StateInfoProvider.CheckDependenciesInternal(System.Int32)">
-            <summary>
-            Check dependencies.
-            </summary>
-            <param name="stateId">State ID</param>
-        </member>
         <member name="M:CMS.Globalization.StateInfoProvider.LoadStates">
             <summary>
             Loads states to hashtables.
-            </summary>
-        </member>
-        <member name="P:CMS.Globalization.StateInfoProvider.StateInfosByCode">
-            <summary>
-            States indexed by state code.
             </summary>
         </member>
         <member name="T:CMS.Globalization.GlobalizationModuleMetadata">
@@ -539,6 +497,16 @@
         <member name="T:CMS.Globalization.TimeZoneHelper">
             <summary>
             Static timezone accessing methods.
+            </summary>
+        </member>
+        <member name="P:CMS.Globalization.TimeZoneHelper.ServerTimeZone">
+            <summary>
+            Returns server timezone.
+            </summary>
+        </member>
+        <member name="P:CMS.Globalization.TimeZoneHelper.TimeZonesEnabled">
+            <summary>
+            Returns true if global CMSTimeZonesEnable setting key is true.
             </summary>
         </member>
         <member name="M:CMS.Globalization.TimeZoneHelper.ConvertTimeZoneDateTime(System.DateTime,CMS.Globalization.TimeZoneInfo,CMS.Globalization.TimeZoneInfo,System.Boolean)">
@@ -749,16 +717,6 @@
             <param name="dateTimeColumnsIndexes">Indexes of DateTime columns in datarow</param>
             <param name="userInfo">IUserInfo object</param>
         </member>
-        <member name="P:CMS.Globalization.TimeZoneHelper.ServerTimeZone">
-            <summary>
-            Returns server timezone.
-            </summary>
-        </member>
-        <member name="P:CMS.Globalization.TimeZoneHelper.TimeZonesEnabled">
-            <summary>
-            Returns true if global CMSTimeZonesEnable setting key is true.
-            </summary>
-        </member>
         <member name="T:CMS.Globalization.TimeZoneInfo">
             <summary>
             TimeZoneInfo data container class.
@@ -772,26 +730,6 @@
         <member name="F:CMS.Globalization.TimeZoneInfo.TYPEINFO">
             <summary>
             Type information.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.TimeZoneInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.TimeZoneInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.TimeZoneInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty TimeZoneInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Globalization.TimeZoneInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new TimeZoneInfo object from the given DataRow.
             </summary>
         </member>
         <member name="P:CMS.Globalization.TimeZoneInfo.TimeZoneName">
@@ -847,6 +785,26 @@
         <member name="P:CMS.Globalization.TimeZoneInfo.TimeZoneLastModified">
             <summary>
             Time zone modified.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.TimeZoneInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.TimeZoneInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.TimeZoneInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty TimeZoneInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Globalization.TimeZoneInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new TimeZoneInfo object from the given DataRow.
             </summary>
         </member>
         <member name="T:CMS.Globalization.TimeZoneInfoProvider">
@@ -928,18 +886,6 @@
             Regenerate all time zone rules.
             </summary>
         </member>
-        <member name="M:CMS.Globalization.TimeZoneInfoProvider.GetTimeZoneInfoInternal(System.Int32)">
-            <summary>
-            Returns the TimeZoneInfo structure for the specified Id.
-            </summary>
-            <param name="timeZoneId">TimeZone id</param>
-        </member>
-        <member name="M:CMS.Globalization.TimeZoneInfoProvider.GetTimeZoneInfoInternal(System.String)">
-            <summary>
-            Returns the TimeZoneInfo structure for the specified name.
-            </summary>
-            <param name="timeZoneName">TimeZone name</param>
-        </member>
         <member name="M:CMS.Globalization.TimeZoneInfoProvider.GetTimeZonesInternal(System.String,System.String)">
             <summary>
             Returns DataSet with all time zones.
@@ -956,17 +902,11 @@
             <param name="topN">Specifies number of returned records</param>
             <param name="columns">Data columns to return</param>
         </member>
-        <member name="M:CMS.Globalization.TimeZoneInfoProvider.SetTimeZoneInfoInternal(CMS.Globalization.TimeZoneInfo)">
+        <member name="M:CMS.Globalization.TimeZoneInfoProvider.SetInfo(CMS.Globalization.TimeZoneInfo)">
             <summary>
-            Sets (updates or inserts) specified timeZone.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="timeZone">TimeZone to set</param>
-        </member>
-        <member name="M:CMS.Globalization.TimeZoneInfoProvider.DeleteTimeZoneInfoInternal(CMS.Globalization.TimeZoneInfo)">
-            <summary>
-            Deletes specified timeZone.
-            </summary>
-            <param name="infoObj">TimeZone object</param>
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="M:CMS.Globalization.TimeZoneInfoProvider.GetDay(System.String,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>

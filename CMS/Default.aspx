@@ -10,7 +10,7 @@
     <%=BodyScripts %>
     <form id="form1" runat="server">
     <asp:PlaceHolder runat="server" ID="plcManagers">
-        <ajaxToolkit:ToolkitScriptManager ID="manScript" runat="server" EnableViewState="false"
+        <asp:ScriptManager ID="manScript" runat="server" EnableViewState="false"
             ScriptMode="Release" />
         <cms:CMSPortalManager ID="manPortal" runat="server" EnableViewState="false" />
     </asp:PlaceHolder>

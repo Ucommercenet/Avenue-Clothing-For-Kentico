@@ -5,7 +5,6 @@
  * Updates text in element specified by selector. Appends number indicating count of the metafiles (attachments)
  */
 cmsdefine(['CMS/EventHub', 'jQuery'], function (hub, $) {
-    'use strict';
 
     /**
     * Updates inner html of element with text containing given items count. 

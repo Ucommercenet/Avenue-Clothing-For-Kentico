@@ -12,6 +12,15 @@
 public partial class CMSModules_SmartSearch_SearchIndex_Search {
     
     /// <summary>
+    /// searchPnl control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Panel searchPnl;
+    
+    /// <summary>
     /// lblSearchFor control.
     /// </summary>
     /// <remarks>

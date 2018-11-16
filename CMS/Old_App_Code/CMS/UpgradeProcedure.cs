@@ -19,9 +19,8 @@ using CMS.MacroEngine;
 using CMS.Membership;
 using CMS.Modules;
 using CMS.PortalEngine;
-using CMS.Search;
+using CMS.Search.Azure;
 using CMS.URLRewritingEngine;
-using CMS.WebAnalytics;
 using CMS.WorkflowEngine;
 
 
@@ -93,14 +92,14 @@ internal static class UpgradeProcedure
             try
             {
                 string version = SettingsKeyInfoProvider.GetValue("CMSDataVersion");
-                switch (version.ToLowerCSafe())
+                switch (version.ToLowerInvariant())
                 {
-                    case "9.0":
+                    case "10.0":
                         using (var context = new CMSActionContext())
                         {
                             context.LogLicenseWarnings = false;
 
-                            UpgradeApplication(Upgrade90To100, "10.0", "Upgrade_90_100.zip");
+                            UpgradeApplication(Upgrade100To110, "11.0", "Upgrade_100_110.zip");
                         }
                         break;
                 }
@@ -148,7 +147,7 @@ internal static class UpgradeProcedure
 
         // Update all views
         dtm.RefreshDocumentViews();
-        RefreshCustomViews(dtm);
+        dtm.RefreshAllSystemViews();
 
         // Set data version
         SettingsKeyInfoProvider.SetGlobalValue("CMSDataVersion", newVersion);
@@ -182,28 +181,6 @@ internal static class UpgradeProcedure
         RefreshMacroSignatures();
 
         EventLogProvider.LogInformation(EventLogSource, "FINISH");
-    }
-
-
-    /// <summary>
-    /// Refreshes all custom views.
-    /// </summary>
-    private static void RefreshCustomViews(TableManager tm)
-    {
-        tm.RefreshView("View_CMS_User");
-        tm.RefreshView("View_Community_Member");
-
-        tm.RefreshView("View_Community_Group");
-
-        tm.RefreshView("View_Community_Friend_Friends");
-        tm.RefreshView("View_Community_Friend_RequestedFriends");
-
-        tm.RefreshView("View_OM_Contact_Joined");
-        tm.RefreshView("View_OM_ContactGroupMember_ContactJoined");
-
-        tm.RefreshView("View_OM_Account_Joined");
-        tm.RefreshView("View_OM_Account_MembershipJoined");
-        tm.RefreshView("View_OM_ContactGroupMember_AccountJoined");
     }
 
 
@@ -278,11 +255,9 @@ internal static class UpgradeProcedure
     /// </summary>
     private static void CleanCompositeClassesSearchSettings()
     {
-        foreach (var classInfo in ObjectTypeManager.GetTypeInfos(ObjectTypeManager.AllObjectTypes, ti => ti.NestedInfoTypes != null)
-                                                   .Select(ti => DataClassInfoProvider.GetDataClassInfo(ti.ObjectClassName))
-                                                   .Where(c => c != null))
+        foreach (var classInfo in DataClassInfoProvider.GetClasses())
         {
-            classInfo.ClassSearchSettings = SearchHelper.CleanSearchSettings(classInfo);
+            classInfo.RemoveObsoleteSearchSettings();
             classInfo.Update();
         }
     }
@@ -477,8 +452,7 @@ internal static class UpgradeProcedure
             WorkflowActionInfo.OBJECT_TYPE,
         };
 
-        var admin = UserInfoProvider.AdministratorUserName;
-
+        var adminIdentityOption = MacroIdentityOption.FromUserInfo(UserInfoProvider.AdministratorUser);
         foreach (string type in objectTypes)
         {
             try
@@ -492,7 +466,7 @@ internal static class UpgradeProcedure
                     var infos = new InfoObjectCollection(type);
                     foreach (var info in infos)
                     {
-                        MacroSecurityProcessor.RefreshSecurityParameters(info, admin, true);
+                        MacroSecurityProcessor.RefreshSecurityParameters(info, adminIdentityOption, true);
                     }
                 }
             }
@@ -650,7 +624,7 @@ internal static class UpgradeProcedure
                         String description = (metaFile.Attributes["Description"] != null) ? metaFile.Attributes["Description"].Value : null;
 
                         // Try to find correspondent info object
-                        BaseInfo infoObject = BaseAbstractInfoProvider.GetInfoByName(objType, codeName);
+                        BaseInfo infoObject = ProviderHelper.GetInfoByName(objType, codeName);
                         if (infoObject == null)
                         {
                             continue;
@@ -703,21 +677,15 @@ internal static class UpgradeProcedure
     #endregion
 
 
-    #region "Update from 9.0 to 10.0"
+    #region "Update from 10.0 to 11.0"
 
     /// <summary>
-    /// Handles all the specific operations for upgrade from 9.0 to 10.0.
+    /// Handles all the specific operations for upgrade from 10.0 to 11.0.
     /// </summary>
-    private static bool Upgrade90To100()
+    private static bool Upgrade100To110()
     {
-        // Individual upgrade methods to be called from here
-        UpdateCustomActivityActionStep();
-
-        // Remove metafiles used in E-commerce invoices. This feature was removed in v 10.
-        RemoveInvoiceMetafiles();
-
-        // Resave form controls to unify their parameters definitions
-        RefreshFormControlsParameters();
+        CreateSystemMacroIdentity();
+        SetDefaultAzureSearchFieldFlags();
 
         return true;
     }
@@ -725,74 +693,76 @@ internal static class UpgradeProcedure
     #endregion
 
 
-    #region "Private methods"
-
-    // Individual upgrade methods belong here
+    #region "Individual upgrade methods"
 
     /// <summary>
-    /// Update all "Log Activity Action" steps. Replace value in ActivityCampaign field where <see cref="CampaignInfo.CampaignName"/> is stored by <see cref="CampaignInfo.CampaignID"/>.
+    /// Creates system macro identity 'GlobalAdministrator' and assigns it <see cref="UserInfoProvider.AdministratorUser"/> as effective user.
+    /// Assigns the identity to <see cref="UserInfoProvider.AdministratorUser"/> so that it is used upon macro re-signing.
     /// </summary>
-    private static void UpdateCustomActivityActionStep()
+    private static void CreateSystemMacroIdentity()
     {
-        var customActivityAction = WorkflowActionInfoProvider.GetWorkflowActions()
-                                                             .WhereEquals("ActionName", "Log_custom_activity")
-                                                             .FirstOrDefault();
-
-        if (customActivityAction == null)
+        var administratorUser = UserInfoProvider.AdministratorUser;
+        if (administratorUser == null)
         {
-            return;
+            throw new InvalidOperationException("No administrator user was found. Upgrade cannot proceed. Make sure at least 1 user with global administrator privilege level exists before upgrading.");
         }
 
-        WorkflowStepInfoProvider.GetWorkflowSteps()
-                                .WhereEquals("StepActionID", customActivityAction.ActionID)
-                                .ToList()
-                                .ForEach(UpdateCustomActivityStep);
+        var systemMacroIdentity = new MacroIdentityInfo
+        {
+            MacroIdentityGuid = Guid.Parse("C6EF4403-2D1B-49E1-A41B-5B0FAFA857E9"),
+            MacroIdentityName = "GlobalAdministrator",
+            MacroIdentityEffectiveUserID = administratorUser.UserID
+        };
+        MacroIdentityInfoProvider.SetMacroIdentityInfo(systemMacroIdentity);
+
+        var administratorUserMacroIdentity = new UserMacroIdentityInfo
+        {
+            UserMacroIdentityMacroIdentityID = systemMacroIdentity.MacroIdentityID,
+            UserMacroIdentityUserID = administratorUser.UserID,
+            UserMacroIdentityUserGuid = administratorUser.UserGUID
+        };
+        UserMacroIdentityInfoProvider.SetUserMacroIdentityInfo(administratorUserMacroIdentity);
     }
 
 
     /// <summary>
-    /// Replace value in ActivityCampaign field where <see cref="CampaignInfo.CampaignName"/> is stored by <see cref="CampaignInfo.CampaignID"/>.
+    /// Sets Azure Search specific field flags. Content fields in local search are content fields in Azure.
+    /// Searchable fields in local search are retrievable in Azure. Tokenized fields in local search are searchable in Azure, if they are of string (collection of strings) data type.
     /// </summary>
-    /// <param name="step">Step to be replaced.</param>
-    private static void UpdateCustomActivityStep(WorkflowStepInfo step)
+    private static void SetDefaultAzureSearchFieldFlags()
     {
-        var parameters = step.StepActionParameters;
-        var campaignName = parameters.GetValue("ActivityCampaign");
-        var campaign = CampaignInfoProvider.GetCampaigns()
-                                           .WhereEquals("CampaignName", campaignName)
-                                           .FirstOrDefault();
-        if (campaign == null)
+        var dataClasses = DataClassInfoProvider.GetClasses();
+        foreach (var dataClass in dataClasses)
         {
-            return;
+            if (String.IsNullOrEmpty(dataClass.ClassSearchSettings))
+            {
+                continue;
+            }
+
+            var searchSettings = dataClass.ClassSearchSettingsInfos;
+            var columnDataTypes = dataClass.GetSearchIndexColumns().ToDictionary(column => column.ColumnName, column => column.ColumnType);
+
+            foreach (var searchSettingsInfo in searchSettings.Items.TypedValues)
+            {
+                if (searchSettingsInfo.GetFlag(SearchSettings.CONTENT))
+                {
+                    searchSettingsInfo.SetFlag(AzureSearchFieldFlags.CONTENT, true);
+                }
+                if (searchSettingsInfo.GetFlag(SearchSettings.SEARCHABLE))
+                {
+                    searchSettingsInfo.SetFlag(AzureSearchFieldFlags.RETRIEVABLE, true);
+                }
+
+                Type columnType;
+                if (searchSettingsInfo.GetFlag(SearchSettings.TOKENIZED) && columnDataTypes.TryGetValue(searchSettingsInfo.Name, out columnType) && (columnType == typeof(string) || typeof(IEnumerable<string>).IsAssignableFrom(columnType)))
+                {
+                    searchSettingsInfo.SetFlag(AzureSearchFieldFlags.SEARCHABLE, true);
+                }
+            }
+            dataClass.ClassSearchSettings = searchSettings.GetData();
+
+            DataClassInfoProvider.SetDataClassInfo(dataClass);
         }
-
-        parameters.SetValue("ActivityCampaign", campaign.CampaignID);
-        WorkflowStepInfoProvider.SetWorkflowStepInfo(step);
-    }
-
-
-    /// <summary>
-    /// Removes all metafiles used in invoices.
-    /// </summary>
-    private static void RemoveInvoiceMetafiles()
-    {
-        var invoiceMetafiles = MetaFileInfoProvider.GetMetaFiles()
-                                                   .WhereEquals("MetaFileGroupName", "Invoice");
-
-        foreach (var metafile in invoiceMetafiles)
-        {
-            metafile.Delete();
-        }
-    }
-
-
-    /// <summary>
-    /// Resaves form controls to unify their parameters definitions.
-    /// </summary>
-    private static void RefreshFormControlsParameters()
-    {
-        // Resave inherited form controls
-        CMS.FormEngine.Internal.BackwardCompatibilityImportHelper.RefreshFormControlsParameters();
     }
 
     #endregion

@@ -18,7 +18,7 @@ public partial class CMSModules_Modules_Pages_Class_Fields : GlobalAdminPage
     {
         SetupControls();
 
-        if (!URLHelper.IsPostback() && QueryHelper.GetBoolean("gen", false))
+        if (!RequestHelper.IsPostBack() && QueryHelper.GetBoolean("gen", false))
         {
             fieldEditor.ShowInformation(GetString("EditTemplateFields.FormDefinitionGenerated"));
         }

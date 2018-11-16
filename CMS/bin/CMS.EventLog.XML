@@ -9,6 +9,11 @@
             Helper class for registering event log source name to Windows event log.
             </summary>
         </member>
+        <member name="P:CMS.EventLog.EventLogSourceHelper.UseDefaultEventLogTraceListener">
+            <summary>
+            Indicates if default event log trace listener should be used.
+            </summary>
+        </member>
         <member name="M:CMS.EventLog.EventLogSourceHelper.RegisterInstance(System.String)">
             <summary>
             Registers instance to Windows event log.
@@ -72,11 +77,6 @@
             <param name="sourceName"></param>
             <returns>Returns true if source name was obtained; otherwise false.</returns>
         </member>
-        <member name="P:CMS.EventLog.EventLogSourceHelper.UseDefaultEventLogTraceListener">
-            <summary>
-            Indicates if default event log trace listener should be used.
-            </summary>
-        </member>
         <member name="T:CMS.EventLog.EventLogHandler">
             <summary>
             Defines handlers for events related to records in the system's Event log.
@@ -113,11 +113,6 @@
             Context for the process of event logging.
             </summary>
         </member>
-        <member name="M:CMS.EventLog.EventLoggingContext.RestoreOriginalValues">
-            <summary>
-            Restores the original values to the context
-            </summary>
-        </member>
         <member name="P:CMS.EventLog.EventLoggingContext.EventLoggingInProgress">
             <summary>
             Indicates whether event logging procedure code is being executed.
@@ -136,6 +131,11 @@
         <member name="P:CMS.EventLog.EventLoggingContext.CurrentLogWorker">
             <summary>
             Current event log queue worker instance.
+            </summary>
+        </member>
+        <member name="M:CMS.EventLog.EventLoggingContext.RestoreOriginalValues">
+            <summary>
+            Restores the original values to the context
             </summary>
         </member>
         <member name="T:CMS.EventLog.EventLoggingRecursionException">
@@ -173,6 +173,21 @@
             Asynchronous thread running in background which logs the events to the event log
             </summary>
         </member>
+        <member name="P:CMS.EventLog.EventLogWorker.DefaultInterval">
+            <summary>
+            Gets the interval in milliseconds for the worker (default 100ms)
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogWorker.MaintenanceInterval">
+            <summary>
+            Gets the maintenance interval in milliseconds (default 10s)
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogWorker.UseLogContext">
+            <summary>
+            Use the log context to report status
+            </summary>
+        </member>
         <member name="M:CMS.EventLog.EventLogWorker.Initialize">
             <summary>
             Initializes the worker. Runs in the worker thread before the thread processes the first iteration.
@@ -198,21 +213,6 @@
         <member name="M:CMS.EventLog.EventLogWorker.Finish">
             <summary>
             Finishes processing all the items remaining in the worker queue
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogWorker.DefaultInterval">
-            <summary>
-            Gets the interval in milliseconds for the worker (default 100ms)
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogWorker.MaintenanceInterval">
-            <summary>
-            Gets the maintenance interval in milliseconds (default 10s)
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogWorker.UseLogContext">
-            <summary>
-            Use the log context to report status
             </summary>
         </member>
         <member name="T:CMS.EventLog.LogContext">
@@ -250,6 +250,11 @@
             Logs GUID.
             </summary>
         </member>
+        <member name="E:CMS.EventLog.LogContext.OnChanged">
+            <summary>
+            Fires when the log has changed.
+            </summary>
+        </member>
         <member name="F:CMS.EventLog.LogContext.mLogSingleEvents">
             <summary>
             Indicates whether to log events one by one to event log.
@@ -278,6 +283,81 @@
         <member name="F:CMS.EventLog.LogContext.disposed">
             <summary>
             Flag whether object was already disposed.
+            </summary>
+        </member>
+        <member name="E:CMS.EventLog.LogContext.TextAppended">
+            <summary>
+            Event which fires if some text is appended to the log
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.Current">
+            <summary>
+            Gets or sets current log context.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.MaxLength">
+            <summary>
+            Maximum length of the log. If the length is exceeded, the log is trimmed to half, offset is set and the log continues.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.Offset">
+            <summary>
+            Offset of a partial log in a complete log
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.Log">
+            <summary>
+            Gets the current log.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.MultipleOperationEventCode">
+            <summary>
+            Explicit event log code used when LogSingleEvents is false (case of multiple logging).
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.LogGuid">
+            <summary>
+            Logs guid.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.LogAlways">
+            <summary>
+            If true, the context always logs regardless of the action context settings
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.LogSingleEvents">
+            <summary>
+            Indicates whether to log events one by one to event log.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.Event">
+            <summary>
+            Info object of type EventLogInfo.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.MachineName">
+            <summary>
+            Name of machine.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.UrlReferrer">
+            <summary>
+            Referrer url.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.UserAgent">
+            <summary>
+            Browser identification.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.IPAddress">
+            <summary>
+            IP address of client.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.LogContext.EventURL">
+            <summary>
+            URL of event.
             </summary>
         </member>
         <member name="M:CMS.EventLog.LogContext.#ctor">
@@ -412,86 +492,6 @@
             <param name="userAgent">User agent</param>
             <param name="eventTime">Date and time when the event occurs</param>
         </member>
-        <member name="E:CMS.EventLog.LogContext.OnChanged">
-            <summary>
-            Fires when the log has changed.
-            </summary>
-        </member>
-        <member name="E:CMS.EventLog.LogContext.TextAppended">
-            <summary>
-            Event which fires if some text is appended to the log
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.Current">
-            <summary>
-            Gets or sets current log context.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.MaxLength">
-            <summary>
-            Maximum length of the log. If the length is exceeded, the log is trimmed to half, offset is set and the log continues.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.Offset">
-            <summary>
-            Offset of a partial log in a complete log
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.Log">
-            <summary>
-            Gets the current log.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.MultipleOperationEventCode">
-            <summary>
-            Explicit event log code used when LogSingleEvents is false (case of multiple logging).
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.LogGuid">
-            <summary>
-            Logs guid.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.LogAlways">
-            <summary>
-            If true, the context always logs regardless of the action context settings
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.LogSingleEvents">
-            <summary>
-            Indicates whether to log events one by one to event log.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.Event">
-            <summary>
-            Info object of type EventLogInfo.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.MachineName">
-            <summary>
-            Name of machine.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.UrlReferrer">
-            <summary>
-            Referrer url.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.UserAgent">
-            <summary>
-            Browser identification.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.IPAddress">
-            <summary>
-            IP address of client.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.LogContext.EventURL">
-            <summary>
-            URL of event.
-            </summary>
-        </member>
         <member name="T:CMS.EventLog.LoggingPolicyExtensions">
             <summary>
             Class providing extension methods for logging policy.
@@ -535,6 +535,11 @@
             Service to provide logging events
             </summary>
         </member>
+        <member name="P:CMS.EventLog.EventLogService.CurrentLogContext">
+            <summary>
+            Current log context
+            </summary>
+        </member>
         <member name="M:CMS.EventLog.EventLogService.EnsureLog(System.Guid)">
             <summary>
             Ensures the log for given GUID.
@@ -564,11 +569,6 @@
             <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
             <param name="ex">Exception to be logged</param>
             <param name="loggingPolicy">Logging policy.</param>
-        </member>
-        <member name="P:CMS.EventLog.EventLogService.CurrentLogContext">
-            <summary>
-            Current log context
-            </summary>
         </member>
         <member name="T:CMS.EventLog.EventLogCleaner">
             <summary>
@@ -612,6 +612,36 @@
             Folder where log file will be saved.
             </summary>
         </member>
+        <member name="P:CMS.EventLog.EventLogHelper.LogFolder">
+            <summary>
+            Physical path to folder where log file is saved.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogHelper.LogFile">
+            <summary>
+            Physical path to the log file.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogHelper.LogEventsToFile">
+            <summary>
+            Indicates if events are logged to the file.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogHelper.LogFolderInternal">
+            <summary>
+            Physical path to folder where log file is saved.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogHelper.LogFileInternal">
+            <summary>
+            Physical path to the log file.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogHelper.LogEventsToFileInternal">
+            <summary>
+            Indicates if events are logged to the file.
+            </summary>
+        </member>
         <member name="M:CMS.EventLog.EventLogHelper.LogEventToFile(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Int32,System.String,System.String,System.Int32,System.String,System.String,System.String,System.DateTime)">
             <summary>
             Logs the query to file.
@@ -652,17 +682,17 @@
             <param name="eventObj">Object containing log event data</param>
             <returns>Text of log event</returns>
         </member>
-        <member name="M:CMS.EventLog.EventLogHelper.GetChangedFields(CMS.Base.IAdvancedDataContainer)">
+        <member name="M:CMS.EventLog.EventLogHelper.GetChangedFields(CMS.DataEngine.BaseInfo)">
             <summary>
             Gets the list of changed fields in the given object.
             </summary>
-            <param name="dc">DataClass object</param>
+            <param name="bi">BaseInfo object</param>
         </member>
-        <member name="M:CMS.EventLog.EventLogHelper.GetFields(CMS.Base.IAdvancedDataContainer)">
+        <member name="M:CMS.EventLog.EventLogHelper.GetFields(CMS.DataEngine.BaseInfo)">
             <summary>
             Gets the list of fields in the given object.
             </summary>
-            <param name="dc">DataClass object</param>
+            <param name="bi">BaseInfo object</param>
         </member>
         <member name="M:CMS.EventLog.EventLogHelper.GetEventTypeText(System.String)">
             <summary>
@@ -733,17 +763,17 @@
             <param name="eventObj">Object containing log event data</param>
             <returns>Text of log event</returns>
         </member>
-        <member name="M:CMS.EventLog.EventLogHelper.GetChangedFieldsInternal(CMS.Base.IAdvancedDataContainer)">
+        <member name="M:CMS.EventLog.EventLogHelper.GetChangedFieldsInternal(CMS.DataEngine.BaseInfo)">
             <summary>
             Gets the list of changed fields in the given object.
             </summary>
-            <param name="dc">DataClass object</param>
+            <param name="bi">BaseInfo object</param>
         </member>
-        <member name="M:CMS.EventLog.EventLogHelper.GetFieldsInternal(CMS.Base.IAdvancedDataContainer)">
+        <member name="M:CMS.EventLog.EventLogHelper.GetFieldsInternal(CMS.DataEngine.BaseInfo)">
             <summary>
             Gets the list of fields in the given object.
             </summary>
-            <param name="dc">DataClass object</param>
+            <param name="bi">BaseInfo object</param>
         </member>
         <member name="M:CMS.EventLog.EventLogHelper.GetEventTypeTextInternal(System.String)">
             <summary>
@@ -792,36 +822,6 @@
             <param name="eventDescription">Event description</param>
             <param name="changedFieldsOnly">If true, only changed fields are logged</param>
         </member>
-        <member name="P:CMS.EventLog.EventLogHelper.LogFolder">
-            <summary>
-            Physical path to folder where log file is saved.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogHelper.LogFile">
-            <summary>
-            Physical path to the log file.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogHelper.LogEventsToFile">
-            <summary>
-            Indicates if events are logged to the file.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogHelper.LogFolderInternal">
-            <summary>
-            Physical path to folder where log file is saved.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogHelper.LogFileInternal">
-            <summary>
-            Physical path to the log file.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogHelper.LogEventsToFileInternal">
-            <summary>
-            Indicates if events are logged to the file.
-            </summary>
-        </member>
         <member name="T:CMS.EventLog.EventLogInfo">
             <summary>
             EventLogInfo data container class.
@@ -837,70 +837,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.EventLog.EventLogInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty EventLogInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new EventLogInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.#ctor(CMS.DataEngine.IDataClass)">
-            <summary>
-            Constructor - Creates a new EventLogInfo object from the given Data class.
-            </summary>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Constructor - Creates a new EventLogInfo.
-            </summary>
-            <param name="eventType">Type of the event. Please use predefined constants from <see cref="P:CMS.EventLog.EventLogInfo.EventType"/> class.</param>
-            <param name="source">Source of the event (Content, Administration, etc.)</param>
-            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.LoadDefaultData">
-            <summary>
-            Loads the object default data
-            </summary>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.GetPermissionName(CMS.DataEngine.PermissionsEnum)">
-            <summary>
-            Converts permissions enum to permission code name when <see cref="M:CMS.DataEngine.BaseInfo.CheckPermissions(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)"/> is called.
-            </summary>
-            <param name="permission">Permissions enum</param>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.ValidateParameters(System.String,System.String,System.String)">
-            <summary>
-            Validate required parameters.
-            </summary>
-            <param name="eventType">Type of the event. Please use predefined constants from EventLogProvider</param>
-            <param name="source">Source of the event (Content, Administration, etc.)</param>
-            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.ValidateEventType(System.String)">
-            <summary>
-            Check if eventType is defined in EventType enum.
-            </summary>
-            <param name="eventType"></param>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.SetContextProperties">
-            <summary>
-            Set properties to default value.
-            </summary>
-        </member>
-        <member name="M:CMS.EventLog.EventLogInfo.ExecuteSilently(System.Action)">
-            <summary>
-            Executes given action and suppresses any exception (intended for reading properties from HttpContext).
-            </summary>
-            <param name="action">Action</param>
-        </member>
         <member name="P:CMS.EventLog.EventLogInfo.EventMachineName">
             <summary>
             Name of machine on which event is being logged.
@@ -908,7 +844,7 @@
         </member>
         <member name="P:CMS.EventLog.EventLogInfo.EventType">
             <summary>
-            Type of event, use predefined constants from <see cref="P:CMS.EventLog.EventLogInfo.EventType"/> (or "I" for Info, "W" for Warning, "E" for Error).
+            Type of event, use predefined constants from <see cref="P:CMS.EventLog.EventLogInfo.EventType" /> (or "I" for Info, "W" for Warning, "E" for Error).
             </summary>
         </member>
         <member name="P:CMS.EventLog.EventLogInfo.IPAddress">
@@ -994,6 +930,65 @@
             Store Exception caused by Event.
             </summary>
         </member>
+        <member name="M:CMS.EventLog.EventLogInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty EventLogInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new EventLogInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor - Creates a new EventLogInfo.
+            </summary>
+            <param name="eventType">Type of the event. Please use predefined constants from <see cref="P:CMS.EventLog.EventLogInfo.EventType"/> class.</param>
+            <param name="source">Source of the event (Content, Administration, etc.)</param>
+            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.LoadDefaultData">
+            <summary>
+            Loads the object default data
+            </summary>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.GetPermissionName(CMS.DataEngine.PermissionsEnum)">
+            <summary>
+            Converts permissions enum to permission code name when <see cref="M:CMS.DataEngine.BaseInfo.CheckPermissions(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)"/> is called.
+            </summary>
+            <param name="permission">Permissions enum</param>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.ValidateParameters(System.String,System.String,System.String)">
+            <summary>
+            Validate required parameters.
+            </summary>
+            <param name="eventType">Type of the event. Please use predefined constants from EventLogProvider</param>
+            <param name="source">Source of the event (Content, Administration, etc.)</param>
+            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.ValidateEventType(System.String)">
+            <summary>
+            Check if eventType is defined in EventType enum.
+            </summary>
+            <param name="eventType"></param>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.SetContextProperties">
+            <summary>
+            Set properties to default value.
+            </summary>
+        </member>
+        <member name="M:CMS.EventLog.EventLogInfo.ExecuteSilently(System.Action)">
+            <summary>
+            Executes given action and suppresses any exception (intended for reading properties from HttpContext).
+            </summary>
+            <param name="action">Action</param>
+        </member>
         <member name="T:CMS.EventLog.EventType">
             <summary>
             Event type constants
@@ -1047,6 +1042,61 @@
         <member name="F:CMS.EventLog.EventLogProvider.MAXTODELETE">
             <summary>
             Constant used to determine maximum amount of items that can be deleted at once (value is 50.000).
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.UseEventLogPopUp">
+            <summary>
+            Indicates whether pop-up message module is allowed (web.config key CMSUseEventLogPopUp)
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.LogDeleteCoefficient">
+            <summary>
+            Coefficient for log deletion, keeps the specified number of log items percent alive and deletes the log by batch when the percents are exceeded.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.LoggingEnabled">
+            <summary>
+            Indicates if logging is enabled.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.LogFieldChanges">
+            <summary>
+            Indicates if log should contain the changes to particular fields.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.LogDocumentFieldChanges">
+            <summary>
+            Indicates if log should contain the changes to particular document document fields.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.DeleteOlderLogs">
+            <summary>
+            Delete older log items.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.LogItems">
+            <summary>
+            Cached log items count [siteId] -> [count]
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.LogSizes">
+            <summary>
+            Cached log items count [siteId] -> [logSize]
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.DeleteOlderThreadRunning">
+            <summary>
+            Indicates if delete old logs thread is running.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.Warnings">
+            <summary>
+            Counter of warnings.
+            </summary>
+        </member>
+        <member name="P:CMS.EventLog.EventLogProvider.Errors">
+            <summary>
+            Counter of warnings.
             </summary>
         </member>
         <member name="M:CMS.EventLog.EventLogProvider.#ctor">
@@ -1112,11 +1162,6 @@
             </summary>
             <param name="siteName">Site name</param>
         </member>
-        <member name="M:CMS.EventLog.EventLogProvider.Clear">
-            <summary>
-            Clears the hashtable.
-            </summary>
-        </member>
         <member name="M:CMS.EventLog.EventLogProvider.GetEventLogText(CMS.EventLog.EventLogInfo)">
             <summary>
             Creates string representation of event log object.
@@ -1144,7 +1189,7 @@
             <summary>
             Writes a new record to the event log.
             </summary>
-            <param name="eventType">Type of the event. Please use predefined constants from EventLogProvider</param>
+            <param name="eventType">Type of the event. Please use predefined constants from <see cref="T:CMS.EventLog.EventType"/></param>
             <param name="source">Source of the event (Content, Administration, etc.)</param>
             <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
             <param name="eventDescription">Detailed description of the event</param>
@@ -1425,61 +1470,6 @@
             Executes when the event logging throws an error.
             </summary>
             <param name="ex">Exception thrown upon problem with logging</param>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.UseEventLogPopUp">
-            <summary>
-            Indicates whether pop-up message module is allowed (web.config key CMSUseEventLogPopUp)
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.LogDeleteCoefficient">
-            <summary>
-            Coefficient for log deletion, keeps the specified number of log items percent alive and deletes the log by batch when the percents are exceeded.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.LoggingEnabled">
-            <summary>
-            Indicates if logging is enabled.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.LogFieldChanges">
-            <summary>
-            Indicates if log should contain the changes to particular fields.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.LogDocumentFieldChanges">
-            <summary>
-            Indicates if log should contain the changes to particular document document fields.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.DeleteOlderLogs">
-            <summary>
-            Delete older log items.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.LogItems">
-            <summary>
-            Cached log items count [siteId] -> [count]
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.LogSizes">
-            <summary>
-            Cached log items count [siteId] -> [logSize]
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.DeleteOlderThreadRunning">
-            <summary>
-            Indicates if delete old logs thread is running.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.Warnings">
-            <summary>
-            Counter of warnings.
-            </summary>
-        </member>
-        <member name="P:CMS.EventLog.EventLogProvider.Errors">
-            <summary>
-            Counter of warnings.
-            </summary>
         </member>
         <member name="T:CMS.EventLog.EventLogHandlers">
             <summary>

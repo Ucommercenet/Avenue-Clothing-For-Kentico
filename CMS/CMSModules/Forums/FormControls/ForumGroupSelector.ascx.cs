@@ -173,7 +173,7 @@ public partial class CMSModules_Forums_FormControls_ForumGroupSelector : FormEng
             Enabled = false;
         }
 
-        if (URLHelper.IsPostback() && DependsOnAnotherField)
+        if (RequestHelper.IsPostBack() && DependsOnAnotherField)
         {
             SetupWhereCondition();
             uniSelector.Reload(true);

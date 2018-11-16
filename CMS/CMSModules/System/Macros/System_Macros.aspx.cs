@@ -226,15 +226,16 @@ public partial class CMSModules_System_Macros_System_Macros : GlobalAdminPage
                             }
                             else
                             {
+                                var identityOption = MacroIdentityOption.FromUserInfo(MembershipContext.AuthenticatedUser);
                                 if (chkRefreshAll.Checked && newSaltSpecified)
                                 {
                                     // Do not check integrity, but use new salt
-                                    refreshed = MacroSecurityProcessor.RefreshSecurityParameters(info, MembershipContext.AuthenticatedUser.UserName, true, newSalt);
+                                    refreshed = MacroSecurityProcessor.RefreshSecurityParameters(info, identityOption, true, newSalt);
                                 }
                                 else
                                 {
                                     // Do not check integrity, sign everything with current user
-                                    refreshed = MacroSecurityProcessor.RefreshSecurityParameters(info, MembershipContext.AuthenticatedUser.UserName, true);
+                                    refreshed = MacroSecurityProcessor.RefreshSecurityParameters(info, identityOption, true);
                                 }
                             }
 

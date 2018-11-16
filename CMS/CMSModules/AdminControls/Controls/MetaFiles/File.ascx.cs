@@ -200,10 +200,7 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_File : ReadOnly
     /// </summary>
     private void RaiseOnAfterUpload()
     {
-        if (OnAfterUpload != null)
-        {
-            OnAfterUpload(this, EventArgs.Empty);
-        }
+        OnAfterUpload?.Invoke(this, EventArgs.Empty);
     }
 
 
@@ -218,10 +215,7 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_File : ReadOnly
     /// </summary>
     private void RaiseOnAfterDelete()
     {
-        if (OnAfterDelete != null)
-        {
-            OnAfterDelete(this, EventArgs.Empty);
-        }
+        OnAfterDelete?.Invoke(this, EventArgs.Empty);
     }
 
     #endregion
@@ -300,7 +294,7 @@ function ConfirmDelete() {{
         if (ObjectID > 0)
         {
             gridFile.IsLiveSite = IsLiveSite;
-            gridFile.WhereCondition = MetaFileInfoProvider.GetWhereCondition(ObjectID, ObjectType, Category, null);
+            gridFile.WhereCondition = MetaFileInfoProvider.GetWhereCondition(ObjectID, ObjectType, Category);
             gridFile.StopProcessing = StopProcessing;
             gridFile.GridView.CssClass += " table-width-30";
 
@@ -386,7 +380,7 @@ function ConfirmDelete() {{
         DataRowView drv;
         string fileGuid;
 
-        switch (sourceName.ToLowerCSafe())
+        switch (sourceName?.ToLowerInvariant())
         {
             case "edit":
                 if (sender is CMSAccessibleButton)
@@ -404,20 +398,20 @@ function ConfirmDelete() {{
                     // Display button only if 'Modify' is allowed
                     if (AllowModify)
                     {
-                        string query = String.Format("?refresh=1&metafileguid={0}&clientid={1}", fileGuid, ClientID);
+                        string query = $"?refresh=1&metafileguid={fileGuid}&clientid={ClientID}";
                         query = URLHelper.AddUrlParameter(query, "hash", QueryHelper.GetHash(query));
 
                         // Display button only if metafile is in supported image format
                         if (ImageHelper.IsSupportedByImageEditor(fileExtension))
                         {
                             // Initialize button with script
-                            btnImageEditor.OnClientClick = String.Format("OpenImageEditor({0}); return false;", ScriptHelper.GetString(query));
+                            btnImageEditor.OnClientClick = $"OpenImageEditor({ScriptHelper.GetString(query)}); return false;";
                         }
                         // Non-image metafile
                         else
                         {
                             // Initialize button with script
-                            btnImageEditor.OnClientClick = String.Format("OpenEditor({0}); return false;", ScriptHelper.GetString(query));
+                            btnImageEditor.OnClientClick = $"OpenEditor({ScriptHelper.GetString(query)}); return false;";
                         }
                     }
                     else
@@ -430,7 +424,7 @@ function ConfirmDelete() {{
             case "delete":
                 if (sender is CMSGridActionButton)
                 {
-                    CMSGridActionButton btnDelete = ((CMSGridActionButton)sender);
+                    CMSGridActionButton btnDelete = (CMSGridActionButton)sender;
                     btnDelete.Enabled = AllowModify;
                     
                 }
@@ -444,7 +438,7 @@ function ConfirmDelete() {{
                 string fileExt = ValidationHelper.GetString(DataHelper.GetDataRowViewValue(drv, "MetaFileExtension"), string.Empty);
 
                 bool isImage = ImageHelper.IsImage(fileExt);
-                string fileUrl = String.Format("{0}?fileguid={1}&chset={2}", URLHelper.GetAbsoluteUrl("~/CMSPages/GetMetaFile.aspx"), fileGuid, Guid.NewGuid());
+                string fileUrl = $"{URLHelper.GetAbsoluteUrl("~/CMSPages/GetMetaFile.aspx")}?fileguid={fileGuid}&chset={Guid.NewGuid()}";
 
                 // Tooltip
                 string title = ValidationHelper.GetString(DataHelper.GetDataRowViewValue(drv, "MetaFileTitle"), string.Empty);
@@ -458,11 +452,11 @@ function ConfirmDelete() {{
                 string iconTag = UIHelper.GetFileIcon(Page,fileExt, tooltip: fileName);
                 if (isImage)
                 {
-                    return String.Format("<a href=\"#\" onclick=\"javascript: window.open('{0}'); return false;\" class=\"cms-icon-link\"><span id=\"{1}\" {2}>{3}{4}</span></a>", fileUrl, fileGuid, tooltip, iconTag, fileName);
+                    return $"<a href=\"#\" onclick=\"javascript: window.open('{fileUrl}'); return false;\" class=\"cms-icon-link\"><span id=\"{fileGuid}\" {tooltip}>{iconTag}{fileName}</span></a>";
                 }
                 else
                 {
-                    return String.Format("<a href=\"{0}\" class=\"cms-icon-link\"><span id=\"{1}\" {2}>{3}{4}</span></a>", fileUrl, fileGuid, tooltip, iconTag, fileName);
+                    return $"<a href=\"{fileUrl}\" class=\"cms-icon-link\"><span id=\"{fileGuid}\" {tooltip}>{iconTag}{fileName}</span></a>";
                 }
 
             case "size":
@@ -540,7 +534,7 @@ function ConfirmDelete() {{
 
     protected void gridFile_OnAction(string actionName, object actionArgument)
     {
-        switch (actionName.ToLowerCSafe())
+        switch (actionName?.ToLowerInvariant())
         {
             case "delete":
                 try
@@ -583,7 +577,7 @@ function ConfirmDelete() {{
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         var mfi = new MetaFileInfo(dr);
-                        if (mfi.MetaFileName.ToLowerCSafe() == uploader.CurrentFileName.ToLowerCSafe())
+                        if (string.Equals(mfi.MetaFileName, uploader.CurrentFileName, StringComparison.InvariantCultureIgnoreCase))
                         {
                             MetaFileInfoProvider.DeleteMetaFileInfo(mfi.MetaFileID);
                         }
@@ -646,9 +640,9 @@ function OpenEditor(queryString) {{
             string extensions = string.IsNullOrEmpty(AllowedExtensions) ? SettingsKeyInfoProvider.GetValue(SiteContext.CurrentSiteName + ".CMSUploadExtensions") : AllowedExtensions;
             if (extensions != String.Empty)
             {
-                string extension = Path.GetExtension(uploader.PostedFile.FileName).TrimStart('.').ToLowerCSafe();
-                string haystack = String.Format(";{0};", extensions);
-                string needle = String.Format(";{0};", extension);
+                string extension = Path.GetExtension(uploader.PostedFile.FileName).TrimStart('.').ToLowerInvariant();
+                string haystack = $";{extensions};";
+                string needle = $";{extension};";
 
                 if (!haystack.Contains(needle))
                 {

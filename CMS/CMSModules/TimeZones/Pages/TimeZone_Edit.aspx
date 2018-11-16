@@ -3,7 +3,7 @@
 
 <%@ Register Src="~/CMSFormControls/System/LocalizableTextBox.ascx" TagName="LocalizableTextBox" TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/System/CodeName.ascx" TagName="CodeName" TagPrefix="cms" %>
-<%@ Register Src="~/CMSModules/TimeZones/Controls/TimeZoneRuleEdior.ascx"
+<%@ Register Src="~/CMSModules/TimeZones/Controls/TimeZoneRuleEditor.ascx"
     TagName="RuleEditor" TagPrefix="cms" %>
 
 <asp:Content ID="cntBody" runat="server" ContentPlaceHolderID="plcContent">

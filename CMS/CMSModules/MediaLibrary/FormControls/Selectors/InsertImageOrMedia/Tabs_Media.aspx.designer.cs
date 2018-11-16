@@ -36,7 +36,7 @@ public partial class CMSModules_MediaLibrary_FormControls_Selectors_InsertImageO
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.ToolkitScriptManager scriptManager;
+    protected global::System.Web.UI.ScriptManager scriptManager;
     
     /// <summary>
     /// pnlUpdateSelectMedia control.

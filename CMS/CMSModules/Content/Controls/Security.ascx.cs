@@ -44,13 +44,7 @@ public partial class CMSModules_Content_Controls_Security : CMSUserControl
     /// <summary>
     /// Messages placeholder
     /// </summary>
-    public override MessagesPlaceHolder MessagesPlaceHolder
-    {
-        get
-        {
-            return plcMess;
-        }
-    }
+    public override MessagesPlaceHolder MessagesPlaceHolder => plcMess;
 
 
     /// <summary>
@@ -92,25 +86,13 @@ public partial class CMSModules_Content_Controls_Security : CMSUserControl
     /// <summary>
     /// Information label.
     /// </summary>
-    public Label InfoLabel
-    {
-        get
-        {
-            return plcMess.InfoLabel;
-        }
-    }
+    public Label InfoLabel => plcMess.InfoLabel;
 
 
     /// <summary>
     /// Error label.
     /// </summary>
-    public Label ErrorLabel
-    {
-        get
-        {
-            return plcMess.ErrorLabel;
-        }
-    }
+    public Label ErrorLabel => plcMess.ErrorLabel;
 
 
     /// <summary>
@@ -343,9 +325,9 @@ public partial class CMSModules_Content_Controls_Security : CMSUserControl
 
         CheckButtonsActiveState();
         // Update header actions panel
-        if (DisplayButtons && HeaderActions != null)
+        if (DisplayButtons)
         {
-            HeaderActions.UpdatePanel.Update();
+            HeaderActions?.UpdatePanel.Update();
         }
     }
     
@@ -358,15 +340,15 @@ public partial class CMSModules_Content_Controls_Security : CMSUserControl
     {
         ScriptHelper.RegisterJQuery(Page);
 
-        var script = string.Format(@"
-var select = $cmsj('#{0}');
+        var script = $@"
+var select = $cmsj('#{lstOperators.ClientID}');
 select.change(function(){{
     if(!CheckChanges()) {{
         select.val($cmsj.data(select, 'current'));
         return false;
     }}
     $cmsj.data(select, 'current', select.val());
-}});", lstOperators.ClientID);
+}});";
         ScriptHelper.RegisterStartupScript(this, typeof(string), "CheckChangesBeforeChange" + ClientID, script, true);
 
         if (RequestHelper.IsAJAXRequest())
@@ -480,7 +462,7 @@ select.change(function(){{
 
         string message;
         string operatorName = lstOperators.SelectedItem.Text;
-        if (operatorID.StartsWithCSafe("U"))
+        if (operatorID.StartsWith("U", StringComparison.InvariantCulture))
         {
             int userId = int.Parse(operatorID.Substring(1));
             UserInfo ui = UserInfoProvider.GetUserInfo(userId);
@@ -650,73 +632,75 @@ select.change(function(){{
         {
             foreach (DataRow drAclItem in dsAclItems.Tables[0].Rows)
             {
-                int nodeID = ValidationHelper.GetInteger(drAclItem["ACLOwnerNodeID"], 0);
+                int nodeId = ValidationHelper.GetInteger(drAclItem["ACLOwnerNodeID"], 0);
                 string op = ValidationHelper.GetString(drAclItem["Operator"], "");
-                if (op != lastOperator)
+                if (op == lastOperator)
                 {
-                    lastOperator = op;
-                    string operName = ValidationHelper.GetString(drAclItem["OperatorName"], String.Empty);
-                    operName = MacroResolver.Resolve(operName);
+                    continue;
+                }
 
-                    if (!String.IsNullOrEmpty(op))
+                lastOperator = op;
+                string operName = ValidationHelper.GetString(drAclItem["OperatorName"], String.Empty);
+                operName = MacroResolver.Resolve(operName);
+
+                if (!String.IsNullOrEmpty(op))
+                {
+                    switch (op[0])
                     {
-                        switch (op[0])
-                        {
-                                // Operator starts with 'R' - indicates role
-                            case 'R':
-                                string role = op.Substring(1) + ";";
-                                roles.Append(role);
+                        // Operator starts with 'R' - indicates role
+                        case 'R':
+                            string role = op.Substring(1) + ";";
+                            roles.Append(role);
 
-                                // Test whether ACL owner node id is current node id, if not this ACL is inherited => disable in selector
-                                if (nodeID != NodeID)
-                                {
-                                    disabledRoles.Append(role);
-                                }
+                            // Test whether ACL owner node id is current node id, if not this ACL is inherited => disable in selector
+                            if (nodeId != NodeID)
+                            {
+                                disabledRoles.Append(role);
+                            }
 
-                                if (ValidationHelper.GetInteger(drAclItem["RoleGroupID"], 0) > 0)
-                                {
-                                    operName += " " + GetString("security.grouprole");
-                                }
+                            if (ValidationHelper.GetInteger(drAclItem["RoleGroupID"], 0) > 0)
+                            {
+                                operName += " " + GetString("security.grouprole");
+                            }
 
-                                // Add global postfix
-                                if (ValidationHelper.GetInteger(drAclItem["SiteID"], 0) == 0)
-                                {
-                                    operName += " " + GetString("general.global");
-                                }
+                            // Add global postfix
+                            if (ValidationHelper.GetInteger(drAclItem["SiteID"], 0) == 0)
+                            {
+                                operName += " " + GetString("general.global");
+                            }
 
-                                break;
+                            break;
 
-                                // Operator starts with 'U' - indicates user
-                            case 'U':
-                                string user = op.Substring(1) + ";";
-                                users.Append(user);
+                        // Operator starts with 'U' - indicates user
+                        case 'U':
+                            string user = op.Substring(1) + ";";
+                            users.Append(user);
 
-                                // Test whether ACL owner node id is current node id, if not this ACL is inherited => disable in selector
-                                if (nodeID != NodeID)
-                                {
-                                    disabledUsers.Append(user);
-                                }
+                            // Test whether ACL owner node id is current node id, if not this ACL is inherited => disable in selector
+                            if (nodeId != NodeID)
+                            {
+                                disabledUsers.Append(user);
+                            }
 
-                                string fullName = ValidationHelper.GetString(drAclItem["OperatorFullName"], String.Empty);
-                                operName = Functions.GetFormattedUserName(operName, fullName);
-                                break;
-                        }
+                            string fullName = ValidationHelper.GetString(drAclItem["OperatorFullName"], String.Empty);
+                            operName = Functions.GetFormattedUserName(operName, fullName);
+                            break;
                     }
+                }
 
-                    if (reload)
-                    {
-                        lstOperators.Items.Add(new ListItem(operName, op));
-                    }
+                if (reload)
+                {
+                    lstOperators.Items.Add(new ListItem(operName, op));
+                }
 
-                    // Add different color for inherited users or roles
-                    if (nodeID != NodeID)
+                // Add different color for inherited users or roles
+                if (nodeId != NodeID)
+                {
+                    ListItem item = lstOperators.Items.FindByValue(op);
+                    if (item != null)
                     {
-                        ListItem item = lstOperators.Items.FindByValue(op);
-                        if (item != null)
-                        {
-                            item.Attributes.Add("style", "color:grey");
-                            item.Attributes.Add("title", GetString("security.inheritedfromparent"));
-                        }
+                        item.Attributes.Add("style", "color:grey");
+                        item.Attributes.Add("title", GetString("security.inheritedfromparent"));
                     }
                 }
             }
@@ -906,7 +890,9 @@ select.change(function(){{
             }
 
             // Determine whether user can edit current operator
-            bool operatorIsEditable = ((operatorID.StartsWithCSafe("U") && AllowEditUsers) || !operatorID.StartsWithCSafe("U")) && ((operatorID.StartsWithCSafe("R") && AllowEditRoles) || !operatorID.StartsWithCSafe("R"));
+            var operatorIsUser = operatorID.StartsWith("U", StringComparison.InvariantCulture);
+            var operatorIsRole = operatorID.StartsWith("R", StringComparison.InvariantCulture);
+            bool operatorIsEditable = (operatorIsUser && AllowEditUsers || !operatorIsUser) && (operatorIsRole && AllowEditRoles || !operatorIsRole);
 
             // Check if disable ok button
             btnOk.Enabled = (chkFullControlAllow.Enabled || chkFullControlDeny.Enabled) && operatorIsEditable && hasModifyPermission;
@@ -1177,7 +1163,7 @@ select.change(function(){{
         }
 
         // Replace update script
-        e.Parameter.Script = String.Format("if(!CheckChanges()) {{ return false; }}; {0}", e.Parameter.Script);
+        e.Parameter.Script = $"if(!CheckChanges()) {{ return false; }}; {e.Parameter.Script}";
     }
 
 
@@ -1243,7 +1229,7 @@ select.change(function(){{
         string operatorName = lstOperators.SelectedItem.Text;
         string message;
         string operatorID = lstOperators.SelectedValue;
-        if (operatorID.StartsWithCSafe("U"))
+        if (operatorID.StartsWith("U", StringComparison.InvariantCulture))
         {
             int userId = int.Parse(operatorID.Substring(1));
             UserInfo ui = UserInfoProvider.GetUserInfo(userId);
@@ -1258,10 +1244,7 @@ select.change(function(){{
         }
 
         // Log synchronization task and flush cache
-        TreeProvider tree = new TreeProvider(MembershipContext.AuthenticatedUser);
-        TreeNode node = tree.SelectSingleDocument(Node.NodeID);
-
-        DocumentSynchronizationHelper.LogDocumentChange(node, TaskTypeEnum.UpdateDocument, Node.TreeProvider);
+        DocumentSynchronizationHelper.LogDocumentChange(Node, TaskTypeEnum.UpdateDocument, Node.TreeProvider);
         Node.ClearCache();
 
         // Insert information about this event to eventlog.

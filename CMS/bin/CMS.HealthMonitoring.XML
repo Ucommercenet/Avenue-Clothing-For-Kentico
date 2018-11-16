@@ -77,23 +77,6 @@
             The class that represents counter definition.
             </summary>
         </member>
-        <member name="M:CMS.HealthMonitoring.Counter.#ctor(System.Xml.XmlNode)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="node">XML node</param>
-        </member>
-        <member name="M:CMS.HealthMonitoring.Counter.Log">
-            <summary>
-            Logs global and sites values.
-            </summary>
-        </member>
-        <member name="M:CMS.HealthMonitoring.Counter.LogToCounter(System.String)">
-            <summary>
-            Logs value to the performance counter.
-            </summary>
-            <param name="siteName">Site name</param>
-        </member>
         <member name="P:CMS.HealthMonitoring.Counter.Key">
             <summary>
             Gets or sets the counter key.
@@ -153,6 +136,23 @@
             <summary>
             Gets or sets performance counter.
             </summary>
+        </member>
+        <member name="M:CMS.HealthMonitoring.Counter.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="node">XML node</param>
+        </member>
+        <member name="M:CMS.HealthMonitoring.Counter.Log">
+            <summary>
+            Logs global and sites values.
+            </summary>
+        </member>
+        <member name="M:CMS.HealthMonitoring.Counter.LogToCounter(System.String)">
+            <summary>
+            Logs value to the performance counter.
+            </summary>
+            <param name="siteName">Site name</param>
         </member>
         <member name="T:CMS.HealthMonitoring.CounterName">
             <summary>
@@ -327,42 +327,6 @@
             Path of directory CMSModules.
             </summary>
         </member>
-        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.Clear">
-            <summary>
-            Clears the enabled status of the health monitoring so it can reload
-            </summary>
-        </member>
-        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.GetCategoryName(System.String,CMS.HealthMonitoring.CategoryType)">
-            <summary>
-            Gets category name.
-            </summary>
-            <param name="instancePath">Instance path - value of key CMSHealthMonitoringInstancePath</param>
-            <param name="type">Category type</param>
-        </member>
-        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.InitializeWatcher">
-            <summary>
-            Initializes watcher to identify that windows service regenerates the counter categories.
-            </summary>
-        </member>
-        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.mWatcher_Deleted(System.Object,System.IO.FileSystemEventArgs)">
-            <summary>
-            Handles OnDeleted event.
-            </summary>
-            <param name="sender">Sender</param>
-            <param name="e">File system event argument</param>
-        </member>
-        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.mWatcher_Created(System.Object,System.IO.FileSystemEventArgs)">
-            <summary>
-            Handles OnCreated event.
-            </summary>
-            <param name="sender">Sender</param>
-            <param name="e">File system event argument</param>
-        </member>
-        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.EnsurePerformanceCounterTimer">
-            <summary>
-            Ensures performance counter timer.
-            </summary>
-        </member>
         <member name="P:CMS.HealthMonitoring.HealthMonitoringHelper.HealthMonitoringEnabled">
             <summary>
             Indicates if Health monitoring is enabled.
@@ -404,18 +368,58 @@
             Indicates if web application can log to the counters.
             </summary>
         </member>
+        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.Clear">
+            <summary>
+            Clears the enabled status of the health monitoring so it can reload
+            </summary>
+        </member>
+        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.GetCategoryName(System.String,CMS.HealthMonitoring.CategoryType)">
+            <summary>
+            Gets category name.
+            </summary>
+            <param name="instancePath">Instance path - value of key CMSHealthMonitoringInstancePath</param>
+            <param name="type">Category type</param>
+        </member>
+        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.InitializeWatcher">
+            <summary>
+            Initializes watcher to identify that windows service regenerates the counter categories.
+            </summary>
+        </member>
+        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.mWatcher_Deleted(System.Object,System.EventArgs)">
+            <summary>
+            Handles OnDeleted event.
+            </summary>
+            <param name="sender">Sender</param>
+            <param name="e">File system event argument</param>
+        </member>
+        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.mWatcher_Created(System.Object,System.EventArgs)">
+            <summary>
+            Handles OnCreated event.
+            </summary>
+            <param name="sender">Sender</param>
+            <param name="e">File system event argument</param>
+        </member>
+        <member name="M:CMS.HealthMonitoring.HealthMonitoringHelper.EnsurePerformanceCounterTimer">
+            <summary>
+            Ensures performance counter timer.
+            </summary>
+        </member>
         <member name="T:CMS.HealthMonitoring.HealthMonitoringLogHelper">
             <summary>
             Class that provides methods for logging to the counters from application or windows service.
             </summary>
         </member>
-        <member name="M:CMS.HealthMonitoring.HealthMonitoringLogHelper.RegisterCounter(System.String,System.Action{CMS.HealthMonitoring.Counter},CMS.Core.IPerformanceCounter)">
+        <member name="T:CMS.HealthMonitoring.HealthMonitoringLogHelper.LogCustomCounterHandler">
             <summary>
-            Registers the given counter update method
+            Custom counter handler.
             </summary>
-            <param name="key">Counter key</param>
-            <param name="updateMethod">Update method</param>
-            <param name="underlyingCounter">Underlying counter</param>
+            <param name="counter">Counter definition</param>
+            <returns>Performance counter</returns>
+        </member>
+        <member name="E:CMS.HealthMonitoring.HealthMonitoringLogHelper.OnLogCustomCounter">
+            <summary>
+            Event for custom counter.
+            </summary>
         </member>
         <member name="M:CMS.HealthMonitoring.HealthMonitoringLogHelper.RegisterCounter(System.String,System.Action{CMS.HealthMonitoring.Counter})">
             <summary>
@@ -451,18 +455,6 @@
             <summary>
             Clears application counters except the counters keeping permanent incremental values (cache related, ...)
             </summary>
-        </member>
-        <member name="E:CMS.HealthMonitoring.HealthMonitoringLogHelper.OnLogCustomCounter">
-            <summary>
-            Event for custom counter.
-            </summary>
-        </member>
-        <member name="T:CMS.HealthMonitoring.HealthMonitoringLogHelper.LogCustomCounterHandler">
-            <summary>
-            Custom counter handler.
-            </summary>
-            <param name="counter">Counter definition</param>
-            <returns>Performance counter</returns>
         </member>
         <member name="T:CMS.HealthMonitoring.HealthMonitoringManager">
             <summary>
@@ -522,6 +514,61 @@
         <member name="F:CMS.HealthMonitoring.HealthMonitoringManager.locker">
             <summary>
             Locker object.
+            </summary>
+        </member>
+        <member name="T:CMS.HealthMonitoring.HealthMonitoringManager.OnProgressLogEventHandler">
+            <summary>
+            Progress log event handler.
+            </summary>
+        </member>
+        <member name="E:CMS.HealthMonitoring.HealthMonitoringManager.OnProgressLog">
+            <summary>
+            Progress log event.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SystemCounterKeys">
+            <summary>
+            Collection of system counter keys based on CMSPerformanceCounter.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SystemSpecialCounterKeys">
+            <summary>
+            Collection of system counter keys based on special values treatment with sites collection.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SystemDatabaseCounterKeys">
+            <summary>
+            Collection of system counter keys based on database values.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.Counters">
+            <summary>
+            Gets counter list.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.GeneralCategoryName">
+            <summary>
+            Gets name of general category.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SitesCategoryName">
+            <summary>
+            Gets sites category name.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.Error">
+            <summary>
+            Gets or sets error flag.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.Sites">
+            <summary>
+            Gets collection of site names.
+            </summary>
+        </member>
+        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.AllSites">
+            <summary>
+            Gets collection of site names.
             </summary>
         </member>
         <member name="M:CMS.HealthMonitoring.HealthMonitoringManager.CreateCounterCategories">
@@ -678,7 +725,7 @@
         </member>
         <member name="M:CMS.HealthMonitoring.HealthMonitoringManager.CheckLicense">
             <summary>
-            Checks the license, returns true if the license is valid against current domain.
+            Checks the license.
             </summary>
         </member>
         <member name="M:CMS.HealthMonitoring.HealthMonitoringManager.SetCounterErrorMessage(CMS.HealthMonitoring.Counter,System.String,System.String,System.String,System.Exception)">
@@ -690,61 +737,6 @@
             <param name="categoryName">Performance category name</param>
             <param name="counterAction">Counter action</param>
             <param name="originalException">Original exception</param>
-        </member>
-        <member name="E:CMS.HealthMonitoring.HealthMonitoringManager.OnProgressLog">
-            <summary>
-            Progress log event.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SystemCounterKeys">
-            <summary>
-            Collection of system counter keys based on CMSPerformanceCounter.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SystemSpecialCounterKeys">
-            <summary>
-            Collection of system counter keys based on special values treatment with sites collection.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SystemDatabaseCounterKeys">
-            <summary>
-            Collection of system counter keys based on database values.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.Counters">
-            <summary>
-            Gets counter list.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.GeneralCategoryName">
-            <summary>
-            Gets name of general category.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.SitesCategoryName">
-            <summary>
-            Gets sites category name.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.Error">
-            <summary>
-            Gets or sets error flag.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.Sites">
-            <summary>
-            Gets collection of site names.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.HealthMonitoringManager.AllSites">
-            <summary>
-            Gets collection of site names.
-            </summary>
-        </member>
-        <member name="T:CMS.HealthMonitoring.HealthMonitoringManager.OnProgressLogEventHandler">
-            <summary>
-            Progress log event handler.
-            </summary>
         </member>
         <member name="T:CMS.HealthMonitoring.HealthMonitoringHandlers">
             <summary>
@@ -826,6 +818,11 @@
             Lock used for running thread.
             </summary>
         </member>
+        <member name="P:CMS.HealthMonitoring.PerformanceCounterTimer.Running">
+            <summary>
+            Indicates if the timer runs.
+            </summary>
+        </member>
         <member name="M:CMS.HealthMonitoring.PerformanceCounterTimer.EnsureRunTimerAsync">
             <summary>
             Ensures that the timer runs in an asynchronous thread.
@@ -849,11 +846,6 @@
         <member name="M:CMS.HealthMonitoring.PerformanceCounterTimer.Execute">
             <summary>
             Logs to the counters.
-            </summary>
-        </member>
-        <member name="P:CMS.HealthMonitoring.PerformanceCounterTimer.Running">
-            <summary>
-            Indicates if the timer runs.
             </summary>
         </member>
     </members>

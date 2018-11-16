@@ -42,7 +42,7 @@ public partial class CMSModules_DocumentTypes_Pages_Development_Scopes_Scopes : 
     {
         CurrentMaster.DisplaySiteSelectorPanel = true;
 
-        siteId = !URLHelper.IsPostback() ? SiteContext.CurrentSiteID : ValidationHelper.GetInteger(selectSite.Value, UniSelector.US_ALL_RECORDS);
+        siteId = !RequestHelper.IsPostBack() ? SiteContext.CurrentSiteID : ValidationHelper.GetInteger(selectSite.Value, UniSelector.US_ALL_RECORDS);
 
         selectSite.PostbackOnDropDownChange = true;
         selectSite.UniSelector.OnSelectionChanged += DropDownSingleSelect_SelectedIndexChanged;
@@ -57,7 +57,7 @@ public partial class CMSModules_DocumentTypes_Pages_Development_Scopes_Scopes : 
         DataSet ds = DocumentTypeScopeInfoProvider.GetScopesForDocumentType(DocumentType.ClassID, siteId).Column("ScopeID");
         currentValues = TextHelper.Join(";", DataHelper.GetStringValues(ds.Tables[0], "ScopeID"));
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             usScopes.Value = currentValues;
         }

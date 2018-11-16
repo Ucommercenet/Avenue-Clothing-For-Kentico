@@ -390,7 +390,6 @@
         */
         endpointsByElement = {},
         endpointsByUUID = {},
-        preloadedImages = {}, // CMS EDIT - preloading images support
         offsets = {},
         offsetTimestamps = {},
         floatingConnections = {},
@@ -1500,12 +1499,6 @@
                         
                             // try connections first
                             /* CMS EDIT - optimized solution */
-
-                            /*if(event == "click")
-                            {
-                                console.log("jsplumb > click > " + e.target.tagName + " " + e.target.id + " " + e.target.classes);
-                            }*/
-
                             var eventTarget = $cmsj(e.target);
                             if (_currentInstance.hoverItem && _currentInstance.hoverItem.canvas.tagName == "CANVAS" && !e.jsPlumbProcessed) {
                                 if (typeof (_currentInstance.hoverItem.connector) != undefined && _currentInstance.hoverItem.connector)
@@ -3127,16 +3120,6 @@
             this.fakeEndpointDefinition = params.fakeEndpointDefinition; //CMS EDIT: Used instead of actual target point if defined
             this.isFake = params.isFake || false; //CMS EDIT: Whetrer or not this endpoint is fake one, or real one
             this.node = params.node; //CMS EDIT Node to be connected to
-
-            /* CMS EDIT - selected image support */
-            if(params.endpointSelected && params.endpointSelected[1] && !preloadedImages[params.endpointSelected[1].url]) 
-            {
-                var selectedImage = new Image();
-                selectedImage.src = params.endpointSelected[1].url;
-                _addToList(preloadedImages, params.endpointSelected[1].url, selectedImage);
-                $cmsj(document).append(selectedImage);
-            }
-            /* CMS EDIT END*/
 
             /* CMS EDIT - changing anchors when attaching/detaching */
             this.tooltip = params.tooltip;

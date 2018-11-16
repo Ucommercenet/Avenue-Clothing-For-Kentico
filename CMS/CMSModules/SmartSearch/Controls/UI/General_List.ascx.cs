@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
 using CMS.Helpers;
+using CMS.Membership;
 using CMS.Search;
 using CMS.UIControls;
+
+using Treenode = CMS.DocumentEngine.TreeNode;
 
 
 public partial class CMSModules_SmartSearch_Controls_UI_General_List : CMSAdminControl, IPostBackEventHandler
@@ -64,17 +70,29 @@ public partial class CMSModules_SmartSearch_Controls_UI_General_List : CMSAdminC
         }
     }
 
+
+    /// <summary>
+    /// Search index info.
+    /// </summary>
+    public SearchIndexInfo SearchIndexInfo
+    {
+        get
+        {
+            return SearchIndexInfoProvider.GetSearchIndexInfo(ItemID);
+        }
+    }
+
     #endregion
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
         if (!RequestHelper.IsPostBack())
         {
-            SearchIndexInfo sii = SearchIndexInfoProvider.GetSearchIndexInfo(ItemID);
-            if (sii != null)
+            if (SearchIndexInfo != null)
             {
-                SearchIndexSettings sis = sii.IndexSettings;
+                SearchIndexSettings sis = SearchIndexInfo.IndexSettings;
                 SearchIndexSettingsInfo sisi = sis.GetSearchIndexSettingsInfo(SearchHelper.SIMPLE_ITEM_ID);
 
                 if (sisi != null)
@@ -82,6 +100,46 @@ public partial class CMSModules_SmartSearch_Controls_UI_General_List : CMSAdminC
                     drpObjType.Value = sisi.ClassNames;
                     txtWhere.TextArea.Text = sisi.WhereCondition;
                 }
+            }
+        }
+    }
+
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        base.OnPreRender(e);
+
+        if (SearchIndexInfo != null && smartSearchEnabled)
+        {
+            var excludedGeneralObjects = new List<string>
+            {
+                    PredefinedObjectType.CUSTOMTABLECLASS,
+                    PredefinedObjectType.FORUM,
+                    PredefinedObjectType.BIZFORM_ITEM_PREFIX,
+                    PredefinedObjectType.DOCUMENT,
+                    PredefinedObjectType.NODE,
+                    PredefinedObjectType.GROUPFORUM,
+                    SearchHelper.ONLINEFORMINDEX,
+                }
+                .Select(x => x.ToLowerInvariant())
+                .ToList();
+
+            // Add Users into excluded object if index has not type Azure
+            if (!SearchIndexInfo.IndexProvider.Equals(SearchIndexInfo.AZURE_SEARCH_PROVIDER, StringComparison.OrdinalIgnoreCase))
+            {
+                excludedGeneralObjects.Add(UserInfo.OBJECT_TYPE);
+            }
+
+            var items = drpObjType.DropDownList.Items;
+
+            var itemsToDelete = items
+                .Cast<ListItem>()
+                .Where(item => excludedGeneralObjects.Any(item.Value.ToLowerInvariant().StartsWith))
+                .ToList();
+
+            foreach (var item in itemsToDelete)
+            {
+                items.Remove(item);
             }
         }
     }
@@ -136,6 +194,22 @@ public partial class CMSModules_SmartSearch_Controls_UI_General_List : CMSAdminC
     {
         if (eventArgument == "saved")
         {
+            SearchIndexInfo sii = SearchIndexInfoProvider.GetSearchIndexInfo(ItemID);
+            if (sii.IndexType.Equals(Treenode.OBJECT_TYPE, StringComparison.OrdinalIgnoreCase) || (sii.IndexType == SearchHelper.DOCUMENTS_CRAWLER_INDEX))
+            {
+                if (!SearchIndexCultureInfoProvider.SearchIndexHasAnyCulture(sii.IndexID))
+                {
+                    ShowError(GetString("index.noculture"));
+                    return;
+                }
+
+                if (!SearchIndexSiteInfoProvider.SearchIndexHasAnySite(sii.IndexID))
+                {
+                    ShowError(GetString("index.nosite"));
+                    return;
+                }
+            }
+
             if (SearchHelper.CreateRebuildTask(ItemID))
             {
                 ShowInformation(GetString("srch.index.rebuildstarted"));

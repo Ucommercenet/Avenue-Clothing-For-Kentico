@@ -314,8 +314,9 @@ function OnBeforeStartDrag(el) {
         if (location.y < 0) {
             location.y = 0;
         }
-        location.x += (2 * docScroll.x - containerX - 2 * wptX); // 2*wptX - because wpt is in fixed positioning
-        location.y += (2 * docScroll.y - containerY - 2 * wptY);
+
+        location.x -= (containerX + 2 * wptX); // 2*wptX - because wpt is in fixed positioning
+        location.y -= (containerY + 2 * wptY);
 
         Sys.UI.DomElement.setLocation(el, location.x, location.y);
     }

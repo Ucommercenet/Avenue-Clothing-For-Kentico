@@ -12,8 +12,9 @@ using CMS.Modules;
 using CMS.SiteProvider;
 using CMS.UIControls;
 
-
+#pragma warning disable BH3501 // Should inherit from some abstract CMS UI WebPart.
 public partial class CMSModules_AdminControls_Controls_UIControls_GeneralTree : InlineUserControl, IPostBackEventHandler
+#pragma warning restore BH3501 // Should inherit from some abstract CMS UI WebPart.
 {
     #region "Variables"
 
@@ -319,7 +320,7 @@ function DeleteItem() {
             // Select category
             if (parentobjectid > 0)
             {
-                BaseInfo biParent = BaseAbstractInfoProvider.GetInfoById(categoryObjectType, parentobjectid);
+                BaseInfo biParent = ProviderHelper.GetInfoById(categoryObjectType, parentobjectid);
                 if (biParent != null)
                 {
                     String path = ValidationHelper.GetString(biParent.GetValue(categoryPathColumn), String.Empty);
@@ -330,7 +331,7 @@ function DeleteItem() {
             // Select item
             else if (objectID > 0)
             {
-                BaseInfo bi = BaseAbstractInfoProvider.GetInfoById(objectType, objectID);
+                BaseInfo bi = ProviderHelper.GetInfoById(objectType, objectID);
                 if (bi != null)
                 {
                     script += SelectItem(bi);
@@ -357,7 +358,7 @@ function DeleteItem() {
                 else
                 {
                     // Select root by default
-                    BaseInfo bi = BaseAbstractInfoProvider.GetInfoByName(categoryObjectType, "/");
+                    BaseInfo bi = ProviderHelper.GetInfoByName(categoryObjectType, "/");
 
                     if (bi != null)
                     {
@@ -488,7 +489,7 @@ function createFrameUrl(elementId, type, parentId) {
     {
         String script = String.Empty;
         int parentID = ValidationHelper.GetInteger(bi.GetValue(itemParentColumn), 0);
-        BaseInfo biParent = BaseAbstractInfoProvider.GetInfoById(categoryObjectType, parentID);
+        BaseInfo biParent = ProviderHelper.GetInfoById(categoryObjectType, parentID);
         if (biParent != null)
         {
             String categoryPath = ValidationHelper.GetString(biParent.GetValue(categoryPathColumn), String.Empty);
@@ -534,7 +535,7 @@ function createFrameUrl(elementId, type, parentId) {
         {
             int id = ValidationHelper.GetInteger(values[1], 0);
             int parentId = ValidationHelper.GetInteger(values[2], 0);
-            BaseInfo biParent = BaseAbstractInfoProvider.GetInfoById(categoryObjectType, parentId);
+            BaseInfo biParent = ProviderHelper.GetInfoById(categoryObjectType, parentId);
 
             if (biParent == null)
             {
@@ -561,7 +562,7 @@ function createFrameUrl(elementId, type, parentId) {
             switch (values[0])
             {
                 case "item":
-                    BaseInfo bi = BaseAbstractInfoProvider.GetInfoById(objectType, id);
+                    BaseInfo bi = ProviderHelper.GetInfoById(objectType, id);
                     if (bi != null)
                     {
                         bi.Delete();
@@ -572,7 +573,7 @@ function createFrameUrl(elementId, type, parentId) {
                 case "category":
                     try
                     {
-                        BaseInfo biCate = BaseAbstractInfoProvider.GetInfoById(categoryObjectType, id);
+                        BaseInfo biCate = ProviderHelper.GetInfoById(categoryObjectType, id);
                         if (biCate != null)
                         {
                             biCate.Delete();
@@ -772,7 +773,7 @@ function createFrameUrl(elementId, type, parentId) {
             {
                 //Load parentid
                 int parentParentID = 0;
-                BaseInfo biParent = BaseAbstractInfoProvider.GetInfoById(categoryObjectType, parentID);
+                BaseInfo biParent = ProviderHelper.GetInfoById(categoryObjectType, parentID);
 
                 if (biParent != null)
                 {

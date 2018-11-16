@@ -554,7 +554,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Selectors_FileSystemSel
         Visible = !StopProcessing;
         if (!StopProcessing)
         {
-            if (URLHelper.IsPostback())
+            if (RequestHelper.IsPostBack())
             {
                 Reload(true);
             }

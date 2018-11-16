@@ -99,7 +99,7 @@ public partial class CMSModules_Reporting_Tools_Report_View : CMSReportingPage
     protected void Save()
     {
         // Check 'SaveReports' permission
-        if (!MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("cms.reporting", "SaveReports"))
+        if (!CurrentUser.IsAuthorizedPerResource("cms.reporting", "SaveReports"))
         {
             RedirectToAccessDenied("cms.reporting", "SaveReports");
         }

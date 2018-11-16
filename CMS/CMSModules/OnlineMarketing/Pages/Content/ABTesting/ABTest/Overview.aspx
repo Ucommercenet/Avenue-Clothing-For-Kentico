@@ -17,7 +17,6 @@
     <script type="text/javascript">
         //<![CDATA[
         var ABOverview = (function ($, document) {
-            'use strict';
 
             var advancedControls, spanShowMoreLess, filters,
 

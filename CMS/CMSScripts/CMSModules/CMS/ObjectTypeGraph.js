@@ -1,7 +1,5 @@
 ﻿cmsdefine(['CMS/Application', 'jQuery'], function (app, $) {
 
-    'use strict';
-
     var Module = function (data) {
 
         var config = data,

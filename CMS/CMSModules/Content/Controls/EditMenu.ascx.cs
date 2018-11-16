@@ -521,7 +521,7 @@ public partial class CMSModules_Content_Controls_EditMenu : EditMenu, IExtensibl
                     string name = (action != null) ? action.ActionDisplayName : Step.StepDisplayName;
                     string str = (action != null) ? "workflow.actioninprogress" : "workflow.stepinprogress";
                     string text = string.Format(ResHelper.GetString(str, ResourceCulture), HTMLHelper.HTMLEncode(ResHelper.LocalizeString(name, ResourceCulture)));
-                    text = ScriptHelper.GetLoaderInlineHtml(Page, text);
+                    text = ScriptHelper.GetLoaderInlineHtml(text);
 
                     InformationText = text;
                     EnsureRefreshScript();
@@ -1068,13 +1068,13 @@ public partial class CMSModules_Content_Controls_EditMenu : EditMenu, IExtensibl
 
     private bool DisplayApplyWorkflowButton(bool showWorkflowButtons)
     {
-        var allowed = !Node.IsLink && !IsLiveSite && (PortalContext.ViewMode != ViewModeEnum.EditLive) && ShowApplyWorkflow && (Step == null) && showWorkflowButtons && DocumentManager.IsActionAllowed(DocumentComponentEvents.APPLY_WORKFLOW) && Service<ILicenseService>.Entry().CheckLicense(WorkflowInfo.TYPEINFO.Feature, null, false);
+        var allowed = !Node.IsLink && !IsLiveSite && (PortalContext.ViewMode != ViewModeEnum.EditLive) && ShowApplyWorkflow && (Step == null) && showWorkflowButtons && DocumentManager.IsActionAllowed(DocumentComponentEvents.APPLY_WORKFLOW) && ObjectFactory<ILicenseService>.StaticSingleton().CheckLicense(WorkflowInfo.TYPEINFO.Feature, null, false);
 
         // Check workflow count
         if (allowed)
         {
             allowed = WorkflowInfoProvider.GetWorkflows()
-                                          .Where(new WhereCondition().WhereTrue("WorkflowEnabled").Or().WhereNull("WorkflowEnabled"))
+                                          .WhereTrue("WorkflowEnabled")
                                           .Where(new WhereCondition().WhereNotEquals("WorkflowType", (int)WorkflowTypeEnum.Automation).Or().WhereNull("WorkflowType"))
                                           .Count > 0;
         }

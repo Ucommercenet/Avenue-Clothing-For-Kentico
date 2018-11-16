@@ -4,7 +4,6 @@
  * @exports CMS/UrlChecker
  */
 cmsdefine(['jQuery'], function ($) {
-    'use strict';
 
     /**
      * Callback after url is checked.

@@ -17,7 +17,7 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <ItemTemplate>
-                <%#GetInformation(Eval("ActivityData"), Eval("ObjectName"), Eval("Culture"), Eval("ObjectID"))%>
+                <%#GetInformation(Eval("ObjectName"), Eval("Culture"), Eval("ObjectID"))%>
             </ItemTemplate>
             <FooterTemplate>
                 <strong>Agent:</strong> <asp:Literal runat="server" ID="ltlAgent" EnableViewState="false" />

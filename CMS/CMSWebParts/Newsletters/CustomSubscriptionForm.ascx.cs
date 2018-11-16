@@ -2,29 +2,30 @@
 using System.Data;
 using System.Web.UI.WebControls;
 
+using CMS.Base;
+using CMS.Base.Web.UI;
+using CMS.ContactManagement;
 using CMS.Core;
 using CMS.FormEngine;
+using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
 using CMS.Localization;
-using CMS.Newsletters;
-using CMS.PortalEngine.Web.UI;
-using CMS.PortalEngine;
-using CMS.Base;
-using CMS.ContactManagement;
-using CMS.SiteProvider;
-using CMS.Membership;
-using CMS.WebAnalytics;
-using CMS.Protection;
 using CMS.MacroEngine;
-using CMS.FormEngine.Web.UI;
+using CMS.Membership;
+using CMS.Newsletters;
+using CMS.PortalEngine;
+using CMS.PortalEngine.Web.UI;
+using CMS.Protection;
+using CMS.SiteProvider;
+using CMS.WebAnalytics;
 
 public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstractWebPart
 {
     #region "Variables"
 
     private bool mChooseMode;
-    private readonly ISubscriptionService mSubscriptionService = Service<ISubscriptionService>.Entry();
-    private readonly IContactProvider mContactProvider = Service<IContactProvider>.Entry();
+    private readonly ISubscriptionService mSubscriptionService = Service.Resolve<ISubscriptionService>();
+    private readonly IContactProvider mContactProvider = Service.Resolve<IContactProvider>();
     private bool dataFormSaved;
     private SubscriberInfo subscriber;
     private bool onBeforeSaveCalled;
@@ -47,7 +48,6 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstrac
         set
         {
             SetValue("AlternativeForm", value);
-            formElem.AlternativeFormFullName = value;
         }
     }
 
@@ -132,6 +132,18 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstrac
         {
             SetValue("ImageButtonURL", value);
             btnImageSubmit.ImageUrl = value;
+        }
+    }
+
+
+    /// <summary>
+    /// Messages placeholder
+    /// </summary>
+    public override MessagesPlaceHolder MessagesPlaceHolder
+    {
+        get
+        {
+            return plcMess;
         }
     }
 
@@ -365,15 +377,16 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstrac
                     subscriber = new SubscriberInfo();
 
                     // Init the form
-                    formElem.AlternativeFormFullName = AlternativeForm;
-                    formElem.Info = subscriber;
-                    formElem.ClearAfterSave = false;
+                    formElem.Data = subscriber;
+                    formElem.FormInformation = FormHelper.GetFormInfo(AlternativeForm, true);
+                    formElem.AltFormInformation = afi;
+                    formElem.MessagesPlaceHolder = plcMess;
                     formElem.Visible = true;
                     formElem.ValidationErrorMessage = SubscriptionErrorMessage;
                     formElem.IsLiveSite = true;
 
-                    // Reload form if not in PortalEngine environment and if post back
-                    if (StandAlone && RequestHelper.IsPostBack())
+                    // Reload form if not in PortalEngine environment
+                    if (StandAlone)
                     {
                         formElem.ReloadData();
                     }
@@ -473,7 +486,7 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstrac
     /// </summary>
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        if (PortalContext.IsDesignMode(PortalManager.ViewMode) || (HideOnCurrentPage) || (!IsVisible))
+        if (PortalContext.IsDesignMode(PageManager.ViewMode) || (HideOnCurrentPage) || (!IsVisible))
         {
             // Do not process
             return;
@@ -667,7 +680,7 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstrac
                     {
                         string siteName = SiteContext.CurrentSiteName;
 
-                        if (AnalyticsHelper.AnalyticsEnabled(siteName) && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
+                        if (AnalyticsHelper.AnalyticsEnabled(siteName) && Service.Resolve<IAnalyticsConsentProvider>().HasConsentForLogging() && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
                         {
                             // Log conversion
                             HitLogProvider.LogConversions(siteName, LocalizationContext.PreferredCultureCode, TrackConversionName, 0, ConversionValue);
@@ -754,7 +767,7 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstrac
             try
             {
                 formElem.OnBeforeSave += FormElem_OnBeforeSave;
-                if (!formElem.Save() && !onBeforeSaveCalled)
+                if (!formElem.SaveData(null, false) && !onBeforeSaveCalled)
                 {
                     return false;
                 }
@@ -771,11 +784,9 @@ public partial class CMSWebParts_Newsletters_CustomSubscriptionForm : CMSAbstrac
 
     private void FormElem_OnBeforeSave(object sender, EventArgs e)
     {
-        var form = sender as DataForm;
+        var form = sender as BasicForm;
         if (form != null)
         {
-            form.StopProcessing = true;
-
             foreach (string columnName in form.Data.ColumnNames)
             {
                 subscriber.SetValue(columnName, form.Data.GetValue(columnName));

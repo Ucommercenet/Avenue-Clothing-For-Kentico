@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="CMSWebParts_Newsletters_NewsletterSubscriptionWebPart"  Codebehind="~/CMSWebParts/Newsletters/NewsletterSubscriptionWebPart.ascx.cs" %>
-<%@ Register Src="~/CMSFormControls/Captcha/SecurityCode.ascx" TagName="SecurityCode" TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/Inputs/EmailInput.ascx" TagName="EmailInput" TagPrefix="cms" %>
 
 <asp:Panel ID="pnlSubscription" runat="server" DefaultButton="btnSubmit" CssClass="Subscription">
@@ -35,7 +34,7 @@
             <asp:PlaceHolder runat="server" ID="plcEmail">
                 <div class="form-group">
                     <div class="editing-form-label-cell">
-                        <cms:LocalizedLabel CssClass="control-label" ID="lblEmail" runat="server" AssociatedControlID="txtEmail" EnableViewState="false" />
+                        <cms:LocalizedLabel CssClass="control-label" ID="lblEmail" runat="server" AssociatedControlID="txtEmail:txtEmailInput" EnableViewState="false" />
                     </div>
                     <div class="editing-form-value-cell">
                         <cms:EmailInput ID="txtEmail" runat="server" />

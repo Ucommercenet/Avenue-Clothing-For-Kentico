@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"  Codebehind="PasswordStrength.ascx.cs"
     Inherits="CMSModules_Membership_FormControls_Passwords_PasswordStrength" %>
 <div class="password-strength">
-    <cms:CMSTextBox runat="server" ID="txtPassword" TextMode="Password" />
-    <asp:Label ID="lblRequiredFieldMark" runat="server" Text="" Visible="false" />
+    <cms:CMSTextBox runat="server" ID="txtPassword" TextMode="Password" /><asp:Label ID="lblRequiredFieldMark" runat="server" Text="" Visible="false" />
     <div class="password-strength-text">
         <cms:LocalizedLabel runat="server" ID="lblPasswStregth" CssClass="password-strength-hint"
             ResourceString="Membership.PasswordStrength" />

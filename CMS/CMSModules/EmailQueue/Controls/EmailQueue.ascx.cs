@@ -12,7 +12,8 @@ using CMS.Base.Web.UI;
 using CMS.EmailEngine;
 using CMS.Helpers;
 using CMS.UIControls;
-
+using CMS.SiteProvider;
+using CMS.Core;
 
 public partial class CMSModules_EmailQueue_Controls_EmailQueue : CMSAdminControl, ICallbackEventHandler
 {
@@ -171,12 +172,12 @@ function OpenEmailDetail(queryParameters) {{
                 return GetEmailStatus(parameter);
 
             case "subject":
-                return TextHelper.LimitLength(HTMLHelper.HTMLEncode(parameter.ToString()), 40);
+                return HTMLHelper.HTMLEncode(TextHelper.LimitLength(parameter.ToString(), 40));
 
             case "result":
                 string result = parameter.ToString();
                 int newLineIndex = result.IndexOfCSafe("\r\n", true);
-                return TextHelper.LimitLength(HTMLHelper.HTMLEncode((newLineIndex > 0) ? result.Remove(newLineIndex) : result), 45);
+                return HTMLHelper.HTMLEncode(TextHelper.LimitLength((newLineIndex > 0) ? result.Remove(newLineIndex) : result, 45));
 
             case "resend":
             case "delete":
@@ -193,9 +194,8 @@ function OpenEmailDetail(queryParameters) {{
             case "edit":
                 CMSGridActionButton viewBtn = (CMSGridActionButton)sender;
                 viewBtn.OnClientClick = string.Format("emailDialogParams_{0} = '{1}';{2};return false;",
-                                                      ClientID,
-                                                      viewBtn.CommandArgument, Page.ClientScript.GetCallbackEventReference(this, "emailDialogParams_" + ClientID, "OpenEmailDetail", null));
-
+                                                          ClientID,
+                                                          viewBtn.CommandArgument, Page.ClientScript.GetCallbackEventReference(this, "emailDialogParams_" + ClientID, "OpenEmailDetail", null));
                 break;
         }
 
@@ -213,6 +213,11 @@ function OpenEmailDetail(queryParameters) {{
         if (StopProcessing)
         {
             return;
+        }
+
+        if (!CMSActionContext.CurrentUser.IsAuthorizedPerResource(ModuleName.EMAILENGINE, EmailQueuePage.MODIFY_PERMISSION, SiteContext.CurrentSiteName, false))
+        {
+            RedirectToAccessDenied(ModuleName.EMAILENGINE, EmailQueuePage.MODIFY_PERMISSION);
         }
 
         switch (actionName.ToLowerCSafe())
@@ -315,7 +320,8 @@ function OpenEmailDetail(queryParameters) {{
         bool sending = EmailHelper.Queue.SendingInProgess;
 
         // Disable action buttons (and image) if e-mail status is 'created' or 'sending'
-        if (sending || (status == (int)EmailStatusEnum.Created) || (status == (int)EmailStatusEnum.Sending))
+        if (sending || (status == (int)EmailStatusEnum.Created) || (status == (int)EmailStatusEnum.Sending) ||
+            !CMSActionContext.CurrentUser.IsAuthorizedPerResource(ModuleName.EMAILENGINE, EmailQueuePage.MODIFY_PERMISSION, SiteContext.CurrentSiteName, false))
         {
             imageButton.OnClientClick = null;
             imageButton.Enabled = false;

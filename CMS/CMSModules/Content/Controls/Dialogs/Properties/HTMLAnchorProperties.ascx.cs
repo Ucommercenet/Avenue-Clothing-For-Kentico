@@ -17,7 +17,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLAnchorPr
 
         if (!StopProcessing)
         {
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 // Load drop-down list data
                 LoadAnchorNames();
@@ -37,7 +37,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLAnchorPr
                 lblLinkText.Visible = false;
             }
 
-            if (!URLHelper.IsPostback())
+            if (!RequestHelper.IsPostBack())
             {
                 // Initialize controls
                 SetupControls();
@@ -62,7 +62,7 @@ public partial class CMSModules_Content_Controls_Dialogs_Properties_HTMLAnchorPr
         rbAnchorText.Text = GetString("dialogs.anchor.bytext");
 
         // Select by default
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             rbAnchorText.Checked = true;
             drpAnchorId.Enabled = false;

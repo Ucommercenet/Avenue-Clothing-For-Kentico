@@ -1,5 +1,6 @@
 ﻿using System;
 
+using CMS.Core;
 using CMS.DeviceProfiles;
 using CMS.Helpers;
 using CMS.PortalEngine.Web.UI;
@@ -68,9 +69,11 @@ public partial class CMSWebParts_DeviceProfiles_SwitchDeviceDetection : CMSAbstr
 
 
     protected void Page_Load(object sender, EventArgs e)
-    {                 
+    {
+        var cookieLevelProvider = Service.Resolve<ICurrentCookieLevelProvider>();
+
         // Check if current device is desktop
-        if ((CookieHelper.CurrentCookieLevel < CookieLevel.Essential) || (String.IsNullOrEmpty(DeviceContext.CurrentDeviceProfileName) && String.IsNullOrEmpty(DeviceProfileInfoProvider.GetOriginalCurrentDevicProfileName(CurrentSite.SiteName))))
+        if ((cookieLevelProvider.GetCurrentCookieLevel() < CookieLevel.Essential) || (String.IsNullOrEmpty(DeviceContext.CurrentDeviceProfileName) && String.IsNullOrEmpty(DeviceProfileInfoProvider.GetOriginalCurrentDevicProfileName(CurrentSite.SiteName))))
         {
             pnlContent.Visible = false;
             return;

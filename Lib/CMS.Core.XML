@@ -9,14 +9,14 @@
             Represents application startup parameters.
             </summary>
         </member>
-        <member name="M:CMS.Core.AppCoreSetup.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:CMS.Core.AppCoreSetup"/> class.
-            </summary>
-        </member>
         <member name="P:CMS.Core.AppCoreSetup.DependenciesFolderPath">
             <summary>
             Gets the path of the directory containing private assemblies.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.AppCoreSetup.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.AppCoreSetup"/> class.
             </summary>
         </member>
         <member name="T:CMS.Core.AppCoreSetup.Builder">
@@ -42,9 +42,59 @@
             </summary>
             <returns>A new instance of the <see cref="T:CMS.Core.AppCoreSetup"/> class.</returns>
         </member>
+        <member name="T:CMS.Core.AssemblyVersionHelper">
+            <summary>
+            Provides support for determining assembly version from dependencies folder.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.AssemblyVersionHelper.GetDependencyVersion(System.Reflection.AssemblyName)">
+            <summary>
+            Returns dependency version considering possible assembly binding redirect in configuration file.
+            </summary>
+        </member>
+        <member name="T:CMS.Core.RegistrationPriority">
+            <summary>
+            Enumeration of possible priorities for implementation registration.
+            </summary>
+            <seealso cref="T:CMS.RegisterImplementationAttribute"/>
+        </member>
+        <member name="F:CMS.Core.RegistrationPriority.Default">
+            <summary>
+            Indicates that implementation being registered is to replace any implementation registered so far.
+            </summary>
+        </member>
+        <member name="F:CMS.Core.RegistrationPriority.Fallback">
+            <summary>
+            Indicates that implementation being registered is to be considered a fallback implementation. Such implementation is used
+            only when no other implementation is registered later in the application's life-cycle.
+            </summary>
+            <remarks>
+            <para>
+            A fallback implementation is typically used during early application initialization phase, when regular system implementation
+            is yet to be registered.
+            </para>
+            <para>
+            Registering more than one fallback implementation is an error and the behavior is undefined.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:CMS.Core.RegistrationPriority.SystemDefault">
+            <summary>
+            Indicates that implementation being registered is to be considered a system default implementation. <see cref="F:CMS.Core.RegistrationPriority.Default"/> implementation
+            has precedence when registering an implementation.
+            </summary>
+            <remarks>
+            Registering more than one system default implementation is an error and the behavior is undefined.
+            </remarks>
+        </member>
         <member name="T:CMS.Core.AssemblyDiscoveryHelper">
             <summary>
             Provides loading of application assemblies.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.AssemblyDiscoveryHelper.AssemblyDiscovery">
+            <summary>
+            Current instance of <see cref="P:CMS.Core.AssemblyDiscoveryHelper.AssemblyDiscovery"/> (or its derived class) used by the helper.
             </summary>
         </member>
         <member name="M:CMS.Core.AssemblyDiscoveryHelper.GetAssemblies(System.Boolean)">
@@ -80,145 +130,39 @@
             </summary>
             <param name="filePath">Assembly file path</param>
         </member>
-        <member name="P:CMS.Core.AssemblyDiscoveryHelper.AssemblyDiscovery">
+        <member name="T:CMS.Core.Lifestyle">
             <summary>
-            Current instance of <see cref="P:CMS.Core.AssemblyDiscoveryHelper.AssemblyDiscovery"/> (or its derived class) used by the helper.
+            Enumeration of possible lifestyles of a service registered via <see cref="T:CMS.RegisterImplementationAttribute"/>.
             </summary>
         </member>
-        <member name="T:CMS.ContractAttribute">
+        <member name="F:CMS.Core.Lifestyle.Singleton">
             <summary>
-            Marks the class with the contract using the specific interface
+            Singleton lifestyle.
             </summary>
         </member>
-        <member name="M:CMS.ContractAttribute.#ctor(System.Type,System.Boolean)">
+        <member name="F:CMS.Core.Lifestyle.Transient">
             <summary>
-            Constructor
-            </summary>
-            <param name="interfaceType">Type of the interface for the contract</param>
-            <param name="includeAllPublicMembers">If true (default), all public members of the implementation are included into the contract</param>
-        </member>
-        <member name="P:CMS.ContractAttribute.IncludeAllPublicMembers">
-            <summary>
-            If true (default), all public members of the implementation are included into the contract
-            </summary>
-        </member>
-        <member name="P:CMS.ContractAttribute.IsLocal">
-            <summary>
-            If true (default false), the generated files are generated into the same folder.
-            </summary>
-        </member>
-        <member name="P:CMS.ContractAttribute.InterfaceType">
-            <summary>
-            Interface type
-            </summary>
-        </member>
-        <member name="T:CMS.NotContract">
-            <summary>
-            Marks the member not to be included into contract
-            </summary>
-        </member>
-        <member name="T:CMS.StaticContractAttribute">
-            <summary>
-            Marks the class with the contract using the specific interface
-            </summary>
-        </member>
-        <member name="M:CMS.StaticContractAttribute.#ctor(System.Type,System.Boolean)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="interfaceType">Type of the interface for the contract</param>
-            <param name="includeAllPublicMembers">If true (default), all public members of the implementation are included into the contract</param>
-        </member>
-        <member name="T:CMS.AssemblyDiscoverableAttribute">
-            <summary>
-            Marks the assembly as discoverable (containing modules or implementations)
-            </summary>
-        </member>
-        <member name="T:CMS.RegisterImplementationAttribute">
-            <summary>
-            Marks class as implementation of <see cref="P:CMS.RegisterImplementationAttribute.ImplementedType"/>.
-            </summary>
-            <seealso cref="T:CMS.Core.ObjectFactory`1"/>
-        </member>
-        <member name="M:CMS.RegisterImplementationAttribute.#ctor(System.Type,System.Type)">
-            <summary>
-            Instructs <see cref="T:CMS.Core.ObjectFactory`1"/> to use <paramref name="implementation"/> whenever an instance of <paramref name="implementedType"/> is requested.
-            </summary>
-            <param name="implementedType">Interface to associate implementation with.</param>
-            <param name="implementation">Implementation of <paramref name="implementedType"/>.</param>
-        </member>
-        <member name="P:CMS.RegisterImplementationAttribute.ImplementedType">
-            <summary>
-            Type for which an implementation is being registered.
-            </summary>
-        </member>
-        <member name="P:CMS.RegisterImplementationAttribute.Implementation">
-            <summary>
-            Implementation of <see cref="P:CMS.RegisterImplementationAttribute.ImplementedType"/> to be used by <see cref="T:CMS.Core.ObjectFactory`1"/>.
-            </summary>
-        </member>
-        <member name="T:CMS.RequiredImplementationAttribute">
-            <summary>
-            Marks an implementation as required, effectively protecting it from being replaced once it is registered in <see cref="T:CMS.Core.ObjectFactory`1"/>.
-            </summary>
-            <seealso cref="T:CMS.RegisterImplementationAttribute"/>
-            <seealso cref="T:CMS.Core.ObjectFactory`1"/>
-        </member>
-        <member name="T:CMS.IPreInitAttribute">
-            <summary>
-            Marks a method in class implementing this interface and deriving from <see cref="T:System.Attribute"/> as suitable to be executed during application pre-initialization.
-            </summary>
-            <remarks>
-            This API supports the framework infrastructure and is not intended to be used directly from your code.
-            </remarks>
-        </member>
-        <member name="M:CMS.IPreInitAttribute.PreInit">
-            <summary>
-            Method to be executed during application pre-initialization.
-            </summary>
-        </member>
-        <member name="P:CMS.IPreInitAttribute.MarkedType">
-            <summary>
-            Type marked with this attribute.
-            </summary>
-        </member>
-        <member name="T:CMS.GeneratedFromAttribute">
-            <summary>
-            Marks the automatically generated classes.
-            </summary>
-        </member>
-        <member name="M:CMS.GeneratedFromAttribute.#ctor(System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="filePath">Path to the file within the solution from which the marked class has been generated.</param>
-        </member>
-        <member name="P:CMS.GeneratedFromAttribute.SourceFile">
-            <summary>
-            Path to the file within the solution from which the marked class has been generated.
-            </summary>
-        </member>
-        <member name="T:CMS.IInitAttribute">
-            <summary>
-            Marks a method in class implementing this interface and deriving from <see cref="T:System.Attribute"/> as suitable to be executed during application initialization.
-            </summary>
-            <remarks>
-            This API supports the framework infrastructure and is not intended to be used directly from your code.
-            </remarks>
-        </member>
-        <member name="M:CMS.IInitAttribute.Init">
-            <summary>
-            Method to be executed during application pre-initialization.
-            </summary>
-        </member>
-        <member name="P:CMS.IInitAttribute.MarkedType">
-            <summary>
-            Type marked with this attribute.
+            Transient lifestyle.
             </summary>
         </member>
         <member name="T:CMS.Core.AppCore">
             <summary>
             Main entry point to the application.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.AppCore.PreInitialized">
+            <summary>
+            Gets a value indicating whether the application core has been pre-initialized.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.AppCore.Initialized">
+            <summary>
+            Gets a value indicating whether the application core has been initialized.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.AppCore.CurrentSetup">
+            <summary>
+            Gets current application core startup parameters.
             </summary>
         </member>
         <member name="M:CMS.Core.AppCore.InitializeAssemblyResolver">
@@ -286,37 +230,6 @@
             Kentico modules reference private assemblies to avoid conflict with customer's assemblies.
             </remarks>
         </member>
-        <member name="P:CMS.Core.AppCore.PreInitialized">
-            <summary>
-            Gets a value indicating whether the application core has been pre-initialized.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.AppCore.Initialized">
-            <summary>
-            Gets a value indicating whether the application core has been initialized.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.AppCore.CurrentSetup">
-            <summary>
-            Gets current application core startup parameters.
-            </summary>
-        </member>
-        <member name="T:CMS.RegisterModuleAttribute">
-            <summary>
-            Registers the module within assembly
-            </summary>
-        </member>
-        <member name="M:CMS.RegisterModuleAttribute.#ctor(System.Type)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="type">Module type</param>
-        </member>
-        <member name="P:CMS.RegisterModuleAttribute.Type">
-            <summary>
-            Module type
-            </summary>
-        </member>
         <member name="T:CMS.Core.DefaultAssemblyResolver">
             <summary>
             Resolves private assemblies.
@@ -376,9 +289,14 @@
             </summary>
             <seealso cref="M:CMS.Core.AssemblyDiscovery.IsExcludedImplicitly(System.String)"/>
         </member>
-        <member name="M:CMS.Core.AssemblyDiscovery.#ctor">
+        <member name="P:CMS.Core.AssemblyDiscovery.Assemblies">
             <summary>
-            Creates new instance of <see cref="T:CMS.Core.AssemblyDiscovery"/>.
+            A list of application assemblies.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.AssemblyDiscovery.DiscoverableAssemblies">
+            <summary>
+            A list of discoverable application assemblies.
             </summary>
         </member>
         <member name="M:CMS.Core.AssemblyDiscovery.GetAssemblies(System.Boolean)">
@@ -492,51 +410,30 @@
             </summary>
             <param name="assembly">Assembly in question</param>
         </member>
-        <member name="P:CMS.Core.AssemblyDiscovery.Assemblies">
-            <summary>
-            A list of application assemblies.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.AssemblyDiscovery.DiscoverableAssemblies">
-            <summary>
-            A list of discoverable application assemblies.
-            </summary>
-        </member>
-        <member name="T:CMS.DefaultImplementationAttribute">
-            <summary>
-            Instructs <see cref="T:CMS.Core.ObjectFactory`1"/> to use <see cref="P:CMS.DefaultImplementationAttribute.Implementation"/> as a default implementation when an instance of interface or class targeted by this attribute is requested.
-            </summary>
-            <remarks>
-            The default implementation can be replaced using <see cref="T:CMS.RegisterImplementationAttribute"/> in any assembly (unless <see cref="P:CMS.DefaultImplementationAttribute.CanBeReplaced"/> forbids it).
-            </remarks>
-        </member>
-        <member name="M:CMS.DefaultImplementationAttribute.#ctor(System.Type,System.Boolean)">
-            <summary>
-            Instructs <see cref="T:CMS.Core.ObjectFactory`1"/> to use <paramref name="implementation"/> whenever an instance of interface or class targeted by this attribute is requested.
-            </summary>
-            <param name="implementation">Default implementation of interface or class targeted by this attribute.</param>
-            <param name="canBeReplaced">If true, the default implementation can be replaced.</param>
-        </member>
-        <member name="P:CMS.DefaultImplementationAttribute.Implementation">
-            <summary>
-            Implementation of interface or class targeted by this attribute to be used by <see cref="T:CMS.Core.ObjectFactory`1"/>.
-            </summary>
-        </member>
-        <member name="P:CMS.DefaultImplementationAttribute.CanBeReplaced">
-            <summary>
-            Indicates whether <see cref="T:CMS.Core.ObjectFactory`1"/> allows for replacement of the default implementation.
-            </summary>
-        </member>
         <member name="T:CMS.Core.TypeManager">
             <summary>
             Manager for object factories
             </summary>
         </member>
-        <member name="M:CMS.Core.TypeManager.FindImplementation(System.Type)">
+        <member name="P:CMS.Core.TypeManager.IoCContainer">
             <summary>
-            Finds an implementation for given type.
+            Gets an inversion of control container which is used by the system to resolve service dependencies.
             </summary>
-            <param name="implementedType">Type for which to lookup an implementation.</param>
+            <remarks>
+            Service implementations are registered into the container during application initialization process.
+            </remarks>
+            <seealso cref="T:CMS.RegisterImplementationAttribute"/>
+            <seealso cref="T:CMS.Core.DefaultCoreServicesImplementations"/>
+        </member>
+        <member name="P:CMS.Core.TypeManager.Initialized">
+            <summary>
+            If true, all types were already initialized.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.TypeManager.PreInitialized">
+            <summary>
+            If true, the types were already pre-initialized
+            </summary>
         </member>
         <member name="M:CMS.Core.TypeManager.RegisterDynamicAssembly(System.Reflection.Assembly)">
             <summary>
@@ -544,11 +441,11 @@
             </summary>
             <param name="assembly">The assembly to register.</param>
         </member>
-        <member name="M:CMS.Core.TypeManager.RegisterImplementation(CMS.RegisterImplementationAttribute)">
+        <member name="M:CMS.Core.TypeManager.InitializeIoCContainer">
             <summary>
-            Processes <paramref name="implementation"/> by associating implementation with implemented type. This method is to be called within CS of <see cref="F:CMS.Core.TypeManager.mLock"/> only.
+            Initializes an inversion of control container and registers core services into it.
             </summary>
-            <param name="implementation">Implementation attribute</param>
+            <seealso cref="T:CMS.Core.DefaultCoreServicesImplementations"/>
         </member>
         <member name="M:CMS.Core.TypeManager.PreInitializeTypes">
             <summary>
@@ -603,29 +500,19 @@
             Gets the list of registered generic types.
             </summary>
         </member>
-        <member name="P:CMS.Core.TypeManager.Initialized">
-            <summary>
-            If true, all types were already initialized.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.TypeManager.PreInitialized">
-            <summary>
-            If true, the types were already pre-initialized
-            </summary>
-        </member>
         <member name="T:CMS.Core.SingletonStorage`2">
             <summary>
             Storage for singleton objects
             </summary>
         </member>
-        <member name="M:CMS.Core.SingletonStorage`2.#cctor">
-            <summary>
-            Static constructor
-            </summary>
-        </member>
         <member name="P:CMS.Core.SingletonStorage`2.Singleton">
             <summary>
             Singleton
+            </summary>
+        </member>
+        <member name="M:CMS.Core.SingletonStorage`2.#cctor">
+            <summary>
+            Static constructor
             </summary>
         </member>
         <member name="T:CMS.Core.IMacroRoot">
@@ -668,22 +555,6 @@
             <summary>
             Represents method executable in MacroEngine.
             </summary>
-        </member>
-        <member name="M:CMS.Core.IMacroMethod.ExecuteMethod(System.Object[])">
-            <summary>
-            Executes given method with parameters.
-            </summary>
-            <param name="parameters">Method parameters</param>
-        </member>
-        <member name="M:CMS.Core.IMacroMethod.AddParameter(System.String,System.Type,System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Adds parameter to the method definition.
-            </summary>
-            <param name="name">Name of the parameter</param>
-            <param name="type">Type of the parameter</param>
-            <param name="comment">Comment of the parameter</param>
-            <param name="isParams">If true, parameter is declared with params keyword</param>
-            <param name="asExpression">If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated</param>
         </member>
         <member name="P:CMS.Core.IMacroMethod.Method">
             <summary>
@@ -730,10 +601,74 @@
             Gets or sets the list of special parameters needed to be supplied by resolver.
             </summary>
         </member>
+        <member name="M:CMS.Core.IMacroMethod.ExecuteMethod(System.Object[])">
+            <summary>
+            Executes given method with parameters.
+            </summary>
+            <param name="parameters">Method parameters</param>
+        </member>
+        <member name="M:CMS.Core.IMacroMethod.AddParameter(System.String,System.Type,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Adds parameter to the method definition.
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="type">Type of the parameter</param>
+            <param name="comment">Comment of the parameter</param>
+            <param name="isParams">If true, parameter is declared with params keyword</param>
+            <param name="asExpression">If true, the parameter is passed to the method as expression (MacroExpression object), not evaluated</param>
+        </member>
         <member name="T:CMS.Core.DefaultPerformanceCounter">
             <summary>
             Default performance counter implementation
             </summary>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.Increment(System.String)">
+            <summary>
+            Increments global and site counter. If the parameter siteName is null, increments only global counter.
+            </summary>
+            <param name="siteName">Site name</param>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.Decrement(System.String)">
+            <summary>
+            Decrements global and site counter. If the parameter siteName is null, decrements only global counter.
+            </summary>
+            <param name="siteName">Site name</param>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.SetValue(System.Int64,System.String)">
+            <summary>
+            Sets raw value of global or site counter. If the parameter siteName is null, sets global counter.
+            </summary>
+            <param name="value">Value</param>
+            <param name="siteName">Site name</param>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.GetValue(System.String,System.Boolean)">
+            <summary>
+            Gets value of global or site counter. If the parameter siteName is null, get global counter value.
+            </summary>
+            <param name="siteName">Site name</param>
+            <param name="updateLastLog">Indicates if date time of last log value should be updated.</param>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.Clear">
+            <summary>
+            Clears global and sites counters.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.ClearLastLog">
+            <summary>
+            Clears last log date time.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.GetLastLog(System.String)">
+            <summary>
+            Gets time of last log.
+            </summary>
+            <param name="siteName">Site name</param>
+        </member>
+        <member name="M:CMS.Core.DefaultPerformanceCounter.Reset(System.Boolean)">
+            <summary>
+            Resets global and sites values.
+            </summary>
+            <param name="resetSitesValues">Indicates if sites counters should be reset.</param>
         </member>
         <member name="T:CMS.Core.IPerformanceCounter">
             <summary>
@@ -788,64 +723,397 @@
             </summary>
             <param name="resetSitesValues">Indicates if sites counters should be reset.</param>
         </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.Increment(System.String)">
+        <member name="T:CMS.Core.IoCContainer">
             <summary>
-            Increments global and site counter. If the parameter siteName is null, increments only global counter.
-            </summary>
-            <param name="siteName">Site name</param>
-        </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.Decrement(System.String)">
-            <summary>
-            Decrements global and site counter. If the parameter siteName is null, decrements only global counter.
-            </summary>
-            <param name="siteName">Site name</param>
-        </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.SetValue(System.Int64,System.String)">
-            <summary>
-            Sets raw value of global or site counter. If the parameter siteName is null, sets global counter.
-            </summary>
-            <param name="value">Value</param>
-            <param name="siteName">Site name</param>
-        </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.GetValue(System.String,System.Boolean)">
-            <summary>
-            Gets value of global or site counter. If the parameter siteName is null, get global counter value.
-            </summary>
-            <param name="siteName">Site name</param>
-            <param name="updateLastLog">Indicates if date time of last log value should be updated.</param>
-        </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.Clear">
-            <summary>
-            Clears global and sites counters.
+            Provides inversion of control (IoC) functionality for the system.
             </summary>
         </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.ClearLastLog">
+        <member name="P:CMS.Core.IoCContainer.Container">
             <summary>
-            Clears last log date time.
+            Gets the underlying IoC container instance.
             </summary>
         </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.GetLastLog(System.String)">
+        <member name="M:CMS.Core.IoCContainer.#ctor">
             <summary>
-            Gets time of last log.
-            </summary>
-            <param name="siteName">Site name</param>
-        </member>
-        <member name="M:CMS.Core.DefaultPerformanceCounter.Reset(System.Boolean)">
-            <summary>
-            Resets global and sites values.
-            </summary>
-            <param name="resetSitesValues">Indicates if sites counters should be reset.</param>
-        </member>
-        <member name="T:CMS.IWorkerTask">
-            <summary>
-            Defines a common interface for simple worker tasks
+            Initializes an inversion of control container.
             </summary>
         </member>
-        <member name="M:CMS.IWorkerTask.Execute">
+        <member name="M:CMS.Core.IoCContainer.Register(CMS.Core.IRegistration)">
             <summary>
-            Executes the task
+            Registers <paramref name="registration"/> within this container.
             </summary>
-            <returns>Textual description of task run's failure if any.</returns>
+            <param name="registration">Registration to register.</param>
+            <returns>This instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="registration"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails.</exception>
+        </member>
+        <member name="M:CMS.Core.IoCContainer.IsRegistered(System.Type)">
+            <summary>
+            Indicates whether <paramref name="service"/> has an implementation registered.
+            </summary>
+            <param name="service">Service type in question.</param>
+            <returns>True when <paramref name="service"/> is registered, otherwise false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="service"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.IoCContainer.Resolve``1">
+            <summary>
+            Returns an instance of <typeparamref name="TService"/> as registered within container.
+            </summary>
+            <typeparam name="TService">Service type to be resolved.</typeparam>
+            <returns>Returns an instance of <typeparamref name="TService"/>.</returns>
+            <exception cref="T:CMS.Core.ServiceResolutionException">
+            Thrown when resolution of <typeparamref name="TService"/> fails. This typically occurs when no implementing type for <typeparamref name="TService"/> is registered
+            or the implementing type has dependencies which cannot be satisfied.
+            </exception>
+        </member>
+        <member name="M:CMS.Core.IoCContainer.Resolve(System.Type)">
+            <summary>
+            Returns an instance of <paramref name="service"/> as registered within container.
+            </summary>
+            <param name="service">Service type to be resolved.</param>
+            <returns>Returns an instance of <paramref name="service"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="service"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceResolutionException">
+            Thrown when resolution of <paramref name="service"/> fails. This typically occurs when no implementing type for <paramref name="service"/> is registered
+            or the implementing type has dependencies which cannot be satisfied.
+            </exception>
+        </member>
+        <member name="M:CMS.Core.IoCContainer.Dispose">
+            <summary>
+            Releases all resources used by the current instance of the <see cref="T:CMS.Core.IoCContainer"/> class.
+            </summary>
+        </member>
+        <member name="T:CMS.Core.IoCContainerExtensions">
+            <summary>
+            Contains extension methods to work with <see cref="T:CMS.Core.IoCContainer"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.IoCContainerExtensions.RegisterImplementation(CMS.Core.IoCContainer,CMS.RegisterImplementationAttribute)">
+            <summary>
+            Processes <paramref name="implementationAttribute"/> by associating implementation with implemented type.
+            </summary>
+            <param name="container">Inversion of control container to perform registration on.</param>
+            <param name="implementationAttribute">Register implementation attribute to be processed.</param>
+        </member>
+        <member name="T:CMS.Core.ObjectFactoryLikeReleasePolicy">
+            <summary>
+            Castle Windsor container release policy which provides similar level of tracking as <see cref="T:CMS.Core.ObjectFactory`1"/> does.
+            </summary>
+        </member>
+        <member name="T:CMS.Core.IRegistration">
+            <summary>
+            Represents a registration within an <see cref="T:CMS.Core.IoCContainer"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.IRegistration.Register(CMS.Core.IoCContainer)">
+            <summary>
+            Registers this registration within <paramref name="container"/>.
+            </summary>
+            <param name="container">Container to perform registration on.</param>
+            <returns>The container instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="container"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails.</exception>
+        </member>
+        <member name="T:CMS.Core.Registration">
+            <summary>
+            Represents a registration of type for an <see cref="T:CMS.Core.IoCContainer"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.Registration.#ctor(System.Type)">
+            <summary>
+            Initializes registration for registering service type <paramref name="service"/>.
+            </summary>
+            <param name="service">Type of service to be registered within <see cref="T:CMS.Core.IoCContainer"/>.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="service"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.Registration.ImplementedBy(System.Type)">
+            <summary>
+            Sets implementation of type represented by this registration to <paramref name="implementation"/>.
+            </summary>
+            <param name="implementation">Implementation type for type represented by this registration.</param>
+            <returns>This instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="implementation"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.Registration.Instance(System.Object)">
+            <summary>
+            Sets implementation of type represented by this registration to <paramref name="instance"/>.
+            </summary>
+            <param name="instance">An instance implementing type represented by this registration.</param>
+            <returns>This instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="instance"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.Registration.FactoryMethod(System.Func{System.Object})">
+            <summary>
+            Sets implementation of type represented by this registration to an instance provided by <paramref name="factoryMethod"/>.
+            </summary>
+            <param name="factoryMethod">Method providing an instance of type represented by this registration.</param>
+            <returns>This instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="factoryMethod"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.Registration.LifestyleSingleton">
+            <summary>
+            Sets lifestyle of type represented by this registration to singleton.
+            </summary>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:CMS.Core.Registration.LifestyleTransient">
+            <summary>
+            Sets lifestyle of type represented by this registration to transient.
+            </summary>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:CMS.Core.Registration.IsFallback">
+            <summary>
+            Marks the implementation of type represented by this registration as a fallback implementation. A fallback implementation is used
+            only when no other implementation registration is performed.
+            </summary>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:CMS.Core.Registration.IsDefault">
+            <summary>
+            <para>
+            Makes the implementation of type represented by this registration current default. This overrides any previous registrations.
+            </para>
+            <para>
+            When an implementation is being registered and is not marked as default, then if becomes current default only if no other registration
+            was already performed, or when all previous registrations were marked as fallback implementations (i.e. the first non-fallback registration wins
+            unless explicitly overridden by this method).
+            </para>
+            </summary>
+            <returns>This instance.</returns>
+            <seealso cref="M:CMS.Core.Registration.IsFallback"/>
+        </member>
+        <member name="M:CMS.Core.Registration.Named(System.String)">
+            <summary>
+            Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being set. Name must be unique.
+            </summary>
+            <param name="name">Name to be set.</param>
+            <returns>This instance.</returns>
+            <remarks>
+            The name does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.Registration.Register(CMS.Core.IoCContainer)">
+            <summary>
+            Registers this registration within <paramref name="container"/>.
+            </summary>
+            <param name="container">Inversion of control container in which to perform the registration.</param>
+            <returns>The container instance passed as parameter.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="container"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails.</exception>
+        </member>
+        <member name="T:CMS.Core.Registration`1">
+            <summary>
+            Represents a registration of type <typeparamref name="TService"/> for an <see cref="T:CMS.Core.IoCContainer"/>.
+            </summary>
+            <typeparam name="TService">Type of service to be registered within <see cref="T:CMS.Core.IoCContainer"/>.</typeparam>
+        </member>
+        <member name="M:CMS.Core.Registration`1.#ctor">
+            <summary>
+            Initializes registration for registering service type <typeparamref name="TService"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.Registration`1.ImplementedBy``1">
+            <summary>
+            Sets implementation of type <typeparamref name="TService"/> to <typeparamref name="TImplementation"/>.
+            </summary>
+            <typeparam name="TImplementation">Implementation type for <typeparamref name="TService"/>.</typeparam>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:CMS.Core.Registration`1.Instance``1(``0)">
+            <summary>
+            Sets implementation of type <typeparamref name="TService"/> to an instance of <typeparamref name="TImplementation"/>.
+            </summary>
+            <typeparam name="TImplementation">Implementation type for <typeparamref name="TService"/>.</typeparam>
+            <param name="instance">An instance implementing <typeparamref name="TService"/>.</param>
+            <returns>This instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="instance"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.Registration`1.FactoryMethod``1(System.Func{``0})">
+            <summary>
+            Sets implementation of type <typeparamref name="TService"/> to an instance provided by <paramref name="factoryMethod"/>.
+            </summary>
+            <typeparam name="TImplementation">Implementation type for <typeparamref name="TService"/>.</typeparam>
+            <param name="factoryMethod">Method providing an instance of <typeparamref name="TService"/>.</param>
+            <returns>This instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="factoryMethod"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.Registration`1.LifestyleSingleton">
+            <summary>
+            Sets lifestyle of type <typeparamref name="TService"/> represented by this registration to singleton.
+            </summary>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:CMS.Core.Registration`1.LifestyleTransient">
+            <summary>
+            Sets lifestyle of type <typeparamref name="TService"/> represented by this registration to transient.
+            </summary>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:CMS.Core.Registration`1.IsFallback">
+            <summary>
+            Marks the implementation of type represented by this registration as a fallback implementation. A fallback implemenatation is used
+            only when no other implementation registration is performed.
+            </summary>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:CMS.Core.Registration`1.IsDefault">
+            <summary>
+            <para>
+            Makes the implementation of type represented by this registration current default. This overrides any previous registrations.
+            </para>
+            <para>
+            When an implementation is being registered and is not marked as default, then if becomes current default only if no other registration
+            was already performed, or when all previous registrations were marked as fallback implementations (i.e. the first non-fallback registration wins
+            unless explicitly overridden by this method).
+            </para>
+            </summary>
+            <returns>This instance.</returns>
+            <seealso cref="M:CMS.Core.Registration`1.IsFallback"/>
+        </member>
+        <member name="M:CMS.Core.Registration`1.Named(System.String)">
+            <summary>
+            Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being set. Name must be unique.
+            </summary>
+            <param name="name">Name to be set.</param>
+            <returns>This instance.</returns>
+            <remarks>
+            The name does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.Registration`1.Register(CMS.Core.IoCContainer)">
+            <summary>
+            Registers this registration within <paramref name="container"/>.
+            </summary>
+            <param name="container">Inversion of control container in which to perform the registration.</param>
+            <returns>The container instance passed as parameter.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="container"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails.</exception>
+        </member>
+        <member name="T:CMS.Core.RegistrationCore`1">
+            <summary>
+            Represents a registration for an <see cref="T:CMS.Core.IoCContainer"/>.
+            </summary>
+            <typeparam name="TService">Type of service for strongly typed registrations.</typeparam>
+            <remarks>
+            This class serves as an aid to reduce amount of code for registration within Castle Windsor (CW) container. CW represents non-generic registration by <typeparamref name="TService"/> of type <see cref="T:System.Object"/>
+            while using different constructor to indicate that <typeparamref name="TService"/> does not represent the actual type being registered (see how <see cref="F:CMS.Core.RegistrationCore`1.componentRegistrationBuilder"/> is being initialized).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.Instance``1(``0)">
+            <summary>
+            Sets implementation to an instance of <typeparamref name="TImplementation"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.FactoryMethod``1(System.Func{``0})">
+            <summary>
+            Sets implementation to an instance provided by <paramref name="factoryMethod"/>.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.LifestyleSingleton">
+            <summary>
+            Sets lifestyle of type represented by this registration to singleton.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.LifestyleTransient">
+            <summary>
+            Sets lifestyle of type represented by this registration to transient.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.IsFallback">
+            <summary>
+            Marks the implementation of type represented by this registration as a fallback implementation. A fallback implementation is used
+            only when no other implementation registration is performed.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.IsDefault">
+            <summary>
+            <para>
+            Makes the implementation of type represented by this registration current default. This overrides any previous registrations.
+            </para>
+            <para>
+            When an implementation is being registered and is not marked as default, then if becomes current default only if no other registration
+            was already performed, or when all previous registrations were marked as fallback implementations (i.e. the first non-fallback registration wins
+            unless explicitly overridden by this method).
+            </para>
+            </summary>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.Named(System.String)">
+            <summary>
+            Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being set. Name must be unique.
+            </summary>
+            <param name="name">Name to be set.</param>
+            <remarks>
+            The name does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.RegistrationCore`1.Register(CMS.Core.IoCContainer)">
+            <summary>
+            Registers this registration within <paramref name="container"/>.
+            </summary>
+            <param name="container">Inversion of control container in which to perform the registration.</param>
+            <returns>The container instance passed as parameter.</returns>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails.</exception>
+        </member>
+        <member name="T:CMS.Core.ServiceRegistrationException">
+            <summary>
+            Thrown when registration of a service fails.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ServiceRegistrationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceRegistrationException"/> class with default values.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ServiceRegistrationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceRegistrationException"/> class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:CMS.Core.ServiceRegistrationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceRegistrationException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="inner">The exception that is the cause of the current exception, or a null reference if no inner exception is specified.</param>
+        </member>
+        <member name="M:CMS.Core.ServiceRegistrationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceRegistrationException"/> class with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:CMS.Core.ServiceResolutionException">
+            <summary>
+            Thrown when resolution of a service fails.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ServiceResolutionException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceResolutionException"/> class with default values.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ServiceResolutionException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceResolutionException"/> class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:CMS.Core.ServiceResolutionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceResolutionException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="inner">The exception that is the cause of the current exception, or a null reference if no inner exception is specified.</param>
+        </member>
+        <member name="M:CMS.Core.ServiceResolutionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ServiceResolutionException"/> class with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
         </member>
         <member name="T:CMS.Core.DiscoveryError">
             <summary>
@@ -866,6 +1134,14 @@
             <summary>
             The full name of the assembly or a path to the assembly file.
             </summary>
+        </member>
+        <member name="P:CMS.Core.DiscoveryError.IsDevelopmentMode">
+            <summary>
+            Gets a value indicating whether the development mode is active.
+            </summary>
+            <remarks>
+            The development mode setting is retrieved using the ConfigurationManager class as the core services might not be available during discovery.
+            </remarks>
         </member>
         <member name="M:CMS.Core.DiscoveryError.#ctor(System.Exception,System.String)">
             <summary>
@@ -914,14 +1190,6 @@
             <param name="eventCode">The code of the event log entry.</param>
             <param name="description">The description of the event log entry.</param>
         </member>
-        <member name="P:CMS.Core.DiscoveryError.IsDevelopmentMode">
-            <summary>
-            Gets a value indicating whether the development mode is active.
-            </summary>
-            <remarks>
-            The development mode setting is retrieved using the ConfigurationManager class as the core services might not be available during discovery.
-            </remarks>
-        </member>
         <member name="T:CMS.Core.ModuleDiscovery">
             <summary>
             Provides loading of application modules.
@@ -953,6 +1221,16 @@
             The basic meta data is read only.
             </summary>
         </member>
+        <member name="P:CMS.Core.BasicModuleInstallationMetaData.Name">
+            <summary>
+            Name of the module.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BasicModuleInstallationMetaData.Version">
+            <summary>
+            Version of the module.
+            </summary>
+        </member>
         <member name="M:CMS.Core.BasicModuleInstallationMetaData.#ctor(System.String,System.String)">
             <summary>
             Creates new basic module installation meta data.
@@ -965,16 +1243,6 @@
             Returns a string that represents the current object.
             </summary>
             <returns>A string that represents the current object.</returns>
-        </member>
-        <member name="P:CMS.Core.BasicModuleInstallationMetaData.Name">
-            <summary>
-            Name of the module.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BasicModuleInstallationMetaData.Version">
-            <summary>
-            Version of the module.
-            </summary>
         </member>
         <member name="T:CMS.Core.ModuleInstallationMetaData">
             <summary>
@@ -991,10 +1259,45 @@
             Version of the module (e.g. "1.2.3").
             </summary>
         </member>
+        <member name="T:CMS.Core.DefaultCoreServicesImplementations">
+            <summary>
+            Contains definition of core services and their default implementations.
+            </summary>
+            <remarks>
+            The core services are required to be available during early application initialization phase and their
+            implementation must be registered within inversion of control container in order for the application
+            initialization to work.
+            </remarks>
+            <seealso cref="P:CMS.Core.TypeManager.IoCContainer"/>
+        </member>
+        <member name="P:CMS.Core.DefaultCoreServicesImplementations.Transient">
+            <summary>
+            Gets array of pairs of types (interface, default implementation) which are to be registered with transient lifestyle.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.DefaultCoreServicesImplementations.Singleton">
+            <summary>
+            Gets array of pairs of types (interface, default implementation) which are to be registered with singleton lifestyle.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.DefaultCoreServicesImplementations.Register(CMS.Core.IoCContainer)">
+            <summary>
+            Registers core services with proper lifestyle as fallback implementations within <paramref name="container"/>.
+            </summary>
+            <param name="container">Inversion of control container to perform registration on.</param>
+            <seealso cref="P:CMS.Core.DefaultCoreServicesImplementations.Transient"/>
+            <seealso cref="P:CMS.Core.DefaultCoreServicesImplementations.Singleton"/>
+        </member>
         <member name="T:CMS.Core.Internal.DefaultDateTimeNowService">
             <summary>
             Provides method for getting current <see cref="T:System.DateTime"/>.
             </summary>
+        </member>
+        <member name="M:CMS.Core.Internal.DefaultDateTimeNowService.GetDateTimeNow">
+            <summary>
+            Gets the current <see cref="T:System.DateTime"/> by calling <see cref="P:System.DateTime.Now"/> method.
+            </summary>
+            <returns>Current <see cref="T:System.DateTime"/></returns>
         </member>
         <member name="T:CMS.Core.Internal.IDateTimeNowService">
             <summary>
@@ -1011,20 +1314,6 @@
             </remarks>
             <returns>Current <see cref="T:System.DateTime"/></returns>
         </member>
-        <member name="M:CMS.Core.Internal.DefaultDateTimeNowService.GetDateTimeNow">
-            <summary>
-            Gets the current <see cref="T:System.DateTime"/> by calling <see cref="P:System.DateTime.Now"/> method.
-            </summary>
-            <returns>Current <see cref="T:System.DateTime"/></returns>
-        </member>
-        <member name="T:CMS.Core.DefaultInstallableModulesInformationService">
-            <summary>
-            Provides information about installable modules.
-            </summary>
-            <remarks>
-            The default implementation does not provide any information about installable modules.
-            </remarks>
-        </member>
         <member name="T:CMS.Core.Internal.IInstallableModulesInformationService">
             <summary>
             Provides information about installable modules.
@@ -1039,6 +1328,14 @@
             </summary>
             <returns>Set of module names omitted from initialization. Returns null if all installable modules are omitted from initialization.</returns>
         </member>
+        <member name="T:CMS.Core.DefaultInstallableModulesInformationService">
+            <summary>
+            Provides information about installable modules.
+            </summary>
+            <remarks>
+            The default implementation does not provide any information about installable modules.
+            </remarks>
+        </member>
         <member name="M:CMS.Core.DefaultInstallableModulesInformationService.GetModuleNamesOmittedFromInitialization">
             <summary>
             Gets set of module names which are not installed and therefore omitted from initialization.
@@ -1048,31 +1345,6 @@
         <member name="T:CMS.Core.ModuleEntry">
             <summary>
             Represents the standard module entry.
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ModuleEntry.#ctor(CMS.Core.ModuleMetadata,System.Boolean)">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ModuleEntry.PreInit">
-            <summary>
-            Pre-initializes the module.
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ModuleEntry.Init">
-            <summary>
-            Initializes the module.
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ModuleEntry.OnPreInit">
-            <summary>
-            Handles the module pre-initialization.
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ModuleEntry.OnInit">
-            <summary>
-            Handles the module initialization.
             </summary>
         </member>
         <member name="P:CMS.Core.ModuleEntry.ModuleMetadata">
@@ -1132,6 +1404,31 @@
             Available only for modules discovered via <see cref="T:CMS.Core.ModuleDiscovery"/>.
             </remarks>
         </member>
+        <member name="M:CMS.Core.ModuleEntry.#ctor(CMS.Core.ModuleMetadata,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ModuleEntry.PreInit">
+            <summary>
+            Pre-initializes the module.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ModuleEntry.Init">
+            <summary>
+            Initializes the module.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ModuleEntry.OnPreInit">
+            <summary>
+            Handles the module pre-initialization.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ModuleEntry.OnInit">
+            <summary>
+            Handles the module initialization.
+            </summary>
+        </member>
         <member name="T:CMS.Core.ModuleEntrySort">
             <summary>
             Provides an ordered collection of modules based on their dependencies.
@@ -1140,6 +1437,26 @@
             Module A is dependent on module B if module A is declared in an assembly that references an assembly where module B is declared.
             It implements deterministic depth-first topological sort that ignores circular dependencies.
             </remarks>
+        </member>
+        <member name="T:CMS.Core.ModuleEntrySort.ModuleEntryState">
+            <summary>
+            Represents a state of a module entry during topological sort.
+            </summary>
+        </member>
+        <member name="F:CMS.Core.ModuleEntrySort.ModuleEntryState.Alive">
+            <summary>
+            The module entry has not been processed yet.
+            </summary>
+        </member>
+        <member name="F:CMS.Core.ModuleEntrySort.ModuleEntryState.Dead">
+            <summary>
+            The module entry has been processed.
+            </summary>
+        </member>
+        <member name="F:CMS.Core.ModuleEntrySort.ModuleEntryState.Processing">
+            <summary>
+            The module entry is being processed.
+            </summary>
         </member>
         <member name="M:CMS.Core.ModuleEntrySort.Sort(System.Collections.Generic.List{CMS.Core.ModuleEntry})">
             <summary>
@@ -1174,36 +1491,10 @@
             <param name="modules">A collection of modules to sort.</param>
             <returns>A mapping from an assembly name to a list module indices.</returns>
         </member>
-        <member name="T:CMS.Core.ModuleEntrySort.ModuleEntryState">
-            <summary>
-            Represents a state of a module entry during topological sort.
-            </summary>
-        </member>
-        <member name="F:CMS.Core.ModuleEntrySort.ModuleEntryState.Alive">
-            <summary>
-            The module entry has not been processed yet.
-            </summary>
-        </member>
-        <member name="F:CMS.Core.ModuleEntrySort.ModuleEntryState.Dead">
-            <summary>
-            The module entry has been processed.
-            </summary>
-        </member>
-        <member name="F:CMS.Core.ModuleEntrySort.ModuleEntryState.Processing">
-            <summary>
-            The module entry is being processed.
-            </summary>
-        </member>
         <member name="T:CMS.Core.ModuleMetadata">
             <summary>
             Represents the module metadata.
             </summary>
-        </member>
-        <member name="M:CMS.Core.ModuleMetadata.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CMS.Core.ModuleMetadata"/> class.
-            </summary>
-            <param name="name">The module name.</param>
         </member>
         <member name="P:CMS.Core.ModuleMetadata.Name">
             <summary>
@@ -1214,6 +1505,12 @@
             <summary>
             Gets the directory with module files.
             </summary>
+        </member>
+        <member name="M:CMS.Core.ModuleMetadata.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Core.ModuleMetadata"/> class.
+            </summary>
+            <param name="name">The module name.</param>
         </member>
         <member name="T:CMS.Core.ModuleName">
             <summary>
@@ -1248,6 +1545,11 @@
         <member name="F:CMS.Core.ModuleName.EMAIL">
             <summary>
             Emails.
+            </summary>
+        </member>
+        <member name="F:CMS.Core.ModuleName.EMAILENGINE">
+            <summary>
+            Email engine.
             </summary>
         </member>
         <member name="F:CMS.Core.ModuleName.PORTALENGINE">
@@ -1695,6 +1997,11 @@
             Exception to log
             </summary>
         </member>
+        <member name="P:CMS.Core.BufferedEvent.LoggingPolicy">
+            <summary>
+            Logging policy.
+            </summary>
+        </member>
         <member name="M:CMS.Core.BufferedEvent.#ctor(System.String,System.String,System.String,System.String)">
             <summary>
             Constructor
@@ -1717,63 +2024,9 @@
             Logs the buffered event to the event log
             </summary>
         </member>
-        <member name="P:CMS.Core.BufferedEvent.LoggingPolicy">
-            <summary>
-            Logging policy.
-            </summary>
-        </member>
         <member name="T:CMS.Core.DefaultLogContext">
             <summary>
             Default log context
-            </summary>
-        </member>
-        <member name="T:CMS.Core.ILogContext">
-            <summary>
-            Interface for the Log context
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ILogContext.AppendText(System.String,System.Boolean)">
-            <summary>
-            Appends the text.
-            </summary>
-            <param name="text">Text to append</param>
-            <param name="newLine">Append as new line</param>
-        </member>
-        <member name="M:CMS.Core.ILogContext.Clear">
-            <summary>
-            Clears the log
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ILogContext.Offset">
-            <summary>
-            Offset of a partial log in a complete log
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ILogContext.Log">
-            <summary>
-            Log content
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ILogContext.LogGuid">
-            <summary>
-            Log guid.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ILogContext.MaxLength">
-            <summary>
-            Maximum length of the log
-            </summary>
-        </member>
-        <member name="M:CMS.Core.DefaultLogContext.AppendText(System.String,System.Boolean)">
-            <summary>
-            Appends the text.
-            </summary>
-            <param name="text">Text to append</param>
-            <param name="newLine">Append as new line</param>
-        </member>
-        <member name="M:CMS.Core.DefaultLogContext.Clear">
-            <summary>
-            Clears the log
             </summary>
         </member>
         <member name="P:CMS.Core.DefaultLogContext.Offset">
@@ -1796,73 +2049,44 @@
             Log GUID
             </summary>
         </member>
+        <member name="M:CMS.Core.DefaultLogContext.AppendText(System.String,System.Boolean)">
+            <summary>
+            Appends the text.
+            </summary>
+            <param name="text">Text to append</param>
+            <param name="newLine">Append as new line</param>
+        </member>
+        <member name="M:CMS.Core.DefaultLogContext.Clear">
+            <summary>
+            Clears the log
+            </summary>
+        </member>
         <member name="T:CMS.Core.DefaultWebFarmService">
             <summary>
             Default service to provide web farm synchronization
             </summary>
         </member>
-        <member name="T:CMS.Core.IWebFarmService">
-            <summary>
-            Web farm service interface
-            </summary>
-        </member>
-        <member name="M:CMS.Core.IWebFarmService.RegisterTask(CMS.Core.WebFarmTask)">
-            <summary>
-            Registers the given web farm task.
-            </summary>
-            <param name="task">Web farm task.</param>
-        </member>
-        <member name="M:CMS.Core.IWebFarmService.CreateTask(System.String,System.String,System.String[])">
-            <summary>
-            Creates task.
-            </summary>
-            <param name="taskType">Task type</param>
-            <param name="taskTarget">Target</param>
-            <param name="taskTextData">Task text data (such as code name, ID etc.)</param>
-            <returns>Returns true if the task was created (web farm is set up and task was allowed)</returns>
-        </member>
-        <member name="M:CMS.Core.IWebFarmService.CreateIOTask(System.String,System.String,CMS.Core.BinaryData,System.String,System.String[])">
-            <summary>
-            Creates task.
-            </summary>
-            <param name="taskType">Task type</param>
-            <param name="taskFilePath">Task file path.</param>
-            <param name="taskBinaryData">Task binary data.</param>
-            <param name="taskTarget">Target</param>
-            <param name="taskTextData">Task text data (such as code name, ID etc.)</param>
-            <returns>Returns true if the task was created (web farm is set up and task was allowed)</returns>
-        </member>
-        <member name="M:CMS.Core.IWebFarmService.GetServerNamesToUpdate">
-            <summary>
-            Gets the list of names of servers to be updated. Current server is excluded.
-            </summary>
-        </member>
-        <member name="M:CMS.Core.IWebFarmService.GetEnabledServerNames">
-            <summary>
-            Gets enumeration of names of all enabled web farm servers.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.IWebFarmService.SynchronizeFiles">
+        <member name="P:CMS.Core.DefaultWebFarmService.SynchronizeFiles">
             <summary>
             Gets or sets value that indicates whether file synchronization is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.IWebFarmService.SynchronizePhysicalFiles">
+        <member name="P:CMS.Core.DefaultWebFarmService.SynchronizePhysicalFiles">
             <summary>
             Gets value that indicates whether file synchronization for physical project files is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.IWebFarmService.SynchronizeDeleteFiles">
+        <member name="P:CMS.Core.DefaultWebFarmService.SynchronizeDeleteFiles">
             <summary>
             Gets or sets value that indicates whether file delete synchronization is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.IWebFarmService.WebFarmEnabled">
+        <member name="P:CMS.Core.DefaultWebFarmService.WebFarmEnabled">
             <summary>
             Returns true if the web farm is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.IWebFarmService.ServerName">
+        <member name="P:CMS.Core.DefaultWebFarmService.ServerName">
             <summary>
             Returns unique identifier of the server.
             </summary>
@@ -1903,29 +2127,107 @@
             Gets enumeration of names of all enabled web farm servers.
             </summary>
         </member>
-        <member name="P:CMS.Core.DefaultWebFarmService.SynchronizeFiles">
+        <member name="T:CMS.Core.ILogContext">
+            <summary>
+            Interface for the Log context
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ILogContext.Offset">
+            <summary>
+            Offset of a partial log in a complete log
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ILogContext.Log">
+            <summary>
+            Log content
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ILogContext.LogGuid">
+            <summary>
+            Log guid.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ILogContext.MaxLength">
+            <summary>
+            Maximum length of the log
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ILogContext.AppendText(System.String,System.Boolean)">
+            <summary>
+            Appends the text.
+            </summary>
+            <param name="text">Text to append</param>
+            <param name="newLine">Append as new line</param>
+        </member>
+        <member name="M:CMS.Core.ILogContext.Clear">
+            <summary>
+            Clears the log
+            </summary>
+        </member>
+        <member name="T:CMS.Core.IWebFarmService">
+            <summary>
+            Web farm service interface
+            </summary>
+        </member>
+        <member name="P:CMS.Core.IWebFarmService.SynchronizeFiles">
             <summary>
             Gets or sets value that indicates whether file synchronization is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.DefaultWebFarmService.SynchronizePhysicalFiles">
+        <member name="P:CMS.Core.IWebFarmService.SynchronizePhysicalFiles">
             <summary>
             Gets value that indicates whether file synchronization for physical project files is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.DefaultWebFarmService.SynchronizeDeleteFiles">
+        <member name="P:CMS.Core.IWebFarmService.SynchronizeDeleteFiles">
             <summary>
             Gets or sets value that indicates whether file delete synchronization is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.DefaultWebFarmService.WebFarmEnabled">
+        <member name="P:CMS.Core.IWebFarmService.WebFarmEnabled">
             <summary>
             Returns true if the web farm is enabled.
             </summary>
         </member>
-        <member name="P:CMS.Core.DefaultWebFarmService.ServerName">
+        <member name="P:CMS.Core.IWebFarmService.ServerName">
             <summary>
             Returns unique identifier of the server.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.IWebFarmService.RegisterTask(CMS.Core.WebFarmTask)">
+            <summary>
+            Registers the given web farm task.
+            </summary>
+            <param name="task">Web farm task.</param>
+        </member>
+        <member name="M:CMS.Core.IWebFarmService.CreateTask(System.String,System.String,System.String[])">
+            <summary>
+            Creates task.
+            </summary>
+            <param name="taskType">Task type</param>
+            <param name="taskTarget">Target</param>
+            <param name="taskTextData">Task text data (such as code name, ID etc.)</param>
+            <returns>Returns true if the task was created (web farm is set up and task was allowed)</returns>
+        </member>
+        <member name="M:CMS.Core.IWebFarmService.CreateIOTask(System.String,System.String,CMS.Core.BinaryData,System.String,System.String[])">
+            <summary>
+            Creates task.
+            </summary>
+            <param name="taskType">Task type</param>
+            <param name="taskFilePath">Task file path.</param>
+            <param name="taskBinaryData">Task binary data.</param>
+            <param name="taskTarget">Target</param>
+            <param name="taskTextData">Task text data (such as code name, ID etc.)</param>
+            <returns>Returns true if the task was created (web farm is set up and task was allowed)</returns>
+        </member>
+        <member name="M:CMS.Core.IWebFarmService.GetServerNamesToUpdate">
+            <summary>
+            Gets the list of names of servers to be updated. Current server is excluded.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.IWebFarmService.GetEnabledServerNames">
+            <summary>
+            Gets enumeration of names of all enabled web farm servers.
             </summary>
         </member>
         <member name="T:CMS.Core.IWebFarmTask">
@@ -1983,6 +2285,46 @@
             Checksum to compare binary data
             </summary>
         </member>
+        <member name="P:CMS.Core.BinaryData.Length">
+            <summary>
+            Length of the binary data
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BinaryData.Data">
+            <summary>
+            Resulting binary data
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BinaryData.Stream">
+            <summary>
+            Returns SourceStream if not null, otherwise returns SourceData wrapped in the MemoryStream.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BinaryData.SourceData">
+            <summary>
+            Source data
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BinaryData.SourceStream">
+            <summary>
+            Source stream
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BinaryData.GetData">
+            <summary>
+            External method used to get the binary data when required
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BinaryData.IsLoaded">
+            <summary>
+            True if data were loaded to memory.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.BinaryData.Checksum">
+            <summary>
+            Gets data checksum.
+            </summary>
+        </member>
         <member name="M:CMS.Core.BinaryData.#ctor(System.Byte[])">
             <summary>
             Constructor
@@ -2024,46 +2366,6 @@
         <member name="M:CMS.Core.BinaryData.Close">
             <summary>
             Closes the stream behind this binary data (if set)
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.Length">
-            <summary>
-            Length of the binary data
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.Data">
-            <summary>
-            Resulting binary data
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.Stream">
-            <summary>
-            Returns SourceStream if not null, otherwise returns SourceData wrapped in the MemoryStream.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.SourceData">
-            <summary>
-            Source data
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.SourceStream">
-            <summary>
-            Source stream
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.GetData">
-            <summary>
-            External method used to get the binary data when required
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.IsLoaded">
-            <summary>
-            True if data were loaded to memory.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.BinaryData.Checksum">
-            <summary>
-            Gets data checksum.
             </summary>
         </member>
         <member name="T:CMS.Core.LoggingPolicy">
@@ -2182,130 +2484,10 @@
             Group data of same task type
             </summary>
         </member>
-        <member name="T:CMS.Core.IOverridable`1">
-            <summary>
-            Interface defining overridable object
-            </summary>
-        </member>
-        <member name="P:CMS.Core.IOverridable`1.OverrideBy">
-            <summary>
-            If set, the object is overridden by this class methods
-            </summary>
-        </member>
-        <member name="P:CMS.Core.IOverridable`1.Overriden">
-            <summary>
-            Returns true if the object is overridden
-            </summary>
-        </member>
-        <member name="T:CMS.New">
-            <summary>
-            Entry point to the object factories
-            </summary>
-        </member>
-        <member name="M:CMS.New.Instance``1">
-            <summary>
-            Creates a new instance of the object of the given type
-            </summary>
-        </member>
-        <member name="P:CMS.New.InstanceOf">
-            <summary>
-            Creates a new instance of the object of the given type
-            </summary>
-        </member>
-        <member name="T:CMS.Core.StaticServiceWrapper`2">
-            <summary>
-            Static wrapper for the service with default implementation specified
-            </summary>
-        </member>
-        <member name="P:CMS.Core.StaticServiceWrapper`2.Service">
-            <summary>
-            Singleton object instance behind the wrapper
-            </summary>
-        </member>
-        <member name="T:CMS.Core.StaticObjectWrapper`1">
-            <summary>
-            Site related context methods and variables.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.StaticObjectWrapper`1.Singleton">
-            <summary>
-            Singleton object instance behind the wrapper
-            </summary>
-        </member>
         <member name="T:CMS.Core.DefaultConversionService">
             <summary>
             Default service to provide conversion
             </summary>
-        </member>
-        <member name="T:CMS.Core.IConversionService">
-            <summary>
-            Interface for the conversion service
-            </summary>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetInteger(System.Object,System.Int32)">
-            <summary>
-            Returns the integer representation of an object or default value if not.
-            </summary>
-            <param name="value">Value to convert</param>
-            <param name="defaultValue">Default value</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetBoolean(System.Object,System.Boolean)">
-            <summary>
-            Returns the boolean representation of an object or default value if not.
-            </summary>
-            <param name="value">Value to convert</param>
-            <param name="defaultValue">Default value</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetDouble(System.Object,System.Double,System.String)">
-            <summary>
-            Returns the double representation of an object or default value if not.
-            </summary>
-            <param name="value">Value to convert</param>
-            <param name="defaultValue">Default value</param>
-            <param name="culture">Culture</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetGuid(System.Object,System.Guid)">
-            <summary>
-            Returns the Guid representation of an object or default value if not.
-            </summary>
-            <param name="value">Value to convert</param>
-            <param name="defaultValue">Default value</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetString(System.Object,System.String)">
-            <summary>
-            Returns the string representation of an object or default value if not.
-            </summary>
-            <param name="value">Value to convert</param>
-            <param name="defaultValue">Default value</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetIdentifier(System.String)">
-            <summary>
-            Gets the identifier created from the given name
-            </summary>
-            <param name="name">Display name</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetDateTime(System.Object,System.DateTime,System.String)">
-            <summary>
-            Returns the DateTime representation of an object or default value if not.
-            </summary>
-            <param name="value">Value to convert</param>
-            <param name="defaultValue">Default value</param>
-            <param name="culture">Culture</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetValue``1(System.Object,``0)">
-            <summary>
-            Converts the value to specified type. If the value is null, default value is used.
-            </summary>
-            <typeparam name="T">Result type</typeparam>
-            <param name="value">Value to convert</param>
-            <param name="defaultValue">Default value</param>
-        </member>
-        <member name="M:CMS.Core.IConversionService.GetCodeName(System.Object,System.String)">
-            <summary>
-            Gets the code name created from the given string.
-            </summary>
-            <param name="name">Display name</param>
-            <param name="replacement">Replacement string for invalid characters</param>
         </member>
         <member name="M:CMS.Core.DefaultConversionService.GetInteger(System.Object,System.Int32)">
             <summary>
@@ -2377,21 +2559,6 @@
             Default service to provide app settings
             </summary>
         </member>
-        <member name="T:CMS.Core.IConnectionStringService">
-            <summary>
-            ConnectionString service interface
-            </summary>
-        </member>
-        <member name="P:CMS.Core.IConnectionStringService.DefaultConnectionString">
-            <summary>
-            Default connection string
-            </summary>
-        </member>
-        <member name="P:CMS.Core.IConnectionStringService.Item(System.String)">
-            <summary>
-            Gets the specific connection string from the app config
-            </summary>
-        </member>
         <member name="P:CMS.Core.DefaultConnectionStringService.DefaultConnectionString">
             <summary>
             Default connection string
@@ -2409,44 +2576,9 @@
             Stores the events in the buffer to be used later by the proper event log implementation.
             </summary>
         </member>
-        <member name="T:CMS.Core.IEventLogService">
+        <member name="P:CMS.Core.DefaultEventLogService.CurrentLogContext">
             <summary>
-            Event log service interface
-            </summary>
-        </member>
-        <member name="M:CMS.Core.IEventLogService.EnsureLog(System.Guid)">
-            <summary>
-            Ensures the log for given GUID.
-            </summary>
-            <param name="logGuid">Log GUID</param>
-        </member>
-        <member name="M:CMS.Core.IEventLogService.CloseLog(System.Guid)">
-            <summary>
-            Closes given log context.
-            </summary>
-            <param name="logGuid">Log GUID</param>
-        </member>
-        <member name="M:CMS.Core.IEventLogService.LogEvent(System.String,System.String,System.String,System.String)">
-            <summary>
-            Writes a new record to the event log.
-            </summary>
-            <param name="eventType">Type of the event. Please use predefined constants from EventLogProvider</param>
-            <param name="source">Source of the event (Content, Administration, etc.)</param>
-            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
-            <param name="eventDescription">Detailed description of the event</param>
-        </member>
-        <member name="M:CMS.Core.IEventLogService.LogException(System.String,System.String,System.Exception,CMS.Core.LoggingPolicy)">
-            <summary>
-            Writes a new error to the event log.
-            </summary>
-            <param name="source">Source of the event (Content, Administration, etc.)</param>
-            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
-            <param name="ex">Exception to be logged</param>
-            <param name="loggingPolicy">Logging policy.</param>
-        </member>
-        <member name="P:CMS.Core.IEventLogService.CurrentLogContext">
-            <summary>
-            Current log context
+            Returns current log context
             </summary>
         </member>
         <member name="M:CMS.Core.DefaultEventLogService.EnsureLog(System.Guid)">
@@ -2490,31 +2622,10 @@
             Logs the buffered events to the event log
             </summary>
         </member>
-        <member name="P:CMS.Core.DefaultEventLogService.CurrentLogContext">
-            <summary>
-            Returns current log context
-            </summary>
-        </member>
         <member name="T:CMS.Core.DefaultAppSettingsService">
             <summary>
             Default service to provide app settings
             </summary>
-        </member>
-        <member name="T:CMS.Core.IAppSettingsService">
-            <summary>
-            AppSettings service interface
-            </summary>
-        </member>
-        <member name="P:CMS.Core.IAppSettingsService.Item(System.String)">
-            <summary>
-            Gets the specific settings from the app config
-            </summary>
-        </member>
-        <member name="M:CMS.Core.DefaultAppSettingsService.GetSetting(System.String)">
-            <summary>
-            Gets the setting value based on the given key
-            </summary>
-            <param name="keyName">Settings key name</param>
         </member>
         <member name="P:CMS.Core.DefaultAppSettingsService.Item(System.String)">
             <summary>
@@ -2522,59 +2633,16 @@
             </summary>
             <param name="keyName">Settings key</param>
         </member>
+        <member name="M:CMS.Core.DefaultAppSettingsService.GetSetting(System.String)">
+            <summary>
+            Gets the setting value based on the given key
+            </summary>
+            <param name="keyName">Settings key name</param>
+        </member>
         <member name="T:CMS.Core.DefaultLocalizationService">
             <summary>
             Default localization service
             </summary>
-        </member>
-        <member name="T:CMS.Core.ILocalizationService">
-            <summary>
-            Localization service interface
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ILocalizationService.GetString(System.String,System.String,System.Boolean)">
-            <summary>
-            Gets the string by the specified resource key
-            </summary>
-            <param name="resourceKey">Resource key</param>
-            <param name="culture">Culture</param>
-            <param name="useDefaultCulture">If true the default culture translation is used if translation in chosen culture doesn't exist</param>
-        </member>
-        <member name="M:CMS.Core.ILocalizationService.GetFileString(System.String,System.String,System.Boolean)">
-            <summary>
-            Gets the string by the specified resource key from resource file
-            </summary>
-            <param name="resourceKey">Resource key</param>
-            <param name="culture">Culture</param>
-            <param name="useDefaultCulture">If true the default culture translation is used if translation in chosen culture doesn't exist</param>
-        </member>
-        <member name="M:CMS.Core.ILocalizationService.GetAPIString(System.String,System.String,System.String)">
-            <summary>
-            Returns specified string.
-            </summary>
-            <param name="resourceKey">Key of the string</param>
-            <param name="culture">Culture</param>
-            <param name="defaultValue">Default value</param>
-        </member>
-        <member name="M:CMS.Core.ILocalizationService.LocalizeExpression(System.String,System.String,System.Boolean,System.Func{System.String,System.String,System.Boolean,System.String},System.Boolean)">
-            <summary>
-            Localizes the given expression, handles two types of expressions:
-            
-            stringkey - Simple localization
-            
-            =default string|cs-cz=localized string - advanced localization
-            </summary>
-            <param name="expression">Expression to localize</param>
-            <param name="culture">Culture to use for localization</param>
-            <param name="encode">If true, translations (replacements) are HTML encoded</param>
-            <param name="getStringMethod">Method to get the resource string for localization</param>
-            <param name="useDefaultCulture">If true the default culture translation is used if translation in chosen culture doesn't exist</param>
-        </member>
-        <member name="M:CMS.Core.ILocalizationService.ClearCache(System.Boolean)">
-            <summary>
-            Clears the cached resource strings and forces them to load again on next localization request.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
         <member name="M:CMS.Core.DefaultLocalizationService.GetString(System.String,System.String,System.Boolean)">
             <summary>
@@ -2625,22 +2693,6 @@
             Default service to provide settings
             </summary>
         </member>
-        <member name="T:CMS.Core.ISettingsService">
-            <summary>
-            Settings service interface
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ISettingsService.IsAvailable">
-            <summary>
-            Returns true if the settings service is available
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ISettingsService.Item(System.String)">
-            <summary>
-            Gets the specific settings from the database
-            </summary>
-            <param name="keyName">Settings key</param>
-        </member>
         <member name="P:CMS.Core.DefaultSettingsService.IsAvailable">
             <summary>
             Returns true if the settings service is available
@@ -2652,6 +2704,131 @@
             </summary>
             <param name="keyName">Settings key</param>
         </member>
+        <member name="T:CMS.Core.IConnectionStringService">
+            <summary>
+            ConnectionString service interface
+            </summary>
+        </member>
+        <member name="P:CMS.Core.IConnectionStringService.DefaultConnectionString">
+            <summary>
+            Default connection string
+            </summary>
+        </member>
+        <member name="P:CMS.Core.IConnectionStringService.Item(System.String)">
+            <summary>
+            Gets the specific connection string from the app config
+            </summary>
+        </member>
+        <member name="T:CMS.Core.IEventLogService">
+            <summary>
+            Event log service interface
+            </summary>
+        </member>
+        <member name="P:CMS.Core.IEventLogService.CurrentLogContext">
+            <summary>
+            Current log context
+            </summary>
+        </member>
+        <member name="M:CMS.Core.IEventLogService.EnsureLog(System.Guid)">
+            <summary>
+            Ensures the log for given GUID.
+            </summary>
+            <param name="logGuid">Log GUID</param>
+        </member>
+        <member name="M:CMS.Core.IEventLogService.CloseLog(System.Guid)">
+            <summary>
+            Closes given log context.
+            </summary>
+            <param name="logGuid">Log GUID</param>
+        </member>
+        <member name="M:CMS.Core.IEventLogService.LogEvent(System.String,System.String,System.String,System.String)">
+            <summary>
+            Writes a new record to the event log.
+            </summary>
+            <param name="eventType">Type of the event. Please use predefined constants from EventLogProvider</param>
+            <param name="source">Source of the event (Content, Administration, etc.)</param>
+            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
+            <param name="eventDescription">Detailed description of the event</param>
+        </member>
+        <member name="M:CMS.Core.IEventLogService.LogException(System.String,System.String,System.Exception,CMS.Core.LoggingPolicy)">
+            <summary>
+            Writes a new error to the event log.
+            </summary>
+            <param name="source">Source of the event (Content, Administration, etc.)</param>
+            <param name="eventCode">Event code (UPDATEDOC, SENDEMAIL, DELETE, etc.)</param>
+            <param name="ex">Exception to be logged</param>
+            <param name="loggingPolicy">Logging policy.</param>
+        </member>
+        <member name="T:CMS.Core.IConversionService">
+            <summary>
+            Interface for the conversion service
+            </summary>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetInteger(System.Object,System.Int32)">
+            <summary>
+            Returns the integer representation of an object or default value if not.
+            </summary>
+            <param name="value">Value to convert</param>
+            <param name="defaultValue">Default value</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetBoolean(System.Object,System.Boolean)">
+            <summary>
+            Returns the boolean representation of an object or default value if not.
+            </summary>
+            <param name="value">Value to convert</param>
+            <param name="defaultValue">Default value</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetDouble(System.Object,System.Double,System.String)">
+            <summary>
+            Returns the double representation of an object or default value if not.
+            </summary>
+            <param name="value">Value to convert</param>
+            <param name="defaultValue">Default value</param>
+            <param name="culture">Culture</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetGuid(System.Object,System.Guid)">
+            <summary>
+            Returns the Guid representation of an object or default value if not.
+            </summary>
+            <param name="value">Value to convert</param>
+            <param name="defaultValue">Default value</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetString(System.Object,System.String)">
+            <summary>
+            Returns the string representation of an object or default value if not.
+            </summary>
+            <param name="value">Value to convert</param>
+            <param name="defaultValue">Default value</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetIdentifier(System.String)">
+            <summary>
+            Gets the identifier created from the given name
+            </summary>
+            <param name="name">Display name</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetDateTime(System.Object,System.DateTime,System.String)">
+            <summary>
+            Returns the DateTime representation of an object or default value if not.
+            </summary>
+            <param name="value">Value to convert</param>
+            <param name="defaultValue">Default value</param>
+            <param name="culture">Culture</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetValue``1(System.Object,``0)">
+            <summary>
+            Converts the value to specified type. If the value is null, default value is used.
+            </summary>
+            <typeparam name="T">Result type</typeparam>
+            <param name="value">Value to convert</param>
+            <param name="defaultValue">Default value</param>
+        </member>
+        <member name="M:CMS.Core.IConversionService.GetCodeName(System.Object,System.String)">
+            <summary>
+            Gets the code name created from the given string.
+            </summary>
+            <param name="name">Display name</param>
+            <param name="replacement">Replacement string for invalid characters</param>
+        </member>
         <member name="T:CMS.Core.ModuleInfo">
             <summary>
             Represents a module info.
@@ -2660,6 +2837,21 @@
         <member name="F:CMS.Core.ModuleInfo.mModule">
             <summary>
             A module associated with this module info.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ModuleInfo.Name">
+            <summary>
+            Gets a module name.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ModuleInfo.ModuleRootPath">
+            <summary>
+            Gets a directory with module files.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ModuleInfo.Module">
+            <summary>
+            Gets a module associated with this module info.
             </summary>
         </member>
         <member name="M:CMS.Core.ModuleInfo.#ctor(CMS.Core.ModuleEntry)">
@@ -2680,24 +2872,42 @@
             Converts the value of this module info to a string.
             </summary>
         </member>
-        <member name="P:CMS.Core.ModuleInfo.Name">
-            <summary>
-            Gets a module name.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ModuleInfo.ModuleRootPath">
-            <summary>
-            Gets a directory with module files.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ModuleInfo.Module">
-            <summary>
-            Gets a module associated with this module info.
-            </summary>
-        </member>
         <member name="T:CMS.Core.ModuleEntryManager">
             <summary>
             Provides management of module info objects in the hosting CMS application.
+            </summary>
+        </member>
+        <member name="T:CMS.Core.ModuleEntryManager.ModuleCollections">
+            <summary>
+            Lightweight data structure holding collections of modules optimized for lookup and enumeration.
+            Used to wrap the collections so they can be published in one assignment.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ModuleEntryManager.ModuleCollections.ModuleLookup">
+            <summary>
+            Gets dictionary of modules.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ModuleEntryManager.ModuleCollections.Modules">
+            <summary>
+            Gets list of modules.
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ModuleEntryManager.ModuleCollections.#ctor(System.Collections.Generic.Dictionary{System.String,CMS.Core.ModuleInfo},System.Collections.Generic.List{CMS.Core.ModuleInfo})">
+            <summary>
+            Initializes this data structure with corresponding dictionary and list collections.
+            </summary>
+            <param name="moduleLookup">Dictionary of modules for lookup.</param>
+            <param name="modules">List of modules for enumeration.</param>
+        </member>
+        <member name="P:CMS.Core.ModuleEntryManager.Modules">
+            <summary>
+            Gets an enumerable collection of module info objects.
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ModuleEntryManager.ModuleLookup">
+            <summary>
+            Gets a lookup collection of module info objects. For private use only as the returned dictionary is not read-only.
             </summary>
         </member>
         <member name="M:CMS.Core.ModuleEntryManager.RegisterModule(CMS.Core.ModuleInfo)">
@@ -2723,18 +2933,6 @@
             <param name="name">The name of the module info object to locate.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="name"/></exception>
             <returns>True, if the module info object with the specified name is available; otherwise, false.</returns>
-        </member>
-        <member name="M:CMS.Core.ModuleEntryManager.EnsureModule``1">
-            <summary>
-            Ensures that a module of the specified type is registered.
-            </summary>
-            <typeparam name="T">The type of the module to register.</typeparam>
-            <remarks>
-            If a module info object with the same name is already available, the manager does nothing.
-            If the application life-cycle has already started and the module has <see cref="P:CMS.Core.ModuleEntry.AutoInitialize"/> set to true,
-            the module initialization starts immediately to catch up (if called from multiple threads, the method does not return
-            until the module has caught up the application life-cycle).
-            </remarks>
         </member>
         <member name="M:CMS.Core.ModuleEntryManager.EnsureAppCodeModules(System.Reflection.Assembly)">
             <summary>
@@ -2823,86 +3021,148 @@
             either not installable or are installed in the same version as their NuGet package.
             </remarks>
         </member>
-        <member name="P:CMS.Core.ModuleEntryManager.Modules">
-            <summary>
-            Gets an enumerable collection of module info objects.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ModuleEntryManager.ModuleLookup">
-            <summary>
-            Gets a lookup collection of module info objects. For private use only as the returned dictionary is not read-only.
-            </summary>
-        </member>
-        <member name="T:CMS.Core.ModuleEntryManager.ModuleCollections">
-            <summary>
-            Lightweight data structure holding collections of modules optimized for lookup and enumeration.
-            Used to wrap the collections so they can be published in one assignment.
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ModuleEntryManager.ModuleCollections.#ctor(System.Collections.Generic.Dictionary{System.String,CMS.Core.ModuleInfo},System.Collections.Generic.List{CMS.Core.ModuleInfo})">
-            <summary>
-            Initializes this data structure with corresponding dictionary and list collections.
-            </summary>
-            <param name="moduleLookup">Dictionary of modules for lookup.</param>
-            <param name="modules">List of modules for enumeration.</param>
-        </member>
-        <member name="P:CMS.Core.ModuleEntryManager.ModuleCollections.ModuleLookup">
-            <summary>
-            Gets dictionary of modules.
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ModuleEntryManager.ModuleCollections.Modules">
-            <summary>
-            Gets list of modules.
-            </summary>
-        </member>
         <member name="T:CMS.Core.Service">
             <summary>
-            Service entry in format Service.Entry&lt;ISomeService&gt;()...
+            Provides service management and resolution functionality for the system.
             </summary>
+            <seealso cref="T:CMS.RegisterImplementationAttribute"/>
         </member>
         <member name="M:CMS.Core.Service.Entry``1">
             <summary>
             Returns the service interface
             </summary>
+            <exception cref="T:CMS.Core.ServiceResolutionException">
+            Thrown when resolution of <typeparamref name="ServiceInterface"/> fails. This typically occurs when no implementing type for <typeparamref name="ServiceInterface"/> is registered
+            or the implementing type has dependencies which cannot be satisfied.
+            </exception>
+        </member>
+        <member name="M:CMS.Core.Service.Use``2(System.String,System.Boolean)">
+            <summary>
+            Sets <typeparamref name="TImplementation"/> to be used as implementation of <typeparamref name="TService"/>.
+            </summary>
+            <typeparam name="TService">Service being implemented.</typeparam>
+            <typeparam name="TImplementation">Implementing type for <typeparamref name="TService"/>.</typeparam>
+            <param name="name">Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being registered. Name must be unique.</param>
+            <param name="transient">Indicates whether service implementation lifestyle should be transient, or default to singleton.</param>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails (e.g. <paramref name="name"/> is not unique).</exception>
+            <remarks>
+            The <paramref name="name"/> does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.Service.Use(System.Type,System.Type,System.String,System.Boolean)">
+            <summary>
+            Sets <paramref name="implementation"/> to be used as implementation of <paramref name="service"/>.
+            </summary>
+            <param name="service">Type of service being implemented.</param>
+            <param name="implementation">Implementing type for <paramref name="service"/>.</param>
+            <param name="name">Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being registered. Name must be unique.</param>
+            <param name="transient">Indicates whether service implementation lifestyle should be transient, or default to singleton.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="service"/> or <paramref name="implementation"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails (e.g. <paramref name="name"/> is not unique).</exception>
+            <remarks>
+            The <paramref name="name"/> does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.Service.Use``1(System.Object,System.String,System.Boolean)">
+            <summary>
+            Sets <paramref name="instance"/> to be used as implementation of <typeparamref name="TService"/>.
+            </summary>
+            <typeparam name="TService">Service being implemented.</typeparam>
+            <param name="instance">Instance of <typeparamref name="TService"/> implementation to be used.</param>
+            <param name="name">Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being registered. Name must be unique.</param>
+            <param name="transient">Indicates whether service implementation lifestyle should be transient, or default to singleton.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="instance"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails (e.g. <paramref name="name"/> is not unique).</exception>
+            <remarks>
+            The <paramref name="name"/> does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.Service.Use(System.Type,System.Object,System.String,System.Boolean)">
+            <summary>
+            Sets <paramref name="instance"/> to be used as implementation of <paramref name="service"/>.
+            </summary>
+            <param name="service">Type of service being implemented.</param>
+            <param name="instance">Instance of <paramref name="service"/> implementation to be used.</param>
+            <param name="name">Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being registered. Name must be unique.</param>
+            <param name="transient">Indicates whether service implementation lifestyle should be transient, or default to singleton.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="service"/> or <paramref name="instance"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails (e.g. <paramref name="name"/> is not unique).</exception>
+            <remarks>
+            The <paramref name="name"/> does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
+        </member>
+        <member name="M:CMS.Core.Service.IsRegistered(System.Type)">
+            <summary>
+            Indicates whether <paramref name="service"/> has an implementation registered.
+            </summary>
+            <param name="service">Service type in question.</param>
+            <returns>True when <paramref name="service"/> is registered, otherwise false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="service"/> is null.</exception>
+        </member>
+        <member name="M:CMS.Core.Service.Resolve``1">
+            <summary>
+            Returns an instance of <typeparamref name="TService"/> as registered within the system.
+            </summary>
+            <typeparam name="TService">Service type to be resolved.</typeparam>
+            <returns>Returns an instance of <typeparamref name="TService"/>.</returns>
+            <exception cref="T:CMS.Core.ServiceResolutionException">
+            Thrown when resolution of <typeparamref name="TService"/> fails. This typically occurs when no implementing type for <typeparamref name="TService"/> is registered
+            or the implementing type has dependencies which cannot be satisfied.
+            </exception>
+        </member>
+        <member name="M:CMS.Core.Service.Resolve(System.Type)">
+            <summary>
+            Returns an instance of <paramref name="service"/> as registered within the system.
+            </summary>
+            <param name="service">Service type to be resolved.</param>
+            <returns>Returns an instance of <paramref name="service"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="service"/> is null.</exception>
+            <exception cref="T:CMS.Core.ServiceResolutionException">
+            Thrown when resolution of <paramref name="service"/> fails. This typically occurs when no implementing type for <paramref name="service"/> is registered
+            or the implementing type has dependencies which cannot be satisfied.
+            </exception>
         </member>
         <member name="T:CMS.Core.Service`1">
             <summary>
-            Service entry in format Service&lt;ISomeService&gt;.Entry()...
+            Provides service management and resolution functionality for the system.
             </summary>
+            <seealso cref="T:CMS.RegisterImplementationAttribute"/>
+            <seealso cref="T:CMS.Core.Service"/>
         </member>
         <member name="M:CMS.Core.Service`1.TryExecute``1(System.Func{`0,``0})">
             <summary>
             Attempts to execute the given lambda expression over the service instance. If service instance is not available, does not execute and returns default value of ReturnType
             </summary>
         </member>
+        <member name="P:CMS.Core.Service`1.IsAvailable">
+            <summary>
+            Checks whether the service is available
+            </summary>
+        </member>
         <member name="M:CMS.Core.Service`1.Entry">
             <summary>
-            Returns the service interface as a static singleton
+            Returns the service implementation as registered within the system.
             </summary>
-            <exception cref="T:System.Exception">Thrown when service without default implementation is used before application <see cref="M:CMS.Core.AppCore.PreInit"/>.</exception>
-        </member>
-        <member name="M:CMS.Core.Service`1.ThrowIfNotInitialized">
-            <summary>
-            Throws exception if the service is not initialized
-            </summary>
+            <exception cref="T:CMS.Core.ServiceResolutionException">
+            Thrown when resolution of <typeparamref name="ServiceInterface"/> fails. This typically occurs when no implementing type for <typeparamref name="ServiceInterface"/> is registered
+            or the implementing type has dependencies which cannot be satisfied.
+            </exception>
         </member>
         <member name="M:CMS.Core.Service`1.ForObjectType``1">
             <summary>
             Returns service interface as a static singleton for the given object type
             </summary>
         </member>
-        <member name="M:CMS.Core.Service`1.Use``1(System.Boolean,System.Boolean)">
+        <member name="M:CMS.Core.Service`1.Use``1(System.String,System.Boolean)">
             <summary>
             Sets <typeparamref name="ServiceType"/> to be used as implementation of <typeparamref name="ServiceInterface"/>.
             </summary>
-            <param name="canBeReplaced">If true, the service can be replaced by other service</param>
-            <param name="replaceExisting">If true, the service replaces existing if service is already initialized</param>
-        </member>
-        <member name="P:CMS.Core.Service`1.IsAvailable">
-            <summary>
-            Checks whether the service is available
-            </summary>
+            <param name="name">Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being registered. Name must be unique.</param>
+            <param name="transient">Indicates whether service implementation lifestyle should be transient, or default to singleton.</param>
+            <exception cref="T:CMS.Core.ServiceRegistrationException">Thrown when registration fails (e.g. <paramref name="name"/> is not unique).</exception>
+            <remarks>
+            The <paramref name="name"/> does not need to be explicitly set unless registering one implementation multiple times (for various interfaces).
+            </remarks>
         </member>
         <member name="T:CMS.Core.CoreServices">
             <summary>
@@ -2949,16 +3209,6 @@
             Object factory interface
             </summary>
         </member>
-        <member name="M:CMS.Core.IObjectFactory.CanCreateObject(System.Object)">
-            <summary>
-            Returns true if the factory is able to create the object of the given type
-            </summary>
-        </member>
-        <member name="M:CMS.Core.IObjectFactory.CreateNewObject">
-            <summary>
-            Creates and returns a new object
-            </summary>
-        </member>
         <member name="P:CMS.Core.IObjectFactory.CreatedType">
             <summary>
             Returns the type created by this factory
@@ -2969,9 +3219,47 @@
             Singleton instance of the created object type
             </summary>
         </member>
+        <member name="M:CMS.Core.IObjectFactory.CanCreateObject(System.Object)">
+            <summary>
+            Returns true if the factory is able to create the object of the given type
+            </summary>
+        </member>
+        <member name="M:CMS.Core.IObjectFactory.CreateNewObject">
+            <summary>
+            Creates and returns a new object
+            </summary>
+        </member>
         <member name="T:CMS.Core.ObjectFactory">
             <summary>
             Object factory based on the given type
+            </summary>
+        </member>
+        <member name="F:CMS.Core.ObjectFactory.mGetFactoryMethods">
+            <summary>
+            Dictionary of cached methods for creating objects by the given type
+            </summary>
+        </member>
+        <member name="M:CMS.Core.ObjectFactory.#ctor(System.Type)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="type">Object type</param>
+        </member>
+        <member name="M:CMS.Core.ObjectFactory.New(System.Type)">
+            <summary>
+            Creates an object of the given type
+            </summary>
+            <param name="type">Type of the created object</param>
+        </member>
+        <member name="M:CMS.Core.ObjectFactory.GetFactory(System.Type)">
+            <summary>
+            Gets the factory for the given type
+            </summary>
+            <param name="type">Type of the requested object factory</param>
+        </member>
+        <member name="M:CMS.Core.ObjectFactory.GetFactoryGeneric``1">
+            <summary>
+            Creates an object by an external factory of the given type
             </summary>
         </member>
         <member name="T:CMS.Core.ObjectFactory`1">
@@ -2979,11 +3267,61 @@
             Class that provides construction of the objects of given class
             </summary>
         </member>
+        <member name="T:CMS.Core.ObjectFactory`1.ObjectActivator">
+            <summary>
+            Activator delegate
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.CanReplaceCurrent">
+            <summary>
+            If true, the default object factory can be replaced by other factory
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.IsInitialized">
+            <summary>
+            Returns true if the default factory is initialized
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.CurrentFactory">
+            <summary>
+            Current factory to create objects.
+            </summary>
+        </member>
         <member name="M:CMS.Core.ObjectFactory`1.CanInstantiateObject(CMS.Core.IObjectFactory)">
             <summary>
             Returns true if the factory is capable of instantiating an object
             </summary>
             <param name="factory">Factory</param>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.CreatedType">
+            <summary>
+            Returns the type created by this factory
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.Initializer">
+            <summary>
+            Object initialization function
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.Singleton">
+            <summary>
+            Singleton instance of the created object type
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.ActivatorDelegate">
+            <summary>
+            Compiled object activator
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.UseCompiledLambda">
+            <summary>
+            If true, the compiled lambda expression is used to create new objects. Set to true if the factory will be creating a lot of objects
+            </summary>
+        </member>
+        <member name="P:CMS.Core.ObjectFactory`1.Constructor">
+            <summary>
+            Constructor used for dependency injection
+            </summary>
         </member>
         <member name="M:CMS.Core.ObjectFactory`1.CreateNewObject">
             <summary>
@@ -3060,11 +3398,11 @@
         </member>
         <member name="M:CMS.Core.ObjectFactory`1.Initialize">
             <summary>
-            Initializes factory so that it uses one of the following (in order of preference): registered implementation, default implementation, plain object factory instance.
+            Initializes factory so that it uses plain object factory instance.
             The initializer is not responsible for extensions (decorators) initialization.
             </summary>
             <remarks>
-            The factory is initialized either by this method (implicitly, from attributes) -OR- explicitly by calling <see cref="M:CMS.Core.ObjectFactory`1.SetObjectTypeTo``1(System.Boolean,System.Boolean)"/> or <see cref="M:CMS.Core.ObjectFactory`1.SetObjectTypeTo(System.Type,System.Boolean,System.Boolean)"/>.
+            The factory can be initialized explicitly by calling <see cref="M:CMS.Core.ObjectFactory`1.SetObjectTypeTo``1(System.Boolean,System.Boolean)"/> or <see cref="M:CMS.Core.ObjectFactory`1.SetObjectTypeTo(System.Type,System.Boolean,System.Boolean)"/>.
             </remarks>
         </member>
         <member name="M:CMS.Core.ObjectFactory`1.SetObjectTypeTo``1(System.Boolean,System.Boolean)">
@@ -3098,83 +3436,80 @@
             Returns static singleton for the given object type
             </summary>
         </member>
-        <member name="P:CMS.Core.ObjectFactory`1.CanReplaceCurrent">
+        <member name="T:CMS.Core.IAppSettingsService">
             <summary>
-            If true, the default object factory can be replaced by other factory
+            AppSettings service interface
             </summary>
         </member>
-        <member name="P:CMS.Core.ObjectFactory`1.IsInitialized">
+        <member name="P:CMS.Core.IAppSettingsService.Item(System.String)">
             <summary>
-            Returns true if the default factory is initialized
+            Gets the specific settings from the app config
             </summary>
         </member>
-        <member name="P:CMS.Core.ObjectFactory`1.CurrentFactory">
+        <member name="T:CMS.Core.ILocalizationService">
             <summary>
-            Current factory to create objects.
+            Localization service interface
             </summary>
         </member>
-        <member name="P:CMS.Core.ObjectFactory`1.CreatedType">
+        <member name="M:CMS.Core.ILocalizationService.GetString(System.String,System.String,System.Boolean)">
             <summary>
-            Returns the type created by this factory
+            Gets the string by the specified resource key
+            </summary>
+            <param name="resourceKey">Resource key</param>
+            <param name="culture">Culture</param>
+            <param name="useDefaultCulture">If true the default culture translation is used if translation in chosen culture doesn't exist</param>
+        </member>
+        <member name="M:CMS.Core.ILocalizationService.GetFileString(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets the string by the specified resource key from resource file
+            </summary>
+            <param name="resourceKey">Resource key</param>
+            <param name="culture">Culture</param>
+            <param name="useDefaultCulture">If true the default culture translation is used if translation in chosen culture doesn't exist</param>
+        </member>
+        <member name="M:CMS.Core.ILocalizationService.GetAPIString(System.String,System.String,System.String)">
+            <summary>
+            Returns specified string.
+            </summary>
+            <param name="resourceKey">Key of the string</param>
+            <param name="culture">Culture</param>
+            <param name="defaultValue">Default value</param>
+        </member>
+        <member name="M:CMS.Core.ILocalizationService.LocalizeExpression(System.String,System.String,System.Boolean,System.Func{System.String,System.String,System.Boolean,System.String},System.Boolean)">
+            <summary>
+            Localizes the given expression, handles two types of expressions:
+            
+            stringkey - Simple localization
+            
+            =default string|cs-cz=localized string - advanced localization
+            </summary>
+            <param name="expression">Expression to localize</param>
+            <param name="culture">Culture to use for localization</param>
+            <param name="encode">If true, translations (replacements) are HTML encoded</param>
+            <param name="getStringMethod">Method to get the resource string for localization</param>
+            <param name="useDefaultCulture">If true the default culture translation is used if translation in chosen culture doesn't exist</param>
+        </member>
+        <member name="M:CMS.Core.ILocalizationService.ClearCache(System.Boolean)">
+            <summary>
+            Clears the cached resource strings and forces them to load again on next localization request.
+            </summary>
+            <param name="logTasks">If true, web farm tasks are logged</param>
+        </member>
+        <member name="T:CMS.Core.ISettingsService">
+            <summary>
+            Settings service interface
             </summary>
         </member>
-        <member name="P:CMS.Core.ObjectFactory`1.Initializer">
+        <member name="P:CMS.Core.ISettingsService.IsAvailable">
             <summary>
-            Object initialization function
+            Returns true if the settings service is available
             </summary>
         </member>
-        <member name="P:CMS.Core.ObjectFactory`1.Singleton">
+        <member name="P:CMS.Core.ISettingsService.Item(System.String)">
             <summary>
-            Singleton instance of the created object type
+            Gets the specific settings from the database
             </summary>
-        </member>
-        <member name="P:CMS.Core.ObjectFactory`1.ActivatorDelegate">
-            <summary>
-            Compiled object activator
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ObjectFactory`1.UseCompiledLambda">
-            <summary>
-            If true, the compiled lambda expression is used to create new objects. Set to true if the factory will be creating a lot of objects
-            </summary>
-        </member>
-        <member name="P:CMS.Core.ObjectFactory`1.Constructor">
-            <summary>
-            Constructor used for dependency injection
-            </summary>
-        </member>
-        <member name="T:CMS.Core.ObjectFactory`1.ObjectActivator">
-            <summary>
-            Activator delegate
-            </summary>
-        </member>
-        <member name="F:CMS.Core.ObjectFactory.mGetFactoryMethods">
-            <summary>
-            Dictionary of cached methods for creating objects by the given type
-            </summary>
-        </member>
-        <member name="M:CMS.Core.ObjectFactory.#ctor(System.Type)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="type">Object type</param>
-        </member>
-        <member name="M:CMS.Core.ObjectFactory.New(System.Type)">
-            <summary>
-            Creates an object of the given type
-            </summary>
-            <param name="type">Type of the created object</param>
-        </member>
-        <member name="M:CMS.Core.ObjectFactory.GetFactory(System.Type)">
-            <summary>
-            Gets the factory for the given type
-            </summary>
-            <param name="type">Type of the requested object factory</param>
-        </member>
-        <member name="M:CMS.Core.ObjectFactory.GetFactoryGeneric``1">
-            <summary>
-            Creates an object by an external factory of the given type
-            </summary>
+            <param name="keyName">Settings key</param>
         </member>
         <member name="T:CMS.Core.StaticWrapper`1">
             <summary>
@@ -3185,6 +3520,221 @@
             <summary>
             Singleton object instance behind the wrapper
             </summary>
+        </member>
+        <member name="T:CMS.ContractAttribute">
+            <summary>
+            Marks the class with the contract using the specific interface
+            </summary>
+        </member>
+        <member name="P:CMS.ContractAttribute.IncludeAllPublicMembers">
+            <summary>
+            If true (default), all public members of the implementation are included into the contract
+            </summary>
+        </member>
+        <member name="P:CMS.ContractAttribute.IsLocal">
+            <summary>
+            If true (default false), the generated files are generated into the same folder.
+            </summary>
+        </member>
+        <member name="P:CMS.ContractAttribute.InterfaceType">
+            <summary>
+            Interface type
+            </summary>
+        </member>
+        <member name="M:CMS.ContractAttribute.#ctor(System.Type,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="interfaceType">Type of the interface for the contract</param>
+            <param name="includeAllPublicMembers">If true (default), all public members of the implementation are included into the contract</param>
+        </member>
+        <member name="T:CMS.NotContract">
+            <summary>
+            Marks the member not to be included into contract
+            </summary>
+        </member>
+        <member name="T:CMS.StaticContractAttribute">
+            <summary>
+            Marks the class with the contract using the specific interface
+            </summary>
+        </member>
+        <member name="M:CMS.StaticContractAttribute.#ctor(System.Type,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="interfaceType">Type of the interface for the contract</param>
+            <param name="includeAllPublicMembers">If true (default), all public members of the implementation are included into the contract</param>
+        </member>
+        <member name="T:CMS.AssemblyDiscoverableAttribute">
+            <summary>
+            Marks the assembly as discoverable (containing modules or implementations)
+            </summary>
+        </member>
+        <member name="T:CMS.RegisterImplementationAttribute">
+            <summary>
+            Marks class as implementation of <see cref="P:CMS.RegisterImplementationAttribute.ImplementedType"/>. The application collects implementations during its initialization
+            in order to register them within inversion of control container.
+            </summary>
+            <remarks>
+            Since version 11 the attribute no longer registers implementation within <see cref="T:CMS.Core.ObjectFactory`1"/>. To register an implementation within object factory,
+            use <see cref="M:CMS.Core.ObjectFactory`1.SetObjectTypeTo``1(System.Boolean,System.Boolean)"/>.
+            </remarks>
+            <seealso cref="T:CMS.Core.Service`1"/>
+        </member>
+        <member name="P:CMS.RegisterImplementationAttribute.ImplementedType">
+            <summary>
+            Type for which an implementation is being registered.
+            </summary>
+        </member>
+        <member name="P:CMS.RegisterImplementationAttribute.Implementation">
+            <summary>
+            Implementation of <see cref="P:CMS.RegisterImplementationAttribute.ImplementedType"/> to be used by <see cref="T:CMS.Core.ObjectFactory`1"/>.
+            </summary>
+        </member>
+        <member name="P:CMS.RegisterImplementationAttribute.Lifestyle">
+            <summary>
+            Lifestyle of service's implementation registered by this attribute. <see cref="F:CMS.Core.Lifestyle.Singleton"/> by default.
+            </summary>
+        </member>
+        <member name="P:CMS.RegisterImplementationAttribute.Name">
+            <summary>
+            Sets an explicit name of the registration. If not set, the name is automatically inferred from the implementation being registered.
+            </summary>
+        </member>
+        <member name="P:CMS.RegisterImplementationAttribute.Priority">
+            <summary>
+            Priority of service's registration. <see cref="F:CMS.Core.RegistrationPriority.Default"/> by default.
+            </summary>
+            <remarks>
+            The order of registrations is determined by the order in which modules (assemblies) are initialized. The order respects assemblies' references.
+            There is no guarantee on order within an assembly.
+            </remarks>
+        </member>
+        <member name="M:CMS.RegisterImplementationAttribute.#ctor(System.Type,System.Type)">
+            <summary>
+            Instructs <see cref="T:CMS.Core.ObjectFactory`1"/> to use <paramref name="implementation"/> whenever an instance of <paramref name="implementedType"/> is requested.
+            </summary>
+            <param name="implementedType">Interface to associate implementation with.</param>
+            <param name="implementation">Implementation of <paramref name="implementedType"/>.</param>
+        </member>
+        <member name="T:CMS.RequiredImplementationAttribute">
+            <summary>
+            Marks an implementation as required, effectively protecting it from being replaced once it is registered in <see cref="T:CMS.Core.ObjectFactory`1"/>.
+            </summary>
+            <seealso cref="T:CMS.RegisterImplementationAttribute"/>
+            <seealso cref="T:CMS.Core.ObjectFactory`1"/>
+        </member>
+        <member name="T:CMS.IPreInitAttribute">
+            <summary>
+            Marks a method in class implementing this interface and deriving from <see cref="T:System.Attribute"/> as suitable to be executed during application pre-initialization.
+            </summary>
+            <remarks>
+            This API supports the framework infrastructure and is not intended to be used directly from your code.
+            </remarks>
+        </member>
+        <member name="P:CMS.IPreInitAttribute.MarkedType">
+            <summary>
+            Type marked with this attribute.
+            </summary>
+        </member>
+        <member name="M:CMS.IPreInitAttribute.PreInit">
+            <summary>
+            Method to be executed during application pre-initialization.
+            </summary>
+        </member>
+        <member name="T:CMS.GeneratedFromAttribute">
+            <summary>
+            Marks the automatically generated classes.
+            </summary>
+        </member>
+        <member name="P:CMS.GeneratedFromAttribute.SourceFile">
+            <summary>
+            Path to the file within the solution from which the marked class has been generated.
+            </summary>
+        </member>
+        <member name="M:CMS.GeneratedFromAttribute.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="filePath">Path to the file within the solution from which the marked class has been generated.</param>
+        </member>
+        <member name="T:CMS.IInitAttribute">
+            <summary>
+            Marks a method in class implementing this interface and deriving from <see cref="T:System.Attribute"/> as suitable to be executed during application initialization.
+            </summary>
+            <remarks>
+            This API supports the framework infrastructure and is not intended to be used directly from your code.
+            </remarks>
+        </member>
+        <member name="P:CMS.IInitAttribute.MarkedType">
+            <summary>
+            Type marked with this attribute.
+            </summary>
+        </member>
+        <member name="M:CMS.IInitAttribute.Init">
+            <summary>
+            Method to be executed during application pre-initialization.
+            </summary>
+        </member>
+        <member name="T:CMS.RegisterModuleAttribute">
+            <summary>
+            Registers the module within assembly
+            </summary>
+        </member>
+        <member name="P:CMS.RegisterModuleAttribute.Type">
+            <summary>
+            Module type
+            </summary>
+        </member>
+        <member name="M:CMS.RegisterModuleAttribute.#ctor(System.Type)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="type">Module type</param>
+        </member>
+        <member name="T:CMS.DefaultImplementationAttribute">
+            <summary>
+            <para>
+            Instructs <see cref="T:CMS.Core.ObjectFactory`1"/> to use <see cref="P:CMS.DefaultImplementationAttribute.Implementation"/> as a default implementation when an instance of interface or class targeted by this attribute is requested.
+            </para>
+            <para>
+            Important: The attribute performed registration of a <see cref="T:CMS.Core.Service`1"/>. The service's registration was backed by <see cref="T:CMS.Core.ObjectFactory`1"/>, therefore
+            the attribute performed registration in <see cref="T:CMS.Core.ObjectFactory`1"/>. Since <see cref="T:CMS.Core.Service`1"/> registration is no longer backed by <see cref="T:CMS.Core.ObjectFactory`1"/>,
+            the suggested replacement (<see cref="T:CMS.RegisterImplementationAttribute"/>) does not affect <see cref="T:CMS.Core.ObjectFactory`1"/>. If registration in object factory is intended,
+            use <see cref="M:CMS.Core.ObjectFactory`1.SetObjectTypeTo``1(System.Boolean,System.Boolean)"/>.
+            </para>
+            </summary>
+            <remarks>
+            The default implementation can be replaced using <see cref="T:CMS.RegisterImplementationAttribute"/> in any assembly (unless <see cref="P:CMS.DefaultImplementationAttribute.CanBeReplaced"/> forbids it).
+            </remarks>
+        </member>
+        <member name="P:CMS.DefaultImplementationAttribute.Implementation">
+            <summary>
+            Implementation of interface or class targeted by this attribute to be used by <see cref="T:CMS.Core.ObjectFactory`1"/>.
+            </summary>
+        </member>
+        <member name="P:CMS.DefaultImplementationAttribute.CanBeReplaced">
+            <summary>
+            Indicates whether <see cref="T:CMS.Core.ObjectFactory`1"/> allows for replacement of the default implementation.
+            </summary>
+        </member>
+        <member name="M:CMS.DefaultImplementationAttribute.#ctor(System.Type,System.Boolean)">
+            <summary>
+            Instructs <see cref="T:CMS.Core.ObjectFactory`1"/> to use <paramref name="implementation"/> whenever an instance of interface or class targeted by this attribute is requested.
+            </summary>
+            <param name="implementation">Default implementation of interface or class targeted by this attribute.</param>
+            <param name="canBeReplaced">If true, the default implementation can be replaced.</param>
+        </member>
+        <member name="T:CMS.IWorkerTask">
+            <summary>
+            Defines a common interface for simple worker tasks
+            </summary>
+        </member>
+        <member name="M:CMS.IWorkerTask.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns>Textual description of task run's failure if any.</returns>
         </member>
     </members>
 </doc>

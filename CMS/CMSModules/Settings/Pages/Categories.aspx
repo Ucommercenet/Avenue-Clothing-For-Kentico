@@ -9,5 +9,5 @@
 <asp:Content ID="cntBody" runat="server" ContentPlaceHolderID="plcContent">
     <cms:TreeBorder ID="borderElem" runat="server" FramesetName="colsFrameset" />
     <cms:SettingsTree ID="TreeViewCategories" ShortID="t" runat="server" CssClass="ContentTree"
-        CategoryName="CMS.Settings" MaxRelativeLevel="10" JavaScriptHandler="NodeSelected" ShowEmptyCategories="false" ShowSiteSelector="True" />
+        CategoryName="CMS.Settings" MaxRelativeLevel="10" JavaScriptHandler="NodeSelected" ShowEmptyCategories="false" ShowSiteSelector="True" ShowHeaderPanel="False"/>
 </asp:Content>

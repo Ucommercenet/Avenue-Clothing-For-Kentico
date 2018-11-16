@@ -751,7 +751,7 @@ public partial class CMSWebParts_SmartSearch_SearchResults : CMSAbstractWebPart
     {
         base.OnLoad(e);
 
-        if (URLHelper.IsPostback())
+        if (RequestHelper.IsPostBack())
         {
             Visible = true;
         }

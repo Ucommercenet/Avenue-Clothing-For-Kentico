@@ -42,6 +42,21 @@
             Class that writes info messages into the page using a delegate <see cref="T:CMS.OnlineMarketing.Web.UI.ABTestMessagesWriter.ShowMessageHandler"/>.
             </summary>
         </member>
+        <member name="T:CMS.OnlineMarketing.Web.UI.ABTestMessagesWriter.ShowMessageHandler">
+            <summary>
+            Shows the specified message, optionally with a tooltip text and description.
+            </summary>
+            <param name="type">Message type</param>
+            <param name="text">Message text</param>
+            <param name="description">Additional description</param>
+            <param name="tooltipText">Tooltip text</param>
+            <param name="persistent">Indicates if the message is persistent</param>
+        </member>
+        <member name="P:CMS.OnlineMarketing.Web.UI.ABTestMessagesWriter.ShowMessage">
+            <summary>
+            Gets ShowMessage method handler.
+            </summary>
+        </member>
         <member name="M:CMS.OnlineMarketing.Web.UI.ABTestMessagesWriter.#ctor(CMS.OnlineMarketing.Web.UI.ABTestMessagesWriter.ShowMessageHandler)">
             <summary>
             Constructor.
@@ -71,21 +86,6 @@
             </summary>
             <param name="abTest">AB test</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="abTest"/> is null</exception>
-        </member>
-        <member name="P:CMS.OnlineMarketing.Web.UI.ABTestMessagesWriter.ShowMessage">
-            <summary>
-            Gets ShowMessage method handler.
-            </summary>
-        </member>
-        <member name="T:CMS.OnlineMarketing.Web.UI.ABTestMessagesWriter.ShowMessageHandler">
-            <summary>
-            Shows the specified message, optionally with a tooltip text and description.
-            </summary>
-            <param name="type">Message type</param>
-            <param name="text">Message text</param>
-            <param name="description">Additional description</param>
-            <param name="tooltipText">Tooltip text</param>
-            <param name="persistent">Indicates if the message is persistent</param>
         </member>
         <member name="T:CMS.OnlineMarketing.Web.UI.AbTestLiveTileModelProvider">
             <summary>
@@ -257,33 +257,6 @@
             Class calculating conversion rate interval and challengers' chance to beat original using the Normal Distribution Function at 90% significance.
             </summary>
         </member>
-        <member name="T:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator">
-            <summary>
-            Interface for calculating performance of AB variants.
-            </summary>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator.Initialize(System.Int32,System.Int32)">
-            <summary>
-            Initializes AB variant performance calculator.
-            Needs to be called first, as this class needs the original's conversions and visits to work properly.
-            </summary>
-            <param name="originalConversions">Number of original conversions</param>
-            <param name="originalVisits">Number of original visits</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator.GetChanceToBeatOriginal(System.Int32,System.Int32)">
-            <summary>
-            Returns chance to beat original for the specified challenger variant.
-            </summary>
-            <param name="challengerConversions">Number of challenger conversions</param>
-            <param name="challengerVisits">Number of challenger visits</param>
-        </member>
-        <member name="M:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator.GetConversionRateInterval(System.Int32,System.Int32)">
-            <summary>
-            Returns conversion rate interval for the specified variant.
-            </summary>
-            <param name="variantConversions">Number of conversions</param>
-            <param name="variantVisits">Number of visits</param>
-        </member>
         <member name="F:CMS.OnlineMarketing.Web.UI.ABVariantPerformanceCalculator.SIGNIFICANCE">
             <summary>
             Represents 80% significance.
@@ -348,6 +321,33 @@
             </summary>
             <param name="controlConversions">Number of control conversions</param>
             <param name="controlVisits">Number of control visits</param>
+        </member>
+        <member name="T:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator">
+            <summary>
+            Interface for calculating performance of AB variants.
+            </summary>
+        </member>
+        <member name="M:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator.Initialize(System.Int32,System.Int32)">
+            <summary>
+            Initializes AB variant performance calculator.
+            Needs to be called first, as this class needs the original's conversions and visits to work properly.
+            </summary>
+            <param name="originalConversions">Number of original conversions</param>
+            <param name="originalVisits">Number of original visits</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator.GetChanceToBeatOriginal(System.Int32,System.Int32)">
+            <summary>
+            Returns chance to beat original for the specified challenger variant.
+            </summary>
+            <param name="challengerConversions">Number of challenger conversions</param>
+            <param name="challengerVisits">Number of challenger visits</param>
+        </member>
+        <member name="M:CMS.OnlineMarketing.Web.UI.IABVariantPerformanceCalculator.GetConversionRateInterval(System.Int32,System.Int32)">
+            <summary>
+            Returns conversion rate interval for the specified variant.
+            </summary>
+            <param name="variantConversions">Number of conversions</param>
+            <param name="variantVisits">Number of visits</param>
         </member>
         <member name="T:CMS.OnlineMarketing.Web.UI.MagnificPopupYouTubeJavaScriptRegistrator">
             <summary>

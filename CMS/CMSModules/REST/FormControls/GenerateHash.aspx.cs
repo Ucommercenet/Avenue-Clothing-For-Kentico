@@ -32,20 +32,21 @@ public partial class CMSModules_REST_FormControls_GenerateHash : GlobalAdminPage
             string newUrl = urlWithoutHash;
             string query = URLHelper.GetQuery(newUrl).TrimStart('?');
 
-            int index = newUrl.IndexOfCSafe("/rest", true);
-            if (index >= 0)
+            string absolutePathPrefix;
+            string relativeRestPath;
+            if (RESTServiceHelper.TryParseRestUrlPath(newUrl, out absolutePathPrefix, out relativeRestPath))
             {
                 string domain = URLHelper.GetDomain(newUrl);
-
-                newUrl = URLHelper.RemoveQuery(newUrl.Substring(index));
+                newUrl = URLHelper.RemoveQuery(relativeRestPath);
 
                 // Rewrite the URL to physical URL
                 string[] rewritten = BaseRESTService.RewriteRESTUrl(newUrl, query, domain, "GET");
-                newUrl = rewritten[0].TrimStart('~') + "?" + rewritten[1];
+                
+                newUrl = absolutePathPrefix + rewritten[0].TrimStart('~') + "?" + rewritten[1];
                 newUrl = HttpUtility.UrlDecode(newUrl);
 
                 // Get the hash from real URL
-                newUrls.AppendLine(URLHelper.AddParameterToUrl(urlWithoutHash, "hash", RESTService.GetHashForURL(newUrl, domain)));
+                newUrls.AppendLine(URLHelper.AddParameterToUrl(urlWithoutHash, "hash", RESTServiceHelper.GetUrlPathAndQueryHash(newUrl)));
             }
             else
             {

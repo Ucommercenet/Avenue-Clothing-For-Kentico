@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 using CMS.Base.Web.UI;
@@ -6,90 +8,62 @@ using CMS.Base.Web.UI.ActionsConfig;
 using CMS.Core;
 using CMS.DataEngine;
 using CMS.Helpers;
+using CMS.LicenseProvider;
 using CMS.Membership;
 using CMS.Newsletters;
 using CMS.Newsletters.Web.UI;
+using CMS.SiteProvider;
 using CMS.UIControls;
-
 
 [Security(Resource = ModuleName.NEWSLETTER, Permission = "authorissues")]
 [UIElement(ModuleName.NEWSLETTER, "Newsletter.Issue.Send")]
 [EditedObject(IssueInfo.OBJECT_TYPE, "objectid")]
 public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_Send : CMSNewsletterPage
 {
+    private const decimal PERCENTAGE_THRESHOLD = 0.9m;
+
     public const string SCHEDULE_ACTION_IDENTIFIER = "schedule";
 
     private NewsletterInfo mNewsletter;
+    private IssueInfo mIssue;
 
 
-    /// <summary>
-    /// Indicates if newsletter is template-based.
-    /// </summary>
-    public bool IsNewsletterTemplateBased
-    {
-        get
-        {
-            return mNewsletter.NewsletterTemplateID > 0;
-        }
-    }
+    private bool IsIssueTemplateBased => mIssue.IssueTemplateID > 0;
+
+    private Lazy<int> MarketableRecipientsCount => new Lazy<int>(GetMarketableRecipientsCount);
+    private Lazy<int> LicenseMaxNumberOfRecipients => new Lazy<int>(GetLicenseMaxNumberOfRecipients);
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Normal messages must be bellow the information label
         MessagesPlaceHolder = plcMess;
 
         // Get newsletter issue and check its existence
-        IssueInfo issue = EditedObject as IssueInfo;
+        mIssue = EditedObject as IssueInfo;
 
-        if (issue == null)
+        if (mIssue == null)
         {
             RedirectToAccessDenied(GetString("general.invalidparameters"));
         }
 
-        if (!issue.CheckPermissions(PermissionsEnum.Read, CurrentSiteName, CurrentUser))
+        if (!mIssue.CheckPermissions(PermissionsEnum.Read, CurrentSiteName, CurrentUser))
         {
-            RedirectToAccessDenied(issue.TypeInfo.ModuleName, "AuthorIssues");
+            RedirectToAccessDenied(mIssue.TypeInfo.ModuleName, "AuthorIssues");
         }
 
-        mNewsletter = NewsletterInfoProvider.GetNewsletterInfo(issue.IssueNewsletterID);
+        mNewsletter = NewsletterInfoProvider.GetNewsletterInfo(mIssue.IssueNewsletterID);
 
         string infoMessage;
-        bool isABTest = issue.IssueIsABTest;
-        bool sendingIssueAllowed = false;
-        bool isSent = (issue.IssueMailoutTime != DateTimeHelper.ZERO_TIME) && (issue.IssueMailoutTime < DateTime.Now);
 
-        sendElem.Visible = !isABTest;
-        sendVariant.Visible = isABTest;
-
-        if (isABTest)
+        if (mIssue.IssueIsABTest)
         {
-            sendVariant.StopProcessing = (issue.IssueID <= 0);
-            sendVariant.IssueID = issue.IssueID;
-            sendVariant.OnChanged -= sendVariant_OnChanged;
-            sendVariant.OnChanged += sendVariant_OnChanged;
-            sendVariant.ReloadData(!RequestHelper.IsPostBack());
+            InitSendVariant(mIssue);
             infoMessage = sendVariant.InfoMessage;
-            sendingIssueAllowed = sendVariant.SendingAllowed;
         }
         else
         {
-            sendElem.IssueID = issue.IssueID;
-            sendElem.NewsletterID = issue.IssueNewsletterID;
-            sendElem_TemplateBased.IssueID = issue.IssueID;
-            infoMessage = GetInfoMessage(issue.IssueStatus);
-
-            // If issue has 'Idle' or 'Ready for sending' status, it's allowed to send it
-            if (mNewsletter != null)
-            {
-                sendingIssueAllowed = (issue.IssueStatus == IssueStatusEnum.Idle) || (issue.IssueStatus == IssueStatusEnum.ReadyForSending);
-            }
-
-            if (IsNewsletterTemplateBased)
-            {
-                sendElem.Visible = false;
-                sendElem_TemplateBased.Visible = true;
-            }
+            InitSendElem(mIssue);
+            infoMessage = GetInfoMessage(mIssue.IssueStatus);
         }
 
         // Display additional information
@@ -98,8 +72,6 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
             ShowInformationInternal(infoMessage);
         }
 
-        InitHeaderActions(isABTest && (issue.IssueStatus != IssueStatusEnum.Finished), sendingIssueAllowed, isSent);
-        
         string scriptBlock = @"function RefreshPage() {{ document.location.replace(document.location); }}";
         ScriptHelper.RegisterClientScriptBlock(this, GetType(), "RefreshActions", scriptBlock, true);
 
@@ -190,6 +162,201 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
     }
 
 
+    private void InitSendVariant(IssueInfo issue)
+    {
+        sendVariant.StopProcessing = issue.IssueID <= 0;
+        sendVariant.IssueID = issue.IssueID;
+        sendVariant.OnChanged += sendVariant_OnChanged;
+        sendVariant.ReloadData(!RequestHelper.IsPostBack());
+
+        sendVariant.Visible = true;
+
+        InitHeaderActions(issue, InitABTestHeaderActions);
+    }
+
+
+    private void InitABTestHeaderActions(IssueInfo issue, HeaderActions hdrActions)
+    {
+        if (IsEditable(issue))
+        {
+            hdrActions.ActionsList.Add(new SaveAction());
+        }
+
+        var sendingIssueAllowed = issue.IssueStatus == IssueStatusEnum.Idle;
+        if (!sendingIssueAllowed)
+        {
+            return;
+        }
+
+        var variants = GetIssueVariants(issue);
+
+        var variantNamesWithUnfilledRequiredWidgetProperties = GetVariantNamesWithUnfilledRequiredWidgetProperties(variants);
+        var variantNamesWithMissingWidgetDefinition = GetVariantNamesWithMissingWidgetDefinition(variants);
+
+        var isValidDefinition = !variantNamesWithUnfilledRequiredWidgetProperties.Any()
+            && !variantNamesWithMissingWidgetDefinition.Any();
+
+        AddSendHeaderAction(hdrActions, isValidDefinition, ButtonStyle.Default);
+
+        if (!isValidDefinition)
+        {
+            var invalidVariantNames = variantNamesWithUnfilledRequiredWidgetProperties.Union(variantNamesWithMissingWidgetDefinition);
+            plcMess.AddError(string.Format(GetString("newsletter.issue.send.variantwidgeterror"), string.Join(", ", invalidVariantNames)));
+        }
+    }
+
+
+    private static bool IsEditable(IssueInfo issue)
+    {
+        return !issue.IssueStatus.Equals(IssueStatusEnum.Finished) && !(issue.IssueStatus.Equals(IssueStatusEnum.ReadyForSending) && AllVariantsAreSent(issue));
+    }
+
+
+    private static bool AllVariantsAreSent(IssueInfo issue)
+    {
+        var variants = GetIssueVariants(issue);
+
+        return variants.All(variant => variant.IssueStatus.Equals(IssueStatusEnum.Finished));
+    }
+
+
+    private static IList<IssueInfo> GetIssueVariants(IssueInfo issue)
+    {
+        var originalIssue = IssueInfoProvider.GetOriginalIssue(issue.IssueID);
+
+        return IssueInfoProvider.GetIssues()
+                                .WhereEquals("IssueVariantOfIssueID", originalIssue.IssueID)
+                                .ToList();
+    }
+
+
+    private IList<string> GetVariantNamesWithUnfilledRequiredWidgetProperties(IEnumerable<IssueInfo> variants)
+    {
+        return variants.Where(variant => variant.HasWidgetWithUnfilledRequiredProperty())
+            .Select(v => v.GetVariantName())
+            .ToList();
+    }
+
+
+    private IList<string> GetVariantNamesWithMissingWidgetDefinition(IEnumerable<IssueInfo> variants)
+    {
+        return variants.Where(variant => variant.HasWidgetWithMissingDefinition())
+            .Select(v => v.GetVariantName())
+            .ToList();
+    }
+
+
+    private void InitSendElem(IssueInfo issue)
+    {
+        if (IsIssueTemplateBased)
+        {
+            sendElem_TemplateBased.IssueID = issue.IssueID;
+            sendElem_TemplateBased.Visible = true;
+        }
+        else
+        {
+            sendElem.IssueID = issue.IssueID;
+            sendElem.NewsletterID = issue.IssueNewsletterID;
+            sendElem.Visible = true;
+        }
+
+        InitHeaderActions(issue, InitIssueHeaderActions);
+    }
+
+
+    private void InitIssueHeaderActions(IssueInfo issue, HeaderActions hdrActions)
+    {
+        var sendingIssueAllowed = issue.IssueStatus == IssueStatusEnum.Idle || issue.IssueStatus == IssueStatusEnum.ReadyForSending;
+        if (!sendingIssueAllowed)
+        {
+            return;
+        }
+
+        var recipientsCountAllowed = LicenseMaxNumberOfRecipients.Value == 0 || MarketableRecipientsCount.Value <= LicenseMaxNumberOfRecipients.Value;
+
+        if (!recipientsCountAllowed)
+        {
+            plcMess.AddError(string.Format(GetString("newsletter.issue.send.subcriberlimiterror"), MarketableRecipientsCount.Value, LicenseMaxNumberOfRecipients.Value));
+        }
+
+        var hasWidgetWithUnfilledRequiredProperty = issue.HasWidgetWithUnfilledRequiredProperty();
+        var hasWidgetWithMissingDefinition = issue.HasWidgetWithMissingDefinition();
+        var isValidWidgetDefinition = !hasWidgetWithUnfilledRequiredProperty && !hasWidgetWithMissingDefinition;
+
+        if (!isValidWidgetDefinition)
+        {
+            plcMess.AddError(GetString("newsletter.issue.send.widgeterror"));
+        }
+
+        if (IsIssueTemplateBased)
+        {
+            AddTemplateBasedHeaderActions(hdrActions, isValidWidgetDefinition && recipientsCountAllowed);
+        }
+        else
+        {
+            AddSendHeaderAction(hdrActions, isValidWidgetDefinition && recipientsCountAllowed);
+        }
+    }
+
+
+    /// <summary>
+    /// Initializes header action control.
+    /// </summary>
+    private void InitHeaderActions(IssueInfo issue, Action<IssueInfo, HeaderActions> initHeaderActions)
+    {
+        var hdrActions = CurrentMaster.HeaderActions;
+        hdrActions.ActionsList.Clear();
+
+        initHeaderActions(issue, hdrActions);
+
+        hdrActions.ActionPerformed += hdrActions_ActionPerformed;
+        hdrActions.ReloadData();
+
+        CurrentMaster.DisplayActionsPanel = true;
+    }
+
+
+    /// <summary>
+    /// Adds template-based header actions to <paramref name="hdrActions"/>.
+    /// </summary>
+    private static void AddTemplateBasedHeaderActions(HeaderActions hdrActions, bool enabled)
+    {
+        hdrActions.ActionsList.Add(new HeaderAction
+        {
+            CommandName = SCHEDULE_ACTION_IDENTIFIER,
+            Text = GetString("newsletterissue_send.saveschedule"),
+            Tooltip = GetString("newsletterissue_send.saveschedule"),
+            Enabled = enabled
+        });
+
+        hdrActions.ActionsList.Add(new HeaderAction
+        {
+            CommandName = ComponentEvents.SUBMIT,
+            Text = GetString("newsletterissue_send.sendnowbutton"),
+            Tooltip = GetString("newsletterissue_send.sendnowbutton"),
+            Enabled = enabled,
+            OnClientClick = "return confirm('" + GetString("newsletterissue_send.confirmationdialog") + "');",
+            ButtonStyle = ButtonStyle.Default
+        });
+    }
+
+
+    /// <summary>
+    /// Adds send header action to <paramref name="hdrActions"/>.
+    /// </summary>
+    private static void AddSendHeaderAction(HeaderActions hdrActions, bool enabled, ButtonStyle buttonStyle = ButtonStyle.Primary)
+    {
+        hdrActions.ActionsList.Add(new HeaderAction
+        {
+            CommandName = ComponentEvents.SUBMIT,
+            Text = GetString("newsletterissue_send.send"),
+            Tooltip = GetString("newsletterissue_send.send"),
+            Enabled = enabled,
+            ButtonStyle = buttonStyle
+        });
+    }
+
+
     /// <summary>
     /// Schedules a template-based issue.
     /// </summary>
@@ -235,13 +402,11 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
         {
             return sendElem.ErrorMessage;
         }
-        else
+
+        if (mNewsletter != null)
         {
-            if (mNewsletter != null)
-            {
-                // Redirect to the issue list page
-                ScriptHelper.RegisterStartupScript(this, typeof(string), "Newsletter_Issue_Send", "parent.location='" + ResolveUrl("~/CMSModules/Newsletters/Tools/Newsletters/Newsletter_Issue_List.aspx?newsletterid=" + mNewsletter.NewsletterID) + "';", true);
-            }
+            // Redirect to the issue list page
+            ScriptHelper.RegisterStartupScript(this, typeof(string), "Newsletter_Issue_Send", "parent.location='" + ResolveUrl("~/CMSModules/Newsletters/Tools/Newsletters/Newsletter_Issue_List.aspx?newsletterid=" + mNewsletter.NewsletterID) + "';", true);
         }
 
         return String.Empty;
@@ -301,108 +466,54 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
                 return GetString("Newsletter_Issue_Header.AlreadySent");
 
             case IssueStatusEnum.ReadyForSending:
-                return GetString("Newsletter_Issue_Header.AlreadyScheduled");
+                {
+                    var message = GetString("Newsletter_Issue_Header.AlreadyScheduled");
+                    return AppendReachingLimitMessage(message);
+                }
 
-            default:
-                return GetString("Newsletter_Issue_Header.NotSentYet");
+            case IssueStatusEnum.Idle:
+                {
+                    var message = GetString("Newsletter_Issue_Header.NotSentYet");
+                    return AppendReachingLimitMessage(message);
+                }
         }
+
+        return GetString("Newsletter_Issue_Header.NotSentYet");
     }
 
 
-    /// <summary>
-    /// Initializes header action control.
-    /// </summary>
-    /// <param name="isActiveABTest">Indicates if the issue is A/B test and its status is not 'Finished'</param>
-    /// <param name="allowSendingIssue">Indicates if sending is allowed</param>
-    /// <param name="isNewsletterSent">Indicates if newsletter was already sent</param>
-    private void InitHeaderActions(bool isActiveABTest, bool allowSendingIssue, bool isNewsletterSent)
+    private string AppendReachingLimitMessage(string message)
     {
-        HeaderActions hdrActions = CurrentMaster.HeaderActions;
-        hdrActions.ActionsList.Clear();
-
-        // Init save button
-        if (isActiveABTest)
+        if (MarketableRecipientsNearLicenseLimitation(MarketableRecipientsCount.Value, LicenseMaxNumberOfRecipients.Value))
         {
-            hdrActions.ActionsList.Add(new SaveAction());
+            return $"{message} {string.Format(GetString("Newsletter_Issue_Header.LicenseLimitationWarning"), MarketableRecipientsCount.Value, LicenseMaxNumberOfRecipients.Value)}";
         }
 
-        if (allowSendingIssue)
-        {
-            InitSendAndScheduleHeaderActions(hdrActions, isActiveABTest, isNewsletterSent);
-        }
-
-        hdrActions.ActionPerformed += hdrActions_ActionPerformed;
-        hdrActions.ReloadData();
-
-        CurrentMaster.DisplayActionsPanel = true;
+        return message;
     }
 
 
-    /// <summary>
-    /// Initializes send and schedule based header actions.
-    /// </summary>
-    /// <param name="hdrActions">Header actions</param>
-    /// <param name="isActiveABTest">Indicates if the issue is A/B test and its status is not 'Finished'</param>
-    /// <param name="isNewsletterSent">If true, newsletter has already been sent and if it's template-based newsletter, no buttons are shown.</param>
-    private void InitSendAndScheduleHeaderActions(HeaderActions hdrActions, bool isActiveABTest, bool isNewsletterSent)
+    private static bool MarketableRecipientsNearLicenseLimitation(int marketableRecipients, int maxNumberOfRecipients)
     {
-        if (IsNewsletterTemplateBased && !isActiveABTest)
-        {
-            if (isNewsletterSent)
-            {
-                return;
-            }
-
-            AddTemplateBasedHeaderActions(hdrActions);
-        }
-        else
-        {
-            AddSendHeaderAction(hdrActions);
-        }
+        return maxNumberOfRecipients != 0  && marketableRecipients >= maxNumberOfRecipients * PERCENTAGE_THRESHOLD && marketableRecipients <= maxNumberOfRecipients;
     }
 
 
-    /// <summary>
-    /// Adds template-based header actions to <paramref name="hdrActions"/>.
-    /// </summary>
-    /// <param name="hdrActions">Header actions</param>
-    private void AddTemplateBasedHeaderActions(HeaderActions hdrActions)
+    private int GetLicenseMaxNumberOfRecipients()
     {
-        hdrActions.ActionsList.Add(new HeaderAction
-        {
-            CommandName = SCHEDULE_ACTION_IDENTIFIER,
-            Text = GetString("newsletterissue_send.saveschedule"),
-            Tooltip = GetString("newsletterissue_send.saveschedule"),
-            Enabled = true
-        });
-
-        hdrActions.ActionsList.Add(new HeaderAction
-        {
-            CommandName = ComponentEvents.SUBMIT,
-            Text = GetString("newsletterissue_send.sendnowbutton"),
-            Tooltip = GetString("newsletterissue_send.sendnowbutton"),
-            Enabled = true,
-            OnClientClick = "return confirm('" + GetString("newsletterissue_send.confirmationdialog") + "');",
-            ButtonStyle = ButtonStyle.Default
-        });
+        var site = SiteInfoProvider.GetSiteInfo(mIssue.IssueSiteID);
+        return LicenseKeyInfoProvider.VersionLimitations(site.DomainName, FeatureEnum.SimpleContactManagement, false);
     }
 
 
-    /// <summary>
-    /// Adds send header action to <paramref name="hdrActions"/>.
-    /// </summary>
-    /// <param name="hdrActions">Header actions</param>
-    private void AddSendHeaderAction(HeaderActions hdrActions)
+    private int GetMarketableRecipientsCount()
     {
-        hdrActions.ActionsList.Add(new HeaderAction
-        {
-            CommandName = ComponentEvents.SUBMIT,
-            Text = GetString("newsletterissue_send.send"),
-            Tooltip = GetString("newsletterissue_send.send"),
-            Enabled = true
-        });
+        return mIssue
+            .GetRecipientsProvider()
+            .GetMarketableRecipients()
+            .Count;
     }
-
+    
 
     /// <summary>
     /// Shows user friendly message in ordinary label.
@@ -410,7 +521,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_S
     /// <param name="message">Message to be shown</param>
     private void ShowInformationInternal(string message)
     {
-        lblInfo.Text = message;
+        plcMess.ShowInformation(message);
     }
 
 

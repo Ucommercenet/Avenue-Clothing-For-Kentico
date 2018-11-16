@@ -99,9 +99,7 @@ public partial class CMSModules_PortalEngine_UI_OnSiteEdit_EditText : CMSAbstrac
             ScriptHelper.RegisterClientScriptBlock(this, typeof(Page), "ResizeEditableArea", ScriptHelper.GetScript(resizeScript));
         }
 
-        CurrentDeviceInfo device = DeviceContext.CurrentDevice;
-
-        if (device.IsMobile)
+        if (DeviceContext.CurrentDevice.IsMobile())
         {
             // Do not use fixed positioning for mobile devices
             (CurrentMaster.HeaderContainer as CMSPanel).FixedPosition = false;

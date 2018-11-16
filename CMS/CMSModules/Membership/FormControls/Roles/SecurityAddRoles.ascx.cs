@@ -15,15 +15,9 @@ public partial class CMSModules_Membership_FormControls_Roles_SecurityAddRoles :
 {
     #region "Private variables"
 
-    private int mNodeID = 0;
-    private int mPollID = 0;
-    private int mFormID = 0;
-    private int mBoardID = 0;
-    private int mGroupID = 0;
-    private string mCurrentValues = string.Empty;
-    private bool mShowSiteFilter = true;
-    private TreeNode mNode = null;
-    private TreeProvider mTree = null;
+    private int mNodeID;
+    private TreeNode mNode;
+    private TreeProvider mTree;
 
     #endregion
 
@@ -97,65 +91,25 @@ public partial class CMSModules_Membership_FormControls_Roles_SecurityAddRoles :
     /// <summary>
     /// Gets or sets poll id.
     /// </summary>
-    public int PollID
-    {
-        get
-        {
-            return mPollID;
-        }
-        set
-        {
-            mPollID = value;
-        }
-    }
+    public int PollID { get; set; }
 
 
     /// <summary>
     /// Gets or sets bizform id.
     /// </summary>
-    public int FormID
-    {
-        get
-        {
-            return mFormID;
-        }
-        set
-        {
-            mFormID = value;
-        }
-    }
+    public int FormID { get; set; }
 
 
     /// <summary>
     /// Gets or sets board id.
     /// </summary>
-    public int BoardID
-    {
-        get
-        {
-            return mBoardID;
-        }
-        set
-        {
-            mBoardID = value;
-        }
-    }
+    public int BoardID { get; set; }
 
 
     /// <summary>
     /// Gets or sets group id.
     /// </summary>
-    public int GroupID
-    {
-        get
-        {
-            return mGroupID;
-        }
-        set
-        {
-            mGroupID = value;
-        }
-    }
+    public int GroupID { get; set; }
 
 
     /// <summary>
@@ -177,29 +131,13 @@ public partial class CMSModules_Membership_FormControls_Roles_SecurityAddRoles :
     /// <summary>
     /// Returns current uniselector.
     /// </summary>
-    public UniSelector CurrentSelector
-    {
-        get
-        {
-            return usRoles;
-        }
-    }
+    public UniSelector CurrentSelector => usRoles;
 
 
     /// <summary>
     /// Gets or sets subscriber.
     /// </summary>
-    public string CurrentValues
-    {
-        get
-        {
-            return mCurrentValues;
-        }
-        set
-        {
-            mCurrentValues = value;
-        }
-    }
+    public string CurrentValues { get; set; } = string.Empty;
 
 
     /// <summary>
@@ -222,17 +160,7 @@ public partial class CMSModules_Membership_FormControls_Roles_SecurityAddRoles :
     /// <summary>
     /// Gets or sets if site filter is should be shown.
     /// </summary>
-    public bool ShowSiteFilter
-    {
-        get
-        {
-            return mShowSiteFilter;
-        }
-        set
-        {
-            mShowSiteFilter = value;
-        }
-    }
+    public bool ShowSiteFilter { get; set; } = true;
 
     #endregion
 
@@ -382,39 +310,33 @@ public partial class CMSModules_Membership_FormControls_Roles_SecurityAddRoles :
         string items = DataHelper.GetNewItemsInList(newValues, CurrentValues);
         if (!String.IsNullOrEmpty(items))
         {
-            string[] newItems = items.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            if (newItems != null)
-            {
-                // Add all new items to site
-                foreach (string item in newItems)
-                {
-                    int roleID = ValidationHelper.GetInteger(item, 0);
+            string[] newItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (PollID > 0)
-                    {
-                        // Remove role from poll
-                        ModuleCommands.PollsRemoveRoleFromPoll(roleID, PollID);
-                    }
-                    else if (FormID > 0)
-                    {
-                        // Remove role from form
-                        BizFormRoleInfoProvider.DeleteBizFormRoleInfo(roleID, FormID);
-                    }
-                    else if (BoardID > 0)
-                    {
-                        // Check permissions
-                        if (MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("cms.messageboards", CMSAdminControl.PERMISSION_MODIFY))
-                        {
-                            // Remove message board from board
-                            ModuleCommands.MessageBoardRemoveRoleFromBoard(roleID, BoardID);
-                        }
-                    }
-                    else if (Node != null)
-                    {
-                        RoleInfo ri = RoleInfoProvider.GetRoleInfo(roleID);
-                        // Remove role from treenode
-                        AclItemInfoProvider.RemoveRole(NodeID, ri);
-                    }
+            // Add all new items to site
+            foreach (string item in newItems)
+            {
+                int roleID = ValidationHelper.GetInteger(item, 0);
+
+                if (PollID > 0)
+                {
+                    // Remove role from poll
+                    ModuleCommands.PollsRemoveRoleFromPoll(roleID, PollID);
+                }
+                else if (FormID > 0)
+                {
+                    // Remove role from form
+                    BizFormRoleInfoProvider.DeleteBizFormRoleInfo(roleID, FormID);
+                }
+                else if (BoardID > 0)
+                {
+                    // Remove message board from board
+                    ModuleCommands.MessageBoardRemoveRoleFromBoard(roleID, BoardID);
+                }
+                else if (Node != null)
+                {
+                    RoleInfo ri = RoleInfoProvider.GetRoleInfo(roleID);
+                    // Remove role from treenode
+                    AclItemInfoProvider.RemoveRole(NodeID, ri);
                 }
             }
         }
@@ -423,35 +345,33 @@ public partial class CMSModules_Membership_FormControls_Roles_SecurityAddRoles :
         items = DataHelper.GetNewItemsInList(CurrentValues, newValues);
         if (!String.IsNullOrEmpty(items))
         {
-            string[] newItems = items.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            if (newItems != null)
-            {
-                // Add all new items to site
-                foreach (string item in newItems)
-                {
-                    int roleID = ValidationHelper.GetInteger(item, 0);
+            string[] newItems = items.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (PollID > 0)
-                    {
-                        // Add poll role
-                        ModuleCommands.PollsAddRoleToPoll(roleID, PollID);
-                    }
-                    else if (FormID > 0)
-                    {
-                        // Add BizForm role
-                        BizFormRoleInfoProvider.SetBizFormRoleInfo(roleID, FormID);
-                    }
-                    else if (BoardID > 0)
-                    {
-                        // Add role to the message board
-                        ModuleCommands.MessageBoardAddRoleToBoard(roleID, BoardID);
-                    }
-                    else if (Node != null)
-                    {
-                        RoleInfo ri = RoleInfoProvider.GetRoleInfo(roleID);
-                        // Add role to treenode
-                        AclItemInfoProvider.SetRolePermissions(Node, 0, 0, ri);
-                    }
+            // Add all new items to site
+            foreach (string item in newItems)
+            {
+                int roleID = ValidationHelper.GetInteger(item, 0);
+
+                if (PollID > 0)
+                {
+                    // Add poll role
+                    ModuleCommands.PollsAddRoleToPoll(roleID, PollID);
+                }
+                else if (FormID > 0)
+                {
+                    // Add BizForm role
+                    BizFormRoleInfoProvider.SetBizFormRoleInfo(roleID, FormID);
+                }
+                else if (BoardID > 0)
+                {
+                    // Add role to the message board
+                    ModuleCommands.MessageBoardAddRoleToBoard(roleID, BoardID);
+                }
+                else if (Node != null)
+                {
+                    RoleInfo ri = RoleInfoProvider.GetRoleInfo(roleID);
+                    // Add role to treenode
+                    AclItemInfoProvider.SetRolePermissions(Node, 0, 0, ri);
                 }
             }
         }

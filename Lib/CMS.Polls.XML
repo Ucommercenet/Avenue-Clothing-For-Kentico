@@ -170,43 +170,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Polls.PollAnswerInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty PollAnswerInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new PollAnswerInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
         <member name="P:CMS.Polls.PollAnswerInfo.AnswerOrder">
             <summary>
             Order of current answer.
@@ -266,6 +229,43 @@
             <summary>
             Indicates if form for open ended answer is hidden if the answer is not selected.
             </summary>
+        </member>
+        <member name="M:CMS.Polls.PollAnswerInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollAnswerInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollAnswerInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Polls.PollAnswerInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty PollAnswerInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollAnswerInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new PollAnswerInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollAnswerInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
         </member>
         <member name="T:CMS.Polls.PollAnswerInfoProvider">
             <summary>
@@ -345,35 +345,6 @@
             </summary>
             <param name="pollId">Poll ID</param>
         </member>
-        <member name="M:CMS.Polls.PollAnswerInfoProvider.GetPollAnswerInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfoProvider.GetPollAnswerInternal(System.Int32)">
-            <summary>
-            Returns the PollAnswerInfo structure for the specified pollAnswer.
-            </summary>
-            <param name="pollAnswerId">PollAnswer ID</param>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfoProvider.GetPollAnswersInternal">
-            <summary>
-            Returns all poll answers.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfoProvider.SetPollAnswerInternal(CMS.Polls.PollAnswerInfo)">
-            <summary>
-            Sets (updates or inserts) specified pollAnswer.
-            </summary>
-            <param name="pollAnswer">PollAnswer object to set</param>
-        </member>
-        <member name="M:CMS.Polls.PollAnswerInfoProvider.DeletePollAnswerInternal(CMS.Polls.PollAnswerInfo)">
-            <summary>
-            Deletes specified pollAnswer.
-            </summary>
-            <param name="pollAnswerObj">PollAnswer object</param>
-        </member>
         <member name="M:CMS.Polls.PollAnswerInfoProvider.MoveAnswerUpInternal(System.Int32,System.Int32)">
             <summary>
             Moves the answer up in order.
@@ -431,79 +402,6 @@
             Type information for group polls.
             </summary>
         </member>
-        <member name="M:CMS.Polls.PollInfo.LoadRoles">
-            <summary>
-            Loads the table of allowed roles.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.LoadSites">
-            <summary>
-            Loads the table of sites.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.CheckUniqueCodeName">
-            <summary>
-            Checks if the object has unique code name. Returns true if the object has unique code name.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty PollInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new PollInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.IsInSite(System.String)">
-            <summary>
-            Returns true, if the poll is assigned to the site.
-            </summary>
-            <param name="siteName">Sitename to check</param>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Inserts cloned object to DB.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Cloning result</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Clones forum role and forum moderator bindings
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
-            <summary>
-            Checks the object license. Returns true if the licensing conditions for this object were matched
-            </summary>
-            <param name="action">Object action</param>
-            <param name="domainName">Domain name, if not set, uses current domain</param>
-        </member>
-        <member name="M:CMS.Polls.PollInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
         <member name="P:CMS.Polls.PollInfo.AllowedRoles">
             <summary>
             Hashtable of allowed roles. RoleName is key and RoleID is value.
@@ -513,6 +411,16 @@
             <summary>
             Hashtable of sites where the poll is assigned.
             SiteName is key and SiteID is value.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.LoadRoles">
+            <summary>
+            Loads the table of allowed roles.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.LoadSites">
+            <summary>
+            Loads the table of sites.
             </summary>
         </member>
         <member name="P:CMS.Polls.PollInfo.PollID">
@@ -595,14 +503,72 @@
             Type information.
             </summary>
         </member>
+        <member name="M:CMS.Polls.PollInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.CheckUniqueCodeName">
+            <summary>
+            Checks if the object has unique code name. Returns true if the object has unique code name.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty PollInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new PollInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.IsInSite(System.String)">
+            <summary>
+            Returns true, if the poll is assigned to the site.
+            </summary>
+            <param name="siteName">Sitename to check</param>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Inserts cloned object to DB.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Cloning result</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.InsertAsClonePostprocessing(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Clones forum role and forum moderator bindings
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.CheckLicense(CMS.DataEngine.ObjectActionEnum,System.String)">
+            <summary>
+            Checks the object license. Returns true if the licensing conditions for this object were matched
+            </summary>
+            <param name="action">Object action</param>
+            <param name="domainName">Domain name, if not set, uses current domain</param>
+        </member>
+        <member name="M:CMS.Polls.PollInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.Polls.PollInfoProvider">
             <summary>
             Class providing PollInfo management.
-            </summary>
-        </member>
-        <member name="F:CMS.Polls.PollInfoProvider.mLicPolls">
-            <summary>
-            Table of polls license limitations
             </summary>
         </member>
         <member name="M:CMS.Polls.PollInfoProvider.#ctor">
@@ -610,11 +576,10 @@
             Constructor
             </summary>
         </member>
-        <member name="M:CMS.Polls.PollInfoProvider.Clear(System.Boolean)">
+        <member name="M:CMS.Polls.PollInfoProvider.GetPolls">
             <summary>
-            Clear hashtables.
+            Returns all existing polls.
             </summary>
-            <param name="logTasks">If true, web farm tasks are logged</param>
         </member>
         <member name="M:CMS.Polls.PollInfoProvider.GetPollInfoByGUID(System.Guid)">
             <summary>
@@ -676,11 +641,6 @@
             <param name="siteName">Site name</param>
             <param name="topN">TOP N condition</param>
             <param name="columns">Columns restriction</param>
-        </member>
-        <member name="M:CMS.Polls.PollInfoProvider.GetPolls">
-            <summary>
-            Returns the Dataset structure of all polls.
-            </summary>
         </member>
         <member name="M:CMS.Polls.PollInfoProvider.GetGroupPolls(System.Int32,System.Int32)">
             <summary>
@@ -818,24 +778,6 @@
             <param name="action">Object action</param>
             <param name="domainName">Domain name, if not set, current domain name is used</param>
         </member>
-        <member name="M:CMS.Polls.PollInfoProvider.RemoveFromHash(System.String)">
-            <summary>
-            Remove from hash table.
-            </summary>
-            <param name="dataText">Data text</param>
-        </member>
-        <member name="M:CMS.Polls.PollInfoProvider.GetPollInternal(System.Guid)">
-            <summary>
-            Returns object with specified GUID.
-            </summary>
-            <param name="guid">Object GUID</param>
-        </member>
-        <member name="M:CMS.Polls.PollInfoProvider.GetPollInternal(System.Int32)">
-            <summary>
-            Returns the PollInfo structure for the specified poll.
-            </summary>
-            <param name="pollId">Poll id</param>
-        </member>
         <member name="M:CMS.Polls.PollInfoProvider.GetPollInternal(System.String,System.Int32,System.Int32)">
             <summary>
             Returns the PollInfo structure specified by PollCodeName, SiteID and GroupID.
@@ -863,17 +805,17 @@
             <param name="topN">TOP N condition</param>
             <param name="columns">Columns restriction</param>
         </member>
-        <member name="M:CMS.Polls.PollInfoProvider.SetPollInternal(CMS.Polls.PollInfo)">
+        <member name="M:CMS.Polls.PollInfoProvider.SetInfo(CMS.Polls.PollInfo)">
             <summary>
-            Sets (updates or inserts) specified poll.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="poll">Poll to set</param>
+            <param name="info">Object to insert / update</param>
         </member>
-        <member name="M:CMS.Polls.PollInfoProvider.DeletePollInternal(CMS.Polls.PollInfo)">
+        <member name="M:CMS.Polls.PollInfoProvider.DeleteInfo(CMS.Polls.PollInfo)">
             <summary>
-            Deletes specified poll.
+            Deletes the object to the database.
             </summary>
-            <param name="pollObj">Poll object</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Polls.PollInfoProvider.GetPollRolesInternal(System.Int32,System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -895,11 +837,6 @@
             <param name="topN">TOP N condition</param>
             <param name="columns">Columns restriction</param>
         </member>
-        <member name="P:CMS.Polls.PollInfoProvider.LicPolls">
-            <summary>
-            Table of polls license limitations
-            </summary>
-        </member>
         <member name="T:CMS.Polls.PollRoleInfo">
             <summary>
             PollRoleInfo data container class.
@@ -913,6 +850,16 @@
         <member name="F:CMS.Polls.PollRoleInfo.TYPEINFO">
             <summary>
             Type information.
+            </summary>
+        </member>
+        <member name="P:CMS.Polls.PollRoleInfo.RoleID">
+            <summary>
+            ID of the role.
+            </summary>
+        </member>
+        <member name="P:CMS.Polls.PollRoleInfo.PollID">
+            <summary>
+            ID of the poll.
             </summary>
         </member>
         <member name="M:CMS.Polls.PollRoleInfo.DeleteObject">
@@ -943,16 +890,6 @@
             <param name="siteName">Name of the site</param>
             <param name="userInfo">UserInfo object</param>
             <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="P:CMS.Polls.PollRoleInfo.RoleID">
-            <summary>
-            ID of the role.
-            </summary>
-        </member>
-        <member name="P:CMS.Polls.PollRoleInfo.PollID">
-            <summary>
-            ID of the poll.
-            </summary>
         </member>
         <member name="T:CMS.Polls.PollRoleInfoProvider">
             <summary>
@@ -1030,6 +967,16 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Polls.PollSiteInfo.SiteID">
+            <summary>
+            ID of the site.
+            </summary>
+        </member>
+        <member name="P:CMS.Polls.PollSiteInfo.PollID">
+            <summary>
+            ID of the poll.
+            </summary>
+        </member>
         <member name="M:CMS.Polls.PollSiteInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -1058,16 +1005,6 @@
             <param name="siteName">Name of the site</param>
             <param name="userInfo">UserInfo object</param>
             <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
-        <member name="P:CMS.Polls.PollSiteInfo.SiteID">
-            <summary>
-            ID of the site.
-            </summary>
-        </member>
-        <member name="P:CMS.Polls.PollSiteInfo.PollID">
-            <summary>
-            ID of the poll.
-            </summary>
         </member>
         <member name="T:CMS.Polls.PollSiteInfoProvider">
             <summary>

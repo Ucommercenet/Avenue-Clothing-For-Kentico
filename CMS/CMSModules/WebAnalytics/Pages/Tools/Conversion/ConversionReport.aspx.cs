@@ -10,7 +10,7 @@ using CMS.Reporting.Web.UI;
 using CMS.SiteProvider;
 using CMS.WebAnalytics;
 using CMS.WebAnalytics.Web.UI;
-
+using CMS.Reporting;
 
 public partial class CMSModules_WebAnalytics_Pages_Tools_Conversion_ConversionReport : CMSConversionPage
 {
@@ -128,6 +128,7 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Conversion_ConversionRe
 
         // Get report name from query
         var reportName = ucGraphType.GetReportName(mReportCodeNames);
+        ValidateReportCategory(reportName);
 
         if (mConversionId == 0)
         {
@@ -196,7 +197,7 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Conversion_ConversionRe
         DisplayReport();
 
         // Check web analytics save permission
-        if (!MembershipContext.AuthenticatedUser.IsAuthorizedPerResource("CMS.WebAnalytics", "SaveReports"))
+        if (!CurrentUser.IsAuthorizedPerResource("CMS.WebAnalytics", "SaveReports"))
         {
             RedirectToAccessDenied("CMS.WebAnalytics", "SaveReports");
         }
@@ -209,5 +210,33 @@ public partial class CMSModules_WebAnalytics_Pages_Tools_Conversion_ConversionRe
         }
 
         mIsBeingSaved = false;
+    }
+
+
+    private void ValidateReportCategory(string reportsCodeName)
+    {
+        if (!IsConversionReport(reportsCodeName))
+        {
+            RedirectToAccessDenied(GetString("accessdenied.notallowedtoread"));
+        }
+    }
+
+
+    private bool IsConversionReport(string reportName)
+    {
+        var report = ReportInfoProvider.GetReportInfo(reportName);
+        if (report != null)
+        {
+            var category = ReportCategoryInfoProvider.GetReportCategoryInfo(report.ReportCategoryID);
+            if (category != null)
+            {
+                if (!category.CategoryPath.StartsWith("/WebAnalytics/Conversion", StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

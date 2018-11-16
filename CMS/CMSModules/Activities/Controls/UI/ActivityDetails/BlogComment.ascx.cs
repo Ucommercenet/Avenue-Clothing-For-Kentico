@@ -42,7 +42,7 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_BlogComme
         if (ai.ActivityType == PredefinedActivityType.BLOG_COMMENT)
         {
             // Get blog comment data
-            GeneralizedInfo iinfo = BaseAbstractInfoProvider.GetInfoById(PredefinedObjectType.BLOGCOMMENT, ai.ActivityItemID);
+            GeneralizedInfo iinfo = ProviderHelper.GetInfoById(PredefinedObjectType.BLOGCOMMENT, ai.ActivityItemID);
             if (iinfo != null)
             {
                 plcComment.Visible = true;

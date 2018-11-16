@@ -1,7 +1,5 @@
 ﻿cmsdefine(['CMS/Application'], function (app) {
 
-    'use strict';
-
     return {
         bindings: {
             status: '<'

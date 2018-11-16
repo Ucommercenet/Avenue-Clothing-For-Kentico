@@ -15,7 +15,6 @@ CMSConfigRequire = function (baseUrl, pathToCmsScripts) {
             'jQueryFancySelector': pathToCmsScripts + 'jquery/jquery-fancyselect',
             'jQueryDatePicker': pathToCmsScripts + 'jquery/jquery-ui-datetimepicker',
             'select2': pathToCmsScripts + 'Select2/select2',
-            'jQuery.1.11' : pathToCmsScripts +  'jquery/jquery-1.11.min',
 
             'angular': pathToCmsScripts + 'Vendor/Angular-1.5.5/angular.min',
             'angular-resource': pathToCmsScripts + 'Vendor/Angular-1.5.5/angular-resource.min',
@@ -28,6 +27,7 @@ CMSConfigRequire = function (baseUrl, pathToCmsScripts) {
 
             'lodash': pathToCmsScripts + 'Vendor/LoDash/lodash',
             'csv-parser': pathToCmsScripts + 'Vendor/CSV-JS/csv',
+            'sortable': pathToCmsScripts + 'Vendor/SortableJS/sortable.min',
 
             'amcharts': pathToCmsScripts + 'CMSModules/CMS.Charts/amCharts/amcharts',
             'amcharts.cmstheme': pathToCmsScripts + 'CMSModules/CMS.Charts/Themes/CMSTheme',
@@ -37,7 +37,9 @@ CMSConfigRequire = function (baseUrl, pathToCmsScripts) {
             'amcharts.radar': pathToCmsScripts + 'CMSModules/CMS.Charts/amCharts/radar',
             'amcharts.serial': pathToCmsScripts + 'CMSModules/CMS.Charts/amCharts/serial',
             'amcharts.xy': pathToCmsScripts + 'CMSModules/CMS.Charts/amCharts/xy',
-            'amcharts.gantt': pathToCmsScripts + 'CMSModules/CMS.Charts/amCharts/gantt'
+            'amcharts.gantt': pathToCmsScripts + 'CMSModules/CMS.Charts/amCharts/gantt',
+
+            'amcharts.ammap' : pathToCmsScripts + 'CMSModules/CMS.Maps/ammap/ammap_amcharts_extension'
 
         },
         shim: {
@@ -47,9 +49,9 @@ CMSConfigRequire = function (baseUrl, pathToCmsScripts) {
             'Underscore': { exports: '_' },
             'jQueryJScrollPane': { deps: ['jQuery'] },
             'jQueryFancySelector': { deps: ['jQuery'] },
-            'select2': { deps: ['jQuery.1.11'] },
+            'select2': { deps: ['jQuery'] },
 
-            'angular': { exports: 'angular', deps: ['jQuery.1.11'] },
+            'angular': { exports: 'angular', deps: ['jQuery'] },
             'angular-resource': { deps: ['angular'] },
             'angular-sanitize': { deps: ['angular'] },
             'angular-route': { deps: ['angular'] },
@@ -58,6 +60,7 @@ CMSConfigRequire = function (baseUrl, pathToCmsScripts) {
             'angular-ellipsis': { deps: ['angular'] },
             'angularSortable': { deps: ['jQuery', 'jQueryUI', 'angular'] },
             'csv-parser': { exports: 'CSV' },
+            'sortable': { exports: 'Sortable' },
 
             'uiBootstrap': { deps: ['angular', 'angular-animate'] },
 
@@ -96,6 +99,10 @@ CMSConfigRequire = function (baseUrl, pathToCmsScripts) {
             },
             'amcharts.gantt': {
                 deps: ['amcharts', 'amcharts.serial'],
+                exports: 'AmCharts'
+            },
+            'amcharts.ammap': {
+                deps: ['amcharts'],
                 exports: 'AmCharts'
             }
         },

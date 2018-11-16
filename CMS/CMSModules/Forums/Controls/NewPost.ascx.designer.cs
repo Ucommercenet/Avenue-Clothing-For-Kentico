@@ -306,7 +306,7 @@ public partial class CMSModules_Forums_Controls_NewPost {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSFormControls_Captcha_SecurityCode SecurityCode1;
+    protected global::CMS.FormEngine.Web.UI.SecurityCode SecurityCode1;
     
     /// <summary>
     /// SubscribeHolder control.

@@ -122,7 +122,7 @@ public partial class CMSModules_Scheduler_Pages_Task_Edit : CMSScheduledTasksPag
                     ReloadData();
 
                     // Show that the task was created or updated successfully
-                    if (Request.QueryString["saved"] == "1")
+                    if (QueryHelper.GetBoolean("saved", false))
                     {
                         ShowChangesSaved();
                     }
@@ -137,7 +137,7 @@ public partial class CMSModules_Scheduler_Pages_Task_Edit : CMSScheduledTasksPag
                 RedirectToAccessDenied("CMS.ScheduledTasks", "Modify");
             }
 
-            if (WebFarmServerInfoProvider.UseWebFarmSynchronization())
+            if (WebFarmContext.WebFarmEnabled)
             {
                 if (!RequestHelper.IsPostBack())
                 {

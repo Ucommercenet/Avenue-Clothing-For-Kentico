@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/EventHub', 'jQuery'], function (hub, $) {
-    'use strict';
 
     /**
      * Handles the keypress event for all the windows through raising the event hub 'KeyPressed' event
@@ -50,7 +49,9 @@
         
     clicked = function(e, w) {
         // For now, emit the click only on topmost frame
-        $(w.top.document).click();
+        if (w.top.document !== w.document) {
+            $(w.top.document).click();
+        }
 
         var evtObj = e ? e : window.event;
 

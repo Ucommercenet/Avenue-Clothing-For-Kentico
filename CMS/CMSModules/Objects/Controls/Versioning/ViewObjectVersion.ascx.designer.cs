@@ -21,13 +21,13 @@ public partial class CMSModules_Objects_Controls_Versioning_ViewObjectVersion {
     protected global::System.Web.UI.WebControls.Panel pnlControl;
     
     /// <summary>
-    /// pnlAdditionalControls control.
+    /// pnlDropDown control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Panel pnlAdditionalControls;
+    protected global::System.Web.UI.WebControls.Panel pnlDropDown;
     
     /// <summary>
     /// lblCompareTo control.
@@ -46,6 +46,15 @@ public partial class CMSModules_Objects_Controls_Versioning_ViewObjectVersion {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::CMS.Base.Web.UI.CMSDropDownList drpCompareTo;
+    
+    /// <summary>
+    /// pnlAllData control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Panel pnlAllData;
     
     /// <summary>
     /// lblDisplayAllData control.

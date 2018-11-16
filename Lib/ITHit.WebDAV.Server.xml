@@ -4,90 +4,6 @@
         <name>ITHit.WebDAV.Server</name>
     </assembly>
     <members>
-        <member name="T:ITHit.WebDAV.Server.Handler.BaseDAVHandler">
-            <summary>
-            Summary description for BaseDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.IMethodHandler">
-            <summary>
-            Represents HTTP method handler.
-            </summary>
-            <remarks>
-            <para>
-            The IT Hit WebDAV Server Engine allows creating custom HTTP handlers and replacing original engine handlers. 
-            To add or replace handler call <see cref="M:ITHit.WebDAV.Server.Engine.RegisterMethodHandler(System.String,ITHit.WebDAV.Server.IMethodHandler)"/> method passing HTTP method name and object instance 
-            implementing <see cref="T:ITHit.WebDAV.Server.IMethodHandler"/> interface prior to calling <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/>. The original handler, if any, 
-            is returned from <see cref="M:ITHit.WebDAV.Server.Engine.RegisterMethodHandler(System.String,ITHit.WebDAV.Server.IMethodHandler)"/> method. 
-            </para>
-            <para>
-            The <see cref="M:ITHit.WebDAV.Server.IMethodHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)"/> method of this interface is called by the engine during <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> call. 
-            The hierarchy item returned from <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> is passed to ProcessRequest method as a parameter.
-            </para>
-            </remarks>
-            <example>
-			The WebDAV protocol does not regulate GET request to a WebDAV collection (folder). The following sample demonstrates custom handler for GET request submitted to folder item. The custom handler returns HTML page for folder while calling the original handler for any other items.
-			<code>
-				<![CDATA[
-WDEngine engine = new WDEngine();
-// set custom handler to process GET requests to folders
-MyCustomGetHandler handler = new MyCustomGetHandler();
-handler.OriginalHandler = engine.RegisterMethodHandler("GET", handler);
-engine.Run(request, response);
-
-class MyCustomGetHandler : IMethodHandler
-{
-    private IMethodHandler originalHandler;
-
-    public IMethodHandler OriginalHandler
-    {
-        set { originalHandler = value; }
-    }
-
-    public void ProcessRequest(Request request, IResponse response, IHierarchyItem item)
-    {
-        if(item is IFolder)
-            HttpContext.Current.Response.TransmitFile(HttpContext.Current.Request.PhysicalApplicationPath + "MyCustomHandlerPage.html");
-        else
-            originalHandler.ProcessRequest(request, response, item);
-    }
-}
-				]]>
-			</code>
-		</example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IMethodHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)">
-            <summary>
-            Enables processing of HTTP Web requests by a custom handler.
-            </summary>
-            <param name="request">Instance of your request class derived from <see cref="T:ITHit.WebDAV.Server.Request"/> class</param>
-            <param name="response">Your <see cref="T:ITHit.WebDAV.Server.IResponse"/> interface implementation</param>
-            <param name="item">Hierarchy item returned from <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> or <b>null</b></param>
-            <remarks>The <see cref="M:ITHit.WebDAV.Server.IMethodHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)"/> method is called by the engine during <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> call. 
-            The hierarchy item returned from <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> is passed to this method. 
-            If <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> returns null the null is passed.
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Handler.BaseDAVHandler.GetParentAndAllowedName(System.String,System.String@,System.String@)">
-            <summary>
-            Gets parent name from path, original name from path and original name transformed to allowed name.
-            </summary>
-            <param name="path">Path for splitting</param>
-            <param name="name">Original name from path</param>
-            <param name="allowedName">Original name transformed to allowed name</param>
-            <returns>IFolder containing parent</returns>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Handler.BaseDAVHandler.GetItemByPathWithName(ITHit.WebDAV.Server.Engine,ITHit.WebDAV.Server.Request,System.String,System.String,System.String@)">
-            <summary>
-            Gets item by path and transforms given name of hierarchy item to allowed format.
-            </summary>
-            <param name="engine">WebDAV engine to be used</param>
-            <param name="request">WebDAV request</param>
-            <param name="path">Path for which to lookup the hierarchy item</param>
-            <param name="name">Name of new hierachy item</param>
-            <param name="outName">Name of new hierarchy item in allwoed format</param>
-            <returns>Hierarchy item for path</returns>
-        </member>
         <member name="T:ITHit.WebDAV.Server.Handler.BaseUploadHandler.IUploadItemInfo">
             <summary>
             Information about resource being uploaded.
@@ -118,243 +34,365 @@ class MyCustomGetHandler : IMethodHandler
             Summary description for CancelUploadDAVHandler.
             </summary>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Request">
+        <member name="T:ITHit.WebDAV.Server.Handler.BaseDAVHandler">
             <summary>
-            Represents an incoming HTTP request.
-            </summary>
-            <remarks>
-            <para>
-            <see cref="P:ITHit.WebDAV.Server.Request.ClientLockTokens"/> property provides access to the lock tokens send by WebDAV client. Before modifying locked WebDAV Class 2 server items you must check if client provided necessary lock token.
-            </para>
-            <para>
-            Usually you do not have to implement this class if you host your server in ASP.NET/IIS or in HttpListener as Engine provides overloaded <c>Run</c> methods optimized for ASP.NET/IIS and for HttpListener. You can derive your class from this class if you host your server in any other environment and pass it to <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> method.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.ClientLockTokens">
-             <summary>
-             Gets the array of lock tokens submitted by client.
-             </summary>
-             <value>
-             <c>StringCollection</c> object containing collection of lock tokens submitted by client.
-             </value>
-             <remarks>
-             <c>ClientLockTokens</c> property provides access to the array of lock tokens 
-             submitted by client. You must generate the lock tokens during the call to your 
-             <see cref="M:ITHit.WebDAV.Server.ILock.Lock(ITHit.WebDAV.Server.LockInfo@)"/> and <see cref="M:ITHit.WebDAV.Server.IFolderLock.CreateLockNull(System.String,ITHit.WebDAV.Server.LockInfo@)"/> methods implementation. During 
-             this call you associate generated token with an item in the repository and return it to the Engine. 
-             Engine than sends the new token to the WebDAV client. When WebDAV client is modifying any server item it 
-             sends back to server the list of lock tokens. In your WebDAV server Class 2 
-             implementation before modifying any locked items you must check if WebDAV 
-             client provided necessary lock token.
-             </remarks>
-             <example>
-             <code>
-             public abstract class HierarchyItem : IHierarchyItem, ILock
-             {
-            		...
-            		internal bool ClientHasToken
-            		{
-            			get
-            			{
-            				LockInfo[] itemLocks = ActiveLocks;
-            				if(itemLocks.Length == 0) 
-            					return true;
-            				WDRequest request = new WDRequest();
-            				StringCollection clientLockTokens = request.ClientLockTokens;
-            				for(int i=0; i&lt;clientLockTokens.Count; i++)
-            					for(int j=0; j&lt;itemLocks.Length; j++)
-            						if(clientLockTokens[i] == itemLocks[j].Token) 
-            							return true;
-            				return false;
-            			}
-            		}
-            		...
-            	}
-            
-            	public class Folder : HierarchyItem, IFolder, IFolderLock
-            	{
-            		...
-            		public WebDAVResponse CreateFolder(string name)
-            		{
-            			if(!ClientHasToken)
-            				return new LockedResponse();
-            
-            			SqlConnection conn = new SqlConnection(connStr);
-            			SqlTransaction trans = null;
-            			conn.Open();
-            			try
-            			{
-            				trans = conn.BeginTransaction();
-            				CreateChild(trans, name, ItemType.Folder);
-            				trans.Commit();
-            			}
-            			catch(Exception ex)
-            			{
-            				if(trans != null) trans.Rollback();
-            				throw;
-            			}
-            			finally
-            			{
-            				conn.Close();
-            			}
-            			return new CreatedResponse();
-            		}
-            		...
-            	}
-             </code>
-             </example>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.Url">
-            <summary>
-            Gets information about the URL of the current request.
-            </summary>
-            <value>
-            A Uri object containing information regarding the URL of the current request.
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.ApplicationPath">
-            <summary>
-            Gets virtual application root path on the server.
-            </summary>
-            <value>
-            The virtual path of the current application.
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.HttpMethod">
-            <summary>
-            Gets the HTTP method specified by the client.
-            </summary>
-            <value>
-            A <c>String</c> that contains the method used in the request.
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.Headers">
-            <summary>
-            Gets a collection of HTTP headers.
-            </summary>
-            <value>
-            A <c>NameValueCollection</c> of headers.
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.ContentType">
-            <summary>
-            Gets or sets the MIME content type of the incoming request. 
-            </summary>
-            <value>
-            A string representing the MIME content type of the incoming request, for example, "text/html". 
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.ContentEncoding">
-            <summary>
-            Gets or sets the character set of the entity-body.
-            </summary>
-            <value>
-            An <c>Encoding</c> object representing the client's character set.
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.ContentLength">
-            <summary>
-            Specifies the length, in bytes, of content sent by the client.
-            </summary>
-            <value>
-            The length, in bytes, of content sent by the client.
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.InputStream">
-            <summary>
-            Gets the contents of the incoming HTTP entity body.
-            </summary>
-            <value>
-            A <c>Stream</c> object representing the contents of the incoming HTTP content body.
-            </value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Request.UserAgent">
-            <summary>
-            Gets the User-Agent header.
-            </summary>
-            <value>
-            A <c>string</c> representing User-Agent header.
-            </value>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.IResponse">
-            <summary>
-            Represents HTTP response.
-            </summary>
-            <remarks>
-            <para>
-            Usually you do not have to implement this interfaces if you host your server in ASP.NET/IIS or in HttpListener as Engine provides overloaded <c>Run</c> methods optimized for ASP.NET/IIS and for HttpListener. You can implement this interface if you host your server  in any other environment and pass it to <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> method.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IResponse.AddHeader(System.String,System.String)">
-            <summary>
-            Adds the specified header and value to the HTTP headers for this response.
-            </summary>
-            <param name="name">
-            The name of the HTTP header to set.
-            </param>
-            <param name="value">
-            The value for the name header.
-            </param>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IResponse.Clear">
-            <summary>
-            Clears all content output from the buffer stream.
+            Summary description for BaseDAVHandler.
             </summary>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IResponse.StatusCode">
+        <member name="M:ITHit.WebDAV.Server.Handler.BaseDAVHandler.GetParentAndAllowedName(System.String,System.String@,System.String@)">
             <summary>
-            Gets or sets the HTTP status code of the output returned to the client.
+            Gets parent name from path, original name from path and original name transformed to allowed name.
             </summary>
-            <value>
-            An Integer representing the status of the HTTP output returned to the client.
-            </value>
+            <param name="path">Path for splitting</param>
+            <param name="name">Original name from path</param>
+            <param name="allowedName">Original name transformed to allowed name</param>
+            <returns>IFolder containing parent</returns>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IResponse.StatusDescription">
+        <member name="M:ITHit.WebDAV.Server.Handler.BaseDAVHandler.GetItemByPathWithName(ITHit.WebDAV.Server.Engine,ITHit.WebDAV.Server.Request,System.String,System.String,System.String@)">
             <summary>
-            Sets the HTTP status string of the output returned to the client.
+            Gets item by path and transforms given name of hierarchy item to allowed format.
             </summary>
-            <value>
-            A string describing the status of the HTTP output returned to the client.
-            </value>
+            <param name="engine">WebDAV engine to be used</param>
+            <param name="request">WebDAV request</param>
+            <param name="path">Path for which to lookup the hierarchy item</param>
+            <param name="name">Name of new hierachy item</param>
+            <param name="outName">Name of new hierarchy item in allwoed format</param>
+            <returns>Hierarchy item for path</returns>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IResponse.ContentType">
+        <member name="M:ITHit.WebDAV.Server.Handler.CheckinDAVHandler.#ctor(ITHit.WebDAV.Server.Engine)">
             <summary>
-            Sets the HTTP MIME type of the output stream.
+            Summary description for CheckinDAVHandler.
             </summary>
-            <value>
-            The HTTP MIME type of the output stream.
-            </value>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IResponse.ContentEncoding">
+        <member name="T:ITHit.WebDAV.Server.Handler.CopyDAVHandler">
             <summary>
-            Sets the HTTP character set of the output stream.
+            Summary description for CopyDAVHandler.
             </summary>
-            <value>
-            A <c>Encoding</c> object containing information about the character set of the current response.
-            </value>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IResponse.ContentLength">
+        <member name="T:ITHit.WebDAV.Server.Handler.DeleteDAVHandler">
             <summary>
-            Sets the content length of the output stream.
+            Summary description for DeleteDAVHandler.
             </summary>
-            <value>
-            The value of the response's Content-Length header.
-            </value>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IResponse.OutputStream">
+        <member name="T:ITHit.WebDAV.Server.Handler.GetDAVHandler">
             <summary>
-            Enables binary output to the outgoing HTTP content body.
+            Summary description for GetDAVHandler.
             </summary>
-            <value>
-            An IO <see cref="T:System.IO.Stream"/> representing the raw contents of the outgoing HTTP content body.
-            </value>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.HeadDAVHandler">
+            <summary>
+            Summary description for HeadDAVHandler.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.LockDAVHandler">
+            <summary>
+            Summary description for HeadDAVHandler.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.MkcolDAVHandler">
+            <summary>
+            Summary description for MkcolDAVHandler.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.MoveDAVHandler">
+            <summary>
+            Summary description for HeadDAVHandler.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.PostDAVHandler">
+            <summary>
+            Summary description for PostDAVHandler.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.PropfindDAVHandler">
+            <summary>
+            Summary description for PropfindDAVHandler.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.ProppatchDAVHandler">
+            <summary>
+            Summary description for HeadDAVHandler.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Handler.ReportDAVHandler.GenerateReportResponse(ITHit.WebDAV.Server.DeltaV.IHistory)">
+            <param name="history">Version history of the requested version or resource</param>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Handler.UnlockDAVHandler">
+            <summary>
+            Summary description for HeadDAVHandler.
+            </summary>
         </member>
         <member name="T:ITHit.WebDAV.Server.Response.ForbiddenResponse">
             <summary>
             Indicates that server understood the request, but is refusing to fulfill it.
             Authorization will not help and the request SHOULD NOT be repeated.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.ForbiddenResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.NotImplementedResponse">
+            <summary>
+            The server does not support the functionality required to fulfill the request.
+            </summary>
+            <remarks>
+            This is the appropriate response when the server does not recognize the request method and is not capable of supporting it for any resource.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.NotImplementedResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.ResumeIncompleteResponse">
+            <summary>
+            Indicates that content was uploaded partially.
+            </summary>
+            <remarks>This response indicates that it is expected that more segments will be uploaded.</remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.ResumeIncompleteResponse.#ctor">
+            <summary>
+            Instantiates new instance of ResumeIncompleteResponse.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.AccessDeniedResponse">
+            <summary>
+            Not enough permissions.
+            </summary>
+            <remarks>
+            Indicates that operation has failed because client does not have enough permissions to perform this operation.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.AccessDeniedResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.ConflictResponse">
+            <summary>
+            Indicates that operation has failed due to a conflict with
+            the current state of the hierarchy item.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.ConflictResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.CreatedResponse">
+            <summary>
+            Indicates that operation has succeeded and resulted in a new hierarchy item being created.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.CreatedResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.FailedDependencyResponse">
+            <summary>
+            Means that operation could not be performed on the hierarchy item because
+            the requested action depended on another action and that action failed.
+            </summary>
+            <remarks>
+            Usually you will inlude this response in the <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/>
+            object returned from the <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.FailedDependencyResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.ItemResponse">
+            <summary>
+            Represents response for one hierarchy item in multistatus response.
+            </summary>
+            <remarks>
+            Usually you will use this class when you need to return multiple WebDAV responses
+            from your method using <see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> object.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.ItemResponse.#ctor(System.String,ITHit.WebDAV.Server.Response.WebDAVResponse)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> class.
+            </summary>
+            <param name="itemPath">Path of the item in the hierarchy tree</param>
+            <param name="response">WebDAV response for the item</param>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.ItemResponse.ItemPath">
+            <summary>
+            Gets the path of the item.
+            </summary>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.ItemResponse.Response">
+            <summary>
+            Gets the response for the item.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.LockedResponse">
+            <summary>
+            Indicates that operation has failed because the source or destination hierarchy item is locked
+            and client did not provide lock token.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.LockedResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.MultipropResponse">
+            <summary>
+            Serves as responses container for multiple WebDAV properties.
+            </summary>
+            <remarks>
+            This class serves as multistatus response for properties.
+            You must return <c>MultipropResponse</c> object from your implementation of
+            the <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method. You must include response for each
+            property passed to the <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method in parameters.
+            You can collect multiple responses using the <see cref="M:ITHit.WebDAV.Server.Response.MultipropResponse.AddResponses(ITHit.WebDAV.Server.Response.PropResponse[])"/> method.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.MultipropResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> class.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.MultipropResponse.AddResponses(ITHit.WebDAV.Server.Response.PropResponse[])">
+            <summary>
+            Adds new responses to the private collection in this class.
+            </summary>
+            <param name="r">Array of responses to add to the collection</param>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.MultipropResponse.Responses">
+            <summary>
+            Gets the array of the responses for multiple properties in this multistatus response.
+            </summary>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.MultipropResponse.ResponseDescription">
+            <summary>
+            Gets/sets 'responsedescription' property for multi-status response
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.MultistatusResponse">
+            <summary>
+            Serves as the container for multiple WebDAV responses.
+            </summary>
+            <remarks>
+            You must return <c>MultistatusResponse</c> object if errors occur
+            when you perform WebDAV operation on the hierarchy subtree.
+            You can collect multiple responses using the <see cref="M:ITHit.WebDAV.Server.Response.MultistatusResponse.AddResponses(ITHit.WebDAV.Server.Response.ItemResponse[])"/> method.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.MultistatusResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> class.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.MultistatusResponse.AddResponses(ITHit.WebDAV.Server.Response.ItemResponse[])">
+            <summary>
+            Adds new responses to the private collection in this class.
+            </summary>
+            <param name="r">Array of responses to add to the collection</param>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.MultistatusResponse.Responses">
+            <summary>
+            Gets the array of the responses for multiple hierarchy items in this multistatus response.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.NoContentResponse">
+            <summary>
+            Indicates that operation has succeeded.
+            </summary>
+            <remarks>
+            Has a different meaning depending on the operation invoked.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.NoContentResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.NotAllowedResponse">
+            <summary>
+            The invoked operation is not allowed for the hierarchy item.
+            </summary>
+            <remarks>
+            Usually you will return this response when operation invoked for the lock-null item is not allowed.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.NotAllowedResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.OkResponse">
+            <summary>
+            Indicates that operation has succeeded.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.OkResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.PreconditionFailedResponse">
+            <summary>
+            The precondition given by the WebDAV client evaluated to false
+            when it was tested on the server.
+            </summary>
+            <remarks>
+            Usually you will return this response from the <see cref="M:ITHit.WebDAV.Server.ILock.RefreshLock(ITHit.WebDAV.Server.LockInfo@)"/>
+            and <see cref="M:ITHit.WebDAV.Server.ILock.Unlock(System.String)"/> methods when the lock token included in the parameters
+            was not enforceable on the hierarchy item.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.PreconditionFailedResponse.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.PropResponse">
+            <summary>
+            Represents response for one property in multistatus response.
+            </summary>
+            <remarks>
+            Usually you will use this class when you need to return multiple WebDAV responses
+            from your <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method using <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> object.
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.PropResponse.#ctor(ITHit.WebDAV.Server.Property,ITHit.WebDAV.Server.Response.WebDAVResponse)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.PropResponse"/> class.
+            </summary>
+            <param name="prop">Provides name and namespace of the property</param>
+            <param name="response">WebDAV response for the property</param>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.PropResponse.PropName">
+            <summary>
+            Gets the property name.
+            </summary>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.PropResponse.PropNamespace">
+            <summary>
+            Gets the property namespace.
+            </summary>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Response.PropResponse.Response">
+            <summary>
+            Gets the response for the property.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Response.ServerErrorResponse">
+            <summary>
+            Server error occurred.
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.Response.ServerErrorResponse.#ctor">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:ITHit.WebDAV.Server.Response.WebDAVResponse">
@@ -399,35 +437,6 @@ class MyCustomGetHandler : IMethodHandler
             Indicates whether this response means success of the operation.
             </summary>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.ForbiddenResponse.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.NotImplementedResponse">
-            <summary>
-            The server does not support the functionality required to fulfill the request.
-            </summary>
-            <remarks>
-            This is the appropriate response when the server does not recognize the request method and is not capable of supporting it for any resource.
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.NotImplementedResponse.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.ResumeIncompleteResponse">
-            <summary>
-            Indicates that content was uploaded partially.
-            </summary>
-            <remarks>This response indicates that it is expected that more segments will be uploaded.</remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.ResumeIncompleteResponse.#ctor">
-            <summary>
-            Instantiates new instance of ResumeIncompleteResponse.
-            </summary>
-        </member>
         <member name="T:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress">
              <summary>
              Implemented on files and folders to report upload progress.
@@ -462,7 +471,7 @@ class MyCustomGetHandler : IMethodHandler
              </para>
              <para>
              If item does not support upload-progress report and server is based on IT Hit WebDAV Server Engine the server will respond with '403 Forbidden' to
-             REPORT request. The body will contain &lt;A:supported-report xmlns="DAV:"/&gt;  element. If server does not support REPORT verb you will get 405 Method Not Allowed response.
+             REPORT request. The body will contain &lt;A:supported-report xmlns="DAV:"/>  element. If server does not support REPORT verb you will get 405 Method Not Allowed response.
              </para>
              </remarks>
              <example>
@@ -712,17 +721,17 @@ class MyCustomGetHandler : IMethodHandler
             </summary>
             <exclude/>
         </member>
-        <member name="M:ITHit.WebDAV.Server.ResumableUpload.UploadContext.GetStream">
-            <summary>
-            Returns content stream of current request.
-            </summary>
-            <returns>Content stream.</returns>
-        </member>
         <member name="P:ITHit.WebDAV.Server.ResumableUpload.UploadContext.IsAvailable">
             <summary>
             Determines if <see cref="T:ITHit.WebDAV.Server.ResumableUpload.ResumableUploadModule"/> is used and <see cref="M:ITHit.WebDAV.Server.ResumableUpload.UploadContext.GetStream"/>
             method can be called.
             </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.ResumableUpload.UploadContext.GetStream">
+            <summary>
+            Returns content stream of current request.
+            </summary>
+            <returns>Content stream.</returns>
         </member>
         <member name="T:ITHit.WebDAV.Server.ResumableUpload.UploadWorkerRequest">
             <exclude/>
@@ -910,9 +919,6 @@ class MyCustomGetHandler : IMethodHandler
         <member name="M:ITHit.WebDAV.Server.ResumableUpload.UploadWorkerRequest.GetClientCertificatePublicKey">
             <exclude/>
         </member>
-        <member name="M:ITHit.WebDAV.Server.ResumableUpload.UploadWorkerRequest.ToString">
-            <exclude/>
-        </member>
         <member name="P:ITHit.WebDAV.Server.ResumableUpload.UploadWorkerRequest.MachineConfigPath">
             <exclude/>
         </member>
@@ -924,6 +930,196 @@ class MyCustomGetHandler : IMethodHandler
         </member>
         <member name="P:ITHit.WebDAV.Server.ResumableUpload.UploadWorkerRequest.RequestTraceIdentifier">
             <exclude/>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.ResumableUpload.UploadWorkerRequest.ToString">
+            <exclude/>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload">
+            <summary>
+            Implemented by a resource that supports uploading parts of its content.
+            </summary>
+            <remarks>
+            <para>
+            You will implement this interface together with <see cref="T:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress"/> interface when you would like to provide one or more of the following features:
+            <list type="bullet">
+            <item><description>Pause/resume uploads.</description></item>
+            <item><description>Restore broken uploads.</description></item>
+            <item><description>Report upload process and create upload progress bars.</description></item>
+            <item><description>Upload from AJAX (or other thin-client) applications using POST verb.</description></item>
+            <item><description>Upload to ASP.NET/IIS-based server files over 2Gb.</description></item>
+            <item><description>Non-cached upload in IIS.</description></item>
+            </list>
+            </para>
+            <para>When implementing this interface always configure <see cref="T:ITHit.WebDAV.Server.ResumableUpload.ResumableUploadModule"/> module in your web.config file if your WebDAV server is hosted in IIS/ASP.NET.</para>
+            <para>The WebDAV Server Engine can process two types of upload requests:
+            <list type="bullet">
+            <item><description> <b>PUT upload.</b> Files uploaded via PUT by most RFC 2518 compliant WebDAV clients. Usually only rich client applications, such as .NET and Java can perform upload via PUT. </description></item>
+            <item><description> <b>POST upload.</b> Files uploaded via POST verb by AJAX/HTML clients and other thin client applications. </description></item>
+            </list>
+            </para>
+            <para>To provide information about what segment of a file is being uploaded rich client application will attach optional <c>Content-Range: bytes XXX-XXX/XXX</c> header to PUT request. </para>
+            <para>Due to modern Internet browsers limitations thin client applications are unable to randomly read file content and upload content using PUT verb. To overcome this limitation the Engine can process files uploaded using POST verb. Thin client applications cannot pause/resume upload or restore broken upload. AJAX client still can display upload progress submitting upload-progress REPORT request (see <see cref="T:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress"/> interface description for more info). </para>
+            <para>
+            Prior to uploading resource content it is recommended to lock the item. 
+            Unless you lock it other users may overwrite content or move/rename the resource.
+            </para>
+            </remarks>
+            <example>The following example demonstrates upload to WebDAV server using POST with multipart encoding. The file will be created in /mydocs/ folder.
+            <code>
+            <![CDATA[
+            <html>
+                <head><title>POST Upload to WebDAV Server</title></head>
+                <body>
+                    <form action="/mydocs/" method="post" enctype="multipart/form-data">
+                        <input type="file" name="dummyname" /><br />
+                        <input type="submit" />
+                    </form>
+                </body>
+            </html>
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.SaveFromStream(System.Int64,System.Int64,System.IO.Stream,System.String)">
+             <summary>
+             Saves segment of the resource from the specified stream to the WebDAV repository.
+             </summary>
+             <returns>Instance of <see cref="T:ITHit.WebDAV.Server.Response.WebDAVResponse"/> representing operation status.</returns>
+             <param name="totalContentLength">Total size of the resource being uploaded. -1 if size is unknown</param>
+             <param name="startIndex">Index in file to which corresponds first byte in <paramref name="segment"/></param>
+             <param name="segment">Stream with resource content segment</param>
+             <param name="contentType">Content type of the resource</param>
+             <returns>
+             <list type="bullet">
+             <item><description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - the resource content was successfully stored.</description></item>
+             <item><description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - the size of the resource content was truncated to zero.</description></item>
+             <item><description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - the resource was locked and client did not provide lock token.</description></item>
+             <item><description><see cref="T:ITHit.WebDAV.Server.Response.ResumeIncompleteResponse"/> - the upload was not finished.</description></item>
+             </list>
+             </returns>
+             <remarks>
+             <para>
+             If <paramref name="totalContentLength"/> is -1 the <b>segment</b> parameter
+             contains entire resource content.  The <paramref name="startIndex"/> parameter
+             is always 0 in this case.
+             </para>
+             </remarks>
+             <example>
+             <code>
+             <![CDATA[
+            public WebDAVResponse SaveFromStream(long startIndex, long totalContentLength, Stream segment, string contentType)
+            {
+                if (!ClientHasToken)
+                    return new LockedResponse();
+            
+                long read = 0;
+                try
+                {
+                    read = WriteContent(segment, contentType, totalContentLength, startIndex);
+                }
+                catch (HttpListenerException)
+                {
+                    //We came here because there were troubles with connection.
+                    //We want to keep content but return ResumeIncompleteResponse,
+                    //so engine knows we havn't finished uploading.
+                }
+            
+                if (startIndex + read < totalContentLength)
+                {
+                    return new ResumeIncompleteResponse();
+                }
+                else if (read > 0)
+                {
+                    return new OkResponse();
+                }
+                else
+                {
+                    return new NoContentResponse();
+                }
+            }
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.CancelUpload">
+            <summary>
+            In this method implementation you can delete partially uploaded file.
+            </summary>
+            <returns>
+            Instance of <see cref="T:ITHit.WebDAV.Server.Response.WebDAVResponse"/> representing operation status.
+            </returns>
+            <remarks>
+            <para>
+            Often during long-continued upload you will keep the old resource 
+            content to be returned by GET requests and store the new file content in a
+            temporary file (or temporary field in database, etc).  To delete this partially
+            uploaded content client can submit CANCELUPLOAD command, the Engine will call this method in this case.
+            </para>
+            <para>If the item was automatically checked-out by the Engine when upload started it will be automatically checked-in by the Engine after this call.</para>
+            </remarks>
+            <example>
+            Request:
+            <code>
+            <![CDATA[
+            CANCELUPLOAD /LargeFile.doc HTTP/1.1
+            Host: http://server:8580/
+            ]]>
+            </code>
+            
+            Response:
+            <code>
+            <![CDATA[
+            HTTP/1.1 200 OK
+            ]]>
+            </code>
+            </example>
+            <returns>
+            <list type="bullet">
+            <item>
+            <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - upload has been successfully canceled.</description>
+            </item>
+            <item>
+            <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this item or its parent was locked and client did not provide lock token.</description>
+            </item>        
+            </list>
+            </returns>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.LastChunkSaved">
+            <summary>
+            The date and time when the last chunk of file was saved in your storage.
+            </summary>
+            <remarks>
+            <para>Requested by the Engine during a call to 
+            <see cref="P:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress.UploadProgress"/>.</para>
+            </remarks>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.BytesUploaded">
+            <summary>
+            Amount of bytes successfully saved to your storage.
+            </summary>
+            <remarks>
+            <para>Client will use value returned by this property to restore broken upload.
+            This value shall always reflect number of bytes already stored to persistent medium.
+            </para>
+            <para>Requested by the Engine during a call to 
+            <see cref="P:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress.UploadProgress"/>.</para>
+            </remarks>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.TotalContentLength">
+            <summary>
+            Total file size that is being uploaded.
+            </summary>
+            <remarks>
+            <para>This value is passed to <see cref="M:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.SaveFromStream(System.Int64,System.Int64,System.IO.Stream,System.String)"/> method. Usually AJAX/HTML based clients will use value returned by this property to display upload progress.</para>
+            <para>Requested by the Engine during a call to <see cref="P:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress.UploadProgress"/>.</para>
+            </remarks>
+            <returns>Total file size in bytes.</returns>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.CheckInOnFileComplete">
+            <summary>
+            Indicates if item will be checked-in by the engine when last chunk of a resource is uploaded
+            if item was checked in when upload started.
+            </summary>
         </member>
         <member name="T:ITHit.WebDAV.Server.DavException">
             <summary>
@@ -943,6 +1139,16 @@ class MyCustomGetHandler : IMethodHandler
         <member name="T:ITHit.WebDAV.Server.Constants.Deltav.Conditions">
             <summary>
             Pre- and postconditions.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Constants.WebDav">
+            <summary>
+            WebDAV constants.
+            </summary>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.Constants.WebDav.PropertyNames">
+            <summary>
+            WebDAV Live Properties.
             </summary>
         </member>
         <member name="T:ITHit.WebDAV.Server.DeltaV.AutoVersion">
@@ -1099,563 +1305,6 @@ class MyCustomGetHandler : IMethodHandler
             It provides the means of getting and setting comments and author name when creating new version. 
             The author of the version is set and get via <see cref="P:ITHit.WebDAV.Server.DeltaV.IDeltaVItem.CreatorDisplayName"/> property and comment via <see cref="P:ITHit.WebDAV.Server.DeltaV.IDeltaVItem.Comment"/> property.
             </remarks>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.IHierarchyItem">
-            <summary>
-            Represents one item (resource, folder or lock-null) in the WebDAV repository.
-            </summary>
-            <remarks>
-            Defines the properties and methods common to all WebDAV folders and resources.
-            <see cref="P:ITHit.WebDAV.Server.IHierarchyItem.Created"/> and <see cref="P:ITHit.WebDAV.Server.IHierarchyItem.Modified"/> properties must return Universal Coordinated Time (UTC).
-            <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.GetProperties(ITHit.WebDAV.Server.Property[]@)"/> and <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> are called when WebDAV client is reading, adding, updating or deleting properties.
-            This interface also provides methods for managing hierarchy: moving, copying and deleting WebDAV items.
-            See <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.CopyTo(ITHit.WebDAV.Server.IFolder,System.String,System.Boolean)"/>, <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.MoveTo(ITHit.WebDAV.Server.IFolder,System.String)"/> and <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.Delete"/> methods.
-            Your resource items must implement <see cref="T:ITHit.WebDAV.Server.IResource"/> interface, folder items - <see cref="T:ITHit.WebDAV.Server.IFolder"/> interface. Class 2 server lock-null items must implement <see cref="T:ITHit.WebDAV.Server.ILockNull"/> interface.
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.CopyTo(ITHit.WebDAV.Server.IFolder,System.String,System.Boolean)">
-             <summary>
-             Creates a copy of this item with a new name in the destination folder.
-             </summary>
-             <param name="folder">Destination folder</param>
-             <param name="destName">Name of the destination item</param>
-             <param name="deep">Indicates whether to copy entire subtree</param>
-             <returns>
-             <list type="bullet">
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.CreatedResponse"/> - the copy operation resulted in the creation of a new item.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - the source item was successfully copied to a pre-existing destination item.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.ConflictResponse"/> - destination folder does not exist.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - the destination item was locked and client did not provide lock token.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> - errors has occured during processing of the subtree. Each <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> must contain info for every item that was successfully copied or failed to copy.</description>
-             </item>
-             </list>
-             </returns>
-             <remarks>
-             <para>
-             If error occurred while copying resource located in a subtree, the server 
-             should try to continue copy operation and copy all other items. In this case 
-             you must return MultistatusResponse that contain separate ItemResponse for 
-             every item that was successfully copied or failed to copy.
-             </para>
-             <para>
-             A CopyTo method invocation must not copy any locks active on the source item.
-             However, if this method copies the item into a folder that has a deep lock,
-             then the destination item must be added to the lock.
-             </para>
-             </remarks>
-             <example>
-             Example of <c>CopyTo</c> implementation for WebDAV Class 2 server:
-             <code>
-             public class Folder : HierarchyItem, IFolder, IFolderLock
-             {
-            		...
-            		public override WebDAVResponse CopyTo(IFolder folder, string destName, bool deep)
-            		{
-            			Folder destFolder = folder as Folder;
-            			if(destFolder == null)
-            				return new ConflictResponse();
-            			if(!destFolder.ClientHasToken)
-            				return new LockedResponse();
-            
-            			IHierarchyItem destItem = destFolder.FindChild(destName);
-            			Folder newDestFolder;
-                        
-            			if(destItem != null)
-            			{
-            				if(destItem is IResource)
-            				{
-            					WebDAVResponse delResp = destItem.Delete();
-            					if(!delResp.IsSuccess)
-            						return delResp;
-            					newDestFolder = CopyThisItem(destFolder, null, destName);
-            				}
-            				else
-            				{
-            					newDestFolder = destItem as Folder;
-            					if(newDestFolder == null)
-            						return new ConflictResponse();
-            				}
-            			}
-            			else
-            			{
-            				newDestFolder = CopyThisItem(destFolder,null,destName);
-            			}
-            			// copy children
-            			MultistatusResponse mr = new MultistatusResponse();
-            			if(deep)
-            			{
-            				foreach(IHierarchyItem child in Children)
-            				{
-            					HierarchyItem dbchild = child as HierarchyItem;
-            					WebDAVResponse resp = dbchild.CopyTo(newDestFolder,child.Name,deep);
-            					if(!resp.IsSuccess)
-            						mr.AddResponses(new ItemResponse(dbchild.Path, resp));
-            					else
-            					{
-            						MultistatusResponse mrchild = resp as MultistatusResponse;
-            						if(mrchild != null)
-            							mr.AddResponses(mrchild.Responses);
-            					}
-            				}
-            			}
-            
-            			if(mr.Responses.Length &gt; 0)
-            				return mr;
-            			else if(destItem == null)
-            				return new CreatedResponse();
-            			else
-            				return new NoContentResponse();
-            		}
-            		...
-            	}
-             </code>
-             </example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.MoveTo(ITHit.WebDAV.Server.IFolder,System.String)">
-             <summary>
-             Moves this item to the destination folder under a new name.
-             </summary>
-             <param name="folder">Destination folder</param>
-             <param name="destName">Name of the destination item</param>
-             <returns>
-             <list type="bullet">
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.CreatedResponse"/> - the move operation resulted in the creation of a new item.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - the source item was successfully moved to a pre-existing destination item.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.ConflictResponse"/> - destination folder does not exist.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - the source or the destination item was locked and client did not provide lock token.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> - errors has occured during processing of the subtree. Each <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> must contain info for every item that was successfully moved or failed to move.</description>
-             </item>
-             </list>
-             </returns>
-             <remarks>
-             <papa>
-             If the item is locked the server must not move any locks with the item. However, resources must be added to an existing lock at the destination.
-             </papa>
-             </remarks>
-             <example>
-             Example of <c>MoveTo</c> implementation for WebDAV Class 2 server:
-             <code>
-             public class Folder : HierarchyItem, IFolder, IFolderLock
-             {
-            		...
-            		public override WebDAVResponse MoveTo(IFolder folder, string destName)
-            		{
-            			Folder destFolder = folder as Folder;
-            			if(destFolder == null)
-            				return new ConflictResponse();
-                        
-            			Folder parent = Parent as Folder;
-            			if(parent == null)
-            				return new ConflictResponse();
-                        
-            			if(!ClientHasToken || !destFolder.ClientHasToken || !parent.ClientHasToken)
-            				return new LockedResponse();
-            			
-            			HierarchyItem destItem = destFolder.FindChild(destName);
-            			Folder newDestFolder;
-            
-            			// copy this folder
-            			if(destItem != null)
-            			{
-            				if(DelWhenReplace &amp;&amp; destItem is IResource)
-            				{
-            					WebDAVResponse delResp = destItem.Delete();
-            					if(!delResp.IsSuccess)
-            						return delResp;
-            					newDestFolder = CopyThisItem(destFolder, null, destName);
-            				}
-            				else
-            				{
-            					newDestFolder = destItem as Folder;
-            					if(newDestFolder == null)
-            						return new ConflictResponse();
-            				}
-            			}
-            			else
-            			{
-            				newDestFolder = CopyThisItem(destFolder, null, destName);
-            			}
-            			// move children
-            			MultistatusResponse mr = new MultistatusResponse();
-            			foreach(IHierarchyItem child in Children)
-            			{
-            				HierarchyItem dbchild = child as HierarchyItem;
-            				WebDAVResponse resp = dbchild.MoveTo(newDestFolder, child.Name);
-            				if(!resp.IsSuccess)
-            					mr.AddResponses(new ItemResponse(dbchild.Path, resp));
-            				else
-            				{
-            					MultistatusResponse mrchild = resp as MultistatusResponse;
-            					if(mrchild != null)
-            						mr.AddResponses(mrchild.Responses);
-            				}
-            			}
-            
-            			// delete this folder
-            			if(mr.Responses.Length &gt; 0)
-            				return mr;
-            			else if(destItem == null)
-            			{
-            				DeleteThisItem();
-            				return new CreatedResponse();
-            			}
-            			else
-            			{
-            				DeleteThisItem();
-            				return new NoContentResponse();
-            			}
-            		}
-            		...
-            	}
-            	</code>
-            	</example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.Delete">
-             <summary>
-             Deletes this item.
-             </summary>
-             <returns>
-             <list type="bullet">
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - this item was successfully deleted.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this item or its parent was locked and client did not provide lock token.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> - errors has occured during processing of the subtree. Each <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> must contain info for every item that was successfully deleted or failed to delete.</description>
-             </item>
-             </list>
-             </returns>
-             <remarks>
-             <para>
-             <c>Delete</c> invocation must delete only folders and resource items. Lock-null items are deleted during <see cref="M:ITHit.WebDAV.Server.ILock.Unlock(System.String)"/> method call.
-             </para>
-             </remarks>
-             <example>
-             Example of <c>Delete</c> implementation for WebDAV Class 2 server:
-             <code>
-             public class Folder : HierarchyItem, IFolder, IFolderLock
-             {
-            		...
-            		public override WebDAVResponse Delete()
-            		{
-            			Folder parent = Parent as Folder;
-            			if(parent == null)
-            				return new ConflictResponse();
-            			if(!parent.ClientHasToken)
-            				return new LockedResponse();
-            
-            			if(!ClientHasToken)
-            				return new LockedResponse();
-            
-            			MultistatusResponse mr = new MultistatusResponse();
-            
-            			foreach(IHierarchyItem child in Children)
-            			{
-            				HierarchyItem dbchild = child as HierarchyItem;
-            				WebDAVResponse resp = dbchild.Delete();
-            				if(!resp.IsSuccess)
-            					mr.AddResponses(new ItemResponse(dbchild.Path, resp));
-            				else
-            				{
-            					MultistatusResponse mrchild = resp as MultistatusResponse;
-            					if(mrchild != null)
-            						mr.AddResponses(mrchild.Responses);
-            				}
-            			}
-            
-            			if(mr.Responses.Length &gt; 0)
-            				return mr;
-            			else
-            			{
-            				DeleteThisItem();
-            				return new NoContentResponse();
-            			}
-            		}
-            		...
-            	}
-             </code>
-             </example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.GetProperties(ITHit.WebDAV.Server.Property[]@)">
-             <summary>
-             Gets values of all properties or selected properties for this item.
-             </summary>
-             <param name="props">
-             <list type="number">
-             <item>
-             <description>
-             Array of properties which values are requested. 
-             If a property does not exist for this hierarchy item then <see cref="F:ITHit.WebDAV.Server.Property.Value"/> field in the array should not be modified.
-             </description>
-             </item>
-             <item>
-             <description>
-             <c>null</c> to get all properties. New array must be created and returned through this parameter.
-             </description>
-             </item>
-             </list>
-             </param>
-             <returns>
-            	<list type="bullet">
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - All properties succesefully retrieved.</description>
-             </item>
-            	</list>
-             </returns>
-             <example>
-             <code>
-            		public WebDAVResponse GetProperties(ref Property[] props)
-            		{
-            			SqlConnection conn = new SqlConnection(connStr);
-            			SqlCommand cmd;
-            			SqlDataReader reader = null;
-            			conn.Open();
-                        
-            			try
-            			{
-            				cmd = conn.CreateCommand();
-            				cmd.CommandText = "SELECT Name, Namespace, PropVal"
-            					+" FROM Properties"
-            					+" WHERE ItemID = @ItemID";
-                            
-            				cmd.Parameters.Add("@ItemID", SqlDbType.Int).Value = ID;
-                            
-            				reader = cmd.ExecuteReader();
-            				if(props == null) // get all properties
-            				{
-            					ArrayList l = new ArrayList();
-            					while(reader.Read())
-            					{
-            						Property p = new Property();
-            						p.Name = reader.GetString(reader.GetOrdinal("Name"));
-            						p.Namespace = reader.GetString(reader.GetOrdinal("Namespace"));
-            						p.Value = reader.GetString(reader.GetOrdinal("PropVal"));
-            						l.Add(p);
-            					}
-            					props = (Property[])l.ToArray(typeof(Property));
-            				}
-            				else // get selected properties
-            				{
-            					Property p = new Property();
-            					while(reader.Read())
-            					{
-            						p.Name = reader.GetString(reader.GetOrdinal("Name"));
-            						p.Namespace = reader.GetString(reader.GetOrdinal("Namespace"));
-            						for(int i=0; i&lt;props.Length; i++)
-            							if(p.Name == props[i].Name &amp;&amp; p.Namespace == props[i].Namespace)
-            							{
-            								props[i].Value = reader.GetString(reader.GetOrdinal("PropVal"));
-            								break;
-            							}
-            					}
-            				}
-            			}
-            			finally
-            			{
-            				if(reader != null) reader.Close();
-            				conn.Close();
-            			}
-            
-            			return new OkResponse();
-            		}
-             </code>
-             </example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.GetPropertyNames(ITHit.WebDAV.Server.Property[]@)">
-            <summary>
-            Gets names of all properties for this item.
-            </summary>
-            <param name="props">New array of properties must be created and returned through this parameter</param>
-            <returns>
-            <list type="bullet">
-            <item>
-            <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - All properties succesefully retrieved.</description>
-            </item>
-            </list>
-            </returns>
-            <remarks>
-            <para>Most WebDAV clients never request list of property names, so your implementation can just return <see cref="T:ITHit.WebDAV.Server.Response.NotAllowedResponse"/>.</para>
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])">
-             <summary>
-             Modifies and removes properties for this item.
-             </summary>
-             <param name="setProps">Array of properties to be set</param>
-             <param name="delProps">
-             Array of properties to be removed. <c>Value</c> field is ignored.
-             Specifying the removal of a property that does not exist is not an error.
-             </param>
-             <returns>
-             <list type="bullet">
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this item was locked and client did not provide lock token.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> - result of the operation for each property.</description>
-             </item>
-             </list>
-             In <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> each item could be:
-             <list type="bullet">
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - the property was successfully updated or deleted.</description>
-             </item>
-             <item>
-             <description>
-             <see cref="T:ITHit.WebDAV.Server.Response.ConflictResponse"/> - the client has provided a value whose semantics are not appropriate for the property,
-             this includes trying to set read-only properties.
-             </description>
-             </item>
-             <item>
-             <description>
-             <see cref="T:ITHit.WebDAV.Server.Response.FailedDependencyResponse"/> - indicates this action would have succeeded if it were not for the conflict
-             with updating/removing some other property.
-             </description>
-             </item>
-             </list>
-             </returns>
-             <remarks>
-             <para>
-             In your <c>UpdateProperties</c> implementation you will create, modify and delete item properties. If any property failed to update than you should not modify any properties and rollback the entire operation. 
-             To inform WebDAV client which properties failed to update you must return <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> class instance. Each item of <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> is the instance of <see cref="T:ITHit.WebDAV.Server.Response.PropResponse"/> class and provides information about individual property update operation.
-             </para>
-             </remarks>
-             <example>
-             <code>
-            		public WebDAVResponse UpdateProperties(Property[] setProps, Property[] delProps)
-            		{
-            			if(!ClientHasToken) // required by class 2 server only
-            				return new LockedResponse(); 
-                        
-            			MultipropResponse resp = new MultipropResponse();
-            
-            			SqlConnection conn = new SqlConnection(connStr);
-            			SqlTransaction trans = null;
-            			try
-            			{
-            				conn.Open();
-            				trans = conn.BeginTransaction();
-            
-            				if(setProps != null)
-            					foreach(Property p in setProps)
-            					{
-            						SetProperty(p, trans); // create or update property
-            						resp.AddResponses(new PropResponse(p, new OkResponse()));
-            					}
-            
-            				if(delProps != null)
-            					foreach(Property p in delProps)
-            					{
-            						RemoveProperty(p.Name, p.Namespace, trans);
-            						resp.AddResponses(new PropResponse(p, new OkResponse()));
-            					}
-            
-            				UpdateModified(trans);
-                            
-            				trans.Commit();
-            			}
-            			catch
-            			{
-            				if(trans != null) trans.Rollback();
-            				return new ServerErrorResponse();
-            			}
-            			finally
-            			{
-            				conn.Close();
-            			}
-            
-            			return resp;
-            		}
-             </code>
-             </example>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Name">
-            <summary>
-            Gets the name of the item in repository.
-            </summary>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Parent">
-             <summary>
-             Gets the parent folder of the item in repository (<c>null</c> for the root of the repository).
-             </summary>
-             <example>
-             <code>
-            	public abstract class HierarchyItem : IHierarchyItem, ILock
-            	{
-            		protected FileSystemInfo fileSystemInfo;
-            
-            		public HierarchyItem(FileSystemInfo fileSystemInfo)
-            		{
-            			this.fileSystemInfo = fileSystemInfo;
-            		}
-            
-            		public IFolder Parent
-            		{
-            			get
-            			{
-            				string storageRootFolder = ConfigurationManager.AppSettings["StorageRootFolder"].TrimEnd('\\');
-            				string parentPath = fileSystemInfo.FullName.TrimEnd('\\');
-            				int index = parentPath.LastIndexOf('\\');
-            				if (index &lt;= storageRootFolder.Length-1)
-            					return null;
-            				DirectoryInfo directory = new DirectoryInfo(parentPath.Remove(index));
-            				return new Folder(directory);
-            			}
-            		}
-            		...
-            	}
-            	</code>
-             </example>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Created">
-            <summary>
-            Gets the creation date of the item in repository expressed as the coordinated universal time (UTC).
-            </summary>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Modified">
-            <summary>
-            Gets the last modification date of the item in repository expressed as the coordinated universal time (UTC).
-            </summary>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Path">
-            <summary>
-            Unique item path in the repository relative to storage root.
-            </summary>
-            <remarks>
-            <para>
-            The URL returned by this property is relative to storage root. If your server root is located at http://example.webdavsystem.com:8080/myserver/ and the item URL is http://example.webdavsystem.com:8080/myserver/myfolder/myitem.doc this property implementation must return myfolder/myitem.doc. To calculate the entire item URL the engine will call <see cref="P:ITHit.WebDAV.Server.Request.ApplicationPath"/> property and attach it to url returned by <see cref="P:ITHit.WebDAV.Server.IHierarchyItem.Path"/> property.
-            </para>
-            <para>Examples:
-            <list type="bullet">
-            <item><description>Resource: myfolder/mydoc.docx</description></item>
-            <item><description>Folder: myfolder/folder/</description></item>
-            <item><description>Lock-null item: myfolder/mydoc.docx</description></item>
-            <item><description>History item: myfolder/mydoc.docx?history</description></item>
-            <item><description>Version: myfolder/mydoc.docx?version=5</description></item>
-            </list>
-            </para>
-            </remarks>
-            <value><c>String</c> representing retative item path in the repository.</value>
         </member>
         <member name="P:ITHit.WebDAV.Server.DeltaV.IDeltaVItem.Comment">
              <summary>
@@ -2026,7 +1675,7 @@ class MyCustomGetHandler : IMethodHandler
                     {
                         fileStream.Seek(startIndex, SeekOrigin.Begin);
                         int bytesRead;
-                        while ((bytesRead = fileStream.Read(buffer, 0, (int)(count &gt; bufSize ? bufSize : count))) &gt; 0)
+                        while ((bytesRead = fileStream.Read(buffer, 0, (int)(count > bufSize ? bufSize : count))) > 0)
                         {
                             try
                             {
@@ -2276,6 +1925,13 @@ class MyCustomGetHandler : IMethodHandler
             </para>
             </remarks>
         </member>
+        <member name="P:ITHit.WebDAV.Server.DeltaV.IVersionableItem.VersionHistory">
+            <summary>
+            Current item version history. Null, if item is not under version control.
+            </summary>
+            <value>Item implementing <see cref="T:ITHit.WebDAV.Server.DeltaV.IHistory"/> interface or null if item is not under version control.</value>
+            <remarks>If item is under version control it always has at last one version in its versions list.</remarks>
+        </member>
         <member name="M:ITHit.WebDAV.Server.DeltaV.IVersionableItem.CheckIn(System.String@)">
              <summary>
              Creates new version. Copies all properties and content from this item.
@@ -2524,6 +2180,40 @@ class MyCustomGetHandler : IMethodHandler
              </code>
              </example>
         </member>
+        <member name="P:ITHit.WebDAV.Server.DeltaV.IVersionableItem.AutoVersion">
+            <summary>
+            Determines how checked-in item responds to WebDAV client attempts to modify its content or properties.
+            </summary>
+            <value>One of <see cref="T:ITHit.WebDAV.Server.DeltaV.AutoVersion"/> enum values.</value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.DeltaV.IVersionableItem.CheckedOut">
+             <summary>
+             Determines whether item is in checked-in or checked-out state.
+             </summary>
+             <value>
+             Boolean value indicating if item is in checked-out state.
+             </value>
+             <example>
+             <code>
+            public bool CheckedOut
+            {
+                get
+                {
+                    bool checkedOut = false;
+            
+                    SqlCommand cmd = fEngine.CreateNewCommand();
+                    cmd.CommandText = "SELECT CheckedOut FROM Item WHERE ItemId = @ItemId";
+                    cmd.Parameters.Add("@ItemId", SqlDbType.UniqueIdentifier).Value = ItemId;
+            
+                    object o = cmd.ExecuteScalar();
+                    if (!(o is DBNull)) checkedOut = (bool)o;
+            
+                    return checkedOut;
+                }
+            }
+             </code>
+             </example>
+        </member>
         <member name="M:ITHit.WebDAV.Server.DeltaV.IVersionableItem.PutUnderVersionControl(System.Boolean)">
              <summary>
              Puts or removes current item from version control.
@@ -2626,47 +2316,6 @@ class MyCustomGetHandler : IMethodHandler
              </code>
              </example>
         </member>
-        <member name="P:ITHit.WebDAV.Server.DeltaV.IVersionableItem.VersionHistory">
-            <summary>
-            Current item version history. Null, if item is not under version control.
-            </summary>
-            <value>Item implementing <see cref="T:ITHit.WebDAV.Server.DeltaV.IHistory"/> interface or null if item is not under version control.</value>
-            <remarks>If item is under version control it always has at last one version in its versions list.</remarks>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.DeltaV.IVersionableItem.AutoVersion">
-            <summary>
-            Determines how checked-in item responds to WebDAV client attempts to modify its content or properties.
-            </summary>
-            <value>One of <see cref="T:ITHit.WebDAV.Server.DeltaV.AutoVersion"/> enum values.</value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.DeltaV.IVersionableItem.CheckedOut">
-             <summary>
-             Determines whether item is in checked-in or checked-out state.
-             </summary>
-             <value>
-             Boolean value indicating if item is in checked-out state.
-             </value>
-             <example>
-             <code>
-            public bool CheckedOut
-            {
-                get
-                {
-                    bool checkedOut = false;
-            
-                    SqlCommand cmd = fEngine.CreateNewCommand();
-                    cmd.CommandText = "SELECT CheckedOut FROM Item WHERE ItemId = @ItemId";
-                    cmd.Parameters.Add("@ItemId", SqlDbType.UniqueIdentifier).Value = ItemId;
-            
-                    object o = cmd.ExecuteScalar();
-                    if (!(o is DBNull)) checkedOut = (bool)o;
-            
-                    return checkedOut;
-                }
-            }
-             </code>
-             </example>
-        </member>
         <member name="P:ITHit.WebDAV.Server.DeltaV.IVersionableItem.AutoCheckIn">
              <summary>
              Indicates if item will be checked-in by the engine during the unlock request.
@@ -2716,7 +2365,7 @@ class MyCustomGetHandler : IMethodHandler
             The Engine class provides the core implementation for WebDAV engine.
             </para>
             <para>
-            When you inherit from the <c>Engine</c> class, you must override <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> method.
+            When you inherit from the <c>Engine</c> class, you must override <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)" /> method.
             In this method you will search for resource, folder, lock-null, version or history item in your storage by path provided
             and return it to WebDAV engine.
             </para>
@@ -2725,18 +2374,18 @@ class MyCustomGetHandler : IMethodHandler
             from <c>Engine</c> class and call one of its <c>Run</c> overloaded methods. Via <c>Run</c> method parameters engine 
             receives all necessary information about hosting environment. Engine parses XML 
             send by WebDAV client, processes requests making calls to your implementations of 
-            WebDAV interfaces (<see cref="T:ITHit.WebDAV.Server.IHierarchyItem"/>, <see cref="T:ITHit.WebDAV.Server.IFolder"/>, 
-            <see cref="T:ITHit.WebDAV.Server.IResource"/> and other) and finally generates XML response.
+            WebDAV interfaces (<see cref="T:ITHit.WebDAV.Server.IHierarchyItem" />, <see cref="T:ITHit.WebDAV.Server.IFolder" />, 
+            <see cref="T:ITHit.WebDAV.Server.IResource" /> and other) and finally generates XML response.
             </para>
             <para>
             The engine provides 3 overloaded <c>Run</c> methods implementations. Two of them are optimized for use in IIS/ASP.NET-based server and in HttpListener-based server. The third one can be used for running the engine  in virtually any hosting environment.
             </para>
             <para>
             By default WebDAV engine searches for License.lic file in the executing and calling assembly directories.
-            To store your license in a different place you must override <see cref="P:ITHit.WebDAV.Server.Engine.License"/> property.
+            To store your license in a different place you must override <see cref="P:ITHit.WebDAV.Server.Engine.License" /> property.
             </para>
             </remarks>
-            <threadsafety>Instance members of this class are not thread safe. You must create a separate instance of <see cref="T:ITHit.WebDAV.Server.Engine"/> class for each request.</threadsafety>
+            <threadsafety>Instance members of this class are not thread safe. You must create a separate instance of <see cref="T:ITHit.WebDAV.Server.Engine" /> class for each request.</threadsafety>
             <example>
 			IIS/ASP.NET-based server:
 			<code>
@@ -2762,7 +2411,7 @@ public class MyHttpHandler : IHttpHandler
 		</example>
             <example>
             <para>HttpListener-based server:</para>
-            <para>For asynchronous HttpListener server implementation see example in <see cref="M:ITHit.WebDAV.Server.Engine.Run(System.Net.HttpListenerContext,System.Net.HttpListenerPrefixCollection)"/> method description.</para>
+            <para>For asynchronous HttpListener server implementation see example in <see cref="M:ITHit.WebDAV.Server.Engine.Run(System.Net.HttpListenerContext,System.Net.HttpListenerPrefixCollection)" /> method description.</para>
             <code>
             class Program
             {
@@ -2795,7 +2444,7 @@ public class MyHttpHandler : IHttpHandler
             Registers custom method handler.
             </summary>
             <param name="method">HTTP verb</param>
-            <param name="handler">Custom handled implementing <see cref="T:ITHit.WebDAV.Server.IMethodHandler"/> interface</param>
+            <param name="handler">Custom handled implementing <see cref="T:ITHit.WebDAV.Server.IMethodHandler" /> interface</param>
             <returns>Original handler if any.</returns>
             <remarks>
             Using this method you can register custom method handler to be caller by the engine. If the handler for the specified method was already defined it is returned from this method. The original handler can be saved and called later from your custom handler.
@@ -2935,7 +2584,7 @@ class MyCustomGetHandler : IMethodHandler
             You must call Run method in each request to your WebDAV server passing ASP.NET context.
             </para>
             <para>
-            This method instance is optimized for processing requests in IIS/ASP.NEt-based server. If you host your server in HttpListener use this <see cref="M:ITHit.WebDAV.Server.Engine.Run(System.Net.HttpListenerContext,System.Net.HttpListenerPrefixCollection)"/> overloaded instance instead.
+            This method instance is optimized for processing requests in IIS/ASP.NEt-based server. If you host your server in HttpListener use this <see cref="M:ITHit.WebDAV.Server.Engine.Run(System.Net.HttpListenerContext,System.Net.HttpListenerPrefixCollection)" /> overloaded instance instead.
             </para>
             </remarks>
             <example>
@@ -3068,7 +2717,7 @@ public class MyHttpHandler : IHttpHandler
             Indicates if response content length calculation will occur.
             </summary>
             <value>
-            Boolean value indicating if content length will be calculated in <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> method. Default is <b>true</b>.
+            Boolean value indicating if content length will be calculated in <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)" /> method. Default is <b>true</b>.
             </value>
             <remarks>
             <para>If this property is set to <b>true</b> engine will calculate output content length and set <see cref="P:ITHit.WebDAV.Server.IResponse.ContentLength"/> property before returning from <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> method. If you would like to send chunked responses you must set this property to <b>false</b>.
@@ -3209,109 +2858,6 @@ public class MyHttpHandler : IHttpHandler
             </summary>
             <value>A <c>Encoding</c> object that contains information about the character set of the response. Default is UTF-8.</value>
         </member>
-        <member name="T:ITHit.WebDAV.Logger.FileLogger">
-            <summary>
-            Provides static methods for writing to a log file.
-            </summary>
-            <remarks>
-            <para>
-            By default the log file is created in the folder where the calling assembly 
-            resides. You can specify the folder and file name setting <see cref="P:ITHit.WebDAV.Logger.FileLogger.LogFile"/> property. 
-            Amount of output and maximum file size are controlled via <see cref="P:ITHit.WebDAV.Logger.FileLogger.Level"/> and <see cref="P:ITHit.WebDAV.Logger.FileLogger.FileSize"/> properties.
-            </para>
-            <para>
-            <b>Important!</b> If you host your server in IIS/ASP.NET make sure your log file is created outside of the \bin folder. If your logfile will be created in a \bin folder, your server will restart each time the logfile is updated, recycling application and session state.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Logger.FileLogger.WriteMessage(System.String)">
-            <summary>
-            Wrights a message to a log file with level <see cref="F:ITHit.WebDAV.Logger.LogLevel.Info"/>.
-            </summary>
-            <param name="message">Message to be logged</param>
-        </member>
-        <member name="M:ITHit.WebDAV.Logger.FileLogger.WriteMessage(System.String,ITHit.WebDAV.Logger.LogLevel)">
-            <summary>
-            Wrights a message to a log file with a specified log level.
-            </summary>
-            <param name="message">Message to be logged</param>
-            <param name="level">Logging level</param>
-            <example>
-            <code>
-            FileLogger.LogFile = "C:\WebDAV\WebDAVServerLog.txt"; // C:\WebDAV\ must exist and the application must have enough permission to write and create files in this folder
-            FileLogger.Level = LogLevel.Warn;
-            FileLogger.WriteMessage("My error message", LogLevel.Error); // this message will be written to the log file
-            FileLogger.WriteMessage("My debug message", LogLevel.Debug); // this message will not be written to the log file
-            FileLogger.WriteMessage("My info message"); // this message will not be written to the log file
-            </code>
-            </example>        
-        </member>
-        <member name="P:ITHit.WebDAV.Logger.FileLogger.LogFile">
-            <summary>
-            Gets and sets log file name and path.
-            </summary>
-            <value>
-            Log file name and path.
-            </value>
-            <remarks>
-            <para>
-            By default the log file is created in the folder where the calling assembly 
-            resides. The folder in which you plan store your log files must exist and 
-            your web application must have enough permission for writing and creating 
-            files in this folder. Note that if you are creating HttpHandler-based server usually on Windows XP your web application 
-            runs under ASPNET account while on Windows 2003 it runs under Network Service account.
-            </para>
-            <para>
-            If you are requesting your server with a WebDAV client and log file is not 
-            created, most likely there is no permissions for creating file or the web 
-            requests simply does not reach your application.
-            </para>
-            <code>
-            public class WebDAVHandler : IHttpHandler
-            {
-            	public void ProcessRequest(HttpContext context)
-            	{
-            		FileLogger.LogFile = context.Request.PhysicalApplicationPath + "WebDAVlog.txt";
-            		...
-            	}
-            	...
-            }
-            </code>
-            </remarks>
-        </member>
-        <member name="P:ITHit.WebDAV.Logger.FileLogger.Level">
-            <summary>
-            Gets and sets how much information is written to log file.
-            </summary>
-            <value>Logging level. Default is <c>Info</c></value>
-            <remarks>
-            Provides the method of limiting amount of logging output. During the 
-            development you will usually set <c>LogLevel</c> to <see cref="F:ITHit.WebDAV.Logger.LogLevel.All"/> or <see cref="F:ITHit.WebDAV.Logger.LogLevel.Debug"/> level, while 
-            deploying you can set it to <see cref="F:ITHit.WebDAV.Logger.LogLevel.Error"/> or <see cref="F:ITHit.WebDAV.Logger.LogLevel.Fatal"/>.
-            </remarks>
-        </member>
-        <member name="P:ITHit.WebDAV.Logger.FileLogger.FileSize">
-            <summary>
-            Gets and sets maximum log file size in bytes.
-            </summary>
-            <value>
-            Maximum log file size in bytes. Default is 1048576 bytes.
-            </value>
-            <remarks>
-            When the file exceeds the size specified by <c>FileSize</c> the new log file is created. The old file is renamed to &lt;filename&gt;.&lt;number&gt;.
-            </remarks>
-        </member>
-        <member name="P:ITHit.WebDAV.Logger.FileLogger.MaxBackups">
-            <summary>
-            Gets and sets Maximum number of log file backups.
-            </summary>
-            <value>
-            Amount of log file backups. Default is 1.
-            </value>
-            <remarks>
-            If the amount of the backup files created is higher than <c>MaxBackups</c> the oldest file is automatically deleted.
-            </remarks>
-        </member>
         <member name="T:ITHit.WebDAV.Server.FilterStreamInput">
             <summary>
             Logs input content.
@@ -3320,256 +2866,6 @@ public class MyHttpHandler : IHttpHandler
         <member name="T:ITHit.WebDAV.Server.FilterStreamOutput">
             <summary>
             Calculates content length ang logs output content.
-            </summary>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Handler.CheckinDAVHandler.#ctor(ITHit.WebDAV.Server.Engine)">
-            <summary>
-            Summary description for CheckinDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.CopyDAVHandler">
-            <summary>
-            Summary description for CopyDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.DeleteDAVHandler">
-            <summary>
-            Summary description for DeleteDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.GetDAVHandler">
-            <summary>
-            Summary description for GetDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.HeadDAVHandler">
-            <summary>
-            Summary description for HeadDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.LockDAVHandler">
-            <summary>
-            Summary description for HeadDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.MkcolDAVHandler">
-            <summary>
-            Summary description for MkcolDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.MoveDAVHandler">
-            <summary>
-            Summary description for HeadDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.PostDAVHandler">
-            <summary>
-            Summary description for PostDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.PropfindDAVHandler">
-            <summary>
-            Summary description for PropfindDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.ProppatchDAVHandler">
-            <summary>
-            Summary description for HeadDAVHandler.
-            </summary>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Handler.ReportDAVHandler.GenerateReportResponse(ITHit.WebDAV.Server.DeltaV.IHistory)">
-            <param name="history">Version history of the requested version or resource</param>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Handler.UnlockDAVHandler">
-            <summary>
-            Summary description for HeadDAVHandler.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload">
-            <summary>
-            Implemented by a resource that supports uploading parts of its content.
-            </summary>
-            <remarks>
-            <para>
-            You will implement this interface together with <see cref="T:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress"/> interface when you would like to provide one or more of the following features:
-            <list type="bullet">
-            <item><description>Pause/resume uploads.</description></item>
-            <item><description>Restore broken uploads.</description></item>
-            <item><description>Report upload process and create upload progress bars.</description></item>
-            <item><description>Upload from AJAX (or other thin-client) applications using POST verb.</description></item>
-            <item><description>Upload to ASP.NET/IIS-based server files over 2Gb.</description></item>
-            <item><description>Non-cached upload in IIS.</description></item>
-            </list>
-            </para>
-            <para>When implementing this interface always configure <see cref="T:ITHit.WebDAV.Server.ResumableUpload.ResumableUploadModule"/> module in your web.config file if your WebDAV server is hosted in IIS/ASP.NET.</para>
-            <para>The WebDAV Server Engine can process two types of upload requests:
-            <list type="bullet">
-            <item><description> <b>PUT upload.</b> Files uploaded via PUT by most RFC 2518 compliant WebDAV clients. Usually only rich client applications, such as .NET and Java can perform upload via PUT. </description></item>
-            <item><description> <b>POST upload.</b> Files uploaded via POST verb by AJAX/HTML clients and other thin client applications. </description></item>
-            </list>
-            </para>
-            <para>To provide information about what segment of a file is being uploaded rich client application will attach optional <c>Content-Range: bytes XXX-XXX/XXX</c> header to PUT request. </para>
-            <para>Due to modern Internet browsers limitations thin client applications are unable to randomly read file content and upload content using PUT verb. To overcome this limitation the Engine can process files uploaded using POST verb. Thin client applications cannot pause/resume upload or restore broken upload. AJAX client still can display upload progress submitting upload-progress REPORT request (see <see cref="T:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress"/> interface description for more info). </para>
-            <para>
-            Prior to uploading resource content it is recommended to lock the item. 
-            Unless you lock it other users may overwrite content or move/rename the resource.
-            </para>
-            </remarks>
-            <example>The following example demonstrates upload to WebDAV server using POST with multipart encoding. The file will be created in /mydocs/ folder.
-            <code>
-            <![CDATA[
-            <html>
-                <head><title>POST Upload to WebDAV Server</title></head>
-                <body>
-                    <form action="/mydocs/" method="post" enctype="multipart/form-data">
-                        <input type="file" name="dummyname" /><br />
-                        <input type="submit" />
-                    </form>
-                </body>
-            </html>
-            ]]>
-            </code>
-            </example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.SaveFromStream(System.Int64,System.Int64,System.IO.Stream,System.String)">
-             <summary>
-             Saves segment of the resource from the specified stream to the WebDAV repository.
-             </summary>
-             <returns>Instance of <see cref="T:ITHit.WebDAV.Server.Response.WebDAVResponse"/> representing operation status.</returns>
-             <param name="totalContentLength">Total size of the resource being uploaded. -1 if size is unknown</param>
-             <param name="startIndex">Index in file to which corresponds first byte in <paramref name="segment"/></param>
-             <param name="segment">Stream with resource content segment</param>
-             <param name="contentType">Content type of the resource</param>
-             <returns>
-             <list type="bullet">
-             <item><description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - the resource content was successfully stored.</description></item>
-             <item><description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - the size of the resource content was truncated to zero.</description></item>
-             <item><description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - the resource was locked and client did not provide lock token.</description></item>
-             <item><description><see cref="T:ITHit.WebDAV.Server.Response.ResumeIncompleteResponse"/> - the upload was not finished.</description></item>
-             </list>
-             </returns>
-             <remarks>
-             <para>
-             If <paramref name="totalContentLength"/> is -1 the <b>segment</b> parameter
-             contains entire resource content.  The <paramref name="startIndex"/> parameter
-             is always 0 in this case.
-             </para>
-             </remarks>
-             <example>
-             <code>
-             <![CDATA[
-            public WebDAVResponse SaveFromStream(long startIndex, long totalContentLength, Stream segment, string contentType)
-            {
-                if (!ClientHasToken)
-                    return new LockedResponse();
-            
-                long read = 0;
-                try
-                {
-                    read = WriteContent(segment, contentType, totalContentLength, startIndex);
-                }
-                catch (HttpListenerException)
-                {
-                    //We came here because there were troubles with connection.
-                    //We want to keep content but return ResumeIncompleteResponse,
-                    //so engine knows we havn't finished uploading.
-                }
-            
-                if (startIndex + read < totalContentLength)
-                {
-                    return new ResumeIncompleteResponse();
-                }
-                else if (read > 0)
-                {
-                    return new OkResponse();
-                }
-                else
-                {
-                    return new NoContentResponse();
-                }
-            }
-             ]]>
-             </code>
-             </example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.CancelUpload">
-            <summary>
-            In this method implementation you can delete partially uploaded file.
-            </summary>
-            <returns>
-            Instance of <see cref="T:ITHit.WebDAV.Server.Response.WebDAVResponse"/> representing operation status.
-            </returns>
-            <remarks>
-            <para>
-            Often during long-continued upload you will keep the old resource 
-            content to be returned by GET requests and store the new file content in a
-            temporary file (or temporary field in database, etc).  To delete this partially
-            uploaded content client can submit CANCELUPLOAD command, the Engine will call this method in this case.
-            </para>
-            <para>If the item was automatically checked-out by the Engine when upload started it will be automatically checked-in by the Engine after this call.</para>
-            </remarks>
-            <example>
-            Request:
-            <code>
-            <![CDATA[
-            CANCELUPLOAD /LargeFile.doc HTTP/1.1
-            Host: http://server:8580/
-            ]]>
-            </code>
-            
-            Response:
-            <code>
-            <![CDATA[
-            HTTP/1.1 200 OK
-            ]]>
-            </code>
-            </example>
-            <returns>
-            <list type="bullet">
-            <item>
-            <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - upload has been successfully canceled.</description>
-            </item>
-            <item>
-            <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this item or its parent was locked and client did not provide lock token.</description>
-            </item>        
-            </list>
-            </returns>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.LastChunkSaved">
-            <summary>
-            The date and time when the last chunk of file was saved in your storage.
-            </summary>
-            <remarks>
-            <para>Requested by the Engine during a call to 
-            <see cref="P:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress.UploadProgress"/>.</para>
-            </remarks>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.BytesUploaded">
-            <summary>
-            Amount of bytes successfully saved to your storage.
-            </summary>
-            <remarks>
-            <para>Client will use value returned by this property to restore broken upload.
-            This value shall always reflect number of bytes already stored to persistent medium.
-            </para>
-            <para>Requested by the Engine during a call to 
-            <see cref="P:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress.UploadProgress"/>.</para>
-            </remarks>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.TotalContentLength">
-            <summary>
-            Total file size that is being uploaded.
-            </summary>
-            <remarks>
-            <para>This value is passed to <see cref="M:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.SaveFromStream(System.Int64,System.Int64,System.IO.Stream,System.String)"/> method. Usually AJAX/HTML based clients will use value returned by this property to display upload progress.</para>
-            <para>Requested by the Engine during a call to <see cref="P:ITHit.WebDAV.Server.ResumableUpload.IUploadProgress.UploadProgress"/>.</para>
-            </remarks>
-            <returns>Total file size in bytes.</returns>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.ResumableUpload.IResumableUpload.CheckInOnFileComplete">
-            <summary>
-            Indicates if item will be checked-in by the engine when last chunk of a resource is uploaded
-            if item was checked in when upload started.
             </summary>
         </member>
         <member name="T:ITHit.WebDAV.Server.IFolder">
@@ -3660,6 +2956,42 @@ public class MyHttpHandler : IHttpHandler
             	</code>
              </example>
         </member>
+        <member name="P:ITHit.WebDAV.Server.IFolder.Children">
+             <summary>
+             Gets the array of this folder's children.
+             </summary>
+             <value>
+             Array of <see cref="T:ITHit.WebDAV.Server.IHierarchyItem"/> objects. Each item is a resource, folder or lock-null item.
+             </value>
+             <example>
+             <code>
+            	public IHierarchyItem[] Children
+            	{
+            		get
+            		{
+            			ArrayList children = new ArrayList();
+            
+            			DirectoryInfo directory = (DirectoryInfo)fileSystemInfo;
+            			FileSystemInfo[] aFSI = directory.GetFileSystemInfos();
+            			foreach(FileSystemInfo item in aFSI)
+            			{
+            				if (item is DirectoryInfo)
+            					children.Add(new Folder((DirectoryInfo)item));
+            				else
+            				{
+            					if( (item.Attributes &amp; FileAttributes.Temporary)!=0 )
+            						children.Add(new LockNull((FileInfo)item));
+            					else
+            						children.Add(new Resource((FileInfo)item));
+            				}
+            			}
+            
+            			return (IHierarchyItem[])children.ToArray(typeof(IHierarchyItem));
+            		}
+            	}
+             </code>
+             </example>
+        </member>
         <member name="M:ITHit.WebDAV.Server.IFolder.CreateResource(System.String)">
              <summary>
              Creates new WebDAV resource with the specified name in this folder.
@@ -3737,42 +3069,6 @@ public class MyHttpHandler : IHttpHandler
              </code>
              </example>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IFolder.Children">
-             <summary>
-             Gets the array of this folder's children.
-             </summary>
-             <value>
-             Array of <see cref="T:ITHit.WebDAV.Server.IHierarchyItem"/> objects. Each item is a resource, folder or lock-null item.
-             </value>
-             <example>
-             <code>
-            	public IHierarchyItem[] Children
-            	{
-            		get
-            		{
-            			ArrayList children = new ArrayList();
-            
-            			DirectoryInfo directory = (DirectoryInfo)fileSystemInfo;
-            			FileSystemInfo[] aFSI = directory.GetFileSystemInfos();
-            			foreach(FileSystemInfo item in aFSI)
-            			{
-            				if (item is DirectoryInfo)
-            					children.Add(new Folder((DirectoryInfo)item));
-            				else
-            				{
-            					if( (item.Attributes &amp; FileAttributes.Temporary)!=0 )
-            						children.Add(new LockNull((FileInfo)item));
-            					else
-            						children.Add(new Resource((FileInfo)item));
-            				}
-            			}
-            
-            			return (IHierarchyItem[])children.ToArray(typeof(IHierarchyItem));
-            		}
-            	}
-             </code>
-             </example>
-        </member>
         <member name="T:ITHit.WebDAV.Server.IFolderLock">
             <summary>
             Defines the properties and methods that folder objects of WebDAV Class 2 compliant server must implement.
@@ -3789,6 +3085,635 @@ public class MyHttpHandler : IHttpHandler
             </para>
             </remarks>
         </member>
+        <member name="M:ITHit.WebDAV.Server.IFolderLock.CreateLockNull(System.String,ITHit.WebDAV.Server.LockInfo@)">
+             <summary>
+             Reserves new item name for future use.
+             </summary>
+             <param name="newItemName">Name of the new item to reserve</param>
+             <param name="lockInfo">Describes a lock on the new item</param>
+             <returns>
+             <list type="bullet">
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.CreatedResponse"/> - the lock request succeeded. Lock-null item was created.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this folder was locked and client did not provide lock token,
+             or lock-null item with the specified name exists in this folder.</description>
+             </item>
+             </list>
+             </returns>
+             <remarks>
+             <para>
+             <c>CreateLockNull</c> method can be called before creating new folders and resources. This method reserves name of a resource or folder. In your <c>CreateLockNull</c> you must create a new lock-null item.
+             </para>
+             <para>
+             WebDAV engine passes <see cref="T:ITHit.WebDAV.Server.LockInfo"/> structure to this method by reference. All fields of the structure are provided by WebDAV client except <see cref="F:ITHit.WebDAV.Server.LockInfo.Token"/> field. In your <c>CreateLockNull</c> implementation you must create lock token and set <see cref="F:ITHit.WebDAV.Server.LockInfo.Token"/> member. You must also associate generated token with the new lock-null item in the repository during this call. The token is sent to the WebDAV client.
+             </para>
+             </remarks>
+             <example>
+             <code>
+            	public WebDAVResponse CreateLockNull(string newItemName, ref LockInfo lockInfo)
+            	{
+            		LockInfo[] locks = ActiveLocks;
+            		if(locks.Length > 0)
+            		{
+            			for(int i=0;i&lt;locks.Length;i++)
+            				if(locks[i].Deep &amp;&amp; (!lockInfo.Shared || !locks[i].Shared))
+            					return new LockedResponse();
+            
+            			if(!ClientHasToken)
+            				return new LockedResponse();
+            		}
+            		SqlConnection conn = new SqlConnection(connStr);
+            		SqlTransaction trans = null;
+            		conn.Open();
+            		HierarchyItem newItem;
+            		try
+            		{
+            			trans = conn.BeginTransaction();
+            			newItem = CreateChild(trans, newItemName, ItemType.LockNull);
+            			trans.Commit();
+            		}
+            		catch(Exception ex)
+            		{
+            			if(trans != null) trans.Rollback();
+            			throw;
+            		}
+            		finally
+            		{
+            			conn.Close();
+            		}
+            		newItem.Lock(ref lockInfo);
+            
+            		return new CreatedResponse();
+            	}
+            
+            	public WebDAVResponse Lock(ref LockInfo lockInfo)
+            	{
+            		...
+            		lockInfo.Token = Guid.NewGuid().ToString();
+            		...
+            	}
+             </code>
+             </example>
+        </member>
+        <member name="T:ITHit.WebDAV.Server.IHierarchyItem">
+            <summary>
+            Represents one item (resource, folder or lock-null) in the WebDAV repository.
+            </summary>
+            <remarks>
+            Defines the properties and methods common to all WebDAV folders and resources.
+            <see cref="P:ITHit.WebDAV.Server.IHierarchyItem.Created"/> and <see cref="P:ITHit.WebDAV.Server.IHierarchyItem.Modified"/> properties must return Universal Coordinated Time (UTC).
+            <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.GetProperties(ITHit.WebDAV.Server.Property[]@)"/> and <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> are called when WebDAV client is reading, adding, updating or deleting properties.
+            This interface also provides methods for managing hierarchy: moving, copying and deleting WebDAV items.
+            See <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.CopyTo(ITHit.WebDAV.Server.IFolder,System.String,System.Boolean)"/>, <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.MoveTo(ITHit.WebDAV.Server.IFolder,System.String)"/> and <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.Delete"/> methods.
+            Your resource items must implement <see cref="T:ITHit.WebDAV.Server.IResource"/> interface, folder items - <see cref="T:ITHit.WebDAV.Server.IFolder"/> interface. Class 2 server lock-null items must implement <see cref="T:ITHit.WebDAV.Server.ILockNull"/> interface.
+            </remarks>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Name">
+            <summary>
+            Gets the name of the item in repository.
+            </summary>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Parent">
+             <summary>
+             Gets the parent folder of the item in repository (<c>null</c> for the root of the repository).
+             </summary>
+             <example>
+             <code>
+            	public abstract class HierarchyItem : IHierarchyItem, ILock
+            	{
+            		protected FileSystemInfo fileSystemInfo;
+            
+            		public HierarchyItem(FileSystemInfo fileSystemInfo)
+            		{
+            			this.fileSystemInfo = fileSystemInfo;
+            		}
+            
+            		public IFolder Parent
+            		{
+            			get
+            			{
+            				string storageRootFolder = ConfigurationManager.AppSettings["StorageRootFolder"].TrimEnd('\\');
+            				string parentPath = fileSystemInfo.FullName.TrimEnd('\\');
+            				int index = parentPath.LastIndexOf('\\');
+            				if (index &lt;= storageRootFolder.Length-1)
+            					return null;
+            				DirectoryInfo directory = new DirectoryInfo(parentPath.Remove(index));
+            				return new Folder(directory);
+            			}
+            		}
+            		...
+            	}
+            	</code>
+             </example>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Created">
+            <summary>
+            Gets the creation date of the item in repository expressed as the coordinated universal time (UTC).
+            </summary>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Modified">
+            <summary>
+            Gets the last modification date of the item in repository expressed as the coordinated universal time (UTC).
+            </summary>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.CopyTo(ITHit.WebDAV.Server.IFolder,System.String,System.Boolean)">
+             <summary>
+             Creates a copy of this item with a new name in the destination folder.
+             </summary>
+             <param name="folder">Destination folder</param>
+             <param name="destName">Name of the destination item</param>
+             <param name="deep">Indicates whether to copy entire subtree</param>
+             <returns>
+             <list type="bullet">
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.CreatedResponse"/> - the copy operation resulted in the creation of a new item.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - the source item was successfully copied to a pre-existing destination item.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.ConflictResponse"/> - destination folder does not exist.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - the destination item was locked and client did not provide lock token.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> - errors has occured during processing of the subtree. Each <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> must contain info for every item that was successfully copied or failed to copy.</description>
+             </item>
+             </list>
+             </returns>
+             <remarks>
+             <para>
+             If error occurred while copying resource located in a subtree, the server 
+             should try to continue copy operation and copy all other items. In this case 
+             you must return MultistatusResponse that contain separate ItemResponse for 
+             every item that was successfully copied or failed to copy.
+             </para>
+             <para>
+             A CopyTo method invocation must not copy any locks active on the source item.
+             However, if this method copies the item into a folder that has a deep lock,
+             then the destination item must be added to the lock.
+             </para>
+             </remarks>
+             <example>
+             Example of <c>CopyTo</c> implementation for WebDAV Class 2 server:
+             <code>
+             public class Folder : HierarchyItem, IFolder, IFolderLock
+             {
+            		...
+            		public override WebDAVResponse CopyTo(IFolder folder, string destName, bool deep)
+            		{
+            			Folder destFolder = folder as Folder;
+            			if(destFolder == null)
+            				return new ConflictResponse();
+            			if(!destFolder.ClientHasToken)
+            				return new LockedResponse();
+            
+            			IHierarchyItem destItem = destFolder.FindChild(destName);
+            			Folder newDestFolder;
+                        
+            			if(destItem != null)
+            			{
+            				if(destItem is IResource)
+            				{
+            					WebDAVResponse delResp = destItem.Delete();
+            					if(!delResp.IsSuccess)
+            						return delResp;
+            					newDestFolder = CopyThisItem(destFolder, null, destName);
+            				}
+            				else
+            				{
+            					newDestFolder = destItem as Folder;
+            					if(newDestFolder == null)
+            						return new ConflictResponse();
+            				}
+            			}
+            			else
+            			{
+            				newDestFolder = CopyThisItem(destFolder,null,destName);
+            			}
+            			// copy children
+            			MultistatusResponse mr = new MultistatusResponse();
+            			if(deep)
+            			{
+            				foreach(IHierarchyItem child in Children)
+            				{
+            					HierarchyItem dbchild = child as HierarchyItem;
+            					WebDAVResponse resp = dbchild.CopyTo(newDestFolder,child.Name,deep);
+            					if(!resp.IsSuccess)
+            						mr.AddResponses(new ItemResponse(dbchild.Path, resp));
+            					else
+            					{
+            						MultistatusResponse mrchild = resp as MultistatusResponse;
+            						if(mrchild != null)
+            							mr.AddResponses(mrchild.Responses);
+            					}
+            				}
+            			}
+            
+            			if(mr.Responses.Length > 0)
+            				return mr;
+            			else if(destItem == null)
+            				return new CreatedResponse();
+            			else
+            				return new NoContentResponse();
+            		}
+            		...
+            	}
+             </code>
+             </example>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.MoveTo(ITHit.WebDAV.Server.IFolder,System.String)">
+             <summary>
+             Moves this item to the destination folder under a new name.
+             </summary>
+             <param name="folder">Destination folder</param>
+             <param name="destName">Name of the destination item</param>
+             <returns>
+             <list type="bullet">
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.CreatedResponse"/> - the move operation resulted in the creation of a new item.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - the source item was successfully moved to a pre-existing destination item.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.ConflictResponse"/> - destination folder does not exist.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - the source or the destination item was locked and client did not provide lock token.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> - errors has occured during processing of the subtree. Each <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> must contain info for every item that was successfully moved or failed to move.</description>
+             </item>
+             </list>
+             </returns>
+             <remarks>
+             <papa>
+             If the item is locked the server must not move any locks with the item. However, resources must be added to an existing lock at the destination.
+             </papa>
+             </remarks>
+             <example>
+             Example of <c>MoveTo</c> implementation for WebDAV Class 2 server:
+             <code>
+             public class Folder : HierarchyItem, IFolder, IFolderLock
+             {
+            		...
+            		public override WebDAVResponse MoveTo(IFolder folder, string destName)
+            		{
+            			Folder destFolder = folder as Folder;
+            			if(destFolder == null)
+            				return new ConflictResponse();
+                        
+            			Folder parent = Parent as Folder;
+            			if(parent == null)
+            				return new ConflictResponse();
+                        
+            			if(!ClientHasToken || !destFolder.ClientHasToken || !parent.ClientHasToken)
+            				return new LockedResponse();
+            			
+            			HierarchyItem destItem = destFolder.FindChild(destName);
+            			Folder newDestFolder;
+            
+            			// copy this folder
+            			if(destItem != null)
+            			{
+            				if(DelWhenReplace &amp;&amp; destItem is IResource)
+            				{
+            					WebDAVResponse delResp = destItem.Delete();
+            					if(!delResp.IsSuccess)
+            						return delResp;
+            					newDestFolder = CopyThisItem(destFolder, null, destName);
+            				}
+            				else
+            				{
+            					newDestFolder = destItem as Folder;
+            					if(newDestFolder == null)
+            						return new ConflictResponse();
+            				}
+            			}
+            			else
+            			{
+            				newDestFolder = CopyThisItem(destFolder, null, destName);
+            			}
+            			// move children
+            			MultistatusResponse mr = new MultistatusResponse();
+            			foreach(IHierarchyItem child in Children)
+            			{
+            				HierarchyItem dbchild = child as HierarchyItem;
+            				WebDAVResponse resp = dbchild.MoveTo(newDestFolder, child.Name);
+            				if(!resp.IsSuccess)
+            					mr.AddResponses(new ItemResponse(dbchild.Path, resp));
+            				else
+            				{
+            					MultistatusResponse mrchild = resp as MultistatusResponse;
+            					if(mrchild != null)
+            						mr.AddResponses(mrchild.Responses);
+            				}
+            			}
+            
+            			// delete this folder
+            			if(mr.Responses.Length > 0)
+            				return mr;
+            			else if(destItem == null)
+            			{
+            				DeleteThisItem();
+            				return new CreatedResponse();
+            			}
+            			else
+            			{
+            				DeleteThisItem();
+            				return new NoContentResponse();
+            			}
+            		}
+            		...
+            	}
+            	</code>
+            	</example>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.Delete">
+             <summary>
+             Deletes this item.
+             </summary>
+             <returns>
+             <list type="bullet">
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.NoContentResponse"/> - this item was successfully deleted.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this item or its parent was locked and client did not provide lock token.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> - errors has occured during processing of the subtree. Each <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> must contain info for every item that was successfully deleted or failed to delete.</description>
+             </item>
+             </list>
+             </returns>
+             <remarks>
+             <para>
+             <c>Delete</c> invocation must delete only folders and resource items. Lock-null items are deleted during <see cref="M:ITHit.WebDAV.Server.ILock.Unlock(System.String)"/> method call.
+             </para>
+             </remarks>
+             <example>
+             Example of <c>Delete</c> implementation for WebDAV Class 2 server:
+             <code>
+             public class Folder : HierarchyItem, IFolder, IFolderLock
+             {
+            		...
+            		public override WebDAVResponse Delete()
+            		{
+            			Folder parent = Parent as Folder;
+            			if(parent == null)
+            				return new ConflictResponse();
+            			if(!parent.ClientHasToken)
+            				return new LockedResponse();
+            
+            			if(!ClientHasToken)
+            				return new LockedResponse();
+            
+            			MultistatusResponse mr = new MultistatusResponse();
+            
+            			foreach(IHierarchyItem child in Children)
+            			{
+            				HierarchyItem dbchild = child as HierarchyItem;
+            				WebDAVResponse resp = dbchild.Delete();
+            				if(!resp.IsSuccess)
+            					mr.AddResponses(new ItemResponse(dbchild.Path, resp));
+            				else
+            				{
+            					MultistatusResponse mrchild = resp as MultistatusResponse;
+            					if(mrchild != null)
+            						mr.AddResponses(mrchild.Responses);
+            				}
+            			}
+            
+            			if(mr.Responses.Length > 0)
+            				return mr;
+            			else
+            			{
+            				DeleteThisItem();
+            				return new NoContentResponse();
+            			}
+            		}
+            		...
+            	}
+             </code>
+             </example>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.GetProperties(ITHit.WebDAV.Server.Property[]@)">
+             <summary>
+             Gets values of all properties or selected properties for this item.
+             </summary>
+             <param name="props">
+             <list type="number">
+             <item>
+             <description>
+             Array of properties which values are requested. 
+             If a property does not exist for this hierarchy item then <see cref="F:ITHit.WebDAV.Server.Property.Value"/> field in the array should not be modified.
+             </description>
+             </item>
+             <item>
+             <description>
+             <c>null</c> to get all properties. New array must be created and returned through this parameter.
+             </description>
+             </item>
+             </list>
+             </param>
+             <returns>
+            	<list type="bullet">
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - All properties succesefully retrieved.</description>
+             </item>
+            	</list>
+             </returns>
+             <example>
+             <code>
+            		public WebDAVResponse GetProperties(ref Property[] props)
+            		{
+            			SqlConnection conn = new SqlConnection(connStr);
+            			SqlCommand cmd;
+            			SqlDataReader reader = null;
+            			conn.Open();
+                        
+            			try
+            			{
+            				cmd = conn.CreateCommand();
+            				cmd.CommandText = "SELECT Name, Namespace, PropVal"
+            					+" FROM Properties"
+            					+" WHERE ItemID = @ItemID";
+                            
+            				cmd.Parameters.Add("@ItemID", SqlDbType.Int).Value = ID;
+                            
+            				reader = cmd.ExecuteReader();
+            				if(props == null) // get all properties
+            				{
+            					ArrayList l = new ArrayList();
+            					while(reader.Read())
+            					{
+            						Property p = new Property();
+            						p.Name = reader.GetString(reader.GetOrdinal("Name"));
+            						p.Namespace = reader.GetString(reader.GetOrdinal("Namespace"));
+            						p.Value = reader.GetString(reader.GetOrdinal("PropVal"));
+            						l.Add(p);
+            					}
+            					props = (Property[])l.ToArray(typeof(Property));
+            				}
+            				else // get selected properties
+            				{
+            					Property p = new Property();
+            					while(reader.Read())
+            					{
+            						p.Name = reader.GetString(reader.GetOrdinal("Name"));
+            						p.Namespace = reader.GetString(reader.GetOrdinal("Namespace"));
+            						for(int i=0; i&lt;props.Length; i++)
+            							if(p.Name == props[i].Name &amp;&amp; p.Namespace == props[i].Namespace)
+            							{
+            								props[i].Value = reader.GetString(reader.GetOrdinal("PropVal"));
+            								break;
+            							}
+            					}
+            				}
+            			}
+            			finally
+            			{
+            				if(reader != null) reader.Close();
+            				conn.Close();
+            			}
+            
+            			return new OkResponse();
+            		}
+             </code>
+             </example>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.GetPropertyNames(ITHit.WebDAV.Server.Property[]@)">
+            <summary>
+            Gets names of all properties for this item.
+            </summary>
+            <param name="props">New array of properties must be created and returned through this parameter</param>
+            <returns>
+            <list type="bullet">
+            <item>
+            <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - All properties succesefully retrieved.</description>
+            </item>
+            </list>
+            </returns>
+            <remarks>
+            <para>Most WebDAV clients never request list of property names, so your implementation can just return <see cref="T:ITHit.WebDAV.Server.Response.NotAllowedResponse"/>.</para>
+            </remarks>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])">
+             <summary>
+             Modifies and removes properties for this item.
+             </summary>
+             <param name="setProps">Array of properties to be set</param>
+             <param name="delProps">
+             Array of properties to be removed. <c>Value</c> field is ignored.
+             Specifying the removal of a property that does not exist is not an error.
+             </param>
+             <returns>
+             <list type="bullet">
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this item was locked and client did not provide lock token.</description>
+             </item>
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> - result of the operation for each property.</description>
+             </item>
+             </list>
+             In <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> each item could be:
+             <list type="bullet">
+             <item>
+             <description><see cref="T:ITHit.WebDAV.Server.Response.OkResponse"/> - the property was successfully updated or deleted.</description>
+             </item>
+             <item>
+             <description>
+             <see cref="T:ITHit.WebDAV.Server.Response.ConflictResponse"/> - the client has provided a value whose semantics are not appropriate for the property,
+             this includes trying to set read-only properties.
+             </description>
+             </item>
+             <item>
+             <description>
+             <see cref="T:ITHit.WebDAV.Server.Response.FailedDependencyResponse"/> - indicates this action would have succeeded if it were not for the conflict
+             with updating/removing some other property.
+             </description>
+             </item>
+             </list>
+             </returns>
+             <remarks>
+             <para>
+             In your <c>UpdateProperties</c> implementation you will create, modify and delete item properties. If any property failed to update than you should not modify any properties and rollback the entire operation. 
+             To inform WebDAV client which properties failed to update you must return <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> class instance. Each item of <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> is the instance of <see cref="T:ITHit.WebDAV.Server.Response.PropResponse"/> class and provides information about individual property update operation.
+             </para>
+             </remarks>
+             <example>
+             <code>
+            		public WebDAVResponse UpdateProperties(Property[] setProps, Property[] delProps)
+            		{
+            			if(!ClientHasToken) // required by class 2 server only
+            				return new LockedResponse(); 
+                        
+            			MultipropResponse resp = new MultipropResponse();
+            
+            			SqlConnection conn = new SqlConnection(connStr);
+            			SqlTransaction trans = null;
+            			try
+            			{
+            				conn.Open();
+            				trans = conn.BeginTransaction();
+            
+            				if(setProps != null)
+            					foreach(Property p in setProps)
+            					{
+            						SetProperty(p, trans); // create or update property
+            						resp.AddResponses(new PropResponse(p, new OkResponse()));
+            					}
+            
+            				if(delProps != null)
+            					foreach(Property p in delProps)
+            					{
+            						RemoveProperty(p.Name, p.Namespace, trans);
+            						resp.AddResponses(new PropResponse(p, new OkResponse()));
+            					}
+            
+            				UpdateModified(trans);
+                            
+            				trans.Commit();
+            			}
+            			catch
+            			{
+            				if(trans != null) trans.Rollback();
+            				return new ServerErrorResponse();
+            			}
+            			finally
+            			{
+            				conn.Close();
+            			}
+            
+            			return resp;
+            		}
+             </code>
+             </example>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IHierarchyItem.Path">
+            <summary>
+            Unique item path in the repository relative to storage root.
+            </summary>
+            <remarks>
+            <para>
+            The URL returned by this property is relative to storage root. If your server root is located at http://example.webdavsystem.com:8080/myserver/ and the item URL is http://example.webdavsystem.com:8080/myserver/myfolder/myitem.doc this property implementation must return myfolder/myitem.doc. To calculate the entire item URL the engine will call <see cref="P:ITHit.WebDAV.Server.Request.ApplicationPath"/> property and attach it to url returned by <see cref="P:ITHit.WebDAV.Server.IHierarchyItem.Path"/> property.
+            </para>
+            <para>Examples:
+            <list type="bullet">
+            <item><description>Resource: myfolder/mydoc.docx</description></item>
+            <item><description>Folder: myfolder/folder/</description></item>
+            <item><description>Lock-null item: myfolder/mydoc.docx</description></item>
+            <item><description>History item: myfolder/mydoc.docx?history</description></item>
+            <item><description>Version: myfolder/mydoc.docx?version=5</description></item>
+            </list>
+            </para>
+            </remarks>
+            <value><c>String</c> representing retative item path in the repository.</value>
+        </member>
         <member name="T:ITHit.WebDAV.Server.ILock">
             <summary>
             Defines the properties and methods that WebDAV Class 2 compliant server hierarchy items must implement.
@@ -3799,6 +3724,55 @@ public class MyHttpHandler : IHttpHandler
             and <see cref="T:ITHit.WebDAV.Server.IFolderLock"/> on your folder items. <c>ILock</c> provides methods and properties common to all WebDAV
             folders, resources anl lock-null items.
             </remarks>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.ILock.ActiveLocks">
+             <summary>
+             Gets the array of all locks for this item.
+             </summary>
+             <remarks>
+             <para>
+             This property must return all locks for the item including deep locks on any of the parent folders.
+             All fields of each <see cref="T:ITHit.WebDAV.Server.LockInfo"/> structure in the array must be set.
+             </para>
+             </remarks>
+             <example>
+             <code>
+            		public LockInfo[] ActiveLocks
+            		{
+            			get
+            			{
+            				int itemID = ID;
+            				ArrayList l = new ArrayList();
+                            
+            				SqlConnection conn = new SqlConnection(connStr);
+            				SqlCommand cmd;
+            				conn.Open();
+            				try
+            				{
+            					cmd = conn.CreateCommand();
+            					cmd.CommandText = "SELECT Parent FROM Repository WHERE ID = @ID";
+            					cmd.Parameters.Add("@ID", SqlDbType.Int);
+            					cmd.Prepare();
+            
+            					l.AddRange(GetLocks(ID, false)); // get all locks
+            					while(true)
+            					{
+            						cmd.Parameters["@ID"].Value = itemID;
+            						itemID = (int)cmd.ExecuteScalar();
+            						if(itemID &lt;= 0) break;
+            						l.AddRange(GetLocks(itemID, true));  // get only deep locks
+            					}
+            				}
+            				finally
+            				{
+            					conn.Close();
+            				}
+            
+            				return (LockInfo[])l.ToArray(typeof(LockInfo));
+            			}
+            		}
+             </code>
+             </example>
         </member>
         <member name="M:ITHit.WebDAV.Server.ILock.Lock(ITHit.WebDAV.Server.LockInfo@)">
              <summary>
@@ -3833,7 +3807,7 @@ public class MyHttpHandler : IHttpHandler
             			if(lockInfo.Deep)
             			{
             				MultistatusResponse mr = FindLocksDown(this, lockInfo.Shared);
-            				if(mr.Responses.Length &gt; 0)
+            				if(mr.Responses.Length > 0)
             					return mr;
             			}
             
@@ -3853,7 +3827,7 @@ public class MyHttpHandler : IHttpHandler
             				cmd.Parameters.Add("@Shared", SqlDbType.Bit).Value = lockInfo.Shared;
             				cmd.Parameters.Add("@Deep", SqlDbType.Bit).Value = lockInfo.Deep;
             				cmd.Parameters.Add("@Expires", SqlDbType.DateTime);
-            				if(lockInfo.Timeout &gt;= 0)
+            				if(lockInfo.Timeout >= 0)
             				{
             					cmd.Parameters["@Expires"].Value = DateTime.Now.AddSeconds(lockInfo.Timeout);
             				}
@@ -3943,7 +3917,7 @@ public class MyHttpHandler : IHttpHandler
             				cmd.CommandText = "UPDATE Lock SET Expires = @Expires WHERE Token LIKE @Token";
                             
             				cmd.Parameters.Add("@Expires", SqlDbType.DateTime);
-            				if(lockInfo.Timeout &gt;= 0)
+            				if(lockInfo.Timeout >= 0)
             				{
             					cmd.Parameters["@Expires"].Value = DateTime.Now.AddSeconds(lockInfo.Timeout);
             				}
@@ -4028,127 +4002,6 @@ public class MyHttpHandler : IHttpHandler
             
             	return new NoContentResponse();
             }
-             </code>
-             </example>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.ILock.ActiveLocks">
-             <summary>
-             Gets the array of all locks for this item.
-             </summary>
-             <remarks>
-             <para>
-             This property must return all locks for the item including deep locks on any of the parent folders.
-             All fields of each <see cref="T:ITHit.WebDAV.Server.LockInfo"/> structure in the array must be set.
-             </para>
-             </remarks>
-             <example>
-             <code>
-            		public LockInfo[] ActiveLocks
-            		{
-            			get
-            			{
-            				int itemID = ID;
-            				ArrayList l = new ArrayList();
-                            
-            				SqlConnection conn = new SqlConnection(connStr);
-            				SqlCommand cmd;
-            				conn.Open();
-            				try
-            				{
-            					cmd = conn.CreateCommand();
-            					cmd.CommandText = "SELECT Parent FROM Repository WHERE ID = @ID";
-            					cmd.Parameters.Add("@ID", SqlDbType.Int);
-            					cmd.Prepare();
-            
-            					l.AddRange(GetLocks(ID, false)); // get all locks
-            					while(true)
-            					{
-            						cmd.Parameters["@ID"].Value = itemID;
-            						itemID = (int)cmd.ExecuteScalar();
-            						if(itemID &lt;= 0) break;
-            						l.AddRange(GetLocks(itemID, true));  // get only deep locks
-            					}
-            				}
-            				finally
-            				{
-            					conn.Close();
-            				}
-            
-            				return (LockInfo[])l.ToArray(typeof(LockInfo));
-            			}
-            		}
-             </code>
-             </example>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.IFolderLock.CreateLockNull(System.String,ITHit.WebDAV.Server.LockInfo@)">
-             <summary>
-             Reserves new item name for future use.
-             </summary>
-             <param name="newItemName">Name of the new item to reserve</param>
-             <param name="lockInfo">Describes a lock on the new item</param>
-             <returns>
-             <list type="bullet">
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.CreatedResponse"/> - the lock request succeeded. Lock-null item was created.</description>
-             </item>
-             <item>
-             <description><see cref="T:ITHit.WebDAV.Server.Response.LockedResponse"/> - this folder was locked and client did not provide lock token,
-             or lock-null item with the specified name exists in this folder.</description>
-             </item>
-             </list>
-             </returns>
-             <remarks>
-             <para>
-             <c>CreateLockNull</c> method can be called before creating new folders and resources. This method reserves name of a resource or folder. In your <c>CreateLockNull</c> you must create a new lock-null item.
-             </para>
-             <para>
-             WebDAV engine passes <see cref="T:ITHit.WebDAV.Server.LockInfo"/> structure to this method by reference. All fields of the structure are provided by WebDAV client except <see cref="F:ITHit.WebDAV.Server.LockInfo.Token"/> field. In your <c>CreateLockNull</c> implementation you must create lock token and set <see cref="F:ITHit.WebDAV.Server.LockInfo.Token"/> member. You must also associate generated token with the new lock-null item in the repository during this call. The token is sent to the WebDAV client.
-             </para>
-             </remarks>
-             <example>
-             <code>
-            	public WebDAVResponse CreateLockNull(string newItemName, ref LockInfo lockInfo)
-            	{
-            		LockInfo[] locks = ActiveLocks;
-            		if(locks.Length &gt; 0)
-            		{
-            			for(int i=0;i&lt;locks.Length;i++)
-            				if(locks[i].Deep &amp;&amp; (!lockInfo.Shared || !locks[i].Shared))
-            					return new LockedResponse();
-            
-            			if(!ClientHasToken)
-            				return new LockedResponse();
-            		}
-            		SqlConnection conn = new SqlConnection(connStr);
-            		SqlTransaction trans = null;
-            		conn.Open();
-            		HierarchyItem newItem;
-            		try
-            		{
-            			trans = conn.BeginTransaction();
-            			newItem = CreateChild(trans, newItemName, ItemType.LockNull);
-            			trans.Commit();
-            		}
-            		catch(Exception ex)
-            		{
-            			if(trans != null) trans.Rollback();
-            			throw;
-            		}
-            		finally
-            		{
-            			conn.Close();
-            		}
-            		newItem.Lock(ref lockInfo);
-            
-            		return new CreatedResponse();
-            	}
-            
-            	public WebDAVResponse Lock(ref LockInfo lockInfo)
-            	{
-            		...
-            		lockInfo.Token = Guid.NewGuid().ToString();
-            		...
-            	}
              </code>
              </example>
         </member>
@@ -4321,6 +4174,65 @@ public class MyHttpHandler : IHttpHandler
             	</code>
              </example>
         </member>
+        <member name="T:ITHit.WebDAV.Server.IMethodHandler">
+            <summary>
+            Represents HTTP method handler.
+            </summary>
+            <remarks>
+            <para>
+            The IT Hit WebDAV Server Engine allows creating custom HTTP handlers and replacing original engine handlers. 
+            To add or replace handler call <see cref="M:ITHit.WebDAV.Server.Engine.RegisterMethodHandler(System.String,ITHit.WebDAV.Server.IMethodHandler)" /> method passing HTTP method name and object instance 
+            implementing <see cref="T:ITHit.WebDAV.Server.IMethodHandler" /> interface prior to calling <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)" />. The original handler, if any, 
+            is returned from <see cref="M:ITHit.WebDAV.Server.Engine.RegisterMethodHandler(System.String,ITHit.WebDAV.Server.IMethodHandler)" /> method. 
+            </para>
+            <para>
+            The <see cref="M:ITHit.WebDAV.Server.IMethodHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)" /> method of this interface is called by the engine during <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)" /> call. 
+            The hierarchy item returned from <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)" /> is passed to ProcessRequest method as a parameter.
+            </para>
+            </remarks>
+            <example>
+			The WebDAV protocol does not regulate GET request to a WebDAV collection (folder). The following sample demonstrates custom handler for GET request submitted to folder item. The custom handler returns HTML page for folder while calling the original handler for any other items.
+			<code>
+				<![CDATA[
+WDEngine engine = new WDEngine();
+// set custom handler to process GET requests to folders
+MyCustomGetHandler handler = new MyCustomGetHandler();
+handler.OriginalHandler = engine.RegisterMethodHandler("GET", handler);
+engine.Run(request, response);
+
+class MyCustomGetHandler : IMethodHandler
+{
+    private IMethodHandler originalHandler;
+
+    public IMethodHandler OriginalHandler
+    {
+        set { originalHandler = value; }
+    }
+
+    public void ProcessRequest(Request request, IResponse response, IHierarchyItem item)
+    {
+        if(item is IFolder)
+            HttpContext.Current.Response.TransmitFile(HttpContext.Current.Request.PhysicalApplicationPath + "MyCustomHandlerPage.html");
+        else
+            originalHandler.ProcessRequest(request, response, item);
+    }
+}
+				]]>
+			</code>
+		</example>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IMethodHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)">
+            <summary>
+            Enables processing of HTTP Web requests by a custom handler.
+            </summary>
+            <param name="request">Instance of your request class derived from <see cref="T:ITHit.WebDAV.Server.Request"/> class</param>
+            <param name="response">Your <see cref="T:ITHit.WebDAV.Server.IResponse"/> interface implementation</param>
+            <param name="item">Hierarchy item returned from <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> or <b>null</b></param>
+            <remarks>The <see cref="M:ITHit.WebDAV.Server.IMethodHandler.ProcessRequest(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse,ITHit.WebDAV.Server.IHierarchyItem)"/> method is called by the engine during <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> call. 
+            The hierarchy item returned from <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> is passed to this method. 
+            If <see cref="M:ITHit.WebDAV.Server.Engine.GetHierarchyItem(System.String)"/> returns null the null is passed.
+            </remarks>
+        </member>
         <member name="T:ITHit.WebDAV.Server.IResource">
              <summary>
              Represents a resource in the WebDAV repository.
@@ -4367,7 +4279,7 @@ public class MyHttpHandler : IHttpHandler
             			{
             				fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
             				fileStream.Seek(startIndex, SeekOrigin.Begin);
-            				while ((bytesRead = fileStream.Read(buffer, 0, (int)(count &gt; bufSize ? bufSize : count))) &gt; 0)
+            				while ((bytesRead = fileStream.Read(buffer, 0, (int)(count > bufSize ? bufSize : count))) > 0)
             				{
             					try
             					{
@@ -4401,7 +4313,7 @@ public class MyHttpHandler : IHttpHandler
             			try
             			{
             				fileStream = file.Open(FileMode.Truncate, FileAccess.Write);
-            				while ((bytesRead = content.Read(buffer, 0, bufSize)) &gt; 0)
+            				while ((bytesRead = content.Read(buffer, 0, bufSize)) > 0)
             					fileStream.Write(buffer, 0, bytesRead);
             			}
             			finally
@@ -4420,6 +4332,66 @@ public class MyHttpHandler : IHttpHandler
             		}
             	</code>
              </example>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResource.ContentType">
+             <summary>
+             Gets the media type of the resource.
+             </summary>
+             <remarks>
+             <para>
+             The mime-type provided by this property is returned in a Content-Type header with GET request.
+             </para>
+             <para>
+             When deciding which action to perform when downloading a file some WebDAV clients and browsers (such as Internet Explorer) 
+             rely on file extension, while others (such as Firefox) rely on Content-Type header returned by server. 
+             For identical behavior in all browsers and WebDAV clients your server must return a correct mime-type with a requested file.
+             </para>
+             </remarks>
+             <example>
+             <code>
+            	public string ContentType
+            	{
+            		get
+            		{
+            			string contentType = "";
+            
+            			SqlConnection conn = new SqlConnection(connStr);
+            			SqlCommand cmd;
+            			SqlDataReader reader = null;
+            			conn.Open();
+                        
+            			try
+            			{
+            				cmd = conn.CreateCommand();
+            				cmd.CommandText = "SELECT ContentType FROM Repository WHERE ID = @ID";
+            				cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+            				reader = cmd.ExecuteReader();
+            				reader.Read();
+            				if(!reader.IsDBNull(reader.GetOrdinal("ContentType")))
+            					contentType = reader.GetString(reader.GetOrdinal("ContentType"));
+            			}
+            			finally
+            			{
+            				if(reader != null) reader.Close();
+            				conn.Close();
+            			}
+            
+            			if (string.IsNullOrEmpty(contentType))
+                         contentType = 
+                             MimeType.GetMimeType(System.IO.Path.GetExtension(this.fName))
+                             ?? "application/octet-stream";
+            			return contentType;
+            		}
+            	}
+             </code>
+             </example>
+             <value>The MIME type of the resource.</value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResource.ContentLength">
+            <summary>
+            Gets the size of the resource content in bytes.
+            </summary>
+            <value>Length of the resource content in bytes.</value>
         </member>
         <member name="M:ITHit.WebDAV.Server.IResource.WriteToStream(System.IO.Stream,System.Int64,System.Int64)">
              <summary>
@@ -4472,7 +4444,7 @@ public class MyHttpHandler : IHttpHandler
             			long startIndex = byteStart;
                         
             			while ((retval = reader.GetBytes(reader.GetOrdinal("Content"), 
-            				startIndex, buf, 0, (int)(count&gt;bufSize ? bufSize : count) )) &gt; 0)
+            				startIndex, buf, 0, (int)(count>bufSize ? bufSize : count) )) > 0)
             			{
             				try
             				{
@@ -4646,65 +4618,79 @@ public class MyHttpHandler : IHttpHandler
              </code>
              </example>
         </member>
-        <member name="P:ITHit.WebDAV.Server.IResource.ContentType">
-             <summary>
-             Gets the media type of the resource.
-             </summary>
-             <remarks>
-             <para>
-             The mime-type provided by this property is returned in a Content-Type header with GET request.
-             </para>
-             <para>
-             When deciding which action to perform when downloading a file some WebDAV clients and browsers (such as Internet Explorer) 
-             rely on file extension, while others (such as Firefox) rely on Content-Type header returned by server. 
-             For identical behavior in all browsers and WebDAV clients your server must return a correct mime-type with a requested file.
-             </para>
-             </remarks>
-             <example>
-             <code>
-            	public string ContentType
-            	{
-            		get
-            		{
-            			string contentType = "";
-            
-            			SqlConnection conn = new SqlConnection(connStr);
-            			SqlCommand cmd;
-            			SqlDataReader reader = null;
-            			conn.Open();
-                        
-            			try
-            			{
-            				cmd = conn.CreateCommand();
-            				cmd.CommandText = "SELECT ContentType FROM Repository WHERE ID = @ID";
-            				cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-            				reader = cmd.ExecuteReader();
-            				reader.Read();
-            				if(!reader.IsDBNull(reader.GetOrdinal("ContentType")))
-            					contentType = reader.GetString(reader.GetOrdinal("ContentType"));
-            			}
-            			finally
-            			{
-            				if(reader != null) reader.Close();
-            				conn.Close();
-            			}
-            
-            			if (string.IsNullOrEmpty(contentType))
-                         contentType = 
-                             MimeType.GetMimeType(System.IO.Path.GetExtension(this.fName))
-                             ?? "application/octet-stream";
-            			return contentType;
-            		}
-            	}
-             </code>
-             </example>
-             <value>The MIME type of the resource.</value>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.IResource.ContentLength">
+        <member name="T:ITHit.WebDAV.Server.IResponse">
             <summary>
-            Gets the size of the resource content in bytes.
+            Represents HTTP response.
             </summary>
-            <value>Length of the resource content in bytes.</value>
+            <remarks>
+            <para>
+            Usually you do not have to implement this interfaces if you host your server in ASP.NET/IIS or in HttpListener as Engine provides overloaded <c>Run</c> methods optimized for ASP.NET/IIS and for HttpListener. You can implement this interface if you host your server  in any other environment and pass it to <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> method.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResponse.StatusCode">
+            <summary>
+            Gets or sets the HTTP status code of the output returned to the client.
+            </summary>
+            <value>
+            An Integer representing the status of the HTTP output returned to the client.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResponse.StatusDescription">
+            <summary>
+            Sets the HTTP status string of the output returned to the client.
+            </summary>
+            <value>
+            A string describing the status of the HTTP output returned to the client.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResponse.ContentType">
+            <summary>
+            Sets the HTTP MIME type of the output stream.
+            </summary>
+            <value>
+            The HTTP MIME type of the output stream.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResponse.ContentEncoding">
+            <summary>
+            Sets the HTTP character set of the output stream.
+            </summary>
+            <value>
+            A <c>Encoding</c> object containing information about the character set of the current response.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResponse.ContentLength">
+            <summary>
+            Sets the content length of the output stream.
+            </summary>
+            <value>
+            The value of the response's Content-Length header.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.IResponse.OutputStream">
+            <summary>
+            Enables binary output to the outgoing HTTP content body.
+            </summary>
+            <value>
+            An IO <see cref="T:System.IO.Stream"/> representing the raw contents of the outgoing HTTP content body.
+            </value>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IResponse.AddHeader(System.String,System.String)">
+            <summary>
+            Adds the specified header and value to the HTTP headers for this response.
+            </summary>
+            <param name="name">
+            The name of the HTTP header to set.
+            </param>
+            <param name="value">
+            The value for the name header.
+            </param>
+        </member>
+        <member name="M:ITHit.WebDAV.Server.IResponse.Clear">
+            <summary>
+            Clears all content output from the buffer stream.
+            </summary>
         </member>
         <member name="T:ITHit.WebDAV.Server.License.LicenseChecker">
             <exclude/>
@@ -4772,55 +4758,6 @@ public class MyHttpHandler : IHttpHandler
         <member name="F:ITHit.WebDAV.Server.LockInfo.Owner">
             <summary>
             Provides information about the principal taking out a lock.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Logger.LogLevel">
-            <summary>
-            Type of information being logged.
-            </summary>
-            <example>
-            <code>
-            FileLogger.LogFile = "C:\WebDAV\WebDAVServerLog.txt"; // C:\WebDAV\ must exist and the application must have enough permission to write and create files in this folder
-            FileLogger.Level = LogLevel.Warn;
-            FileLogger.WriteMessage("My error message", LogLevel.Error); // this message will be written to the log file
-            FileLogger.WriteMessage("My debug message", LogLevel.Debug); // this message will not be written to the log file
-            FileLogger.WriteMessage("My info message"); // this message will not be written to the log file
-            </code>
-            </example>
-        </member>
-        <member name="F:ITHit.WebDAV.Logger.LogLevel.All">
-            <summary>
-            All messages will be written to log.
-            </summary>
-        </member>
-        <member name="F:ITHit.WebDAV.Logger.LogLevel.Debug">
-            <summary>
-            Messages with <c>LogLevel.Debug</c> level will be written to log.
-            </summary>
-        </member>
-        <member name="F:ITHit.WebDAV.Logger.LogLevel.Info">
-            <summary>
-            Messages with <c>LogLevel.Info</c> level will be written to log.
-            </summary>
-        </member>
-        <member name="F:ITHit.WebDAV.Logger.LogLevel.Warn">
-            <summary>
-            Messages with <c>LogLevel.Warn</c> level will be written to log.
-            </summary>
-        </member>
-        <member name="F:ITHit.WebDAV.Logger.LogLevel.Error">
-            <summary>
-            Messages with <c>LogLevel.Error</c> level will be written to log.
-            </summary>
-        </member>
-        <member name="F:ITHit.WebDAV.Logger.LogLevel.Fatal">
-            <summary>
-            Messages with <c>LogLevel.Fatal</c> level will be written to log.
-            </summary>
-        </member>
-        <member name="F:ITHit.WebDAV.Logger.LogLevel.Off">
-            <summary>
-            No messages will be written to log.
             </summary>
         </member>
         <member name="T:ITHit.WebDAV.Server.MimeType">
@@ -4919,252 +4856,315 @@ public class MyHttpHandler : IHttpHandler
             The value of the property.
             </summary>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Response.AccessDeniedResponse">
+        <member name="T:ITHit.WebDAV.Server.Request">
             <summary>
-            Not enough permissions.
+            Represents an incoming HTTP request.
             </summary>
             <remarks>
-            Indicates that operation has failed because client does not have enough permissions to perform this operation.
+            <para>
+            <see cref="P:ITHit.WebDAV.Server.Request.ClientLockTokens"/> property provides access to the lock tokens send by WebDAV client. Before modifying locked WebDAV Class 2 server items you must check if client provided necessary lock token.
+            </para>
+            <para>
+            Usually you do not have to implement this class if you host your server in ASP.NET/IIS or in HttpListener as Engine provides overloaded <c>Run</c> methods optimized for ASP.NET/IIS and for HttpListener. You can derive your class from this class if you host your server in any other environment and pass it to <see cref="M:ITHit.WebDAV.Server.Engine.Run(ITHit.WebDAV.Server.Request,ITHit.WebDAV.Server.IResponse)"/> method.
+            </para>
             </remarks>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.AccessDeniedResponse.#ctor">
-            <summary>
+        <member name="P:ITHit.WebDAV.Server.Request.ClientLockTokens">
+             <summary>
+             Gets the array of lock tokens submitted by client.
+             </summary>
+             <value>
+             <c>StringCollection</c> object containing collection of lock tokens submitted by client.
+             </value>
+             <remarks>
+             <c>ClientLockTokens</c> property provides access to the array of lock tokens 
+             submitted by client. You must generate the lock tokens during the call to your 
+             <see cref="M:ITHit.WebDAV.Server.ILock.Lock(ITHit.WebDAV.Server.LockInfo@)"/> and <see cref="M:ITHit.WebDAV.Server.IFolderLock.CreateLockNull(System.String,ITHit.WebDAV.Server.LockInfo@)"/> methods implementation. During 
+             this call you associate generated token with an item in the repository and return it to the Engine. 
+             Engine than sends the new token to the WebDAV client. When WebDAV client is modifying any server item it 
+             sends back to server the list of lock tokens. In your WebDAV server Class 2 
+             implementation before modifying any locked items you must check if WebDAV 
+             client provided necessary lock token.
+             </remarks>
+             <example>
+             <code>
+             public abstract class HierarchyItem : IHierarchyItem, ILock
+             {
+            		...
+            		internal bool ClientHasToken
+            		{
+            			get
+            			{
+            				LockInfo[] itemLocks = ActiveLocks;
+            				if(itemLocks.Length == 0) 
+            					return true;
+            				WDRequest request = new WDRequest();
+            				StringCollection clientLockTokens = request.ClientLockTokens;
+            				for(int i=0; i&lt;clientLockTokens.Count; i++)
+            					for(int j=0; j&lt;itemLocks.Length; j++)
+            						if(clientLockTokens[i] == itemLocks[j].Token) 
+            							return true;
+            				return false;
+            			}
+            		}
+            		...
+            	}
             
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.ConflictResponse">
-            <summary>
-            Indicates that operation has failed due to a conflict with
-            the current state of the hierarchy item.
-            </summary>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.ConflictResponse.#ctor">
-            <summary>
+            	public class Folder : HierarchyItem, IFolder, IFolderLock
+            	{
+            		...
+            		public WebDAVResponse CreateFolder(string name)
+            		{
+            			if(!ClientHasToken)
+            				return new LockedResponse();
             
-            </summary>
+            			SqlConnection conn = new SqlConnection(connStr);
+            			SqlTransaction trans = null;
+            			conn.Open();
+            			try
+            			{
+            				trans = conn.BeginTransaction();
+            				CreateChild(trans, name, ItemType.Folder);
+            				trans.Commit();
+            			}
+            			catch(Exception ex)
+            			{
+            				if(trans != null) trans.Rollback();
+            				throw;
+            			}
+            			finally
+            			{
+            				conn.Close();
+            			}
+            			return new CreatedResponse();
+            		}
+            		...
+            	}
+             </code>
+             </example>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Response.CreatedResponse">
+        <member name="P:ITHit.WebDAV.Server.Request.Url">
             <summary>
-            Indicates that operation has succeeded and resulted in a new hierarchy item being created.
+            Gets information about the URL of the current request.
             </summary>
+            <value>
+            A Uri object containing information regarding the URL of the current request.
+            </value>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.CreatedResponse.#ctor">
+        <member name="P:ITHit.WebDAV.Server.Request.ApplicationPath">
             <summary>
-            
+            Gets virtual application root path on the server.
             </summary>
+            <value>
+            The virtual path of the current application.
+            </value>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Response.FailedDependencyResponse">
+        <member name="P:ITHit.WebDAV.Server.Request.HttpMethod">
             <summary>
-            Means that operation could not be performed on the hierarchy item because
-            the requested action depended on another action and that action failed.
+            Gets the HTTP method specified by the client.
+            </summary>
+            <value>
+            A <c>String</c> that contains the method used in the request.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Request.Headers">
+            <summary>
+            Gets a collection of HTTP headers.
+            </summary>
+            <value>
+            A <c>NameValueCollection</c> of headers.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Request.ContentType">
+            <summary>
+            Gets or sets the MIME content type of the incoming request. 
+            </summary>
+            <value>
+            A string representing the MIME content type of the incoming request, for example, "text/html". 
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Request.ContentEncoding">
+            <summary>
+            Gets or sets the character set of the entity-body.
+            </summary>
+            <value>
+            An <c>Encoding</c> object representing the client's character set.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Request.ContentLength">
+            <summary>
+            Specifies the length, in bytes, of content sent by the client.
+            </summary>
+            <value>
+            The length, in bytes, of content sent by the client.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Request.InputStream">
+            <summary>
+            Gets the contents of the incoming HTTP entity body.
+            </summary>
+            <value>
+            A <c>Stream</c> object representing the contents of the incoming HTTP content body.
+            </value>
+        </member>
+        <member name="P:ITHit.WebDAV.Server.Request.UserAgent">
+            <summary>
+            Gets the User-Agent header.
+            </summary>
+            <value>
+            A <c>string</c> representing User-Agent header.
+            </value>
+        </member>
+        <member name="T:ITHit.WebDAV.Logger.FileLogger">
+            <summary>
+            Provides static methods for writing to a log file.
             </summary>
             <remarks>
-            Usually you will inlude this response in the <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/>
-            object returned from the <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method.
+            <para>
+            By default the log file is created in the folder where the calling assembly 
+            resides. You can specify the folder and file name setting <see cref="P:ITHit.WebDAV.Logger.FileLogger.LogFile"/> property. 
+            Amount of output and maximum file size are controlled via <see cref="P:ITHit.WebDAV.Logger.FileLogger.Level"/> and <see cref="P:ITHit.WebDAV.Logger.FileLogger.FileSize"/> properties.
+            </para>
+            <para>
+            <b>Important!</b> If you host your server in IIS/ASP.NET make sure your log file is created outside of the \bin folder. If your logfile will be created in a \bin folder, your server will restart each time the logfile is updated, recycling application and session state.
+            </para>
             </remarks>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.FailedDependencyResponse.#ctor">
+        <member name="P:ITHit.WebDAV.Logger.FileLogger.LogFile">
             <summary>
-            
+            Gets and sets log file name and path.
             </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.ItemResponse">
-            <summary>
-            Represents response for one hierarchy item in multistatus response.
-            </summary>
+            <value>
+            Log file name and path.
+            </value>
             <remarks>
-            Usually you will use this class when you need to return multiple WebDAV responses
-            from your method using <see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> object.
+            <para>
+            By default the log file is created in the folder where the calling assembly 
+            resides. The folder in which you plan store your log files must exist and 
+            your web application must have enough permission for writing and creating 
+            files in this folder. Note that if you are creating HttpHandler-based server usually on Windows XP your web application 
+            runs under ASPNET account while on Windows 2003 it runs under Network Service account.
+            </para>
+            <para>
+            If you are requesting your server with a WebDAV client and log file is not 
+            created, most likely there is no permissions for creating file or the web 
+            requests simply does not reach your application.
+            </para>
+            <code>
+            public class WebDAVHandler : IHttpHandler
+            {
+            	public void ProcessRequest(HttpContext context)
+            	{
+            		FileLogger.LogFile = context.Request.PhysicalApplicationPath + "WebDAVlog.txt";
+            		...
+            	}
+            	...
+            }
+            </code>
             </remarks>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.ItemResponse.#ctor(System.String,ITHit.WebDAV.Server.Response.WebDAVResponse)">
+        <member name="P:ITHit.WebDAV.Logger.FileLogger.Level">
             <summary>
-            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.ItemResponse"/> class.
+            Gets and sets how much information is written to log file.
             </summary>
-            <param name="itemPath">Path of the item in the hierarchy tree</param>
-            <param name="response">WebDAV response for the item</param>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Response.ItemResponse.ItemPath">
-            <summary>
-            Gets the path of the item.
-            </summary>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Response.ItemResponse.Response">
-            <summary>
-            Gets the response for the item.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.LockedResponse">
-            <summary>
-            Indicates that operation has failed because the source or destination hierarchy item is locked
-            and client did not provide lock token.
-            </summary>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.LockedResponse.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.MultipropResponse">
-            <summary>
-            Serves as responses container for multiple WebDAV properties.
-            </summary>
+            <value>Logging level. Default is <c>Info</c></value>
             <remarks>
-            This class serves as multistatus response for properties.
-            You must return <c>MultipropResponse</c> object from your implementation of
-            the <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method. You must include response for each
-            property passed to the <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method in parameters.
-            You can collect multiple responses using the <see cref="M:ITHit.WebDAV.Server.Response.MultipropResponse.AddResponses(ITHit.WebDAV.Server.Response.PropResponse[])"/> method.
+            Provides the method of limiting amount of logging output. During the 
+            development you will usually set <c>LogLevel</c> to <see cref="F:ITHit.WebDAV.Logger.LogLevel.All"/> or <see cref="F:ITHit.WebDAV.Logger.LogLevel.Debug"/> level, while 
+            deploying you can set it to <see cref="F:ITHit.WebDAV.Logger.LogLevel.Error"/> or <see cref="F:ITHit.WebDAV.Logger.LogLevel.Fatal"/>.
             </remarks>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.MultipropResponse.#ctor">
+        <member name="P:ITHit.WebDAV.Logger.FileLogger.FileSize">
             <summary>
-            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> class.
+            Gets and sets maximum log file size in bytes.
             </summary>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.MultipropResponse.AddResponses(ITHit.WebDAV.Server.Response.PropResponse[])">
-            <summary>
-            Adds new responses to the private collection in this class.
-            </summary>
-            <param name="r">Array of responses to add to the collection</param>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Response.MultipropResponse.Responses">
-            <summary>
-            Gets the array of the responses for multiple properties in this multistatus response.
-            </summary>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Response.MultipropResponse.ResponseDescription">
-            <summary>
-            Gets/sets 'responsedescription' property for multi-status response
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.MultistatusResponse">
-            <summary>
-            Serves as the container for multiple WebDAV responses.
-            </summary>
+            <value>
+            Maximum log file size in bytes. Default is 1048576 bytes.
+            </value>
             <remarks>
-            You must return <c>MultistatusResponse</c> object if errors occur
-            when you perform WebDAV operation on the hierarchy subtree.
-            You can collect multiple responses using the <see cref="M:ITHit.WebDAV.Server.Response.MultistatusResponse.AddResponses(ITHit.WebDAV.Server.Response.ItemResponse[])"/> method.
+            When the file exceeds the size specified by <c>FileSize</c> the new log file is created. The old file is renamed to &lt;filename&gt;.&lt;number&gt;.
             </remarks>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.MultistatusResponse.#ctor">
+        <member name="P:ITHit.WebDAV.Logger.FileLogger.MaxBackups">
             <summary>
-            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.MultistatusResponse"/> class.
+            Gets and sets Maximum number of log file backups.
             </summary>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.MultistatusResponse.AddResponses(ITHit.WebDAV.Server.Response.ItemResponse[])">
-            <summary>
-            Adds new responses to the private collection in this class.
-            </summary>
-            <param name="r">Array of responses to add to the collection</param>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Response.MultistatusResponse.Responses">
-            <summary>
-            Gets the array of the responses for multiple hierarchy items in this multistatus response.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.NoContentResponse">
-            <summary>
-            Indicates that operation has succeeded.
-            </summary>
+            <value>
+            Amount of log file backups. Default is 1.
+            </value>
             <remarks>
-            Has a different meaning depending on the operation invoked.
+            If the amount of the backup files created is higher than <c>MaxBackups</c> the oldest file is automatically deleted.
             </remarks>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.NoContentResponse.#ctor">
+        <member name="M:ITHit.WebDAV.Logger.FileLogger.WriteMessage(System.String)">
             <summary>
-            
+            Wrights a message to a log file with level <see cref="F:ITHit.WebDAV.Logger.LogLevel.Info"/>.
+            </summary>
+            <param name="message">Message to be logged</param>
+        </member>
+        <member name="M:ITHit.WebDAV.Logger.FileLogger.WriteMessage(System.String,ITHit.WebDAV.Logger.LogLevel)">
+            <summary>
+            Wrights a message to a log file with a specified log level.
+            </summary>
+            <param name="message">Message to be logged</param>
+            <param name="level">Logging level</param>
+            <example>
+            <code>
+            FileLogger.LogFile = "C:\WebDAV\WebDAVServerLog.txt"; // C:\WebDAV\ must exist and the application must have enough permission to write and create files in this folder
+            FileLogger.Level = LogLevel.Warn;
+            FileLogger.WriteMessage("My error message", LogLevel.Error); // this message will be written to the log file
+            FileLogger.WriteMessage("My debug message", LogLevel.Debug); // this message will not be written to the log file
+            FileLogger.WriteMessage("My info message"); // this message will not be written to the log file
+            </code>
+            </example>        
+        </member>
+        <member name="T:ITHit.WebDAV.Logger.LogLevel">
+            <summary>
+            Type of information being logged.
+            </summary>
+            <example>
+            <code>
+            FileLogger.LogFile = "C:\WebDAV\WebDAVServerLog.txt"; // C:\WebDAV\ must exist and the application must have enough permission to write and create files in this folder
+            FileLogger.Level = LogLevel.Warn;
+            FileLogger.WriteMessage("My error message", LogLevel.Error); // this message will be written to the log file
+            FileLogger.WriteMessage("My debug message", LogLevel.Debug); // this message will not be written to the log file
+            FileLogger.WriteMessage("My info message"); // this message will not be written to the log file
+            </code>
+            </example>
+        </member>
+        <member name="F:ITHit.WebDAV.Logger.LogLevel.All">
+            <summary>
+            All messages will be written to log.
             </summary>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Response.NotAllowedResponse">
+        <member name="F:ITHit.WebDAV.Logger.LogLevel.Debug">
             <summary>
-            The invoked operation is not allowed for the hierarchy item.
-            </summary>
-            <remarks>
-            Usually you will return this response when operation invoked for the lock-null item is not allowed.
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.NotAllowedResponse.#ctor">
-            <summary>
-            
+            Messages with <c>LogLevel.Debug</c> level will be written to log.
             </summary>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Response.OkResponse">
+        <member name="F:ITHit.WebDAV.Logger.LogLevel.Info">
             <summary>
-            Indicates that operation has succeeded.
+            Messages with <c>LogLevel.Info</c> level will be written to log.
             </summary>
         </member>
-        <member name="M:ITHit.WebDAV.Server.Response.OkResponse.#ctor">
+        <member name="F:ITHit.WebDAV.Logger.LogLevel.Warn">
             <summary>
-            
+            Messages with <c>LogLevel.Warn</c> level will be written to log.
             </summary>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Response.PreconditionFailedResponse">
+        <member name="F:ITHit.WebDAV.Logger.LogLevel.Error">
             <summary>
-            The precondition given by the WebDAV client evaluated to false
-            when it was tested on the server.
-            </summary>
-            <remarks>
-            Usually you will return this response from the <see cref="M:ITHit.WebDAV.Server.ILock.RefreshLock(ITHit.WebDAV.Server.LockInfo@)"/>
-            and <see cref="M:ITHit.WebDAV.Server.ILock.Unlock(System.String)"/> methods when the lock token included in the parameters
-            was not enforceable on the hierarchy item.
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.PreconditionFailedResponse.#ctor">
-            <summary>
-            
+            Messages with <c>LogLevel.Error</c> level will be written to log.
             </summary>
         </member>
-        <member name="T:ITHit.WebDAV.Server.Response.PropResponse">
+        <member name="F:ITHit.WebDAV.Logger.LogLevel.Fatal">
             <summary>
-            Represents response for one property in multistatus response.
-            </summary>
-            <remarks>
-            Usually you will use this class when you need to return multiple WebDAV responses
-            from your <see cref="M:ITHit.WebDAV.Server.IHierarchyItem.UpdateProperties(ITHit.WebDAV.Server.Property[],ITHit.WebDAV.Server.Property[])"/> method using <see cref="T:ITHit.WebDAV.Server.Response.MultipropResponse"/> object.
-            </remarks>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.PropResponse.#ctor(ITHit.WebDAV.Server.Property,ITHit.WebDAV.Server.Response.WebDAVResponse)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ITHit.WebDAV.Server.Response.PropResponse"/> class.
-            </summary>
-            <param name="prop">Provides name and namespace of the property</param>
-            <param name="response">WebDAV response for the property</param>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Response.PropResponse.PropName">
-            <summary>
-            Gets the property name.
+            Messages with <c>LogLevel.Fatal</c> level will be written to log.
             </summary>
         </member>
-        <member name="P:ITHit.WebDAV.Server.Response.PropResponse.PropNamespace">
+        <member name="F:ITHit.WebDAV.Logger.LogLevel.Off">
             <summary>
-            Gets the property namespace.
-            </summary>
-        </member>
-        <member name="P:ITHit.WebDAV.Server.Response.PropResponse.Response">
-            <summary>
-            Gets the response for the property.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Response.ServerErrorResponse">
-            <summary>
-            Server error occurred.
-            </summary>
-        </member>
-        <member name="M:ITHit.WebDAV.Server.Response.ServerErrorResponse.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Constants.WebDav">
-            <summary>
-            WebDAV constants.
-            </summary>
-        </member>
-        <member name="T:ITHit.WebDAV.Server.Constants.WebDav.PropertyNames">
-            <summary>
-            WebDAV Live Properties.
+            No messages will be written to log.
             </summary>
         </member>
     </members>

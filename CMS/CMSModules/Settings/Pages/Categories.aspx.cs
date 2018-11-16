@@ -4,14 +4,25 @@ using CMS.Base.Web.UI;
 using CMS.DataEngine;
 using CMS.Helpers;
 using CMS.UIControls;
+using CMS.Base;
 
-
-public partial class CMSModules_Settings_Pages_Categories : GlobalAdminPage
+public partial class CMSModules_Settings_Pages_Categories : CMSDeskPage
 {
+    /// <summary>
+    /// OnPreLoad event. 
+    /// </summary>
+    protected override void OnPreLoad(EventArgs e)
+    {
+        base.OnPreLoad(e);
+        RequireSite = false;
+    }
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         ScriptHelper.RegisterJQuery(Page);
 
+        TreeViewCategories.ShowHeaderPanel = CMSActionContext.CurrentUser.CheckPrivilegeLevel(UserPrivilegeLevelEnum.GlobalAdmin);
         TreeViewCategories.RootIsClickable = true;
 
         // Get selected category ID

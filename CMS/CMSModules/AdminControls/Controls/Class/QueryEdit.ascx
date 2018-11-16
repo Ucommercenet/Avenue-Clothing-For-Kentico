@@ -1,8 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="CMSModules_AdminControls_Controls_Class_QueryEdit"
      Codebehind="QueryEdit.ascx.cs" %>
-
-<%@ Register Src="~/CMSAdminControls/UI/Selectors/LoadGenerationSelector.ascx" TagName="LoadGenerationSelector"
-    TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/Filters/DocTypeFilter.ascx" TagName="DocTypeFilter"
     TagPrefix="cms" %>
 <%@ Register Src="~/CMSFormControls/Basic/SelectConnectionString.ascx" TagName="SelectString"
@@ -67,16 +64,7 @@
                         Language="SQL" Height="280px" Width="100%" />
                 </div>
             </div>
-            <asp:PlaceHolder runat="server" ID="plcLoadGeneration">
-                <div class="form-group">
-                    <div class="editing-form-label-cell">
-                        <cms:LocalizedLabel CssClass="control-label" runat="server" ID="lblLoadGeneration" EnableViewState="false"
-                            ResourceString="LoadGeneration.Title" DisplayColon="true" AssociatedControlID="drpGeneration" />
-                    </div>
-                    <div class="editing-form-value-cell">
-                        <cms:LoadGenerationSelector ID="drpGeneration" runat="server" />
-                    </div>
-                </div>
+            <asp:PlaceHolder runat="server" ID="plcConnectionString">
                 <div class="form-group">
                     <div class="editing-form-label-cell">
                         <cms:LocalizedLabel CssClass="control-label" runat="server" ID="lblConnString" EnableViewState="false" ResourceString="ConnectionString.Title"
@@ -93,7 +81,7 @@
                         <cms:LocalizedLinkButton ID="lnkHelp" runat="server" OnClientClick="ToggleHelp(); return false;"
                             ResourceString="queryedit.helpheader" EnableViewState="false" />
                     </div>
-                    <div class="control-group-inline">
+                    <div class="control-group-inline-forced">
                         <asp:Table ID="tblHelp" runat="server" EnableViewState="false" CssClass="table table-hover" />
                     </div>
                 </div>

@@ -25,7 +25,7 @@ public partial class CMSModules_Activities_Controls_UI_ActivityDetails_PurchaseD
         int orderId = QueryHelper.GetInteger("orderid", 0);
 
         // Get order object
-        var order = BaseAbstractInfoProvider.GetInfoById(PredefinedObjectType.ORDER, orderId);
+        var order = ProviderHelper.GetInfoById(PredefinedObjectType.ORDER, orderId);
         if (order != null)
         {
             ltl.Text = order.GetStringValue("OrderInvoice", "");

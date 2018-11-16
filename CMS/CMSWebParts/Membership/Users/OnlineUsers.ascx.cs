@@ -140,7 +140,7 @@ public partial class CMSWebParts_Membership_Users_OnlineUsers : CMSAbstractWebPa
         }
         else
         {
-            if (!Service.Entry<ILicenseService>().IsFeatureAvailable(FeatureEnum.OnlineUsers))
+            if (!ObjectFactory<ILicenseService>.StaticSingleton().IsFeatureAvailable(FeatureEnum.OnlineUsers))
             {
                 ShowLicenseLimitationError();
 

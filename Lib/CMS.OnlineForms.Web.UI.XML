@@ -33,11 +33,6 @@
             Provides service methods regarding contact and its submitted forms.
             </summary>
         </member>
-        <member name="T:CMS.OnlineForms.Web.UI.IContactSubmittedFormsControllerService">
-            <summary>
-            Provides service methods regarding contact and its submitted forms.
-            </summary>
-        </member>
         <member name="M:CMS.OnlineForms.Web.UI.ContactSubmittedFormsControllerService.#ctor(CMS.PortalEngine.Internal.IUILinkProvider)">
             <summary>
             Instantiates new instance of <see cref="T:CMS.OnlineForms.Web.UI.ContactSubmittedFormsControllerService"/>.
@@ -50,6 +45,11 @@
             </summary>
             <param name="contactID">ID of contact the <see cref="T:CMS.OnlineForms.Web.UI.ContactSubmittedFormsViewModel"/> is obtained for</param>
             <returns>Instance of <see cref="T:CMS.OnlineForms.Web.UI.ContactSubmittedFormsViewModel"/> for the given <paramref name="contactID"/>, or empty list if no activity or form is found</returns>
+        </member>
+        <member name="T:CMS.OnlineForms.Web.UI.IContactSubmittedFormsControllerService">
+            <summary>
+            Provides service methods regarding contact and its submitted forms.
+            </summary>
         </member>
         <member name="T:CMS.OnlineForms.Web.UI.ContactSubmittedFormsViewModel">
             <summary>
@@ -146,6 +146,91 @@
         <member name="F:CMS.OnlineForms.Web.UI.BizForm.content">
             <summary>
             Bizform item.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.LocalMessagesPlaceHolder">
+            <summary>
+            Gets the local messages placeholder.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.RegExEmailMacro">
+            <summary>
+            Regular expression for macros in e-mail body, macros are in form $$type:fieldname$$.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormName">
+            <summary>
+            BizForm name.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.ItemID">
+            <summary>
+            Primary key value of the item being edited.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.ShowPrivateFields">
+            <summary>
+            Indicates whether to show private fields or not.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.AlternativeFormFullName">
+            <summary>
+            Alternative form full name (ClassName.AlternativeFormName).
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.DefaultValidationErrorMessage">
+            <summary>
+            Default validation error message.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.EncodeEmails">
+            <summary>
+            Indicates if notification and confirmation e-mails should be encoded, default value is 'false'.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.EnableNotificationEmail">
+            <summary>
+            If TRUE then notification e-mail will be send. The notification e-mail has to be defined. Default value is TRUE.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.EnableAutoresponder">
+            <summary>
+            If TRUE then autoresponder e-mail will be send. The autoresponder has to be defined. Default value is TRUE.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormRedirectToUrl">
+            <summary>
+            If set, overrides settings in BizFormInfo.FormRedirectToUrl.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormDisplayText">
+            <summary>
+            If set, overrides settings in BizFormInfo.FormDisplayText.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormClearAfterSave">
+            <summary>
+            If set, overrides settings in BizFormInfo.FormClearAfterSave.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.DisplayOriginalFileName">
+            <summary>
+            Indicates whether original file name should be displayed instead of the file GUID in 'Uploader' controls.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.InfoLabel">
+            <summary>
+            Information label.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.ErrorLabel">
+            <summary>
+            Label for the errors.
+            </summary>
+        </member>
+        <member name="P:CMS.OnlineForms.Web.UI.BizForm.MessagesPlaceHolder">
+            <summary>
+            Messages placeholder
             </summary>
         </member>
         <member name="M:CMS.OnlineForms.Web.UI.BizForm.#ctor">
@@ -343,91 +428,6 @@
             Ensures that essential data is initialized when notification or confirmation emails are send from an external code.
             </summary>
             <param name="bfi">BizFormInfo object</param>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.LocalMessagesPlaceHolder">
-            <summary>
-            Gets the local messages placeholder.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.RegExEmailMacro">
-            <summary>
-            Regular expression for macros in e-mail body, macros are in form $$type:fieldname$$.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormName">
-            <summary>
-            BizForm name.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.ItemID">
-            <summary>
-            Primary key value of the item being edited.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.ShowPrivateFields">
-            <summary>
-            Indicates whether to show private fields or not.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.AlternativeFormFullName">
-            <summary>
-            Alternative form full name (ClassName.AlternativeFormName).
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.DefaultValidationErrorMessage">
-            <summary>
-            Default validation error message.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.EncodeEmails">
-            <summary>
-            Indicates if notification and confirmation e-mails should be encoded, default value is 'false'.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.EnableNotificationEmail">
-            <summary>
-            If TRUE then notification e-mail will be send. The notification e-mail has to be defined. Default value is TRUE.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.EnableAutoresponder">
-            <summary>
-            If TRUE then autoresponder e-mail will be send. The autoresponder has to be defined. Default value is TRUE.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormRedirectToUrl">
-            <summary>
-            If set, overrides settings in BizFormInfo.FormRedirectToUrl.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormDisplayText">
-            <summary>
-            If set, overrides settings in BizFormInfo.FormDisplayText.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.FormClearAfterSave">
-            <summary>
-            If set, overrides settings in BizFormInfo.FormClearAfterSave.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.DisplayOriginalFileName">
-            <summary>
-            Indicates whether original file name should be displayed instead of the file GUID in 'Uploader' controls.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.InfoLabel">
-            <summary>
-            Information label.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.ErrorLabel">
-            <summary>
-            Label for the errors.
-            </summary>
-        </member>
-        <member name="P:CMS.OnlineForms.Web.UI.BizForm.MessagesPlaceHolder">
-            <summary>
-            Messages placeholder
-            </summary>
         </member>
         <member name="T:CMS.OnlineForms.Web.UI.BizForm.IFormFieldInfoProvider">
             <summary>

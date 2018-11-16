@@ -122,7 +122,7 @@ public partial class CMSModules_Forums_Controls_Layouts_Tree_Threads : ForumView
             if (fpi != null)
             {
                 ucAbuse.ReportObjectID = fpi.PostId;
-                ucAbuse.ReportTitle = ResHelper.GetString("Forums_WebInterface_ForumPost.AbuseReport", SettingsKeyInfoProvider.GetValue(SiteContext.CurrentSiteName + ".CMSDefaultCulture")) + fpi.PostText;
+                ucAbuse.ReportTitle = ResHelper.GetString("Forums_WebInterface_ForumPost.AbuseReport", CultureHelper.GetDefaultCultureCode(SiteContext.CurrentSiteName)) + fpi.PostText;
                 ucAbuse.CMSPanel.CommunityGroupID = CommunityGroupID;
                 ucAbuse.CMSPanel.SecurityAccess = AbuseReportAccess;
                 ucAbuse.CMSPanel.Roles = AbuseReportRoles;

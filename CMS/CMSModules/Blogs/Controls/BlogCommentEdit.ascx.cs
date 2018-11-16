@@ -510,7 +510,7 @@ public partial class CMSModules_Blogs_Controls_BlogCommentEdit : CMSUserControl
                     else
                     {
                         // Subscribe new subscriber
-                        var currentContactMergeService = Service<ICurrentContactMergeService>.Entry();
+                        var currentContactMergeService = Service.Resolve<ICurrentContactMergeService>();
                         if (chkSubscribe.Checked)
                         {
                             // Check for duplicate subscriptions

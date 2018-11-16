@@ -1,10 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-
-using CMS.Helpers;
+﻿using CMS.Helpers;
 using CMS.PortalEngine.Web.UI;
 
 public partial class CMSWebParts_ContentRating_ContentRating : CMSAbstractWebPart
@@ -141,7 +135,7 @@ public partial class CMSWebParts_ContentRating_ContentRating : CMSAbstractWebPar
 
 
     /// <summary>
-    /// Gets or sets value that indicates wheter rating is allowed for public users.
+    /// Gets or sets value that indicates whether rating is allowed for public users.
     /// </summary>
     public bool AllowForPublic
     {

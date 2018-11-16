@@ -43,7 +43,7 @@ public partial class CMSModules_ContactManagement_Pages_Tools_Automation_Process
             ucReport.LoadFormParameters = false;
 
             string parameterString = String.Format("AutomationProcessID;{0};", processId);
-            DataRow parameters = ReportHelper.GetReportParameters(report, parameterString, null, CultureHelper.EnglishCulture, CultureHelper.PreferredUICultureInfo);
+            DataRow parameters = ReportHelper.GetReportParameters(report, parameterString, null, CultureHelper.EnglishCulture);
             ucReport.ReportParameters = parameters;
             reportHeader.ReportParameters = parameters;
 

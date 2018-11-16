@@ -44,8 +44,8 @@ public partial class CMSModules_OnlineMarketing_Controls_WebParts_WebPartZonePer
         if (variantMode == VariantModeEnum.MVT)
         {
             // Display MVT edit dialog
-            mvtEditElem.UIFormControl.EditedObject = BaseAbstractInfoProvider.GetInfoById(MVTVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
-            mvtEditElem.UIFormControl.ParentObject = BaseAbstractInfoProvider.GetInfoById(PageTemplateInfo.OBJECT_TYPE, QueryHelper.GetInteger("templateid", 0));
+            mvtEditElem.UIFormControl.EditedObject = ProviderHelper.GetInfoById(MVTVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
+            mvtEditElem.UIFormControl.ParentObject = ProviderHelper.GetInfoById(PageTemplateInfo.OBJECT_TYPE, QueryHelper.GetInteger("templateid", 0));
             mvtEditElem.Visible = true;
             mvtEditElem.UIFormControl.SubmitButton.Visible = false;
             mvtEditElem.UIFormControl.ReloadData();
@@ -53,8 +53,8 @@ public partial class CMSModules_OnlineMarketing_Controls_WebParts_WebPartZonePer
         else if (variantMode == VariantModeEnum.ContentPersonalization)
         {
             // Display Content personalization edit dialog
-            cpEditElem.UIFormControl.EditedObject = BaseAbstractInfoProvider.GetInfoById(ContentPersonalizationVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
-            cpEditElem.UIFormControl.ParentObject = BaseAbstractInfoProvider.GetInfoById(PageTemplateInfo.OBJECT_TYPE, QueryHelper.GetInteger("templateid", 0));
+            cpEditElem.UIFormControl.EditedObject = ProviderHelper.GetInfoById(ContentPersonalizationVariantInfo.OBJECT_TYPE, QueryHelper.GetInteger("variantid", 0));
+            cpEditElem.UIFormControl.ParentObject = ProviderHelper.GetInfoById(PageTemplateInfo.OBJECT_TYPE, QueryHelper.GetInteger("templateid", 0));
             cpEditElem.Visible = true;
             cpEditElem.UIFormControl.SubmitButton.Visible = false;
             cpEditElem.UIFormControl.ReloadData();

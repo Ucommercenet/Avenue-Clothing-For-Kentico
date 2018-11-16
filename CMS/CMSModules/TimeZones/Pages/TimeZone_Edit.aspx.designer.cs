@@ -171,7 +171,7 @@ public partial class CMSModules_TimeZones_Pages_TimeZone_Edit {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSModules_TimeZones_Controls_TimeZoneRuleEdior startRuleEditor;
+    protected global::CMSModules_TimeZones_Controls_TimeZoneRuleEditor startRuleEditor;
     
     /// <summary>
     /// endRuleEditor control.
@@ -180,7 +180,7 @@ public partial class CMSModules_TimeZones_Pages_TimeZone_Edit {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::CMSModules_TimeZones_Controls_TimeZoneRuleEdior endRuleEditor;
+    protected global::CMSModules_TimeZones_Controls_TimeZoneRuleEditor endRuleEditor;
     
     /// <summary>
     /// btnOk control.

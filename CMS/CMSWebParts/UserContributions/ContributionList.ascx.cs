@@ -168,23 +168,6 @@ public partial class CMSWebParts_UserContributions_ContributionList : CMSAbstrac
         }
     }
 
-
-    /// <summary>
-    /// Gets or sets the columns to retrieve.
-    /// </summary>
-    public string Columns
-    {
-        get
-        {
-            return DataHelper.GetNotEmpty(ValidationHelper.GetString(GetValue("Columns"), list.Columns), list.Columns);
-        }
-        set
-        {
-            SetValue("Columns", value);
-            list.Columns = value;
-        }
-    }
-
     #endregion
 
 
@@ -553,7 +536,6 @@ public partial class CMSWebParts_UserContributions_ContributionList : CMSAbstrac
             list.ValidationErrorMessage = ValidationErrorMessage;
             list.NewItemButtonText = NewItemButtonText;
             list.ListButtonText = ListButtonText;
-            list.Columns = Columns;
             list.LogActivity = LogActivity;
             list.ComponentName = WebPartID;
         }

@@ -29,6 +29,10 @@ public class FormUserControlEditExtender : ControlExtender<UIForm>
     private const string FIELD_FOR = "UserControlFor";
     private const string FIELD_SHOWIN = "UserControlShowIn";
     private const string FIELD_SHOWIN2 = "UserControlShowIn2";
+    private const string FIELD_ASSEMBLYNAME = "UserControlAssemblyName";
+    private const string FIELD_CLASSNAME = "UserControlClassName";
+    private const string FIELD_PARENTID = "UserControlParentID";
+    private const string FIELD_FILENAME = "UserControlFileName";
 
     #endregion
 
@@ -39,6 +43,37 @@ public class FormUserControlEditExtender : ControlExtender<UIForm>
     {
         Control.OnAfterDataLoad += Control_OnAfterDataLoad;
         Control.OnBeforeSave += Control_OnBeforeSave;
+        Control.OnItemValidation += Control_OnItemValidation;
+    }
+
+
+    private void Control_OnItemValidation(object sender, ref string errorMessage)
+    {
+        // Checks whether Assembly name and class name are selected for Assembly-based form control
+        var formControl = (FormEngineUserControl)sender;
+        if (FIELD_ASSEMBLYNAME.Equals(formControl.Field, StringComparison.OrdinalIgnoreCase))
+        {
+            var form = (UIForm)formControl.Form;
+            var parentIdControl = form.FieldControls[FIELD_PARENTID];
+            var assemblyControl = form.FieldControls[FIELD_ASSEMBLYNAME];
+            if (!parentIdControl.Visible && assemblyControl.Visible)
+            {
+                bool originalValue = false;
+                try
+                {
+                    originalValue = assemblyControl.FieldInfo.AllowEmpty;
+                    assemblyControl.FieldInfo.AllowEmpty = false;
+                    if (!assemblyControl.IsValid())
+                    {
+                        errorMessage = ResHelper.GetString("AssemblySelector.BadAssemblyOrClass");
+                    }
+                }
+                finally
+                {
+                    assemblyControl.FieldInfo.AllowEmpty = originalValue;
+                }
+            }
+        }
     }
 
 
@@ -90,17 +125,37 @@ public class FormUserControlEditExtender : ControlExtender<UIForm>
         {
             if (form.IsInsertMode)
             {
-                FormEngineUserControl fileName = form.FieldControls["UserControlFileName"];
-                FormEngineUserControl parentId = form.FieldControls["UserControlParentID"];
+                var parentIdControl = form.FieldControls[FIELD_PARENTID];
 
-                if ((fileName != null) && (parentId != null) && fileName.Visible && !parentId.Visible && (ValidationHelper.GetInteger(parentId.Value, 0) > 0))
+                // Reset inheritance setting if it's not visible
+                if (parentIdControl == null || !parentIdControl.Visible)
                 {
-                    // Reset inheritance setting if it's not visible
-                    formControl.SetValue("UserControlParentID", null);
+                    formControl.SetValue(FIELD_PARENTID, null);
+                }
+
+                // Ensure that form definition of parameters is not empty
+                if (string.IsNullOrWhiteSpace(formControl.UserControlParameters))
+                {
+                    formControl.UserControlParameters = FormInfo.GetEmptyFormDocument().OuterXml;
                 }
             }
             else
             {
+                // Reset filename if field not available
+                var fileNameControl = form.FieldControls[FIELD_FILENAME];
+                if (fileNameControl == null || !fileNameControl.Visible)
+                {
+                    formControl.SetValue(FIELD_FILENAME, String.Empty);
+                }
+
+                // Reset class name if field not available
+                var assemblyControl = form.FieldControls[FIELD_ASSEMBLYNAME];
+                if(assemblyControl == null || !assemblyControl.Visible)
+                {
+                    formControl.SetValue(FIELD_ASSEMBLYNAME, null);
+                    formControl.SetValue(FIELD_CLASSNAME, null);
+                }
+
                 // Set control's priority
                 formControl.UserControlPriority = ValidationHelper.GetBoolean(form.GetFieldValue(FIELD_PRIORITY), false) ? (int)ObjectPriorityEnum.High : (int)ObjectPriorityEnum.Low;
 

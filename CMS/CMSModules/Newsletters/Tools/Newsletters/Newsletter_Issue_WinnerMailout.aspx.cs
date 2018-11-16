@@ -37,7 +37,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_W
                 RedirectToResourceNotAvailableOnSite("Issue with ID " + winner.IssueID);
             }
 
-            variantName = HTMLHelper.HTMLEncode(winner.IssueVariantName);
+            variantName = HTMLHelper.HTMLEncode(winner.GetVariantName());
         }
         lblInfo.Text = String.Format(GetString("newsletter_winnermailout.question"), variantName);
     }
@@ -84,14 +84,14 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_Issue_W
             if ((issue != null) && (winner != null))
             {
                 // Copy data from winner to parent
-                IssueHelper.CopyIssueProperties(winner, issue, "issuesubject;issuetext;issuetemplateid;issueshowinnewsletterarchive;issuesendername;issuesenderemail");
+                IssueHelper.CopyWinningVariantIssueProperties(winner, issue);
                 IssueInfoProvider.SetIssueInfo(issue);
 
                 // Remove previous scheduled task of this issue
                 NewsletterTasksManager.DeleteMailoutTask(issue.IssueGUID, issue.IssueSiteID);
 
                 DateTime mailoutTime = dtpMailout.SelectedDateTime;
-                Service<IIssueSender>.Entry().Send(IssueInfoProvider.GetIssueInfo(parentIssueId), mailoutTime);
+                Service.Resolve<IIssueScheduler>().ScheduleIssue(IssueInfoProvider.GetIssueInfo(parentIssueId), mailoutTime);
             }
         }
 

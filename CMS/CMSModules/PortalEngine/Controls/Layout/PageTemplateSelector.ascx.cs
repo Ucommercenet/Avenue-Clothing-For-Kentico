@@ -10,6 +10,7 @@ public partial class CMSModules_PortalEngine_Controls_Layout_PageTemplateSelecto
 {
     #region "Variables"
 
+    private PageTemplateCategoryInfo mRootCategory;
     private bool mShowOnlySiteTemplates = true;
 
     #endregion
@@ -231,12 +232,30 @@ public partial class CMSModules_PortalEngine_Controls_Layout_PageTemplateSelecto
 
 
     /// <summary>
-    /// Root category
+    /// Root category ID.
     /// </summary>
-    public int RootCategory
+    public int RootCategoryID
     {
         get;
         set;
+    }
+
+
+    /// <summary>
+    /// Root category.
+    /// </summary>
+    private PageTemplateCategoryInfo RootCategory
+    {
+        get
+        {
+            if (mRootCategory == null)
+            {
+                mRootCategory = (RootCategoryID > 0) ? PageTemplateCategoryInfoProvider.GetPageTemplateCategoryInfo(RootCategoryID)
+                    : PageTemplateCategoryInfoProvider.GetPageTemplateCategoryInfo("/");
+            }
+
+            return mRootCategory;
+        }
     }
 
     #endregion
@@ -264,7 +283,9 @@ public partial class CMSModules_PortalEngine_Controls_Layout_PageTemplateSelecto
             return;
         }
 
-        if (!URLHelper.IsPostback())
+        SetRootCategory();
+
+        if (!RequestHelper.IsPostBack())
         {
             // Preselect root category
             SelectRootCategory();
@@ -357,26 +378,18 @@ public partial class CMSModules_PortalEngine_Controls_Layout_PageTemplateSelecto
     /// <summary>
     /// Sets the root category to the control
     /// </summary>
-    protected PageTemplateCategoryInfo LoadRootCategory()
+    protected void SetRootCategory()
     {
-        PageTemplateCategoryInfo ptci;
-
-        if (RootCategory > 0)
+        if (RootCategoryID > 0)
         {
-            ptci = PageTemplateCategoryInfoProvider.GetPageTemplateCategoryInfo(RootCategory);
             treeElem.MultipleRoots = false;
         }
-        else
-        {
-            ptci = PageTemplateCategoryInfoProvider.GetPageTemplateCategoryInfoByCodeName("/");
-        }
-        if (ptci != null)
+
+        if (RootCategory != null)
         {
             // Select and expand root node
-            treeElem.RootPath = ptci.CategoryPath;
+            treeElem.RootPath = RootCategory.CategoryPath;
         }
-
-        return ptci;
     }
 
 
@@ -397,14 +410,13 @@ public partial class CMSModules_PortalEngine_Controls_Layout_PageTemplateSelecto
     /// </summary>
     private void SelectRootCategory()
     {
-        PageTemplateCategoryInfo ptci = LoadRootCategory();
-        if (ptci != null)
+        if (RootCategory != null)
         {
-            flatElem.SelectedCategory = ptci;
+            flatElem.SelectedCategory = RootCategory;
 
             // Select and expand root node
-            treeElem.SelectedItem = String.IsNullOrEmpty(TreeSelectedCategory) ? ptci.CategoryId.ToString() : TreeSelectedCategory;
-            treeElem.SelectPath = ptci.CategoryPath;
+            treeElem.SelectedItem = String.IsNullOrEmpty(TreeSelectedCategory) ? RootCategoryID.ToString() : TreeSelectedCategory;
+            treeElem.SelectPath = RootCategory.CategoryPath;
         }
     }
 

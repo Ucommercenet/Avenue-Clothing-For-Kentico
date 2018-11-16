@@ -13,7 +13,6 @@
   </columns>
   <objecttype name="community.friendlist" columns = "FriendID,UserName,UserNickname,FriendStatus,FullName,FriendComment" />
   <pager>
-    <key name="ShowFirstLastButtons" value="false" />
     <key name="ShowDirectPageControl" value="false" />
   </pager>
   <options>

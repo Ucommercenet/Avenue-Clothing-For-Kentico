@@ -111,17 +111,17 @@
             Provides content extraction from text (.txt) files.
             </summary>
         </member>
+        <member name="P:CMS.Search.TextExtractors.TextSearchTextExtractor.DetectEncoding">
+            <summary>
+            If true, the extractor first tries to detect the encoding of the file to correctly interpret the text.
+            </summary>
+        </member>
         <member name="M:CMS.Search.TextExtractors.TextSearchTextExtractor.ExtractContent(CMS.Core.BinaryData,CMS.Search.ExtractionContext)">
             <summary>
             Extracts content from given data.
             </summary>
             <param name="data">Data to extract text from</param>
             <param name="context">Extraction context (ISeachDocument, Culture, etc.)</param>
-        </member>
-        <member name="P:CMS.Search.TextExtractors.TextSearchTextExtractor.DetectEncoding">
-            <summary>
-            If true, the extractor first tries to detect the encoding of the file to correctly interpret the text.
-            </summary>
         </member>
         <member name="M:CMS.Search.TextExtractors.StreamExtensions.ReadToEnd(System.IO.Stream,System.Text.Encoding)">
             <summary>
@@ -140,23 +140,15 @@
             <param name="data">Data to extract text from</param>
             <param name="context">Extraction context (ISeachDocument, Culture, etc.)</param>
         </member>
-        <member name="M:CMS.Search.TextExtractors.XlsxSearchTextExtractor.ExtractComments(CMS.Core.BinaryData)">
+        <member name="M:CMS.Search.TextExtractors.XlsxSearchTextExtractor.ExtractContent(System.IO.Stream)">
             <summary>
-            Extracts author comments from the slides.
+            Extracts content from given data.
             </summary>
-            <param name="data">Data to extract text from</param>
         </member>
         <member name="T:CMS.Search.TextExtractors.XmlSearchTextExtractor">
             <summary>
             Provides content extraction from XML files.
             </summary>
-        </member>
-        <member name="M:CMS.Search.TextExtractors.XmlSearchTextExtractor.ExtractContent(CMS.Core.BinaryData,CMS.Search.ExtractionContext)">
-            <summary>
-            Extracts content from given data.
-            </summary>
-            <param name="data">Data to extract text from</param>
-            <param name="context">Extraction context (ISeachDocument, Culture, etc.)</param>
         </member>
         <member name="P:CMS.Search.TextExtractors.XmlSearchTextExtractor.IncludeComments">
             <summary>
@@ -167,6 +159,13 @@
             <summary>
             If true, values of the node attributes are indexed.
             </summary>
+        </member>
+        <member name="M:CMS.Search.TextExtractors.XmlSearchTextExtractor.ExtractContent(CMS.Core.BinaryData,CMS.Search.ExtractionContext)">
+            <summary>
+            Extracts content from given data.
+            </summary>
+            <param name="data">Data to extract text from</param>
+            <param name="context">Extraction context (ISeachDocument, Culture, etc.)</param>
         </member>
     </members>
 </doc>

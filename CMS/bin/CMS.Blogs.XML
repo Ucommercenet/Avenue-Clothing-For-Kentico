@@ -136,35 +136,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Blogs.BlogCommentInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogCommentInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogCommentInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty BlogCommentInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogCommentInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new BlogCommentInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogCommentInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
         <member name="P:CMS.Blogs.BlogCommentInfo.CommentInfo">
             <summary>
             Post ip, and agent values.
@@ -230,9 +201,43 @@
             Comment post document ID.
             </summary>
         </member>
+        <member name="M:CMS.Blogs.BlogCommentInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogCommentInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogCommentInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty BlogCommentInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogCommentInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new BlogCommentInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogCommentInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.Blogs.BlogCommentInfoProvider">
             <summary>
             Class providing BlogCommentInfo management.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.BlogCommentInfoProvider.EnableEmails">
+            <summary>
+            Indicates if e-mails are allowed to be sent to subscribers and moderators, by default it is set to True.
             </summary>
         </member>
         <member name="M:CMS.Blogs.BlogCommentInfoProvider.GetBlogCommentInfo(System.Int32)">
@@ -353,17 +358,6 @@
             </summary>
             <param name="documentId">Document id</param>
         </member>
-        <member name="M:CMS.Blogs.BlogCommentInfoProvider.GetBlogCommentsInternal">
-            <summary>
-            Returns object query for blog comments.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogCommentInfoProvider.GetBlogCommentInfoInternal(System.Int32)">
-            <summary>
-            Returns the BlogCommentInfo structure for the specified blogComment.
-            </summary>
-            <param name="blogCommentId">BlogComment id</param>
-        </member>
         <member name="M:CMS.Blogs.BlogCommentInfoProvider.SetBlogCommentInfoInternal(CMS.Blogs.BlogCommentInfo)">
             <summary>
             Sets (updates or inserts) specified blog comment.
@@ -375,18 +369,6 @@
             Deletes specified blogComment.
             </summary>
             <param name="blogCommentObj">BlogComment object</param>
-        </member>
-        <member name="M:CMS.Blogs.BlogCommentInfoProvider.GetAllCommentsInternal(System.String,System.String,System.Int32,System.String,System.Int32,System.Int32,System.Int32@)">
-            <summary>
-            Returns all comments.
-            </summary>
-            <param name="where">Where condition to filter data</param>
-            <param name="orderBy">Order by statement</param>
-            <param name="topN">Specifies number of returned records</param>
-            <param name="columns">Data columns to return</param>
-            <param name="offset">Index of first record to get</param>
-            <param name="maxRecords">Maximum number of records to get. If maxRecords is zero or less, all records are returned (no paging is used)</param>
-            <param name="totalRecords">Returns total records</param>
         </member>
         <member name="M:CMS.Blogs.BlogCommentInfoProvider.GetCommentsWaitingForApprovalInternal(System.String,System.Int32)">
             <summary>
@@ -435,11 +417,6 @@
             <param name="toSubscribers">Indicates if notification email should be sent to blog post subscribers</param>
             <param name="toModerators">Indicates if notification email should be sent to blog moderators</param>
             <param name="toBlogOwner">Indicates if notification email should be sent to blog owner</param>
-        </member>
-        <member name="P:CMS.Blogs.BlogCommentInfoProvider.EnableEmails">
-            <summary>
-            Indicates if e-mails are allowed to be sent to subscribers and moderators, by default it is set to True.
-            </summary>
         </member>
         <member name="T:CMS.Blogs.BlogHelper">
             <summary>
@@ -663,35 +640,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty BlogPostSubscriptionInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new BlogPostSubscriptionInfo object from the given DataRow.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks the permissions of the object.
-            </summary>
-            <param name="permission">Permission type</param>
-            <param name="siteName">Name of the site</param>
-            <param name="userInfo">UserInfo object</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-        </member>
         <member name="P:CMS.Blogs.BlogPostSubscriptionInfo.SubscriptionPostDocumentID">
             <summary>
             Subscription post document ID.
@@ -732,6 +680,35 @@
             Subscription approval hash code.
             </summary>
         </member>
+        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty BlogPostSubscriptionInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new BlogPostSubscriptionInfo object from the given DataRow.
+            </summary>
+        </member>
+        <member name="M:CMS.Blogs.BlogPostSubscriptionInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks the permissions of the object.
+            </summary>
+            <param name="permission">Permission type</param>
+            <param name="siteName">Name of the site</param>
+            <param name="userInfo">UserInfo object</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+        </member>
         <member name="T:CMS.Blogs.BlogPostSubscriptionInfoProvider">
             <summary>
             Class providing BlogPostSubscriptionInfo management.
@@ -766,14 +743,6 @@
             Returns blog post subscription info for specified subscription hash.
             </summary>
             <param name="subscriptionHash">Subscription hash</param>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptions(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Returns all blog post subscriptions for specified user which were created on specified site. Blog post document name is attached for each subscription.
-            </summary>
-            <param name="userId">User ID</param>
-            <param name="siteId">Site ID</param>
-            <param name="topN">TOP N query parameter</param>
         </member>
         <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptions(System.Int32,System.Int32,System.String,System.Int32)">
             <summary>
@@ -893,34 +862,11 @@
             <param name="datetime">Date and time of request</param>
             <param name="siteName">Site name.</param>
         </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptionInfoInternal(System.Int32)">
+        <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.DeleteInfo(CMS.Blogs.BlogPostSubscriptionInfo)">
             <summary>
-            Returns the BlogPostSubscriptionInfo structure for the specified blogPostSubscription.
+            Deletes the object to the database.
             </summary>
-            <param name="blogPostSubscriptionId">BlogPostSubscription id</param>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptionInfoInternal(System.Guid)">
-            <summary>
-            Returns the BlogPostSubscriptionInfo structure for the subscriber specified by its GUID.
-            </summary>
-            <param name="guid">Subscriber GUID</param>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.GetBlogPostSubscriptionsInternal">
-            <summary>
-            Gets the query for all blog post subscriptions.
-            </summary>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.DeleteBlogPostSubscriptionInfoInternal(CMS.Blogs.BlogPostSubscriptionInfo)">
-            <summary>
-            Deletes specified blogPostSubscription.
-            </summary>
-            <param name="infoObj">BlogPostSubscription object</param>
-        </member>
-        <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.SetBlogPostSubscriptionInfoInternal(CMS.Blogs.BlogPostSubscriptionInfo)">
-            <summary>
-            Sets (updates or inserts) specified blogPostSubscription.
-            </summary>
-            <param name="blogPostSubscription">BlogPostSubscription to set</param>
+            <param name="info">Object to delete</param>
         </member>
         <member name="M:CMS.Blogs.BlogPostSubscriptionInfoProvider.SendConfirmationEmailInternal(CMS.Blogs.BlogPostSubscriptionInfo,System.Boolean,System.Boolean)">
             <summary>
@@ -1122,6 +1068,61 @@
             Handles sending message blog e-mails in separated thread.
             </summary>
         </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.CommentObj">
+            <summary>
+            Blog comment information.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.Moderators">
+            <summary>
+            List of users' names. These users represents blog moderators.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.BlogOwnerEmail">
+            <summary>
+            Blog owner e-mail address where the new comment notification should be sent.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.Subscribers">
+            <summary>
+            Holds the information on subscribers e-mail is being sent to.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.EmailToModerators">
+            <summary>
+            E-mail message to blog moderators and blog owner.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.EmailToSubscribers">
+            <summary>
+            E-mail message to blog subscribers.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.EmailToOwner">
+            <summary>
+            E-mail message to blog owner.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.OwnerResolver">
+            <summary>
+            Resolver to use.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.SubscribersResolver">
+            <summary>
+            Resolver to use for subscribers notifications.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.SiteName">
+            <summary>
+            Name of the site the blog post is placed on.
+            </summary>
+        </member>
+        <member name="P:CMS.Blogs.ThreadEmailSender.UnsubscriptionURL">
+            <summary>
+            Resolved unsubscription URL.
+            </summary>
+        </member>
         <member name="M:CMS.Blogs.ThreadEmailSender.#ctor(CMS.Blogs.BlogCommentInfo)">
             <summary>
             Constructor - creates and initialize email sender.
@@ -1193,61 +1194,6 @@
             <param name="toSubscribers">Indicates if notification email should be sent to blog post subscribers</param>
             <param name="toModerators">Indicates if notification email should be sent to blog moderators</param>
             <param name="toBlogOwner">Indicates if notification email should be sent to blog owner</param>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.CommentObj">
-            <summary>
-            Blog comment information.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.Moderators">
-            <summary>
-            List of users' names. These users represents blog moderators.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.BlogOwnerEmail">
-            <summary>
-            Blog owner e-mail address where the new comment notification should be sent.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.Subscribers">
-            <summary>
-            Holds the information on subscribers e-mail is being sent to.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.EmailToModerators">
-            <summary>
-            E-mail message to blog moderators and blog owner.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.EmailToSubscribers">
-            <summary>
-            E-mail message to blog subscribers.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.EmailToOwner">
-            <summary>
-            E-mail message to blog owner.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.OwnerResolver">
-            <summary>
-            Resolver to use.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.SubscribersResolver">
-            <summary>
-            Resolver to use for subscribers notifications.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.SiteName">
-            <summary>
-            Name of the site the blog post is placed on.
-            </summary>
-        </member>
-        <member name="P:CMS.Blogs.ThreadEmailSender.UnsubscriptionURL">
-            <summary>
-            Resolved unsubscription URL.
-            </summary>
         </member>
     </members>
 </doc>

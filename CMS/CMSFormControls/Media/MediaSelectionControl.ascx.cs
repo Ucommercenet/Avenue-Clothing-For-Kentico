@@ -56,6 +56,22 @@ public partial class CMSFormControls_Media_MediaSelectionControl : FormEngineUse
         }
     }
 
+    /// <summary>
+    /// Indicates if the image preview should be displayed.
+    /// </summary>
+    public bool ShowPreview
+    {
+        get
+        {
+            return ValidationHelper.GetBoolean(GetValue("ShowPreview"), true);
+        }
+        set
+        {
+            SetValue("ShowPreview", value);
+            mediaSelector.ShowPreview = value;
+        }
+    }
+
     #endregion
 
 
@@ -102,6 +118,7 @@ public partial class CMSFormControls_Media_MediaSelectionControl : FormEngineUse
             mediaConfig.HideWeb = true;
             mediaSelector.DialogConfig = mediaConfig;
             mediaSelector.UseCustomDialogConfig = true;
+            mediaSelector.ShowPreview = ShowPreview;
         }
     }
 

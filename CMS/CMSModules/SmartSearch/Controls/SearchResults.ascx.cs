@@ -1345,10 +1345,10 @@ public partial class CMSModules_SmartSearch_Controls_SearchResults : CMSUserCont
             bool searchTextIsNotEmptyOrNotRequired = (!SearchTextRequired || !String.IsNullOrEmpty(searchText));
 
             // Proceed when search was triggered and search text is passing requirements settings. 
-            // Requirements setting could be overriden on this level by obsolete web.config key. The reason is backward compatibility.
+            // Requirements setting could be overridden on this level by obsolete web.config key. The reason is backward compatibility.
             // Search text required web part setting was introduced after this web.config key. Key default value was at the time set to true.
-            // This default value had the same effect as this new web part setting. When somenone changed the web.config key to false and then upgraded the solution,
-            // required wep part setting with default value true would override previous behaviour. That's the reason why this obsolete key can override this setting.  
+            // This default value had the same effect as this new web part setting. When someone changed the web.config key to false and then upgraded the solution,
+            // required web part setting with default value true would override previous behavior. That's the reason why this obsolete key can override this setting.  
             if (searchAllowed && (searchTextIsNotEmptyOrNotRequired || !SearchHelper.SearchOnlyWhenContentPresent))
             {
                 string searchMode = QueryHelper.GetString("searchMode", "");
@@ -1473,6 +1473,14 @@ public partial class CMSModules_SmartSearch_Controls_SearchResults : CMSUserCont
                     numberOfResults = MaxResults;
                 }
 
+                // Limit displayed results according to MaxPages property
+                var maxDisplayedResultsOnMaxPages = MaxPages * PageSize;
+                // Apply only if MaxPages and PageSize properties are set
+                if ((maxDisplayedResultsOnMaxPages > 0) && (numberOfResults > maxDisplayedResultsOnMaxPages))
+                {
+                    numberOfResults = maxDisplayedResultsOnMaxPages;
+                }
+                
                 // Fill repeater with results
                 repSearchResults.DataSource = results;
                 repSearchResults.PagerForceNumberOfResults = numberOfResults;
@@ -1493,7 +1501,7 @@ public partial class CMSModules_SmartSearch_Controls_SearchResults : CMSUserCont
                         Exception searchError = SearchContext.LastError;
                         if (searchError != null)
                         {
-                            ShowError(GetString("smartsearch.searcherror") + " " + searchError.Message);
+                            ShowError(GetString("smartsearch.searcherror") + " " + HTMLHelper.HTMLEncode(searchError.Message));
                         }
                     }
                     lblNoResults.Text = NoResultsText;

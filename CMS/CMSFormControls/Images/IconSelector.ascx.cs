@@ -247,7 +247,7 @@ public partial class CMSFormControls_Images_IconSelector : FormEngineUserControl
             
             // Empty value or 'None icon'
             // Check for String.Empty is because of backward compatibility(String.Empty was previous value for not displaying any icon)
-            if (String.IsNullOrEmpty(stringValue) || stringValue.Equals(NOT_DISPLAY_ICON))
+            if (String.IsNullOrEmpty(stringValue) || stringValue.Equals(NOT_DISPLAY_ICON, StringComparison.Ordinal))
             {
                 SetIconOptionButtonChecked(radDoNotDisplay);
                 return;

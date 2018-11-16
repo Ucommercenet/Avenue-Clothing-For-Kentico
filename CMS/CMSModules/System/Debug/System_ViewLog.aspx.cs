@@ -34,7 +34,7 @@ public partial class CMSModules_System_Debug_System_ViewLog : CMSDebugPage
             {
                 if (WebFarmHelper.ServerName.ToLowerCSafe() != requestedServerName.ToLowerCSafe())
                 {
-                    string loadMsg = ScriptHelper.GetLoaderInlineHtml(Page, GetString("debug.contactrequestedserver"));
+                    string loadMsg = ScriptHelper.GetLoaderInlineHtml(GetString("debug.contactrequestedserver"));
                     litMessage.Text = loadMsg;
                     litMessage.Visible = true;
 

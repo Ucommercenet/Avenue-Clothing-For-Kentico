@@ -1,5 +1,6 @@
 ﻿using System;
 
+using CMS.Activities;
 using CMS.Base.Web.UI;
 using CMS.Base.Web.UI.Internal;
 using CMS.Core;
@@ -13,26 +14,32 @@ public partial class CMSModules_ContactManagement_Pages_Contact_Details : CMSPag
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        UpdateBreadcrumbs();
+        ContactInfo contact = (ContactInfo)EditedObject;
+
+        UpdateBreadcrumbs(contact);
 
         string moduleId = "CMS.ContactManagement/ContactProfile/build";
-        var angularLocalizationProvider = Service.Entry<IAngularLocalizationProvider>();
+        var localizationProvider = Service.Resolve<IClientLocalizationProvider>();
 
         ScriptHelper.RegisterAngularModule(moduleId, new
         {
-            Resources = angularLocalizationProvider.GetAngularLocalization(moduleId),
+            Resources = localizationProvider.GetClientLocalization(moduleId),
             PersonaModuleAvailable = ModuleEntryManager.IsModuleLoaded(ModuleName.PERSONAS),
             FormModuleAvailable = ModuleEntryManager.IsModuleLoaded(ModuleName.BIZFORM),
-            NewsletterModuleAvailable = ModuleEntryManager.IsModuleLoaded(ModuleName.NEWSLETTER)
+            NewsletterModuleAvailable = ModuleEntryManager.IsModuleLoaded(ModuleName.NEWSLETTER),
+            ActivitiesExist = DoActivitiesExistForContact(contact)
         });
     }
 
 
-    private void UpdateBreadcrumbs()
+    private static bool DoActivitiesExistForContact(ContactInfo contact)
     {
-        ContactInfo contact = (ContactInfo)EditedObject;
+        return ActivityInfoProvider.GetActivities().WhereEquals("ActivityContactID", contact.ContactID).Count > 0;
+    }
 
-        // Refresh breadcrumbs
+
+    private void UpdateBreadcrumbs(ContactInfo contact)
+    {
         ScriptHelper.RefreshTabHeader(Page, contact.ContactDescriptiveName);
     }
 }

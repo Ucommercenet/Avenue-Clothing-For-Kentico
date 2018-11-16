@@ -2,7 +2,6 @@
  * Class image selector module
  */
 cmsdefine(["CMS/EventHub", "jQuery"], function (hub, $) {
-    "use strict";
 
     /**
      * Class image selector

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Globalization;
-using System.Threading;
 
 using CMS.Helpers;
 using CMS.Reporting;
@@ -31,8 +29,7 @@ public partial class CMSModules_Reporting_Tools_Ecommerce_Report_Print : CMSModa
             {
                 // Get report parameters
                 string parameters = QueryHelper.GetString("parameters", String.Empty);
-                CultureInfo currentCulture = CultureHelper.GetCultureInfo(Thread.CurrentThread.CurrentUICulture.IetfLanguageTag);
-                DataRow reportParameters = ReportHelper.GetReportParameters(report, parameters, null, CultureHelper.EnglishCulture, currentCulture);
+                DataRow reportParameters = ReportHelper.GetReportParameters(report, parameters, null, CultureHelper.EnglishCulture);
 
                 // Init report
                 if (reportParameters != null)

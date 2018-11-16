@@ -143,11 +143,11 @@ public partial class CMSModules_ImportExport_Controls_ImportPanel : CMSUserContr
                 }
 
                 // Reload data
-                ReloadData(false);
-
-                // Load settings control
-                LoadSettingsControl();
+                ReloadData(false); 
             }
+
+            // Load settings control
+            LoadSettingsControl();
         }
     }
 

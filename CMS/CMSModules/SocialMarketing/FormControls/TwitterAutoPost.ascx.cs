@@ -275,13 +275,13 @@ public partial class CMSModules_SocialMarketing_FormControls_TwitterAutoPost : S
 
         if ((TweetInfo != null) && !TweetInfo.IsEditable)
         {
-            if (mPublishedWhileEditing || (URLHelper.IsPostback() && !FormDataEqualsPostInfo(TweetInfo)))
+            if (mPublishedWhileEditing || (RequestHelper.IsPostBack() && !FormDataEqualsPostInfo(TweetInfo)))
             {
                 // Data in form has changed, but post can not be modified
                 AddWarning(GetString("sm.twitter.autopost.publishedwhileediting"));
                 LoadPostDataIntoControl(TweetInfo);
             }
-            else if (!URLHelper.IsPostback() && TweetInfo.IsFaulty)
+            else if (!RequestHelper.IsPostBack() && TweetInfo.IsFaulty)
             {
                 // Show error on first load. This must be done on PagePreRender, 
                 // because errors added on PageInit event are ignored.

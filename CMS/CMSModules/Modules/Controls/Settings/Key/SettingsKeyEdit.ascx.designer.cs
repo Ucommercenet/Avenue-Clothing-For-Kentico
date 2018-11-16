@@ -192,33 +192,6 @@ public partial class CMSModules_Modules_Controls_Settings_Key_SettingsKeyEdit {
     protected global::CMS.Base.Web.UI.CMSCheckBox chkKeyIsHidden;
     
     /// <summary>
-    /// trLoadGeneration control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl trLoadGeneration;
-    
-    /// <summary>
-    /// lblLoadGeneration control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMS.Base.Web.UI.LocalizedLabel lblLoadGeneration;
-    
-    /// <summary>
-    /// drpGeneration control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::CMSAdminControls_UI_Selectors_LoadGenerationSelector drpGeneration;
-    
-    /// <summary>
     /// btnOk control.
     /// </summary>
     /// <remarks>

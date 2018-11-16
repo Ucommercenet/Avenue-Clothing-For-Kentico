@@ -111,7 +111,7 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardSubscription 
         SetupControls();
 
         // Reload data if necessary
-        if (!URLHelper.IsPostback() && !IsLiveSite)
+        if (!RequestHelper.IsPostBack() && !IsLiveSite)
         {
             ReloadData();
         }
@@ -129,7 +129,7 @@ public partial class CMSModules_MessageBoards_Controls_Boards_BoardSubscription 
     protected void Page_PreRender(object sender, EventArgs e)
     {
         // Reload data if is live site 
-        if (!URLHelper.IsPostback() && IsLiveSite)
+        if (!RequestHelper.IsPostBack() && IsLiveSite)
         {
             ReloadData();
         }

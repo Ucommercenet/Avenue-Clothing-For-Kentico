@@ -10,7 +10,7 @@ public partial class CMSModules_SocialMarketing_FormControls_TwitterPostTextArea
 {
     #region "Constants"
 
-    private const int TWITTER_POST_MAX_LENGTH = 140;
+    private const int TWITTER_POST_MAX_LENGTH = 280;
 
     #endregion
 

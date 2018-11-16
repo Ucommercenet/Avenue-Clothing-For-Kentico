@@ -1,7 +1,6 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true"  Codebehind="IndexInfo.ascx.cs" Inherits="CMSModules_SmartSearch_Controls_IndexInfo" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IndexInfo.ascx.cs" Inherits="CMSModules_SmartSearch_Controls_IndexInfo" %>
 
 <asp:Panel ID="pnlInfo" runat="server" CssClass="form-horizontal">
-    <cms:LocalizedHeading runat="server" ID="headElem" ResourceString="srch.index.info" Level="4" CssClass="editing-form-category-caption" />
     <div class="form-group">
         <div class="editing-form-label-cell">
             <cms:LocalizedLabel runat="server" EnableViewState="false" ResourceString="srch.general.numberofitems" DisplayColon="true" AssociatedControlID="lblItemCount" CssClass="control-label editing-form-label" />
@@ -27,14 +26,16 @@
             <asp:Literal runat="server" ID="ltlStatus" EnableViewState="False" Visible="False" />
         </div>
     </div>
-    <div class="form-group">
-        <div class="editing-form-label-cell">
-            <cms:LocalizedLabel runat="server" EnableViewState="false" ResourceString="srch.index.isoptimized" DisplayColon="true" AssociatedControlID="lblIsOptimized" CssClass="control-label editing-form-label" />
+    <asp:PlaceHolder runat="server" ID="plcOptimized">
+        <div class="form-group">
+            <div class="editing-form-label-cell">
+                <cms:LocalizedLabel runat="server" EnableViewState="false" ResourceString="srch.index.isoptimized" DisplayColon="true" AssociatedControlID="lblIsOptimized" CssClass="control-label editing-form-label" />
+            </div>
+            <div class="editing-form-value-cell">
+                <cms:LocalizedLabel runat="server" ID="lblIsOptimized" EnableViewState="false" CssClass="form-control-text" />
+            </div>
         </div>
-        <div class="editing-form-value-cell">
-            <cms:LocalizedLabel runat="server" ID="lblIsOptimized" EnableViewState="false" CssClass="form-control-text" />
-        </div>
-    </div>
+    </asp:PlaceHolder>
     <div class="form-group">
         <div class="editing-form-label-cell">
             <cms:LocalizedLabel runat="server" EnableViewState="false" ResourceString="srch.index.lastupdate" DisplayColon="true" AssociatedControlID="lblLastUpdate" CssClass="control-label editing-form-label" />

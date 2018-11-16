@@ -2,19 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-
-using CMS.Base;
-using CMS.Helpers;
-
 using System.Linq;
 using System.Web.UI.WebControls;
 using System.Xml;
 
+using CMS.Base;
+using CMS.Helpers;
 using CMS.Base.Web.UI;
 using CMS.DataEngine;
+using CMS.IO;
 using CMS.UIControls;
-
-using SystemIO = System.IO;
 
 
 public partial class CMSFormControls_Selectors_GridColumnDesigner : DesignerPage
@@ -95,15 +92,17 @@ public partial class CMSFormControls_Selectors_GridColumnDesigner : DesignerPage
             ItemSelection1.RightColumListBox.AutoPostBack = true;
 
             // Get classnames or queryname from querystring
-            if (!string.IsNullOrEmpty(Request.QueryString["classnames"]))
+            var classNames = QueryHelper.GetString("classnames", "");
+            if (!string.IsNullOrEmpty(classNames))
             {
-                hdnClassNames.Value = Request.QueryString["classnames"];
+                hdnClassNames.Value = classNames;
                 mTypeOfInput = 1;
             }
 
-            if (!string.IsNullOrEmpty(Request.QueryString["queryname"]))
+            var queryName = QueryHelper.GetString("queryname", "");
+            if (!string.IsNullOrEmpty(queryName))
             {
-                hdnClassNames.Value = Request.QueryString["queryname"];
+                hdnClassNames.Value = queryName;
                 mTypeOfInput = 2;
             }
 
@@ -638,7 +637,7 @@ CloseDialog();
     /// </summary>
     private static void LoadDocument(XmlDocument xmlDocument, string xml)
     {
-        using (var stringReader = new SystemIO.StringReader(xml))
+        using (var stringReader = new StringReader(xml))
         {
             using (var xmlReader = XmlReader.Create(stringReader, new XmlReaderSettings()))
             {

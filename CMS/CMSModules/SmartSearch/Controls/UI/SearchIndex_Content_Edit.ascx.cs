@@ -78,7 +78,7 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_Content_Edit
         base.OnLoad(e);
 
         // Init controls
-        if (!RequestHelper.IsPostBack())
+        if (!StopProcessing && !RequestHelper.IsPostBack())
         {
             LoadControls();
         }
@@ -196,16 +196,6 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_Content_Edit
                         URLHelper.Redirect(UrlResolver.ResolveUrl(editUrl));
                     }
 
-                    if ((sii.IndexType.ToLowerCSafe() == TreeNode.OBJECT_TYPE) || (sii.IndexType == SearchHelper.DOCUMENTS_CRAWLER_INDEX))
-                    {
-                        DataSet ds = SearchIndexCultureInfoProvider.GetSearchIndexCultures("IndexID = " + sii.IndexID, null, 0, "IndexID, IndexCultureID");
-                        if (DataHelper.DataSourceIsEmpty(ds))
-                        {
-                            ShowConfirmation(GetString("general.changessaved") + " " + GetString("index.noculture"));
-                            return;
-                        }
-                    }
-
                     ShowChangesSaved();
 
                     if (smartSearchEnabled)
@@ -241,6 +231,22 @@ public partial class CMSModules_SmartSearch_Controls_UI_SearchIndex_Content_Edit
     {
         if (eventArgument == "saved")
         {
+            SearchIndexInfo sii = SearchIndexInfoProvider.GetSearchIndexInfo(ItemID);
+            if (sii.IndexType.Equals(TreeNode.OBJECT_TYPE, StringComparison.OrdinalIgnoreCase) || (sii.IndexType == SearchHelper.DOCUMENTS_CRAWLER_INDEX))
+            {
+                if (!SearchIndexCultureInfoProvider.SearchIndexHasAnyCulture(sii.IndexID))
+                {
+                    ShowError(GetString("index.noculture"));
+                    return;
+                }
+
+                if (!SearchIndexSiteInfoProvider.SearchIndexHasAnySite(sii.IndexID))
+                {
+                    ShowError(GetString("index.nosite"));
+                    return;
+                }
+            }
+
             if (SearchHelper.CreateRebuildTask(ItemID))
             {
                 ShowInformation(GetString("srch.index.rebuildstarted"));

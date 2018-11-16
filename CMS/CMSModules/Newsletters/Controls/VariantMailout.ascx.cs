@@ -10,6 +10,7 @@ using CMS.Helpers;
 using CMS.Modules;
 using CMS.Newsletters;
 using CMS.Scheduler;
+using CMS.SiteProvider;
 using CMS.UIControls;
 
 
@@ -21,6 +22,9 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
     private const string DDLIST_SETSELECTED = "-1";
     private const string DDLIST_SETALL = "0";
 
+    private const string ZERO_PERCENT = "0%";
+    private const string ZERO = "0";
+
     #endregion
 
 
@@ -29,6 +33,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
     private bool mShowSelectionColumn = true;
     private bool mEnableMailoutTimeSetting = true;
     private bool mShowSelectWinnerAction;
+    private bool mBounceMonitoringEnabled;
     private DateTime mHighestMailoutTime = DateTime.MinValue;
 
     #endregion
@@ -107,6 +112,27 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
 
 
     /// <summary>
+    /// Shows/hides sent e-mails counters.
+    /// </summary>
+    public bool ShowSentEmails
+    {
+        get;
+        set;
+    }
+
+
+    /// <summary>
+    /// Shows/hides delivered e-mails counters.
+    /// </summary>
+    public bool ShowDeliveredEmails
+
+    {
+        get;
+        set;
+    }
+
+
+    /// <summary>
     /// Gets or sets value, that indicates whether grouping text for entire control is used
     /// instead of ordinary label.
     /// </summary>
@@ -164,10 +190,13 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
     protected void Page_PreRender(object sender, EventArgs e)
     {
         // Show/hide additional columns as needed
-        grdElem.NamedColumns["opened"].Visible = ShowOpenedEmails;
-        grdElem.NamedColumns["clicks"].Visible = ShowUniqueClicks;
+        grdElem.NamedColumns["opened"].Visible = grdElem.NamedColumns["openRate"].Visible = ShowOpenedEmails;
+        grdElem.NamedColumns["clicks"].Visible = grdElem.NamedColumns["clickRate"].Visible = ShowUniqueClicks;
         grdElem.NamedColumns["status"].Visible = ShowIssueStatus;
+        grdElem.NamedColumns["sentEmails"].Visible = ShowSentEmails;
+        grdElem.NamedColumns["delivered"].Visible = grdElem.NamedColumns["deliveryRate"].Visible = ShowDeliveredEmails && mBounceMonitoringEnabled;
     }
+
 
     public override void ReloadData(bool forceReload)
     {
@@ -178,11 +207,12 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
         InitControls(forceReload);
 
         // Javascript for handling winner mailout time
-        string scriptBlock = string.Format(@"function SelWinner(id) {{ modalDialog('{0}?objectid=' + id, 'NewsletterWinnerMailout', '700px', '425px'); return false; }}",
+        var scriptBlock = string.Format(@"function SelWinner(id) {{ modalDialog('{0}?objectid=' + id, 'NewsletterWinnerMailout', '700px', '425px'); return false; }}",
             ResolveUrl(@"~\CMSModules\Newsletters\Tools\Newsletters\Newsletter_Issue_WinnerMailout.aspx"));
-       
+
         ScriptHelper.RegisterDialogScript(Page);
         ScriptHelper.RegisterClientScriptBlock(this, GetType(), "Actions", scriptBlock, true);
+        ScriptHelper.RegisterTooltip(Page);
 
         // Register handlers
         grdElem.OnExternalDataBound -= grdElem_OnExternalDataBound;
@@ -191,11 +221,13 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
         grdElem.GridView.RowDataBound += GridView_RowDataBound;
 
         // Get winner ID if any
-        ABTestInfo abi = ABTestInfoProvider.GetABTestInfoForIssue(ParentIssueID);
-        if (abi != null)
+        var abTestInfo = ABTestInfoProvider.GetABTestInfoForIssue(ParentIssueID);
+        if (abTestInfo != null)
         {
-            WinnerIssueID = abi.TestWinnerIssueID;
+            WinnerIssueID = abTestInfo.TestWinnerIssueID;
         }
+
+        mBounceMonitoringEnabled = NewsletterHelper.MonitorBouncedEmails(SiteContext.CurrentSiteName);
 
         grdElem.WhereCondition = GetWhereCondition(ParentIssueID, false);
         grdElem.ShowActionsMenu = false;
@@ -211,7 +243,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
     protected void btnOk_Click(object sender, EventArgs e)
     {
         // Validate date/time (blank date/time textbox is allowed)
-        if ((dtpMailout.SelectedDateTime == DateTimeHelper.ZERO_TIME) && !String.IsNullOrEmpty(dtpMailout.DateTimeTextBox.Text.Trim()))
+        if ((dtpMailout.SelectedDateTime == DateTimeHelper.ZERO_TIME) && !string.IsNullOrEmpty(dtpMailout.DateTimeTextBox.Text.Trim()))
         {
             ShowErrorInternal(GetString("newsletterissue_send.invaliddatetime"));
             return;
@@ -223,10 +255,12 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
         if (drpAllSelected.SelectedValue == DDLIST_SETALL)
         {
             selItems = IssueInfoProvider.GetIssues()
-                .Where(GetWhereCondition(ParentIssueID, true))
-                .Column("IssueID")
-                .Select(s => s.IssueID.ToString())
-                .ToList();
+                                        .Where(GetWhereCondition(ParentIssueID, true))
+                                        .Column("IssueID")
+                                        .TypedResult
+                                        .Select(s => s.IssueID.ToString())
+                                        .ToList();
+
         }
         else if (drpAllSelected.SelectedValue == DDLIST_SETSELECTED)
         {
@@ -251,12 +285,12 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
             return;
         }
 
-        DateTime when = (dtpMailout.SelectedDateTime == DateTimeHelper.ZERO_TIME) ? DateTime.Now : dtpMailout.SelectedDateTime;
-        foreach (string itemId in selItems)
+        var when = (dtpMailout.SelectedDateTime == DateTimeHelper.ZERO_TIME) ? DateTime.Now : dtpMailout.SelectedDateTime;
+        foreach (var itemId in selItems)
         {
             var issue = IssueInfoProvider.GetIssueInfo(ValidationHelper.GetInteger(itemId, 0));
             if (issue == null) continue;
-            TaskInfo task = NewsletterTasksManager.EnsureMailoutTask(issue, DateTime.Now, false);
+            var task = NewsletterTasksManager.EnsureMailoutTask(issue, DateTime.Now, false);
             task.TaskNextRunTime = when;
             TaskInfoProvider.SetTaskInfo(task);
             if (issue.IssueScheduledTaskID != task.TaskID)
@@ -270,10 +304,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
         grdElem.ResetSelection();
         grdElem.ReloadData();
 
-        if (OnChanged != null)
-        {
-            OnChanged(this, EventArgs.Empty);
-        }
+        OnChanged?.Invoke(this, EventArgs.Empty);
     }
 
 
@@ -284,87 +315,58 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
         switch (sourceName)
         {
             case "IssueVariantName":
-                {
-                    DataRowView drv = (DataRowView)parameter;
-                    string result = ValidationHelper.GetString(drv["IssueVariantName"], string.Empty);
-
-                    // Issue has not been sent yet => get mail out time from scheduled task
-                    if (ValidationHelper.GetInteger(drv["IssueID"], 0) == WinnerIssueID)
-                    {
-                        result += " " + GetString("newsletterabtest.winner");
-                    }
-
-                    return HTMLHelper.HTMLEncode(result);
-                }
+                return GetIssueVariantName(parameter as DataRowView);
 
             case "MailoutTime":
-                {
-                    string result;
-                    DataRowView drv = (DataRowView)parameter;
-                    DateTime dt = ValidationHelper.GetDateTime(drv["IssueMailoutTime"], DateTimeHelper.ZERO_TIME);
-
-                    if (dt == DateTimeHelper.ZERO_TIME)
-                    {
-                        // Issue has not been sent yet => get mail out time from scheduled task
-                        int taskId = ValidationHelper.GetInteger(drv["IssueScheduledTaskID"], 0);
-                        TaskInfo task = TaskInfoProvider.GetTaskInfo(taskId);
-                        if (task != null && (task.TaskNextRunTime > DateTimeHelper.ZERO_TIME))
-                        {
-                            if (task.TaskNextRunTime < DateTime.Now)
-                            {
-                                result = String.Format("{0} {1}", task.TaskNextRunTime.ToString(), GetString("newsletterissue_send.asap"));
-                            }
-                            else
-                            {
-                                result = task.TaskNextRunTime.ToString();
-                            }
-                            dt = task.TaskNextRunTime;
-                        }
-                        else
-                        {
-                            result = GetString("general.na");
-                        }
-                    }
-                    else
-                    {
-                        result = dt.ToString();
-                    }
-
-                    if (mHighestMailoutTime < dt)
-                    {
-                        mHighestMailoutTime = dt;
-                    }
-
-                    return HTMLHelper.HTMLEncode(result);
-                }
+                return GetMailoutTime(parameter as DataRowView);
 
             case "IssueStatus":
-                IssueStatusEnum status = IssueStatusEnum.Idle;
-                if ((parameter != DBNull.Value) && (parameter != null))
-                {
-                    status = (IssueStatusEnum)parameter;
-                }
-                return IssueHelper.GetStatusFriendlyName(status, null);
+                return GetIssueStatus(parameter);
+
+            case "IssueSentEmails":
+                var num = ValidationHelper.GetInteger(parameter, 0);
+                return (num > 0) ? num.ToString() : string.Empty;
 
             case "IssueOpenedEmails":
                 return GetOpenedEmails(parameter as DataRowView);
 
+            case "IssueOpenedEmailsRate":
+                var opeRateTooltip = GetString(mBounceMonitoringEnabled ? "newsletter.openratetooltip.delivered" : "newsletter.openratetooltip.sent");
+                AddTooltip(opeRateTooltip, sender as WebControl);
+
+                return GetOpenedEmailsRate(parameter as DataRowView);
+
             case "UniqueClicks":
-                int issueId = ValidationHelper.GetInteger(parameter, 0);
-                return GetUniqueClicks(IssueHelper.GetIssueTotalUniqueClicks(issueId), issueId);
+                return GetUniqueClicks(parameter as DataRowView);
+
+            case "UniqueClicksRate":
+                var uniqueRateTooltip = GetString(mBounceMonitoringEnabled ? "newsletter.clickratetooltip.delivered" : "newsletter.clickratetooltip.sent");
+                AddTooltip(uniqueRateTooltip, sender as WebControl);
+
+                return GetUniqueClicksRate(parameter as DataRowView);
+
+            case "Delivered":
+                return GetDeliveryCount(parameter as DataRowView);
+
+            case "DeliveryRate":
+                return GetDeliveryRate(parameter as DataRowView);
+
+            default:
+                return parameter;
         }
-        return parameter;
     }
 
 
     protected void GridView_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
+        if (e.Row.RowType != DataControlRowType.DataRow)
         {
-            if (WinnerIssueID == ValidationHelper.GetInteger(((DataRowView)(e.Row.DataItem)).Row["IssueID"], 0))
-            {
-                e.Row.Style.Add("background-color", WINNER_BACKGROUND_COLOR);
-            }
+            return;
+        }
+
+        if (WinnerIssueID == ValidationHelper.GetInteger(((DataRowView)e.Row.DataItem).Row["IssueID"], 0))
+        {
+            e.Row.Style.Add("background-color", WINNER_BACKGROUND_COLOR);
         }
     }
 
@@ -390,10 +392,10 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
                     drpAllSelected.Items.Add(new ListItem(GetString("newsletterissue_send.selected"), DDLIST_SETSELECTED));
                 }
 
-                List<IssueABVariantItem> items = IssueHelper.GetIssueVariants(ParentIssueID, "IssueMailoutTime IS NULL");
-                if ((items != null) && (items.Count > 0))
+                var items = IssueHelper.GetIssueVariants(ParentIssueID, "IssueMailoutTime IS NULL");
+                if (items != null && items.Count > 0)
                 {
-                    foreach (IssueABVariantItem item in items)
+                    foreach (var item in items)
                     {
                         drpAllSelected.Items.Add(new ListItem(item.IssueVariantName, item.IssueID.ToString()));
                     }
@@ -407,14 +409,7 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
             }
         }
 
-        if (UseGroupingText)
-        {
-            pnlMailoutHeading.ResourceString = "newsletterissue_send.schedulemailout";
-        }
-        else
-        {
-            pnlMailoutHeading.ResourceString = "newsletterissue_send.testresults";
-        }
+        pnlMailoutHeading.ResourceString = UseGroupingText ? "newsletterissue_send.schedulemailout" : "newsletterissue_send.testresults";
     }
 
 
@@ -443,7 +438,97 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
     /// <param name="notSentOnly">If TRUE additional condition is included</param>
     private string GetWhereCondition(int issueId, bool notSentOnly)
     {
-        return String.Format("IssueVariantOfIssueID={0}{1}", issueId, (notSentOnly ? " AND IssueMailoutTime IS NULL" : String.Empty));
+        return $"IssueVariantOfIssueID={issueId}{(notSentOnly ? " AND IssueMailoutTime IS NULL" : string.Empty)}";
+    }
+
+
+    private void AddTooltip(string tooltipText, WebControl webControl)
+    {
+        if (webControl != null && !string.IsNullOrEmpty(tooltipText))
+        {
+            ScriptHelper.AppendTooltip(webControl, tooltipText, null);
+        }
+    }
+
+
+    private object GetIssueVariantName(DataRowView rowView)
+    {
+        var issue = new IssueInfo(rowView.Row);
+        var result = issue.GetVariantName();
+
+        // Issue has not been sent yet => get mail out time from scheduled task
+        if (issue.IssueID == WinnerIssueID)
+        {
+            result += " " + GetString("newsletterabtest.winner");
+        }
+
+        return HTMLHelper.HTMLEncode(result);
+    }
+
+
+    private object GetMailoutTime(DataRowView rowView)
+    {
+        string result;
+        var mailoutTime = ValidationHelper.GetDateTime(rowView["IssueMailoutTime"], DateTimeHelper.ZERO_TIME);
+
+        if (mailoutTime == DateTimeHelper.ZERO_TIME)
+        {
+            mailoutTime = GetMailoutTimeFromScheduledTask(rowView);
+
+            result = FormatMailoutTime(mailoutTime);
+        }
+        else
+        {
+            result = mailoutTime.ToString();
+        }
+
+        EnsureHighestMailoutTime(mailoutTime);
+
+        return HTMLHelper.HTMLEncode(result);
+    }
+
+
+    private DateTime GetMailoutTimeFromScheduledTask(DataRowView rowView)
+    {
+        var taskId = ValidationHelper.GetInteger(rowView["IssueScheduledTaskID"], 0);
+        var task = TaskInfoProvider.GetTaskInfo(taskId);
+        if (task != null && task.TaskNextRunTime > DateTimeHelper.ZERO_TIME)
+        {
+            return task.TaskNextRunTime;
+        }
+
+        return DateTimeHelper.ZERO_TIME;
+    }
+
+
+    private string FormatMailoutTime(DateTime mailoutTime)
+    {
+        if (mailoutTime == DateTimeHelper.ZERO_TIME)
+        {
+            return GetString("general.na");
+        }
+
+        return mailoutTime < DateTime.Now ? $"{mailoutTime} {GetString("newsletterissue_send.asap")}" : mailoutTime.ToString();
+    }
+
+
+    private void EnsureHighestMailoutTime(DateTime mailoutTime)
+    {
+        if (mHighestMailoutTime < mailoutTime)
+        {
+            mHighestMailoutTime = mailoutTime;
+        }
+    }
+
+
+    private object GetIssueStatus(object issueStatus)
+    {
+        var status = IssueStatusEnum.Idle;
+        if (issueStatus != DBNull.Value && issueStatus != null)
+        {
+            status = (IssueStatusEnum)issueStatus;
+        }
+        return IssueHelper.GetStatusFriendlyName(status, null);
     }
 
 
@@ -453,35 +538,121 @@ public partial class CMSModules_Newsletters_Controls_VariantMailout : CMSAdminCo
     /// <param name="rowView">A <see cref="DataRowView" /> that represents one row from UniGrid's source</param>
     private string GetOpenedEmails(DataRowView rowView)
     {
-        // Get issue ID
-        int issueId = ValidationHelper.GetInteger(DataHelper.GetDataRowViewValue(rowView, "IssueID"), 0);
-
-        // Get opened emails count from issue record
-        int openedEmails = ValidationHelper.GetInteger(DataHelper.GetDataRowViewValue(rowView, "IssueOpenedEmails"), 0);
-
-        if (openedEmails > 0)
+        var issueSentEmails = DataHelper.GetIntValue(rowView.Row, "IssueSentEmails");
+        if (issueSentEmails == 0)
         {
-            var url = ApplicationUrlHelper.GetElementDialogUrl(ModuleName.NEWSLETTER, "Newsletter.Issue.Reports.Opens", issueId);
-            return string.Format(@"<a href=""#"" onclick=""modalDialog('{0}', 'NewsletterOpenedEmails', '1000px', '700px'); return false;"">{1}</a>", url, openedEmails);
+            return string.Empty;
         }
 
-        return "0";
+        // Get issue ID
+        var issueId = ValidationHelper.GetInteger(DataHelper.GetDataRowViewValue(rowView, "IssueID"), 0);
+
+        // Get opened emails count from issue record
+        var openedEmails = ValidationHelper.GetInteger(DataHelper.GetDataRowViewValue(rowView, "IssueOpenedEmails"), 0);
+
+        if (openedEmails <= 0)
+        {
+            return ZERO;
+        }
+
+        var url = ApplicationUrlHelper.GetElementDialogUrl(ModuleName.NEWSLETTER, "Newsletter.Issue.Reports.Opens", issueId);
+        return $@"<a href=""#"" onclick=""modalDialog('{url}', 'NewsletterOpenedEmails', '1000px', '700px'); return false;"">{openedEmails}</a>";
+    }
+
+
+    private string GetOpenedEmailsRate(DataRowView rowView)
+    {
+        var issueSentEmails = DataHelper.GetIntValue(rowView.Row, "IssueSentEmails");
+        if (issueSentEmails == 0)
+        {
+            return string.Empty;
+        }
+
+        var openedEmails = ValidationHelper.GetInteger(DataHelper.GetDataRowViewValue(rowView, "IssueOpenedEmails"), 0);
+        var delivered = GetDelivered(rowView.Row);
+
+        return FormatRate(openedEmails, delivered);
     }
 
 
     /// <summary>
     /// Gets a clickable click links counter based on the values from datasource.
     /// </summary>
-    /// <param name="clicks">Number of unique clicks</param>
-    /// <param name="issueId">Issue ID</param>
-    private string GetUniqueClicks(int clicks, int issueId)
+    /// <param name="rowView">A <see cref="DataRowView" /> that represents one row from UniGrid's source</param>
+    private string GetUniqueClicks(DataRowView rowView)
     {
-        if (clicks > 0)
+        var issueSentEmails = DataHelper.GetIntValue(rowView.Row, "IssueSentEmails");
+        if (issueSentEmails == 0)
         {
-            var url = ApplicationUrlHelper.GetElementDialogUrl(ModuleName.NEWSLETTER, "Newsletter.Issue.Reports.Clicks", issueId);
-            return string.Format(@"<a href=""#"" onclick=""modalDialog('{0}', 'NewsletterTrackedLinks', '1000px', '700px'); return false;"">{1}</a>", url, clicks);
+            return string.Empty;
         }
 
-        return "0";
+        var issueId = ValidationHelper.GetInteger(DataHelper.GetDataRowViewValue(rowView, "IssueID"), 0);
+        var clicks = IssueHelper.GetIssueTotalUniqueClicks(issueId);
+
+        if (clicks <= 0)
+        {
+            return ZERO;
+        }
+
+        var url = ApplicationUrlHelper.GetElementDialogUrl(ModuleName.NEWSLETTER, "Newsletter.Issue.Reports.Clicks", issueId);
+        return $@"<a href=""#"" onclick=""modalDialog('{url}', 'NewsletterTrackedLinks', '1000px', '700px'); return false;"">{clicks}</a>";
+    }
+
+
+    private string GetUniqueClicksRate(DataRowView rowView)
+    {
+        var issueSentEmails = DataHelper.GetIntValue(rowView.Row, "IssueSentEmails");
+        if (issueSentEmails == 0)
+        {
+            return string.Empty;
+        }
+
+        var issueId = ValidationHelper.GetInteger(DataHelper.GetDataRowViewValue(rowView, "IssueID"), 0);
+        var clicks = IssueHelper.GetIssueTotalUniqueClicks(issueId);
+        var delivered = GetDelivered(rowView.Row);
+
+        return FormatRate(clicks, delivered);
+    }
+
+
+    private string GetDeliveryCount(DataRowView rowView)
+    {
+        var sent = DataHelper.GetIntValue(rowView.Row, "IssueSentEmails");
+
+        return sent == 0 ? string.Empty : GetDelivered(rowView.Row).ToString();
+    }
+
+
+    private string GetDeliveryRate(DataRowView rowView)
+    {
+        var sent = DataHelper.GetIntValue(rowView.Row, "IssueSentEmails");
+
+        return sent == 0 ? string.Empty : FormatRate(GetDelivered(rowView.Row), sent);
+    }
+
+
+    private static string FormatRate(int currentValue, int maxValue)
+    {
+        if (currentValue > 0 && maxValue > 0)
+        {
+            return $"{((double)currentValue / maxValue) * 100:F2}%";
+        }
+
+        return ZERO_PERCENT;
+    }
+
+
+    private int GetDelivered(DataRow dataRow)
+    {
+        var sent = DataHelper.GetIntValue(dataRow, "IssueSentEmails");
+
+        if (!mBounceMonitoringEnabled)
+        {
+            return sent;
+        }
+
+        var bounces = DataHelper.GetIntValue(dataRow, "IssueBounces");
+        return sent - bounces;
     }
 }

@@ -391,7 +391,7 @@ public partial class CMSModules_Permissions_Controls_PermissionsFilter : CMSAdmi
         {
             moduleSelector.Visible = (permissionType == PermissionTypes.Module.ToString());
             // Ensure module selection from query string
-            if ((moduleSelector.Visible) && (!URLHelper.IsPostback()))
+            if ((moduleSelector.Visible) && (!RequestHelper.IsPostBack()))
             {
                 string selectedModule = QueryHelper.GetString("module", null);
                 if (!String.IsNullOrEmpty(selectedModule))

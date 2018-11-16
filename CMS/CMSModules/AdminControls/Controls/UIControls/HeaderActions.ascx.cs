@@ -5,7 +5,9 @@ using CMS.Helpers;
 using CMS.PortalEngine.Web.UI;
 
 
+#pragma warning disable BH3501 // UI Web Part must inherit from right class.
 public partial class CMSModules_AdminControls_Controls_UIControls_HeaderActions : CMSAbstractLayoutWebPart
+#pragma warning restore BH3501 // UI Web Part must inherit from right class.
 {
     #region "Properties"
 

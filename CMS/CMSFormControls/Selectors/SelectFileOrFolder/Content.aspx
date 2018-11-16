@@ -30,8 +30,8 @@
 </head>
 <body class="<%=mBodyClass%>">
     <form id="form1" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="scriptManager" runat="server">
-    </ajaxToolkit:ToolkitScriptManager>
+    <asp:ScriptManager ID="scriptManager" runat="server">
+    </asp:ScriptManager>
     <cms:CMSUpdatePanel ID="pnlUpdateSelectMedia" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <uc1:FileSystem ID="fileSystem" runat="server" />

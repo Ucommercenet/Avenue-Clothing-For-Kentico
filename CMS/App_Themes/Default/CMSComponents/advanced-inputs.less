@@ -430,6 +430,16 @@
     @numeric-updown-buttons-complete-height: (@numeric-updown-button-height * 2) + @numeric-updown-button-space;
     @numeric-updown-button-padding: @btn-icononly-padding * 0.5;
 
+    .ui-spinner {
+        display: inline;
+    }
+
+    .ui-widget {
+        input {
+            font-family: inherit;
+        }
+    }
+
     .numeric-updown-buttons {
         display: inline-block;
         left: (@numeric-updown-button-width + @numeric-updown-button-padding + @margin-50 + @input-border-width) * -1;

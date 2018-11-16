@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Web;
 using System.Text;
@@ -9,7 +10,9 @@ using System.Web.UI.HtmlControls;
 
 using CMS.Base;
 using CMS.Base.Web.UI;
+using CMS.Core;
 using CMS.DataEngine;
+using CMS.EventLog;
 using CMS.Helpers;
 using CMS.Localization;
 using CMS.Membership;
@@ -167,7 +170,7 @@ public partial class CMSPages_logon : CMSPage, ICallbackEventHandler
         }
 
         PlaceHolder plcRemeberMe = (PlaceHolder)Login1.FindControl("plcRemeberMe");
-        if ((MFAuthenticationHelper.IsMultiFactorAutEnabled) && (plcRemeberMe != null))
+        if ((MFAuthenticationHelper.IsMultiFactorAuthEnabled) && (plcRemeberMe != null))
         {
             plcRemeberMe.Visible = false;
         }
@@ -200,13 +203,6 @@ public partial class CMSPages_logon : CMSPage, ICallbackEventHandler
         CMSTextBox txtUserName = (CMSTextBox)Login1.FindControl("UserName");
         if (txtUserName != null)
         {
-            ScriptHelper.RegisterClientScriptBlock(this, typeof(string), "CredentialsPrefill",
-                ScriptHelper.GetScript(
-                    "document.addEventListener('DOMContentLoaded', function(){" +
-                    "var input = document.getElementById('" + txtUserName.ClientID + "'); if(input!=null){ input.value = 'administrator'; }" +
-                    "}, false);"
-                ));
-
             ScriptHelper.RegisterStartupScript(this, GetType(), "SetFocus", ScriptHelper.GetScript("var txt=document.getElementById('" + txtUserName.ClientID + "');if(txt!=null){txt.focus();}"));
             txtUserName.EnableAutoComplete = SecurityHelper.IsAutoCompleteEnabledForLogin(SiteContext.CurrentSiteName);
         }
@@ -316,7 +312,7 @@ function UpdateLabel_", ClientID, @"(content, context) {
             }
             else if (MembershipContext.UserIsPartiallyAuthenticated && !MembershipContext.UserAuthenticationFailedDueToInvalidPasscode)
             {
-                if (MembershipContext.MFAuthenticationTokenNotInitialized && MFAuthenticationHelper.DisplayTokenID)
+                if (MembershipContext.MFAuthenticationTokenNotInitialized && MFAuthenticationHelper.DisplaySetupCode)
                 {
                     var lblTokenID = Login1.FindControl("lblTokenID") as LocalizedLabel;
                     var plcTokenInfo = Login1.FindControl("plcTokenInfo");
@@ -325,7 +321,7 @@ function UpdateLabel_", ClientID, @"(content, context) {
                     {
                         DisplayWarning(string.Format("<strong>{0}</strong> {1}", GetString("mfauthentication.isRequired"), GetString("mfauthentication.token.get")));
 
-                        lblTokenID.Text = MFAuthenticationHelper.GetTokenIDForUser(Login1.UserName);
+                        lblTokenID.Text = MFAuthenticationHelper.GetSetupCodeForUser(Login1.UserName);
                         plcTokenInfo.Visible = true;
                     }
                 }
@@ -442,10 +438,12 @@ function UpdateLabel_", ClientID, @"(content, context) {
 
     private void Login1_LoggingIn(object sender, LoginCancelEventArgs e)
     {
+        var cookieLevelProvider = Service.Resolve<ICurrentCookieLevelProvider>();
+
         // Ensure all cookies
-        if (CookieHelper.CurrentCookieLevel <= CookieLevel.All)
+        if (cookieLevelProvider.GetCurrentCookieLevel() <= CookieLevel.All)
         {
-            CookieHelper.ChangeCookieLevel(CookieLevel.All);
+            cookieLevelProvider.SetCurrentCookieLevel(CookieLevel.All);
         }
 
         Login1.RememberMeSet = ((CMSCheckBox)Login1.FindControl("chkRememberMe")).Checked;
@@ -505,7 +503,16 @@ function UpdateLabel_", ClientID, @"(content, context) {
         }
         else
         {
-            e.Authenticated = Membership.Provider.ValidateUser(Login1.UserName, Login1.Password);
+            try
+            {
+                e.Authenticated = Membership.Provider.ValidateUser(Login1.UserName, Login1.Password);
+            }
+            catch (ConfigurationException ex)
+            {
+                EventLogProvider.LogException("LogonPage", "VALIDATEUSER", ex);
+                var provider = new CMSMembershipProvider();
+                e.Authenticated = provider.ValidateUser(Login1.UserName, Login1.Password);
+            }
         }
     }
 

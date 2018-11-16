@@ -36,7 +36,7 @@ public partial class CMSFormControls_LiveSelectors_InsertImageOrMedia_Tabs_Email
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.ToolkitScriptManager scrManager;
+    protected global::System.Web.UI.ScriptManager scrManager;
     
     /// <summary>
     /// emailProperties control.

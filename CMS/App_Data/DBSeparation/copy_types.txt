@@ -1,5 +1,7 @@
 Type_CMS_IntegerTable
+Type_CMS_OrderedIntegerTable
+Type_CMS_BigIntTable
+Type_CMS_GuidTable
+Type_CMS_StringTable
 Type_OM_ActivityTable
-Type_CMS_BigIntTable.sql
-Type_CMS_GuidTable.sql
-Type_CMS_StringTable.sql
+Type_OM_ContactEmailTable

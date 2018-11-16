@@ -240,7 +240,7 @@ public partial class CMSModules_Forums_Controls_Subscriptions_UserSubscriptionLi
             where += " AND (" + completeWhere + ")";
         }
 
-        DataSet ds = ForumPostInfoProvider.GetForumPosts(where, "PostSubject", 0, "PostID, PostForumID, PostSubject");
+        DataSet ds = ForumPostInfoProvider.GetForumPosts().Where(where).OrderBy("PostSubject").Columns("PostID, PostForumID, PostSubject");
         totalRecords = DataHelper.GetItemsCount(ds);
         return ds;
     }
@@ -254,8 +254,7 @@ public partial class CMSModules_Forums_Controls_Subscriptions_UserSubscriptionLi
             where += " AND (" + completeWhere + ")";
         }
 
-
-        DataSet ds = ForumInfoProvider.GetForums(where, "ForumDisplayName", 0, "ForumId, ForumDisplayName");
+        DataSet ds = ForumInfoProvider.GetForums().Where(where).OrderBy("ForumDisplayName").Columns("ForumId, ForumDisplayName").TypedResult;
         totalRecords = DataHelper.GetItemsCount(ds);
         return ds;
     }

@@ -13,22 +13,6 @@ public partial class CMSWebParts_Forums_ForumTopContributors : CMSAbstractWebPar
     #region "Public properties"
 
     /// <summary>
-    /// Gest or sest the cache item name.
-    /// </summary>
-    public override string CacheItemName
-    {
-        get
-        {
-            return base.CacheItemName;
-        }
-        set
-        {
-            base.CacheItemName = value;
-        }
-    }
-
-
-    /// <summary>
     /// Cache dependencies, each cache dependency on a new line.
     /// </summary>
     public override string CacheDependencies
@@ -40,22 +24,6 @@ public partial class CMSWebParts_Forums_ForumTopContributors : CMSAbstractWebPar
         set
         {
             base.CacheDependencies = CacheHelper.GetCacheDependencies(value, "cms.user|all");
-        }
-    }
-
-
-    /// <summary>
-    /// Gets or sets the cache minutes.
-    /// </summary>
-    public override int CacheMinutes
-    {
-        get
-        {
-            return base.CacheMinutes;
-        }
-        set
-        {
-            base.CacheMinutes = value;
         }
     }
 
@@ -233,14 +201,14 @@ public partial class CMSWebParts_Forums_ForumTopContributors : CMSAbstractWebPar
     /// </summary>
     private DataSet GetData()
     {
-        string where = "(UserID IN (SELECT UserID FROM CMS_UserSite WHERE SiteID IN (SELECT SiteID FROM CMS_Site WHERE SiteName = '" + SqlHelper.GetSafeQueryString(SiteContext.CurrentSiteName) + "')))";
+        string where = "(UserID IN (SELECT UserID FROM CMS_UserSite WHERE SiteID = " + SiteContext.CurrentSiteID + "))";
 
         if (!String.IsNullOrEmpty(WhereCondition))
         {
             where += " AND (" + WhereCondition + ")";
         }
 
-        return UserInfoProvider.GetFullUsers(where, "UserForumPosts DESC", SelectTopN, null);
+        return UserInfoProvider.GetUsersDataWithSettings().Where(new WhereCondition(where)).TopN(SelectTopN).OrderByDescending("UserForumPosts");
     }
 
     #endregion

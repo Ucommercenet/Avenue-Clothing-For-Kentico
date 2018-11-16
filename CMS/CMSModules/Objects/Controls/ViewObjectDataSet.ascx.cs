@@ -780,10 +780,13 @@ public partial class CMSModules_Objects_Controls_ViewObjectDataSet : CMSUserCont
             case "tablesettings":
             case "transformationhierarchicalxml":
             case "issuetext":
+            case "issuewidgets":
             case "savedreportparameters":
+            case "emailwidgetproperties":
 
             // HTML columns
             case "emailtemplatetext":
+            case "emailwidgetcode":
             case "templatebody":
             case "templateheader":
             case "templatefooter":

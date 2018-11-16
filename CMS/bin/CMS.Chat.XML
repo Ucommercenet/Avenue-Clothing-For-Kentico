@@ -72,6 +72,22 @@
             <typeparam name="TData">Type of cached data</typeparam>
             <typeparam name="TParam">Type of param</typeparam>
         </member>
+        <member name="T:CMS.Chat.ChatParametrizedCacheWrapper`2.ParametrizedCacheWrapperData`1">
+            <summary>
+            Internal representation of data in ChatParametrizedCacheWrapper.
+            </summary>
+            <typeparam name="TDataInner">Payload</typeparam>
+        </member>
+        <member name="P:CMS.Chat.ChatParametrizedCacheWrapper`2.ParametrizedCacheWrapperData`1.Items">
+            <summary>
+            Items.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatParametrizedCacheWrapper`2.ParametrizedCacheWrapperData`1.LastChange">
+            <summary>
+            Last change of items.
+            </summary>
+        </member>
         <member name="M:CMS.Chat.ChatParametrizedCacheWrapper`2.#ctor(System.String,CMS.Chat.FetchDataFunc{`0,`1},System.TimeSpan)">
             <summary>
             Constructor.
@@ -101,38 +117,6 @@
             <param name="param">Parameter - data will be stored to (and retrieved from) cache based on this parameter.</param>
             <param name="postCacheFilter">Post cache filter - filter which will be applied to data after retrieval from cache</param>
         </member>
-        <member name="T:CMS.Chat.ChatParametrizedCacheWrapper`2.ParametrizedCacheWrapperData`1">
-            <summary>
-            Internal representation of data in ChatParametrizedCacheWrapper.
-            </summary>
-            <typeparam name="TDataInner">Payload</typeparam>
-        </member>
-        <member name="T:CMS.Chat.ICacheWrapperResponse`1">
-            <summary>
-            This interface is returned from Chat cache wrappers when collection of items and its last modification time are needed.
-            </summary>
-            <typeparam name="TData">Type of one item in collection</typeparam>
-        </member>
-        <member name="P:CMS.Chat.ICacheWrapperResponse`1.Items">
-            <summary>
-            Collection of items.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ICacheWrapperResponse`1.LastChange">
-            <summary>
-            DateTime of last modification time of Items.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatParametrizedCacheWrapper`2.ParametrizedCacheWrapperData`1.Items">
-            <summary>
-            Items.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatParametrizedCacheWrapper`2.ParametrizedCacheWrapperData`1.LastChange">
-            <summary>
-            Last change of items.
-            </summary>
-        </member>
         <member name="T:CMS.Chat.FetchAllDataFunc`1">
             <summary>
             Function which returns all data in CurrentStateCacheWrapper. This function is used to load initial data. Then 
@@ -158,6 +142,39 @@
             </summary>
             <typeparam name="TData">Type of cached items</typeparam>
             <typeparam name="TKey">Type of primary key of items</typeparam>
+        </member>
+        <member name="T:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2">
+            <summary>
+            Internal representation of data stored in ChatCurrentStateCacheWrapper. It contains dictionary of TData indexed by TKey.
+            </summary>
+            <typeparam name="TKeyInner">Type of key in a dictionary</typeparam>
+            <typeparam name="TDataInner">Type of item in a dictionary</typeparam>
+        </member>
+        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.IsLoaded">
+            <summary>
+            Returns true if current state has been already loaded.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.Items">
+            <summary>
+            Values in this dictionary (implementation of ICacheWrapperResponse's property). User is interested in this value.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.Dictionary">
+            <summary>
+            Dictionary of items.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.LastChange">
+            <summary>
+            Last change of data in this container.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.SetLastChangeIfGreater(System.DateTime)">
+            <summary>
+            Sets LastChange to the value passed in parameter if this parameter is greater than current LastChange.
+            </summary>
+            <param name="newLastChange">New last change</param>
         </member>
         <member name="M:CMS.Chat.ChatCurrentStateCacheWrapper`2.#ctor(System.String,CMS.Chat.FetchAllDataFunc{`0},CMS.Chat.FetchChangedDataFunc{`0},System.TimeSpan)">
             <summary>
@@ -192,6 +209,11 @@
             Updates data in current state data structure. Update means that only data changed since currentState.LastChange are loaded using fetchChangedDataFunc.
             </summary>
             <param name="currentState">CurrentState data structure to be updated</param>
+        </member>
+        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentState">
+            <summary>
+            Current state of items. It is not older than 'maxDelay'
+            </summary>
         </member>
         <member name="M:CMS.Chat.ChatCurrentStateCacheWrapper`2.GetCurrentStateWithLastChange">
             <summary>
@@ -228,44 +250,6 @@
             Across web farms.
             </summary>
         </member>
-        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentState">
-            <summary>
-            Current state of items. It is not older than 'maxDelay'
-            </summary>
-        </member>
-        <member name="T:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2">
-            <summary>
-            Internal representation of data stored in ChatCurrentStateCacheWrapper. It contains dictionary of TData indexed by TKey.
-            </summary>
-            <typeparam name="TKeyInner">Type of key in a dictionary</typeparam>
-            <typeparam name="TDataInner">Type of item in a dictionary</typeparam>
-        </member>
-        <member name="M:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.SetLastChangeIfGreater(System.DateTime)">
-            <summary>
-            Sets LastChange to the value passed in parameter if this parameter is greater than current LastChange.
-            </summary>
-            <param name="newLastChange">New last change</param>
-        </member>
-        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.IsLoaded">
-            <summary>
-            Returns true if current state has been already loaded.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.Items">
-            <summary>
-            Values in this dictionary (implementation of ICacheWrapperResponse's property). User is interested in this value.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.Dictionary">
-            <summary>
-            Dictionary of items.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatCurrentStateCacheWrapper`2.CurrentStateCacheWrapperData`2.LastChange">
-            <summary>
-            Last change of data in this container.
-            </summary>
-        </member>
         <member name="T:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2">
             <summary>
             This cache wrapper combines CurrentStateWrapper and ParametrizedCacheWrapper. Where parametrized cache wrapper takes
@@ -273,6 +257,21 @@
             </summary>
             <typeparam name="TData">Type of data</typeparam>
             <typeparam name="TPrimaryKey">Type of primary key</typeparam>
+        </member>
+        <member name="T:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.SinceWhenCacheParam">
+            <summary>
+            Wraps one argument (DateTime) in class implementing IChatCacheableParam.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.SinceWhenCacheParam.SinceWhen">
+            <summary>
+            Since when data should be loaded.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.SinceWhenCacheParam.CacheKey">
+            <summary>
+            Cache key
+            </summary>
         </member>
         <member name="M:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.#ctor(System.String,CMS.Chat.FetchAllDataFunc{`0},CMS.Chat.FetchChangedDataFunc{`0},System.TimeSpan)">
             <summary>
@@ -282,6 +281,11 @@
             <param name="fetchAllDataFunc">Function to get all data (current state)</param>
             <param name="fetchChangedDataFunc">Function to get changed data</param>
             <param name="maxDelay">Cache persistence</param>
+        </member>
+        <member name="P:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.CurrentState">
+            <summary>
+            Current state of items. It is not older than 'maxDelay'
+            </summary>
         </member>
         <member name="M:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.GetCurrentStateWithLastChange">
             <summary>
@@ -320,16 +324,6 @@
             data will be reloaded from data source.
             </summary>
         </member>
-        <member name="P:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.CurrentState">
-            <summary>
-            Current state of items. It is not older than 'maxDelay'
-            </summary>
-        </member>
-        <member name="T:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.SinceWhenCacheParam">
-            <summary>
-            Wraps one argument (DateTime) in class implementing IChatCacheableParam.
-            </summary>
-        </member>
         <member name="T:CMS.Chat.IChatCacheableParam">
             <summary>
             Parametrized cache accepts this interface as a parameter.
@@ -340,47 +334,25 @@
             This key will be used as a cache key.
             </summary>
         </member>
-        <member name="P:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.SinceWhenCacheParam.SinceWhen">
+        <member name="T:CMS.Chat.ICacheWrapperResponse`1">
             <summary>
-            Since when data should be loaded.
+            This interface is returned from Chat cache wrappers when collection of items and its last modification time are needed.
+            </summary>
+            <typeparam name="TData">Type of one item in collection</typeparam>
+        </member>
+        <member name="P:CMS.Chat.ICacheWrapperResponse`1.Items">
+            <summary>
+            Collection of items.
             </summary>
         </member>
-        <member name="P:CMS.Chat.ChatIncrementalCacheWithCurrentStateWrapper`2.SinceWhenCacheParam.CacheKey">
+        <member name="P:CMS.Chat.ICacheWrapperResponse`1.LastChange">
             <summary>
-            Cache key
+            DateTime of last modification time of Items.
             </summary>
         </member>
         <member name="T:CMS.Chat.ChatBadWordsException">
             <summary>
             Exception which is thrown when some user submitted text contains bad words
-            </summary>
-        </member>
-        <member name="T:CMS.Chat.ChatServiceException">
-            <summary>
-            Exception used to pass status code and status message to the service.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceException.#ctor(CMS.Chat.ChatResponseStatusEnum)">
-            <summary>
-            Constucts exception. Message is set to the default value associated with status code.
-            </summary>
-            <param name="statusCode">Code of the response</param>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceException.#ctor(CMS.Chat.ChatResponseStatusEnum,System.String)">
-            <summary>
-            Constructs exception.
-            </summary>
-            <param name="statusCode">Code</param>
-            <param name="statusMessage">Status message</param>
-        </member>
-        <member name="P:CMS.Chat.ChatServiceException.StatusCode">
-            <summary>
-            Status code of chat response.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatServiceException.StatusMessage">
-            <summary>
-            Message of chat response.
             </summary>
         </member>
         <member name="M:CMS.Chat.ChatBadWordsException.#ctor">
@@ -905,35 +877,37 @@
             Room was not found or is disabled.
             </summary>
         </member>
+        <member name="T:CMS.Chat.ChatServiceException">
+            <summary>
+            Exception used to pass status code and status message to the service.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceException.#ctor(CMS.Chat.ChatResponseStatusEnum)">
+            <summary>
+            Constucts exception. Message is set to the default value associated with status code.
+            </summary>
+            <param name="statusCode">Code of the response</param>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceException.#ctor(CMS.Chat.ChatResponseStatusEnum,System.String)">
+            <summary>
+            Constructs exception.
+            </summary>
+            <param name="statusCode">Code</param>
+            <param name="statusMessage">Status message</param>
+        </member>
+        <member name="P:CMS.Chat.ChatServiceException.StatusCode">
+            <summary>
+            Status code of chat response.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatServiceException.StatusMessage">
+            <summary>
+            Message of chat response.
+            </summary>
+        </member>
         <member name="T:CMS.Chat.InitiateChatRequestData">
             <summary>
             Data class containing information about chat request. This class is send to client.
-            </summary>
-        </member>
-        <member name="T:CMS.Chat.IChatCacheableWithCurrentState`1">
-            <summary>
-            Items cached in CurrentStateCache has to implement this interface.
-            </summary>
-            <typeparam name="TKey">Type of key of this item. Unique representation of one object.</typeparam>
-        </member>
-        <member name="T:CMS.Chat.IChatIncrementalCacheable">
-            <summary>
-            Only classes which implement this interface can be stored in ChatParametrizedCacheWrapper.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.IChatIncrementalCacheable.ChangeTime">
-            <summary>
-            Change time of this object.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.IChatCacheableWithCurrentState`1.ChangeType">
-            <summary>
-            Type of change. If it is set to Modify, item with this PK will be added/modified in current state cache.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.IChatCacheableWithCurrentState`1.PK">
-            <summary>
-            Primary key of this item.
             </summary>
         </member>
         <member name="P:CMS.Chat.InitiateChatRequestData.InitiatorName">
@@ -1015,27 +989,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatInitiatedChatRequestInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatInitiatedChatRequestInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.Chat.ChatInitiatedChatRequestInfo.InitiatedChatRequestLastModification">
             <summary>
             Time of last modification of this request.
@@ -1075,6 +1028,27 @@
             <summary>
             State of this request.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatInitiatedChatRequestInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatInitiatedChatRequestInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.Chat.ChatInitiatedChatRequestInfoProvider">
             <summary>
@@ -1143,24 +1117,6 @@
             </summary>
             <returns>Number of completely deleted requests.</returns>
         </member>
-        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfoProvider.GetChatInitiatedChatRequestInfoInternal(System.Int32)">
-            <summary>
-            Returns initiated chat request with specified ID.
-            </summary>
-            <param name="requestId">Initiated chat request ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfoProvider.SetChatInitiatedChatRequestInfoInternal(CMS.Chat.ChatInitiatedChatRequestInfo)">
-            <summary>
-            Sets (updates or inserts) specified initiated chat request.
-            </summary>
-            <param name="requestObj">Initiated chat request to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatInitiatedChatRequestInfoProvider.DeleteChatInitiatedChatRequestInfoInternal(CMS.Chat.ChatInitiatedChatRequestInfo)">
-            <summary>
-            Deletes specified initiated chat request.
-            </summary>
-            <param name="requestObj">Initiated chat request to be deleted.</param>        
-        </member>
         <member name="T:CMS.Chat.ChatInitiatedChatRequestHelper">
             <summary>
             Helper class for initiated chat.
@@ -1197,15 +1153,6 @@
             Admin state of one user in one room.
             </summary>
         </member>
-        <member name="M:CMS.Chat.RoomAdminState.#ctor(System.Int32,System.DateTime,CMS.Chat.AdminLevelEnum,System.Boolean)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="roomID">Room ID</param>
-            <param name="lastChange">Last change of admin state</param>
-            <param name="adminLevel">Admin level</param>
-            <param name="isOneOnOne">Is room one to one</param>
-        </member>
         <member name="P:CMS.Chat.RoomAdminState.RoomID">
             <summary>
             Room ID
@@ -1225,6 +1172,15 @@
             <summary>
             Is room one to one
             </summary>
+        </member>
+        <member name="M:CMS.Chat.RoomAdminState.#ctor(System.Int32,System.DateTime,CMS.Chat.AdminLevelEnum,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="roomID">Room ID</param>
+            <param name="lastChange">Last change of admin state</param>
+            <param name="adminLevel">Admin level</param>
+            <param name="isOneOnOne">Is room one to one</param>
         </member>
         <member name="T:CMS.Chat.InitiatedChats">
             <summary>
@@ -1289,9 +1245,19 @@
             Class holding cache of users online on support.
             </summary>
         </member>
+        <member name="P:CMS.Chat.OnlineSupport.OnlineSupporters">
+            <summary>
+            Dictionary of chat users who are online on support. Dictionary is indexed by chat user ID.
+            </summary>
+        </member>
         <member name="M:CMS.Chat.OnlineSupport.InvalidateOnlineSupportCache">
             <summary>
             Invalidates cache of online supporters. This method has to be called after user logs into or leaves support. Otherwise cache can be outdated.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.OnlineSupport.OnlineSupportersCount">
+            <summary>
+            Gets count of users online on support.
             </summary>
         </member>
         <member name="M:CMS.Chat.OnlineSupport.#ctor(System.String,System.Int32)">
@@ -1301,19 +1267,14 @@
             <param name="parentName">This string is used as a cache key - it has to be unique for every instance of this class</param>
             <param name="siteID">Supporters on this site will be handled by this class</param>
         </member>
-        <member name="P:CMS.Chat.OnlineSupport.OnlineSupporters">
-            <summary>
-            Dictionary of chat users who are online on support. Dictionary is indexed by chat user ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.OnlineSupport.OnlineSupportersCount">
-            <summary>
-            Gets count of users online on support.
-            </summary>
-        </member>
         <member name="T:CMS.Chat.RoomsContainer">
             <summary>
             This class holds rooms for one site. Rooms are stored in classic private Dictionary field, so if Cache behavior is desired (ability to clear it, etc.) instance of this class has to be put into Cache.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.RoomsContainer.PublicRooms">
+            <summary>
+            Collection of public rooms.
             </summary>
         </member>
         <member name="M:CMS.Chat.RoomsContainer.#ctor(System.String,System.Int32,System.TimeSpan)">
@@ -1364,11 +1325,6 @@
             <param name="roomID">Room ID</param>
             <returns>RoomState or null</returns>
         </member>
-        <member name="P:CMS.Chat.RoomsContainer.PublicRooms">
-            <summary>
-            Collection of public rooms.
-            </summary>
-        </member>
         <member name="T:CMS.Chat.SupportRoom">
             <summary>
             Class storing information about room which has some pending messages needed support. This class is intended to be retrieved from DB and stored in chache.
@@ -1409,6 +1365,27 @@
             This class stores cache of SupportRoom (rooms needed support). Those rooms are stored in cache under the key which is time of last change.
             </summary>
         </member>
+        <member name="T:CMS.Chat.SupportRooms.SinceWhenCacheParam">
+            <summary>
+            Wraps one argument (DateTime?) in class implementing IChatCacheableParam.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.SupportRooms.SinceWhenCacheParam.SinceWhen">
+            <summary>
+            Since when data should be loaded.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.SupportRooms.SinceWhenCacheParam.CacheKey">
+            <summary>
+            Cache key
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.SupportRooms.SinceWhenCacheParam.#ctor(System.Nullable{System.DateTime})">
+            <summary>
+            Constructs SinceWhenCacheParam.
+            </summary>
+            <param name="sinceWhen">since when</param>
+        </member>
         <member name="M:CMS.Chat.SupportRooms.#ctor(System.String,System.Int32)">
             <summary>
             Constructs SupportRooms. Initializes cache.
@@ -1423,40 +1400,9 @@
             <param name="supportChatUserID">ID of chat user who is online on support right now. Rooms will be filtered based on this param (if room is taken by somebody else, it won't be send, etc.)</param>
             <param name="sinceWhen">Rooms changed since this time will be send. All pending support request will be send if null.</param>
         </member>
-        <member name="T:CMS.Chat.SupportRooms.SinceWhenCacheParam">
-            <summary>
-            Wraps one argument (DateTime?) in class implementing IChatCacheableParam.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.SupportRooms.SinceWhenCacheParam.#ctor(System.Nullable{System.DateTime})">
-            <summary>
-            Constructs SinceWhenCacheParam.
-            </summary>
-            <param name="sinceWhen">since when</param>
-        </member>
-        <member name="P:CMS.Chat.SupportRooms.SinceWhenCacheParam.SinceWhen">
-            <summary>
-            Since when data should be loaded.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.SupportRooms.SinceWhenCacheParam.CacheKey">
-            <summary>
-            Cache key
-            </summary>
-        </member>
         <member name="T:CMS.Chat.ChatOnlineSupportHelper">
             <summary>
             Helper class for online support.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineSupportHelper.EnterSupport">
-            <summary>
-            Logs currently logged in CMS User into support chat.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineSupportHelper.LeaveSupport">
-            <summary>
-            Loggs current support user out of support chat.
             </summary>
         </member>
         <member name="P:CMS.Chat.ChatOnlineSupportHelper.OnlineSupport">
@@ -1477,6 +1423,16 @@
         <member name="P:CMS.Chat.ChatOnlineSupportHelper.IsSupportOnline">
             <summary>
             True if supporter is online at this computer.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatOnlineSupportHelper.EnterSupport">
+            <summary>
+            Logs currently logged in CMS User into support chat.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatOnlineSupportHelper.LeaveSupport">
+            <summary>
+            Loggs current support user out of support chat.
             </summary>
         </member>
         <member name="T:CMS.Chat.OldInitiatedChatRequestsCleaner">
@@ -1737,13 +1693,6 @@
             Class holds four helper classes (rooms, online users, online supporters and messages in support rooms) and provide accessors for them.
             </summary>
         </member>
-        <member name="M:CMS.Chat.SiteState.#ctor(System.String,System.Int32)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="parentName">Unique name of a parent class.</param>
-            <param name="siteID">Site ID</param>
-        </member>
         <member name="P:CMS.Chat.SiteState.Rooms">
             <summary>
             Gets instance of SiteRooms.
@@ -1768,6 +1717,13 @@
             <summary>
             Gets SiteID of site which is represented by this SiteState.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.SiteState.#ctor(System.String,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="parentName">Unique name of a parent class.</param>
+            <param name="siteID">Site ID</param>
         </member>
         <member name="T:CMS.Chat.OldRecordsCleaner">
             <summary>
@@ -1796,6 +1752,26 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportLastChecking">
+            <summary>
+            DateTime of last support ping made by this instance.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportChatUserID">
+            <summary>
+            Chat user who is online as a support.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportID">
+            <summary>
+            ID.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportToken">
+            <summary>
+            Unique token.
+            </summary>
+        </member>
         <member name="M:CMS.Chat.ChatOnlineSupportInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -1816,26 +1792,6 @@
             Constructor - Creates a new ChatOnlineSupportInfo object from the given DataRow.
             </summary>
             <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportLastChecking">
-            <summary>
-            DateTime of last support ping made by this instance.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportChatUserID">
-            <summary>
-            Chat user who is online as a support.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportID">
-            <summary>
-            ID.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatOnlineSupportInfo.ChatOnlineSupportToken">
-            <summary>
-            Unique token.
-            </summary>
         </member>
         <member name="T:CMS.Chat.ChatOnlineSupportInfoProvider">
             <summary>
@@ -1919,33 +1875,14 @@
             <param name="token">Login token</param>
             <param name="siteID">Users on this site will be searched</param>
         </member>
-        <member name="M:CMS.Chat.ChatOnlineSupportInfoProvider.GetChatOnlineSupportInfoInternal(System.Int32)">
-            <summary>
-            Returns online support engineer with specified ID.
-            </summary>
-            <param name="engineerId">Online support engineer ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineSupportInfoProvider.GetChatOnlineSupportInfoInternal(System.Guid)">
-            <summary>
-            Returns online support engineer with specified GUID.
-            </summary>
-            <param name="engineerGuid">Online support engineer GUID.</param>                                 
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineSupportInfoProvider.SetChatOnlineSupportInfoInternal(CMS.Chat.ChatOnlineSupportInfo)">
-            <summary>
-            Sets (updates or inserts) specified online support engineer.
-            </summary>
-            <param name="engineerObj">Online support engineer to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineSupportInfoProvider.DeleteChatOnlineSupportInfoInternal(CMS.Chat.ChatOnlineSupportInfo)">
-            <summary>
-            Deletes specified online support engineer.
-            </summary>
-            <param name="engineerObj">Online support engineer to be deleted.</param>        
-        </member>
         <member name="T:CMS.Chat.ChatOnlineUserHelper">
             <summary>
             Helper class for chat online users.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatOnlineUserHelper.ChatUserIDSession">
+            <summary>
+            Chat user ID stored in session. Null if no chat user id is stored in session.
             </summary>
         </member>
         <member name="M:CMS.Chat.ChatOnlineUserHelper.GetLoggedInChatUser(System.Boolean@)">
@@ -2004,11 +1941,6 @@
             Logs current user out of chat.
             </summary>
         </member>
-        <member name="P:CMS.Chat.ChatOnlineUserHelper.ChatUserIDSession">
-            <summary>
-            Chat user ID stored in session. Null if no chat user id is stored in session.
-            </summary>
-        </member>
         <member name="T:CMS.Chat.ChatOnlineUserInfo">
             <summary>
             ChatOnlineUser data container class.
@@ -2023,27 +1955,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineUserInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineUserInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineUserInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatOnlineUser object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineUserInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatOnlineUser object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="P:CMS.Chat.ChatOnlineUserInfo.ChatOnlineUserChatUserID">
             <summary>
@@ -2084,6 +1995,27 @@
             <summary>
             True if user shouldn't be displayed on live site in list of online users.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatOnlineUserInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatOnlineUserInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatOnlineUserInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatOnlineUser object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatOnlineUserInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatOnlineUser object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.Chat.ChatOnlineUserInfoProvider">
             <summary>
@@ -2183,24 +2115,6 @@
             <param name="token">Token</param>
             <param name="siteID">Only users online on this site will be searhed</param>
         </member>
-        <member name="M:CMS.Chat.ChatOnlineUserInfoProvider.GetChatOnlineUserInternal(System.Int32)">
-            <summary>
-            Returns chat online user with specified ID.
-            </summary>
-            <param name="userId">Chat online user ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineUserInfoProvider.SetChatOnlineUserInternal(CMS.Chat.ChatOnlineUserInfo)">
-            <summary>
-            Sets (updates or inserts) specified chat online user.
-            </summary>
-            <param name="userObj">Chat online user to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatOnlineUserInfoProvider.DeleteChatOnlineUserInternal(CMS.Chat.ChatOnlineUserInfo)">
-            <summary>
-            Deletes specified chat online user.
-            </summary>
-            <param name="userObj">Chat online user to be deleted.</param>        
-        </member>
         <member name="T:CMS.Chat.ChatSettingsHandler">
             <summary>
             ASP.NET handler for generating chat settings. 
@@ -2294,14 +2208,14 @@
             Singleton class which holds data needed by chat. It contains instances of other classes to split responsibilities between classes.
             </summary>
         </member>
-        <member name="F:CMS.Chat.ChatGlobalData.UNIQUE_NAME">
-            <summary>
-            Name of this class.
-            </summary>
-        </member>
         <member name="F:CMS.Chat.ChatGlobalData.mInstance">
             <summary>
             Instance.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatGlobalData.Instance">
+            <summary>
+            Singleton instance.
             </summary>
         </member>
         <member name="M:CMS.Chat.ChatGlobalData.#ctor">
@@ -2309,9 +2223,9 @@
             Private constructor
             </summary>
         </member>
-        <member name="P:CMS.Chat.ChatGlobalData.Instance">
+        <member name="F:CMS.Chat.ChatGlobalData.UNIQUE_NAME">
             <summary>
-            Singleton instance.
+            Name of this class.
             </summary>
         </member>
         <member name="P:CMS.Chat.ChatGlobalData.Sites">
@@ -2498,27 +2412,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatPopupWindowSettings object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatPopupWindowSettings object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.Chat.ChatPopupWindowSettingsInfo.ChatPopupWindowSettingsID">
             <summary>
             Row id.
@@ -2548,6 +2441,27 @@
             <summary>
             Name of transformation used for user in users list.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatPopupWindowSettings object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatPopupWindowSettings object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.Chat.ChatPopupWindowSettingsHelper">
             <summary>
@@ -2612,12 +2526,6 @@
             </summary>
             <param name="settingsId">Popup window settings ID.</param>
         </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfoProvider.Clear(System.Boolean)">
-            <summary>
-            Clears hashtables.
-            </summary>
-            <param name="logTasks">If true, web farm tasks are logged.</param>
-        </member>
         <member name="M:CMS.Chat.ChatPopupWindowSettingsInfoProvider.GetByHashCode(System.Int32)">
             <summary>
             Gets popup window settings by hash code.
@@ -2634,24 +2542,6 @@
             <param name="errorTrans">Error transformation setting</param>
             <param name="errorClearTrans">Error clear transformation setting</param>
             <returns>Stored settings</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfoProvider.GetChatPopupWindowSettingsInternal(System.Int32)">
-            <summary>
-            Returns popup window settings with specified ID.
-            </summary>
-            <param name="settingsId">Popup window settings ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfoProvider.SetChatPopupWindowSettingsInternal(CMS.Chat.ChatPopupWindowSettingsInfo)">
-            <summary>
-            Sets (updates or inserts) specified popup window settings.
-            </summary>
-            <param name="settingsObj">Popup window settings to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatPopupWindowSettingsInfoProvider.DeleteChatPopupWindowSettingsInternal(CMS.Chat.ChatPopupWindowSettingsInfo)">
-            <summary>
-            Deletes specified popup window settings.
-            </summary>
-            <param name="settingsObj">Popup window settings to be deleted.</param>        
         </member>
         <member name="T:CMS.Chat.ChatRoomUserHelper">
             <summary>
@@ -2793,27 +2683,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatSupportTakenRoomsInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatSupportTakenRoomsInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.Chat.ChatSupportTakenRoomInfo.ChatSupportTakenRoomID">
             <summary>
             ID.
@@ -2838,6 +2707,27 @@
             <summary>
             DateTime when this room was resolved for the last time. Room is resolved when support engineer leaves room.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatSupportTakenRoomsInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportTakenRoomInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatSupportTakenRoomsInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.Chat.ChatSupportTakenRoomInfoProvider">
             <summary>
@@ -2904,24 +2794,6 @@
             <param name="omitChatUserID">If room is taken by this user, it won't count</param>
             <returns>True if room is taken</returns>
         </member>
-        <member name="M:CMS.Chat.ChatSupportTakenRoomInfoProvider.GetChatSupportTakenRoomsInfoInternal(System.Int32)">
-            <summary>
-            Returns room taken by support with specified ID.
-            </summary>
-            <param name="supportId">Room taken by support ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatSupportTakenRoomInfoProvider.SetChatSupportTakenRoomsInfoInternal(CMS.Chat.ChatSupportTakenRoomInfo)">
-            <summary>
-            Sets (updates or inserts) specified room taken by support.
-            </summary>
-            <param name="supportObj">Room taken by support to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatSupportTakenRoomInfoProvider.DeleteChatSupportTakenRoomsInfoInternal(CMS.Chat.ChatSupportTakenRoomInfo)">
-            <summary>
-            Deletes specified room taken by support.
-            </summary>
-            <param name="supportObj">Room taken by support to be deleted.</param>        
-        </member>
         <member name="T:CMS.Chat.ChatCacheDictionaryWrapper`2">
             <summary>
             This class stores cached objects in dictionary and allows to get/invalidate them individually.
@@ -2972,6 +2844,11 @@
             <param name="cachePersistence">Item in cache will stay in cache for the amount of time specified by this parameter. Then it will be renewed by calling fetchDataFunc. (not used if null).</param>
             <param name="slidingExpiration">Item will stay in cache as long as it is accessed once in that time. (not used if null)</param>
         </member>
+        <member name="P:CMS.Chat.ChatCacheWrapper`1.Data">
+            <summary>
+            Gets data from cache. Loads it using fetchDataFunc if needed.
+            </summary>
+        </member>
         <member name="M:CMS.Chat.ChatCacheWrapper`1.AddDependency(System.String)">
             <summary>
             This cache item will be dependent on this cache key.
@@ -2981,11 +2858,6 @@
         <member name="M:CMS.Chat.ChatCacheWrapper`1.Invalidate">
             <summary>
             Removes data from cache.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatCacheWrapper`1.Data">
-            <summary>
-            Gets data from cache. Loads it using fetchDataFunc if needed.
             </summary>
         </member>
         <member name="T:CMS.Chat.ChatSupportCannedResponseInfo">
@@ -3002,38 +2874,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
-            <summary>
-            Checks whether the specified user has permissions for this object. This method is called automatically after CheckPermissions event was fired.
-            Check takes into account the fact, that the canned response can be personal and its owner thus has all the permissions.
-            </summary>
-            <param name="permission">Permission to perform this operation will be checked</param>
-            <param name="siteName">Permissions on this site will be checked</param>
-            <param name="userInfo">Permissions of this user will be checked</param>
-            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
-            <returns>True if user is allowed to perform specified operation on the this object; otherwise false</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatSupportCannedResponseInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatSupportCannedResponseInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="P:CMS.Chat.ChatSupportCannedResponseInfo.LogExport">
             <summary>
@@ -3069,6 +2909,38 @@
             <summary>
             Site to which this canned response belongs (null = global).
             </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.CheckPermissionsInternal(CMS.DataEngine.PermissionsEnum,System.String,CMS.Base.IUserInfo,System.Boolean)">
+            <summary>
+            Checks whether the specified user has permissions for this object. This method is called automatically after CheckPermissions event was fired.
+            Check takes into account the fact, that the canned response can be personal and its owner thus has all the permissions.
+            </summary>
+            <param name="permission">Permission to perform this operation will be checked</param>
+            <param name="siteName">Permissions on this site will be checked</param>
+            <param name="userInfo">Permissions of this user will be checked</param>
+            <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
+            <returns>True if user is allowed to perform specified operation on the this object; otherwise false</returns>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatSupportCannedResponseInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatSupportCannedResponseInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatSupportCannedResponseInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.Chat.ChatSupportCannedResponseInfoProvider">
             <summary>
@@ -3116,24 +2988,6 @@
             <param name="chatUserID">Owner of canned responses</param>
             <param name="siteID">Site of canned responses</param>
             <returns>Canned responses</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfoProvider.GetChatSupportCannedResponseInfoInternal(System.Int32)">
-            <summary>
-            Returns chat support canned response with specified ID.
-            </summary>
-            <param name="responseId">Chat support canned response ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfoProvider.SetChatSupportCannedResponseInfoInternal(CMS.Chat.ChatSupportCannedResponseInfo)">
-            <summary>
-            Sets (updates or inserts) specified chat support canned response.
-            </summary>
-            <param name="responseObj">Chat support canned response to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatSupportCannedResponseInfoProvider.DeleteChatSupportCannedResponseInfoInternal(CMS.Chat.ChatSupportCannedResponseInfo)">
-            <summary>
-            Deletes specified chat support canned response.
-            </summary>
-            <param name="responseObj">Chat support canned response to be deleted.</param>        
         </member>
         <member name="T:CMS.Chat.ChatNotificationData">
             <summary>
@@ -3205,15 +3059,6 @@
             Online user data.
             </summary>
         </member>
-        <member name="M:CMS.Chat.OnlineUserData.#ctor(CMS.Chat.ChatUserInfo,System.DateTime,System.Boolean,System.Boolean)">
-            <summary>
-            Constructs OnlineUserData.
-            </summary>
-            <param name="chatUser">Info of this chat user.</param>
-            <param name="lastChange">Last change</param>
-            <param name="isRemoved">If true, this record should be removed from list on client</param>
-            <param name="isHidden">If true, this record shouldn't be sent to client - it will be only stored on server side</param>
-        </member>
         <member name="P:CMS.Chat.OnlineUserData.Nickname">
             <summary>
             Gets or sets nickname of this user.
@@ -3244,6 +3089,15 @@
             If true, this record shouldn't be sent to client - it will be only stored on server side.
             </summary>
         </member>
+        <member name="M:CMS.Chat.OnlineUserData.#ctor(CMS.Chat.ChatUserInfo,System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Constructs OnlineUserData.
+            </summary>
+            <param name="chatUser">Info of this chat user.</param>
+            <param name="lastChange">Last change</param>
+            <param name="isRemoved">If true, this record should be removed from list on client</param>
+            <param name="isHidden">If true, this record shouldn't be sent to client - it will be only stored on server side</param>
+        </member>
         <member name="P:CMS.Chat.OnlineUserData.CMS#Chat#IChatCacheableWithCurrentState{System#Int32}#ChangeType">
             <summary>
             Change type of this record.
@@ -3262,6 +3116,16 @@
         <member name="T:CMS.Chat.RoomState">
             <summary>
             Class holding caches of messages and online users in one room.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.RoomState.RoomInfo">
+            <summary>
+            Gets ChatRoomInfo of this room. Properties of this room can't be change via this instance (use ReloadChatRoomInfo() instead).
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.RoomState.OnlineUsers">
+            <summary>
+            List of online users in this room. Contains not only online users, but also users with Admin rights, Join rights (private rooms), etc.
             </summary>
         </member>
         <member name="M:CMS.Chat.RoomState.#ctor(System.String,CMS.Chat.ChatRoomInfo)">
@@ -3334,16 +3198,6 @@
             Reloads info about this chat room. Should be called every time after room is changed.
             </summary>
             <param name="newChatRoomInfo">New info about this chat room.</param>
-        </member>
-        <member name="P:CMS.Chat.RoomState.RoomInfo">
-            <summary>
-            Gets ChatRoomInfo of this room. Properties of this room can't be change via this instance (use ReloadChatRoomInfo() instead).
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.RoomState.OnlineUsers">
-            <summary>
-            List of online users in this room. Contains not only online users, but also users with Admin rights, Join rights (private rooms), etc.
-            </summary>
         </member>
         <member name="T:CMS.Chat.ChatHelper">
             <summary>
@@ -3513,27 +3367,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Chat.ChatMessageInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatMessageInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatMessageInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatMessageInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatMessageInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatMessageInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
         <member name="P:CMS.Chat.ChatMessageInfo.ChatMessageUserID">
             <summary>
             Chat user Author's ID - foreign key.
@@ -3583,6 +3416,27 @@
             <summary>
             Is message system.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatMessageInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatMessageInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatMessageInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatMessageInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatMessageInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatMessageInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.Chat.ChatMessageInfoProvider">
             <summary>
@@ -3639,23 +3493,11 @@
             <param name="roomID">Room ID</param>
             <returns>Newest ChatMessageLastModified or null if there are no messages in this room</returns>
         </member>
-        <member name="M:CMS.Chat.ChatMessageInfoProvider.GetChatMessageInfoInternal(System.Int32)">
+        <member name="M:CMS.Chat.ChatMessageInfoProvider.SetInfo(CMS.Chat.ChatMessageInfo)">
             <summary>
-            Returns chat message with specified ID.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="messageId">Chat message ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatMessageInfoProvider.SetChatMessageInfoInternal(CMS.Chat.ChatMessageInfo)">
-            <summary>
-            Sets (updates or inserts) specified chat message.
-            </summary>
-            <param name="messageObj">Chat message to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatMessageInfoProvider.DeleteChatMessageInfoInternal(CMS.Chat.ChatMessageInfo)">
-            <summary>
-            Deletes specified chat message.
-            </summary>
-            <param name="messageObj">Chat message to be deleted.</param>        
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="T:CMS.Chat.ChatModule">
             <summary>
@@ -3686,27 +3528,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatNotificationInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatNotificationInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatNotificationInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatNotificationInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatNotificationInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatNotificationInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="P:CMS.Chat.ChatNotificationInfo.ChatNotificationID">
             <summary>
@@ -3752,6 +3573,27 @@
             <summary>
             SiteID of this notification. If null than global.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatNotificationInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatNotificationInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatNotificationInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatNotificationInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatNotificationInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatNotificationInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="T:CMS.Chat.ChatNotificationInfoProvider">
             <summary>
@@ -3827,24 +3669,6 @@
             </summary>
             <param name="receiverID">Receiver of notifications</param>
             <param name="untilWhen">Notifications arrived before this time</param>
-        </member>
-        <member name="M:CMS.Chat.ChatNotificationInfoProvider.GetChatNotificationInfoInternal(System.Int32)">
-            <summary>
-            Returns chat notification with specified ID.
-            </summary>
-            <param name="notificationId">Chat notification ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatNotificationInfoProvider.SetChatNotificationInfoInternal(CMS.Chat.ChatNotificationInfo)">
-            <summary>
-            Sets (updates or inserts) specified chat notification.
-            </summary>
-            <param name="notificationObj">Chat notification to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatNotificationInfoProvider.DeleteChatNotificationInfoInternal(CMS.Chat.ChatNotificationInfo)">
-            <summary>
-            Deletes specified chat notification.
-            </summary>
-            <param name="notificationObj">Chat notification to be deleted.</param>        
         </member>
         <member name="T:CMS.Chat.ChatOnlineUsersCleaner">
             <summary>
@@ -4306,48 +4130,6 @@
             Type information.
             </summary>
         </member>
-        <member name="M:CMS.Chat.ChatRoomInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatRoomInfo object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatRoomInfo object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
-            <summary>
-            Sets CreatedWhen and LastModification to the current time.
-            
-            This method is called on cloned object prepared in memory by InsertAsClone method. 
-            Override if you need to do further actions before inserting actual object to DB (insert special objects, modify foreign keys, copy files, etc.).
-            Calls Insert() by default.
-            </summary>
-            <param name="settings">Cloning settings</param>
-            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
-            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfo.UpdateData">
-            <summary>
-            Override use of classic query for updating data.
-            
-            Properly handles changing from public to private state.
-            
-            Invalidates rooms cache.
-            </summary>
-        </member>
         <member name="P:CMS.Chat.ChatRoomInfo.LogExport">
             <summary>
             Log export only if room meets export criteria. Only public rooms are meant to be exported.
@@ -4456,6 +4238,53 @@
         <member name="P:CMS.Chat.ChatRoomInfo.ChatRoomGUID">
             <summary>
             Unique identifier of this chat orom.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatRoomInfo object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatRoomInfo object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomInfo.InsertAsCloneInternal(CMS.DataEngine.CloneSettings,CMS.DataEngine.CloneResult,CMS.DataEngine.BaseInfo)">
+            <summary>
+            Sets CreatedWhen and LastModification to the current time.
+            
+            This method is called on cloned object prepared in memory by InsertAsClone method. 
+            Override if you need to do further actions before inserting actual object to DB (insert special objects, modify foreign keys, copy files, etc.).
+            Calls Insert() by default.
+            </summary>
+            <param name="settings">Cloning settings</param>
+            <param name="result">Result of the cloning - messages in this object will be altered by processing this method</param>
+            <param name="originalObject">Original source BaseInfo (object being cloned)</param>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomInfo.UpdateData">
+            <summary>
+            Override use of classic query for updating data.
+            
+            Properly handles changing from public to private state.
+            
+            Invalidates rooms cache.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomInfo.LoadDefaultData">
+            <summary>
+            Loads the default data to the object.
             </summary>
         </member>
         <member name="T:CMS.Chat.ChatRoomInfoProvider">
@@ -4581,30 +4410,11 @@
             Updates data of all cached rooms.
             </summary>
         </member>
-        <member name="M:CMS.Chat.ChatRoomInfoProvider.GetChatRoomInfoInternal(System.Int32)">
+        <member name="M:CMS.Chat.ChatRoomInfoProvider.SetInfo(CMS.Chat.ChatRoomInfo)">
             <summary>
-            Returns chat room with specified ID.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="roomId">Chat room ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfoProvider.GetChatRoomInfoInternal(System.String,System.String)">
-            <summary>
-            Returns chat room with specified name.
-            </summary>
-            <param name="roomName">Chat room name.</param>                
-            <param name="siteName">Site name.</param>         
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfoProvider.SetChatRoomInfoInternal(CMS.Chat.ChatRoomInfo)">
-            <summary>
-            Sets (updates or inserts) specified chat room.
-            </summary>
-            <param name="roomObj">Chat room to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatRoomInfoProvider.DeleteChatRoomInfoInternal(CMS.Chat.ChatRoomInfo)">
-            <summary>
-            Deletes specified chat room.
-            </summary>
-            <param name="roomObj">Chat room to be deleted.</param>        
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="T:CMS.Chat.ChatRoomUserInfo">
             <summary>
@@ -4620,27 +4430,6 @@
             <summary>
             Type information.
             </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfo.DeleteObject">
-            <summary>
-            Deletes the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfo.SetObject">
-            <summary>
-            Updates the object using appropriate provider.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfo.#ctor">
-            <summary>
-            Constructor - Creates an empty ChatRoomUser object.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfo.#ctor(System.Data.DataRow)">
-            <summary>
-            Constructor - Creates a new ChatRoomUser object from the given DataRow.
-            </summary>
-            <param name="dr">DataRow with the object data.</param>
         </member>
         <member name="P:CMS.Chat.ChatRoomUserInfo.ChatRoomUserRoomID">
             <summary>
@@ -4698,26 +4487,36 @@
             Gets online state of this user. User is online if his JoinTime is not null.
             </summary>
         </member>
+        <member name="M:CMS.Chat.ChatRoomUserInfo.DeleteObject">
+            <summary>
+            Deletes the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomUserInfo.SetObject">
+            <summary>
+            Updates the object using appropriate provider.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomUserInfo.#ctor">
+            <summary>
+            Constructor - Creates an empty ChatRoomUser object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatRoomUserInfo.#ctor(System.Data.DataRow)">
+            <summary>
+            Constructor - Creates a new ChatRoomUser object from the given DataRow.
+            </summary>
+            <param name="dr">DataRow with the object data.</param>
+        </member>
         <member name="T:CMS.Chat.ChatRoomUserInfoProvider">
             <summary>
             Class providing ChatRoomUser management.
             </summary>
         </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfoProvider.GetChatRoomUsers(System.String,System.String,System.Int32,System.String)">
+        <member name="M:CMS.Chat.ChatRoomUserInfoProvider.GetChatRoomUsers">
             <summary>
-            Returns dataset of all chat room users matching the specified parameters.
+            Returns the query for all chat room users.
             </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfoProvider.GetChatRoomUsers(System.String,System.String)">
-            <summary>
-            Returns dataset of all chat room users matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
         </member>
         <member name="M:CMS.Chat.ChatRoomUserInfoProvider.GetChatRoomUser(System.Int32)">
             <summary>
@@ -4891,487 +4690,10 @@
             <param name="chatUserID">Chat user ID</param>
             <returns>Admin states</returns>
         </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfoProvider.GetChatRoomUsersInternal(System.String,System.String,System.Int32,System.String)">
-            <summary>
-            Returns dataset of all chat room users matching the specified parameters.
-            </summary>
-            <param name="where">Where condition.</param>
-            <param name="orderBy">Order by expression.</param>
-            <param name="topN">Number of records to be selected.</param>        
-            <param name="columns">Columns to be selected.</param>
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfoProvider.GetChatRoomUserInternal(System.Int32)">
-            <summary>
-            Returns chat room user with specified ID.
-            </summary>
-            <param name="userId">Chat room user ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfoProvider.SetChatRoomUserInternal(CMS.Chat.ChatRoomUserInfo)">
-            <summary>
-            Sets (updates or inserts) specified chat room user.
-            </summary>
-            <param name="userObj">Chat room user to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatRoomUserInfoProvider.DeleteChatRoomUserInternal(CMS.Chat.ChatRoomUserInfo)">
-            <summary>
-            Deletes specified chat room user.
-            </summary>
-            <param name="userObj">Chat room user to be deleted.</param>        
-        </member>
         <member name="T:CMS.Chat.ChatService">
             <summary>
             Implementation of chat service. All chat operations made from client goes through this service.
             </summary>
-        </member>
-        <member name="T:CMS.Chat.ChatServiceBase">
-            <summary>
-            Base class of all chat web services.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.#ctor">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasAdminRoomRights(System.Int32)">
-            <summary>
-            Verifies that currently logged in chat user has admin rights for a room.
-            
-            Throws exception in case of failure and does nothing in case of success.
-            </summary>
-            <param name="roomID">Room ID</param>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.VerifyIPIsNotBanned">
-            <summary>
-            Verifies that IP addres which was used to make this request is not banned.
-            
-            Throws exception in case of failure and does nothing in case of success.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserIsLoggedIn">
-            <summary>
-            Verifies that chat user is logged in.
-            
-            Throws exception in case of failure and does nothing in case of success.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserIsOnlineInARoom(System.Int32)">
-            <summary>
-            Verifies that currently logged in chat user is online in a room.
-            
-            Throws exception in case of failure and does nothing in case of success.
-            </summary>
-            <param name="roomID">Room ID</param>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasPermission(CMS.Chat.ChatPermissionEnum)">
-            <summary>
-            Verifies that currently logged in chat user has specified permission.
-            
-            Throws exception in case of failure and does nothing in case of success.
-            </summary>
-            <param name="permission">Chat permission to check</param>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasAnyPermission(CMS.Chat.ChatPermissionEnum[])">
-            <summary>
-            Verifies that currently logged in chat user has at least one of the passed permissions.
-            
-            Throws exception in case of failure and does nothing in case of success.
-            </summary>
-            <param name="permissions">Chat permissions to check</param>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasAllPermissions(CMS.Chat.ChatPermissionEnum[])">
-            <summary>
-            Verifies that currently logged in chat user has all of the passed permissions.
-            
-            Throws exception in case of failure and does nothing in case of success.
-            </summary>
-            <param name="permissions">Chat permissions to check</param>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.GetOkChatResponse">
-            <summary>
-            Builds general chat response with OK code.
-            </summary>
-            <returns>General response with OK code and default string</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.GetOkChatResponse``1(``0)">
-            <summary>
-            Builds general chat response with OK code and Data set to <paramref name="data"/>.
-            </summary>
-            <typeparam name="TData">Type of inner Data property.</typeparam>
-            <param name="data">Payload of this response</param>
-            <returns>General response with data</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse(CMS.Chat.ChatResponseStatusEnum)">
-            <summary>
-            Builds general chat response with error set to <paramref name="statusCode"/> and message set to default value associated with <paramref name="statusCode"/>.
-            </summary>
-            <param name="statusCode">Status code of the response</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse(CMS.Chat.ChatResponseStatusEnum,System.String)">
-            <summary>
-            Builds general chat response with error set to <paramref name="statusCode"/> and message set to <paramref name="statusMessage"/>.
-            </summary>
-            <param name="statusCode">Response code</param>
-            <param name="statusMessage">Response message</param>
-            <returns>General error response</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse``1(CMS.Chat.ChatResponseStatusEnum)">
-            <summary>
-            Builds chat response with code set to <paramref name="statusCode"/>, message set to default value associated with <paramref name="statusCode"/> and data set to default(TData).
-            </summary>
-            <typeparam name="TData">Type of Data property of the response</typeparam>
-            <param name="statusCode">Status code</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse``1(CMS.Chat.ChatResponseStatusEnum,System.String)">
-            <summary>
-            Builds chat response with code set to <paramref name="statusCode"/>, message set to <paramref name="statusMessage"/> and data set to default(TData).
-            </summary>
-            <typeparam name="TData">Type of data property</typeparam>
-            <param name="statusCode">Status code</param>
-            <param name="statusMessage">Status message</param>
-            <returns>General response with Data of type TData</returns>
-        </member>
-        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse``1(CMS.Chat.ChatResponseStatusEnum,System.String,``0)">
-            <summary>
-            Builds generic ChatGeneral response with properties set to passed params.
-            </summary>
-            <typeparam name="TData">Type of payload</typeparam>
-            <param name="statusCode">Status code</param>
-            <param name="statusMessage">Status message</param>
-            <param name="data">Payload</param>
-            <returns>ChatGeneralResponse</returns>
-        </member>
-        <member name="P:CMS.Chat.ChatServiceBase.Sites">
-            <summary>
-            Shortcut to ChatGlobalData.Instance.Sites (contains cached chat objects (rooms, etc.)).
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatServiceBase.CurrentChatUserState">
-            <summary>
-            Gets ChatUserState of currently logged in chat user.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatServiceBase.IsIPBanned">
-            <summary>
-            Gets true if current user's IP address is banned and he can not do anything on the chat.
-            </summary>
-        </member>
-        <member name="T:CMS.Chat.IChatService">
-            <summary>
-            Service contract for chat service.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.IChatService.PingRoom(System.Int32,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32})">
-            <summary>
-            <para>
-            Keeping alive user in a room. User has to call this method every few seconds to let server know that he is still online.
-            </para>
-            <para>
-            At the same time a new online users in a room and a new messages in a room are checked. Client sends the last time he made an update
-            of online users (<paramref name="roomUsersLastChange"/>) and messages (<paramref name="roomMessagesLastChange"/>). If something new 
-            has happened since that time, the changes are sent back.
-            </para>
-            </summary>
-            <param name="roomID">ID of a chat room</param>
-            <param name="roomUsersLastChange">Last update of members on this client (client gets this number in PingRoom().Users.LastChange) - if this param is null, client does not need online users. If it is 0, it is the first request and all users are returned.</param>
-            <param name="roomMessagesLastChange">Last update of messages on this client (client gets this number in PingRoom().Messages.LastChange) - if this param is null, client does not need online users. If it is 0, it is the first request and all users are returned.</param>
-            <param name="maxMessagesCount">Maximum number of messages returned</param>
-            <returns>PingRoomsResultData</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.Ping(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
-            <summary>
-            Keeps user online in global list of chat online users (this method needs to be called periodically).
-            
-            Checks if there were any changes in:
-            - rooms (new room added, changed name, etc.) since <paramref name="lastRoomsChange"/>.
-            - counts of users in rooms since <paramref name="lastUsersInRoomsChange"/>.
-            - global online users since <paramref name="lastOnlineUsersChange"/>.
-            - notifications for online user since <paramref name="lastNotificationChange"/>.
-            
-            If any of this objects has changed, changes are send back to client.
-            
-            If any of params is null, its objects are not checked. If param is 0, it is the first request and all objects are returned.
-            </summary>
-            <param name="lastRoomsChange">Time of last check for rooms list made by this client.</param>
-            <param name="lastUsersInRoomsChange">Time of last check for counts of users in rooms made by this client.</param>
-            <param name="lastOnlineUsersChange">Time of last check for global online users made by this client.</param>
-            <param name="lastNotificationChange">Time of last check for notifications made by this client.</param>
-            <returns>PingRoomsResultData</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.JoinRoom(System.Int32,System.String)">
-            <summary>
-            Joins a room.
-            
-            Chat user has to be logged in before this operation.
-            </summary>
-            <param name="roomID">ID of a room.</param>
-            <param name="password">Entrance password (if required).</param>
-            <returns>JoinRoomData</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.LeaveRoom(System.Int32)">
-            <summary>
-            Leaves chat room.
-            </summary>
-            <param name="roomID">ID of a room.</param>
-            <returns>ChatGeneralReponse</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.PostMessage(System.Int32,System.String)">
-            <summary>
-            Posts a new message to a room.
-            
-            Chat user has to be logged in and joined this room. Message can not be empty.
-            </summary>
-            <param name="roomID">Room ID</param>
-            <param name="messageText">Message text</param>
-            <returns>ChatGeneralReponse</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.PostMessageToUser(System.Int32,System.Int32,System.String)">
-            <summary>
-            Posts a whisper message to user. This message will be posted to a room, but only sender and receiver of this messages will be able to see it.
-            </summary>
-            <param name="roomID">Room ID</param>
-            <param name="recipientChatUserID">Recepient chat user ID</param>
-            <param name="messageText">Message text</param>
-            <returns>ChatGeneralReponse</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.Register(System.String)">
-            <summary>
-            Registers new anonymous chat user. This new user is automatically logged in.
-            </summary>
-            <param name="nickname">Nickname of a new user</param>
-            <returns>ChatUserStateData of the new user.</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.RegisterGuest">
-            <summary>
-            Registers new guest user (user with auto generated nickname).
-            </summary>
-            <returns>ChatUserStateData of the new user</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.Logout">
-            <summary>
-            Logouts chat user from chat (not CMSUser).
-            
-            Leaves all rooms.
-            
-            If CMSUser is logged in, this operation won't logout the chat user in reality.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.IChatService.GetChatUserState">
-            <summary>
-            Gets info about currently logged in chat user.
-            </summary>
-            <returns>ChatUserStateData (id, nickname, etc.)</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.CreateOneToOneChatRoom(System.Int32)">
-            <summary>
-            Creates new one-to-one chat room which will be accessible by current user and one more user (invited one).
-            
-            Display name of new room will be: {nickname_current} - {nickname_invited}
-            Code name will be: adhoc_{id_lower}-{id_upper} ({id_lower} is the lower id of the two chat users, {id_upper} is the upper one);
-            
-            A current user have to manually join this room after creating it.
-            
-            If those two users have chatted before, the previously created room is returned. Code name is used to find previously created chat room.
-            </summary>
-            <param name="invitedChatUserID">ID of invited chat user</param>
-            <returns>Newly created chat room (or the old one if exists)</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.CreateSupportChatRoom">
-            <summary>
-            Creates new support room. Support room is private room which can be accessed only by creator
-            and support. When creator writes to this room, support is notified.
-            </summary>
-            <returns>ChatRoomData of new room</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.CreateSupportChatRoomManual(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Creates new support room. Support room is private room which can be accessed only by creator
-            and support. When creator writes to this room, support is notified.
-            
-            This room does not have default greeting message, but messages passed as parameter.
-            </summary>
-            <returns>ChatRoomData of new room</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.CreateChatRoom(System.String,System.Boolean,System.String,System.Boolean,System.String)">
-            <summary>
-            Creates new chat room.
-            
-            Current user have to join it manually after creating it.
-            
-            Code name of this room will be: chatroom_{current_user_id}_{new_guid}
-            </summary>
-            <param name="displayName">Display name of a new room (cannot be empty)</param>
-            <param name="isPrivate">Indicates if this room will be private</param>
-            <param name="password">Optional password</param>
-            <param name="allowAnonym">True if anonymous users can join this room (anonym is chat user without CMS.User assigned to it)</param>
-            <param name="description">Description of the chat room</param>
-            <returns>New chat room</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.KickUser(System.Int32,System.Int32)">
-            <summary>
-            Kicks a chat user from a room. Currently logged user must be an admin to kick another user.
-            </summary>
-            <param name="roomID">User will be kicked from this room.</param>
-            <param name="chatUserToKickID">ID of user to kick</param>
-            <returns>ChatGeneralResponse (code OK if everything went fine)</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.ChangeMyNickname(System.String)">
-            <summary>
-            Changes nickname of currently logged in user.
-            </summary>
-            <param name="newNickname">New nickname of current user.</param>
-            <returns>Chat user state</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.GetSupportEngineersOnlineCount">
-            <summary>
-            Gets count of currently logged in support engineers.
-            </summary>
-            <returns>Count of online support engineers</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.InviteToRoom(System.Int32,System.Int32)">
-            <summary>
-            Invites user to the chat room. Invitation is inserted into the second user's notifications. Second user can enter the room after accepting the invitation.
-            
-            Current user has to have admin rights to the room to invite.
-            </summary>
-            <param name="roomID">Room id</param>
-            <param name="chatUserID">Chat user id to invite</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.SearchOnlineUsers(System.String,System.Int32,System.Nullable{System.Int32})">
-            <summary>
-            Search users who are online globally on a chat (they are performing Ping()) and meet condition (their nickname contains <paramref name="nickname"/>.
-            </summary>
-            <param name="nickname">Searches for users with this nickname</param>
-            <param name="topN">Returns this number of found users</param>
-            <param name="invitedToRoomID">If not null, only users who can be invited to this room will be returned</param>
-            <returns>Online users</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.AcceptInvitation(System.Int32)">
-            <summary>
-            Accepts invitation:
-             - closes specified notification
-             - inserts user into room (joins)
-             - sends notification to sender about accepting invite
-            </summary>
-            <param name="notificationID">Notification (invitation) ID</param>
-            <returns>Room which is led to by the accepted invitation (so client can show it immediatelly in a room list)</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.DeclineInvitation(System.Int32)">
-            <summary>
-            Declines invitation:
-             - closes specified notification
-             - sends notification to sender about declining invite
-            </summary>
-            <param name="notificationID">Notification (invitation) ID</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.CloseNotification(System.Int32)">
-            <summary>
-            Closes (markes as read) specified notification. This can be used to close generic notifications like InvitationDeclined or InvitationAccepted.
-            </summary>
-            <param name="notificationID">Notification ID</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.CloseAllNotifications(System.Int64)">
-            <summary>
-            Closes (markes as read) all notifications which belongs to online users and which were sent until <paramref name="untilWhen"/>.
-            </summary>
-            <param name="untilWhen">Notifications received before this time (Ticks) will be closed. This time can be obtained in Ping().Notifications.LastChange</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.GetPermissions">
-            <summary>
-            Gets permissions of currently logged in user.
-            </summary>
-            <returns>Permissions</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.RejectMessage(System.Int32)">
-            <summary>
-            Rejects the message.
-            
-            Checks for permissions for a specified room (roomID can be get from messageID) and if current chat user has
-            admin rights, it rejects the message.
-            </summary>
-            <param name="messageID">Message ID</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.LeaveRoomPermanently(System.Int32)">
-            <summary>
-            Permanently leaves current user from the private chat room (Join/Admin rights are removed from this room).
-            
-            If room is not private, it acts as normale LeaveRoom().
-            </summary>
-            <param name="roomID">Room id</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.KickUserPermanently(System.Int32,System.Int32)">
-            <summary>
-            Kickes user permanently from a private room. If this room is public, it acts as a normal kick.
-            
-            Kicked user won't be able to enter room again, unless he will be invited one more time.
-            </summary>
-            <param name="roomID">Room id</param>
-            <param name="chatUserToKickID">ID of chat user which should be kicked</param>
-            <returns>General response</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.AddAdmin(System.Int32,System.Int32)">
-            <summary>
-            Adds admin to the room. Only admin can do it.
-            </summary>
-            <param name="roomID">Room ID</param>
-            <param name="chatUserToAddID">Chat user who will become admin</param>
-            <returns>ChatGeneralResponse</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.DeleteAdmin(System.Int32,System.Int32)">
-            <summary>
-            Deletes admin from the room. Only admin can do it.
-            </summary>
-            <param name="roomID">Room ID</param>
-            <param name="chatUserToDeleteID">Chat user who will loose room admin permissions</param>
-            <returns>ChatGeneralResponse</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.ChangeChatRoom(System.Int32,System.String,System.Boolean,System.Boolean,System.String,System.Boolean,System.String)">
-            <summary>
-            Changes existing chat room.
-            </summary>
-            <param name="roomID">Chat room to change</param>
-            <param name="displayName">Display name of a new room (cannot be empty)</param>
-            <param name="isPrivate">Indicates if this room will be private</param>
-            <param name="hasPassword">Indicates if room has password</param>
-            <param name="password">Optional password</param>
-            <param name="allowAnonym">True if anonymous users can join this room (anonym is chat user without CMS.User assigned to it)</param>
-            <param name="description">Description of the chat room</param>
-            <returns>Changed chat room</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.DeleteChatRoom(System.Int32)">
-            <summary>
-            Disables room. User has to be either Global admin, has ManageRooms permission or be creator/admin of this room.
-            </summary>
-            <param name="roomID">Chat room to delete</param>
-            <returns>GeneralResponse</returns>
-        </member>
-        <member name="M:CMS.Chat.IChatService.PingInitiate(System.Nullable{System.Int64})">
-            <summary>
-            Checks if there is new initiated chat request pending for this user and returns it. Returns null if there is nothing.
-            
-            Requests are searched by ContactID and UserID.
-            </summary>
-            <param name="lastChange">Last state on the client.</param>
-        </member>
-        <member name="M:CMS.Chat.IChatService.AcceptChatRequest(System.Int32)">
-            <summary>
-            Accepts initiated chat request.
-            </summary>
-            <param name="chatRoomID">Room used in the request</param>
-        </member>
-        <member name="M:CMS.Chat.IChatService.DeclineChatRequest(System.Int32)">
-            <summary>
-            Declines initiated chat request.
-            </summary>
-            <param name="chatRoomID">Room used in the request</param>
         </member>
         <member name="M:CMS.Chat.ChatService.VerifyNotificationIsValid(CMS.Chat.ChatNotificationInfo,System.Boolean)">
             <summary>
@@ -5699,6 +5021,141 @@
             </summary>
             <param name="chatRoomID">Room used in the request</param>
         </member>
+        <member name="T:CMS.Chat.ChatServiceBase">
+            <summary>
+            Base class of all chat web services.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatServiceBase.Sites">
+            <summary>
+            Shortcut to ChatGlobalData.Instance.Sites (contains cached chat objects (rooms, etc.)).
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatServiceBase.CurrentChatUserState">
+            <summary>
+            Gets ChatUserState of currently logged in chat user.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasAdminRoomRights(System.Int32)">
+            <summary>
+            Verifies that currently logged in chat user has admin rights for a room.
+            
+            Throws exception in case of failure and does nothing in case of success.
+            </summary>
+            <param name="roomID">Room ID</param>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.VerifyIPIsNotBanned">
+            <summary>
+            Verifies that IP addres which was used to make this request is not banned.
+            
+            Throws exception in case of failure and does nothing in case of success.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserIsLoggedIn">
+            <summary>
+            Verifies that chat user is logged in.
+            
+            Throws exception in case of failure and does nothing in case of success.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserIsOnlineInARoom(System.Int32)">
+            <summary>
+            Verifies that currently logged in chat user is online in a room.
+            
+            Throws exception in case of failure and does nothing in case of success.
+            </summary>
+            <param name="roomID">Room ID</param>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasPermission(CMS.Chat.ChatPermissionEnum)">
+            <summary>
+            Verifies that currently logged in chat user has specified permission.
+            
+            Throws exception in case of failure and does nothing in case of success.
+            </summary>
+            <param name="permission">Chat permission to check</param>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasAnyPermission(CMS.Chat.ChatPermissionEnum[])">
+            <summary>
+            Verifies that currently logged in chat user has at least one of the passed permissions.
+            
+            Throws exception in case of failure and does nothing in case of success.
+            </summary>
+            <param name="permissions">Chat permissions to check</param>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.VerifyChatUserHasAllPermissions(CMS.Chat.ChatPermissionEnum[])">
+            <summary>
+            Verifies that currently logged in chat user has all of the passed permissions.
+            
+            Throws exception in case of failure and does nothing in case of success.
+            </summary>
+            <param name="permissions">Chat permissions to check</param>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.GetOkChatResponse">
+            <summary>
+            Builds general chat response with OK code.
+            </summary>
+            <returns>General response with OK code and default string</returns>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.GetOkChatResponse``1(``0)">
+            <summary>
+            Builds general chat response with OK code and Data set to <paramref name="data"/>.
+            </summary>
+            <typeparam name="TData">Type of inner Data property.</typeparam>
+            <param name="data">Payload of this response</param>
+            <returns>General response with data</returns>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse(CMS.Chat.ChatResponseStatusEnum)">
+            <summary>
+            Builds general chat response with error set to <paramref name="statusCode"/> and message set to default value associated with <paramref name="statusCode"/>.
+            </summary>
+            <param name="statusCode">Status code of the response</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse(CMS.Chat.ChatResponseStatusEnum,System.String)">
+            <summary>
+            Builds general chat response with error set to <paramref name="statusCode"/> and message set to <paramref name="statusMessage"/>.
+            </summary>
+            <param name="statusCode">Response code</param>
+            <param name="statusMessage">Response message</param>
+            <returns>General error response</returns>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse``1(CMS.Chat.ChatResponseStatusEnum)">
+            <summary>
+            Builds chat response with code set to <paramref name="statusCode"/>, message set to default value associated with <paramref name="statusCode"/> and data set to default(TData).
+            </summary>
+            <typeparam name="TData">Type of Data property of the response</typeparam>
+            <param name="statusCode">Status code</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse``1(CMS.Chat.ChatResponseStatusEnum,System.String)">
+            <summary>
+            Builds chat response with code set to <paramref name="statusCode"/>, message set to <paramref name="statusMessage"/> and data set to default(TData).
+            </summary>
+            <typeparam name="TData">Type of data property</typeparam>
+            <param name="statusCode">Status code</param>
+            <param name="statusMessage">Status message</param>
+            <returns>General response with Data of type TData</returns>
+        </member>
+        <member name="M:CMS.Chat.ChatServiceBase.GetChatResponse``1(CMS.Chat.ChatResponseStatusEnum,System.String,``0)">
+            <summary>
+            Builds generic ChatGeneral response with properties set to passed params.
+            </summary>
+            <typeparam name="TData">Type of payload</typeparam>
+            <param name="statusCode">Status code</param>
+            <param name="statusMessage">Status message</param>
+            <param name="data">Payload</param>
+            <returns>ChatGeneralResponse</returns>
+        </member>
+        <member name="P:CMS.Chat.ChatServiceBase.IsIPBanned">
+            <summary>
+            Gets true if current user's IP address is banned and he can not do anything on the chat.
+            </summary>
+        </member>
         <member name="T:CMS.Chat.ChangeTypeEnum">
             <summary>
             Change type of cacheable item.
@@ -5712,6 +5169,32 @@
         <member name="F:CMS.Chat.ChangeTypeEnum.Remove">
             <summary>
             Item was removed.
+            </summary>
+        </member>
+        <member name="T:CMS.Chat.IChatCacheableWithCurrentState`1">
+            <summary>
+            Items cached in CurrentStateCache has to implement this interface.
+            </summary>
+            <typeparam name="TKey">Type of key of this item. Unique representation of one object.</typeparam>
+        </member>
+        <member name="P:CMS.Chat.IChatCacheableWithCurrentState`1.ChangeType">
+            <summary>
+            Type of change. If it is set to Modify, item with this PK will be added/modified in current state cache.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.IChatCacheableWithCurrentState`1.PK">
+            <summary>
+            Primary key of this item.
+            </summary>
+        </member>
+        <member name="T:CMS.Chat.IChatIncrementalCacheable">
+            <summary>
+            Only classes which implement this interface can be stored in ChatParametrizedCacheWrapper.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.IChatIncrementalCacheable.ChangeTime">
+            <summary>
+            Change time of this object.
             </summary>
         </member>
         <member name="T:CMS.Chat.ChatUserHelper">
@@ -5895,6 +5378,31 @@
             Type information.
             </summary>
         </member>
+        <member name="P:CMS.Chat.ChatUserInfo.ChatUserUserID">
+            <summary>
+            Gets or sets Chat User ID - Foreign key. Null if user is anonymous (does not have any CMS User assigned).
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatUserInfo.ChatUserNickname">
+            <summary>
+            Gets or sets User's Nickname.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatUserInfo.ChatUserID">
+            <summary>
+            Gets or sets Chat user ID - Primary key.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatUserInfo.IsAnonymous">
+            <summary>
+            Checks if this chat user is anonymous (he is anonymous if column ChatUserUserID is null).
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.ChatUserInfo.ChatUserLastModification">
+            <summary>
+            Gets or sets the time of last modification made to this user.
+            </summary>
+        </member>
         <member name="M:CMS.Chat.ChatUserInfo.DeleteObject">
             <summary>
             Deletes the object using appropriate provider.
@@ -5943,31 +5451,6 @@
             <param name="userInfo">Permissions of this user will be checked</param>
             <param name="exceptionOnFailure">If true, PermissionCheckException is thrown whenever a permission check fails</param>
             <returns>True if user is allowed to perform specified operation on the this object; otherwise false</returns>
-        </member>
-        <member name="P:CMS.Chat.ChatUserInfo.ChatUserUserID">
-            <summary>
-            Gets or sets Chat User ID - Foreign key. Null if user is anonymous (does not have any CMS User assigned).
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatUserInfo.ChatUserNickname">
-            <summary>
-            Gets or sets User's Nickname.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatUserInfo.ChatUserID">
-            <summary>
-            Gets or sets Chat user ID - Primary key.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatUserInfo.IsAnonymous">
-            <summary>
-            Checks if this chat user is anonymous (he is anonymous if column ChatUserUserID is null).
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.ChatUserInfo.ChatUserLastModification">
-            <summary>
-            Gets or sets the time of last modification made to this user.
-            </summary>
         </member>
         <member name="T:CMS.Chat.ChatUserInfoProvider">
             <summary>
@@ -6032,81 +5515,16 @@
             <param name="nickname">Nickname of the user</param>
             <rereturns>Anonymous users with specified nickname.</rereturns>
         </member>
-        <member name="M:CMS.Chat.ChatUserInfoProvider.GetChatUserInfoInternal(System.Int32)">
+        <member name="M:CMS.Chat.ChatUserInfoProvider.SetInfo(CMS.Chat.ChatUserInfo)">
             <summary>
-            Returns chat user with specified ID.
+            Inserts or Updates the object to the database.
             </summary>
-            <param name="userId">Chat user ID.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatUserInfoProvider.GetChatUserInfoInternal(System.String)">
-            <summary>
-            Returns chat user with specified name.
-            </summary>
-            <param name="userName">Chat user name.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatUserInfoProvider.SetChatUserInfoInternal(CMS.Chat.ChatUserInfo)">
-            <summary>
-            Sets (updates or inserts) specified chat user.
-            </summary>
-            <param name="userObj">Chat user to be set.</param>        
-        </member>
-        <member name="M:CMS.Chat.ChatUserInfoProvider.DeleteChatUserInfoInternal(CMS.Chat.ChatUserInfo)">
-            <summary>
-            Deletes specified chat user.
-            </summary>
-            <param name="userObj">Chat user to be deleted.</param>        
+            <param name="info">Object to insert / update</param>
         </member>
         <member name="T:CMS.Chat.ChatSupportService">
             <summary>
             Implementation of chat support service.
             </summary>
-        </member>
-        <member name="T:CMS.Chat.IChatSupportService">
-            <summary>
-            Service contract for ChatSupportService.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.IChatSupportService.SupportPing(System.Nullable{System.Int64})">
-            <summary>
-            Checks for new rooms needing support.
-            
-            Keeps alive (sets LastChecking to now) user on support and classic chat.
-            </summary>
-            <param name="lastChange">Time of last change which has this client. Only new rooms will be send. If null, all support rooms with pending messages will be send.</param>
-        </member>
-        <member name="M:CMS.Chat.IChatSupportService.EnterSupport">
-            <summary>
-            Joins current CMS user to classic chat as hidden and also sets him as online on support chat.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.IChatSupportService.LeaveSupport">
-            <summary>
-            Leaves support chat.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.IChatSupportService.SupportTakeRoom(System.Int32)">
-            <summary>
-            Takes support room. After this call, new messages in this room won't be send to other users - only to the current one.
-            </summary>
-            <param name="roomID">Room ID to take</param>
-        </member>
-        <member name="M:CMS.Chat.IChatSupportService.SupportLeaveRoom(System.Int32)">
-            <summary>
-            Leaves room. After this call, new messages in this room will be send to all online supporters.
-            </summary>
-            <param name="roomID">Room ID to leave</param>
-        </member>
-        <member name="M:CMS.Chat.IChatSupportService.InitiateChatByUserID(System.Int32)">
-            <summary>
-            Initiates chat with user identified by his UserID.
-            </summary>
-            <param name="userID">UserID to start chat with</param>
-        </member>
-        <member name="M:CMS.Chat.IChatSupportService.InitiateChatByContactID(System.Int32)">
-            <summary>
-            Initiates chat with user identified by his ContactID.
-            </summary>
-            <param name="contactID">ContactID to start chat with</param>
         </member>
         <member name="M:CMS.Chat.ChatSupportService.SupportPing(System.Nullable{System.Int64})">
             <summary>
@@ -6236,14 +5654,56 @@
             Permission to create rooms from live site.
             </summary>
         </member>
+        <member name="T:CMS.Chat.IChatSupportService">
+            <summary>
+            Service contract for ChatSupportService.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.IChatSupportService.SupportPing(System.Nullable{System.Int64})">
+            <summary>
+            Checks for new rooms needing support.
+            
+            Keeps alive (sets LastChecking to now) user on support and classic chat.
+            </summary>
+            <param name="lastChange">Time of last change which has this client. Only new rooms will be send. If null, all support rooms with pending messages will be send.</param>
+        </member>
+        <member name="M:CMS.Chat.IChatSupportService.EnterSupport">
+            <summary>
+            Joins current CMS user to classic chat as hidden and also sets him as online on support chat.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.IChatSupportService.LeaveSupport">
+            <summary>
+            Leaves support chat.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.IChatSupportService.SupportTakeRoom(System.Int32)">
+            <summary>
+            Takes support room. After this call, new messages in this room won't be send to other users - only to the current one.
+            </summary>
+            <param name="roomID">Room ID to take</param>
+        </member>
+        <member name="M:CMS.Chat.IChatSupportService.SupportLeaveRoom(System.Int32)">
+            <summary>
+            Leaves room. After this call, new messages in this room will be send to all online supporters.
+            </summary>
+            <param name="roomID">Room ID to leave</param>
+        </member>
+        <member name="M:CMS.Chat.IChatSupportService.InitiateChatByUserID(System.Int32)">
+            <summary>
+            Initiates chat with user identified by his UserID.
+            </summary>
+            <param name="userID">UserID to start chat with</param>
+        </member>
+        <member name="M:CMS.Chat.IChatSupportService.InitiateChatByContactID(System.Int32)">
+            <summary>
+            Initiates chat with user identified by his ContactID.
+            </summary>
+            <param name="contactID">ContactID to start chat with</param>
+        </member>
         <member name="T:CMS.Chat.MessageData">
             <summary>
             Chat message.
-            </summary>
-        </member>
-        <member name="M:CMS.Chat.MessageData.ToString">
-            <summary>
-            Returns string representation of this message
             </summary>
         </member>
         <member name="P:CMS.Chat.MessageData.MessageID">
@@ -6299,6 +5759,11 @@
         <member name="P:CMS.Chat.MessageData.ChangeTime">
             <summary>
             Change time of this object.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.MessageData.ToString">
+            <summary>
+            Returns string representation of this message
             </summary>
         </member>
         <member name="T:CMS.Chat.ChatRoomData">
@@ -6401,12 +5866,6 @@
             <param name="lastChange">Last modification</param>
             <param name="isRemoved">True if this user should be removed from list on client</param>
         </member>
-        <member name="M:CMS.Chat.RoomOnlineUserData.ToString">
-            <summary>
-            Returns string representation.
-            </summary>
-            <returns>String representation</returns>
-        </member>
         <member name="P:CMS.Chat.RoomOnlineUserData.ChatUser">
             <summary>
             Chat user.
@@ -6461,6 +5920,12 @@
             <summary>
             Last modification of this user.
             </summary>
+        </member>
+        <member name="M:CMS.Chat.RoomOnlineUserData.ToString">
+            <summary>
+            Returns string representation.
+            </summary>
+            <returns>String representation</returns>
         </member>
         <member name="T:CMS.Chat.RoomOnlineUsersData">
             <summary>
@@ -6565,6 +6030,321 @@
             <summary>
             Changed rooms - is null if nothing has changed.
             </summary>
+        </member>
+        <member name="T:CMS.Chat.IChatService">
+            <summary>
+            Service contract for chat service.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.IChatService.PingRoom(System.Int32,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32})">
+            <summary>
+            <para>
+            Keeping alive user in a room. User has to call this method every few seconds to let server know that he is still online.
+            </para>
+            <para>
+            At the same time a new online users in a room and a new messages in a room are checked. Client sends the last time he made an update
+            of online users (<paramref name="roomUsersLastChange"/>) and messages (<paramref name="roomMessagesLastChange"/>). If something new 
+            has happened since that time, the changes are sent back.
+            </para>
+            </summary>
+            <param name="roomID">ID of a chat room</param>
+            <param name="roomUsersLastChange">Last update of members on this client (client gets this number in PingRoom().Users.LastChange) - if this param is null, client does not need online users. If it is 0, it is the first request and all users are returned.</param>
+            <param name="roomMessagesLastChange">Last update of messages on this client (client gets this number in PingRoom().Messages.LastChange) - if this param is null, client does not need online users. If it is 0, it is the first request and all users are returned.</param>
+            <param name="maxMessagesCount">Maximum number of messages returned</param>
+            <returns>PingRoomsResultData</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.Ping(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Keeps user online in global list of chat online users (this method needs to be called periodically).
+            
+            Checks if there were any changes in:
+            - rooms (new room added, changed name, etc.) since <paramref name="lastRoomsChange"/>.
+            - counts of users in rooms since <paramref name="lastUsersInRoomsChange"/>.
+            - global online users since <paramref name="lastOnlineUsersChange"/>.
+            - notifications for online user since <paramref name="lastNotificationChange"/>.
+            
+            If any of this objects has changed, changes are send back to client.
+            
+            If any of params is null, its objects are not checked. If param is 0, it is the first request and all objects are returned.
+            </summary>
+            <param name="lastRoomsChange">Time of last check for rooms list made by this client.</param>
+            <param name="lastUsersInRoomsChange">Time of last check for counts of users in rooms made by this client.</param>
+            <param name="lastOnlineUsersChange">Time of last check for global online users made by this client.</param>
+            <param name="lastNotificationChange">Time of last check for notifications made by this client.</param>
+            <returns>PingRoomsResultData</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.JoinRoom(System.Int32,System.String)">
+            <summary>
+            Joins a room.
+            
+            Chat user has to be logged in before this operation.
+            </summary>
+            <param name="roomID">ID of a room.</param>
+            <param name="password">Entrance password (if required).</param>
+            <returns>JoinRoomData</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.LeaveRoom(System.Int32)">
+            <summary>
+            Leaves chat room.
+            </summary>
+            <param name="roomID">ID of a room.</param>
+            <returns>ChatGeneralReponse</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.PostMessage(System.Int32,System.String)">
+            <summary>
+            Posts a new message to a room.
+            
+            Chat user has to be logged in and joined this room. Message can not be empty.
+            </summary>
+            <param name="roomID">Room ID</param>
+            <param name="messageText">Message text</param>
+            <returns>ChatGeneralReponse</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.PostMessageToUser(System.Int32,System.Int32,System.String)">
+            <summary>
+            Posts a whisper message to user. This message will be posted to a room, but only sender and receiver of this messages will be able to see it.
+            </summary>
+            <param name="roomID">Room ID</param>
+            <param name="recipientChatUserID">Recepient chat user ID</param>
+            <param name="messageText">Message text</param>
+            <returns>ChatGeneralReponse</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.Register(System.String)">
+            <summary>
+            Registers new anonymous chat user. This new user is automatically logged in.
+            </summary>
+            <param name="nickname">Nickname of a new user</param>
+            <returns>ChatUserStateData of the new user.</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.RegisterGuest">
+            <summary>
+            Registers new guest user (user with auto generated nickname).
+            </summary>
+            <returns>ChatUserStateData of the new user</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.Logout">
+            <summary>
+            Logouts chat user from chat (not CMSUser).
+            
+            Leaves all rooms.
+            
+            If CMSUser is logged in, this operation won't logout the chat user in reality.
+            </summary>
+        </member>
+        <member name="M:CMS.Chat.IChatService.GetChatUserState">
+            <summary>
+            Gets info about currently logged in chat user.
+            </summary>
+            <returns>ChatUserStateData (id, nickname, etc.)</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.CreateOneToOneChatRoom(System.Int32)">
+            <summary>
+            Creates new one-to-one chat room which will be accessible by current user and one more user (invited one).
+            
+            Display name of new room will be: {nickname_current} - {nickname_invited}
+            Code name will be: adhoc_{id_lower}-{id_upper} ({id_lower} is the lower id of the two chat users, {id_upper} is the upper one);
+            
+            A current user have to manually join this room after creating it.
+            
+            If those two users have chatted before, the previously created room is returned. Code name is used to find previously created chat room.
+            </summary>
+            <param name="invitedChatUserID">ID of invited chat user</param>
+            <returns>Newly created chat room (or the old one if exists)</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.CreateSupportChatRoom">
+            <summary>
+            Creates new support room. Support room is private room which can be accessed only by creator
+            and support. When creator writes to this room, support is notified.
+            </summary>
+            <returns>ChatRoomData of new room</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.CreateSupportChatRoomManual(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates new support room. Support room is private room which can be accessed only by creator
+            and support. When creator writes to this room, support is notified.
+            
+            This room does not have default greeting message, but messages passed as parameter.
+            </summary>
+            <returns>ChatRoomData of new room</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.CreateChatRoom(System.String,System.Boolean,System.String,System.Boolean,System.String)">
+            <summary>
+            Creates new chat room.
+            
+            Current user have to join it manually after creating it.
+            
+            Code name of this room will be: chatroom_{current_user_id}_{new_guid}
+            </summary>
+            <param name="displayName">Display name of a new room (cannot be empty)</param>
+            <param name="isPrivate">Indicates if this room will be private</param>
+            <param name="password">Optional password</param>
+            <param name="allowAnonym">True if anonymous users can join this room (anonym is chat user without CMS.User assigned to it)</param>
+            <param name="description">Description of the chat room</param>
+            <returns>New chat room</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.KickUser(System.Int32,System.Int32)">
+            <summary>
+            Kicks a chat user from a room. Currently logged user must be an admin to kick another user.
+            </summary>
+            <param name="roomID">User will be kicked from this room.</param>
+            <param name="chatUserToKickID">ID of user to kick</param>
+            <returns>ChatGeneralResponse (code OK if everything went fine)</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.ChangeMyNickname(System.String)">
+            <summary>
+            Changes nickname of currently logged in user.
+            </summary>
+            <param name="newNickname">New nickname of current user.</param>
+            <returns>Chat user state</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.GetSupportEngineersOnlineCount">
+            <summary>
+            Gets count of currently logged in support engineers.
+            </summary>
+            <returns>Count of online support engineers</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.InviteToRoom(System.Int32,System.Int32)">
+            <summary>
+            Invites user to the chat room. Invitation is inserted into the second user's notifications. Second user can enter the room after accepting the invitation.
+            
+            Current user has to have admin rights to the room to invite.
+            </summary>
+            <param name="roomID">Room id</param>
+            <param name="chatUserID">Chat user id to invite</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.SearchOnlineUsers(System.String,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Search users who are online globally on a chat (they are performing Ping()) and meet condition (their nickname contains <paramref name="nickname"/>.
+            </summary>
+            <param name="nickname">Searches for users with this nickname</param>
+            <param name="topN">Returns this number of found users</param>
+            <param name="invitedToRoomID">If not null, only users who can be invited to this room will be returned</param>
+            <returns>Online users</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.AcceptInvitation(System.Int32)">
+            <summary>
+            Accepts invitation:
+             - closes specified notification
+             - inserts user into room (joins)
+             - sends notification to sender about accepting invite
+            </summary>
+            <param name="notificationID">Notification (invitation) ID</param>
+            <returns>Room which is led to by the accepted invitation (so client can show it immediatelly in a room list)</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.DeclineInvitation(System.Int32)">
+            <summary>
+            Declines invitation:
+             - closes specified notification
+             - sends notification to sender about declining invite
+            </summary>
+            <param name="notificationID">Notification (invitation) ID</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.CloseNotification(System.Int32)">
+            <summary>
+            Closes (markes as read) specified notification. This can be used to close generic notifications like InvitationDeclined or InvitationAccepted.
+            </summary>
+            <param name="notificationID">Notification ID</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.CloseAllNotifications(System.Int64)">
+            <summary>
+            Closes (markes as read) all notifications which belongs to online users and which were sent until <paramref name="untilWhen"/>.
+            </summary>
+            <param name="untilWhen">Notifications received before this time (Ticks) will be closed. This time can be obtained in Ping().Notifications.LastChange</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.GetPermissions">
+            <summary>
+            Gets permissions of currently logged in user.
+            </summary>
+            <returns>Permissions</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.RejectMessage(System.Int32)">
+            <summary>
+            Rejects the message.
+            
+            Checks for permissions for a specified room (roomID can be get from messageID) and if current chat user has
+            admin rights, it rejects the message.
+            </summary>
+            <param name="messageID">Message ID</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.LeaveRoomPermanently(System.Int32)">
+            <summary>
+            Permanently leaves current user from the private chat room (Join/Admin rights are removed from this room).
+            
+            If room is not private, it acts as normale LeaveRoom().
+            </summary>
+            <param name="roomID">Room id</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.KickUserPermanently(System.Int32,System.Int32)">
+            <summary>
+            Kickes user permanently from a private room. If this room is public, it acts as a normal kick.
+            
+            Kicked user won't be able to enter room again, unless he will be invited one more time.
+            </summary>
+            <param name="roomID">Room id</param>
+            <param name="chatUserToKickID">ID of chat user which should be kicked</param>
+            <returns>General response</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.AddAdmin(System.Int32,System.Int32)">
+            <summary>
+            Adds admin to the room. Only admin can do it.
+            </summary>
+            <param name="roomID">Room ID</param>
+            <param name="chatUserToAddID">Chat user who will become admin</param>
+            <returns>ChatGeneralResponse</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.DeleteAdmin(System.Int32,System.Int32)">
+            <summary>
+            Deletes admin from the room. Only admin can do it.
+            </summary>
+            <param name="roomID">Room ID</param>
+            <param name="chatUserToDeleteID">Chat user who will loose room admin permissions</param>
+            <returns>ChatGeneralResponse</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.ChangeChatRoom(System.Int32,System.String,System.Boolean,System.Boolean,System.String,System.Boolean,System.String)">
+            <summary>
+            Changes existing chat room.
+            </summary>
+            <param name="roomID">Chat room to change</param>
+            <param name="displayName">Display name of a new room (cannot be empty)</param>
+            <param name="isPrivate">Indicates if this room will be private</param>
+            <param name="hasPassword">Indicates if room has password</param>
+            <param name="password">Optional password</param>
+            <param name="allowAnonym">True if anonymous users can join this room (anonym is chat user without CMS.User assigned to it)</param>
+            <param name="description">Description of the chat room</param>
+            <returns>Changed chat room</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.DeleteChatRoom(System.Int32)">
+            <summary>
+            Disables room. User has to be either Global admin, has ManageRooms permission or be creator/admin of this room.
+            </summary>
+            <param name="roomID">Chat room to delete</param>
+            <returns>GeneralResponse</returns>
+        </member>
+        <member name="M:CMS.Chat.IChatService.PingInitiate(System.Nullable{System.Int64})">
+            <summary>
+            Checks if there is new initiated chat request pending for this user and returns it. Returns null if there is nothing.
+            
+            Requests are searched by ContactID and UserID.
+            </summary>
+            <param name="lastChange">Last state on the client.</param>
+        </member>
+        <member name="M:CMS.Chat.IChatService.AcceptChatRequest(System.Int32)">
+            <summary>
+            Accepts initiated chat request.
+            </summary>
+            <param name="chatRoomID">Room used in the request</param>
+        </member>
+        <member name="M:CMS.Chat.IChatService.DeclineChatRequest(System.Int32)">
+            <summary>
+            Declines initiated chat request.
+            </summary>
+            <param name="chatRoomID">Room used in the request</param>
         </member>
         <member name="T:CMS.Chat.ChatMessageTypeStringValueUsageEnum">
             <summary>
@@ -6680,6 +6460,16 @@
             It supports automatic resource string translation (IsResourceString property).
             </summary>
         </member>
+        <member name="P:CMS.Chat.StringValueAttribute.StringValue">
+            <summary>
+            Holds the stringvalue for a value in an enum.
+            </summary>
+        </member>
+        <member name="P:CMS.Chat.StringValueAttribute.IsResourceString">
+            <summary>
+            If set to true, StringValue is resolved by ResHelper before returning.
+            </summary>
+        </member>
         <member name="M:CMS.Chat.StringValueAttribute.#ctor(System.String)">
             <summary>
             Constructor used to init a StringValue Attribute
@@ -6698,16 +6488,6 @@
             Gets string representation (the same as StringValue).
             </summary>
             <returns>String representation</returns>
-        </member>
-        <member name="P:CMS.Chat.StringValueAttribute.StringValue">
-            <summary>
-            Holds the stringvalue for a value in an enum.
-            </summary>
-        </member>
-        <member name="P:CMS.Chat.StringValueAttribute.IsResourceString">
-            <summary>
-            If set to true, StringValue is resolved by ResHelper before returning.
-            </summary>
         </member>
         <member name="T:CMS.Chat.KeyStringValueAttribute">
             <summary>
@@ -6728,17 +6508,17 @@
             XXX.LeaveRoom.ToStringValue((int)ChatMessageTypeStringValueUsageEnum.CMSDeskDescription);
             </example>
         </member>
+        <member name="P:CMS.Chat.KeyStringValueAttribute.Key">
+            <summary>
+            Gets or sets Key of this attribute. This key is used later to lookup this attribute in method ToStringValue().
+            </summary>
+        </member>
         <member name="M:CMS.Chat.KeyStringValueAttribute.#ctor(System.Int32,System.String)">
             <summary>
             Constructor.
             </summary>
             <param name="key">Key</param>
             <param name="value">String value</param>
-        </member>
-        <member name="P:CMS.Chat.KeyStringValueAttribute.Key">
-            <summary>
-            Gets or sets Key of this attribute. This key is used later to lookup this attribute in method ToStringValue().
-            </summary>
         </member>
         <member name="T:CMS.Chat.EnumExtensionMethods">
             <summary>

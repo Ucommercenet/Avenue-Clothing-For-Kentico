@@ -910,7 +910,7 @@ public partial class CMSModules_Polls_Controls_View_PollView : CMSUserControl
         if (PortalContext.ViewMode.IsLiveSite() && IsLiveSite && poll.PollLogActivity)
         {
             var activityInitializer = new PollVotingActivityInitializer(poll, selectedAnswers, DocumentContext.CurrentDocument);
-            Service.Entry<IActivityLogService>().Log(activityInitializer, CMSHttpContext.Current.Request);
+            Service.Resolve<IActivityLogService>().Log(activityInitializer, CMSHttpContext.Current.Request);
         }
     }
 

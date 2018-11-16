@@ -23,7 +23,6 @@ var menuSettings = {},
     DeactivateParentBorder;
 
 (function (w) {
-    'use strict';
 
     var document = w.document,
         menuTimers = [],

@@ -4,6 +4,7 @@ using System.Web;
 using CMS.Activities.Loggers;
 using CMS.Base;
 using CMS.Base.Web.UI;
+using CMS.ContactManagement;
 using CMS.Core;
 using CMS.DataEngine;
 using CMS.DocumentEngine;
@@ -18,6 +19,7 @@ using CMS.PortalEngine.Web.UI;
 using CMS.Protection;
 using CMS.SiteProvider;
 using CMS.WebAnalytics;
+
 
 public partial class CMSWebParts_Membership_Registration_RegistrationForm : CMSAbstractWebPart
 {
@@ -468,7 +470,7 @@ public partial class CMSWebParts_Membership_Registration_RegistrationForm : CMSA
             btnOk.Text = ButtonText;
             lblCaptcha.Text = CaptchaText;
 
-            if (MFAuthenticationHelper.IsMultiFactorAutEnabled && !MFAuthenticationHelper.IsMultiFactorAutRequired)
+            if (MFAuthenticationHelper.IsMultiFactorAuthEnabled && !MFAuthenticationHelper.IsMultiFactorAuthRequired)
             {
                 plcMFIsRequired.Visible = true;
                 chkUseMultiFactorAutentization.ToolTip = GetString("webparts_membership_registrationform.mfexplanationtext");
@@ -618,7 +620,7 @@ public partial class CMSWebParts_Membership_Registration_RegistrationForm : CMSA
             #region "User properties"
 
             var userEmail = txtEmail.Text.Trim();
-            
+
             ui = new UserInfo();
             ui.PreferredCultureCode = "";
             ui.Email = userEmail;
@@ -647,7 +649,7 @@ public partial class CMSWebParts_Membership_Registration_RegistrationForm : CMSA
 
             ui.Enabled = EnableUserAfterRegistration;
             ui.UserURLReferrer = CookieHelper.GetValue(CookieName.UrlReferrer);
-            ui.UserCampaign = Service<ICampaignService>.Entry().CampaignCode;
+            ui.UserCampaign = Service.Resolve<ICampaignService>().CampaignCode;
 
             ui.SiteIndependentPrivilegeLevel = UserPrivilegeLevelEnum.None;
 
@@ -756,10 +758,12 @@ public partial class CMSWebParts_Membership_Registration_RegistrationForm : CMSA
             if (template != null)
             {
                 // Create relation between contact and user. This ensures that contact will be correctly recognized when user approves registration (if approval is required)
+                // New contact with user data is created in case it is not disabled by Data protection settings, otherwise an anonymous contact is created. Moreover an another  
+                // anonymous contact could be created during approval process when a new browser is used for approval step (when contact isn't in browser cookies).
                 int contactId = ModuleCommands.OnlineMarketingGetCurrentContactID();
                 if (contactId > 0)
                 {
-                    ModuleCommands.OnlineMarketingCreateRelation(ui.UserID, MembershipType.CMS_USER, contactId);
+                    Service.Resolve<IContactRelationAssigner>().Assign(ui.UserID, MembershipType.CMS_USER, contactId, new UserContactDataPropagationChecker());
                 }
 
                 // Email message
@@ -842,7 +846,7 @@ public partial class CMSWebParts_Membership_Registration_RegistrationForm : CMSA
             // Track successful registration conversion
             if (TrackConversionName != String.Empty)
             {
-                if (AnalyticsHelper.AnalyticsEnabled(siteName) && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
+                if (AnalyticsHelper.AnalyticsEnabled(siteName) && Service.Resolve<IAnalyticsConsentProvider>().HasConsentForLogging() && !AnalyticsHelper.IsIPExcluded(siteName, RequestContext.UserHostAddress))
                 {
                     // Log conversion
                     HitLogProvider.LogConversions(siteName, LocalizationContext.PreferredCultureCode, TrackConversionName, 0, ConversionValue);
@@ -936,7 +940,7 @@ public partial class CMSWebParts_Membership_Registration_RegistrationForm : CMSA
             }
 
             #endregion
-            
+
             lblError.Visible = false;
         }
     }

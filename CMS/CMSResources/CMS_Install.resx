@@ -250,7 +250,7 @@
     <value>You are using Kentico on a domain that is not localhost or 127.0.0.1 or your trial license key has already expired, so you need to enter an appropriate license key for domain: {0}</value>
   </data>
   <data name="install.lbllicensetip" xml:space="preserve">
-    <value>&lt;b&gt;Tip:&lt;/b&gt; If you need a temporary license key for this domain, please write to &lt;a href="mailto:support@kentico.com"&gt;support@kentico.com&lt;/a&gt; and ask for a trial key for the following domain name: {0}</value>
+    <value>&lt;b&gt;Tip:&lt;/b&gt; If you need a temporary license key for this domain, please write to &lt;a href="mailto:sales@kentico.com"&gt;sales@kentico.com&lt;/a&gt; and ask for a trial key for the following domain name: {0}</value>
   </data>
   <data name="install.errorlicense" xml:space="preserve">
     <value>License is not valid.</value>
@@ -434,20 +434,8 @@
   <data name="install.lbldbprogress" xml:space="preserve">
     <value>Creating database objects...</value>
   </data>
-  <data name="install.hideadvancedoptions" xml:space="preserve">
-    <value>Hide advanced options</value>
-  </data>
-  <data name="install.schema" xml:space="preserve">
-    <value>Schema of the objects</value>
-  </data>
-  <data name="install.showadvancedoptions" xml:space="preserve">
-    <value>Show advanced options</value>
-  </data>
   <data name="install.support" xml:space="preserve">
     <value>Do you need help with installation? Please contact our &lt;a target="_blank" href="http://www.kentico.com/Support"&gt;support&lt;/a&gt;.</value>
-  </data>
-  <data name="install.errordatabseschemadoesnotexist" xml:space="preserve">
-    <value>Database schema '{0}' does not exist. Current schema is '{1}'.</value>
   </data>
   <data name="install.finishstep" xml:space="preserve">
     <value>Finish</value>

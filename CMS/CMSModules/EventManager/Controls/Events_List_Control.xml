@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <grid>
   <actions parameters="NodeID">
-    <action name="view" caption="$general.view$" fonticonclass="icon-eye" fonticonstyle="allow" />
+    <action externalsourcename="view" name="view" caption="$general.view$" fonticonclass="icon-eye" fonticonstyle="allow" onclick="return false;" />
   </actions>
   <columns>
     <column source="##ALL##" externalsourcename="DocumentName" caption="$unigrid.events.columns.eventname$" wrap="false" sort="DocumentName" >

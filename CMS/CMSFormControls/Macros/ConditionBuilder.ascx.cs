@@ -150,7 +150,7 @@ public partial class CMSFormControls_Macros_ConditionBuilder : FormEngineUserCon
 
 
     /// <summary>
-    /// Determines if value will be wrapped in macro brackets.
+    /// Determines if value will be signed and wrapped in macro brackets.
     /// </summary>
     public bool AddDataMacroBrackets
     {
@@ -191,14 +191,13 @@ public partial class CMSFormControls_Macros_ConditionBuilder : FormEngineUserCon
             string val = MacroProcessor.RemoveDataMacroBrackets(EditorValue.Trim());
             if (!string.IsNullOrEmpty(val))
             {
-                // Do not sign simple macros or Rule-based macros (the inner condition is already signed)
-                if (!(MacroStaticSettings.AllowOnlySimpleMacros || MacroSecurityProcessor.IsSimpleMacro(val)))
-                {
-                    val = MacroSecurityProcessor.AddMacroSecurityParams(val, MembershipContext.AuthenticatedUser.UserName);
-                }
-
                 if (AddDataMacroBrackets)
                 {
+                    if (!(MacroStaticSettings.AllowOnlySimpleMacros || MacroSecurityProcessor.IsSimpleMacro(val)))
+                    {
+                        val = MacroSecurityProcessor.AddMacroSecurityParams(val, MacroIdentityOption.FromUserInfo(MembershipContext.AuthenticatedUser));
+                    }
+
                     val = "{%" + val + "%}";
                 }
                 return val;
@@ -208,8 +207,8 @@ public partial class CMSFormControls_Macros_ConditionBuilder : FormEngineUserCon
         set
         {
             string val = MacroProcessor.RemoveDataMacroBrackets(ValidationHelper.GetString(value, ""));
-            string userName = null;
-            val = MacroSecurityProcessor.RemoveMacroSecurityParams(val, out userName);
+            MacroIdentityOption identityOption;
+            val = MacroSecurityProcessor.RemoveMacroSecurityParams(val, out identityOption);
             hdnValue.Value = MacroProcessor.RemoveDataMacroBrackets(val.Trim());
             RefreshText();
         }
@@ -419,8 +418,8 @@ function InsertMacroCondition" + ClientID + @"(text) {
                     MacroExpression xml = MacroExpression.ExtractParameter(hdnValueTrim, "rule", 0);
                     if (xml != null)
                     {
-                        string user;
-                        hdnValue.Value = MacroSecurityProcessor.RemoveMacroSecurityParams(ValidationHelper.GetString(xml.Value, ""), out user);
+                        MacroIdentityOption identityOption;
+                        hdnValue.Value = MacroSecurityProcessor.RemoveMacroSecurityParams(ValidationHelper.GetString(xml.Value, ""), out identityOption);
                     }
                 }
             }

@@ -1,5 +1,4 @@
 ﻿cmsdefine(["jQuery", "Underscore"], function ($, _) {
-    "use strict";
     
     var defaults = {
         width: 500,

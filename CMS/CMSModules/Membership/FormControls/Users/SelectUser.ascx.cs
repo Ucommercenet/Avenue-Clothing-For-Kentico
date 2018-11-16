@@ -79,8 +79,14 @@ public partial class CMSModules_Membership_FormControls_Users_SelectUser : FormE
     /// </summary>
     public int GroupID
     {
-        get;
-        set;
+        get
+        {
+            return ValidationHelper.GetInteger(GetValue("GroupID"), 0);
+        }
+        set
+        {
+            SetValue("GroupID", value);
+        }
     }
 
 

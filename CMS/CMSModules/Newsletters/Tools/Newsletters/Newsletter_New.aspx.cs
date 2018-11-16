@@ -1,15 +1,14 @@
 ﻿using System;
 
-using CMS.Base;
 using CMS.Base.Web.UI;
 using CMS.FormEngine.Web.UI;
 using CMS.Helpers;
+using CMS.LicenseProvider;
 using CMS.Newsletters;
 using CMS.Newsletters.Web.UI;
 using CMS.Scheduler;
 using CMS.SiteProvider;
 using CMS.UIControls;
-
 
 [Breadcrumbs]
 [Breadcrumb(0, ResourceString = "Newsletter_Edit.ItemListLink", TargetUrl = "~/CMSModules/Newsletters/Tools/Newsletters/Newsletter_List.aspx")]
@@ -34,7 +33,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             SetDefaultValues();
         }
@@ -45,6 +44,17 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
 
         ShowCustomRequiredMarks();
         SetFieldsVisibilityAccordingToType();
+        HideTypeSelectionForNonEMSLicenses();
+    }
+
+
+    private void HideTypeSelectionForNonEMSLicenses()
+    {
+        var license = LicenseKeyInfoProvider.GetLicenseKeyInfo(SiteContext.CurrentSite.DomainName);
+        if (license.Edition != ProductEditionEnum.EnterpriseMarketingSolution)
+        {
+            NewForm.FieldsToHide.Add("NewsletterType");
+        }
     }
 
 
@@ -60,11 +70,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
         NewForm.Data.SetValue("NewsletterSiteID", SiteContext.CurrentSiteID);
 
         // Clear other possibilities
-        if (GetUpperNewsletterSource() == NewsletterSource.Dynamic)
-        {
-            NewForm.Data.SetValue("NewsletterTemplateID", null);
-        }
-        else
+        if (GetUpperNewsletterSource() != NewsletterSource.Dynamic)
         {
             NewForm.Data.SetValue("NewsletterDynamicURL", null);
             NewForm.Data.SetValue("NewsletterDynamicScheduledTaskID", null);
@@ -99,13 +105,6 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
             NewForm.StopProcessing = true;
         }
 
-        // If Template based, validate template
-        if (GetUpperNewsletterSource() == NewsletterSource.TemplateBased && ValidationHelper.GetInteger(NewForm.GetFieldValue("NewsletterTemplateID"), 0) == 0)
-        {
-            ShowError(GetString("Newsletter_Edit.NoEmailTemplateSelected"));
-            NewForm.StopProcessing = true;
-        }
-
         // If Dynamic, validate schedule interval and Source page URL
         if (GetUpperNewsletterSource() == NewsletterSource.Dynamic)
         {
@@ -137,6 +136,12 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
 
     protected void AfterSave(object sender, EventArgs e)
     {
+        if (GetUpperNewsletterSource() != NewsletterSource.Dynamic)
+        {
+            var templateIDsString = ValidationHelper.GetString(NewForm.GetFieldValue("NewsletterTemplateIDs"), "");
+            AddTemplatesToNewsletter(templateIDsString);
+        }
+
         if ((GetUpperNewsletterSource() == NewsletterSource.Dynamic) && chkSchedule.Checked)
         {
             // If Scheduling is enabled, create task
@@ -146,6 +151,19 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
         {
             // Redirect to newly created newsletter
             Redirect();
+        }
+    }
+
+    private void AddTemplatesToNewsletter(string templateIDsString) {
+        if (String.IsNullOrEmpty(templateIDsString))
+        {
+            return;
+        }
+
+        var templateIDs = templateIDsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var templateID in templateIDs)
+        {
+            EmailTemplateNewsletterInfoProvider.AddNewsletterToTemplate(ValidationHelper.GetInteger(templateID, 0), TypedEditedObject.NewsletterID);
         }
     }
 
@@ -184,13 +202,6 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
     /// </summary>
     private void ShowCustomRequiredMarks()
     {
-        // Show required marks for fields visible only if the template-based type is selected
-        LocalizedLabel templateLabel = NewForm.FieldLabels["NewsletterTemplateID"];
-        if (templateLabel != null)
-        {
-            templateLabel.ShowRequiredMark = true;
-        }
-
         // Show required marks for fields visible only if the dynamic type is selected
         LocalizedLabel dynamicUrlLabel = NewForm.FieldLabels["NewsletterDynamicURL"];
         if (dynamicUrlLabel != null)
@@ -224,7 +235,7 @@ public partial class CMSModules_Newsletters_Tools_Newsletters_Newsletter_New : C
     /// <returns>Newsletter source string</returns>
     private string GetUpperNewsletterSource()
     {
-        return ValidationHelper.GetString(NewForm.GetFieldValue("NewsletterSource"), "").ToUpperCSafe();
+        return ValidationHelper.GetString(NewForm.GetFieldValue("NewsletterSource"), "").ToUpperInvariant();
     }
 
 

@@ -10,10 +10,17 @@ public partial class CMSModules_SmartSearch_SearchIndex_General : GlobalAdminPag
     {
         base.OnLoad(e);
 
-        ucIndexInfo.SearchIndex = EditedObject as SearchIndexInfo;
+        var searchIndex = EditedObject as SearchIndexInfo;
+        ucIndexInfo.SearchIndex = searchIndex;
 
         ucSearchIndexEdit.AsyncIndexTaskStarted += (sender, args) => ucIndexInfo.LoadData();
         ucSearchIndexEdit.OnSaved += UcSearchIndexEdit_OnSaved;
+
+        if (searchIndex.IndexProvider.Equals(SearchIndexInfo.AZURE_SEARCH_PROVIDER, StringComparison.OrdinalIgnoreCase))
+        {
+            infoMessage.Message = GetString("srch.status.tooltip.azuredelay");
+            infoMessage.Visible = true;
+        }
     }
 
 

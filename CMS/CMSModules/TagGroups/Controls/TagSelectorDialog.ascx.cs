@@ -20,7 +20,6 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
 
     private int groupId;
     private string textBoxId;
-    private string oldTags;
     private ISet<string> selectedTags;
     private Hashtable mDialogProperties;
     private string mDialogIdentifier;
@@ -120,7 +119,7 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
             // Update parameters
             UpdateParameters(result);
 
-            ltlScript.Text = ScriptHelper.GetScript("wopener.setTagsToTextBox(" + ScriptHelper.GetString(textBoxId) + ", " + ScriptHelper.GetString(result) + "); CloseDialog();");
+            ltlScript.Text = ScriptHelper.GetScript("wopener.TS_SetTagsToTextBox(" + ScriptHelper.GetString(textBoxId) + ", " + ScriptHelper.GetString(result) + "); CloseDialog();");
         }
         else
         {
@@ -150,7 +149,7 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
             return;
         }
 
-        if (URLHelper.IsPostback())
+        if (RequestHelper.IsPostBack())
         {
             return;
         }
@@ -170,7 +169,7 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
 
     protected object gridElem_OnExternalDataBound(object sender, string sourceName, object parameter)
     {
-        if (sourceName.ToLowerCSafe() == "tagname")
+        if (sourceName.Equals("tagname", StringComparison.OrdinalIgnoreCase))
         {
             DataRowView drv = (DataRowView)parameter;
             string tagName = ValidationHelper.GetString(drv["TagName"], "");
@@ -178,10 +177,10 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
             if ((tagName != "") && (tagName != tagId))
             {
                 string tagCount = ValidationHelper.GetString(drv["TagCount"], "");
-                string tagText = HTMLHelper.HTMLEncode(tagName) + " (" + tagCount + ")";
+                string tagText = $"{HTMLHelper.HTMLEncode(tagName)} ({tagCount})";
 
                 // Create link with onclick event which call onclick event of checkbox in the same row
-                return "<a href=\"#\" onclick=\"var c=$cmsj(this).parents('tr:first').find('input:checkbox'); c.attr('checked', !c.attr('checked')).get(0).onclick(); return false;\">" + tagText + "</a>";
+                return $"<a href=\"#\" onclick=\"var c=$cmsj(this).parents('tr:first').find('input:checkbox'); c.prop('checked', !c.prop('checked')).get(0).onclick(); return false;\">{tagText}</a>";
             }
         }
         return "";
@@ -214,7 +213,7 @@ public partial class CMSModules_TagGroups_Controls_TagSelectorDialog : CMSUserCo
         textBoxId = props["textbox"].ToString(String.Empty);
 
         // Get selected tags
-        oldTags = props["tags"].ToString(String.Empty);
+        var oldTags = props["tags"].ToString(String.Empty);
         selectedTags = TagHelper.GetTags(oldTags);
     }
 

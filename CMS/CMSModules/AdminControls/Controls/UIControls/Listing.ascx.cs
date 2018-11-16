@@ -376,7 +376,7 @@ public partial class CMSModules_AdminControls_Controls_UIControls_Listing : CMSA
                 var action = abstractAction as Action;
                 if ((action != null) && String.IsNullOrEmpty(action.ExternalSourceName))
                 {
-                    switch (action.Name.ToLowerCSafe())
+                    switch (action.Name.ToLowerInvariant())
                     {
                         case "delete":
                         case "#delete":
@@ -391,7 +391,7 @@ public partial class CMSModules_AdminControls_Controls_UIControls_Listing : CMSA
 
     private object gridElem_OnExternalDataBound(object sender, string sourceName, object parameter)
     {
-        switch (sourceName.ToLowerCSafe())
+        switch (sourceName.ToLowerInvariant())
         {
             case "delete":
             case "#delete":
@@ -416,7 +416,7 @@ public partial class CMSModules_AdminControls_Controls_UIControls_Listing : CMSA
                 break;
         }
 
-        return sender;
+        return parameter;
     }
 
 
@@ -445,7 +445,7 @@ public partial class CMSModules_AdminControls_Controls_UIControls_Listing : CMSA
     private String GetDefaultGridDirectory()
     {
         String resourceName = ResourceName;
-        if (resourceName.StartsWithCSafe("cms.", true))
+        if (resourceName.StartsWith("cms.", StringComparison.OrdinalIgnoreCase))
         {
             resourceName = resourceName.Substring(4);
         }

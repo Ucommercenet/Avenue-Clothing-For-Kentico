@@ -293,10 +293,6 @@ public partial class CMSModules_Content_Controls_Dialogs_General_DialogFooter : 
                 {
                     url = selectionTable[DialogParameters.IMG_URL].ToString();
                 }
-                else if (selectionTable[DialogParameters.FLASH_URL] != null)
-                {
-                    url = selectionTable[DialogParameters.FLASH_URL].ToString();
-                }
                 else if (selectionTable[DialogParameters.AV_URL] != null)
                 {
                     url = selectionTable[DialogParameters.AV_URL].ToString();
@@ -382,18 +378,11 @@ public partial class CMSModules_Content_Controls_Dialogs_General_DialogFooter : 
                             selectionTable[DialogParameters.AV_HEIGHT] = selectionTable[DialogParameters.URL_HEIGHT];
                             selectionTable[DialogParameters.AV_EXT] = ms.Extension;
                             break;
-
-                        case MediaTypeEnum.Flash:
-                            // Flash
-                            selectionTable[DialogParameters.FLASH_URL] = UrlResolver.ResolveUrl(selectionTable[DialogParameters.URL_URL].ToString());
-                            selectionTable[DialogParameters.FLASH_WIDTH] = selectionTable[DialogParameters.URL_WIDTH];
-                            selectionTable[DialogParameters.FLASH_HEIGHT] = selectionTable[DialogParameters.URL_HEIGHT];
-                            break;
                     }
 
                     if ((ms.SourceType == MediaSourceEnum.Content) && (ms.FileName != null) && (OutputFormat == OutputFormatEnum.NodeGUID))
                     {
-                        string fileUrl = AttachmentURLProvider.GetPermanentAttachmentUrl(ms.NodeGuid, ms.FileName);
+                        string fileUrl = AttachmentURLProvider.GetPermanentAttachmentUrl(ms.NodeGuid, ValidationHelper.GetSafeFileName(ms.FileName, siteName));
                         selectionTable[DialogParameters.URL_URL] = UrlResolver.ResolveUrl(fileUrl);
                     }
                     else if (OutputFormat != OutputFormatEnum.URL)

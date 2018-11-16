@@ -150,6 +150,7 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_MetaFileDialog 
         {
             // Get site ID, if 0 then global object files are required
             int siteId = QueryHelper.GetInteger("siteid", -1);
+
             if (siteId < 0)
             {
                 // If not set use current site ID
@@ -159,11 +160,14 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_MetaFileDialog 
             // Initialize attachment list
             AttachmentList.Visible = true;
             AttachmentList.ObjectID = ObjectId;
+
             if (siteId > 0)
             {
                 AttachmentList.SiteID = siteId;
             }
+
             AttachmentList.AllowPasteAttachments = QueryHelper.GetBoolean("allowpaste", true);
+            AttachmentList.UseVirtualPathOnPaste = QueryHelper.GetBoolean("pasteVirtualPath", false);
             AttachmentList.ObjectType = ObjectType;
             AttachmentList.Category = ObjectCategory;
             AttachmentList.ItemsPerPage = 10;
@@ -171,7 +175,8 @@ public partial class CMSModules_AdminControls_Controls_MetaFiles_MetaFileDialog 
             AttachmentList.OnAfterUpload += AttachmentList_OnAfterChange;
             AttachmentList.IsLiveSite = false;
             AttachmentList.UploadMode = MultifileUploaderModeEnum.DirectMultiple;
-            
+            AttachmentList.Enabled = QueryHelper.GetBoolean("allowedit", true);
+            AttachmentList.HideObjectMenu = QueryHelper.GetBoolean("hideobjectmenu", false);
         }
         else
         {

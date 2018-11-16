@@ -1,5 +1,4 @@
 ﻿cmsdefine(['CMS/EventHub'], function (EventHub, $) {
-    'use strict';
 
     var Module = function (serverData) {
         var parameters = {

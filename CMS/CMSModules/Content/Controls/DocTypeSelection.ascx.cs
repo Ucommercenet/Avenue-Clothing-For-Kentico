@@ -276,7 +276,7 @@ public partial class CMSModules_Content_Controls_DocTypeSelection : CMSAbstractN
         if (RedirectWhenNoChoice
             && !plcNewABTestVariant.Visible
             && !AllowNewLink
-            && !URLHelper.IsPostback()
+            && !RequestHelper.IsPostBack()
             && !DataHelper.DataSourceIsEmpty(ds))
         {
             DataTable table = ds.Tables[0];

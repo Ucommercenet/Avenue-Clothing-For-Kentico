@@ -152,7 +152,7 @@ public partial class CMSModules_PortalEngine_Controls_WebParts_WebPartFlatSelect
         flatElem.SearchCheckBox.Visible = true;
         flatElem.SearchCheckBox.Text = GetString("webparts.searchindescription");
 
-        if (!URLHelper.IsPostback())
+        if (!RequestHelper.IsPostBack())
         {
             // Search in description default value
             flatElem.SearchCheckBox.Checked = false;
