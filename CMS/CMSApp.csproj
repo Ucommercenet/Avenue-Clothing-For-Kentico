@@ -1097,6 +1097,7 @@
     <None Include="App_Themes\Default\CMSModules\cms.emailmarketing\cms.emailmarketing.newsletter.report.less" />
     <None Include="App_Themes\Default\CMSModules\cms.membership.less" />
     <None Include="App_Themes\Default\CMSModules\cms.objecttypegraph.less" />
+    <Content Include="CMSModules\UCommerce\Apps\DefaultCatalogDataProvider\DefaultCatalogDataProvider.config" />
     <None Include="Old_App_WebReferences\WS\WebService.discomap" />
     <None Include="Old_App_WebReferences\WS\WebService.wsdl" />
     <Content Include="Admin\Default.aspx" />
@@ -21790,9 +21791,6 @@
   <ItemGroup>
     <Content Include="CMSTemplates\AvenueClothing\Main.master" />
     <Content Include="CMSTemplates\AvenueClothing\Email.Master" />
-    <None Include="CMSModules\UCommerce\Apps\DefaultCatalogDataProvider\DefaultCatalogDataProvider.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
