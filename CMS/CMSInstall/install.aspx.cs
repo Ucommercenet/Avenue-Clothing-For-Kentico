@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Security;
 using System.Security.Principal;
+using System.Text;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -120,6 +123,11 @@ public partial class CMSInstall_install : CMSPage
     
     // Index of collation dialog step in wizard
     private const int COLLATION_DIALOG_INDEX = 8;
+
+    private const string INSTALL_CHECK_PAYLOAD = "Install Check Payload";
+    private const string INSTALL_CHECK_PURPOSE = "Install POST Check";
+    private const string INSTALL_CHECK_COOKIE_NAME = "CMSInstallCheck";
+    private const string INSTALL_CHECK_EXCEPTION_MESSAGE = "POST request validation error.";
 
     #endregion
 
@@ -562,8 +570,34 @@ public partial class CMSInstall_install : CMSPage
     }
 
 
+    private void ValidatePostRequest()
+    {
+        if (RequestHelper.IsPostBack())
+        {
+            var isValidPostRequest = false;
+            try
+            {
+                var cookieValue = CookieHelper.GetValue(INSTALL_CHECK_COOKIE_NAME);
+                var value = MachineKey.Unprotect(Convert.FromBase64String(cookieValue), INSTALL_CHECK_PURPOSE);
+                isValidPostRequest = INSTALL_CHECK_PAYLOAD.Equals(Encoding.UTF8.GetString(value), StringComparison.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+                throw new SecurityException(INSTALL_CHECK_EXCEPTION_MESSAGE, ex);
+            }
+
+            if (!isValidPostRequest)
+            {
+                throw new SecurityException(INSTALL_CHECK_EXCEPTION_MESSAGE);
+            }
+        }
+    }
+
+
     protected void Page_Load(Object sender, EventArgs e)
     {
+        ValidatePostRequest();
+
         // Disable CSS minification
         CssLinkHelper.MinifyCurrentRequest = false;
         ScriptHelper.MinifyCurrentRequestScripts = false;
@@ -640,6 +674,9 @@ function Finished(sender) {{
                 {
                     URLHelper.Redirect("~/default.aspx");
                 }
+
+                var protectedValue = MachineKey.Protect(Encoding.UTF8.GetBytes(INSTALL_CHECK_PAYLOAD), INSTALL_CHECK_PURPOSE);
+                CookieHelper.SetValue(INSTALL_CHECK_COOKIE_NAME, Convert.ToBase64String(protectedValue), DateTime.MinValue);
 
                 bool checkPermission = QueryHelper.GetBoolean("checkpermission", true);
                 bool testAgain = QueryHelper.GetBoolean("testagain", false);

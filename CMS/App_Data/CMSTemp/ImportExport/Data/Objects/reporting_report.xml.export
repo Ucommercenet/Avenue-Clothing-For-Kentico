@@ -11,7 +11,7 @@
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>512a4757-91ac-402d-9458-00fae47a988b</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.6123271+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.96594+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -186,7 +186,7 @@ year;Last Year vs. This Year&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>47243a76-621b-4a8c-a6c8-077fb3ca8855</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.2998363+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.6534291+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -666,7 +666,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>294</ReportCategoryID>
       <ReportAccess>1</ReportAccess>
       <ReportGUID>a4f498f3-bd0c-4470-bae1-1b9e07ed3e05</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.0029314+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.2614846+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -895,7 +895,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>2c8bee97-1520-4c90-970e-25e615634a83</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.2060714+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.5596781+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -1388,7 +1388,7 @@ Total pages in this workflow: %%control:ReportValue?NumberOfDocumentsInWorkflow%
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>baf1be2c-d83c-4f21-99f4-3a4cdfb8cba8</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.5810563+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.9503006+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -1812,7 +1812,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>300</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>ec3015f4-a532-4eb9-b9a6-4e1439303e03</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.3467037+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.7003044+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -1984,7 +1984,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>232</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>24943889-23fa-4699-afd5-52bd419a493f</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.5029266+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.8565477+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -2369,7 +2369,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>fe8c4b10-93d9-4b0a-93a9-6884f6344bdd</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.2373039+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.5752995+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -2729,7 +2729,7 @@ Total contacts in this automation process: %%control:ReportValue?NumberOfContact
       <ReportCategoryID>232</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>918a2cda-cd42-4130-b038-79315a9607c6</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.471676+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.8409223+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -2858,7 +2858,7 @@ Total contacts in this automation process: %%control:ReportValue?NumberOfContact
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>01d7d064-215c-4b47-8f8a-80b145bd173a</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.5654289+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.9190489+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -3633,7 +3633,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>eb2d7383-2dce-45ed-b18c-9db5771534b4</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.252954+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.6065488+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -3823,7 +3823,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>545e0638-3aab-45d2-8958-a4f63b67f450</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.2841771+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.6377973+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -4062,7 +4062,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>232</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>e91f2edc-0ffc-4307-9b76-ae1ee3995d93</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.5342035+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.8877958+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -4138,7 +4138,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>b8401ba0-83ba-45e1-9612-b3e90be7d224</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.6435668+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.9971744+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -4418,7 +4418,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>8d39329b-f55d-4e64-8ab2-ba041e97fa25</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:13.9404465+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.2146138+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -5108,7 +5108,7 @@ Users count: %%control:ReportValue?NumberOfUsers.UserCount%%</ReportLayout>
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>d033dcb6-0646-4e49-a5c0-d14da5102ad3</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.6279855+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.9815524+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -5435,7 +5435,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>232</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>272d3182-0726-4d13-bdb2-dcd54cb5c16d</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.4561164+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.8096738+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -5657,7 +5657,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>232</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>bdb0ff62-087d-4e2c-a187-e5dfbfe1eeb9</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.5498287+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.9034273+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -6182,7 +6182,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>f7e90d3b-2985-4807-9859-f5c3df4f646e</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:14.1904284+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.5128208+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -6261,7 +6261,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>233</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>594e55e4-1a28-452d-9746-f88524b9858e</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:13.9091795+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:09.1833273+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -6412,7 +6412,7 @@ absessionconversionfirst;{$abtesting.conversiontype.visitor$}&lt;/Options&gt;&lt
       <ReportCategoryID>249</ReportCategoryID>
       <ReportAccess>0</ReportAccess>
       <ReportGUID>9d0482b5-0b7e-4428-986f-fcd6e27f8193</ReportGUID>
-      <ReportLastModified>2017-12-07T16:29:13.4561075+01:00</ReportLastModified>
+      <ReportLastModified>2017-12-11T11:14:08.7302278+01:00</ReportLastModified>
       <ReportEnableSubscription>true</ReportEnableSubscription>
       <ReportConnectionString></ReportConnectionString>
     </reporting_report>
@@ -7339,7 +7339,7 @@ ORDER BY [Date]</GraphQuery>
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;None&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;pieshowpercentage&gt;False&lt;/pieshowpercentage&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;seriesitemtooltip&gt;#VALX{y}  -  #SER: #VALY&lt;/seriesitemtooltip&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titlefontnew&gt;Arial;bold;14;;&lt;/titlefontnew&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisfont&gt;Arial;bold;11;;&lt;/xaxisfont&gt;&lt;xaxisformat&gt;y&lt;/xaxisformat&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxisfont&gt;Arial;bold;11;;&lt;/yaxisfont&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>778012d0-1b2f-44e8-bf96-0a72d9e60a5a</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.5810579+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.8709106+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -10302,7 +10302,7 @@ ORDER BY StatusOrder</GraphQuery>
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;True&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;itemvalueformat&gt;#VALY{0.0}&lt;/itemvalueformat&gt;&lt;legendbgcolor&gt;#2002E5&lt;/legendbgcolor&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;None&lt;/legendposition&gt;&lt;legendtitle&gt;aaa&lt;/legendtitle&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisinterval&gt;1&lt;/xaxisinterval&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>7408dbd4-d36c-4bdd-ab03-3c6285961810</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.7060586+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.9802556+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -10548,7 +10548,7 @@ ORDER BY [Date]
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;None&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;pieshowpercentage&gt;False&lt;/pieshowpercentage&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;seriesitemtooltip&gt;#VALX{yyyy}  -  #SER: #VALY&lt;/seriesitemtooltip&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titlefontnew&gt;Arial;bold;14;;&lt;/titlefontnew&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisfont&gt;Arial;bold;11;;&lt;/xaxisfont&gt;&lt;xaxisformat&gt;{yyyy}&lt;/xaxisformat&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxisfont&gt;Arial;bold;11;;&lt;/yaxisfont&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>a856a094-de10-4fde-b9dd-3f59b22fac40</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.6435588+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.9177489+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -15568,7 +15568,7 @@ FROM {%DatabaseSchema%}.Func_Analytics_EnsureDates (@FromDate,@ToDate,'Year') AS
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;BarDrawingStyle&gt;Bar&lt;/BarDrawingStyle&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;BorderSkinStyle&gt;None&lt;/BorderSkinStyle&gt;&lt;ChartAreaBorderStyle&gt;NotSet&lt;/ChartAreaBorderStyle&gt;&lt;ChartAreaGradient&gt;None&lt;/ChartAreaGradient&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;LegendBorderSize&gt;0&lt;/LegendBorderSize&gt;&lt;LegendBorderStyle&gt;NotSet&lt;/LegendBorderStyle&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;None&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;PieDoughnutRadius&gt;70&lt;/PieDoughnutRadius&gt;&lt;PieDrawingDesign&gt;Default&lt;/PieDrawingDesign&gt;&lt;PieDrawingStyle&gt;Doughnut&lt;/PieDrawingStyle&gt;&lt;PieLabelStyle&gt;Outside&lt;/PieLabelStyle&gt;&lt;PlotAreaBorderSize&gt;0&lt;/PlotAreaBorderSize&gt;&lt;PlotAreaBorderStyle&gt;NotSet&lt;/PlotAreaBorderStyle&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;querynorecordtext&gt;No data found&lt;/querynorecordtext&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;SeriesBorderSize&gt;4&lt;/SeriesBorderSize&gt;&lt;SeriesBorderStyle&gt;Solid&lt;/SeriesBorderStyle&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;seriesitemtooltip&gt;#VALX{%xValueFormat%} - #SER: #VALY&lt;/seriesitemtooltip&gt;&lt;SeriesSymbols&gt;Circle&lt;/SeriesSymbols&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;StackedBarDrawingStyle&gt;Bar&lt;/StackedBarDrawingStyle&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisformat&gt;{%XAxisFormat%}&lt;/xaxisformat&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>62995fe8-6448-4abe-8dfb-895cee0d02d9</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.4404359+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.7146367+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -16107,7 +16107,7 @@ ORDER BY [Date]
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;None&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;pieshowpercentage&gt;False&lt;/pieshowpercentage&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;seriesitemtooltip&gt;#VALX  -  #SER: #VALY&lt;/seriesitemtooltip&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titlefontnew&gt;Arial;bold;14;;&lt;/titlefontnew&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisfont&gt;Arial;bold;11;;&lt;/xaxisfont&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxisfont&gt;Arial;bold;11;;&lt;/yaxisfont&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>410958a8-5357-4c01-95d0-8f35a6b67a68</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.6123372+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.8864834+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -17583,7 +17583,7 @@ ORDER BY [Date]
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;None&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;pieshowpercentage&gt;False&lt;/pieshowpercentage&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;seriesitemtooltip&gt;#VALX{dddd, MMMM d, yyyy}  -  #SER: #VALY&lt;/seriesitemtooltip&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titlefontnew&gt;Arial;bold;14;;&lt;/titlefontnew&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisfont&gt;Arial;bold;11;;&lt;/xaxisfont&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxisfont&gt;Arial;bold;11;;&lt;/yaxisfont&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>84db9b2a-3048-4ae6-ad1e-aa1b423be722</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.5341854+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.7926999+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -17830,7 +17830,7 @@ ORDER BY SUM(OrderGrandTotalInMainCurrency) DESC</GraphQuery>
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;itemvalueformat&gt;#VALY{0.0}&lt;/itemvalueformat&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;Top&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisinterval&gt;1&lt;/xaxisinterval&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>5ff23607-9872-493f-8491-ab680a09a0f0</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.6748071+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.9489631+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -19431,7 +19431,7 @@ ORDER BY [Date]
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;None&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;pieshowpercentage&gt;False&lt;/pieshowpercentage&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;seriesitemtooltip&gt;#VALX{dddd, MMMM d, yyyy HH:mm}  -  #SER: #VALY&lt;/seriesitemtooltip&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titlefontnew&gt;Arial;bold;14;;&lt;/titlefontnew&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisfont&gt;Arial;bold;11;;&lt;/xaxisfont&gt;&lt;xaxisformat&gt;g&lt;/xaxisformat&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxisfont&gt;Arial;bold;11;;&lt;/yaxisfont&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>dc9067e6-faf9-41ce-8b51-c3d7bed3a0c8</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.5654338+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.8395764+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -20787,7 +20787,7 @@ SELECT '{$com.report.period2$}', CAST(ROUND(@sales2,1) AS decimal(38,1))</GraphQ
       <GraphLegendPosition>100</GraphLegendPosition>
       <GraphSettings>&lt;CustomData&gt;&lt;barorientation&gt;Vertical&lt;/barorientation&gt;&lt;baroverlay&gt;False&lt;/baroverlay&gt;&lt;displayitemvalue&gt;False&lt;/displayitemvalue&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;itemvalueformat&gt;#VALY{0.0}&lt;/itemvalueformat&gt;&lt;legendinside&gt;False&lt;/legendinside&gt;&lt;legendposition&gt;Top&lt;/legendposition&gt;&lt;linedrawinstyle&gt;Line&lt;/linedrawinstyle&gt;&lt;plotareagradient&gt;None&lt;/plotareagradient&gt;&lt;reverseyaxis&gt;False&lt;/reverseyaxis&gt;&lt;seriesgradient&gt;None&lt;/seriesgradient&gt;&lt;showas3d&gt;False&lt;/showas3d&gt;&lt;showmajorgrid&gt;True&lt;/showmajorgrid&gt;&lt;stackedbarmaxstacked&gt;False&lt;/stackedbarmaxstacked&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;tenpowers&gt;False&lt;/tenpowers&gt;&lt;titleposition&gt;Center&lt;/titleposition&gt;&lt;valuesaspercent&gt;False&lt;/valuesaspercent&gt;&lt;xaxisinterval&gt;1&lt;/xaxisinterval&gt;&lt;xaxissort&gt;True&lt;/xaxissort&gt;&lt;xaxistitleposition&gt;Center&lt;/xaxistitleposition&gt;&lt;yaxistitleposition&gt;Center&lt;/yaxistitleposition&gt;&lt;yaxisusexaxissettings&gt;True&lt;/yaxisusexaxissettings&gt;&lt;/CustomData&gt;</GraphSettings>
       <GraphGUID>2ff61080-8488-4213-96d4-d8771e5abbbf</GraphGUID>
-      <GraphLastModified>2017-12-07T16:29:13.7373081+01:00</GraphLastModified>
+      <GraphLastModified>2017-12-11T11:14:08.9958627+01:00</GraphLastModified>
       <GraphConnectionString></GraphConnectionString>
     </reporting_reportgraph>
     <reporting_reportgraph>
@@ -24758,7 +24758,7 @@ ORDER BY [Date] DESC</TableQuery>
       <TableReportID>497</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;10&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>7cc18155-06ab-42c5-9dbf-16a86999ca95</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.127962+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.4492722+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -26193,7 +26193,7 @@ ORDER BY [Date] DESC</TableQuery>
       <TableReportID>500</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;10&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;skinid&gt;ReportGridAnalytics&lt;/skinid&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>47e4aada-6b9c-4fa4-8d0f-32d20c4022f7</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.0811092+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.3711041+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -26552,7 +26552,7 @@ ORDER BY [Date] DESC</TableQuery>
       <TableReportID>498</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;10&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>c52f1ae0-3c4c-42cb-850b-3f2937b7b69e</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.1123437+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.417996+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -28086,7 +28086,7 @@ FROM @medianPriceTable</TableQuery>
       <TableReportID>824</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;15&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>c2a93274-9328-45e9-b4ea-5b21bd227920</TableGUID>
-      <TableLastModified>2017-12-07T16:29:13.9404465+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.1989542+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -29022,7 +29022,7 @@ FROM
       <TableReportID>823</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;15&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;SkinID&gt;ReportGridAnalytics&lt;/SkinID&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>58bcae7a-95d4-4865-a936-66ec914b33b1</TableGUID>
-      <TableLastModified>2017-12-07T16:29:13.9091795+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.1677057+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -29181,7 +29181,7 @@ ORDER BY [Date] DESC</TableQuery>
       <TableReportID>499</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;10&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>a765e078-d500-4692-afe2-6a760a35e55d</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.0967126+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.4023954+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -30022,7 +30022,7 @@ ORDER BY
       <TableReportID>842</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;True&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;3&lt;/pagemode&gt;&lt;pagesize&gt;25&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>29ae191f-c42f-41e5-a448-7b4d1778ae84</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.1904284+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.4961524+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -30308,7 +30308,7 @@ ORDER BY [Date] DESC</TableQuery>
       <TableReportID>496</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;10&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>182b094b-cd05-4c1a-bda2-800a646041c6</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.1435542+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.4649137+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -30557,7 +30557,7 @@ END</TableQuery>
       <TableReportID>781</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;10&lt;/pagesize&gt;&lt;querynorecordtext&gt;No data found&lt;/querynorecordtext&gt;&lt;skinid&gt;ReportGridAnalytics&lt;/skinid&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>f95992d3-ebeb-44c2-9b58-82a6523367ed</TableGUID>
-      <TableLastModified>2017-12-07T16:29:13.9873323+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.245827+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -30885,7 +30885,7 @@ ORDER BY StatusOrder</TableQuery>
       <TableReportID>846</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;15&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>2cd55af9-a297-4324-bf1f-861e8c11d6b6</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.2217335+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.5752995+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -31089,7 +31089,7 @@ ORDER BY
       <TableReportID>109</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;10&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;SkinID&gt;ReportGridAnalytics&lt;/SkinID&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>6fe00b31-2adf-4d5e-8bf3-8820563ecfca</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.3467037+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.7003044+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -31142,7 +31142,7 @@ ORDER BY
       <TableReportID>843</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;15&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>a57193a7-54ad-48d8-ba10-8860772077b9</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.2060714+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.5283852+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -31429,7 +31429,7 @@ SELECT '{$ecommerce.report_numberoforders$}', @orders1 , @orders2 , ISNULL(CAST(
       <TableReportID>849</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;False&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;1&lt;/pagemode&gt;&lt;pagesize&gt;15&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>70ee89a9-8f76-4fea-86c0-8b8d7d68cc26</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.2998363+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.6534291+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -33747,7 +33747,7 @@ ORDER BY
       <TableReportID>847</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;True&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;3&lt;/pagemode&gt;&lt;pagesize&gt;25&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>2618772c-5d51-417b-b9b1-be04f6f8c582</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.252954+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.6065488+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -36911,7 +36911,7 @@ ORDER BY
       <TableReportID>848</TableReportID>
       <TableSettings>&lt;CustomData&gt;&lt;enablepaging&gt;True&lt;/enablepaging&gt;&lt;exportenabled&gt;True&lt;/exportenabled&gt;&lt;pagemode&gt;3&lt;/pagemode&gt;&lt;pagesize&gt;25&lt;/pagesize&gt;&lt;querynorecordtext&gt;{$general.nodatafound$}&lt;/querynorecordtext&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</TableSettings>
       <TableGUID>4c8b41f0-c6a5-4c3e-892b-fca4745c149e</TableGUID>
-      <TableLastModified>2017-12-07T16:29:14.2841771+01:00</TableLastModified>
+      <TableLastModified>2017-12-11T11:14:09.6221732+01:00</TableLastModified>
       <TableConnectionString></TableConnectionString>
     </reporting_reporttable>
     <reporting_reporttable>
@@ -37154,7 +37154,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>498</ValueReportID>
       <ValueGUID>79b50223-e3bd-4762-9cd5-0181fef9789d</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.5966787+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.9503006+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37290,7 +37290,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>489</ValueReportID>
       <ValueGUID>32bdbc12-24d6-4965-9ba7-14ff9c6abcf6</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.5185782+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.8877958+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37406,7 +37406,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>753</ValueReportID>
       <ValueGUID>b67a581b-8e55-493c-b662-3b15c3c9925f</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.5029266+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.8565477+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37447,7 +37447,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>499</ValueReportID>
       <ValueGUID>9ebc9f68-464a-4ec6-addc-5a140b45c997</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.5810563+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.9346756+01:00</ValueLastModified>
       <ValueSettings>&lt;CustomData&gt;&lt;subscriptionenabled&gt;True&lt;/subscriptionenabled&gt;&lt;/CustomData&gt;</ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37467,7 +37467,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>496</ValueReportID>
       <ValueGUID>14415140-ba67-4372-9459-5efd5da93e39</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.6279855+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.9971744+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37576,7 +37576,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>490</ValueReportID>
       <ValueGUID>b8f9923d-a570-4b8f-bc70-9db9c29d4787</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.471676+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.8252968+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37615,7 +37615,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>752</ValueReportID>
       <ValueGUID>bee30906-a786-46b4-82eb-9f8324c8b4a1</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.5498287+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.9034273+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37635,7 +37635,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>754</ValueReportID>
       <ValueGUID>b56beb49-228b-41d4-bded-aaec2a950140</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.4406802+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.7940468+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37707,7 +37707,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>500</ValueReportID>
       <ValueGUID>7d7cf742-47f9-45cc-a06d-be115374c538</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.5654289+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.9190489+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>
@@ -37761,7 +37761,7 @@ WHERE
       <ValueFormatString></ValueFormatString>
       <ValueReportID>497</ValueReportID>
       <ValueGUID>49302fdb-d747-4715-ac97-ca83ad9e95fa</ValueGUID>
-      <ValueLastModified>2017-12-07T16:29:14.6123271+01:00</ValueLastModified>
+      <ValueLastModified>2017-12-11T11:14:09.9815524+01:00</ValueLastModified>
       <ValueSettings></ValueSettings>
     </reporting_reportvalue>
     <reporting_reportvalue>

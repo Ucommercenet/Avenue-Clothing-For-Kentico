@@ -6,11 +6,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
 using System.Linq;
+using CMS.Core;
 using UCommerce.Api;
 using UCommerce.Runtime;
 using UCommerce.Search.Facets;
 using CMS.PortalEngine.Web.UI;
 using CMS.Helpers;
+using CMSApp.CMSWebParts.Ucommerce.Services;
+using ObjectFactory = UCommerce.Infrastructure.ObjectFactory;
 
 public partial class CMSWebParts_Ucommerce_Facets : CMSAbstractWebPart
 {
@@ -48,6 +51,12 @@ public partial class CMSWebParts_Ucommerce_Facets : CMSAbstractWebPart
         {
             var category = SiteContext.Current.CatalogContext.CurrentCategory;
             var product = SiteContext.Current.CatalogContext.CurrentProduct;
+
+            if (category == null && product == null && CurrentDocument.NodeAlias == "Catalog")
+            {
+                category = ObjectFactory.Instance.Resolve<IDefaultCatalogDataProvider>().GetDefaultCategory();
+            }
+
             if (category == null || product != null)
             {
                 return;

@@ -115,7 +115,7 @@
       <TimeZoneRuleEndIn>2017-01-02T00:00:00+01:00</TimeZoneRuleEndIn>
       <TimeZoneRuleEndRule>JAN|MON|1|FIRST|0|0|0</TimeZoneRuleEndRule>
       <TimeZoneGUID>0ae87602-0b37-48b9-ba5f-130d6b42f68c</TimeZoneGUID>
-      <TimeZoneLastModified>2017-12-07T16:24:53.5809843+01:00</TimeZoneLastModified>
+      <TimeZoneLastModified>2017-12-11T11:09:52.9248474+01:00</TimeZoneLastModified>
     </cms_timezone>
     <cms_timezone>
       <TimeZoneID>90</TimeZoneID>

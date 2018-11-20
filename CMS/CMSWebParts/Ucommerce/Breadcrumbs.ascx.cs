@@ -3,10 +3,12 @@ using System.Linq;
 using CMS.Helpers;
 using CMS.PortalEngine;
 using CMS.PortalEngine.Web.UI;
+using CMSApp.CMSWebParts.Ucommerce.Services;
 using Microsoft.Ajax.Utilities;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
+using UCommerce.Infrastructure;
 using UCommerce.Runtime;
 
 public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
@@ -80,7 +82,17 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
             Product product = SiteContext.Current.CatalogContext.CurrentProduct;
             Category lastCategory = SiteContext.Current.CatalogContext.CurrentCategory;
 
-       
+            var defaultCatalogDataProvider = ObjectFactory.Instance.Resolve<IDefaultCatalogDataProvider>();
+            if (lastCategory == null && CurrentDocument.NodeAlias == "Catalog")
+            {
+                lastCategory = defaultCatalogDataProvider.GetDefaultCategory();
+                SiteContext.Current.CatalogContext.CurrentCategories.Add(lastCategory);
+            }
+
+            if (lastCategory == null && product == null && CurrentDocument.NodeAlias == "Product")
+            {
+                product = defaultCatalogDataProvider.GetDefaultProduct();
+            }
 
             if (SiteContext.Current.CatalogContext.CurrentCategories.Any())
             {
@@ -113,7 +125,7 @@ public partial class CMSWebParts_Ucommerce_Breadcrumbs : CMSAbstractWebPart
                 breadcrumbs.Add(breadcrumb);
             }
 
-            if (breadcrumbs.Last().BreadcrumbName == delimiter)
+            if (breadcrumbs.Any() && breadcrumbs.Last().BreadcrumbName == delimiter)
             {
                 breadcrumbs.Remove(breadcrumbs.Last());
             }

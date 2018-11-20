@@ -11,7 +11,7 @@
       <WebPartDocumentation>&lt;p&gt;&lt;span style="color: rgb(0, 0, 0);"&gt;Please see&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=cmstabcontrol_controls" target="_blank"&gt;CMSTabControl&lt;/a&gt;&amp;nbsp;for information&amp;nbsp;about the control that this web part is based on.&lt;/span&gt;&lt;/p&gt;
 </WebPartDocumentation>
       <WebPartGUID>780ff6ec-eb80-4a7f-a38c-00220f63f7a8</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.5285896+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.5518498+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-tab-menu</WebPartIconClass>
@@ -51,7 +51,7 @@ E.g.: cms.news;cms.article&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settin
       <WebPartCategoryID>192</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>cafb4556-7906-4ecd-b014-0067c46d77db</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.6379593+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.6612164+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-contribution-list</WebPartIconClass>
@@ -246,7 +246,7 @@ false;No
 &lt;br /&gt;
 For more information, see &lt;a href="~/CMSPages/GetDocLink.ashx?link=layout_webparts" target="_blank"&gt;Working with layout web parts&lt;/a&gt;.</WebPartDocumentation>
       <WebPartGUID>7ca8cf20-8f1a-4752-82f0-08a13f5a0401</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.5925353+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.7393313+01:00</WebPartLastModified>
       <WebPartType>6</WebPartType>
       <WebPartSkipInsertProperties>true</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-web-part-zone</WebPartIconClass>
@@ -287,7 +287,7 @@ Livejournal|http://##username##.livejournal.com/|livejournal.png&lt;/fielddescri
       <WebPartCategoryID>195</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>36483783-e742-47a3-bd1d-096eff7efaa7</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.7942118+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.8643294+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-event-calendar</WebPartIconClass>
@@ -734,7 +734,7 @@ birdseye;Birdseye&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column
       <WebPartCategoryID>390</WebPartCategoryID>
       <WebPartDocumentation>&lt;br /&gt;</WebPartDocumentation>
       <WebPartGUID>e1e72d3f-b6eb-4ad6-aaa2-1ad48676bc1a</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.372337+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.3956099+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-bing-maps</WebPartIconClass>
@@ -841,7 +841,7 @@ birdseye;Birdseye&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column
       <WebPartProperties>&lt;form version="2"&gt;&lt;category name="Table properties"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field column="ReportTable" columntype="longtext" guid="fdc02339-1205-433e-820b-7db9c029d2c3" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Table&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.generalproperties.reporttable$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;reporttableselector&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="Range" columnsize="20" columntype="text" guid="e7e44338-d2a2-4dda-b659-10308f30dfd9" publicfield="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;checkboxlistcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="RangeValue" columntype="integer" guid="47a6f863-d8d1-4e44-9a03-66ddb0585c47" publicfield="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;dropdownlistcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="EnableExport" columntype="boolean" guid="d346975a-d441-44bc-9c10-042926b57053" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable export&lt;/fieldcaption&gt;&lt;fielddescription&gt;If enabled, users will be able to export the data displayed in the table to other formats (Excel, CSV or XML). The export feature may be accessed through a context menu that can be opened by right clicking the rendered table. Please note that data export may be disabled for the given table via its properties in the main Reporting interface.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="EnableSubscription" columntype="boolean" guid="7bc79510-4692-4a57-81ff-5df1104ddc6d" publicfield="false" resolvedefaultvalue="False" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;{$rep.enablesubscription$}&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether authorized users should be allowed to subscribe to the displayed table. Subscription can be done by right clicking on the rendered table and selecting the 'Subscribe to table' option in the context menu. In addition to this property, subscription also needs to be enabled for the given report and the specific table in the main reporting interface.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;CheckBoxControl&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="EnablePaging" columntype="boolean" guid="0144bcc7-699e-42ab-86cf-ffab2f2597e7" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable paging&lt;/fieldcaption&gt;&lt;fielddescription&gt;Can be used to enable or disable paging of the data displayed in the report table. This property overrides the paging settings of the given table.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="PageSize" columntype="integer" guid="56bb197b-5608-42f3-af7c-f6e6283cd3af" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Page size&lt;/fieldcaption&gt;&lt;fielddescription&gt;Sets the amount of rows that should be displayed on each page in the report table. This property overrides the page size settings of the given table.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="System settings"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="CacheItemName" columnsize="200" columntype="text" guid="6bae70df-74b3-40ab-8b30-83436c2a9f7c" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache item name&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheitemname$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheMinutes" columntype="integer" guid="686ab630-5bd1-4594-bcfe-7ffdcf92f879" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache minutes&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheminutes$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheDependencies" columntype="longtext" guid="df7a735c-7d8e-4712-beca-4eba15f56432" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache dependencies&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cachedependencies$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;cachedependencies&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="Hidden data properties"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="ParametersXmlSchema" columntype="longtext" guid="0ba76d08-73e5-41a8-9bc2-a52ea5a308d5" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ParametersXmlData" columntype="longtext" guid="12c48f0b-f4c0-4641-b4e8-2292d9c651b5" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>189</WebPartCategoryID>
       <WebPartGUID>fd9c1393-9976-4bae-902e-1d7052522334</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.2326939+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.3643263+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>114</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -893,7 +893,7 @@ For more information, refer to &lt;a href="~/CMSPages/GetDocLink.ashx?link=wizar
       <WebPartCategoryID>341</WebPartCategoryID>
       <WebPartDocumentation>&lt;span style="color: rgb(0, 0, 0);"&gt;Please see&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=cmsviewer_controls" target="_blank"&gt;CMSViewer&lt;/a&gt;&amp;nbsp;for information&amp;nbsp;about the control that this web part is based on.&lt;/span&gt;</WebPartDocumentation>
       <WebPartGUID>5e0d9a18-b46a-45c2-a824-1fec69af256d</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.5598752+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.5986993+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-xslt-viewer</WebPartIconClass>
@@ -939,7 +939,7 @@ COLLECTION;{$com.productswidget.collection$}
 TAXCLASS;{$com.productswidget.taxclass$}&lt;/Options&gt;&lt;RepeatDirection&gt;vertical&lt;/RepeatDirection&gt;&lt;RepeatLayout&gt;Flow&lt;/RepeatLayout&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>429</WebPartCategoryID>
       <WebPartGUID>673bb0bc-35a2-4265-82f3-208466aacd2e</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.0754593+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.1924414+01:00</WebPartLastModified>
       <WebPartType>7</WebPartType>
       <WebPartDefaultValues>&lt;form /&gt;</WebPartDefaultValues>
       <WebPartResourceID>111</WebPartResourceID>
@@ -971,7 +971,7 @@ TAXCLASS;{$com.productswidget.taxclass$}&lt;/Options&gt;&lt;RepeatDirection&gt;v
       <WebPartProperties>&lt;form version="2"&gt;&lt;category name="Value properties"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field column="ReportValue" columntype="longtext" guid="4e42a701-1bd0-460a-8c64-f0ac50b887f1" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Value&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.generalproperties.reportvalue$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;reportvalueselector&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="EnableSubscription" columntype="boolean" guid="e05c883f-5a5c-4f1b-b2bf-2d97b832c086" publicfield="false" resolvedefaultvalue="False" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;{$rep.enablesubscription$}&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether authorized users should be allowed to subscribe to the displayed value. Subscription can be done by right clicking on the rendered value and selecting the 'Subscribe to value' option in the context menu. In addition to this property, subscription also needs to be enabled for the given report and the specific value in the main reporting interface.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;CheckBoxControl&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="System settings"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="CacheItemName" columnsize="200" columntype="text" guid="3750cc1d-caa6-46f9-949d-5bd203f05a2b" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache item name&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheitemname$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheMinutes" columntype="integer" guid="bbc56a00-97c1-4466-b96f-75a8688bc49c" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache minutes&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheminutes$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheDependencies" columntype="longtext" guid="433c0691-7509-4672-91d2-d53180edb4c8" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache dependencies&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cachedependencies$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;cachedependencies&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="Hidden data properties"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="ParametersXmlSchema" columntype="longtext" guid="cf78afe9-650e-4818-a451-fceb039d0e15" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ParametersXmlData" columntype="longtext" guid="9f555c37-5408-4438-909b-a82d064e8097" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>189</WebPartCategoryID>
       <WebPartGUID>0f5d6976-4f67-4b2d-a6e3-222e03f9e8f0</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.2489382+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.3799423+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>114</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -1009,7 +1009,7 @@ For more information, see:
       <WebPartProperties>&lt;form version="2"&gt;&lt;category name="Chart properties"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field column="ReportChart" columntype="longtext" guid="2c5bcc32-0c7b-4e2b-a960-97539746a7ed" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Chart&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.reportchart$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;reportgraphselector&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="Width" columnsize="20" columntype="text" guid="9ce65554-e462-4c60-a0ff-ac824d2a8ba0" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Width&lt;/fieldcaption&gt;&lt;fielddescription&gt;Can be used to override the width that is configured for the displayed chart in the reporting interface. If the percentage symbol ('%') is added to the value, the chart width will be relative to the maximum possible width, e.g. 100%&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="Height" columntype="integer" guid="8d046d1a-95e3-4f4a-9911-ae0b0e2bd9ef" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Height&lt;/fieldcaption&gt;&lt;fielddescription&gt;Can be used to override the height that is configured for the displayed chart in the reporting interface.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="Range" columnsize="20" columntype="text" guid="3c8e231e-04f0-465e-a816-78f399cbe287" publicfield="false" visibility="none"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Range&lt;/fieldcaption&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;dropdownlistcontrol&lt;/controlname&gt;&lt;Options&gt;&amp;lt;item value="year" text="Year" /&amp;gt;&amp;lt;item value="month" text="Month" /&amp;gt;&amp;lt;item value="week" text="Week" /&amp;gt;&amp;lt;item value="day" text="Day" /&amp;gt;&amp;lt;item value="hour" text="Hour" /&amp;gt;&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="RangeValue" columntype="integer" guid="f13b970a-d4b5-434a-a191-867d1130a8c8" publicfield="false" visibility="none"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Range value&lt;/fieldcaption&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="EnableExport" columntype="boolean" guid="54574aa7-2e0b-4b15-8571-b489917db248" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable export&lt;/fieldcaption&gt;&lt;fielddescription&gt;If enabled, users will be able to export the data displayed in the chart to other formats (Excel, CSV or XML). The export feature may be accessed through a context menu that can be opened by right clicking the rendered chart. Please note that data export may be disabled for the given chart via its properties in the main Reporting interface.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="EnableSubscription" columntype="boolean" guid="6a7f34ec-c63a-41b8-a29d-9d972fcaae69" publicfield="false" resolvedefaultvalue="False" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;{$rep.enablesubscription$}&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether authorized users should be allowed to subscribe to the displayed chart. Subscription can be done by right clicking on the rendered chart and selecting the 'Subscribe to graph' option in the context menu. In addition to this property, subscription also needs to be enabled for the given report and the specific graph in the main reporting interface.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;CheckBoxControl&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="System settings"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="CacheItemName" columnsize="200" columntype="text" guid="7c76f100-3297-45a2-ba35-007be6b17881" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache item name&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheitemname$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheMinutes" columntype="integer" guid="6118458f-6cb2-47f7-a3f2-8425d9baa564" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache minutes&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheminutes$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheDependencies" columntype="longtext" guid="220dab06-6fff-4ecb-b8f3-917e4fa6ee52" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache dependencies&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cachedependencies$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;cachedependencies&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="Hidden data properties"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="ParametersXmlSchema" columntype="longtext" guid="9bdd861c-ef65-4df8-b9a3-4fbac6b51bb3" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ParametersXmlData" columntype="longtext" guid="e01b50f5-4303-48d6-ab97-f56cefd20cf7" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="PartialCacheMinutes" columnsize="200" columntype="text" guid="8df2fd3a-0484-4b99-8d6e-075ee846d056" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Partial cache minutes&lt;/fieldcaption&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="PartialCacheDependencies" columnsize="200" columntype="text" guid="93d1adf0-0cc0-4ae2-9072-0428df61a85a" publicfield="false" spellcheck="false" visibility="none"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Partial cache dependencies&lt;/fieldcaption&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;labelcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>189</WebPartCategoryID>
       <WebPartGUID>04dcbe68-daa6-4625-962c-225e7790feb1</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.2170549+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.3486949+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>114</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -1115,7 +1115,7 @@ The design of the grid can be customized using skins. Here&amp;#39;s an example:
       <WebPartCategoryID>163</WebPartCategoryID>
       <WebPartDocumentation>Please see &lt;a href="~/CMSPages/GetDocLink.ashx?link=alternative_forms" target="_blank"&gt;Creating alternative forms&lt;/a&gt; to learn how to define a custom subscription form.</WebPartDocumentation>
       <WebPartGUID>722d8e3c-a4d2-4d2d-9a28-243796d5b276</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.7004857+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.7393196+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>108</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -1194,7 +1194,7 @@ Please see&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=cmssitemap_contr
       <WebPartProperties>&lt;form version="2"&gt;&lt;category name="Content filter"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="ItemsPerPage" columnsize="50" columntype="text" guid="e7dfea3c-31f3-4bb8-b29d-7b6213f7c9b4" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;25&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Items per page&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.docperpage$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;dropdownlistcontrol&lt;/controlname&gt;&lt;options&gt;&amp;lt;item value="10" text="10" /&amp;gt;&amp;lt;item value="25" text="25" /&amp;gt;&amp;lt;item value="50" text="50" /&amp;gt;&lt;/options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="OrderBy" columnsize="50" columntype="text" guid="02edf82b-64e7-41eb-87d1-4cfa8dfb7643" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;EventDate&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Order by&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.documentsorderby$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;dropdownlistcontrol&lt;/controlname&gt;&lt;options&gt;&amp;lt;item value="documentname" text="Event" /&amp;gt;&amp;lt;item value="eventdate" text="Date" /&amp;gt;&lt;/options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="Sorting" columnsize="50" columntype="text" guid="6ea3daf3-e67c-42de-a2bc-86626bdda8cd" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;asc&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Sorting&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.sorting$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;radiobuttonscontrol&lt;/controlname&gt;&lt;options&gt;&amp;lt;item value="asc" text="Ascending" /&amp;gt;&amp;lt;item value="desc" text="Descending" /&amp;gt;&lt;/options&gt;&lt;repeatdirection&gt;vertical&lt;/repeatdirection&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>195</WebPartCategoryID>
       <WebPartGUID>01b1d13d-7444-4667-a7c3-293e69b0914c</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.8098616+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.879949+01:00</WebPartLastModified>
       <WebPartType>7</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-event-management</WebPartIconClass>
@@ -1276,7 +1276,7 @@ flow;Flow&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="Trans
       <WebPartCategoryID>362</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>bf197760-82b8-4707-b196-2f19b4033781</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.4206673+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.5674691+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>111</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -1305,7 +1305,7 @@ aerial;Aerial
 birdseye;Birdseye&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="IconField" columnsize="100" columntype="text" guid="4bb5b55e-1c0c-4570-b2c7-8cc84e8d8799" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Icon field&lt;/fieldcaption&gt;&lt;fielddescription&gt;Code name of the source field whose content will be used as URL for the custom map icon.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowNavigationControl" columntype="boolean" guid="150e9473-56ff-478b-ae44-e779d6f8bf8a" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show navigation control&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the navigation control should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowScaleControl" columntype="boolean" guid="4978c2e1-aaaa-426d-b7bd-f36f9588fb57" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show scale control&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the scale bar in the bottom right corner of the map should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="EnableMapDragging" columntype="boolean" guid="f7756896-f791-415f-8fae-039611929ed5" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable map dragging&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether map dragging is enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="MapKey" columnsize="100" columntype="text" guid="616c1e61-c455-4ee2-9372-f08a7f3e1434" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Bing map key&lt;/fieldcaption&gt;&lt;fielddescription&gt;Bing map key. Used only if the 'EnableServerProcessing' property is enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="No data behavior"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="HideControlForZeroRows" columntype="boolean" guid="507ec30f-efad-42e6-8417-5d420d839062" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Hide if no record found&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.hidenofound$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ZeroRowsText" columnsize="200" columntype="text" guid="8ae9ee47-586e-496f-814e-62c39b651435" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;No record found text&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.norecordtext$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="AJAX"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field column="UseUpdatePanel" columntype="boolean" guid="7de1cca1-d087-4176-a285-ba229b4fb422" publicfield="false" visibility="none"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>388</WebPartCategoryID>
       <WebPartGUID>a6bf65e2-8404-4b84-8ae0-316caef242e4</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.2942436+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.3330764+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-basic-bing-maps</WebPartIconClass>
@@ -1425,7 +1425,7 @@ false;No
 &lt;/ul&gt;
 For more information, refer to &lt;a href="~/CMSPages/GetDocLink.ashx?link=wizards_creating" target="_blank"&gt;Creating wizards on websites&lt;/a&gt; in the documentation.</WebPartDocumentation>
       <WebPartGUID>6dbc731a-f883-4287-8926-37fe041776eb</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.7785993+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.8331326+01:00</WebPartLastModified>
       <WebPartType>4</WebPartType>
       <WebPartDefaultValues>&lt;form /&gt;</WebPartDefaultValues>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -1604,7 +1604,7 @@ For more information, see &lt;a href="~/CMSPages/GetDocLink.ashx?link=layout_web
       <WebPartCategoryID>341</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>21d2fe68-e743-4760-ba8b-40f2bd79e7fb</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.264397+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.3955665+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-scrolling-text</WebPartIconClass>
@@ -1784,7 +1784,7 @@ For more information, see &lt;a href="~/CMSPages/GetDocLink.ashx?link=layout_web
       <WebPartProperties>&lt;form version="2"&gt;&lt;field allowempty="true" column="SmartTipCollapsedStateIdentifier" columntype="longtext" guid="911b1e4f-e2b9-4b64-b2b0-eb7167471ce9" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Smart tip collapsed state identifier&lt;/fieldcaption&gt;&lt;fielddescription&gt;Gets or sets the identifier of the smart tip used for storing the collapsed state. If multiple smart tips with the same identifier are created, closing one will result in closing all of them.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="SmartTipCollapsedHeader" columntype="longtext" guid="272be925-466a-40bf-b20b-f6186120dc63" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Smart tip collapsed header&lt;/fieldcaption&gt;&lt;fielddescription&gt;Gets or sets the collapsed header of the smart tip. Use plain text.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="SmartTipExpandedHeader" columntype="longtext" guid="76948a2b-f1b6-45d7-b78c-ab1f33bd5803" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Smart tip expanded header&lt;/fieldcaption&gt;&lt;fielddescription&gt;Gets or sets the expanded header of the smart tip. Use plain text.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="SmartTipText" columntype="longtext" guid="1fad4839-f881-40a4-8e18-2076c5092ff0" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Smart tip text&lt;/fieldcaption&gt;&lt;fielddescription&gt;Specifies the smart tip text content either as simple text or html.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoSize&gt;False&lt;/AutoSize&gt;&lt;controlname&gt;MacroEditor&lt;/controlname&gt;&lt;EnablePositionMember&gt;False&lt;/EnablePositionMember&gt;&lt;EnableSections&gt;False&lt;/EnableSections&gt;&lt;EnableViewState&gt;False&lt;/EnableViewState&gt;&lt;Height&gt;100&lt;/Height&gt;&lt;Language&gt;0&lt;/Language&gt;&lt;ShowBookmarks&gt;False&lt;/ShowBookmarks&gt;&lt;ShowLineNumbers&gt;False&lt;/ShowLineNumbers&gt;&lt;ShowMacroSelector&gt;False&lt;/ShowMacroSelector&gt;&lt;SingleLineMode&gt;False&lt;/SingleLineMode&gt;&lt;SingleMacroMode&gt;False&lt;/SingleMacroMode&gt;&lt;SupportPasteImages&gt;False&lt;/SupportPasteImages&gt;&lt;Width&gt;100%&lt;/Width&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>447</WebPartCategoryID>
       <WebPartGUID>8829c3c5-cce3-464c-b747-4afac8a478d5</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.4675666+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.6143143+01:00</WebPartLastModified>
       <WebPartType>9</WebPartType>
       <WebPartDefaultValues>&lt;form /&gt;</WebPartDefaultValues>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -2009,7 +2009,7 @@ For more information, see &lt;a href="~/CMSPages/GetDocLink.ashx?link=layout_web
       <WebPartCategoryID>189</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>29db550f-3572-4442-a1c8-4f5dd63fea1c</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.20148+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.3330678+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>114</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -2411,7 +2411,7 @@ For more information, see &lt;a href="~/CMSPages/GetDocLink.ashx?link=layout_web
       <WebPartCategoryID>215</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>320cfc61-d2bd-4f25-a89c-619af3e3eccc</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.0129634+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.1299446+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>198</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -2507,7 +2507,7 @@ Global&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/settings&gt;&
       <WebPartCategoryID>352</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>9016fc19-6138-450b-b910-6a6fd43c6d2d</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.9192341+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.0205807+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>197</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -2547,7 +2547,7 @@ pre;Preformatted text&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field al
       <WebPartDocumentation>&lt;p&gt;&lt;span style="color: rgb(0, 0, 0);"&gt;&lt;span style="color: rgb(0, 0, 0);"&gt;&lt;span style="color: rgb(0, 0, 0);"&gt;Please see&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=cmscalendar_controls" target="_blank"&gt;CMSCalendar&lt;/a&gt;&amp;nbsp;for information&amp;nbsp;about the control that this web part is based on.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 </WebPartDocumentation>
       <WebPartGUID>7217a0d8-ef41-44ee-93b1-6b353fd4df0e</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.4192379+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.458097+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-calendar</WebPartIconClass>
@@ -2563,7 +2563,7 @@ pre;Preformatted text&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field al
       <WebPartDocumentation>&lt;p class="p_Heading3"&gt;&lt;span style="color: rgb(0,0,0)"&gt;You need to define the set of pages from which you want to choose the random page by setting the Path property to e.g. &lt;/span&gt;&lt;b&gt;&lt;span class="f_CodeStyle10"&gt;/Products/%&lt;/span&gt;&lt;/b&gt;&lt;span style="color: rgb(0,0,0)"&gt; and setting the Page type property e.g. to &lt;/span&gt;&lt;b&gt;&lt;span class="f_CodeStyle10"&gt;cms.product&lt;/span&gt;&lt;/b&gt;&lt;span style="color: rgb(0,0,0)"&gt;. The page will be displayed using the transformation specified in the Transformation name value - e.g. &lt;/span&gt;&lt;b&gt;&lt;span class="f_CodeStyle10"&gt;cms.product.preview&lt;/span&gt;&lt;/b&gt;&lt;span style="color: rgb(0,0,0)"&gt;.&lt;/span&gt;&lt;/p&gt;
 </WebPartDocumentation>
       <WebPartGUID>9a59193c-0482-424c-be27-6d1c7227709a</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.1067081+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.2236958+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-random-document</WebPartIconClass>
@@ -2698,7 +2698,7 @@ Visibility&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/settings&
       <WebPartCategoryID>341</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>f3be4297-eb7c-483c-b6d9-72bf65d2ba94</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.5613179+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.7236929+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-universal-document-viewer</WebPartIconClass>
@@ -2719,7 +2719,7 @@ TotalWeight;{$checkout.totalweight$}
 OtherPaymentsTotal;{$checkout.otherpaymentstotal$}&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="OrderDiscountSummaryTransformationName" columnsize="200" columntype="text" guid="6577b59d-26de-4a38-802c-34036f0d0126" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Buy X Get Y transformation name&lt;/fieldcaption&gt;&lt;fielddescription&gt;Select transformation to display MultiBuy and Order discount summary&lt;/fielddescription&gt;&lt;visiblemacro ismacro="true"&gt;{%TotalToDisplay.Value == "OrderDiscountSummary"|(identity)GlobalAdministrator|(hash)dda4773db0fa96c8da597e19c1c7afb76a4e7832907814da10e6ad8c1f98b816%}&lt;/visiblemacro&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;selecttransformation&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="StringFormat" columnsize="150" columntype="text" guid="ba81e4bc-afad-46d2-9e52-84f69ef89a55" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;String format&lt;/fieldcaption&gt;&lt;fielddescription&gt;For example {0:00.0000} or {0:(#).##} etc. If not specified the default value for the currency string from 'Store configuration -&amp;gt; Currencies -&amp;gt; edit -&amp;gt; Currency formatting string' is used.&lt;/fielddescription&gt;&lt;visiblemacro ismacro="true"&gt;{%TotalToDisplay.Value != "MultiBuyDiscounts"|(user)administrator|(hash)bf1fa4d873f2f6a2bdd1f1bc5724fc94c6ecd6aaf946416e2627f2b892f0623f%}&lt;/visiblemacro&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="Label" columnsize="80" columntype="text" guid="a55b3bcf-da0f-4a2c-84b3-b41036189a76" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Label&lt;/fieldcaption&gt;&lt;fielddescription&gt;Label text for this total.&lt;/fielddescription&gt;&lt;visiblemacro ismacro="true"&gt;{%TotalToDisplay.Value != "MultiBuyDiscounts"|(user)administrator|(hash)bf1fa4d873f2f6a2bdd1f1bc5724fc94c6ecd6aaf946416e2627f2b892f0623f%}&lt;/visiblemacro&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>448</WebPartCategoryID>
       <WebPartGUID>1e4bbf6c-3f51-48d5-b978-73aaf7bcdf6d</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.389451+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.5362191+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartDefaultValues>&lt;form /&gt;</WebPartDefaultValues>
       <WebPartResourceID>111</WebPartResourceID>
@@ -2997,7 +2997,7 @@ Large - displays the larger control, with the zoom slider in addition to +/- but
       <WebPartCategoryID>390</WebPartCategoryID>
       <WebPartDocumentation>&lt;br /&gt;</WebPartDocumentation>
       <WebPartGUID>10626749-ac25-4838-98ae-7c3823eb74be</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.8567232+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.9268452+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-google-maps</WebPartIconClass>
@@ -3193,7 +3193,7 @@ Large - displays the larger control, with the zoom slider in addition to +/- but
 2;Large&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowScaleControl" columntype="boolean" guid="4978c2e1-aaaa-426d-b7bd-f36f9588fb57" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show scale control&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the scale bar in the bottom left corner of the map should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowMapTypeControl" columntype="boolean" guid="ac715ba7-8bdb-4dba-abd9-5b5867656630" publicfield="false" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show map type selection&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the map type control should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="EnableMapDragging" columntype="boolean" guid="f7756896-f791-415f-8fae-039611929ed5" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable map dragging&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether the map dragging is enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="EnableKeyboardShortcuts" columntype="boolean" guid="bca1b061-e7de-4f37-ba53-670972acd956" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable keyboard shortcuts&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether the keyboard shortcuts are enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ApiKey" columnsize="200" columntype="text" guid="a80d48f2-1765-4c1c-abc7-11769982658a" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;API key&lt;/fieldcaption&gt;&lt;fielddescription&gt;API key for communicating with Google Maps service.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="System settings"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="CacheItemName" columnsize="200" columntype="text" guid="6c54915b-c967-4d21-a7f7-58747fff5b5b" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache item name&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheitemname$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheMinutes" columntype="integer" guid="622c2e40-bdd4-44e7-b5d8-a64efebe6030" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;10&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Cache minutes&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheminutes$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="AJAX"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field column="UseUpdatePanel" columntype="boolean" guid="4ee1c8fa-038f-4015-8b36-e561e26462e3" publicfield="false" visibility="none"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>389</WebPartCategoryID>
       <WebPartGUID>d20b778f-4fa9-4bee-ae20-82b4fcfa3af4</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.498786+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.6612017+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-static-google-maps</WebPartIconClass>
@@ -3238,7 +3238,7 @@ Large - displays the larger control, with the zoom slider in addition to +/- but
       <WebPartCategoryID>358</WebPartCategoryID>
       <WebPartDocumentation>Note: Selected transformations work only with Pages datasource.</WebPartDocumentation>
       <WebPartGUID>cd73955d-79c2-41cc-9dfc-84c53f6a5b6e</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.4973687+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.5206078+01:00</WebPartLastModified>
       <WebPartType>5</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-cms-rss-feed</WebPartIconClass>
@@ -3261,7 +3261,7 @@ False;No
 &lt;br /&gt;
 For&amp;nbsp;details about the syntax that users can enter into search expressions, refer to &lt;a href="~/CMSPages/GetDocLink.ashx?link=search_syntax" target="_blank"&gt;Smart search syntax&lt;/a&gt;.</WebPartDocumentation>
       <WebPartGUID>852e2779-d387-46fc-ab1f-852a16500e74</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.2956614+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.426821+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartCSS>.predictiveSearchResults {
   position: absolute;
@@ -3336,7 +3336,7 @@ The design of the grid can be customized using skins. Here&amp;#39;s an example:
 &lt;span style="color: rgb(0, 0, 255); font-family: &amp;quot;Courier New&amp;quot;;"&gt;&amp;lt;/&lt;/span&gt;&lt;span style="color: rgb(128, 0, 0); font-family: &amp;quot;Courier New&amp;quot;;"&gt;cc1&lt;/span&gt;&lt;span style="color: rgb(0, 0, 255); font-family: &amp;quot;Courier New&amp;quot;;"&gt;:&lt;/span&gt;&lt;span style="color: rgb(128, 0, 0); font-family: &amp;quot;Courier New&amp;quot;;"&gt;CMSDataGrid&lt;/span&gt;&lt;span style="color: rgb(0, 0, 255); font-family: &amp;quot;Courier New&amp;quot;;"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 </WebPartDocumentation>
       <WebPartGUID>7afb448e-e112-44d5-966c-85d5a950bfa3</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.4505014+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.4736975+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-grid</WebPartIconClass>
@@ -3377,7 +3377,7 @@ E.g.: cms.news;cms.article&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settin
       <WebPartCategoryID>350</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>82207cb0-7c6f-4a1b-9fb5-8839f9c0e770</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.8879606+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.9736963+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-group-contribution-list</WebPartIconClass>
@@ -3392,7 +3392,7 @@ E.g.: cms.news;cms.article&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settin
       <WebPartCategoryID>393</WebPartCategoryID>
       <WebPartDocumentation>For examples of effects that can be generated, please see the &lt;strong&gt;Repeater with Carousel&lt;/strong&gt; or &lt;strong&gt;Repeater with Lightbox&amp;nbsp;&lt;/strong&gt;inherited web parts.</WebPartDocumentation>
       <WebPartGUID>5d6b8461-9537-4aa0-83ec-893f59a2b729</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.1857915+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.3018173+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-repeater-with-effect</WebPartIconClass>
@@ -3475,7 +3475,7 @@ fullsearch;Full&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/sett
       <WebPartCategoryID>365</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>9c454a17-cacd-49aa-a7fb-8f07a3d0edf1</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.358161+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.4893165+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-smart-search-results</WebPartIconClass>
@@ -3718,7 +3718,7 @@ You can find more information in &lt;a href="~/CMSPages/GetDocLink.ashx?link=goo
       <WebPartCategoryID>221</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>f88853c5-28d9-4444-bb5c-952e6a10cb8e</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.7629833+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.8018198+01:00</WebPartLastModified>
       <WebPartType>1</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-documents-data-source</WebPartIconClass>
@@ -4165,7 +4165,7 @@ searchcurrentsection;Search current section&lt;/Options&gt;&lt;SortItems&gt;Fals
       <WebPartProperties>&lt;form /&gt;</WebPartProperties>
       <WebPartCategoryID>468</WebPartCategoryID>
       <WebPartGUID>ece83000-ba3c-43e4-a1b4-a4353902ca89</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.0442093+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.1612039+01:00</WebPartLastModified>
       <WebPartType>4</WebPartType>
       <WebPartDefaultValues>&lt;form /&gt;</WebPartDefaultValues>
       <WebPartSkipInsertProperties>true</WebPartSkipInsertProperties>
@@ -4281,7 +4281,7 @@ Large - displays the larger control, with the zoom slider in addition to +/- but
 2;Large&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowScaleControl" columntype="boolean" guid="4978c2e1-aaaa-426d-b7bd-f36f9588fb57" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show scale control&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the scale bar in the bottom left corner of the map should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowMapTypeControl" columntype="boolean" guid="ac715ba7-8bdb-4dba-abd9-5b5867656630" publicfield="false" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show map type selection&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the map type control should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="EnableMapDragging" columntype="boolean" guid="f7756896-f791-415f-8fae-039611929ed5" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable map dragging&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether the map dragging is enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="EnableKeyboardShortcuts" columntype="boolean" guid="bca1b061-e7de-4f37-ba53-670972acd956" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable keyboard shortcuts&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether the keyboard shortcuts are enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ApiKey" columnsize="200" columntype="text" guid="472b257f-34ef-4c5a-aab4-a3d338d7585d" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;API key&lt;/fieldcaption&gt;&lt;fielddescription&gt;API key for communicating with Google Maps service.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;TextBoxControl&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="No data behavior"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="HideControlForZeroRows" columntype="boolean" guid="617bcda3-b7b8-4eea-b476-7180fd44a596" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Hide if no record found&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.hidenofound$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ZeroRowsText" columnsize="200" columntype="text" guid="b7d09143-4383-4ab0-9bbc-b8cd4f8f96e7" publicfield="false" spellcheck="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;No record found text&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.norecordtext$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="AJAX"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field column="UseUpdatePanel" columntype="boolean" guid="3c54bccf-ffc2-4f39-84c8-7eadde57ffc8" publicfield="false" visibility="none"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>388</WebPartCategoryID>
       <WebPartGUID>e7a25384-0bde-4036-9232-a7912dcebccf</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.3410934+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.3799518+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-basic-google-maps</WebPartIconClass>
@@ -4560,7 +4560,7 @@ See the&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=web_analytics" targ
       <WebPartCategoryID>224</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>c507e2b3-1fe3-4cb4-83ff-b3257f954591</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.5911171+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.6143236+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-content-rating</WebPartIconClass>
@@ -4576,7 +4576,7 @@ See the&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=web_analytics" targ
 If you clear this check box, the coupon code is applied automatically when the customer proceeds to the next step of the checkout process.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;CheckBoxControl&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="CouponCodeTransformationName" columnsize="200" columntype="text" guid="038ea049-197b-43e6-b151-5c6ee06441dd" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;Ecommerce.Transformations.CouponCodeItem&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Transformation name&lt;/fieldcaption&gt;&lt;fielddescription&gt;Transformation used to display the applied coupon codes.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;selecttransformation&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>448</WebPartCategoryID>
       <WebPartGUID>75324b10-3e56-4952-9f9b-b36a2ac7fd1a</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.7317088+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.7705684+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>111</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -4596,7 +4596,7 @@ flow;Flow&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="Trans
       <WebPartCategoryID>362</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>6662cd4b-25eb-4340-9739-b3c622a3f38e</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.5300685+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.6924434+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>111</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -4903,7 +4903,7 @@ Please see&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=uniview_controls
 &amp;nbsp;&lt;/p&gt;
 </WebPartDocumentation>
       <WebPartGUID>2a28764b-d36c-45f1-973f-c2691565fb60</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.5443099+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.583071+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-universal-viewer</WebPartIconClass>
@@ -5047,7 +5047,7 @@ For more information, see &lt;a href="~/CMSPages/GetDocLink.ashx?link=layout_web
       <WebPartCategoryID>341</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>e1840af3-23c2-412b-8ff5-c7dbf53d4146</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.1223333+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.2549413+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-related-documents</WebPartIconClass>
@@ -5081,7 +5081,7 @@ flow;Flow&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="Trans
       <WebPartCategoryID>362</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>cd7a5b1a-555e-4140-bd11-c98c7306ecdf</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.5456601+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.6924434+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>111</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -5129,7 +5129,7 @@ flow;Flow&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="Trans
       <WebPartCategoryID>228</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>4a34b954-7297-4011-bf70-cb954c63a4ba</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.981737+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.098723+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>125</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -5173,7 +5173,7 @@ aerial;Aerial
 birdseye;Birdseye&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowNavigationControl" columntype="boolean" guid="150e9473-56ff-478b-ae44-e779d6f8bf8a" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show navigation control&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the navigation control should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="ShowScaleControl" columntype="boolean" guid="4978c2e1-aaaa-426d-b7bd-f36f9588fb57" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Show scale control&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates if the scale bar in the bottom right corner of the map should be displayed.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field column="EnableMapDragging" columntype="boolean" guid="f7756896-f791-415f-8fae-039611929ed5" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;true&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Enable map dragging&lt;/fieldcaption&gt;&lt;fielddescription&gt;Indicates whether map dragging is enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="MapKey" columnsize="100" columntype="text" guid="616c1e61-c455-4ee2-9372-f08a7f3e1434" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Bing map key&lt;/fieldcaption&gt;&lt;fielddescription&gt;Bing map key. Used only if the 'EnableServerProcessing' property is enabled.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="System settings"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="CacheItemName" columnsize="200" columntype="text" guid="41ea058a-2d8d-4b9b-8d96-dfde4c23dcfd" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Cache item name&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheitemname$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="CacheMinutes" columntype="integer" guid="18f3618a-a05c-4a5e-88a7-1b63ced39e1b" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;10&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Cache minutes&lt;/fieldcaption&gt;&lt;fielddescription&gt;{$documentation.webpartproperties.cacheminutes$}&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="AJAX"&gt;&lt;properties&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field column="UseUpdatePanel" columntype="boolean" guid="510119cf-d588-4ed4-8d38-62554547b654" publicfield="false" visibility="none"&gt;&lt;properties&gt;&lt;defaultvalue&gt;false&lt;/defaultvalue&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;checkboxcontrol&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>389</WebPartCategoryID>
       <WebPartGUID>0a75e9c3-185a-42bf-8b72-cc5eed77f165</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.4831574+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.645566+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-static-bing-maps</WebPartIconClass>
@@ -5223,7 +5223,7 @@ False;No&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="tru
       <WebPartCategoryID>341</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>4333a1b7-46c1-42b0-8fb4-ce19e1d680c6</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.6067109+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.6455726+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-content-slider</WebPartIconClass>
@@ -5255,7 +5255,7 @@ False;No&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="tru
       <WebPartDocumentation>&lt;p&gt;&lt;span style="color: rgb(0, 0, 0);"&gt;Please see&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=cmsrepeater_controls" target="_blank"&gt;CMSRepeater&lt;/a&gt;&amp;nbsp;for information&amp;nbsp;about the control that this web part is based on.&lt;/span&gt;&lt;/p&gt;
 </WebPartDocumentation>
       <WebPartGUID>37ff87df-9311-4210-a5d6-cff3119c0bdb</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.1535811+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.2705686+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartCSS></WebPartCSS>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -5303,7 +5303,7 @@ siteorglobal;Site or global&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&
       <WebPartCategoryID>230</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>28b6c759-c3d2-4aa0-91e2-d19023732070</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.9661104+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.0674437+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartResourceID>140</WebPartResourceID>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
@@ -5909,7 +5909,7 @@ fullsearch;Full&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/sett
       <WebPartCategoryID>365</WebPartCategoryID>
       <WebPartDocumentation>For details about the syntax that users can enter into search expressions, refer to &lt;a href="~/CMSPages/GetDocLink.ashx?link=search_syntax" target="_blank"&gt;Smart search syntax&lt;/a&gt;.</WebPartDocumentation>
       <WebPartGUID>021f711e-0417-48a8-8e86-e24314c3f795</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.3269221+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.4580675+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-smart-search-dialog-with-results</WebPartIconClass>
@@ -5957,7 +5957,7 @@ fullsearch;Full&lt;/Options&gt;&lt;SortItems&gt;False&lt;/SortItems&gt;&lt;/sett
       <WebPartCategoryID>341</WebPartCategoryID>
       <WebPartDocumentation></WebPartDocumentation>
       <WebPartGUID>05bc3d01-de3b-453e-88bb-e2e9b5597ed1</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.37381+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.5205667+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-send-to-friend</WebPartIconClass>
@@ -6155,7 +6155,7 @@ For more information, refer to &lt;a href="~/CMSPages/GetDocLink.ashx?link=wizar
       <WebPartDocumentation>&lt;p&gt;&lt;span style="color: rgb(0, 0, 0);"&gt;Please see&amp;nbsp;&lt;a href="~/CMSPages/GetDocLink.ashx?link=cmsdatalist_controls" target="_blank"&gt;CMSDataList&lt;/a&gt;&amp;nbsp;for information&amp;nbsp;about the control that this web part is based on.&lt;/span&gt;&lt;/p&gt;
 </WebPartDocumentation>
       <WebPartGUID>774b0dc7-6e63-4f05-ad61-efce03985c9a</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.4660879+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.4893731+01:00</WebPartLastModified>
       <WebPartType>0</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-datalist</WebPartIconClass>
@@ -6236,7 +6236,7 @@ Essential;Only essential cookies
 All;All cookies&lt;/Options&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="AllowAllText" columnsize="100" columntype="text" guid="d566d616-f13f-4ec4-908c-aeb01d32f0a5" publicfield="false" visibility="none" visible="true"&gt;&lt;properties&gt;&lt;defaultvalue&gt;Allow all cookies&lt;/defaultvalue&gt;&lt;fieldcaption&gt;Allow all button text&lt;/fieldcaption&gt;&lt;fielddescription&gt;Text of the button which allows the usage of the cookies for the user.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AutoCompleteEnableCaching&gt;False&lt;/AutoCompleteEnableCaching&gt;&lt;AutoCompleteFirstRowSelected&gt;False&lt;/AutoCompleteFirstRowSelected&gt;&lt;AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;False&lt;/AutoCompleteShowOnlyCurrentWordInCompletionListItem&gt;&lt;controlname&gt;textboxcontrol&lt;/controlname&gt;&lt;FilterMode&gt;False&lt;/FilterMode&gt;&lt;Trim&gt;False&lt;/Trim&gt;&lt;/settings&gt;&lt;/field&gt;&lt;category name="OnlineMarketing"&gt;&lt;properties&gt;&lt;caption&gt;On-line marketing&lt;/caption&gt;&lt;visible&gt;True&lt;/visible&gt;&lt;/properties&gt;&lt;/category&gt;&lt;field allowempty="true" column="TrackingConsent" columnsize="200" columntype="text" guid="0d6a4941-d74d-46c4-b43e-82f4a8faec7e" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Tracking consent&lt;/fieldcaption&gt;&lt;fielddescription&gt;Select the consent object (Data protection) that describes tracking of personal data through the system's online marketing features for your website. The web part displays the consent's short text in addition to the cookie level text. If a visitor allows the 'All cookies' level, the system automatically assigns the selected consent to the contact entity representing the given visitor.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;AddGlobalObjectNamePrefix&gt;False&lt;/AddGlobalObjectNamePrefix&gt;&lt;AddGlobalObjectSuffix&gt;False&lt;/AddGlobalObjectSuffix&gt;&lt;AllowAll&gt;False&lt;/AllowAll&gt;&lt;AllowDefault&gt;False&lt;/AllowDefault&gt;&lt;AllowEditTextBox&gt;False&lt;/AllowEditTextBox&gt;&lt;AllowEmpty&gt;True&lt;/AllowEmpty&gt;&lt;controlname&gt;Uni_selector&lt;/controlname&gt;&lt;DialogWindowName&gt;SelectionDialog&lt;/DialogWindowName&gt;&lt;EditDialogWindowHeight&gt;700&lt;/EditDialogWindowHeight&gt;&lt;EditDialogWindowWidth&gt;1000&lt;/EditDialogWindowWidth&gt;&lt;EditWindowName&gt;EditWindow&lt;/EditWindowName&gt;&lt;EncodeOutput&gt;True&lt;/EncodeOutput&gt;&lt;GlobalObjectSuffix ismacro="true"&gt;{$general.global$}&lt;/GlobalObjectSuffix&gt;&lt;ItemsPerPage&gt;25&lt;/ItemsPerPage&gt;&lt;LocalizeItems&gt;True&lt;/LocalizeItems&gt;&lt;MaxDisplayedItems&gt;25&lt;/MaxDisplayedItems&gt;&lt;MaxDisplayedTotalItems&gt;50&lt;/MaxDisplayedTotalItems&gt;&lt;ObjectSiteName&gt;#currentsite&lt;/ObjectSiteName&gt;&lt;ObjectType&gt;cms.consent&lt;/ObjectType&gt;&lt;OrderBy&gt;ConsentDisplayName&lt;/OrderBy&gt;&lt;RemoveMultipleCommas&gt;False&lt;/RemoveMultipleCommas&gt;&lt;ReturnColumnName&gt;ConsentName&lt;/ReturnColumnName&gt;&lt;ReturnColumnType&gt;id&lt;/ReturnColumnType&gt;&lt;UseDefaultNameFilter&gt;True&lt;/UseDefaultNameFilter&gt;&lt;ValuesSeparator&gt;;&lt;/ValuesSeparator&gt;&lt;/settings&gt;&lt;/field&gt;&lt;field allowempty="true" column="ConsentReferenceMarkup" columntype="longtext" guid="d2c2dab0-d770-46f3-9443-45d906c9bfe8" publicfield="false" resolvedefaultvalue="False" visible="true"&gt;&lt;properties&gt;&lt;fieldcaption&gt;Consent reference markup&lt;/fieldcaption&gt;&lt;fielddescription&gt;HTML content placed after the short text version of the consent. Can be used to display a pop-up window or a link to a page with the full text version of the consent.&lt;/fielddescription&gt;&lt;/properties&gt;&lt;settings&gt;&lt;controlname&gt;LargeTextArea&lt;/controlname&gt;&lt;/settings&gt;&lt;/field&gt;&lt;/form&gt;</WebPartProperties>
       <WebPartCategoryID>418</WebPartCategoryID>
       <WebPartGUID>88de0ae1-7195-4e5c-b2ee-f6b4ee77efe0</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:54.6692088+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:48.6924715+01:00</WebPartLastModified>
       <WebPartDefaultValues>&lt;form /&gt;</WebPartDefaultValues>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-cookie-law-consent</WebPartIconClass>
@@ -6424,7 +6424,7 @@ The watermark text is not a default search value, it only provides a way to make
       <WebPartCategoryID>365</WebPartCategoryID>
       <WebPartDocumentation>For additional information, please refer to &lt;a href="~/CMSPages/GetDocLink.ashx?link=search_filters" target="_blank"&gt;Using search filters&lt;/a&gt;.</WebPartDocumentation>
       <WebPartGUID>64e350ed-9e42-4e84-8eb4-fac2298eefaa</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.3425347+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.4736913+01:00</WebPartLastModified>
       <WebPartType>2</WebPartType>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-smart-search-filter</WebPartIconClass>
@@ -6702,7 +6702,7 @@ personas.personanode|all&lt;/defaultvalue&gt;&lt;/properties&gt;&lt;/field&gt;&l
       <WebPartCategoryID>418</WebPartCategoryID>
       <WebPartParentID>1173</WebPartParentID>
       <WebPartGUID>0229add4-7b6a-4cce-80c4-86232f22138e</WebPartGUID>
-      <WebPartLastModified>2017-12-07T16:28:55.436302+01:00</WebPartLastModified>
+      <WebPartLastModified>2017-12-11T11:13:49.5986905+01:00</WebPartLastModified>
       <WebPartDefaultValues></WebPartDefaultValues>
       <WebPartSkipInsertProperties>false</WebPartSkipInsertProperties>
       <WebPartIconClass>icon-w-simple-cookie-law-consent</WebPartIconClass>
@@ -8035,7 +8035,7 @@ CodeFile="~/CMSWebParts/Membership/Logon/logonform.ascx.cs" %&gt;
       <CategoryParentID>166</CategoryParentID>
       <CategoryName>PayPal</CategoryName>
       <CategoryGUID>a5ea3c3a-e09e-4274-8cf9-cc13e9669947</CategoryGUID>
-      <CategoryLastModified>2017-12-07T16:24:53.8939022+01:00</CategoryLastModified>
+      <CategoryLastModified>2017-12-11T11:09:53.2529713+01:00</CategoryLastModified>
       <CategoryPath>/Ecommerce/PayPal</CategoryPath>
       <CategoryLevel>2</CategoryLevel>
     </cms_webpartcategory>
