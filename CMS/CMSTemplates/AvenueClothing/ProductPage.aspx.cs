@@ -7,6 +7,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using CMS.PortalEngine;
 using CMS.UIControls;
+using CMSApp.CMSWebParts.Ucommerce.Services;
 using UCommerce.Runtime;
 using UCommerce.EntitiesV2;
 using UCommerce.Api;
@@ -28,6 +29,12 @@ namespace CMSApp.CMSTemplates.AvenueClothing
                 return;
             }
 
+            if (SiteContext.Current.CatalogContext.CurrentProduct == null)
+            {
+                var defaultCatalogDataProvider = ObjectFactory.Instance.Resolve<IDefaultCatalogDataProvider>();
+                SiteContext.Current.CatalogContext.CurrentProduct = defaultCatalogDataProvider.GetDefaultProduct();
+            }
+
             var currentProduct = SiteContext.Current.CatalogContext.CurrentProduct;
 
             SetupProduct(currentProduct);
@@ -42,7 +49,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             {
                 novariantsavailable.Visible = true;
                 btnAddToBasket.Attributes.Add("disabled", "disabled");
-            } 
+            }
 
         }
 
@@ -222,7 +229,7 @@ namespace CMSApp.CMSTemplates.AvenueClothing
             var properties = keys.Select(k => new { Key = k.Replace(variantPrefix, string.Empty), Value = request.Form[k] }).ToList();
 
             Product variant = null;
-            
+
             if (product.Variants.Any() && properties.Any())
             {
                 variant = product.Variants.FirstOrDefault(v => v.ProductProperties
