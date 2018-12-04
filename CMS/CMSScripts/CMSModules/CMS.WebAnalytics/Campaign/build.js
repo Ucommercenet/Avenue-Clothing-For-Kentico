@@ -2003,7 +2003,7 @@ resolve(angular, dataFromServer.resources);
 
         var activityTypesConfiguration = {
 
-            // BEGIN Ucommerce activities - automatically inserted by Ucommerce, do not delete.
+                // BEGIN Ucommerce activities - automatically inserted by Ucommerce, do not delete.
             UCommerceProductAddedToBasket: {
                 selectorLabel: resolveFilter('campaign.conversion.productselector'),
                 areParametersRequired: true,
@@ -2055,7 +2055,7 @@ resolve(angular, dataFromServer.resources);
                 configuration: {}
             },
 
-            // END Ucommerce activities
+            pagevisit: {
                 selectorLabel: resolveFilter('campaign.conversion.pageselector'),
                 areParametersRequired: !isSiteContentOnly,
                 errorMessage: resolveFilter('campaign.conversion.pageisrequired'),
