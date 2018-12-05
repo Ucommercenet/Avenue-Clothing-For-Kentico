@@ -2002,59 +2002,6 @@ resolve(angular, dataFromServer.resources);
 
 
         var activityTypesConfiguration = {
-
-                // BEGIN Ucommerce activities - automatically inserted by Ucommerce, do not delete.
-            UCommerceProductAddedToBasket: {
-                selectorLabel: resolveFilter('campaign.conversion.productselector'),
-                areParametersRequired: true,
-                errorMessage: resolveFilter('campaign.conversion.productisrequired'),
-                configuration: {
-                    restUrl: application.getData('applicationUrl') + 'cmsapi/UcommerceProducts',
-                    restUrlParams: { objType: '' },
-                    isRequired: true,
-                    resultTemplate: resultTemplate,
-                    allowAny: true
-                }
-            },
-
-            UCommerceProductRemovedFromBasket: {
-                selectorLabel: resolveFilter('campaign.conversion.productselector'),
-                areParametersRequired: true,
-                errorMessage: resolveFilter('campaign.conversion.productisrequired'),
-                configuration: {
-                    restUrl: application.getData('applicationUrl') + 'cmsapi/UcommerceProducts',
-                    restUrlParams: { objType: '' },
-                    isRequired: true,
-                    resultTemplate: resultTemplate,
-                    allowAny: true
-                }
-            },
-
-            UCommerceProductPurchased: {
-                selectorLabel: resolveFilter('campaign.conversion.productselector'),
-                areParametersRequired: true,
-                errorMessage: resolveFilter('campaign.conversion.productisrequired'),
-                configuration: {
-                    restUrl: application.getData('applicationUrl') + 'cmsapi/UcommerceProducts',
-                    restUrlParams: { objType: '' },
-                    isRequired: true,
-                    resultTemplate: resultTemplate,
-                    allowAny: true
-                }
-            },
-
-            UCommercePurchaseMade: {
-                selectorLabel: '',
-                areParametersRequired: false,
-                configuration: {}               
-            },
-
-            UCommerceBasketAbandoned: {
-                selectorLabel: '',
-                areParametersRequired: false,
-                configuration: {}
-            },
-
             pagevisit: {
                 selectorLabel: resolveFilter('campaign.conversion.pageselector'),
                 areParametersRequired: !isSiteContentOnly,
