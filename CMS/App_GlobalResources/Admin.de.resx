@@ -641,4 +641,22 @@
   <data name="menu_productcatalog_dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="menu_dashboard_root" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="feed_newCustomer" xml:space="preserve">
+    <value>{0} hat gerade seine erste Bestellung aufgegeben.</value>
+  </data>
+  <data name="feed_campaignTriggered" xml:space="preserve">
+    <value>Die Kampagne "{0}" wurde gerade für die Bestellung {1} verwendet.</value>
+  </data>
+  <data name="feed_customerIsCheckingOut" xml:space="preserve">
+    <value>Rufen Sie {0} unter {1} an, um die Kaufabwicklung abzuschließen.</value>
+  </data>
+  <data name="feed_orderPlaced" xml:space="preserve">
+    <value>Bestellung {0} wurde für {1} platziert.</value>
+  </data>
+  <data name="feed_returningCustomer" xml:space="preserve">
+    <value>{0} hat jetzt {1} Bestellungen aufgegeben.</value>
+  </data>
 </root>

@@ -101,7 +101,24 @@
 		$scope.$broadcast('preSelectedValuesChanged', $scope.selectedNodes);
 	    $scope.$emit('preSelectedValuesChanged', $scope.selectedNodes);
 		$scope.updatePreselectedValues();
-	});
+    });
+
+    $rootScope.$on('setPreselectedValuesFromList',
+        function(event, data) {
+            uCommerceContentService.getNodes($scope.hasCheckboxFor, data).then(function (response) {
+                var data = response.data;
+                data.forEach(function (element, index) {
+                    $scope.selectedNodes.push({
+                        id: element.id,
+                        name: element.name,
+                        nodeType: element.nodeType,
+                        icon: element.icon
+                    });
+                });
+
+                $scope.updatePreselectedValues();
+            });
+        });
 
 	$scope.loadPreselectedNodes = function () {
 

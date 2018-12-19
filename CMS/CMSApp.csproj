@@ -124,7 +124,7 @@
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Infralution.Licensing, Version=4.7.1.0, Culture=neutral, PublicKeyToken=3e7e8e3744a5c13f, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.7.19.0.18260\lib\net45\Infralution.Licensing.dll</HintPath>
+      <HintPath>..\packages\uCommerce.8.0.0.18352\lib\net45\Infralution.Licensing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
@@ -229,11 +229,7 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.XmlTransform, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.7.19.0.18260\lib\Microsoft.Web.XmlTransform.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.0.0.18352\lib\Microsoft.Web.XmlTransform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
@@ -345,45 +341,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UCommerce, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Admin, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.Admin.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Infrastructure, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Installer, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.Installer.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Kentico, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.7.19.0.18260\lib\UCommerce.Kentico.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Kentico.Installer, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.7.19.0.18260\lib\UCommerce.Kentico.Installer.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.NHibernate, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Pipelines, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.Pipelines.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Presentation, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.Presentation.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.SystemHttp, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.SystemHttp.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.SystemWeb, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Web.Api, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.7.19.0.18260\lib\net45\UCommerce.Web.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="UCommerce.Web.Shell, Version=7.19.0.18260, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.7.19.0.18260\lib\UCommerce.Web.Shell.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetOpenAuth, Version=4.0.0.11165, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <HintPath>..\Lib\DotNetOpenAuth.dll</HintPath>
       <Private>True</Private>
@@ -868,6 +825,42 @@
     <Reference Include="CMS.WorkflowEngine, Version=11.0.0.0, Culture=neutral, PublicKeyToken=834b12a258f213f9">
       <HintPath>..\Lib\CMS.WorkflowEngine.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="UCommerce, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Admin, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.Admin.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Infrastructure, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Installer, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.Installer.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Kentico, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.0.0.18352\lib\UCommerce.Kentico.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Kentico.Installer, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.0.0.18352\lib\UCommerce.Kentico.Installer.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.NHibernate, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Pipelines, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Presentation, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.SystemHttp, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.SystemHttp.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.SystemWeb, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.0.0.18352\lib\net45\UCommerce.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Web.Shell, Version=8.0.0.18352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.0.0.18352\lib\UCommerce.Web.Shell.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,6 @@
 
 <commerce:ValidationSummary runat="server" />
 <div class="propertyPane leftAligned">
-    
     <commerce:PropertyPanel runat="server" meta:resourceKey="CultureProperty">
         <asp:TextBox runat="server" ID="CultureCodeTextBox" Text="<%# View.Country.Culture %>" Style="margin-left: 0px;"></asp:TextBox>
         <asp:RequiredFieldValidator runat="server" ControlToValidate="CultureCodeTextBox" Display="Static" Text="*" ErrorMessage='<%# GetLocalResourceObject("CultureProperty.Text") %>' CssClass="validator" />
@@ -11,7 +10,7 @@
     </commerce:PropertyPanel>
     
     <commerce:PropertyPanel runat="server" meta:resourceKey="NativeNameProperty">
-        <asp:Label runat="server" Text="<%# GetLocalCountryName() %>" />
+        <asp:Label runat="server" ID="LocalCountryNameLabel" Text="<%# GetLocalCountryName() %>" />
     </commerce:PropertyPanel>
 	<div class="propertyPaneFooter">-</div>
 </div>

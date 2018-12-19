@@ -2202,6 +2202,10 @@ img.ui-datepicker-trigger {
     line-height: 16px;
 }
 
+.ordersTable .quantityCell .quantity {
+    width: 70px !important;
+}
+
 .catalogItemSelector .propertyItem {
     height: 100%;
 }
@@ -2303,8 +2307,12 @@ img.ui-datepicker-trigger {
 .shippingMethodPrices, .paymentMethodPrices {
     width: 100%;
 }
+    .shippingMethodPrices tbody tr td:last-child,
+    .paymentMethodPrices tbody tr td:last-child {
+        width: 30%;
+    }
 
-    .shippingMethodPrices tbody tr td:first-child, .shippingMethodPrices tbody tr td:last-child, .paymentMethodPrices tbody tr td:first-child, .paymentMethodPrices tbody tr td:last-child {
+    .shippingMethodPrices tbody tr td:first-child, .paymentMethodPrices tbody tr td:first-child {
         width: 2%;
     }
 
@@ -2318,7 +2326,7 @@ img.ui-datepicker-trigger {
 
 .shippingMethodPrices tbody tr td input.amountInput, .paymentMethodPrices tbody tr td input.amountInput {
     float: right;
-    width: 100%;
+    width: 90%;
     margin: 0;
 }
 

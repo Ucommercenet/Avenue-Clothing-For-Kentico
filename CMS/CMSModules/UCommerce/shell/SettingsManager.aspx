@@ -9,7 +9,7 @@
     <asp:PlaceHolder runat="server" ID="JavaScriptPlaceHolder"></asp:PlaceHolder>
     <asp:PlaceHolder runat="server" ID="CssPlaceHolder"></asp:PlaceHolder>
 
-    <ucommerce-shell content-picker-type="tree" fixed-left-size="300px" disable-resize="true" start-page="../LandingPages/StartPage.aspx"></ucommerce-shell>        
+    <ucommerce-shell content-picker-type="tree" fixed-left-size="300px" disable-resize="true" start-page="../dashboard/index.html"></ucommerce-shell>        
       
     <script src="App/json3.js"></script>
     <script src="Scripts/yepnope/yepnope.1.5.4-min.js"></script>

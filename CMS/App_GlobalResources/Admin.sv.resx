@@ -630,4 +630,22 @@
   <data name="menu_productcatalog_dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="menu_dashboard_root" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="feed_campaignTriggered" xml:space="preserve">
+    <value>Den {0} kampanjen användes bara på order {1}.</value>
+  </data>
+  <data name="feed_customerIsCheckingOut" xml:space="preserve">
+    <value>Ring {0} på {1} för att få hjälp med att slutföra kassen.</value>
+  </data>
+  <data name="feed_newCustomer" xml:space="preserve">
+    <value>{0} har just lagt sin första order.</value>
+  </data>
+  <data name="feed_orderPlaced" xml:space="preserve">
+    <value>Order {0} placerades för {1}.</value>
+  </data>
+  <data name="feed_returningCustomer" xml:space="preserve">
+    <value>{0} har nu placerat {1} order.</value>
+  </data>
 </root>

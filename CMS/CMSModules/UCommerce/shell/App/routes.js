@@ -1,5 +1,13 @@
 ﻿app.config(function ($routeProvider) {
-	$routeProvider
+    $routeProvider
+        //
+        // Dashboard
+        //
+        .when('/dashboard/index.html', {
+            redirectTo: function () {
+                return buildUrl('/dashboard/index.html');
+            }
+        })
 		//
 		// Catalog
 		//

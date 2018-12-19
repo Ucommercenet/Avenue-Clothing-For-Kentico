@@ -53,11 +53,12 @@
         if (!compiledContents) {
           compiledContents = $compile(contents)
         }
-        compiledContents(scope, function (clone, scope) {
-          iElement.append(clone)
-        })
+          compiledContents(scope,
+              function(clone, scope) {
+                  iElement.append(clone);
+              });
 
-        scope.loadPreselectedNodes()
+          scope.loadPreselectedNodes();
       }
     }
   }

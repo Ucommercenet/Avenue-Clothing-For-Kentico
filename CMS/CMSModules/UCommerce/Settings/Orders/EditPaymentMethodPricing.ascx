@@ -40,30 +40,17 @@
                     </asp:TemplateField>
                     
                     <asp:TemplateField meta:resourceKey="PriceGroupHeader">
-                        <EditItemTemplate>
-                            <commerce:SafeDropDownList runat="server"
-                                ID="PriceGroupDropDown"
-                                AllowPrebindSet="true"                          
-                                SelectedValue="<%# ((PaymentMethodFee)Container.DataItem).PriceGroup.PriceGroupId %>"
-                                DataSource="<%# GetPriceGroupsForCurrency(((PaymentMethodFee)Container.DataItem).Currency) %>"
-                                DataValueField="PriceGroupId"
-                                DataTextField="Name"
-                                OnDataBound="PriceGroupDropDown_DataBound"
-                                CssClass="mediumWidth" />                            
-                        </EditItemTemplate>                   
+                        <EditItemTemplate>  
+                            <asp:HiddenField runat="server" ID="PaymentMethodFeeId" Value="<%# ((PaymentMethodFee)Container.DataItem).PaymentMethodFeeId %>" />
+                            <asp:HiddenField runat="server" ID="PriceGroupId" Value="<%# ((PaymentMethodFee)Container.DataItem).PriceGroup.PriceGroupId %>" />
+                            <%# ((PaymentMethodFee)Container.DataItem).PriceGroup.Name %>
+                        </EditItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField meta:resourceKey="PriceHeader" ItemStyle-Wrap="false">
                         <EditItemTemplate>
                             <asp:TextBox runat="server" ID="PriceTextBox" Text="<%# ((PaymentMethodFee)Container.DataItem).Fee %>" CssClass="amountInput"></asp:TextBox>
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="PriceTextBox" ErrorMessage="*" CssClass="validator" />
                             <asp:RangeValidator runat="server" ControlToValidate="PriceTextBox" Type="Double" MinimumValue="0" MaximumValue="<%# decimal.MaxValue %>" ErrorMessage="*" CssClass="validator" />
-                        </EditItemTemplate>
-                    </asp:TemplateField>
-					<asp:TemplateField meta:resourceKey="CurrencyHeader" ControlStyle-Width="100px">
-                        <EditItemTemplate>  
-                            <asp:HiddenField runat="server" ID="PaymentMethodFeeId" Value="<%# ((PaymentMethodFee)Container.DataItem).PaymentMethodFeeId %>" />
-                            <asp:HiddenField runat="server" ID="CurrencyId" Value="<%# ((PaymentMethodFee)Container.DataItem).Currency.CurrencyId %>" />
-                            <%# ((PaymentMethodFee)Container.DataItem).Currency.ISOCode %>
                         </EditItemTemplate>
                     </asp:TemplateField>
                 </Columns>

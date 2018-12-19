@@ -1,4 +1,4 @@
-﻿function uc_widgetsController($scope, uCommerceWidgetService, $timeout) {
+﻿function uc_widgetsController($scope, uCommerceWidgetService, $timeout, $http) {
 	$scope.hasAddedHandles = false;
 	$scope.hasLoaded = false;
 	$scope.grid;
@@ -6,7 +6,7 @@
 	$scope.availableWidgets = [];
 	$scope.editMode = false;
 	$scope.lockBackgroundClick = false;
-
+    
 	$scope.$on('refresh', function (event, data) {
 		$scope.refreshInternal(data, false);
 	});

@@ -636,4 +636,22 @@
   <data name="menu_productcatalog_dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="menu_dashboard_root" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="feed_campaignTriggered" xml:space="preserve">
+    <value>The {0} campaign was just used on order {1}.</value>
+  </data>
+  <data name="feed_customerIsCheckingOut" xml:space="preserve">
+    <value>Call {0} at {1} to help complete the checkout.</value>
+  </data>
+  <data name="feed_newCustomer" xml:space="preserve">
+    <value>{0} has just placed his first order.</value>
+  </data>
+  <data name="feed_orderPlaced" xml:space="preserve">
+    <value>Order {0} was placed for {1}.</value>
+  </data>
+  <data name="feed_returningCustomer" xml:space="preserve">
+    <value>{0} has now placed {1} orders.</value>
+  </data>
 </root>
