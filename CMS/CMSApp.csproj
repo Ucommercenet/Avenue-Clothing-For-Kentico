@@ -21814,12 +21814,6 @@
     <Content Include="App_Data\DancingGoat\Resources\dancingGoat.resx" />
     <Content Include="App_Data\DancingGoat\Resources\es-ES\dancingGoat.es-ES.resx" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AvenueClothing.Installer\AvenueClothing.Installer.csproj">
-      <Project>{49fd2a91-3df0-4139-8648-c16bead24f2b}</Project>
-      <Name>AvenueClothing.Installer</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
