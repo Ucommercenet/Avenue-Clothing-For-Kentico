@@ -10,7 +10,7 @@
         <Columns>
             <asp:TemplateField HeaderText="Name">
                 <EditItemTemplate>
-                    <%# ((PriceGroup)Container.DataItem).Name %>
+                    <%# GetSanitizedOutput(((PriceGroup)Container.DataItem).Name) %>
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Price">
@@ -20,7 +20,7 @@
             </asp:TemplateField>
             <asp:TemplateField>
                 <EditItemTemplate>
-                    <%# ((PriceGroup)Container.DataItem).Currency.ISOCode %>
+                    <%# GetSanitizedOutput(((PriceGroup)Container.DataItem).Currency.ISOCode) %>
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Enabled">

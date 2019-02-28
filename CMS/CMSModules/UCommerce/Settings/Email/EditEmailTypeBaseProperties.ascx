@@ -9,7 +9,7 @@
         <div class="propertyItem">
 	        <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="Description" /></div>
             <div class="propertyItemContent">
-                <asp:TextBox runat="server" ID="DescriptionTextBox" Text="<%# View.EmailType.Description %>" TextMode="MultiLine" CssClass="mediumWidth smallHeight" />
+                <asp:TextBox runat="server" ID="DescriptionTextBox" Text="<%# SanitizeOutput(View.EmailType.Description) %>" TextMode="MultiLine" CssClass="mediumWidth smallHeight" />
             </div>
         </div>        
         <div class="propertyItem">
@@ -21,7 +21,7 @@
         <div class="propertyItem">
 	        <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="ModifiedBy" /></div>
             <div class="propertyItemContent">
-                <asp:Label runat="server" Text="<%# View.EmailType.ModifiedBy %>" />
+                <asp:Label runat="server" Text="<%# SanitizeOutput(View.EmailType.ModifiedBy) %>" />
             </div>
         </div>        
     </div>

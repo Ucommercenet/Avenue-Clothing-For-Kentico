@@ -4,11 +4,11 @@
 		<table width="100%" class="editShipmentMethod">
 			<tr>
 				<th width="20%"><asp:Localize ID="Localize1" runat="server" meta:resourcekey="ShippingMethod"></asp:Localize></th>
-				<td><%# Shipment.ShippingMethod.Name %></td>
+				<td><%# SanitizeOutput(Shipment.ShippingMethod.Name) %></td>
 			</tr>
 			<tr>
 				<th width="20%"><asp:Localize ID="Localize2" runat="server" meta:resourcekey="TrackAndTrace"></asp:Localize></th>
-				<td><%# Shipment.TrackAndTrace %></td>
+				<td><%# SanitizeOutput(Shipment.TrackAndTrace) %></td>
 			</tr>
 			<tr>
 				<th width="20%"><asp:Localize ID="Localize3" runat="server" meta:resourcekey="Notes"></asp:Localize></th>
@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td width="20%"></td>
-				<td><%# Shipment.DeliveryNote %><span style="margin-left: 35px;"><asp:LinkButton runat="server" ID="EditLink" OnClick="ToggleEditable" Text="<%$ Resources:Edit.Text %>" CausesValidation="false" /></span></td>
+				<td><%# SanitizeOutput(Shipment.DeliveryNote) %><span style="margin-left: 35px;"><asp:LinkButton runat="server" ID="EditLink" OnClick="ToggleEditable" Text="<%$ Resources:Edit.Text %>" CausesValidation="false" /></span></td>
 			</tr>
 		</table>
 </asp:PlaceHolder>

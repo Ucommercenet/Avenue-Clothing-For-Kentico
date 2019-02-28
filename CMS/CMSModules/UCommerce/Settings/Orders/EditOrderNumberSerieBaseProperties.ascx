@@ -5,10 +5,10 @@
 <div class="propertyPane leftAligned">
 
     <commerce:PropertyPanel runat="server" meta:resourceKey="PrefixProperty">
-        <asp:TextBox runat="server" ID="PrefixTextBox" Text="<%# View.OrderNumberSerie.Prefix %>" />
+        <asp:TextBox runat="server" ID="PrefixTextBox" Text="<%# SanitizeOutput(View.OrderNumberSerie.Prefix) %>" />
     </commerce:PropertyPanel>
     <commerce:PropertyPanel runat="server" meta:resourceKey="PostfixProperty">
-        <asp:TextBox runat="server" ID="PostfixTextBox" Text="<%# View.OrderNumberSerie.Postfix %>" />
+        <asp:TextBox runat="server" ID="PostfixTextBox" Text="<%# SanitizeOutput(View.OrderNumberSerie.Postfix) %>" />
     </commerce:PropertyPanel>
     <commerce:PropertyPanel runat="server" meta:resourceKey="IncrementProperty">
         <asp:TextBox runat="server" ID="IncrementTextBox" Text="<%# View.OrderNumberSerie.Increment %>"  />
@@ -16,7 +16,7 @@
         <asp:RangeValidator runat="server" ControlToValidate="IncrementTextBox" MinimumValue="1" MaximumValue="<%# int.MaxValue %>" Type="Integer" Text="*" ErrorMessage='<%# GetLocalResourceObject("IncrementProperty.Text") %>' CssClass="validator" Display="Static"></asp:RangeValidator>
     </commerce:PropertyPanel>
     <commerce:PropertyPanel runat="server" meta:resourceKey="CurrentNumberProperty">
-        <asp:Label runat="server" ><%# View.OrderNumberSerie.Prefix %><%# View.OrderNumberSerie.CurrentNumber + View.OrderNumberSerie.Increment %><%# View.OrderNumberSerie.Postfix %></asp:Label>
+        <asp:Label runat="server" ><%# SanitizeOutput(View.OrderNumberSerie.Prefix) %><%# View.OrderNumberSerie.CurrentNumber + View.OrderNumberSerie.Increment %><%# SanitizeOutput(View.OrderNumberSerie.Postfix) %></asp:Label>
     </commerce:PropertyPanel>
 	<div class="propertyPaneFooter">-</div>
 </div>

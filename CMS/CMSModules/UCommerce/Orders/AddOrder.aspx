@@ -66,7 +66,7 @@
 			<div class="propertyItem dialog-content__property">
 				<div class="propertyItemHeader propertyItemContentSmall"><asp:Localize runat="server" meta:resourcekey="OrderStatus" /></div>
 				<div class="propertyItemContent propertyItemContentSmall">
-					<asp:DropDownList runat="server" ID="OrderStatusDropDown" CssClass="mediumWidth" />
+					<asp:DropDownList runat="server" ID="OrderStatusDropDown" CssClass="mediumWidth"/>
 				</div>
 			</div>
 
@@ -75,14 +75,13 @@
 				<div class="propertyItemContent propertyItemContentSmall">
 					<asp:DropDownList runat="server" ID="OrderGroupDropDown" CssClass="mediumWidth" />
 					<br />
-					<asp:CustomValidator 
-						id="HasEditOrderRightsValidator" 
-						runat="server" 
-						OnServerValidate="EditOrderRights_ServerValidate" 
-						ControlToValidate="OrderGroupDropDown" 
-						Display="Dynamic"
-						CssClass="validationMessage"
-						ErrorMessage='<%# string.Format(GetLocalResourceObject("HasEditOrderRights.Text").ToString(), OrderGroupDropDown.SelectedItem.Text) %>' />
+                    <asp:CustomValidator 
+                        id="HasEditOrderRightsValidator" 
+                        runat="server" 
+                        OnServerValidate="EditOrderRights_ServerValidate" 
+                        ControlToValidate="OrderGroupDropDown" 
+                        Display="Dynamic"
+                        CssClass="validationMessage"/>
 				</div>
 			
         

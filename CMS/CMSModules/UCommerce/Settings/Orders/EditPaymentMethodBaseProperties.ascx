@@ -41,7 +41,7 @@
 	<div class="propertyItem">
 		<div class="propertyItemHeader"><asp:Localize ID="Localize4" runat="server" meta:resourceKey="LastModifiedBy" /></div>
 		<div class="propertyItemContent">
-		    <asp:Label runat="server" Text="<%# View.PaymentMethod.ModifiedBy %>" />
+		    <asp:Label runat="server" Text="<%# SanitizeOutput(View.PaymentMethod.ModifiedBy) %>" />
 		</div>
 	</div>
     <div class="propertyPaneFooter">-</div>

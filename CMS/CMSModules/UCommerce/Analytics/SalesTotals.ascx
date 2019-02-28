@@ -32,8 +32,8 @@
         </HeaderTemplate>
         <ItemTemplate>
 					<tr class="contentRow">
-						<td style="padding-right: 15px"><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-						<td style="padding-right: 15px"><%# DataBinder.Eval(Container.DataItem, "Currency")%></td>
+						<td style="padding-right: 15px"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Name")) %></td>
+						<td style="padding-right: 15px"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Currency")) %></td>
 						<td class="rightAligned"><%# ((decimal)DataBinder.Eval(Container.DataItem, "Revenue")).ToString("N") %></td>
 						<td class="rightAligned"><%# ((decimal)DataBinder.Eval(Container.DataItem, "VATTotal")).ToString("N") %></td>
 						<td class="rightAligned"><%# ((decimal)DataBinder.Eval(Container.DataItem, "TaxTotal")).ToString("N") %></td>

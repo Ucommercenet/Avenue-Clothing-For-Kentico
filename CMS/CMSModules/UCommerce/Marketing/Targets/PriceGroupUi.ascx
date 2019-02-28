@@ -7,7 +7,7 @@
                 <asp:Label ID="SelectedPriceGroupLabel" runat="server" style="padding-left: 5px;"></asp:Label>
             </asp:PlaceHolder>
             <asp:PlaceHolder runat="server" ID="SelectPriceGroupPlaceHolder" Visible="false">
-                <commerce:SafeDropDownList CssClass="priceGroupDropDown" runat="server" id="PriceGroupDropDownList" style="padding-left: 5px;" DataSource="<%# GetPriceGroups() %>" OnDataBound="PriceGroup_DataBound" DataTextField="Name" DataValueField="Name"/>
+                <commerce:SafeDropDownList CssClass="priceGroupDropDown" runat="server" id="PriceGroupDropDownList" style="padding-left: 5px;" DataSource="<%# GetPriceGroups() %>" OnDataBound="PriceGroup_DataBound" D="Name" DataValueField="Name"/>
             </asp:PlaceHolder>
         </td>
         <td style="width:50px; text-align:right; vertical-align:top;">

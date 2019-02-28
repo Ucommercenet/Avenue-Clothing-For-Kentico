@@ -7,19 +7,19 @@
 
                 <h2 class="propertyPaneTitel">Payment  #<%#Container.ItemIndex+1%></h2>
 			    <commerce:PropertyPanel runat="server" meta:resourceKey="PaymentMethod">
-				    <%# AsPayment(Container.DataItem).PaymentMethodName %>
+				    <%# SanitizeOutput(AsPayment(Container.DataItem).PaymentMethodName) %>
 			    </commerce:PropertyPanel> 
 			    <commerce:PropertyPanel runat="server" meta:resourceKey="Amount">
 				    <%# AsPayment(Container.DataItem).Amount.ToString("N") %>
 			    </commerce:PropertyPanel>
 			    <commerce:PropertyPanel runat="server" meta:resourceKey="PaymentStatus">
-				    <%# AsPaymentStatus(Container.DataItem).Name %>
+				    <%# SanitizeOutput(AsPaymentStatus(Container.DataItem).Name) %>
 			    </commerce:PropertyPanel>
 			    <commerce:PropertyPanel runat="server" meta:resourceKey="TransactionID">
-				    <%# AsPayment(Container.DataItem).TransactionId %>
+				    <%# SanitizeOutput(AsPayment(Container.DataItem).TransactionId) %>
 			    </commerce:PropertyPanel>
 			    <commerce:PropertyPanel runat="server" meta:resourceKey="ReferenceID">
-				    <%# AsPayment(Container.DataItem).ReferenceId %>
+				    <%# SanitizeOutput(AsPayment(Container.DataItem).ReferenceId) %>
 			    </commerce:PropertyPanel>
             </div>
 		</div>

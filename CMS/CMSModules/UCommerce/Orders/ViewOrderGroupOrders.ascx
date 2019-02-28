@@ -90,13 +90,13 @@
 				    <asp:HiddenField runat="server" ID="orderId" Value='<%# Eval("OrderId") %>' />
                     <asp:CheckBox runat="server" ID="purchaseOrders" Visible='<%# CanChangeOrderStatusForProductCatalogGroup((int)DataBinder.Eval(Container.DataItem, "ProductCatalogGroupId")) %>' />
 				</td>
-				<td style="padding-right: 20px" class="orderClickable"><%# DataBinder.Eval(Container.DataItem, "OrderNumber") %></td>
-				<td class="orderClickable"><%# DataBinder.Eval(Container.DataItem, "CustomerName") %></td>
-				<td class="orderClickable"><%# View.OrderStatus.Name %></td>
+				<td style="padding-right: 20px" class="orderClickable"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "OrderNumber")) %></td>
+				<td class="orderClickable"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "CustomerName")) %></td>
+				<td class="orderClickable"><%# SanitizeOutput(View.OrderStatus.Name) %></td>
 				<td class="orderClickable"><%# DataBinder.Eval(Container.DataItem, "CompletedDate") %></td>
 				<td class="orderClickable"><%# GetCompletedDateTicks(Container.DataItem) %></td>
-				<td class="orderClickable"><%# DataBinder.Eval(Container.DataItem, "ProductCatalogGroupName")%></td>
-				<td class="orderClickable"><%# DataBinder.Eval(Container.DataItem, "BillingCurrencyIsoCode")%></td>
+				<td class="orderClickable"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "ProductCatalogGroupName"))%></td>
+				<td class="orderClickable"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "BillingCurrencyIsoCode"))%></td>
 				<td style="padding-right: 15px" align="right" class="rightAligned orderClickable"><%# Format((decimal)DataBinder.Eval(Container.DataItem, "OrderTotal"))%></td>
 			</tr>
 		</ItemTemplate>

@@ -7,14 +7,14 @@
         <div class="propertyItem">
             <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="DisplayName" /></div>
             <div class="propertyItemContent">
-                <asp:TextBox runat="server" ID="DisplayNameTextBox" Text="<%# Description.DisplayName %>" CssClass="mediumWidth multiLingualDisplayName" />
+                <asp:TextBox runat="server" ID="DisplayNameTextBox" Text="<%# SanitizeOutput(Description.DisplayName) %>" CssClass="mediumWidth multiLingualDisplayName" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="DisplayNameTextBox" Text="*" ErrorMessage='<%# GetLocalResourceObject("DisplayName.Text") + string.Format(" ({0})", CultureCode)%>' CssClass="validator" />
             </div>
         </div>
         <div class="propertyItem">
 	        <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="Description" /></div>
             <div class="propertyItemContent">
-                <asp:TextBox runat="server" ID="DescriptionTextBox" TextMode="MultiLine" Text="<%# Description.Description %>" CssClass="mediumWidth smallHeight" />
+                <asp:TextBox runat="server" ID="DescriptionTextBox" TextMode="MultiLine" Text="<%# SanitizeOutput(Description.Description) %>" CssClass="mediumWidth smallHeight" />
             </div>
         </div>        
     </div>

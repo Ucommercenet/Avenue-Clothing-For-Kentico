@@ -18,9 +18,9 @@
         </HeaderTemplate>
         <ItemTemplate>
                 <tr class="clickable" onclick='openProductView(<%# DataBinder.Eval(Container.DataItem, "ProductId") %>, <%# View.Category.CategoryId %>);return false;'>
-                    <td style="padding-right: 15px"><%# DataBinder.Eval(Container.DataItem, "Sku") %></td>
-                    <td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-                    <td><%# DataBinder.Eval(Container.DataItem, "ProductDefinitionDisplayName") %></td>
+                    <td style="padding-right: 15px"><%# SanitizeOutput(DataBinder.Eval(Container.DataItem, "Sku")) %></td>
+                    <td><%# SanitizeOutput(DataBinder.Eval(Container.DataItem, "Name")) %></td>
+                    <td><%# SanitizeOutput(DataBinder.Eval(Container.DataItem, "ProductDefinitionDisplayName")) %></td>
 					<td><%# Currency %></td>
                     <td class="rightAligned" ><%# DataBinder.Eval(Container.DataItem, "PriceAmount", "{0:n}")%></td>
                 </tr>

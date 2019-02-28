@@ -117,7 +117,7 @@
 							</td>
 							<% } %>
 							<td colspan="3" style="border-bottom:solid 1px #f8f8f8;">
-								<asp:Label runat="server"><b><%# AsProductReview(Container.DataItem).ReviewHeadline %></b></asp:Label>
+								<asp:Label runat="server"><b><%# TextSanitizer.SanitizeOutput(AsProductReview(Container.DataItem).ReviewHeadline) %></b></asp:Label>
 								<asp:Label runat="server"><%#GetResourceKey("By") %></asp:Label>
 								<asp:Label runat="server"><b><%# GetFullName(AsProductReview(Container.DataItem)) %></b></asp:Label>
 				    			<asp:Label runat="server"><%# AsProductReview(Container.DataItem).CreatedOn %></asp:Label>	
@@ -129,7 +129,7 @@
 						<tr style="background-color:inherit; padding-top:10px">
 							<td></td>
 							<td></td>
-							<td style="padding-top:10px;" colspan="3"><asp:Label runat="server" text="<%# AsProductReview(Container.DataItem).ReviewText %>" /> <br /><br /></td>
+							<td style="padding-top:10px;" colspan="3"><asp:Label runat="server" text="<%# TextSanitizer.SanitizeOutput(AsProductReview(Container.DataItem).ReviewText) %>" /> <br /><br /></td>
 							<td></td>
 						</tr>
 						<tr style="background-color:inherit;">
@@ -194,7 +194,7 @@
 															<td></td>
 															<td></td>
 															<td>
-																<asp:Label runat="server" text="<%# AsProductReviewComment(Container.DataItem).Comment  %>" /><br /><br />
+																<asp:Label runat="server" text="<%# TextSanitizer.SanitizeOutput(AsProductReviewComment(Container.DataItem).Comment)  %>" /><br /><br />
 															</td>
 															<td></td>
 														</tr>

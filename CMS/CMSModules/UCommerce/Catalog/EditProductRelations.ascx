@@ -47,7 +47,7 @@
 					<asp:ImageButton ID="DeleteButton" OnClick="DeleteButton_Clicked"  runat="server" ImageUrl="../images/ui/cross.png" CommandArgument="<%# ((ProductRelationViewObject)Container.DataItem).ProductRelationId %>" OnClientClick="return confirm_delete();" />
 				</td> 
 				<td style="width: 60px;padding-right: 15px">
-					<%# ((ProductRelationViewObject)Container.DataItem).ProductRelationTypeName %>
+					<%# TextSanitizer.SanitizeOutput(((ProductRelationViewObject)Container.DataItem).ProductRelationTypeName) %>
 				</td>
 				<td>
 					<asp:HiddenField runat="server" ID="ProductRelationIdHiddenField" Value="<%# ((ProductRelationViewObject)Container.DataItem).ProductRelationId %>" />

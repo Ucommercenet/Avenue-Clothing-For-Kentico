@@ -43,7 +43,7 @@
                         <EditItemTemplate>  
                             <asp:HiddenField runat="server" ID="PaymentMethodFeeId" Value="<%# ((PaymentMethodFee)Container.DataItem).PaymentMethodFeeId %>" />
                             <asp:HiddenField runat="server" ID="PriceGroupId" Value="<%# ((PaymentMethodFee)Container.DataItem).PriceGroup.PriceGroupId %>" />
-                            <%# ((PaymentMethodFee)Container.DataItem).PriceGroup.Name %>
+                            <%# SanitizeOutput(((PaymentMethodFee)Container.DataItem).PriceGroup.Name) %>
                         </EditItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField meta:resourceKey="PriceHeader" ItemStyle-Wrap="false">

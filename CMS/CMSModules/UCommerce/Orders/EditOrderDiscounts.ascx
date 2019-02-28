@@ -28,23 +28,23 @@
 						</td>
 						<td class="textCell">
 							<% if (IsEditable) { %>
-								<asp:TextBox runat="server" ID="CampaignNameTextBox" Text='<%# Eval("CampaignName") %>' />
+								<asp:TextBox runat="server" ID="CampaignNameTextBox" Text='<%# TextSanitizeOutput((string)Eval("CampaignName")) %>' />
 							<% } else { %>
-								<%# DataBinder.Eval(Container.DataItem, "CampaignName") %>
+								<%# TextSanitizeOutput((string)DataBinder.Eval(Container.DataItem, "CampaignName")) %>
 							<% } %>
 						</td>
 						<td class="textCell">
 							<% if (IsEditable) { %>
-								<asp:TextBox runat="server" ID="CampaignItemNameTextBox" Text='<%# Eval("CampaignItemName") %>' />
+								<asp:TextBox runat="server" ID="CampaignItemNameTextBox" Text='<%# TextSanitizeOutput((string)Eval("CampaignItemName")) %>' />
 							<% } else { %>
-								<%# DataBinder.Eval(Container.DataItem, "CampaignItemName") %>
+								<%# TextSanitizeOutput((string)DataBinder.Eval(Container.DataItem, "CampaignItemName")) %>
 							<% } %>
 						</td>
 						<td class="textCell">
 							<% if (IsEditable) { %>
-								<asp:TextBox runat="server" ID="DescriptionTextBox" Text='<%# Eval("Description") %>' />
+								<asp:TextBox runat="server" ID="DescriptionTextBox" Text='<%# TextSanitizeOutput((string) Eval("Description")) %>' />
 							<% } else { %>
-								<%# DataBinder.Eval(Container.DataItem, "Description") %>
+								<%# TextSanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Description")) %>
 							<% } %>
 						</td>
 						<td class="amountCell" >
@@ -65,11 +65,11 @@
 								<td></td>
 								<td></td>
 								<td>
-									<%# DataBinder.Eval(Container.DataItem, "Sku") %>
-									<%# GetVariantSku(Container.DataItem) %>
+									<%# TextSanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Sku")) %>
+									<%# TextSanitizeOutput((string)GetVariantSku(Container.DataItem)) %>
 								</td>
 								<td colspan="5">
-									<%# DataBinder.Eval(Container.DataItem, "ProductName") %>
+									<%# TextSanitizeOutput((string)DataBinder.Eval(Container.DataItem, "ProductName")) %>
 								</td>
 							</tr>
 						</ItemTemplate>

@@ -274,7 +274,7 @@
 										oncommand="DeleteVoucherCode_Command" />
 								</td>								
 								<td style="width:300px;">
-									<%# Eval("Code") %>
+									<%# SanitizeOutput((string)Eval("Code")) %>
 								</td>
 								<td style="width:90px;">
 									<%# Eval("NumberUsed") %>
