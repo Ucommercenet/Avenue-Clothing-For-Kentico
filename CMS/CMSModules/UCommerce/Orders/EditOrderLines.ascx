@@ -34,10 +34,10 @@
 				        <% } %>
 			        </td>
 			        <td class="textCell">
-				        <%# DataBinder.Eval(Container.DataItem, "Sku") %>
-				        <%# GetVariantSku(Container.DataItem) %>
+				        <%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Sku")) %>
+				        <%# SanitizeOutput(GetVariantSku(Container.DataItem)) %>
 			        </td>
-			        <td class="textCell"><%# DataBinder.Eval(Container.DataItem, "ProductName") %></td>
+			        <td class="textCell"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "ProductName")) %></td>
 
 			        <td class="amountCell" style="white-space: nowrap;"><%# GetUnitPriceTdValue(DataBinder.Eval(Container.DataItem, "Price"), DataBinder.Eval(Container.DataItem, "UnitDiscount")) %></td>
 		     	        <td class="quantityCell">
@@ -60,8 +60,8 @@
 					        <td></td>
 					        <td></td>
 							<td></td>
-					        <td><%# DataBinder.Eval(Container.DataItem, "Key") %>:</td>
-					        <td colspan="5"><%# DataBinder.Eval(Container.DataItem, "Value") %></td>
+					        <td><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Key")) %>:</td>
+					        <td colspan="5"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Value")) %></td>
 				        </tr>
 			        </ItemTemplate>
 		        </asp:Repeater>
@@ -71,7 +71,7 @@
 					        <td></td>
 					        <td></td>
 							<td></td>
-					        <td colspan="6"><%# GetDiscountName((Discount)Container.DataItem) %></td>
+					        <td colspan="6"><%# SanitizeOutput(GetDiscountName((Discount)Container.DataItem)) %></td>
 				        </tr>
 			        </ItemTemplate>
 		        </asp:Repeater>

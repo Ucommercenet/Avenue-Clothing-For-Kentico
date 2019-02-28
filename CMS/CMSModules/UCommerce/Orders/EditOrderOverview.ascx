@@ -25,29 +25,29 @@
 		<table style="width: 100%" class="orderInfo">
 			<tr>
 				<th>Order number</th>
-				<td><%# View.Order.OrderNumber %></td>
+				<td><%# SanitizeOutput(View.Order.OrderNumber) %></td>
 			</tr>             
 			<tr>
 				<th>Status</th>
-				<td><%# View.Order.OrderStatus.Name %></td>
+				<td><%# SanitizeOutput(View.Order.OrderStatus.Name) %></td>
 			</tr>
 			<tr>
 				<th>Created</th>
-				<td><%# View.Order.CreatedDate.ToString() %></td>
+				<td><%# SanitizeOutput(View.Order.CreatedDate.ToString()) %></td>
 			</tr>
 			<tr>
 				<th>Completed</th>
-				<td><%# View.Order.CompletedDate.HasValue ? View.Order.CompletedDate.Value.ToString() : "-" %></td>
+				<td><%# SanitizeOutput(View.Order.CompletedDate.HasValue ? View.Order.CompletedDate.Value.ToString() : "-") %></td>
 			</tr>
 			<tr>
 				<th>Currency</th>
-				<td><%# View.Order.BillingCurrency.ISOCode %></td>
+				<td><%# SanitizeOutput(View.Order.BillingCurrency.ISOCode) %></td>
 			</tr>
 			<asp:Repeater runat="server" ID="OrderPropertyRepeater" DataSource="<%# OrderProperties %>">
 				<ItemTemplate>
 					<tr>
-						<th><%# DataBinder.Eval(Container.DataItem, "Key") %></th>
-						<td><%# DataBinder.Eval(Container.DataItem, "Value") %></td>
+						<th><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Key")) %></th>
+						<td><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Value")) %></td>
 					</tr>   
 				</ItemTemplate>
 			</asp:Repeater>
@@ -58,7 +58,7 @@
 		<table style="width: 100%" class="note">
 			<tr>
 				<th style="width: 110px! important">Note</th>
-				<td class="leftAligned"><%# View.Order.Note %></td>
+				<td class="leftAligned"><%# SanitizeOutput(View.Order.Note) %></td>
 			</tr>
 		</table>
 	</div>                
@@ -89,11 +89,11 @@
 							<% if (IsEditable) { %><asp:ImageButton ID="imbDelete" runat="server" ImageUrl="../Images/ui/cross.png" CommandName="Delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "OrderLineId") %>'  /><% } %><a class="propertyLink" href="#" rel="<%# ((OrderLine)Container.DataItem).OrderLineId %>" style='<%# OrderLineDetailsAvailable((OrderLine)Container.DataItem) ? "" : "opacity: 0.3; cursor: default;"%>'><img src="../Images/ui/expand.png" alt="" /></a>
 						</td>
 						<td class="textCell click-action">
-							<%# DataBinder.Eval(Container.DataItem, "Sku") %>
-							<%# GetVariantSku(Container.DataItem) %>
+							<%# SanitizeOutput((string) DataBinder.Eval(Container.DataItem, "Sku")) %>
+							<%# SanitizeOutput(GetVariantSku(Container.DataItem)) %>
 						</td>
 						<td class="textCell click-action">
-							<%# DataBinder.Eval(Container.DataItem, "ProductName") %>
+							<%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "ProductName")) %>
 						</td>
 						
 						<% if (IsEditable) { %>
@@ -131,8 +131,8 @@
 							<tr class="propertyRow_<%# ((OrderLine)((RepeaterItem)Container.Parent.Parent).DataItem).OrderLineId %>" style="display:none;">
 								<% if (IsEditable) { %> <td></td> <% } %>
 								<td></td>
-								<td><%# DataBinder.Eval(Container.DataItem, "Key") %></td>
-								<td colspan="5"><%# DataBinder.Eval(Container.DataItem, "Value") %></td>
+								<td><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Key")) %></td>
+								<td colspan="5"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Value")) %></td>
 							</tr>
 						</ItemTemplate>
 					</asp:Repeater>
@@ -141,7 +141,7 @@
 							<tr class="discountRow_<%# ((OrderLine)((RepeaterItem)Container.Parent.Parent).DataItem).OrderLineId %>" style="display:none;">
 								<% if (IsEditable) { %> <td></td> <% } %>
 								<td></td>
-								<td colspan="6"><%# GetDiscountName((Discount)Container.DataItem) %></td>
+								<td colspan="6"><%# SanitizeOutput(GetDiscountName((Discount)Container.DataItem)) %></td>
 							</tr>
 						</ItemTemplate>
 					</asp:Repeater>
@@ -186,7 +186,7 @@
 			<asp:Repeater runat="server" ID="OrderDiscountRepeater" DataSource="<%# GetOrderDiscount(View.Order.Discounts) %>">
 				<ItemTemplate>
 					<tr class="discount discountRow_<%# View.Order.OrderGuid %>" style="display:none;">
-						<td colspan="7" class="rightAligned"><%# GetDiscountName((Discount)Container.DataItem) %></td>
+						<td colspan="7" class="rightAligned"><%# SanitizeOutput(GetDiscountName((Discount)Container.DataItem)) %></td>
 						<td class="amountCell"></td>
 					</tr>
 				</ItemTemplate>

@@ -10,8 +10,8 @@
 			<asp:Repeater runat="server" ID="ProductTargetsRepeater">
 			    <ItemTemplate>
 			        <div class="productTarget">
-                        <asp:Localize id="NameLabel" runat="server" meta:resourcekey="Name"></asp:Localize>: <span><%# DataBinder.Eval(Container.DataItem, "FamilyName")%> <%# DataBinder.Eval(Container.DataItem, "Name") %></span><br />
-	                    <asp:Localize id="SkuLabel" runat="server" meta:resourcekey="Sku" />: <span><%# DataBinder.Eval(Container.DataItem, "Sku")  %> <%# GetSku(DataBinder.Eval(Container.DataItem, "VariantSku")) %></span><br />
+                        <asp:Localize id="NameLabel" runat="server" meta:resourcekey="Name"></asp:Localize>: <span><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "FamilyName"))%> <%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Name")) %></span><br />
+	                    <asp:Localize id="SkuLabel" runat="server" meta:resourcekey="Sku" />: <span><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Sku")) %> <%# SanitizeOutput(GetSku(DataBinder.Eval(Container.DataItem, "VariantSku"))) %></span><br />
                     </div>
 			    </ItemTemplate>
 			</asp:Repeater>

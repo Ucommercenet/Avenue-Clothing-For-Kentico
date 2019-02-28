@@ -34,10 +34,10 @@
     </HeaderTemplate>
     <ItemTemplate>
 				<tr>
-					<td style="padding-right: 15px"><%# DataBinder.Eval(Container.DataItem, "SKU") %> <%# DataBinder.Eval(Container.DataItem, "VariantSku") %></td>
-					<td style="padding-right: 15px"><%# DataBinder.Eval(Container.DataItem, "ProductName")%></td>
+					<td style="padding-right: 15px"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "SKU")) %> <%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "VariantSku")) %></td>
+					<td style="padding-right: 15px"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "ProductName")) %></td>
 					<td class="rightAligned"><%# DataBinder.Eval(Container.DataItem, "TotalSales") %></td>
-					<td class="rightAligned"><%# DataBinder.Eval(Container.DataItem, "Currency")%></td>
+					<td class="rightAligned"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Currency")) %></td>
 					<td class="rightAligned"><%# ((decimal)DataBinder.Eval(Container.DataItem, "TotalRevenue")).ToString("N") %></td>
 				</tr>
     </ItemTemplate>

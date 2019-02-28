@@ -8,7 +8,7 @@
     <div class="propertyItem">
 	    <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="Description" /></div>
         <div class="propertyItemContent">
-            <asp:TextBox runat="server" ID="DescriptionTextBox" Text="<%# View.PriceGroup.Description %>" TextMode="MultiLine" CssClass="mediumWidth smallHeight" />
+            <asp:TextBox runat="server" ID="DescriptionTextBox" Text="<%# SanitizeOutput(View.PriceGroup.Description) %>" TextMode="MultiLine" CssClass="mediumWidth smallHeight" />
             <asp:CustomValidator runat="server" ControlToValidate="DescriptionTextBox" Display="Dynamic" id="LicenseValidator" ErrorMessage="Your license does not support creating any more." CssClass="validator" OnServerValidate="LicenseCheckValidator_ServerValidate"/>
         </div>
     </div>        
@@ -21,7 +21,7 @@
     <div class="propertyItem">
 	    <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="LastModifiedBy" /></div>
         <div class="propertyItemContent">
-            <asp:Label runat="server" Text="<%# View.PriceGroup.ModifiedBy %>" />
+            <asp:Label runat="server" Text="<%# SanitizeOutput(View.PriceGroup.ModifiedBy) %>" />
         </div>
     </div>
     <div class="propertyPaneFooter">-</div>

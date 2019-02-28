@@ -14,7 +14,7 @@
 	    </commerce:PropertyPanel>--%>
         <div class="propertyItem">
 	        <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="Description" /></div>
-            <div class="propertyItemContent"><asp:TextBox runat="server" ID="DescriptionTextBox" TextMode="MultiLine" CssClass="mediumWidth smallHeight" Text="<%# View.Definition.Description %>" /></div>
+            <div class="propertyItemContent"><asp:TextBox runat="server" ID="DescriptionTextBox" TextMode="MultiLine" CssClass="mediumWidth smallHeight" Text="<%# SanitizeOutput(View.Definition.Description) %>" /></div>
 	    </div>
 		<div class="propertyItem">
 			<div class="propertyItemHeader"><asp:localize runat="server" meta:resourcekey="InheritedDefinitions" /></div>

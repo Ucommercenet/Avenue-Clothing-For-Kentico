@@ -20,6 +20,7 @@
 		<asp:CheckBox runat="server" ID="DisplayOnWebSiteCheckBox" Checked="<%# View.Category.DisplayOnSite %>" />
 	</commerce:PropertyPanel>
 	<div class="propertyPaneFooter">-</div>
+
 </div>
 
 <commerce:auditinformation Entity="<%# View.Category %>" ID="ValidationSummary2" runat="server" />

@@ -11,7 +11,6 @@
 		<asp:CustomValidator id="UniqueNameServerValidator" OnServerValidate="UniqueName_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="UniqueName" ErrorMessage="Name already exists*" CssClass="validationMessage validator" Display="Dynamic" />
 		<asp:CustomValidator id="UniqueSkuServerValidator" OnServerValidate="UniqueSku_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="UniqueSku" ErrorMessage="SKU already exists*" CssClass="validationMessage validator" Display="Dynamic" />
 		<asp:CustomValidator id="SkuLengthValidator" OnServerValidate="SkuLength_ServerValidate" ControlToValidate="NameTextBox" runat="server" meta:resourceKey="SkuLength" ErrorMessage="SKU already exists*" CssClass="validationMessage validator" Display="Dynamic" />
-
     </div>
 </div>
 

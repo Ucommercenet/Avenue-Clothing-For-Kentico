@@ -7,14 +7,14 @@
         <div class="propertyItem">
             <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="ProductCatalogGroups" /></div>
             <div class="propertyItemContent">
-                <asp:CheckBoxList runat="server" ID="ProductCatalogGroupsCheckBoxList" DataSource="<%# View.ProductCatalogGroups %>" DataValueField="ProductCatalogGroupId" DataTextField="Name" />
+                <asp:CheckBoxList runat="server" ID="ProductCatalogGroupsCheckBoxList" DataSource="<%# GetStores() %>" DataValueField="Value" DataTextField="Text" />
             </div>
         </div>
             
         <div class="propertyItem">
             <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="Countries" /></div>
             <div class="propertyItemContent">
-                <asp:CheckBoxList runat="server" ID="CountryCheckBoxList" DataSource="<%# View.Countries %>" DataValueField="CountryId" DataTextField="Name" />
+                <asp:CheckBoxList runat="server" ID="CountryCheckBoxList" DataSource="<%# GetCountries() %>" DataValueField="Value" DataTextField="Text" />
             </div>
         </div>
     </div>

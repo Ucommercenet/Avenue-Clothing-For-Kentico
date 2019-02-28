@@ -15,7 +15,7 @@
 		<div class="propertyItem">
 			<div class="propertyItemHeader"><asp:localize runat="server" meta:resourcekey="Description" /></div>
 			<div class="propertyItemContent">
-				<asp:textbox runat="server" id="DescriptionTextBox" textmode="MultiLine" cssclass="mediumWidth smallHeight" text="<%# View.ProductDefinition.Description %>" />
+				<asp:textbox runat="server" id="DescriptionTextBox" textmode="MultiLine" cssclass="mediumWidth smallHeight" text="<%# SanitizeOutput(View.ProductDefinition.Description) %>" />
 			</div>
 		</div>
 		<div class="propertyItem">

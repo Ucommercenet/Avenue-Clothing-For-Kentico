@@ -19,12 +19,11 @@
                 <EditItemTemplate>  
                     <asp:HiddenField runat="server" ID="ShippingMethodPriceId" Value="<%# ((ShippingMethodPrice)Container.DataItem).ShippingMethodPriceId %>" />
                     <asp:HiddenField runat="server" ID="PriceGroupId" Value="<%# ((ShippingMethodPrice)Container.DataItem).PriceGroup.PriceGroupId %>" />
-                    <div class="CurrencyContent"><%# ((ShippingMethodPrice)Container.DataItem).PriceGroup.Name %></div>
+                    <div class="CurrencyContent"><%# SanitizeOutput(((ShippingMethodPrice)Container.DataItem).PriceGroup.Name) %></div>
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField meta:resourceKey="PriceHeader">
                 <EditItemTemplate>
-                    <%--<%# ((ShippingMethodPrice)Container.DataItem).Currency.ISOCode %>--%>
                     <asp:RequiredFieldValidator runat="server" ControlToValidate="PriceTextBox" ErrorMessage="*" CssClass="validator" />
                     <asp:RangeValidator runat="server" ControlToValidate="PriceTextBox" Type="Double" MinimumValue="0" MaximumValue="<%# decimal.MaxValue %>" ErrorMessage="*" CssClass="validator"/>
 					<asp:TextBox runat="server" ID="PriceTextBox" Text="<%# ((ShippingMethodPrice)Container.DataItem).Price %>" CssClass="amountInput"></asp:TextBox>

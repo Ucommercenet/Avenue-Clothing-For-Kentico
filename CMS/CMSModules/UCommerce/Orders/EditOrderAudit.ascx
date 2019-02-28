@@ -29,9 +29,9 @@
         <ItemTemplate>         
             <tr>
                 <td class="auditCreatedOn"><%# ((OrderStatusAudit)Container.DataItem).CreatedOn %></td>
-                <td><%# ((OrderStatusAudit)Container.DataItem).CreatedBy %></td>
-                <td><%# ((OrderStatusAudit)Container.DataItem).NewOrderStatus.Name %></td>
-                <td class="auditMessage"><%# ((OrderStatusAudit)Container.DataItem).Message %></td>
+                <td><%# TextSanitizeOutput(((OrderStatusAudit)Container.DataItem).CreatedBy) %></td>
+                <td><%# TextSanitizeOutput(((OrderStatusAudit)Container.DataItem).NewOrderStatus.Name) %></td>
+                <td class="auditMessage"><%# TextSanitizeOutput(((OrderStatusAudit)Container.DataItem).Message) %></td>
             </tr>    
         </ItemTemplate>
         <FooterTemplate>

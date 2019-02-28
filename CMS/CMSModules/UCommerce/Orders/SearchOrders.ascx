@@ -68,12 +68,12 @@
         </HeaderTemplate>
         <ItemTemplate>
                 <tr class="clickable" onclick='openOrderView(<%# DataBinder.Eval(Container.DataItem, "OrderId") %>);return false;'>
-                    <td style="padding-right: 15px"><%# DataBinder.Eval(Container.DataItem, "OrderNumber") %></td>
-                    <td><%# DataBinder.Eval(Container.DataItem, "CustomerName") %></td>
-                    <td><%# DataBinder.Eval(Container.DataItem, "Status") %></td>
+                    <td style="padding-right: 15px"><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "OrderNumber")) %></td>
+                    <td><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "CustomerName")) %></td>
+                    <td><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Status")) %></td>
                     <td><%# DataBinder.Eval(Container.DataItem, "CompletedDate") %></td>
-					<td><%# DataBinder.Eval(Container.DataItem, "CatalogSetName")%></td>
-					<td><%# DataBinder.Eval(Container.DataItem, "Currency")%></td>
+					<td><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "CatalogSetName"))%></td>
+					<td><%# SanitizeOutput((string)DataBinder.Eval(Container.DataItem, "Currency"))%></td>
                     <td class="rightAligned" style="padding-right: 15px"><%#  GetOrderTotal(Container.DataItem) %></td>
                 </tr>
         </ItemTemplate>

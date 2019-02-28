@@ -16,7 +16,7 @@
 				<div class="propertyItem">
 					<div class="propertyItemHeader propertyItemContentSmall"><asp:Localize ID="Localize3" runat="server" meta:resourceKey="CurrentStatus"/></div>
 					<div class="propertyItemContent propertyItemContentSmall leftAligned" >
-					    <asp:Label runat="server" Text="<%# PurchaseOrders.First().OrderStatus.Name %>" />
+					    <asp:Label runat="server" Text="<%# TextSanitizeOutput(PurchaseOrders.First().OrderStatus.Name) %>" />
 					</div>
 				</div>
 				<div class="propertyItem">

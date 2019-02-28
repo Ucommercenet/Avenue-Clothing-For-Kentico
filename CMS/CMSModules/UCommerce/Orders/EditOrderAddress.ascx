@@ -30,17 +30,17 @@
 </asp:PlaceHolder>
 
 <asp:PlaceHolder runat="server" ID="NotEditableFields" Visible="True">
-    <div><%# OrderAddress.FirstName %>&nbsp;<%# OrderAddress.LastName %></div>
-	<div><%# OrderAddress.Line1 %></div>
-	<div><%# OrderAddress.Line2%></div>	
-	<div><%# OrderAddress.PostalCode%>&nbsp;<%# OrderAddress.City%></div>
-	<div><%# OrderAddress.State%></div>
-	<div><%# OrderAddress.Country.Name %></div>
-	<div><%# OrderAddress.EmailAddress%></div>
-	<div><%# OrderAddress.PhoneNumber%></div>
-	<div><%# OrderAddress.MobilePhoneNumber%></div>
+    <div><%# TextSanitizer.SanitizeOutput(OrderAddress.FirstName) %> <span>&nbsp;</span><%# TextSanitizer.SanitizeOutput(OrderAddress.LastName) %></div>
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.Line1) %></div>
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.Line2) %></div>	
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.PostalCode) %> <span>&nbsp;</span> <%# TextSanitizer.SanitizeOutput(OrderAddress.City) %></div>
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.State) %></div>
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.Country.Name) %></div>
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.EmailAddress) %></div>
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.PhoneNumber) %></div>
+	<div><%# TextSanitizer.SanitizeOutput(OrderAddress.MobilePhoneNumber) %></div>
     <div>
-        <%# OrderAddress.CompanyName%>
+        <%# TextSanitizer.SanitizeOutput(OrderAddress.CompanyName) %>
         
         <span style="margin-left:120px;">
             <asp:LinkButton runat="server" ID="EditAddressLink" OnClick="ToggleEditable" Text="<%$ Resources:Edit %>" />

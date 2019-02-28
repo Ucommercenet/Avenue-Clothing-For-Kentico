@@ -14,7 +14,7 @@
     <div class="propertyItem">
         <div class="propertyItemHeader"><asp:Localize runat="server" meta:resourceKey="ModifiedBy" /></div>
         <div class="propertyItemContent">
-            <asp:Label runat="server" Text="<%# View.EmailProfile.ModifiedBy %>" />
+            <asp:Label runat="server" Text="<%# SanitizeOutput(View.EmailProfile.ModifiedBy) %>" />
         </div>
     </div>
     <div class="propertyPaneFooter">-</div>
