@@ -648,4 +648,7 @@
   <data name="feed_returningCustomer" xml:space="preserve">
     <value>{0} har nu placerat {1} order.</value>
   </data>
+  <data name="menu_catalogs_root" xml:space="preserve">
+    <value>Kataloger</value>
+  </data>
 </root>

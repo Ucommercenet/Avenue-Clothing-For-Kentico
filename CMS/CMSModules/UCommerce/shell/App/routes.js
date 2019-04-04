@@ -3,14 +3,19 @@
         //
         // Dashboard
         //
-        .when('/dashboard/index.html', {
+        .when('/Vue/dashboard.html', {
             redirectTo: function () {
-                return buildUrl('/dashboard/index.html');
+                return buildUrl('/Vue/dashboard.html');
             }
         })
 		//
 		// Catalog
 		//
+        .when('/Vue/catalogs.html', {
+            redirectTo: function () {
+                return buildUrl('/Vue/catalogs.html');
+            }
+        })
 		.when('/ucommerce/options/catalog/createproduct/:categoryId', {
 			redirectTo: function(routeParams) {
 			    return buildUrl('catalog/editproduct.aspx?parentcategoryid=' + routeParams.categoryId);
@@ -423,7 +428,7 @@
 	}
 
 	function buildAppUrl(params) {
-		var path = ""; 
+		var path = "";
 		if (params.action && params.action !== "") {
 			path = params.action.split("=")[1];
 			path = constants.webPageBaseUrl + "/apps/" + path.replace("%2f", '/');

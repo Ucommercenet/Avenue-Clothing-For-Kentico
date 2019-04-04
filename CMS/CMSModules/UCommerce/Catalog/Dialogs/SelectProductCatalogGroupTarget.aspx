@@ -17,7 +17,7 @@
 				</p>
                 <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
 			</div>
-			<div class="propertyPane contentCatalogItems">
+			<div class="propertyPane dialog-content contentCatalogItems">
 				<asp:PlaceHolder id="CatalogsSelector" runat="server"></asp:PlaceHolder>
 			</div>
             <div class="propertyPane dialog-actions"> 
