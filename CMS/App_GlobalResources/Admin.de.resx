@@ -659,4 +659,7 @@
   <data name="feed_returningCustomer" xml:space="preserve">
     <value>{0} hat jetzt {1} Bestellungen aufgegeben.</value>
   </data>
+  <data name="menu_catalogs_root" xml:space="preserve">
+    <value>Kataloge</value>
+  </data>
 </root>

@@ -654,4 +654,7 @@
   <data name="feed_returningCustomer" xml:space="preserve">
     <value>{0} has now placed {1} orders.</value>
   </data>
+  <data name="menu_catalogs_root" xml:space="preserve">
+    <value>Catalogs</value>
+  </data>
 </root>

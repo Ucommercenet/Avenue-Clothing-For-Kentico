@@ -21,7 +21,7 @@
             <a class="modal-close" onclick="UCommerceClientMgr.closeModalWindow();" data-dismiss="modal" aria-hidden="true"></a>
 		</div>
     </div>
-	<div class="propertyPane contentFreeGift">
+	<div class="propertyPane dialog-content contentFreeGift">
 		<div class="propertyItems">
             <asp:PlaceHolder ID="ProductSelectorPlaceHolder" runat="server"></asp:PlaceHolder>
 		</div>
