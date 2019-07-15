@@ -116,6 +116,9 @@
     <Reference Include="FluentNHibernate, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.4.0\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="GlobalLink.Connect, Version=4.18.2.0, Culture=neutral, PublicKeyToken=946d606070618fd4">
       <HintPath>..\packages\GlobalLink.Connect.4.18.3.1\lib\net46\GlobalLink.Connect.dll</HintPath>
       <Private>True</Private>
@@ -124,7 +127,7 @@
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Infralution.Licensing, Version=4.7.1.0, Culture=neutral, PublicKeyToken=3e7e8e3744a5c13f, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.8.1.0.19093\lib\net45\Infralution.Licensing.dll</HintPath>
+      <HintPath>..\packages\uCommerce.8.3.0.19193\lib\net45\Infralution.Licensing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
@@ -229,7 +232,7 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.XmlTransform, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.8.1.0.19093\lib\Microsoft.Web.XmlTransform.dll</HintPath>
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.3.0.19193\lib\Microsoft.Web.XmlTransform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
@@ -308,7 +311,11 @@
     <Reference Include="ServiceStack.Text, Version=3.9.55.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Text.3.9.55\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.HashFunction.Core, Version=1.8.2.2, Culture=neutral, PublicKeyToken=80c9288e394c1322">
       <HintPath>..\packages\System.Data.HashFunction.Core.1.8.2.2\lib\net45\System.Data.HashFunction.Core.dll</HintPath>
@@ -826,41 +833,41 @@
       <HintPath>..\Lib\CMS.WorkflowEngine.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="UCommerce, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.dll</HintPath>
+    <Reference Include="UCommerce, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Admin, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.Admin.dll</HintPath>
+    <Reference Include="UCommerce.Admin, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.Admin.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Infrastructure, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.Infrastructure.dll</HintPath>
+    <Reference Include="UCommerce.Infrastructure, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Installer, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.Installer.dll</HintPath>
+    <Reference Include="UCommerce.Installer, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.Installer.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Kentico, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.8.1.0.19093\lib\UCommerce.Kentico.dll</HintPath>
+    <Reference Include="UCommerce.Kentico, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.3.0.19193\lib\UCommerce.Kentico.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Kentico.Installer, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.8.1.0.19093\lib\UCommerce.Kentico.Installer.dll</HintPath>
+    <Reference Include="UCommerce.Kentico.Installer, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.3.0.19193\lib\UCommerce.Kentico.Installer.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.NHibernate, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.NHibernate.dll</HintPath>
+    <Reference Include="UCommerce.NHibernate, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Pipelines, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.Pipelines.dll</HintPath>
+    <Reference Include="UCommerce.Pipelines, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.Pipelines.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Presentation, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.Presentation.dll</HintPath>
+    <Reference Include="UCommerce.Presentation, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.Presentation.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.SystemHttp, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.SystemHttp.dll</HintPath>
+    <Reference Include="UCommerce.SystemHttp, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.SystemHttp.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.SystemWeb, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uCommerce.Core.8.1.0.19093\lib\net45\UCommerce.SystemWeb.dll</HintPath>
+    <Reference Include="UCommerce.SystemWeb, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uCommerce.Core.8.3.0.19193\lib\net45\UCommerce.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Web.Shell, Version=8.1.0.19093, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ucommerce-for-Kentico.8.1.0.19093\lib\UCommerce.Web.Shell.dll</HintPath>
+    <Reference Include="UCommerce.Web.Shell, Version=8.3.0.19193, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ucommerce-for-Kentico.8.3.0.19193\lib\UCommerce.Web.Shell.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

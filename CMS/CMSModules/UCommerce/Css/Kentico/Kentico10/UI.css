@@ -3018,3 +3018,23 @@ a.propertyLink {
 .propertyItem.email-subject {
     display: none;
 }
+
+.variantContainer label.secondary-button-label {
+    display: none;
+}
+
+.sorter.save.button.wrapper {
+    margin: 10px; margin-left: -2px;
+}
+
+.variantOptions .secondary-button-wrapper {
+    display: inline;
+}
+
+.marketing-container .secondary-button-wrapper {
+    display: inline;
+}
+
+.edittCampaigneItemTable .secondary-button-wrapper .secondary-button-label{
+    display:none;
+}
